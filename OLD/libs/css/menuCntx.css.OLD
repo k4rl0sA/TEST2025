@@ -1,0 +1,172 @@
+.toolbar {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #0069b4;
+    border-radius: 10px;
+    background-color:black;
+}
+
+.toolbar button {
+     border: none;
+}
+
+.toolbar button:hover {
+    background-color: #0069b4;
+}
+
+::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+    background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    background: #2E8acb;
+    border-radius: 10px;
+}
+
+.actionTitle {
+    visibility: hidden;
+    display:none;
+}
+.divider {
+    display:none;
+}
+
+.closePanelAcc {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: black;
+    cursor: pointer;
+    font-family: 'FontAwesome';
+}
+
+.panel-acc {
+    z-index: 1;/*14-10-2024*/
+    position: fixed;/*14-10-2024*/
+    background-color: white;
+    max-width: 198px;
+    margin: 50px auto;
+    border-radius: 10px;
+    /*padding: 20px;*/
+}
+
+.shortcut{
+    display: block;
+    margin-left: auto;
+    font-weight: bold;
+    color: #888;
+}
+
+.action {
+   display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: black;
+    cursor: pointer;
+}
+
+.icon {
+    margin-right: 10px;
+}
+
+.icon:hover{
+    color:white;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+
+    .action {
+       display: block;
+    }
+    
+    .panel-acc {
+        padding: 10px;
+        border: 1px solid #0069b4;
+        max-width: 95%;
+        position: fixed;
+        bottom: 0;
+        margin: 0px auto;
+        transform: translateY(100%);
+        transition: transform 1.5s;
+        border-radius: 10px 10px 0 0;
+    }
+    
+    body {
+        margin: 0;
+    }
+
+    .ind-move {
+        -webkit-box-align: stretch;
+        align-items: stretch;
+        border-width: 0px;
+        border-style: solid;
+        box-sizing: border-box;
+        display: flex;
+        flex-basis: auto;
+        flex-direction: row;
+        flex-shrink: 0;
+        outline: none;
+        min-height: 0px;
+        min-width: 0px;
+        border-radius: 4px;
+        width: 40px;
+        height: 2px;
+        visibility: visible;
+        background: #0069b4;
+        transition-property: opacity, width, height, background-color;
+        transition-timing-function: ease-out;
+        margin: auto;
+    }
+
+    .toolbar {
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 10px;
+    }
+
+    .toolbar button {
+        background-color: #2E8acb;
+        margin: 5px;
+        padding: 10px 8px;
+        width: 65px;
+        height: 65px;
+        min-width: 65px;
+        border-radius: 10px;
+        color: blue;
+    }
+
+    .toolbar button i {
+        font-size: 25px;
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 10px;
+    }
+
+    .toolbar button span {
+        text-align: center;
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .actionTitle {
+        display: block;
+        visibility: visible;
+        text-align: left;
+        text-transform: capitalize;
+        text-shadow: 0 1px black;
+    }
+    
+    .divider {
+        display:block;
+    }
+    
+    .shortcut{
+        visibility: hidden;
+    }
+}

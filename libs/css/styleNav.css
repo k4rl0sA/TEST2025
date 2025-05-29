@@ -1,0 +1,137 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+.espacio-nav {
+    height: 110px;
+}
+
+.navbar {
+  overflow: hidden;
+  background: linear-gradient(0deg, #fff, #d2daff);
+ }
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: #1B9DDE;
+  text-align: center;
+  padding: 5px 16px;
+  text-decoration: none;
+   border-right: 1px solid rgba(48, 155, 190, 0.44);
+}
+
+.subnav {
+  float: left;
+  overflow: hidden;
+}
+
+.subnav .subnavbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: #1B9DDE;
+  padding: 5px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+    border-right: 1px solid rgba(48, 155, 190, 0.44);
+
+}
+
+.navbar a:hover, .subnav:hover .subnavbtn {
+  background-color:#c6c7c626;
+}
+
+.subnav-content {
+  display: none;
+  position: absolute;
+  left: 0;
+  background-color: #c6c7c626;
+  width: 100%;
+  z-index: 1;
+}
+
+.subnav-content a {
+  float: left;
+    color: #1B9DDE;
+  text-decoration: none;
+/*
+  background-color: #fdfffdb5;
+*/
+  background-color: #c5eafd;
+}
+
+.subnav-content a:hover {
+  background-color: #eee;
+  color: #1B9DDE;
+}
+
+.subnav:hover .subnav-content {
+  display: block;
+}
+
+svg.nav{
+    max-width: 40px;
+    vertical-align: middle;
+	border: 0;
+	height: 40px;
+	width: 40px; 
+}
+svg.nav:hover{
+/*
+	-webkit-border-radius:50%;
+*/
+	-webkit-transform: rotatey(360deg);
+	-o-transform: rotatey(360deg);
+	-moz-transform: rotatey(360deg);
+	transition: 0.5s all;
+	cursor: pointer;
+}
+
+.usuario {
+   float: right;
+    font-size: 12px;
+    color: #de1b1b;
+    text-align: center;
+    padding: 25px 16px;
+    text-decoration: none;
+    border-right: 1px solid rgba(48, 155, 190, 0.44);
+    font-family: 'Josefin Sans', sans-serif;
+    text-shadow: 0px 3px 3px rgb(222 249 1), 0px -1px 1px rgb(0 0 0 / 30%);
+}
+
+@media screen and (max-width: 358px) {
+	.navbar a {
+		width: 100%;
+	}
+	.subnav {
+		float: center;
+    }
+	.subnav-content {
+    display: none;
+    position: absolute;
+    left: 0;
+    background-color: #fdfffdb5;
+	}
+	
+	.subnav .subnav {
+		border-right: 1px solid rgb(48 155 190 / 0%) !important;
+	 }
+}
+
+
+
+.active {
+  background-color: black;
+  color: #1B9DDE;
+}
+
+.navbar a:hover {
+  border-bottom: 3px solid red;
+}
+
+.navbar a.active {
+  border-bottom: 3px solid red;
+}

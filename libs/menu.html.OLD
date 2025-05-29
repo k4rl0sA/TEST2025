@@ -1,0 +1,108 @@
+    <div class="panel-acc">
+        <div class="grip ind-move"></div>
+        <div class="actionTitle">acciones<span class="closePanelAcc">X</span></div>
+        <hr class="divider">
+        <div class="toolbar">
+        </div>
+    </div>
+
+    <script>
+        // agregar botones dinámicamente
+        
+
+        // Ocultar el panel al hacer click en la X
+       
+
+        function addButtons(buttons) {
+            const toolbar = document.querySelector('.toolbar');
+            buttons.forEach(button => {
+                const btn = document.createElement('button');
+                btn.classList.add('action');
+                btn.innerHTML = `<i class="${button.icon} icon" style="color:${button.color}"></i><span style="color:${button.color}">${button.text}</span><span class="shortcut">${button.short}</span>`;
+                toolbar.appendChild(btn);
+            });
+        }
+
+        
+
+        const buttons = [
+            {icon: 'fas fa-plus', text: 'Nuevo', color: 'white',short:'Ctrl N'},
+            {icon: 'fas fa-trash', text: 'Eliminar', color: 'white',short:'Ctrl Supr'},
+            {icon: 'fas fa-file-pdf', text: 'PDF', color: 'white',short:'Ctrl P'},
+            {icon: 'fas fa-eye', text: 'Ver', color: 'white',short:'Ctrl E'},
+            {icon: 'fas fa-pregnant', text: 'Gestantes', color: 'white',short:'Ctrl G'},
+            {icon: 'fas fa-vial', text: 'Caracterización', color: 'white',short:'Ctrl R'},
+            {icon: 'fas fa-medkit', text: 'Atención Médica', color: 'white',short:'Ctrl A'},
+        ];
+        addButtons(buttons);
+
+        document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.getElementById('menuToggle');
+    const menuContainer = document.getElementById('menuContainer');
+
+    // Cargar el contenido del menú
+    fetch('menu.html')
+        .then(response => response.text())
+        .then(html => {
+            menuContainer.innerHTML = html;
+            setupMenuBehavior();
+        })
+        .catch(error => console.error('Error al cargar el menú:', error));
+
+    function setupMenuBehavior() {
+        const contextMenu = menuContainer.querySelector('.panel-acc');
+
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            contextMenu.classList.toggle('show');
+        });
+
+        // Cerrar el menú al hacer clic fuera
+        document.addEventListener('click', (e) => {
+            if (!contextMenu.contains(e.target) && e.target !== menuToggle) {
+                contextMenu.classList.remove('show');
+            }
+        });
+
+        // Cerrar el menú con el botón de cierre (si existe)
+        const closeButton = contextMenu.querySelector('.closePanelAcc');
+        if (closeButton) {
+            closeButton.addEventListener('click', () => {
+                contextMenu.classList.remove('show');
+            });
+        }
+
+        // Manejar clics en las acciones del menú
+        const actions = contextMenu.querySelectorAll('.action');
+        actions.forEach(action => {
+            action.addEventListener('click', () => {
+                const actionName = action.querySelector('.actionTitle').textContent;
+                console.log(`Acción seleccionada: ${actionName}`);
+                // Aquí puedes agregar la lógica para cada acción
+                contextMenu.classList.remove('show');
+            });
+        });
+
+        // Para dispositivos móviles, permitir deslizar hacia abajo para cerrar
+        let touchStartY;
+        contextMenu.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        });
+
+        contextMenu.addEventListener('touchmove', (e) => {
+            const touchEndY = e.touches[0].clientY;
+            const diff = touchEndY - touchStartY;
+            if (diff > 50) {
+                contextMenu.classList.remove('show');
+            }
+        });
+
+        // Agregar indicador de movimiento para móviles
+        if (window.innerWidth <= 768) {
+            const indMove = document.createElement('div');
+            indMove.className = 'ind-move';
+            contextMenu.insertBefore(indMove, contextMenu.firstChild);
+        }
+    }
+});
+    </script>

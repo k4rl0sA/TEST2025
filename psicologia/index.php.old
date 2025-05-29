@@ -1,0 +1,233 @@
+<?php
+ini_set('display_errors','1');
+include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
+?>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Psicologia  || SIGINF</title>
+<link href="../libs/css/stylePop.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch&family=Chicle&family=Merienda&family=Rancho&family=Boogaloo&display=swap" rel="stylesheet">
+<script src="../libs/js/a.js"></script>
+<script src="../libs/js/x.js"></script>
+<script src="../libs/js/d.js"></script>
+<script src="../libs/js/popup.js"></script>
+<script>
+var mod='psicologia';
+var ruta_app='lib.php';
+/* function csv(b){
+		var myWindow = window.open("../../libs/gestion.php?a=exportar&b="+b,"Descargar archivo");
+}
+
+document.onkeyup=function(ev) {
+	ev=ev||window.event;
+	if (ev.ctrlKey && ev.keyCode==46) ev.target.value='';
+	if (ev.ctrlKey && ev.keyCode==45) ev.target.value=ev.target.placeholder;
+};
+ */
+
+function actualizar(){
+	act_lista(mod);
+}
+
+function grabar(tb='',ev) {
+  if (tb=='' && ev.target.classList.contains(proc)) tb=proc;
+  var f=document.getElementsByClassName('valido '+tb);
+   for (i=0;i<f.length;i++) {
+     if (!valido(f[i])) {f[i].focus(); return};
+  }
+  var rutaMap = {
+	'sesiones_psi':'sesiones.php',
+	'admision':'../atencion/admision.php'
+};
+	var ruta_app = rutaMap[tb] || 'lib.php';
+	myFetch(ruta_app,"a=gra&tb="+tb,mod);
+	setTimeout(actualizar,300);
+}
+
+/*
+function hidFieselet(act,clsCmp,b,valid,valor) {
+	const cmpAct=document.getElementById(act);
+	const cmpHid = document.querySelectorAll(`.${clsCmp}`);
+
+	if(valid){
+		if(!cmpAct){
+			for(i=0;i<cmpHid.length;i++){
+				cmpHid[i].classList.add('oculto');
+			}
+		}else if(cmpAct.value==valor){
+			for(i=0;i<cmpHid.length;i++){
+				cmpHid[i].classList.remove('oculto');
+			}
+		}else{
+			for(i=0;i<cmpHid.length;i++){
+				cmpHid[i].classList.add('oculto');
+				cmpHid[i].value='';
+			}
+		}
+	}else{
+		if(!cmpAct){
+			for(i=0;i<cmpHid.length;i++){
+				cmpHid[i].classList.add('oculto');
+			}
+		}else if(cmpAct.value==valor){
+			for(i=0;i<cmpHid.length;i++){
+				cmpHid[i].classList.add('oculto');
+				cmpHid[i].value='';
+			}
+		}else{
+			for(i=0;i<cmpHid.length;i++){
+				cmpHid[i].classList.remove('oculto');
+			}
+		}
+	}
+}
+
+
+function hidFieOld(act,clsCmp,valid) {
+	const cmpAct=document.getElementById(act);
+	const cmps = document.querySelectorAll(`.${clsCmp}`);
+	if(cmpAct.value=='SI'){
+		for(i=0;i<cmps.length;i++){
+			hidFie(cmps[i],valid);
+		}
+	}else{
+		for(i=0;i<cmps.length;i++){
+			hidFie(cmps[i],!valid);
+		}
+	}
+}
+
+function hidFieOpt(a,clsCmp){
+	const ele = document.querySelectorAll('select.'+clsCmp+',input.'+clsCmp+',textarea.'+clsCmp);
+	const act=document.getElementById(a);
+	if (act.value=='SI'){
+		for (i = 0; i < ele.length; i++){ 
+				enaFie(ele[i],false);
+		}
+	}else{
+		for (i = 0; i < ele.length; i++){ 
+			enaFie(ele[i],true);
+		}	
+	}
+}
+
+ function hidPlan(act,clsCmp,valid) {
+	const cmpAct=document.getElementById(act);
+	const cmps = document.querySelectorAll(`.${clsCmp}`);
+	if(cmpAct.value=='1'||cmpAct.value=='3' ){
+		for(i=0;i<cmps.length;i++){
+			hidFie(cmps[i],valid);
+		}
+	}else{
+		for(i=0;i<cmps.length;i++){
+			hidFie(cmps[i],!valid);
+		}
+	}
+} 
+
+function hidPlan(a,clsCmp){
+	const ele = document.querySelectorAll('select.'+clsCmp+',input.'+clsCmp+',textarea.'+clsCmp);
+	const act=document.getElementById(a);
+	if (act.value=='1'||act.value=='3' ){
+		for (i = 0; i < ele.length; i++){ 
+				enaFie(ele[i],false);
+		}
+	}else{
+		for (i = 0; i < ele.length; i++){ 
+			enaFie(ele[i],true);
+		}	
+	}
+}
+*/
+
+
+
+function hidOpt(act,clsCmp,clsCmp1,valid){
+	const cmpAct=document.getElementById(act);
+	const cmps = document.querySelectorAll(`.${clsCmp}`);
+	const x = document.querySelectorAll(`.${clsCmp1}`);
+	if(cmpAct.value=='SI'){
+		for(i=0;i<cmps.length;i++){
+			hidFie(cmps[i],valid);
+		}
+		for(i=0;i<x.length;i++){
+			hidFie(x[i],!valid);
+		}
+	}else{
+		for(i=0;i<cmps.length;i++){
+			hidFie(cmps[i],!valid);
+		}
+		for(i=0;i<x.length;i++){
+			hidFie(x[i],valid);
+		}
+	}
+}
+
+
+/* function sumPsy1(){
+	const   afec1=document.getElementById('psi_validacion5').value;
+	const  afec2=document.getElementById('psi_validacion7').value;
+	const  afec3=document.getElementById('psi_validacion9').value;
+
+	document.getElementById('psi_validacion14').value=parseInt(afec1)+parseInt(afec2)+parseInt(afec3);
+} */
+
+</script>
+</head>
+<body Onload="actualizar();">
+<?php
+require_once "../libs/gestion.php";
+if (!isset($_SESSION["us_sds"])){ die("<script>window.top.location.href = '/';</script>");}
+
+$mod='psicologia';
+$hoy = date("Y-m-d");
+$ayer = date("Y-m-d",strtotime($hoy."- 4 days")); 
+/*$grupos=opc_sql("select idcatadeta,descripcion from catadeta where idcatalogo=11 and estado='A' order by 1",'');*/
+$localidades=opc_sql("select idcatadeta,descripcion from catadeta where idcatalogo=2 and estado='A' order by 1",'');
+?>
+<form method='post' id='fapp' >
+<div class="col-2 menu-filtro" id='<?php echo$mod; ?>-fil'>
+	
+
+	<div class="campo"><div>N° Identificación</div><input class="captura" size=10 id="fid" name="fid" OnChange="actualizar();"></div>
+	<div class="campo"><div>Sector Catastral</div><input class="captura" size=6 id="fseca" name="fseca" OnChange="actualizar();"></div>
+	<div class="campo"><div>Manzana</div><input class="captura" size=3 id="fmanz" name="fmanz" OnChange="actualizar();"></div>
+	<div class="campo">
+		<!-- <div>Fecha Asignado Desde</div> -->
+		<input type="hidden" class="captura" size=10 id="fdes" name="fdes" value='<?php echo$ayer; ?>' OnChange="actualizar();">
+	</div>
+	<div class="campo">
+		<!-- <div>Fecha Asignado Hasta</div> -->
+		<input type="hidden" class="captura" size=10 id="fhas" name="fhas" value='<?php echo$hoy; ?>' OnChange="actualizar();">
+	</div>
+	
+</div>
+<div class='col-8 panel' id='<?php echo $mod; ?>'>
+      <div class='titulo' > PSICOLOGIA 
+		<nav class='menu left' >
+			<li class='icono actualizar'    title='Actualizar'      Onclick="actualizar();">
+			<li class='icono filtros'    title='Filtros'      Onclick="showFil(mod);">
+		</nav>
+		<nav class='menu right' >
+		<li class='icono ayuda'      title='Necesitas Ayuda'            Onclick=" window.open('https://drive.google.com/drive/folders/1JGd31V_12mh8-l2HkXKcKVlfhxYEkXpA', '_blank');"></li>
+            <li class='icono cancelar'      title='Salir'            Onclick="location.href='../main/'"></li>
+        </nav>               
+      </div>
+      <div>
+		</div>
+		<span class='mensaje' id='<?php echo $mod; ?>-msj' ></span>
+     <div class='contenido' id='<?php echo $mod; ?>-lis' ></div>
+</div>			
+		
+<div class='load' id='loader' z-index='0' ></div>
+</form>
+
+<div class="overlay" id="overlay" onClick="closeModal();">
+	<div class="popup" id="popup" z-index="0" onClick="closeModal();">
+		<div class="btn-close-popup" id="closePopup" onClick="closeModal();">&times;</div>
+		<h3><div class='image' id='<?php echo$mod; ?>-image'></div></h3>
+		<h4><div class='message' id='<?php echo$mod; ?>-modal'></div></h4>
+	</div>			
+</div>
+</body>
