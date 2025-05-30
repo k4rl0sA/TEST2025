@@ -306,7 +306,7 @@ function gra_homes(){
 	$campos = array('complemento1','nuc1','complemento2','nuc2', 'complemento3','nuc3','telefono1','telefono2','telefono3');
 
 	// Si telefono3 es vacío, poner 0
-	$_POST['telefono1'] = (strlen($_POST['telefono1']) !=='7' || strlen($_POST['telefono1']) !=='10' ) ? $_POST['telefono3'] : '';
+	$_POST['telefono1'] = (strlen($_POST['telefono1']) !=='7' || strlen($_POST['telefono1']) !=='10' ) ? $_POST['telefono1'] : '';
 
 	$_POST['telefono3'] = (isset($_POST['telefono3']) && trim($_POST['telefono3']) !== '') ? $_POST['telefono3'] : '0';
 
