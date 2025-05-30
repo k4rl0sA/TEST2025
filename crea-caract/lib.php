@@ -199,6 +199,8 @@ function gra_caract() {
 		'facamb5','facamb6','facamb7','facamb8','facamb9','observacion'
     );
 
+	$_POST['otros'] = (isset($_POST['otros']) && trim($_POST['otros']) !== '') ? $_POST['otros'] : '0';
+
     if (count($id) == 1) {
 		 $holders = array_fill(0, count($campos), '?');// Crear placeholders para los valores
 		 $sql = "INSERT INTO hog_carac VALUES (?,?,?,?,?,?, " . implode(", ", $holders) . ",?,?,?,?,?,?)";
