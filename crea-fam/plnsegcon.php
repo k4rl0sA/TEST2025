@@ -71,7 +71,6 @@ function cmp_segComp(){
 	$d=get_compromiso();
 	if ($d==""){$d=$t;}
 	$days=fechas_app('vivienda');
-  var_dump($days);
       $c[]=new cmp($o,'e',null,'PLAN DE CUIDADO FAMILIAR CONCERTADO',$w);
       $c[]=new cmp('idcom','h',15,$_POST['id'],$w.' '.$key.' '.$o,'id','id',null,'####',false,false);
       $c[]=new cmp('compromiso','a',50,$d['compromiso'],$w.''.$o,'Compromisos concertados','observaciones',null,null,true,false,'','col-0');
