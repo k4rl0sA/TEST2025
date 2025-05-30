@@ -1042,6 +1042,10 @@ function myFetch(b, c, d) {
 		  break;
 		case rta.includes('must be of type string, array given in'):
 			errors('Error en la sintaxis, se reqiere un string para el valor del parametro');
+			break;
+		case rta.includes('cannot be null'):
+			errors('Error en la sintaxis, se requiere un valor para el parametro');
+		  break;
 		default:
 			const err = rta.match(/msj\['(.*?)'\]/);
 			if (err && err[1]) {
