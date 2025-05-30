@@ -308,7 +308,7 @@ function gra_homes(){
 	// Validar telefono1: solo 7 o 10 dígitos numéricos
 	$tel1 = isset($_POST['telefono1']) ? trim($_POST['telefono1']) : '';
 	if (!preg_match('/^\d{7}$|^\d{10}$/', $tel1)) {
-		return "El teléfono 1 debe tener exactamente 7 o 10 dígitos numéricos.";
+		return "msj['Error: El teléfono 1 debe tener exactamente 7 o 10 dígitos numéricos.']";
 	}
 	$_POST['telefono1'] = $tel1;
 
