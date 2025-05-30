@@ -51,7 +51,7 @@ include_once('./login/frmlogin.php');
 function db_connect(){
 	$dominio = $_SERVER['HTTP_HOST'];
 $comy = array(
-  'pruebasiginf.site' => [
+  'pruebagtaps.site' => [
       's' => 'localhost',
       'u' => 'u470700275_17',
       'p' => 'z9#KqH!YK2VEyJpT',

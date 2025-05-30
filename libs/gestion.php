@@ -20,7 +20,7 @@ $ruta_upload='/public_html/upload/';
 $dom = $_SERVER['HTTP_HOST'];
 $dominio = preg_replace('/^www\./i', '', $dom);
 $comy = array(
-  'pruebasiginf.site' => [
+  'pruebagtaps.site' => [
       's' => 'localhost',
       'u' => 'u470700275_17',
       'p' => 'z9#KqH!YK2VEyJpT',
@@ -34,7 +34,7 @@ $comy = array(
   ]
 );
 // var_dump($dominio);
-$allowed_domains = ['pruebasiginf.site', 'gitapps.site'];
+$allowed_domains = ['pruebagtaps.site', 'gitapps.site'];
 if (in_array($dominio, $allowed_domains)) {
   $dbConfig = $comy[$dominio];
 }else{
