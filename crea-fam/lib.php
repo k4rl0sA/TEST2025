@@ -305,9 +305,14 @@ function gra_homes(){
 
 	$campos = array('complemento1','nuc1','complemento2','nuc2', 'complemento3','nuc3','telefono1','telefono2','telefono3');
 
-	// Si telefono3 es vacío, poner 0
-	$_POST['telefono1'] = (strlen($_POST['telefono1']) !=='7' || strlen($_POST['telefono1']) !=='10' ) ? $_POST['telefono1'] : '';
+	// Validar telefono1: solo 7 o 10 dígitos numéricos
+	$tel1 = isset($_POST['telefono1']) ? trim($_POST['telefono1']) : '';
+	if (!preg_match('/^\d{7}$|^\d{10}$/', $tel1)) {
+		return "El teléfono 1 debe tener exactamente 7 o 10 dígitos numéricos.";
+	}
+	$_POST['telefono1'] = $tel1;
 
+	// Si telefono3 es vacío, poner 0
 	$_POST['telefono3'] = (isset($_POST['telefono3']) && trim($_POST['telefono3']) !== '') ? $_POST['telefono3'] : '0';
 
 	if(count($id)==2){
