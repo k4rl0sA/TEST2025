@@ -306,26 +306,20 @@ function gra_homes(){
 	$campos = array('complemento1','nuc1','complemento2','nuc2', 'complemento3','nuc3','telefono1','telefono2','telefono3');
 
 	// Validar telefono1: solo 7 o 10 dígitos numéricos
-	$tel1 = isset($_POST['telefono1']) ? trim($_POST['telefono1']) : '';
-	if (!preg_match('/^\d{7}$|^\d{10}$/', $tel1)) {
-		return "msj['Error: El teléfono 1 debe tener exactamente 7 o 10 dígitos numéricos.']";
+	foreach (['telefono1' => false, 'telefono2' => true, 'telefono3' => true] as $campo => $permiteCero) {
+		$tel = isset($_POST[$campo]) ? trim($_POST[$campo]) : '';
+		if ($permiteCero) {
+			if ($tel === '') $tel = '0';
+			if (!preg_match('/^(0|\d{7}|\d{10})$/', $tel)) {
+				return "msj['Error: El $campo debe tener exactamente 7 o 10 dígitos numéricos, o el valor 0.']";
+			}
+		} else {
+			if (!preg_match('/^\d{7}$|^\d{10}$/', $tel)) {
+				return "msj['Error: El $campo debe tener exactamente 7 o 10 dígitos numéricos.']";
+			}
+		}
+		$_POST[$campo] = $tel;
 	}
-	$_POST['telefono1'] = $tel1;
-
-	$tel2 = isset($_POST['telefono2']) ? trim($_POST['telefono2']) : '';
-	if (!preg_match('/^(0|\d{7}|\d{10})$/', $tel2)) {
-		return "msj['Error: El teléfono 2 debe tener exactamente 7 o 10 dígitos numéricos, o el valor 0.']";
-	}
-	$_POST['telefono2'] = $tel2;
-
-	$tel3 = isset($_POST['telefono3']) ? trim($_POST['telefono3']) : '';
-	if (!preg_match('/^(0|\d{7}|\d{10})$/', $tel3)) {
-		return "msj['Error: El teléfono 3 debe tener exactamente 7 o 10 dígitos numéricos, o el valor 0.']";
-	}
-	$_POST['telefono3'] = $tel3;
-
-	// Si telefono3 es vacío, poner 0
-	$_POST['telefono3'] = (isset($_POST['telefono3']) && trim($_POST['telefono3']) !== '') ? $_POST['telefono3'] : '0';
 
 	if(count($id)==2){
 		$sql = "UPDATE hog_fam SET " . implode(" = ?, ", $campos) . " = ?, usu_update = ?, fecha_update = ? WHERE id_fam = ?";
