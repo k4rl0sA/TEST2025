@@ -302,18 +302,21 @@ function men_homes1(){
    
 function gra_homes(){
 	// var_dump($_POST);
-	$id=divide($_POST['idg']);
+	$id = divide($_POST['idg']);
 
 	$campos = array('complemento1','nuc1','complemento2','nuc2', 'complemento3','nuc3','telefono1','telefono2','telefono3');
 
+	// Si telefono3 es vacío, poner 0
+	$_POST['telefono3'] = (isset($_POST['telefono3']) && trim($_POST['telefono3']) !== '') ? $_POST['telefono3'] : '0';
+
 	if(count($id)==2){
 		$sql = "UPDATE hog_fam SET " . implode(" = ?, ", $campos) . " = ?, usu_update = ?, fecha_update = ? WHERE id_fam = ?";
-		 $params = params($campos);		 // Para UPDATE, agregamos los valores dinámicos
-		 $params[] = array('type' => 's', 'value' => $_SESSION['us_sds']);
-		 $params[] = array('type' => 's', 'value' => date("Y-m-d H:i:s"));
-		 $params[] = array('type' => 'i', 'value' => $id[1]);
+		$params = params($campos); // Para UPDATE, agregamos los valores dinámicos
+		$params[] = array('type' => 's', 'value' => $_SESSION['us_sds']);
+		$params[] = array('type' => 's', 'value' => date("Y-m-d H:i:s"));
+		$params[] = array('type' => 'i', 'value' => $id[1]);
 	}else{
-		$id=$_POST['idg'];
+		$id = $_POST['idg'];
 		$holders = array_fill(0, count($campos), '?');// Crear placeholders para los valores
 		$sql = "INSERT INTO hog_fam VALUES (?,?,?, " . implode(", ", $holders) . ",?,?,?,?,?,?)";
 		$params = array(
@@ -321,30 +324,18 @@ function gra_homes(){
 			array('type' => 'i', 'value' => $id),
 			array('type' => 'i', 'value' => num_fam())
 		);
-
 		$params = array_merge($params, params($campos));// Agregar los valores dinámicos
-
-		/* array('type' => 's', 'value' => $_POST['complemento1']),
-		array('type' => 's', 'value' => $_POST['nuc1']),
-		array('type' => 's', 'value' => $_POST['complemento2']),
-		array('type' => 's', 'value' => $_POST['nuc2']),
-		array('type' => 's', 'value' => $_POST['complemento3']),
-		array('type' => 's', 'value' => $_POST['nuc3']),
-		array('type' => 's', 'value' => $_POST['telefono1']),
-		array('type' => 's', 'value' => $_POST['telefono2']),
-		array('type' => 's', 'value' => $_POST['telefono3']),
- */
- 		$params[] = array('type' => 's', 'value' => namequipo());
- 		$params[] = array('type' => 'i', 'value' => $_SESSION['us_sds']);
- 		$params[] = array('type' => 's', 'value' => date("Y-m-d H:i:s"));
- 		$params[] = array('type' => 's', 'value' => NULL);
- 		$params[] = array('type' => 's', 'value' => NULL);
- 		$params[] = array('type' => 's', 'value' => 'A');
+		$params[] = array('type' => 's', 'value' => namequipo());
+		$params[] = array('type' => 'i', 'value' => $_SESSION['us_sds']);
+		$params[] = array('type' => 's', 'value' => date("Y-m-d H:i:s"));
+		$params[] = array('type' => 's', 'value' => NULL);
+		$params[] = array('type' => 's', 'value' => NULL);
+		$params[] = array('type' => 's', 'value' => 'A');
 	}
 	// var_dump($params);
 	$rta = mysql_prepd($sql, $params);
 	return $rta;
-	}
+}
 
 
 
