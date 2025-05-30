@@ -312,6 +312,18 @@ function gra_homes(){
 	}
 	$_POST['telefono1'] = $tel1;
 
+	$tel2 = isset($_POST['telefono2']) ? trim($_POST['telefono2']) : '';
+	if (!preg_match('/^(0|\d{7}|\d{10})$/', $tel2)) {
+		return "msj['Error: El teléfono 2 debe tener exactamente 7 o 10 dígitos numéricos, o el valor 0.']";
+	}
+	$_POST['telefono2'] = $tel2;
+
+	$tel3 = isset($_POST['telefono3']) ? trim($_POST['telefono3']) : '';
+	if (!preg_match('/^(0|\d{7}|\d{10})$/', $tel3)) {
+		return "msj['Error: El teléfono 3 debe tener exactamente 7 o 10 dígitos numéricos, o el valor 0.']";
+	}
+	$_POST['telefono3'] = $tel3;
+
 	// Si telefono3 es vacío, poner 0
 	$_POST['telefono3'] = (isset($_POST['telefono3']) && trim($_POST['telefono3']) !== '') ? $_POST['telefono3'] : '0';
 
