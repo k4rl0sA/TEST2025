@@ -62,7 +62,7 @@ function cmp_signos(){
     }
 	//var_dump($meses);
     if($meses>= 6 && $meses < 60){
-		$c[]=new cmp('perime_braq','sd',4, $d,$w.' '.$o,'Perimetro Braquial (Cm)',0,null,'#,#',true,true,'','col-15');
+		$c[]=new cmp('peri_braq','sd',4, $d,$w.' '.$o,'Perimetro Braquial (Cm)',0,null,'#,#',true,true,'','col-15');
 	}
     if($p['ano']<5){
 		$c[]=new cmp('zscore','t',15,'',$w.' '.$o,'Z-score','des',null,null,false,false,'','col-35');
@@ -235,14 +235,14 @@ function men_signos(){
     $fre = $_POST['frecard'] ?? null;
     $sat = $_POST['satoxi'] ?? null;
     $abd = $_POST['peri_abdomi'] ?? null;
-    $bra = $_POST['perime_braq'] ?? null;
+    $bra = $_POST['peri_braq'] ?? null;
     $zsco = explode("=", $_POST['zscore'] ?? null);
     $z1 = $zsco[0] ?? null;
     $z2 = $zsco[1] ?? null;
     $glu = $_POST['glucometria'] ?? null;
     $campos = [
         'idpeople', 'fecha_toma', 'peso', 'talla', 'imc', 'tas', 'tad', 'frecard', 'satoxi',
-        'peri_abdomi', 'perime_braq', 'zscore', 'zscore_desc', 'glucometria',
+        'peri_abdomi', 'peri_braq', 'zscore', 'zscore_desc', 'glucometria',
         'usu_create', 'fecha_create', 'usu_update', 'fecha_update', 'estado'
     ];
     $params = [

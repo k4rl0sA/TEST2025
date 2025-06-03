@@ -141,7 +141,7 @@ function formato_dato($a,$b,$c,$d){
     if ($a=='segComp' && $b=='acciones'){
         $rta="<nav class='menu right'>";
             $rta.="<li title='Ver Apgar'><i class='fa-solid fa-eye ico' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getDataFetch,500,'compConc',event,this,'plncon.php',['obs','equipo']);\"></i></li>";  //   act_lista(f,this);
-    $rta.="<li class='icono editar' title='Seguimiento a Compromisos' id='".$c['ACCIONES']."' Onclick=\"mostrar('compConc','pro',event,'','plnsegcon.php',7);\"></li>";
+          $rta.="<li class='icono editar' title='Seguimiento a Compromisos' id='".$c['ACCIONES']."' Onclick=\"mostrar('compConc','pro',event,'','plnsegcon.php',7);\"></li>";
         }
     return $rta;
 }
