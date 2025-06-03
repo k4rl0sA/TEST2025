@@ -244,7 +244,7 @@ function gra_alertas() {
         }
         $params[] = ['type' => 's', 'value' => $valor];
     }
-    $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
+    $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_creo
     $sql = "INSERT INTO hog_alert VALUES (
         NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR), ?, NULL, NULL, 'A'
     )";
