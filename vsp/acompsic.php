@@ -355,7 +355,7 @@ function opc_equ(){
             ['type' => 's', 'value' => $_POST['observaciones'] ?? null],
             ['type' => 's', 'value' => $_POST['cierre_caso'] ?? null],
             ['type' => 's', 'value' => $_POST['motivo_cierre'] ?? null],
-            ['type' => 's', 'value' => $_POST['fecha_cierre'] ?? '0000-00-00'], // fecha_cierre
+            ['type' => 's', 'value' => $_POST['fecha_cierre'] ?? null], // fecha_cierre
             ['type' => 's', 'value' => $_POST['liker_dificul'] ?? null],
             ['type' => 's', 'value' => $_POST['liker_emocion'] ?? null],
             ['type' => 's', 'value' => $_POST['liker_decision'] ?? null],
