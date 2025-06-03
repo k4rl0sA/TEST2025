@@ -321,6 +321,14 @@ function opc_equ(){
         $params[] = ['type' => 's', 'value' => $id[0]]; // id_acompsic
         $rta = mysql_prepd($sql, $params);
     } else if (count($id) == 3) {
+      // Convertir fecha_cierre vacía a null
+    $fecha_cierre = $_POST['fecha_cierre'] ?? null;
+    if ($fecha_cierre === '' || $fecha_cierre === null) {
+        $fecha_cierre = null;
+        $fecha_cierre_type = 'z'; // tipo especial para null en tu función mysql_prepd
+    } else {
+        $fecha_cierre_type = 's';
+    }
        $params = [
             ['type' => 's', 'value' => $id[0]], // idpeople
             ['type' => 's', 'value' => $_POST['fecha_seg'] ?? null],
@@ -355,7 +363,7 @@ function opc_equ(){
             ['type' => 's', 'value' => $_POST['observaciones'] ?? null],
             ['type' => 's', 'value' => $_POST['cierre_caso'] ?? null],
             ['type' => 's', 'value' => $_POST['motivo_cierre'] ?? null],
-            ['type' => 's', 'value' => $_POST['fecha_cierre'] ?? null], // fecha_cierre
+            ['type' => $fecha_cierre_type, 'value' => $fecha_cierre], // fecha_cierre
             ['type' => 's', 'value' => $_POST['liker_dificul'] ?? null],
             ['type' => 's', 'value' => $_POST['liker_emocion'] ?? null],
             ['type' => 's', 'value' => $_POST['liker_decision'] ?? null],
