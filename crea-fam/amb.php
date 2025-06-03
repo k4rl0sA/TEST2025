@@ -455,22 +455,38 @@ function gra_ambient() {
         'permmascot', 'salumascot', 'pilas', 'dispmedicamentos', 'dispcompu', 'dispplamo', 'dispbombill', 'displlanta', 'dispplaguic', 'dispaceite'
     ];
     $id = divide($_POST['idvivamb']);
+    $rta = null;
     if (count($id) == 1) {
+        // INSERT
         $params = [
             ['type' => 's', 'value' => $id[0]]
         ];
         foreach ($campos as $campo) {
             $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
         }
-        $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
-        $params[] = ['type' => 'z', 'value' => null];
-        $params[] = ['type' => 'z', 'value' => null];
-        $placeholders = implode(', ', array_fill(0, count($campos) + 4, '?'));
+        $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_creo
+        $params[] = ['type' => 'z', 'value' => null]; // usu_update
+        $params[] = ['type' => 'z', 'value' => null]; // fecha_update
+        $placeholders = implode(', ', array_fill(0, 70, '?'));
         $sql = "INSERT INTO hog_amb (
             idamb, idvivamb, " . implode(', ', $campos) . ", usu_creo, fecha_create, usu_update, fecha_update, estado
         ) VALUES (
             NULL, $placeholders, DATE_SUB(NOW(), INTERVAL 5 HOUR), 'A'
         )";
+        $rta = mysql_prepd($sql, $params);
+    } else if (count($id) == 2) {
+        // UPDATE
+        $set = [];
+        $params = [];
+        foreach ($campos as $campo) {
+            $set[] = "$campo = ?";
+            $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
+        }
+        $set[] = "usu_update = ?";
+        $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
+        $set[] = "fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR)";
+        $sql = "UPDATE hog_amb SET " . implode(', ', $set) . " WHERE idamb = ?";
+        $params[] = ['type' => 's', 'value' => $id[0]];
         $rta = mysql_prepd($sql, $params);
     }
     return $rta;
