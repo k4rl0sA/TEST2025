@@ -183,67 +183,8 @@ function men_alertas(){
 	} 
 
 
-function gra_alertas(){
-	/* print_r($_POST);
-	$id=divide($_POST['idp']);
-
-	$sm1 = isset($_POST['fselmul1']) ? (is_array($_POST['fselmul1']) ? implode(",", str_replace("'", "", $_POST['fselmul1'])) : $_POST['fselmul1']) : '';
-    $sm2 = isset($_POST['fselmul2']) ? (is_array($_POST['fselmul2']) ? implode(",", str_replace("'", "", $_POST['fselmul2'])) : $_POST['fselmul2']) : '';
-    $sm3 = isset($_POST['fselmul3']) ? (is_array($_POST['fselmul3']) ? implode(",", str_replace("'", "", $_POST['fselmul3'])) : $_POST['fselmul3']) : '';
-    $sm4 = isset($_POST['fselmul4']) ? (is_array($_POST['fselmul4']) ? implode(",", str_replace("'", "", $_POST['fselmul4'])) : $_POST['fselmul4']) : '';
-    $sm5 = isset($_POST['fselmul5']) ? (is_array($_POST['fselmul5']) ? implode(",", str_replace("'", "", $_POST['fselmul5'])) : $_POST['fselmul5']) : '';
-    $sm6 = isset($_POST['fselmul6']) ? (is_array($_POST['fselmul6']) ? implode(",", str_replace("'", "", $_POST['fselmul6'])) : $_POST['fselmul6']) : '';
-
+/* function gra_alertas(){
 		
-	
-	$campos = array('cursovida', 'fecha', 'tipo', 'crit_epi', 'men_dnt', 'men_sinctrl', 'gestante', 'etapgest', 'ges_sinctrl', 'cronico', 'cro_hiper', 'cro_diabe', 'cro_epoc', 'cro_sinctrl', 'esq_vacun');
-	$field1 = array('agen_intra', 'servicio', 'fecha_cita', 'hora_cita', 'lugar_cita', 'deriva_pf', 'evento_pf');
-
-	$holders = array_fill(0, count($campos), '?');
-	$holder1 = array_fill(0, count($field1), '?');
-
-		$sql = "INSERT INTO hog_fam VALUES (?,?,".implode(", ", $holders).",?,?,?,?,?,?,?,?,?,?,?,?,".implode(", ", $holder1).",?,?,?,?,?)";
-		$params = array(
-			array('type' => 'i', 'value' => NULL),
-			array('type' => 'i', 'value' => $id[0]),
-		);
-		$params = array_merge($params, params($campos));
-		$params[] = array('type' => 's', 'value' => $_POST['alert1']);
-		$params[] = array('type' => 's', 'value' => $sm1);
-		$params[] = array('type' => 's', 'value' => $_POST['alert2']);
-		$params[] = array('type' => 's', 'value' => $sm1);
-		$params[] = array('type' => 's', 'value' => $_POST['alert3']);
-		$params[] = array('type' => 's', 'value' => $sm3);
-		$params[] = array('type' => 's', 'value' => $_POST['alert4']);
-		$params[] = array('type' => 's', 'value' => $sm4);
-		$params[] = array('type' => 's', 'value' => $_POST['alert5']);
-		$params[] = array('type' => 's', 'value' => $sm5);
-		$params[] = array('type' => 's', 'value' => $_POST['alert6']);
-		$params[] = array('type' => 's', 'value' => $sm6);
-		$params = array_merge($params, params($field1));
-		$params[] = array('type' => 'i', 'value' => $_SESSION['us_sds']);
- 		$params[] = array('type' => 's', 'value' => date("Y-m-d H:i:s"));
- 		$params[] = array('type' => 's', 'value' => NULL);
- 		$params[] = array('type' => 's', 'value' => NULL);
- 		$params[] = array('type' => 's', 'value' => 'A');
-		var_dump($params);
-
-$num_placeholders = substr_count($sql, '?');
-$num_params = count($params);
-if ($num_placeholders !== $num_params) {
-    die("Error: El número de placeholders (?) no coincide con el número de parámetros. Placeholders: $num_placeholders, Parámetros: $num_params.");
-}
-		 $rta = mysql_prepd($sql, $params);
-		 return $rta;
-}  */
-	 
-	/*  if (($smu1 = $_POST['fselmul1'] ?? null) && is_array($smu1)) {$sm1 = implode(",",str_replace("'", "", $smu1));}
-	if (($smu2 = $_POST['fselmul2'] ?? null) && is_array($smu2)) {$sm2 = implode(",",str_replace("'", "", $smu2));}
-	if (($smu3 = $_POST['fselmul3'] ?? null) && is_array($smu3)) {$sm3 = implode(",",str_replace("'", "", $smu3));}
-	if (($smu4 = $_POST['fselmul4'] ?? null) && is_array($smu4)) {$sm4 = implode(",",str_replace("'", "", $smu4));}
-	if (($smu5 = $_POST['fselmul5'] ?? null) && is_array($smu5)) {$sm5 = implode(",",str_replace("'", "", $smu5));}
-	if (($smu6 = $_POST['fselmul6'] ?? null) && is_array($smu6)) {$sm6 = implode(",",str_replace("'", "", $smu6));} */
-	
 	$sm1 = isset($_POST['fselmul1']) ? str_replace(["'", '"'], '', $_POST['fselmul1']) : '';
     $sm2 = isset($_POST['fselmul2']) ? str_replace(["'", '"'], '', $_POST['fselmul2']) : '';
     $sm3 = isset($_POST['fselmul3']) ? str_replace(["'", '"'], '', $_POST['fselmul3']) : '';
@@ -277,14 +218,39 @@ if ($num_placeholders !== $num_params) {
         trim(upper('{$_POST['lugar_cita']}')),
         trim(upper('{$_POST['deriva_pf']}')), trim(upper('{$_POST['evento_pf']}')),
         DATE_SUB(NOW(), INTERVAL 5 HOUR), TRIM(UPPER('{$_SESSION['us_sds']}')), NULL, NULL, 'A')";
-
     // Echo para revisar la consulta
     // echo $sql;
-
     // Ejecutar la consulta
     $rta = dato_mysql($sql);
     return $rta;
-} 
+}
+ */
+function gra_alertas() {
+    $campos = [
+        'cursovida', 'fecha', 'tipo', 'crit_epi', 'men_dnt', 'men_sinctrl', 'gestante', 'etapgest', 'ges_sinctrl',
+        'cronico', 'cro_hiper', 'cro_diabe', 'cro_epoc', 'cro_sinctrl', 'esq_vacun',
+        'alert1', 'fselmul1', 'alert2', 'fselmul2', 'alert3', 'fselmul3', 'alert4', 'fselmul4',
+        'alert5', 'fselmul5', 'alert6', 'fselmul6', 'agen_intra', 'servicio', 'fecha_cita', 'hora_cita',
+        'lugar_cita', 'deriva_pf', 'evento_pf'
+    ];
+    $id = divide($_POST['idp']);
+    $params = [
+        ['type' => 's', 'value' => $id[0]]
+    ];
+    foreach ($campos as $campo) {
+        $valor = $_POST[$campo] ?? null;
+        if (strpos($campo, 'fselmul') === 0 && $valor !== null) {
+            $valor = str_replace(["'", '"'], '', $valor);
+        }
+        $params[] = ['type' => 's', 'value' => $valor];
+    }
+    $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
+    $sql = "INSERT INTO hog_alert VALUES (
+        NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR), ?, NULL, NULL, 'A'
+    )";
+    $rta = mysql_prepd($sql, $params);
+    return $rta;
+}
 
 
 function opc_evento($id=''){
