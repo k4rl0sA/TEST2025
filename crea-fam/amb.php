@@ -463,7 +463,7 @@ function opc_tipo_activi($id=''){
             $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
         }
         $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_creo
-        // Para usu_update y fecha_update, puedes enviar NULL (o el valor por defecto)
+        // Para usu_update y fecha_update puedes enviar NULL
         $params[] = ['type' => 'z', 'value' => null]; // usu_update
         $params[] = ['type' => 'z', 'value' => null]; // fecha_update
 
@@ -473,23 +473,8 @@ function opc_tipo_activi($id=''){
             NULL, " . str_repeat('?, ', count($campos) + 1) . "DATE_SUB(NOW(), INTERVAL 5 HOUR), ?, ?, 'A'
         )";
         $rta = mysql_prepd($sql, $params);
-    } else if (count($id) == 2) {
-        // UPDATE igual que antes
-        $set = [];
-        $params = [];
-        foreach ($campos as $campo) {
-            $set[] = "$campo = ?";
-            $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
-        }
-        $set[] = "usu_update = ?";
-        $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
-        $set[] = "fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR)";
-        $sql = "UPDATE hog_amb SET " . implode(', ', $set) . " WHERE idamb = ?";
-        $params[] = ['type' => 's', 'value' => $_POST['idvivamb']];
-        $rta = mysql_prepd($sql, $params);
-    } else {
-        $rta = "Error: idvivamb inválido";
     }
+    // ...
     return $rta;
 }
 
