@@ -45,7 +45,7 @@ function cmp_signos(){
     $c[]=new cmp('edad','n','3',' Años: '.$p['ano'].' Meses: '.$p['mes'].' Dias:'.$p['dia'],$w.' '.$o,'Edad (Abordaje)','edad',null,'',false,false,'','col-2');
 	$c[]=new cmp('fecha_toma','d','10',$d,$w.' '.$o,'fecha de la Toma','fecha_toma',null,'',true,true,'','col-15',"validDate(this,$days,0);");
 	
-	
+
 	$o='med';
 	$c[]=new cmp($o,'e',null,'TOMA DE SIGNOS Y signos ANTROPOMÉTRICAS',$w);
 	$c[]=new cmp('peso','sd',6, $d,$w.' '.$z.' '.$o,'Peso (Kg) Mín=0.50 - Máx=150.00','fpe','rgxpeso','###.##',true,true,'','col-2',"valPeso('peso');Zsco('zscore','signos.php');calImc('peso','talla','imc');");
@@ -191,7 +191,7 @@ function men_signos(){
 	 }
    }
 
-	function gra_signos(){
+	/* function gra_signos(){
 		//var_dump($_POST);
 		$id=divide($_POST['idp']);
 		$tas=$_POST['tas'] ?? null;
@@ -227,7 +227,54 @@ function men_signos(){
 		// echo $sql;
 		$rta = dato_mysql($sql);
 		return $rta;
-   	} 
+   	} */ 
+ function gra_signos(){
+    $id = divide($_POST['idp']);
+    $tas = $_POST['tas'] ?? null;
+    $tad = $_POST['tad'] ?? null;
+    $fre = $_POST['frecard'] ?? null;
+    $sat = $_POST['satoxi'] ?? null;
+    $abd = $_POST['peri_abdomi'] ?? null;
+    $bra = $_POST['perime_braq'] ?? null;
+    $zsco = explode("=", $_POST['zscore'] ?? null);
+    $z1 = $zsco[0] ?? null;
+    $z2 = $zsco[1] ?? null;
+    $glu = $_POST['glucometria'] ?? null;
+    $campos = [
+        'idpeople', 'fecha_toma', 'peso', 'talla', 'imc', 'tas', 'tad', 'frecard', 'satoxi',
+        'peri_abdomi', 'perime_braq', 'zscore', 'zscore_desc', 'glucometria',
+        'usu_create', 'fecha_create', 'usu_update', 'fecha_update', 'estado'
+    ];
+    $params = [
+        ['type' => 's', 'value' => $id[0]],
+        ['type' => 's', 'value' => $_POST['fecha_toma'] ?? null],
+        ['type' => 's', 'value' => $_POST['peso'] ?? null],
+        ['type' => 's', 'value' => $_POST['talla'] ?? null],
+        ['type' => 's', 'value' => $_POST['imc'] ?? null],
+        ['type' => 's', 'value' => $tas],
+        ['type' => 's', 'value' => $tad],
+        ['type' => 's', 'value' => $fre],
+        ['type' => 's', 'value' => $sat],
+        ['type' => 's', 'value' => $abd],
+        ['type' => 's', 'value' => $bra],
+        ['type' => 's', 'value' => $z1],
+        ['type' => 's', 'value' => $z2],
+        ['type' => 's', 'value' => $glu],
+        ['type' => 's', 'value' => $_SESSION['us_sds']],
+        ['type' => 's', 'value' => date('Y-m-d H:i:s')],
+        ['type' => 'z', 'value' => null],
+        ['type' => 'z', 'value' => null],
+        ['type' => 's', 'value' => 'A']
+    ];
+    $placeholders = implode(', ', array_fill(0, count($params), '?'));
+    $sql = "INSERT INTO hog_signos (
+        id_signos, " . implode(', ', $campos) . "
+    ) VALUES (
+        NULL, $placeholders
+    )";
+    $rta = mysql_prepd($sql, $params);
+    return $rta;
+}
 
     function formato_dato($a,$b,$c,$d){
     $b=strtolower($b);
