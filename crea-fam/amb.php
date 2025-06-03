@@ -447,18 +447,34 @@ function opc_tipo_activi($id=''){
 	} */
 
 	function gra_ambient() {
-    $campos = [
+      $campos = [
         'fecha', 'tipo_activi', 'seguro', 'grietas', 'combustible', 'separadas', 'lena', 'ilumina', 'fuma', 'bano', 'cocina', 'elevado', 'electrica', 'elementos', 'barreras', 'zontrabajo',
         'agua', 'tanques', 'adecagua', 'raciagua', 'sanitari', 'aguaresid', 'terraza', 'recipientes', 'vivaseada', 'separesiduos', 'reutresiduos', 'noresiduos', 'adecresiduos', 'horaresiduos',
         'plagas', 'contplagas', 'pracsanitar', 'envaplaguicid', 'consealiment', 'limpcocina', 'cuidcuerpo', 'fechvencim', 'limputensilios', 'adqualime', 'almaquimicos', 'etiqprodu', 'juguetes',
         'medicamalma', 'medicvenc', 'adqumedicam', 'medidaspp', 'radiacion', 'contamaire', 'monoxido', 'residelectri', 'duermeelectri', 'vacunasmascot', 'aseamascot', 'alojmascot', 'excrmascot',
         'permmascot', 'salumascot', 'pilas', 'dispmedicamentos', 'dispcompu', 'dispplamo', 'dispbombill', 'displlanta', 'dispplaguic', 'dispaceite'
     ];
-
     $id = divide($_POST['idvivamb']);
+    if (count($id) == 1) {
+        $params = [
+            ['type' => 's', 'value' => $id[0]]
+        ];
+        foreach ($campos as $campo) {
+            $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
+        }
+        $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_creo
+        // Para usu_update y fecha_update, puedes enviar NULL (o el valor por defecto)
+        $params[] = ['type' => 'z', 'value' => null]; // usu_update
+        $params[] = ['type' => 'z', 'value' => null]; // fecha_update
 
-    if (count($id) == 2) {
-        // UPDATE
+        $sql = "INSERT INTO hog_amb (
+            idamb, idvivamb, " . implode(', ', $campos) . ", usu_creo, fecha_create, usu_update, fecha_update, estado
+        ) VALUES (
+            NULL, " . str_repeat('?, ', count($campos) + 1) . "DATE_SUB(NOW(), INTERVAL 5 HOUR), ?, ?, 'A'
+        )";
+        $rta = mysql_prepd($sql, $params);
+    } else if (count($id) == 2) {
+        // UPDATE igual que antes
         $set = [];
         $params = [];
         foreach ($campos as $campo) {
@@ -470,21 +486,6 @@ function opc_tipo_activi($id=''){
         $set[] = "fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR)";
         $sql = "UPDATE hog_amb SET " . implode(', ', $set) . " WHERE idamb = ?";
         $params[] = ['type' => 's', 'value' => $_POST['idvivamb']];
-        $rta = mysql_prepd($sql, $params);
-    } else if (count($id) == 1) {
-        // INSERT
-       $params = [
-            ['type' => 's', 'value' => $id[0]]
-        ];
-        foreach ($campos as $campo) {
-            $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
-        }
-        $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
-        $sql = "INSERT INTO hog_amb (
-            idamb, idvivamb, " . implode(', ', $campos) . ", usu_creo, fecha_create, estado
-        ) VALUES (
-            NULL, " . str_repeat('?, ', count($campos) + 1) . "DATE_SUB(NOW(), INTERVAL 5 HOUR), 'A'
-        )";
         $rta = mysql_prepd($sql, $params);
     } else {
         $rta = "Error: idvivamb inválido";
