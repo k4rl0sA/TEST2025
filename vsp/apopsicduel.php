@@ -269,67 +269,96 @@ function opc_equ(){
 }
 
 function gra_apopsicduel(){
-  // print_r($_POST);
-  $id=divide($_POST['id_psicduel']);
-  if (($smbina = $_POST['fusers_bina'] ?? null) && is_array($smbina)) {$smbin = implode(",",str_replace("'", "", $smbina));}
-  if(count($id)==4){//CAMBIO
-    $eq=opc_equ();//CAMBIO ABAJO  ELIMINAR ID[1]
-    $sql="UPDATE vsp_apopsicduel SET 
-    causa_duelo=trim(upper('{$_POST['causa_duelo']}')),fecha_defun=trim(upper('{$_POST['fecha_defun']}')),parent_fallec=trim(upper('{$_POST['parent_fallec']}')),lugar_defun=trim(upper('{$_POST['lugar_defun']}')),vincu_afect=trim(upper('{$_POST['vincu_afect']}')),senti_ident_1=trim(upper('{$_POST['senti_ident_1']}')),senti_ident_2=trim(upper('{$_POST['senti_ident_2']}')),senti_ident_3=trim(upper('{$_POST['senti_ident_3']}')),etapa_duelo=trim(upper('{$_POST['etapa_duelo']}')),sintoma_duelo_1=trim(upper('{$_POST['sintoma_duelo_1']}')),sintoma_duelo_2=trim(upper('{$_POST['sintoma_duelo_2']}')),sintoma_duelo_3=trim(upper('{$_POST['sintoma_duelo_3']}')),estrategia_1=trim(upper('{$_POST['estrategia_1']}')),estrategia_2=trim(upper('{$_POST['estrategia_2']}')),acciones_1=trim(upper('{$_POST['acciones_1']}')),desc_accion1=trim(upper('{$_POST['desc_accion1']}')),acciones_2=trim(upper('{$_POST['acciones_2']}')),desc_accion2=trim(upper('{$_POST['desc_accion2']}')),acciones_3=trim(upper('{$_POST['acciones_3']}')),desc_accion3=trim(upper('{$_POST['desc_accion3']}')),activa_ruta=trim(upper('{$_POST['activa_ruta']}')),ruta=trim(upper('{$_POST['ruta']}')),novedades=trim(upper('{$_POST['novedades']}')),signos_covid=trim(upper('{$_POST['signos_covid']}')),caso_afirmativo=trim(upper('{$_POST['caso_afirmativo']}')),otras_condiciones=trim(upper('{$_POST['otras_condiciones']}')),observaciones=trim(upper('{$_POST['observaciones']}')),cierre_caso=trim(upper('{$_POST['cierre_caso']}')),fecha_cierre=trim(upper('{$_POST['fecha_cierre']}')),motivo_cierre = TRIM(UPPER('{$_POST['motivo_cierre']}')),liker_dificul=trim(upper('{$_POST['liker_dificul']}')),liker_emocion=trim(upper('{$_POST['liker_emocion']}')),liker_decision=trim(upper('{$_POST['liker_decision']}')),redu_riesgo_cierre=trim(upper('{$_POST['redu_riesgo_cierre']}')),
-    `usu_update`=TRIM(UPPER('{$_SESSION['us_sds']}')),`fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
-    WHERE id_psicduel =TRIM(UPPER('{$id[0]}'))";
-      // echo $sql;
-  }else if(count($id)==3){
-    $eq=opc_equ();
-    $sql="INSERT INTO vsp_apopsicduel VALUES (
-    NULL,
-    trim(upper('{$id[0]}')),
-    trim(upper('{$_POST['fecha_seg']}')),
-    trim(upper('{$_POST['numsegui']}')),
-    trim(upper('{$_POST['evento']}')),
-    trim(upper('{$_POST['estado_s']}')),
-    trim(upper('{$_POST['motivo_estado']}')),
-    trim(upper('{$_POST['causa_duelo']}')),
-    trim(upper('{$_POST['fecha_defun']}')),
-    trim(upper('{$_POST['parent_fallec']}')),
-    trim(upper('{$_POST['lugar_defun']}')),
-    trim(upper('{$_POST['vincu_afect']}')),
-    trim(upper('{$_POST['senti_ident_1']}')),
-    trim(upper('{$_POST['senti_ident_2']}')),
-    trim(upper('{$_POST['senti_ident_3']}')),
-    trim(upper('{$_POST['etapa_duelo']}')),
-    trim(upper('{$_POST['sintoma_duelo_1']}')),
-    trim(upper('{$_POST['sintoma_duelo_2']}')),
-    trim(upper('{$_POST['sintoma_duelo_3']}')),
-    trim(upper('{$_POST['estrategia_1']}')),
-    trim(upper('{$_POST['estrategia_2']}')),
-    trim(upper('{$_POST['acciones_1']}')),
-    trim(upper('{$_POST['desc_accion1']}')),
-    trim(upper('{$_POST['acciones_2']}')),
-    trim(upper('{$_POST['desc_accion2']}')),
-    trim(upper('{$_POST['acciones_3']}')),
-    trim(upper('{$_POST['desc_accion3']}')),
-    trim(upper('{$_POST['activa_ruta']}')),
-    trim(upper('{$_POST['ruta']}')),
-    trim(upper('{$_POST['novedades']}')),
-    trim(upper('{$_POST['signos_covid']}')),
-    trim(upper('{$_POST['caso_afirmativo']}')),
-    trim(upper('{$_POST['otras_condiciones']}')),
-    trim(upper('{$_POST['observaciones']}')),
-    trim(upper('{$_POST['cierre_caso']}')),
-    trim(upper('{$_POST['motivo_cierre']}')),
-    trim(upper('{$_POST['fecha_cierre']}')),
-    trim(upper('{$_POST['liker_dificul']}')),
-    trim(upper('{$_POST['liker_emocion']}')),
-    trim(upper('{$_POST['liker_decision']}')),
-    trim(upper('{$_POST['redu_riesgo_cierre']}')),
-    trim(upper('{$smbin}')),
-      '{$eq}',TRIM(UPPER('{$_SESSION['us_sds']}')),DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')";
-      // echo $sql;
+    $id = divide($_POST['id_psicduel']);
+    $eq = opc_equ();
+    $smbin = null;
+    if (($smbina = $_POST['fusers_bina'] ?? null) && is_array($smbina)) {
+        $smbin = implode(",", str_replace("'", "", $smbina));
     }
-      $rta=dato_mysql($sql);
-      return $rta;
-  } 
+    // Orden de los campos según la tabla
+    $campos = [
+        'idpeople', 'fecha_seg', 'numsegui', 'evento', 'estado_s', 'motivo_estado',
+        'causa_duelo', 'fecha_defun', 'parent_fallec', 'lugar_defun', 'vincu_afect',
+        'senti_ident_1', 'senti_ident_2', 'senti_ident_3', 'etapa_duelo',
+        'sintoma_duelo_1', 'sintoma_duelo_2', 'sintoma_duelo_3',
+        'estrategia_1', 'estrategia_2',
+        'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
+        'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
+        'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'liker_dificul', 'liker_emocion', 'liker_decision', 'redu_riesgo_cierre',
+        'users_bina', 'equipo_bina', 'usu_creo', 'usu_update', 'fecha_update', 'estado'
+    ];
+    // Campos fecha que pueden ser nulos
+    $campos_fecha_null = ['fecha_defun', 'fecha_cierre'];
+    if(count($id)==4){ // UPDATE
+        $set = [
+            'causa_duelo', 'fecha_defun', 'parent_fallec', 'lugar_defun', 'vincu_afect',
+            'senti_ident_1', 'senti_ident_2', 'senti_ident_3', 'etapa_duelo',
+            'sintoma_duelo_1', 'sintoma_duelo_2', 'sintoma_duelo_3',
+            'estrategia_1', 'estrategia_2',
+            'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
+            'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
+            'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'liker_dificul', 'liker_emocion', 'liker_decision', 'redu_riesgo_cierre',
+            'users_bina', 'equipo_bina'
+        ];
+        $params = [];
+        foreach ($set as $campo) {
+            if ($campo == 'users_bina') {
+                $params[] = ['type' => 's', 'value' => $smbin];
+            } elseif ($campo == 'equipo_bina') {
+                $params[] = ['type' => 's', 'value' => $eq];
+            } elseif (in_array($campo, $campos_fecha_null)) {
+                $val = $_POST[$campo] ?? null;
+                $params[] = [
+                    'type' => ($val === '' || $val === null) ? 'z' : 's',
+                    'value' => ($val === '' || $val === null) ? null : $val
+                ];
+            } else {
+                $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
+            }
+        }
+        $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_update
+        $sql = "UPDATE vsp_apopsicduel SET "
+            . implode(' = ?, ', $set) . " = ?, usu_update = ?, fecha_update = NOW() "
+            . "WHERE id_psicduel = ?";
+        $params[] = ['type' => 's', 'value' => $id[0]]; // id_psicduel
+        $rta = mysql_prepd($sql, $params);
+    } else if(count($id)==3){ // INSERT
+        $params = [];
+        foreach ($campos as $campo) {
+            if ($campo == 'idpeople') {
+                $params[] = ['type' => 's', 'value' => $id[0]];
+            } elseif ($campo == 'users_bina') {
+                $params[] = ['type' => 's', 'value' => $smbin];
+            } elseif ($campo == 'equipo_bina') {
+                $params[] = ['type' => 's', 'value' => $eq];
+            } elseif ($campo == 'usu_creo') {
+                $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
+            } elseif ($campo == 'usu_update' || $campo == 'fecha_update') {
+                $params[] = ['type' => 'z', 'value' => null];
+            } elseif ($campo == 'estado') {
+                $params[] = ['type' => 's', 'value' => 'A'];
+            } elseif (in_array($campo, $campos_fecha_null)) {
+                $val = $_POST[$campo] ?? null;
+                $params[] = [
+                    'type' => ($val === '' || $val === null) ? 'z' : 's',
+                    'value' => ($val === '' || $val === null) ? null : $val
+                ];
+            } else {
+                $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
+            }
+        }
+        $placeholders = implode(', ', array_fill(0, count($params), '?'));
+        $sql = "INSERT INTO vsp_apopsicduel (
+            id_psicduel, " . implode(', ', $campos) . "
+        ) VALUES (
+            NULL, $placeholders
+        )";
+        $rta = mysql_prepd($sql, $params);
+    } else {
+        $rta = "Error: id_psicduel inválido";
+    }
+    return $rta;
+} 
 
   function get_apopsicduel(){
     if($_REQUEST['id']==''){
