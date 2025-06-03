@@ -362,7 +362,7 @@ function opc_tipo_activi($id=''){
 		return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=192 and estado='A' ORDER BY 1",$id);
 		}
 
-	function gra_ambient(){
+	/* function gra_ambient(){
 		// print_r($_POST);
 		$id=divide($_POST['idvivamb']);
 		if(count($id)==2){
@@ -444,7 +444,52 @@ function opc_tipo_activi($id=''){
 		}
 		$rta=dato_mysql($sql);
 	  return $rta;
-	}
+	} */
+
+	function gra_ambient() {
+    $campos = [
+        'fecha', 'tipo_activi', 'seguro', 'grietas', 'combustible', 'separadas', 'lena', 'ilumina', 'fuma', 'bano', 'cocina', 'elevado', 'electrica', 'elementos', 'barreras', 'zontrabajo',
+        'agua', 'tanques', 'adecagua', 'raciagua', 'sanitari', 'aguaresid', 'terraza', 'recipientes', 'vivaseada', 'separesiduos', 'reutresiduos', 'noresiduos', 'adecresiduos', 'horaresiduos',
+        'plagas', 'contplagas', 'pracsanitar', 'envaplaguicid', 'consealiment', 'limpcocina', 'cuidcuerpo', 'fechvencim', 'limputensilios', 'adqualime', 'almaquimicos', 'etiqprodu', 'juguetes',
+        'medicamalma', 'medicvenc', 'adqumedicam', 'medidaspp', 'radiacion', 'contamaire', 'monoxido', 'residelectri', 'duermeelectri', 'vacunasmascot', 'aseamascot', 'alojmascot', 'excrmascot',
+        'permmascot', 'salumascot', 'pilas', 'dispmedicamentos', 'dispcompu', 'dispplamo', 'dispbombill', 'displlanta', 'dispplaguic', 'dispaceite'
+    ];
+
+    $id = divide($_POST['idvivamb']);
+
+    if (count($id) == 2) {
+        // UPDATE
+        $set = [];
+        $params = [];
+        foreach ($campos as $campo) {
+            $set[] = "$campo = ?";
+            $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
+        }
+        $set[] = "usu_update = ?";
+        $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
+        $set[] = "fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR)";
+        $sql = "UPDATE hog_amb SET " . implode(', ', $set) . " WHERE idamb = ?";
+        $params[] = ['type' => 's', 'value' => $_POST['idvivamb']];
+        $rta = mysql_prepd($sql, $params);
+    } else if (count($id) == 1) {
+        // INSERT
+        $params = [
+            ['type' => 's', 'value' => $id[0]]
+        ];
+        foreach ($campos as $campo) {
+            $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
+        }
+        $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
+        $sql = "INSERT INTO hog_amb VALUES (
+            NULL, ?, " . str_repeat('?, ', count($campos) - 1) . "?, DATE_SUB(NOW(), INTERVAL 5 HOUR), NULL, NULL, 'A'
+        )";
+        $rta = mysql_prepd($sql, $params);
+    } else {
+        $rta = "Error: idvivamb inválido";
+    }
+    return $rta;
+}
+
 
 	function get_ambient(){
 		// var_dump($_POST);
