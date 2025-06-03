@@ -287,28 +287,30 @@ function opc_equ(){
     if (($smbina = $_POST['fusers_bina'] ?? null) && is_array($smbina)) {
         $smbin = implode(",", str_replace("'", "", $smbina));
     }
-
-    // Lista de campos en el mismo orden que la tabla (sin id_acompsic/autoincremental)
     $campos = [
         'idpeople', 'fecha_seg', 'numsegui', 'evento', 'estado_s', 'motivo_estado',
         'autocono', 'cumuni_aser', 'toma_decis', 'pensa_crea', 'manejo_emo', 'rela_interp', 'solu_prob', 'pensa_critico', 'manejo_tension', 'empatia',
         'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
         'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
         'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'liker_dificul', 'liker_emocion', 'liker_decision', 'redu_riesgo_cierre',
-        'users_bina', 'equipo', 'usu_creo', 'fecha_create', 'usu_update', 'fecha_update', 'estado'
+        'users_bina', 'equipo_bina',
+        'usu_creo', 'fecha_create', 'usu_update', 'fecha_update', 'estado'
     ];
-   if (count($id) == 4) { // UPDATE
+
+    if (count($id) == 4) { // UPDATE
         $set = [
             'autocono', 'cumuni_aser', 'toma_decis', 'pensa_crea', 'manejo_emo', 'rela_interp', 'solu_prob', 'pensa_critico', 'manejo_tension', 'empatia',
             'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
             'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
             'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'liker_dificul', 'liker_emocion', 'liker_decision', 'redu_riesgo_cierre',
-            'users_bina'
+            'users_bina', 'equipo_bina'
         ];
         $params = [];
         foreach ($set as $campo) {
             if ($campo == 'users_bina') {
                 $params[] = ['type' => 's', 'value' => $smbin];
+            } elseif ($campo == 'equipo_bina') {
+                $params[] = ['type' => 's', 'value' => $eq];
             } else {
                 $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
             }
@@ -321,8 +323,8 @@ function opc_equ(){
         $params[] = ['type' => 's', 'value' => $id[0]]; // id_acompsic
         $rta = mysql_prepd($sql, $params);
 
-    } else if (count($id) == 3) { // INSERT
-      $params = [
+    } else if (count($id) == 3) {
+        $params = [
             ['type' => 's', 'value' => $id[0]], // idpeople
             ['type' => 's', 'value' => $_POST['fecha_seg'] ?? null],
             ['type' => 's', 'value' => $_POST['numsegui'] ?? null],
@@ -362,14 +364,12 @@ function opc_equ(){
             ['type' => 's', 'value' => $_POST['liker_decision'] ?? null],
             ['type' => 's', 'value' => $_POST['redu_riesgo_cierre'] ?? null],
             ['type' => 's', 'value' => $smbin], // users_bina
-            ['type' => 's', 'value' => $eq],    // equipo
+            ['type' => 's', 'value' => $eq],    // equipo_bina
             ['type' => 's', 'value' => $_SESSION['us_sds']], // usu_creo
-            // fecha_create (usa función SQL)
             ['type' => 'z', 'value' => null], // usu_update
             ['type' => 'z', 'value' => null], // fecha_update
             ['type' => 's', 'value' => 'A']   // estado
         ];
-
         $placeholders = implode(', ', array_fill(0, count($params), '?'));
         $sql = "INSERT INTO vsp_acompsic (
             id_acompsic, " . implode(', ', $campos) . "
@@ -381,7 +381,7 @@ function opc_equ(){
         $rta = "Error: id_acompsic inválido";
     }
     return $rta;
-}      
+}
 
 
   function get_acompsic(){
