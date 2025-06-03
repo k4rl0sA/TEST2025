@@ -227,59 +227,6 @@ function opc_equ(){
   $info=datos_mysql($sql);		
   return $info['responseResult'][0]['equipo'];
 }
-
-/* function gra_acompsic(){
-  // print_r($_POST);
-  $id=divide($_POST['id_acompsic']);
-  if (($smbina = $_POST['fusers_bina'] ?? null) && is_array($smbina)) {$smbin = implode(",",str_replace("'", "", $smbina));}
-  if(count($id)==4){//CAMBIO 5 por 4
-    $sql="UPDATE vsp_acompsic SET 
-            autocono = TRIM(UPPER('{$_POST['autocono']}')),
-            cumuni_aser = TRIM(UPPER('{$_POST['cumuni_aser']}')),
-            toma_decis = TRIM(UPPER('{$_POST['toma_decis']}')),
-            pensa_crea = TRIM(UPPER('{$_POST['pensa_crea']}')),
-            manejo_emo = TRIM(UPPER('{$_POST['manejo_emo']}')),
-            rela_interp = TRIM(UPPER('{$_POST['rela_interp']}')),
-            solu_prob = TRIM(UPPER('{$_POST['solu_prob']}')),
-            pensa_critico = TRIM(UPPER('{$_POST['pensa_critico']}')),
-            manejo_tension = TRIM(UPPER('{$_POST['manejo_tension']}')),
-            empatia = TRIM(UPPER('{$_POST['empatia']}')),
-            estrategia_1 = TRIM(UPPER('{$_POST['estrategia_1']}')),
-            estrategia_2 = TRIM(UPPER('{$_POST['estrategia_2']}')),
-            acciones_1 = TRIM(UPPER('{$_POST['acciones_1']}')),
-            desc_accion1 = TRIM(UPPER('{$_POST['desc_accion1']}')),
-            acciones_2 = TRIM(UPPER('{$_POST['acciones_2']}')),
-            desc_accion2 = TRIM(UPPER('{$_POST['desc_accion2']}')),
-            acciones_3 = TRIM(UPPER('{$_POST['acciones_3']}')),
-            desc_accion3 = TRIM(UPPER('{$_POST['desc_accion3']}')),
-            activa_ruta = TRIM(UPPER('{$_POST['activa_ruta']}')),
-            ruta = TRIM(UPPER('{$_POST['ruta']}')),
-            novedades = TRIM(UPPER('{$_POST['novedades']}')),
-            signos_covid = TRIM(UPPER('{$_POST['signos_covid']}')),
-            caso_afirmativo = TRIM(UPPER('{$_POST['caso_afirmativo']}')),
-            otras_condiciones = TRIM(UPPER('{$_POST['otras_condiciones']}')),
-            observaciones = TRIM(UPPER('{$_POST['observaciones']}')),
-            cierre_caso = TRIM(UPPER('{$_POST['cierre_caso']}')),
-	          motivo_cierre = TRIM(UPPER('{$_POST['motivo_cierre']}')),
-            fecha_cierre = TRIM(UPPER('{$_POST['fecha_cierre']}')),
-            liker_dificul = TRIM(UPPER('{$_POST['liker_dificul']}')),
-            liker_emocion = TRIM(UPPER('{$_POST['liker_emocion']}')),
-            liker_decision = TRIM(UPPER('{$_POST['liker_decision']}')),
-            redu_riesgo_cierre = TRIM(UPPER('{$_POST['redu_riesgo_cierre']}')),
-	    
-    `usu_update`=TRIM(UPPER('{$_SESSION['us_sds']}')),`fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
-    WHERE id_acompsic =TRIM(UPPER('{$id[0]}'))";
-    //  echo $sql;
-  }else if(count($id)==3){//CAMBIO 4 por 3
-    $eq=opc_equ();//CAMBIO ABAJO  ELIMINAR ID[1] [trim(upper('{$id[1]}')),]
-    $sql="INSERT INTO vsp_acompsic VALUES (NULL,trim(upper('{$id[0]}')),
-    trim(upper('{$_POST['fecha_seg']}')),trim(upper('{$_POST['numsegui']}')),trim(upper('{$_POST['evento']}')),trim(upper('{$_POST['estado_s']}')),trim(upper('{$_POST['motivo_estado']}')),trim(upper('{$_POST['autocono']}')),trim(upper('{$_POST['cumuni_aser']}')),trim(upper('{$_POST['toma_decis']}')),trim(upper('{$_POST['pensa_crea']}')),trim(upper('{$_POST['manejo_emo']}')),trim(upper('{$_POST['rela_interp']}')),trim(upper('{$_POST['solu_prob']}')),trim(upper('{$_POST['pensa_critico']}')),trim(upper('{$_POST['manejo_tension']}')),trim(upper('{$_POST['empatia']}')),trim(upper('{$_POST['estrategia_1']}')),trim(upper('{$_POST['estrategia_2']}')),trim(upper('{$_POST['acciones_1']}')),trim(upper('{$_POST['desc_accion1']}')),trim(upper('{$_POST['acciones_2']}')),trim(upper('{$_POST['desc_accion2']}')),trim(upper('{$_POST['acciones_3']}')),trim(upper('{$_POST['desc_accion3']}')),trim(upper('{$_POST['activa_ruta']}')),trim(upper('{$_POST['ruta']}')),trim(upper('{$_POST['novedades']}')),trim(upper('{$_POST['signos_covid']}')),trim(upper('{$_POST['caso_afirmativo']}')),trim(upper('{$_POST['otras_condiciones']}')),trim(upper('{$_POST['observaciones']}')),trim(upper('{$_POST['cierre_caso']}')),trim(upper('{$_POST['motivo_cierre']}')),trim(upper('{$_POST['fecha_cierre']}')),trim(upper('{$_POST['liker_dificul']}')),trim(upper('{$_POST['liker_emocion']}')),trim(upper('{$_POST['liker_decision']}')),trim(upper('{$_POST['redu_riesgo_cierre']}')),TRIM(UPPER('{$smbin}')),
-    '{$eq}',TRIM(UPPER('{$_SESSION['us_sds']}')),DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')";
-     //echo $sql;
-  }
-    $rta=dato_mysql($sql);
-    return $rta;
-  } */
  
   function gra_acompsic() {
     $id = divide($_POST['id_acompsic']);
@@ -326,7 +273,7 @@ function opc_equ(){
         }
         $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_update
         $sql = "UPDATE vsp_acompsic SET "
-            . implode(' = ?, ', $set) . " = ?, usu_update = ?, fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR) "
+            . implode(' = ?, ', $set) . " = ?, usu_update = ?, fecha_update = NOW() "
             . "WHERE id_acompsic = ?";
         $params[] = ['type' => 's', 'value' => $id[0]]; // id_acompsic
         $rta = mysql_prepd($sql, $params);
