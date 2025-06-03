@@ -446,15 +446,15 @@ function opc_tipo_activi($id=''){
 	  return $rta;
 	} */
 
-	function gra_ambient() {
-      $campos = [
+function gra_ambient() {
+    $campos = [
         'fecha', 'tipo_activi', 'seguro', 'grietas', 'combustible', 'separadas', 'lena', 'ilumina', 'fuma', 'bano', 'cocina', 'elevado', 'electrica', 'elementos', 'barreras', 'zontrabajo',
         'agua', 'tanques', 'adecagua', 'raciagua', 'sanitari', 'aguaresid', 'terraza', 'recipientes', 'vivaseada', 'separesiduos', 'reutresiduos', 'noresiduos', 'adecresiduos',
         'horaresiduos','plagas', 'contplagas', 'pracsanitar', 'envaplaguicid', 'consealiment', 'limpcocina', 'cuidcuerpo', 'fechvencim', 'limputensilios', 'adqualime', 'almaquimicos', 'etiqprodu', 'juguetes',
         'medicamalma', 'medicvenc', 'adqumedicam', 'medidaspp', 'radiacion', 'contamaire', 'monoxido', 'residelectri', 'duermeelectri', 'vacunasmascot', 'aseamascot', 'alojmascot', 'excrmascot',
         'permmascot', 'salumascot', 'pilas', 'dispmedicamentos', 'dispcompu', 'dispplamo', 'dispbombill', 'displlanta', 'dispplaguic', 'dispaceite'
     ];
-   $id = divide($_POST['idvivamb']);
+    $id = divide($_POST['idvivamb']);
     if (count($id) == 1) {
         $params = [
             ['type' => 's', 'value' => $id[0]]
@@ -462,14 +462,14 @@ function opc_tipo_activi($id=''){
         foreach ($campos as $campo) {
             $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
         }
-        $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_creo
-        $params[] = ['type' => 'z', 'value' => null]; // usu_update
-        $params[] = ['type' => 'z', 'value' => null]; // fecha_update
-
+        $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
+        $params[] = ['type' => 'z', 'value' => null];
+        $params[] = ['type' => 'z', 'value' => null];
+        $placeholders = implode(', ', array_fill(0, count($campos) + 4, '?'));
         $sql = "INSERT INTO hog_amb (
             idamb, idvivamb, " . implode(', ', $campos) . ", usu_creo, fecha_create, usu_update, fecha_update, estado
         ) VALUES (
-            NULL, " . str_repeat('?, ', count($campos) + 1) . "DATE_SUB(NOW(), INTERVAL 5 HOUR), ?, ?, 'A'
+            NULL, $placeholders, DATE_SUB(NOW(), INTERVAL 5 HOUR), 'A'
         )";
         $rta = mysql_prepd($sql, $params);
     }
