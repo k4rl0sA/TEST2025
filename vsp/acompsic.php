@@ -287,18 +287,17 @@ function opc_equ(){
     if (($smbina = $_POST['fusers_bina'] ?? null) && is_array($smbina)) {
         $smbin = implode(",", str_replace("'", "", $smbina));
     }
-    $campos = [
+     $campos = [
         'idpeople', 'fecha_seg', 'numsegui', 'evento', 'estado_s', 'motivo_estado',
         'autocono', 'cumuni_aser', 'toma_decis', 'pensa_crea', 'manejo_emo', 'rela_interp', 'solu_prob', 'pensa_critico', 'manejo_tension', 'empatia',
         'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
         'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
         'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'liker_dificul', 'liker_emocion', 'liker_decision', 'redu_riesgo_cierre',
         'users_bina', 'equipo_bina',
-        'usu_creo', 'fecha_create', 'usu_update', 'fecha_update', 'estado'
+        'usu_creo', 'usu_update', 'fecha_update', 'estado'
     ];
-
     if (count($id) == 4) { // UPDATE
-        $set = [
+          $set = [
             'autocono', 'cumuni_aser', 'toma_decis', 'pensa_crea', 'manejo_emo', 'rela_interp', 'solu_prob', 'pensa_critico', 'manejo_tension', 'empatia',
             'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
             'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
@@ -316,15 +315,13 @@ function opc_equ(){
             }
         }
         $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_update
-
         $sql = "UPDATE vsp_acompsic SET "
             . implode(' = ?, ', $set) . " = ?, usu_update = ?, fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR) "
             . "WHERE id_acompsic = ?";
         $params[] = ['type' => 's', 'value' => $id[0]]; // id_acompsic
         $rta = mysql_prepd($sql, $params);
-
     } else if (count($id) == 3) {
-        $params = [
+       $params = [
             ['type' => 's', 'value' => $id[0]], // idpeople
             ['type' => 's', 'value' => $_POST['fecha_seg'] ?? null],
             ['type' => 's', 'value' => $_POST['numsegui'] ?? null],
@@ -382,7 +379,6 @@ function opc_equ(){
     }
     return $rta;
 }
-
 
   function get_acompsic(){
     if($_REQUEST['id']==''){
