@@ -473,15 +473,17 @@ function opc_tipo_activi($id=''){
         $rta = mysql_prepd($sql, $params);
     } else if (count($id) == 1) {
         // INSERT
-        $params = [
+       $params = [
             ['type' => 's', 'value' => $id[0]]
         ];
         foreach ($campos as $campo) {
             $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
         }
         $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
-        $sql = "INSERT INTO hog_amb VALUES (
-            NULL, ?, " . str_repeat('?, ', count($campos) - 1) . "?, DATE_SUB(NOW(), INTERVAL 5 HOUR), NULL, NULL, 'A'
+        $sql = "INSERT INTO hog_amb (
+            idamb, idvivamb, " . implode(', ', $campos) . ", usu_creo, fecha_create, estado
+        ) VALUES (
+            NULL, " . str_repeat('?, ', count($campos) + 1) . "DATE_SUB(NOW(), INTERVAL 5 HOUR), 'A'
         )";
         $rta = mysql_prepd($sql, $params);
     } else {
