@@ -113,10 +113,10 @@ function cmp_segComp(){
         ['type' => 's', 'value' => $_POST['cumplio']],
         ['type' => 's', 'value' => $_POST['observacion']],
         ['type' => 's', 'value' => $equipo],
-        ['type' => 'i', 'value' => $_SESSION['us_sds']],
-        ['type' => 's', 'value' => date("Y-m-d H:i:s")],
-        ['type' => 'z', 'value' => NULL],
-        ['type' => 'z', 'value' => NULL],
+         ['type' => 'i', 'value' => $_SESSION['us_sds']], // usu_create
+        ['type' => 's', 'value' => date("Y-m-d H:i:s")], // fecha_create
+        ['type' => 'i', 'value' => $_SESSION['us_sds']], // usu_update (ajustado)
+        ['type' => 's', 'value' => date("Y-m-d H:i:s")], // fecha_update (ajustado)
         ['type' => 's', 'value' => 'A']
       ];
       $rta = mysql_prepd($sql, $params);
