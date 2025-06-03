@@ -127,8 +127,8 @@ function cmp_planDcui(){
         ['type' => 's', 'value' => $_POST['observacion']],
         ['type' => 'i', 'value' => $_SESSION['us_sds']],
         ['type' => 's', 'value' => date("Y-m-d H:i:s")],
-        ['type' => 's', 'value' => ''],
-        ['type' => 's', 'value' => ''],
+        ['type' => 'z', 'value' => null],
+        ['type' => 'z', 'value' => null],
         ['type' => 's', 'value' => 'A']
       ];
       //$rta=show_sql($sql, $params);
