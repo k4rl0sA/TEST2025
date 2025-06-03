@@ -115,8 +115,8 @@ function cmp_segComp(){
         ['type' => 's', 'value' => $equipo],
         ['type' => 'i', 'value' => $_SESSION['us_sds']],
         ['type' => 's', 'value' => date("Y-m-d H:i:s")],
-        ['type' => 's', 'value' => ''],
-        ['type' => 's', 'value' => ''],
+        ['type' => 'z', 'value' => NULL],
+        ['type' => 'z', 'value' => NULL],
         ['type' => 's', 'value' => 'A']
       ];
       $rta = mysql_prepd($sql, $params);
