@@ -90,8 +90,8 @@ function gra_compConc(){
         ['type' => 's', 'value' => $_POST['obs']],
         ['type' => 's', 'value' => date("Y-m-d H:i:s")],
         ['type' => 'i', 'value' => $_SESSION['us_sds']],
-        ['type' => 's', 'value' => ''],
-        ['type' => 's', 'value' => ''],
+        ['type' => 'z', 'value' => NULL],
+        ['type' => 'z', 'value' => NULL],
         ['type' => 's', 'value' => 'A']
       ];
       $rta = mysql_prepd($sql, $params);
