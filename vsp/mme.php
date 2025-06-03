@@ -320,141 +320,83 @@ function opc_equ(){
 
 
 function gra_mme(){
-  // print_r($_POST);
-  $id=divide($_POST['id_mme']);
-  $smbina = isset($_POST['fequipo'])?(is_array($_POST['fequipo'])?implode("-", $_POST['fequipo']):implode("-",array_map('trim',explode(",",str_replace("'","",$_POST['fequipo']))))):'';
+  $id = divide($_POST['id_mme']);
+  $eq = opc_equ();
+  $smbina = isset($_POST['fequipo']) 
+    ? (is_array($_POST['fequipo']) ? implode("-", $_POST['fequipo']) : implode("-", array_map('trim', explode(",", str_replace("'", "", $_POST['fequipo'])))))
+    : '';
+
+  // Orden de los campos según la tabla
+  $campos = [
+    'idpeople', 'fecha_seg', 'numsegui', 'evento', 'tiposeg', 'estado_s', 'motivo_estado', 'etapa', 'sema_gest',
+    'gestaciones', 'partos', 'abortos', 'cesareas', 'vivos', 'muertos', 'fecha_egre', 'edad_padre', 'asis_ctrpre', 'ing_ctrpre', 'cpn', 'porque_no',
+    'exam_lab', 'esqu_vacuna', 'cons_micronutr', 'trata_farma', 'tipo_tratafarma', 'cualtra', 'adhe_tratafarma', 'porque_noadh', 'peso', 'talla', 'imc',
+    'clasi_nutri', 'signos_alarma_seg', 'descr_sigalarma', 'entrega_medic_labo', 'fecha_obstetrica', 'edad_gesta', 'resul_gest', 'meto_fecunda', 'cualmet',
+    'otro_cual', 'motivo_nofecund', 'control_mac', 'fecha_control_mac', 'ctrl_postpar_espe', 'fecha_postpar_espe', 'asis_ctrl_postpar_espe', 'porque_no_postpar',
+    'consul_apoy_lacmater', 'signos_alarma', 'desc_sigala', 'disc_ges', 'cual_disc_ges', 'fecha_apoy_lacmater', 'peso_rcnv', 'ctrl_recinac', 'fecha_ctrl_nac',
+    'asis_ctrl_recinac', 'porque_norec', 'ult_peso', 'consul_lacmate', 'porque_nolact', 'fecha_consul_lacmate', 'asiste_ctrl_cyd', 'vacuna_comple', 'lacmate_exclu',
+    'signos_alarma_lac', 'cam_sign', 'qui_vida', 'viv_malt', 'adec_red', 'fecha_egreopost', 'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1',
+    'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3', 'activa_ruta', 'ruta', 'novedades', 'otras_condiciones', 'observaciones', 'cierre_caso',
+    'motivo_cierre', 'fecha_cierre', 'conti_segespecial', 'cual_segespecial', 'recomen_cierre', 'redu_riesgo_cierre', 'users_bina', 'equipo_bina',
+    'usu_creo', 'usu_update', 'fecha_update', 'fecha_create', 'estado'
+  ];
+  // Campos fecha que pueden ser nulos
+  $campos_fecha_null = [
+    'fecha_egre', 'fecha_obstetrica', 'fecha_control_mac', 'fecha_postpar_espe', 'fecha_apoy_lacmater', 'fecha_ctrl_nac',
+    'fecha_consul_lacmate', 'fecha_cierre', 'fecha_egreopost', 'fecha_update', 'fecha_create'
+  ];
+
   if(count($id)==4){
-    $sql = "update vsp_mme SET observaciones=?,usu_update=?,fecha_update=DATE_SUB(NOW(),INTERVAL 5 HOUR) WHERE id_mme=?";
-		$params = [
-      ['type' => 's', 'value' => $_POST['observaciones']],
-      ['type' => 'i', 'value' => $_SESSION['us_sds']],
-			['type' => 's', 'value' =>$id[0] ]
+    // UPDATE (ajusta los campos que realmente quieres actualizar)
+    $set = [
+      'observaciones'
     ];
-    return  $rta= mysql_prepd($sql, $params);
+    $params = [];
+    foreach ($set as $campo) {
+      $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
+    }
+    $params[] = ['type' => 'i', 'value' => $_SESSION['us_sds']]; // usu_update
+    $sql = "UPDATE vsp_mme SET observaciones = ?, usu_update = ?, fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR) WHERE id_mme = ?";
+    $params[] = ['type' => 's', 'value' => $id[0]]; // id_mme
+    return mysql_prepd($sql, $params);
 
-    /* $sql="UPDATE vsp_mme SET 
-    etapa=trim(upper('{$_POST['etapa']}')),sema_gest=trim(upper('{$_POST['sema_gest']}')),asis_ctrpre=trim(upper('{$_POST['asis_ctrpre']}')),exam_lab=trim(upper('{$_POST['exam_lab']}')),esqu_vacuna=trim(upper('{$_POST['esqu_vacuna']}')),cons_micronutr=trim(upper('{$_POST['cons_micronutr']}')),trata_farma=trim(upper('{$_POST['trata_farma']}')),adhe_tratafarma=trim(upper('{$_POST['adhe_tratafarma']}')),peso=trim(upper('{$_POST['peso']}')),talla=trim(upper('{$_POST['talla']}')),imc=trim(upper('{$_POST['imc']}')),clasi_nutri=trim(upper('{$_POST['clasi_nutri']}')),fecha_obstetrica=trim(upper('{$_POST['fecha_obstetrica']}')),edad_gesta=trim(upper('{$_POST['edad_gesta']}')),resul_gest=trim(upper('{$_POST['resul_gest']}')),meto_fecunda=trim(upper('{$_POST['meto_fecunda']}')),cual=trim(upper('{$_POST['cual']}')),otro_cual=trim(upper('{$_POST['otro_cual']}')),motivo_nofecund=trim(upper('{$_POST['motivo_nofecund']}')),control_mac=trim(upper('{$_POST['control_mac']}')),fecha_control_mac=trim(upper('{$_POST['fecha_control_mac']}')),ctrl_postpar_espe=trim(upper('{$_POST['ctrl_postpar_espe']}')),fecha_postpar_espe=trim(upper('{$_POST['fecha_postpar_espe']}')),consul_apoy_lacmater=trim(upper('{$_POST['consul_apoy_lacmater']}')),fecha_apoy_lacmater=trim(upper('{$_POST['fecha_apoy_lacmater']}')),peso_rcnv=trim(upper('{$_POST['peso_rcnv']}')),consul_lacmate=trim(upper('{$_POST['consul_lacmate']}')),fecha_consul_lacmate=trim(upper('{$_POST['fecha_consul_lacmate']}')),asiste_ctrl_cyd=trim(upper('{$_POST['asiste_ctrl_cyd']}')),vacuna_comple=trim(upper('{$_POST['vacuna_comple']}')),lacmate_exclu=trim(upper('{$_POST['lacmate_exclu']}')),signos_alarma=trim(upper('{$_POST['signos_alarma']}')),signos_alarma_seg=trim(upper('{$_POST['signos_alarma_seg']}')),descr_sigalarma=trim(upper('{$_POST['descr_sigalarma']}')),entrega_medic_labo=trim(upper('{$_POST['entrega_medic_labo']}')),estrategia_1=trim(upper('{$_POST['estrategia_1']}')),estrategia_2=trim(upper('{$_POST['estrategia_2']}')),acciones_1=trim(upper('{$_POST['acciones_1']}')),desc_accion1=trim(upper('{$_POST['desc_accion1']}')),acciones_2=trim(upper('{$_POST['acciones_2']}')),desc_accion2=trim(upper('{$_POST['desc_accion2']}')),acciones_3=trim(upper('{$_POST['acciones_3']}')),desc_accion3=trim(upper('{$_POST['desc_accion3']}')),activa_ruta=trim(upper('{$_POST['activa_ruta']}')),ruta=trim(upper('{$_POST['ruta']}')),novedades=trim(upper('{$_POST['novedades']}')),signos_covid=trim(upper('{$_POST['signos_covid']}')),caso_afirmativo=trim(upper('{$_POST['caso_afirmativo']}')),otras_condiciones=trim(upper('{$_POST['otras_condiciones']}')),observaciones=trim(upper('{$_POST['observaciones']}')),cierre_caso=trim(upper('{$_POST['cierre_caso']}')),motivo_cierre=trim(upper('{$_POST['motivo_cierre']}')),fecha_cierre=trim(upper('{$_POST['fecha_cierre']}')),conti_segespecial=trim(upper('{$_POST['conti_segespecial']}')),cual_segespecial=trim(upper('{$_POST['cual_segespecial']}')),recomen_cierre=trim(upper('{$_POST['recomen_cierre']}')),redu_riesgo_cierre=trim(upper('{$_POST['redu_riesgo_cierre']}')),
-    `usu_update`=TRIM(UPPER('{$_SESSION['us_sds']}')),`fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
-    WHERE id_mme =TRIM(UPPER('{$id[0]}'))"; */
-    // echo $sql;
-
-  }else if(count($id)==3){
-    $eq=opc_equ();
-    $id=divide($_POST['id_mme']);
-    $sql = "INSERT INTO vsp_mme VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,?)";
-    $params =[
-    ['type' => 'i', 'value' => NULL],//1
-    ['type' => 'i', 'value' => $id[0]],//2
-    ['type' => 's', 'value' => $_POST['fecha_seg']],//3
-    ['type' => 's', 'value' => $_POST['numsegui']],//4
-    ['type' => 's', 'value' => $_POST['evento']],//5
-    ['type' => 's', 'value' => $_POST['tiposeg']],//6
-    ['type' => 's', 'value' => $_POST['estado_s']],//7
-    ['type' => 's', 'value' => $_POST['motivo_estado']],//8
-    ['type' => 's', 'value' => $_POST['etapa']],//9
-    ['type' => 's', 'value' => $_POST['sema_gest']],//10
-    ['type' => 's', 'value' => $_POST['gestaciones']],//11
-    ['type' => 's', 'value' => $_POST['partos']],//12
-    ['type' => 's', 'value' => $_POST['abortos']],//13
-    ['type' => 's', 'value' => $_POST['cesareas']],//14
-    ['type' => 's', 'value' => $_POST['vivos']],//15
-    ['type' => 's', 'value' => $_POST['muertos']],//16
-    ['type' => 's', 'value' => $_POST['fecha_egre']],//17
-    ['type' => 's', 'value' => $_POST['edad_padre']],//18
-    ['type' => 's', 'value' => $_POST['asis_ctrpre']],//19
-    ['type' => 's', 'value' => $_POST['ing_ctrpre']],//20
-    ['type' => 's', 'value' => $_POST['cpn']],//21
-    ['type' => 's', 'value' => $_POST['porque_no']],//22
-    ['type' => 's', 'value' => $_POST['exam_lab']],//23
-    ['type' => 's', 'value' => $_POST['esqu_vacuna']],//24
-    ['type' => 's', 'value' => $_POST['cons_micronutr']],//25
-    ['type' => 's', 'value' => $_POST['trata_farma']],//26
-    ['type' => 's', 'value' => $_POST['tipo_tratafarma']],//27
-    ['type' => 's', 'value' => $_POST['cualtra']],//28
-    ['type' => 's', 'value' => $_POST['adhe_tratafarma']],//29
-    ['type' => 's', 'value' => $_POST['porque_noadh']],//30
-    ['type' => 's', 'value' => $_POST['peso']],//31
-    ['type' => 's', 'value' => $_POST['talla']],//32
-    ['type' => 's', 'value' => $_POST['imc']],//33
-    ['type' => 's', 'value' => $_POST['clasi_nutri']],//34
-    ['type' => 's', 'value' => $_POST['signos_alarma_seg']],//35
-    ['type' => 's', 'value' => $_POST['descr_sigalarma']],//36
-    ['type' => 's', 'value' => $_POST['entrega_medic_labo']],//37
-    ['type' => 's', 'value' => $_POST['fecha_obstetrica']],//38
-    ['type' => 's', 'value' => $_POST['edad_gesta']],//39
-    ['type' => 's', 'value' => $_POST['resul_gest']],//40
-    ['type' => 's', 'value' => $_POST['meto_fecunda']],//41
-    //['type' => 's', 'value' => $_POST['cual']],//42
-    //['type' => 's', 'value' => $_POST['resul_gest']],//43
-    //['type' => 's', 'value' => $_POST['meto_fecunda']],//44
-    ['type' => 's', 'value' => $_POST['cualmet']],//42
-    ['type' => 's', 'value' => $_POST['otro_cual']],//43
-    ['type' => 's', 'value' => $_POST['motivo_nofecund']],//44
-    ['type' => 's', 'value' => $_POST['control_mac']],//45
-    ['type' => 's', 'value' => $_POST['fecha_control_mac']],//46
-    ['type' => 's', 'value' => $_POST['ctrl_postpar_espe']],//47
-    ['type' => 's', 'value' => $_POST['fecha_postpar_espe']],//48
-    ['type' => 's', 'value' => $_POST['asis_ctrl_postpar_espe']],//49
-    ['type' => 's', 'value' => $_POST['porque_no_postpar']],//50
-    ['type' => 's', 'value' => $_POST['consul_apoy_lacmater']],//51
-    ['type' => 's', 'value' => $_POST['signos_alarma']],//52
-    ['type' => 's', 'value' => $_POST['desc_sigala']],//53
-    ['type' => 's', 'value' => $_POST['disc_ges']],//54
-    ['type' => 's', 'value' => $_POST['cual_disc_ges']],//55
-    ['type' => 's', 'value' => $_POST['fecha_apoy_lacmater']],//56
-    ['type' => 's', 'value' => $_POST['peso_rcnv']],//57
-    ['type' => 's', 'value' => $_POST['ctrl_recinac']],//58
-    ['type' => 's', 'value' => $_POST['fecha_ctrl_nac']],//59
-    ['type' => 's', 'value' => $_POST['asis_ctrl_recinac']],//60
-    ['type' => 's', 'value' => $_POST['porque_norec']],//61
-    ['type' => 's', 'value' => $_POST['ult_peso']],//62
-    ['type' => 's', 'value' => $_POST['consul_lacmate']],//63
-    ['type' => 's', 'value' => $_POST['porque_nolact']],//64
-    ['type' => 's', 'value' => $_POST['fecha_consul_lacmate']],//65
-    ['type' => 's', 'value' => $_POST['asiste_ctrl_cyd']],//66
-    ['type' => 's', 'value' => $_POST['vacuna_comple']],//67
-    ['type' => 's', 'value' => $_POST['lacmate_exclu']],//68
-    ['type' => 's', 'value' => $_POST['signos_alarma_lac']],//69
-    ['type' => 's', 'value' => $_POST['cam_sign']],//70
-    ['type' => 's', 'value' => $_POST['qui_vida']],//71
-    ['type' => 's', 'value' => $_POST['viv_malt']],//72
-    ['type' => 's', 'value' => $_POST['adec_red']],//73
-    ['type' => 's', 'value' => $_POST['fecha_egreopost']],//74
-    ['type' => 's', 'value' => $_POST['estrategia_1']],//75
-    ['type' => 's', 'value' => $_POST['estrategia_2']],//76
-    ['type' => 's', 'value' => $_POST['acciones_1']],//77
-    ['type' => 's', 'value' => $_POST['desc_accion1']],//78
-    ['type' => 's', 'value' => $_POST['acciones_2']],//79
-    ['type' => 's', 'value' => $_POST['desc_accion2']],//80
-    ['type' => 's', 'value' => $_POST['acciones_3']],//81
-    ['type' => 's', 'value' => $_POST['desc_accion3']],//82
-    ['type' => 's', 'value' => $_POST['activa_ruta']],//83
-    ['type' => 's', 'value' => $_POST['ruta']],//84
-    ['type' => 's', 'value' => $_POST['novedades']],//85
-    ['type' => 's', 'value' => $_POST['otras_condiciones']],//86
-    ['type' => 's', 'value' => $_POST['observaciones']],//87
-    ['type' => 's', 'value' => $_POST['cierre_caso']],//88
-    ['type' => 's', 'value' => $_POST['motivo_cierre']],//89
-    ['type' => 's', 'value' => $_POST['fecha_cierre']],//90
-    ['type' => 's', 'value' => $_POST['conti_segespecial']],//91
-    ['type' => 's', 'value' => $_POST['cual_segespecial']],//92
-    ['type' => 's', 'value' => $_POST['recomen_cierre']],//93
-    ['type' => 's', 'value' => $_POST['redu_riesgo_cierre']],//94
-    ['type' => 's', 'value' => $smbina],//95
-    ['type' => 's', 'value' => $eq],
-    ['type' => 'i', 'value' => $_SESSION['us_sds']],//96
-    ['type' => 's', 'value' => NULL],//98
-    ['type' => 's', 'value' => NULL],//99
-    ['type' => 's', 'value' => 'A']//100
-    ];
-    //return count($params).' '.json_encode($params).' '.$sql; 
-    return  $rta= mysql_prepd($sql, $params);
-   /*  $sql="INSERT INTO vsp_mme VALUES (NULL,trim(upper('{$id[0]}')),
-    trim(upper('{$_POST['fecha_seg']}')),trim(upper('{$_POST['numsegui']}')),trim(upper('{$_POST['evento']}')),trim(upper('{$_POST['estado_s']}')),trim(upper('{$_POST['motivo_estado']}')),trim(upper('{$_POST['etapa']}')),trim(upper('{$_POST['sema_gest']}')),trim(upper('{$_POST['asis_ctrpre']}')),trim(upper('{$_POST['exam_lab']}')),trim(upper('{$_POST['esqu_vacuna']}')),trim(upper('{$_POST['cons_micronutr']}')),trim(upper('{$_POST['trata_farma']}')),trim(upper('{$_POST['adhe_tratafarma']}')),trim(upper('{$_POST['peso']}')),trim(upper('{$_POST['talla']}')),trim(upper('{$_POST['imc']}')),trim(upper('{$_POST['clasi_nutri']}')),trim(upper('{$_POST['fecha_obstetrica']}')),trim(upper('{$_POST['edad_gesta']}')),trim(upper('{$_POST['resul_gest']}')),trim(upper('{$_POST['meto_fecunda']}')),trim(upper('{$_POST['cual']}')),trim(upper('{$_POST['otro_cual']}')),trim(upper('{$_POST['motivo_nofecund']}')),trim(upper('{$_POST['control_mac']}')),trim(upper('{$_POST['fecha_control_mac']}')),trim(upper('{$_POST['ctrl_postpar_espe']}')),trim(upper('{$_POST['fecha_postpar_espe']}')),trim(upper('{$_POST['consul_apoy_lacmater']}')),trim(upper('{$_POST['fecha_apoy_lacmater']}')),trim(upper('{$_POST['peso_rcnv']}')),trim(upper('{$_POST['consul_lacmate']}')),trim(upper('{$_POST['fecha_consul_lacmate']}')),trim(upper('{$_POST['asiste_ctrl_cyd']}')),trim(upper('{$_POST['vacuna_comple']}')),trim(upper('{$_POST['lacmate_exclu']}')),trim(upper('{$_POST['signos_alarma']}')),trim(upper('{$_POST['signos_alarma_seg']}')),trim(upper('{$_POST['descr_sigalarma']}')),trim(upper('{$_POST['entrega_medic_labo']}')),trim(upper('{$_POST['estrategia_1']}')),trim(upper('{$_POST['estrategia_2']}')),trim(upper('{$_POST['acciones_1']}')),trim(upper('{$_POST['desc_accion1']}')),trim(upper('{$_POST['acciones_2']}')),trim(upper('{$_POST['desc_accion2']}')),trim(upper('{$_POST['acciones_3']}')),trim(upper('{$_POST['desc_accion3']}')),trim(upper('{$_POST['activa_ruta']}')),trim(upper('{$_POST['ruta']}')),trim(upper('{$_POST['novedades']}')),trim(upper('{$_POST['signos_covid']}')),trim(upper('{$_POST['caso_afirmativo']}')),trim(upper('{$_POST['otras_condiciones']}')),trim(upper('{$_POST['observaciones']}')),trim(upper('{$_POST['cierre_caso']}')),trim(upper('{$_POST['motivo_cierre']}')),trim(upper('{$_POST['fecha_cierre']}')),trim(upper('{$_POST['conti_segespecial']}')),trim(upper('{$_POST['cual_segespecial']}')),trim(upper('{$_POST['recomen_cierre']}')),trim(upper('{$_POST['redu_riesgo_cierre']}')),
-    trim(upper('{$smbin}')),'{$eq}',TRIM(UPPER('{$_SESSION['us_sds']}')),DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')"; */
-    // echo $sql;
+  } else if(count($id)==3){
+    // INSERT
+    $params = [];
+    foreach ($campos as $campo) {
+      if ($campo == 'idpeople') {
+        $params[] = ['type' => 'i', 'value' => $id[0]];
+      } elseif ($campo == 'users_bina') {
+        $params[] = ['type' => 's', 'value' => $smbina];
+      } elseif ($campo == 'equipo_bina') {
+        $params[] = ['type' => 's', 'value' => $eq];
+      } elseif ($campo == 'usu_creo') {
+        $params[] = ['type' => 'i', 'value' => $_SESSION['us_sds']];
+      } elseif ($campo == 'usu_update' || $campo == 'fecha_update' || $campo == 'fecha_create') {
+        $params[] = ['type' => 'z', 'value' => null];
+      } elseif ($campo == 'estado') {
+        $params[] = ['type' => 's', 'value' => 'A'];
+      } elseif (in_array($campo, $campos_fecha_null)) {
+        $val = $_POST[$campo] ?? null;
+        $params[] = [
+          'type' => ($val === '' || $val === null) ? 'z' : 's',
+          'value' => ($val === '' || $val === null) ? null : $val
+        ];
+      } else {
+        $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
+      }
+    }
+    $placeholders = implode(', ', array_fill(0, count($params), '?'));
+    $sql = "INSERT INTO vsp_mme (
+      id_mme, " . implode(', ', $campos) . "
+    ) VALUES (
+      NULL, $placeholders
+    )";
+    return mysql_prepd($sql, $params);
+  } else {
+    return "Error: id_mme inválido";
   }
-  } 
+} 
 
 
   function get_mme(){
