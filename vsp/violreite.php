@@ -248,26 +248,92 @@ function opc_equ(){
 }
 
 function gra_violreite(){
-  //$fecha_cierre = ($_POST['fecha_cierre']) ? "trim(upper({'".$_POST['fecha_cierre']."'}))":"NULL";
-  
-  $id=divide($_POST['id_violreite']);
-  if (($smbina = $_POST['fusers_bina'] ?? null) && is_array($smbina)) {$smbin = implode(",",str_replace("'", "", $smbina));}
+  $id = divide($_POST['id_violreite']);
+  $eq = opc_equ();
+  $smbin = null;
+  if (($smbina = $_POST['fusers_bina'] ?? null) && is_array($smbina)) {
+    $smbin = implode(",", str_replace("'", "", $smbina));
+  }
+  // Orden de los campos según la tabla
+  $campos = [
+    'idpeople', 'fecha_seg', 'numsegui', 'evento', 'estado_s', 'motivo_estado', 'asiste_control', 'vacuna_comple', 'lacmate_exclu', 'lacmate_comple',
+    'alime_complemen', 'riesgo_violen', 'apoyo_sector', 'cual_sector', 'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2',
+    'desc_accion2', 'acciones_3', 'desc_accion3', 'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones',
+    'observaciones', 'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'liker_dificul', 'liker_emocion', 'liker_decision', 'redu_riesgo_cierre',
+    'users_bina', 'equipo_bina', 'usu_creo', 'fecha_create', 'usu_update', 'fecha_update', 'estado'
+  ];
+  // Campos fecha que pueden ser nulos
+  $campos_fecha_null = ['fecha_cierre', 'fecha_update', 'fecha_create'];
   if(count($id)==4){
-    $sql="UPDATE vsp_violreite SET 
-    asiste_control=trim(upper('{$_POST['asiste_control']}')),vacuna_comple=trim(upper('{$_POST['vacuna_comple']}')),lacmate_exclu=trim(upper('{$_POST['lacmate_exclu']}')),lacmate_comple=trim(upper('{$_POST['lacmate_comple']}')),alime_complemen=trim(upper('{$_POST['alime_complemen']}')),riesgo_violen=trim(upper('{$_POST['riesgo_violen']}')),apoyo_sector=trim(upper('{$_POST['apoyo_sector']}')),cual_sector=trim(upper('{$_POST['cual_sector']}')),estrategia_1=trim(upper('{$_POST['estrategia_1']}')),estrategia_2=trim(upper('{$_POST['estrategia_2']}')),acciones_1=trim(upper('{$_POST['acciones_1']}')),desc_accion1=trim(upper('{$_POST['desc_accion1']}')),acciones_2=trim(upper('{$_POST['acciones_2']}')),desc_accion2=trim(upper('{$_POST['desc_accion2']}')),acciones_3=trim(upper('{$_POST['acciones_3']}')),desc_accion3=trim(upper('{$_POST['desc_accion3']}')),activa_ruta=trim(upper('{$_POST['activa_ruta']}')),ruta=trim(upper('{$_POST['ruta']}')),novedades=trim(upper('{$_POST['novedades']}')),signos_covid=trim(upper('{$_POST['signos_covid']}')),caso_afirmativo=trim(upper('{$_POST['caso_afirmativo']}')),otras_condiciones=trim(upper('{$_POST['otras_condiciones']}')),observaciones=trim(upper('{$_POST['observaciones']}')),cierre_caso=trim(upper('{$_POST['cierre_caso']}')),motivo_cierre=trim(upper('{$_POST['motivo_cierre']}')),fecha_cierre=trim(upper('{$_POST['fecha_cierre']}')),liker_dificul=trim(upper('{$_POST['liker_dificul']}')),liker_emocion=trim(upper('{$_POST['liker_emocion']}')),liker_decision=trim(upper('{$_POST['liker_decision']}')),redu_riesgo_cierre=trim(upper('{$_POST['redu_riesgo_cierre']}')),
-    users_bina={$smbin},usu_update=TRIM(UPPER('{$_SESSION['us_sds']}')),fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
-    WHERE id_violreite =TRIM(UPPER('{$id[0]}'))";
-    // echo $sql;
-  }else if(count($id)==3){
-    $eq=opc_equ();
-    $sql="INSERT INTO vsp_violreite VALUES (NULL,trim(upper('{$id[0]}')),
-    trim(upper('{$_POST['fecha_seg']}')),trim(upper('{$_POST['numsegui']}')),trim(upper('{$_POST['evento']}')),trim(upper('{$_POST['estado_s']}')),trim(upper('{$_POST['motivo_estado']}')),trim(upper('{$_POST['asiste_control']}')),trim(upper('{$_POST['vacuna_comple']}')),trim(upper('{$_POST['lacmate_exclu']}')),trim(upper('{$_POST['lacmate_comple']}')),trim(upper('{$_POST['alime_complemen']}')),trim(upper('{$_POST['riesgo_violen']}')),trim(upper('{$_POST['apoyo_sector']}')),trim(upper('{$_POST['cual_sector']}')),trim(upper('{$_POST['estrategia_1']}')),trim(upper('{$_POST['estrategia_2']}')),trim(upper('{$_POST['acciones_1']}')),trim(upper('{$_POST['desc_accion1']}')),trim(upper('{$_POST['acciones_2']}')),trim(upper('{$_POST['desc_accion2']}')),trim(upper('{$_POST['acciones_3']}')),trim(upper('{$_POST['desc_accion3']}')),trim(upper('{$_POST['activa_ruta']}')),trim(upper('{$_POST['ruta']}')),trim(upper('{$_POST['novedades']}')),trim(upper('{$_POST['signos_covid']}')),trim(upper('{$_POST['caso_afirmativo']}')),trim(upper('{$_POST['otras_condiciones']}')),trim(upper('{$_POST['observaciones']}')),trim(upper('{$_POST['cierre_caso']}')),trim(upper('{$_POST['motivo_cierre']}')),trim(upper('{$_POST['fecha_cierre']}')),trim(upper('{$_POST['liker_dificul']}')),trim(upper('{$_POST['liker_emocion']}')),trim(upper('{$_POST['liker_decision']}')),trim(upper('{$_POST['redu_riesgo_cierre']}')),
-    trim(upper('{$smbin}')),'{$eq}',TRIM(UPPER('{$_SESSION['us_sds']}')),DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')";
-      // echo $sql;
+    // UPDATE
+    $set = [
+      'asiste_control', 'vacuna_comple', 'lacmate_exclu', 'lacmate_comple', 'alime_complemen', 'riesgo_violen', 'apoyo_sector', 'cual_sector',
+      'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3', 'activa_ruta',
+      'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones', 'cierre_caso', 'motivo_cierre', 'fecha_cierre',
+      'liker_dificul', 'liker_emocion', 'liker_decision', 'redu_riesgo_cierre', 'users_bina', 'equipo_bina'
+    ];
+    $params = [];
+    foreach ($set as $campo) {
+      if ($campo == 'users_bina') {
+        $params[] = ['type' => 's', 'value' => $smbin];
+      } elseif ($campo == 'equipo_bina') {
+        $params[] = ['type' => 's', 'value' => $eq];
+      } elseif (in_array($campo, $campos_fecha_null)) {
+        $val = $_POST[$campo] ?? null;
+        $params[] = [
+          'type' => ($val === '' || $val === null) ? 'z' : 's',
+          'value' => ($val === '' || $val === null) ? null : $val
+        ];
+      } else {
+        $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
+      }
     }
-      $rta=dato_mysql($sql);
-      return $rta;
-  } 
+    $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_update
+    $sql = "UPDATE vsp_violreite SET "
+      . implode(' = ?, ', $set) . " = ?, usu_update = ?, fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR) "
+      . "WHERE id_violreite = ?";
+    $params[] = ['type' => 's', 'value' => $id[0]]; // id_violreite
+    $rta = mysql_prepd($sql, $params);
+  } else if(count($id)==3){
+    // INSERT
+    $params = [];
+    foreach ($campos as $campo) {
+      if ($campo == 'idpeople') {
+        $params[] = ['type' => 's', 'value' => $id[0]];
+      } elseif ($campo == 'users_bina') {
+        $params[] = ['type' => 's', 'value' => $smbin];
+      } elseif ($campo == 'equipo_bina') {
+        $params[] = ['type' => 's', 'value' => $eq];
+      } elseif ($campo == 'usu_creo') {
+        $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
+      } elseif ($campo == 'usu_update' || $campo == 'fecha_update') {
+        $params[] = ['type' => 'z', 'value' => null];
+      } elseif ($campo == 'fecha_create') {
+        $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')];
+      } elseif ($campo == 'estado') {
+        $params[] = ['type' => 's', 'value' => 'A'];
+      } elseif (in_array($campo, $campos_fecha_null)) {
+        $val = $_POST[$campo] ?? null;
+        $params[] = [
+          'type' => ($val === '' || $val === null) ? 'z' : 's',
+          'value' => ($val === '' || $val === null) ? null : $val
+        ];
+      } else {
+        $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
+      }
+    }
+    $placeholders = implode(', ', array_fill(0, count($params), '?'));
+    $sql = "INSERT INTO vsp_violreite (
+      id_violreite, " . implode(', ', $campos) . "
+    ) VALUES (
+      NULL, $placeholders
+    )";
+    $rta = mysql_prepd($sql, $params);
+  } else {
+    $rta = "Error: id_violreite inválido";
+  }
+  return $rta;
+}
 
   function get_violreite(){
     if($_REQUEST['id']==''){

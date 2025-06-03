@@ -313,25 +313,113 @@ function opc_equ(){
 }
 
 function gra_sifigest(){
-  // print_r($_POST);
-  $id=divide($_POST['id_sifigest']);
-  if (($smbina = $_POST['fusers_bina'] ?? null) && is_array($smbina)) {$smbin = implode(",",str_replace("'", "", $smbina));}
-  if(count($id)==4){
-    $sql="UPDATE vsp_sifigest SET 
-    etapa=trim(upper('{$_POST['etapa']}')),sema_gest=trim(upper('{$_POST['sema_gest']}')),asis_ctrpre=trim(upper('{$_POST['asis_ctrpre']}')),exam_lab=trim(upper('{$_POST['exam_lab']}')),esqu_vacuna=trim(upper('{$_POST['esqu_vacuna']}')),cons_micronutr=trim(upper('{$_POST['cons_micronutr']}')),fecha_obstetrica=trim(upper('{$_POST['fecha_obstetrica']}')),edad_gesta=trim(upper('{$_POST['edad_gesta']}')),resul_gest=trim(upper('{$_POST['resul_gest']}')),meto_fecunda=trim(upper('{$_POST['meto_fecunda']}')),cual=trim(upper('{$_POST['cual']}')),confir_sificong=trim(upper('{$_POST['confir_sificong']}')),resul_ser_recnac=trim(upper('{$_POST['resul_ser_recnac']}')),trata_recnac=trim(upper('{$_POST['trata_recnac']}')),serol_3meses=trim(upper('{$_POST['serol_3meses']}')),fec_conser_1tri2=trim(upper('{$_POST['fec_conser_1tri2']}')),resultado=trim(upper('{$_POST['resultado']}')),ctrl_serol1t=trim(upper('{$_POST['ctrl_serol1t']}')),fec_conser_1tri1=trim(upper('{$_POST['fec_conser_1tri1']}')),resultado_1=trim(upper('{$_POST['resultado_1']}')),ctrl_serol2t=trim(upper('{$_POST['ctrl_serol2t']}')),fec_conser_2tri=trim(upper('{$_POST['fec_conser_2tri']}')),resultado_2=trim(upper('{$_POST['resultado_2']}')),ctrl_serol3t=trim(upper('{$_POST['ctrl_serol3t']}')),fec_conser_3tri=trim(upper('{$_POST['fec_conser_3tri']}')),resultado_3=trim(upper('{$_POST['resultado_3']}')),initratasif=trim(upper('{$_POST['initratasif']}')),fec_1dos_trages1=trim(upper('{$_POST['fec_1dos_trages1']}')),fec_2dos_trages1=trim(upper('{$_POST['fec_2dos_trages1']}')),fec_3dos_trages1=trim(upper('{$_POST['fec_3dos_trages1']}')),pri_con_sex=trim(upper('{$_POST['pri_con_sex']}')),initratasif1=trim(upper('{$_POST['initratasif1']}')),fec_apl_tra_1dos1=trim(upper('{$_POST['fec_apl_tra_1dos1']}')),fec_apl_tra_2dos1=trim(upper('{$_POST['fec_apl_tra_2dos1']}')),fec_apl_tra_3dos1=trim(upper('{$_POST['fec_apl_tra_3dos1']}')),seg_con_sex=trim(upper('{$_POST['seg_con_sex']}')),initratasif2=trim(upper('{$_POST['initratasif2']}')),fec_apl_tra_1dos2=trim(upper('{$_POST['fec_apl_tra_1dos2']}')),fec_apl_tra_2dos2=trim(upper('{$_POST['fec_apl_tra_2dos2']}')),fec_apl_tra_3dos2=trim(upper('{$_POST['fec_apl_tra_3dos2']}')),prese_reinfe=trim(upper('{$_POST['prese_reinfe']}')),initratasif3=trim(upper('{$_POST['initratasif3']}')),fec_1dos_trages2=trim(upper('{$_POST['fec_1dos_trages2']}')),fec_2dos_trages2=trim(upper('{$_POST['fec_2dos_trages2']}')),fec_3dos_trages2=trim(upper('{$_POST['fec_3dos_trages2']}')),reinf_1con=trim(upper('{$_POST['reinf_1con']}')),initratasif4=trim(upper('{$_POST['initratasif4']}')),fec_1dos_trapar=trim(upper('{$_POST['fec_1dos_trapar']}')),fec_2dos_trapar=trim(upper('{$_POST['fec_2dos_trapar']}')),fec_3dos_trapar=trim(upper('{$_POST['fec_3dos_trapar']}')),estrategia_1=trim(upper('{$_POST['estrategia_1']}')),estrategia_2=trim(upper('{$_POST['estrategia_2']}')),acciones_1=trim(upper('{$_POST['acciones_1']}')),desc_accion1=trim(upper('{$_POST['desc_accion1']}')),acciones_2=trim(upper('{$_POST['acciones_2']}')),desc_accion2=trim(upper('{$_POST['desc_accion2']}')),acciones_3=trim(upper('{$_POST['acciones_3']}')),desc_accion3=trim(upper('{$_POST['desc_accion3']}')),activa_ruta=trim(upper('{$_POST['activa_ruta']}')),ruta=trim(upper('{$_POST['ruta']}')),novedades=trim(upper('{$_POST['novedades']}')),signos_covid=trim(upper('{$_POST['signos_covid']}')),caso_afirmativo=trim(upper('{$_POST['caso_afirmativo']}')),otras_condiciones=trim(upper('{$_POST['otras_condiciones']}')),observaciones=trim(upper('{$_POST['observaciones']}')),cierre_caso=trim(upper('{$_POST['cierre_caso']}')),motivo_cierre=trim(upper('{$_POST['motivo_cierre']}')),fecha_cierre=trim(upper('{$_POST['fecha_cierre']}')),redu_riesgo_cierre=trim(upper('{$_POST['redu_riesgo_cierre']}')),
-    `usu_update`=TRIM(UPPER('{$_SESSION['us_sds']}')),`fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
-    WHERE id_sifigest =TRIM(UPPER('{$id[0]}'))";
-    // echo $sql;
-  }else if(count($id)==3){
-    $eq=opc_equ();
-    $sql="INSERT INTO vsp_sifigest VALUES (NULL,trim(upper('{$id[0]}')),
-    trim(upper('{$_POST['fecha_seg']}')),trim(upper('{$_POST['numsegui']}')),trim(upper('{$_POST['evento']}')),trim(upper('{$_POST['estado_s']}')),trim(upper('{$_POST['motivo_estado']}')),trim(upper('{$_POST['etapa']}')),trim(upper('{$_POST['sema_gest']}')),trim(upper('{$_POST['asis_ctrpre']}')),trim(upper('{$_POST['exam_lab']}')),trim(upper('{$_POST['esqu_vacuna']}')),trim(upper('{$_POST['cons_micronutr']}')),trim(upper('{$_POST['fecha_obstetrica']}')),trim(upper('{$_POST['edad_gesta']}')),trim(upper('{$_POST['resul_gest']}')),trim(upper('{$_POST['meto_fecunda']}')),trim(upper('{$_POST['cual']}')),trim(upper('{$_POST['confir_sificong']}')),trim(upper('{$_POST['resul_ser_recnac']}')),trim(upper('{$_POST['trata_recnac']}')),trim(upper('{$_POST['serol_3meses']}')),trim(upper('{$_POST['fec_conser_1tri2']}')),trim(upper('{$_POST['resultado']}')),trim(upper('{$_POST['ctrl_serol1t']}')),trim(upper('{$_POST['fec_conser_1tri1']}')),trim(upper('{$_POST['resultado_1']}')),trim(upper('{$_POST['ctrl_serol2t']}')),trim(upper('{$_POST['fec_conser_2tri']}')),trim(upper('{$_POST['resultado_2']}')),trim(upper('{$_POST['ctrl_serol3t']}')),trim(upper('{$_POST['fec_conser_3tri']}')),trim(upper('{$_POST['resultado_3']}')),trim(upper('{$_POST['initratasif']}')),trim(upper('{$_POST['fec_1dos_trages1']}')),trim(upper('{$_POST['fec_2dos_trages1']}')),trim(upper('{$_POST['fec_3dos_trages1']}')),trim(upper('{$_POST['pri_con_sex']}')),trim(upper('{$_POST['initratasif1']}')),trim(upper('{$_POST['fec_apl_tra_1dos1']}')),trim(upper('{$_POST['fec_apl_tra_2dos1']}')),trim(upper('{$_POST['fec_apl_tra_3dos1']}')),trim(upper('{$_POST['seg_con_sex']}')),trim(upper('{$_POST['initratasif2']}')),trim(upper('{$_POST['fec_apl_tra_1dos2']}')),trim(upper('{$_POST['fec_apl_tra_2dos2']}')),trim(upper('{$_POST['fec_apl_tra_3dos2']}')),trim(upper('{$_POST['prese_reinfe']}')),trim(upper('{$_POST['initratasif3']}')),trim(upper('{$_POST['fec_1dos_trages2']}')),trim(upper('{$_POST['fec_2dos_trages2']}')),trim(upper('{$_POST['fec_3dos_trages2']}')),trim(upper('{$_POST['reinf_1con']}')),trim(upper('{$_POST['initratasif4']}')),trim(upper('{$_POST['fec_1dos_trapar']}')),trim(upper('{$_POST['fec_2dos_trapar']}')),trim(upper('{$_POST['fec_3dos_trapar']}')),trim(upper('{$_POST['estrategia_1']}')),trim(upper('{$_POST['estrategia_2']}')),trim(upper('{$_POST['acciones_1']}')),trim(upper('{$_POST['desc_accion1']}')),trim(upper('{$_POST['acciones_2']}')),trim(upper('{$_POST['desc_accion2']}')),trim(upper('{$_POST['acciones_3']}')),trim(upper('{$_POST['desc_accion3']}')),trim(upper('{$_POST['activa_ruta']}')),trim(upper('{$_POST['ruta']}')),trim(upper('{$_POST['novedades']}')),trim(upper('{$_POST['signos_covid']}')),trim(upper('{$_POST['caso_afirmativo']}')),trim(upper('{$_POST['otras_condiciones']}')),trim(upper('{$_POST['observaciones']}')),trim(upper('{$_POST['cierre_caso']}')),trim(upper('{$_POST['motivo_cierre']}')),trim(upper('{$_POST['fecha_cierre']}')),trim(upper('{$_POST['redu_riesgo_cierre']}')),trim(upper('{$smbin}')),
-    '{$eq}',TRIM(UPPER('{$_SESSION['us_sds']}')),DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')";
-    // echo $sql;
+  $id = divide($_POST['id_sifigest']);
+  $eq = opc_equ();
+  $smbin = null;
+  if (($smbina = $_POST['fusers_bina'] ?? null) && is_array($smbina)) {
+    $smbin = implode(",", str_replace("'", "", $smbina));
   }
-    $rta=dato_mysql($sql);
-    return $rta;
-  } 
+  // Orden de los campos según la tabla
+  $campos = [
+    'idpeople', 'fecha_seg', 'numsegui', 'evento', 'estado_s', 'motivo_estado', 'etapa', 'sema_gest',
+    'asis_ctrpre', 'exam_lab', 'esqu_vacuna', 'cons_micronutr', 'fecha_obstetrica', 'edad_gesta', 'resul_gest', 'meto_fecunda', 'cual',
+    'confir_sificong', 'resul_ser_recnac', 'trata_recnac', 'serol_3meses', 'fec_conser_1tri2', 'resultado',
+    'ctrl_serol1t', 'fec_conser_1tri1', 'resultado_1', 'ctrl_serol2t', 'fec_conser_2tri', 'resultado_2',
+    'ctrl_serol3t', 'fec_conser_3tri', 'resultado_3', 'initratasif', 'fec_1dos_trages1', 'fec_2dos_trages1', 'fec_3dos_trages1',
+    'pri_con_sex', 'initratasif1', 'fec_apl_tra_1dos1', 'fec_apl_tra_2dos1', 'fec_apl_tra_3dos1',
+    'seg_con_sex', 'initratasif2', 'fec_apl_tra_1dos2', 'fec_apl_tra_2dos2', 'fec_apl_tra_3dos2',
+    'prese_reinfe', 'initratasif3', 'fec_1dos_trages2', 'fec_2dos_trages2', 'fec_3dos_trages2',
+    'reinf_1con', 'initratasif4', 'fec_1dos_trapar', 'fec_2dos_trapar', 'fec_3dos_trapar',
+    'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2',
+    'acciones_3', 'desc_accion3', 'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo',
+    'otras_condiciones', 'observaciones', 'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'redu_riesgo_cierre',
+    'users_bina', 'equipo_bina', 'usu_creo', 'fecha_create', 'usu_update', 'fecha_update', 'estado'
+  ];
+  // Campos fecha que pueden ser nulos
+  $campos_fecha_null = [
+    'fecha_obstetrica', 'fec_conser_1tri2', 'fec_conser_1tri1', 'fec_conser_2tri', 'fec_conser_3tri',
+    'fec_1dos_trages1', 'fec_2dos_trages1', 'fec_3dos_trages1', 'fec_apl_tra_1dos1', 'fec_apl_tra_2dos1', 'fec_apl_tra_3dos1',
+    'fec_apl_tra_1dos2', 'fec_apl_tra_2dos2', 'fec_apl_tra_3dos2', 'fec_1dos_trages2', 'fec_2dos_trages2', 'fec_3dos_trages2',
+    'fec_1dos_trapar', 'fec_2dos_trapar', 'fec_3dos_trapar', 'fecha_cierre', 'fecha_update', 'fecha_create'
+  ];
+  if(count($id)==4){
+    // UPDATE
+    $set = [
+      'etapa', 'sema_gest', 'asis_ctrpre', 'exam_lab', 'esqu_vacuna', 'cons_micronutr', 'fecha_obstetrica', 'edad_gesta', 'resul_gest', 'meto_fecunda', 'cual',
+      'confir_sificong', 'resul_ser_recnac', 'trata_recnac', 'serol_3meses', 'fec_conser_1tri2', 'resultado',
+      'ctrl_serol1t', 'fec_conser_1tri1', 'resultado_1', 'ctrl_serol2t', 'fec_conser_2tri', 'resultado_2',
+      'ctrl_serol3t', 'fec_conser_3tri', 'resultado_3', 'initratasif', 'fec_1dos_trages1', 'fec_2dos_trages1', 'fec_3dos_trages1',
+      'pri_con_sex', 'initratasif1', 'fec_apl_tra_1dos1', 'fec_apl_tra_2dos1', 'fec_apl_tra_3dos1',
+      'seg_con_sex', 'initratasif2', 'fec_apl_tra_1dos2', 'fec_apl_tra_2dos2', 'fec_apl_tra_3dos2',
+      'prese_reinfe', 'initratasif3', 'fec_1dos_trages2', 'fec_2dos_trages2', 'fec_3dos_trages2',
+      'reinf_1con', 'initratasif4', 'fec_1dos_trapar', 'fec_2dos_trapar', 'fec_3dos_trapar',
+      'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2',
+      'acciones_3', 'desc_accion3', 'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo',
+      'otras_condiciones', 'observaciones', 'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'redu_riesgo_cierre', 'users_bina', 'equipo_bina'
+    ];
+    $params = [];
+    foreach ($set as $campo) {
+      if ($campo == 'users_bina') {
+        $params[] = ['type' => 's', 'value' => $smbin];
+      } elseif ($campo == 'equipo_bina') {
+        $params[] = ['type' => 's', 'value' => $eq];
+      } elseif (in_array($campo, $campos_fecha_null)) {
+        $val = $_POST[$campo] ?? null;
+        $params[] = [
+          'type' => ($val === '' || $val === null) ? 'z' : 's',
+          'value' => ($val === '' || $val === null) ? null : $val
+        ];
+      } else {
+        $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
+      }
+    }
+    $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_update
+    $sql = "UPDATE vsp_sifigest SET "
+      . implode(' = ?, ', $set) . " = ?, usu_update = ?, fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR) "
+      . "WHERE id_sifigest = ?";
+    $params[] = ['type' => 's', 'value' => $id[0]]; // id_sifigest
+    $rta = mysql_prepd($sql, $params);
+
+  } else if(count($id)==3){
+    // INSERT
+    $params = [];
+    foreach ($campos as $campo) {
+      if ($campo == 'idpeople') {
+        $params[] = ['type' => 's', 'value' => $id[0]];
+      } elseif ($campo == 'users_bina') {
+        $params[] = ['type' => 's', 'value' => $smbin];
+      } elseif ($campo == 'equipo_bina') {
+        $params[] = ['type' => 's', 'value' => $eq];
+      } elseif ($campo == 'usu_creo') {
+        $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
+      } elseif ($campo == 'usu_update' || $campo == 'fecha_update') {
+        $params[] = ['type' => 'z', 'value' => null];
+      } elseif ($campo == 'fecha_create') {
+        $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')];
+      } elseif ($campo == 'estado') {
+        $params[] = ['type' => 's', 'value' => 'A'];
+      } elseif (in_array($campo, $campos_fecha_null)) {
+        $val = $_POST[$campo] ?? null;
+        $params[] = [
+          'type' => ($val === '' || $val === null) ? 'z' : 's',
+          'value' => ($val === '' || $val === null) ? null : $val
+        ];
+      } else {
+        $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
+      }
+    }
+    $placeholders = implode(', ', array_fill(0, count($params), '?'));
+    $sql = "INSERT INTO vsp_sifigest (
+      id_sifigest, " . implode(', ', $campos) . "
+    ) VALUES (
+      NULL, $placeholders
+    )";
+    $rta = mysql_prepd($sql, $params);
+  } else {
+    $rta = "Error: id_sifigest inválido";
+  }
+  return $rta;
+}
 
 
   function get_sifigest(){

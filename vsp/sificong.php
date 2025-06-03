@@ -231,27 +231,96 @@ function opc_equ(){
 }
 
 function gra_sificong(){
-  // print_r($_POST);
-  $id=divide($_POST['id_sificong']);
-if (($smbina = $_POST['fusers_bina'] ?? null) && is_array($smbina)) {$smbin = implode(",",str_replace("'", "", $smbina));}
-  if(count($id)==4){
-    $sql="UPDATE vsp_sificong SET 
-    asiste_control=trim(upper('{$_POST['asiste_control']}')),vacuna_comple=trim(upper('{$_POST['vacuna_comple']}')),lacmate_exclu=trim(upper('{$_POST['lacmate_exclu']}')),altera_desarr=trim(upper('{$_POST['altera_desarr']}')),serologia=trim(upper('{$_POST['serologia']}')),fecha_serolo=trim(upper('{$_POST['fecha_serolo']}')),resul_ser=trim(upper('{$_POST['resul_ser']}')),trata_rn=trim(upper('{$_POST['trata_rn']}')),ctrl_serolo=trim(upper('{$_POST['ctrl_serolo']}')),fecha_controlser=trim(upper('{$_POST['fecha_controlser']}')),resul_controlser=trim(upper('{$_POST['resul_controlser']}')),estrategia_1=trim(upper('{$_POST['estrategia_1']}')),estrategia_2=trim(upper('{$_POST['estrategia_2']}')),acciones_1=trim(upper('{$_POST['acciones_1']}')),desc_accion1=trim(upper('{$_POST['desc_accion1']}')),acciones_2=trim(upper('{$_POST['acciones_2']}')),desc_accion2=trim(upper('{$_POST['desc_accion2']}')),acciones_3=trim(upper('{$_POST['acciones_3']}')),desc_accion3=trim(upper('{$_POST['desc_accion3']}')),activa_ruta=trim(upper('{$_POST['activa_ruta']}')),ruta=trim(upper('{$_POST['ruta']}')),novedades=trim(upper('{$_POST['novedades']}')),signos_covid=trim(upper('{$_POST['signos_covid']}')),caso_afirmativo=trim(upper('{$_POST['caso_afirmativo']}')),otras_condiciones=trim(upper('{$_POST['otras_condiciones']}')),observaciones=trim(upper('{$_POST['observaciones']}')),cierre_caso=trim(upper('{$_POST['cierre_caso']}')),motivo_cierre = TRIM(UPPER('{$_POST['motivo_cierre']}')),
-fecha_cierre=trim(upper('{$_POST['fecha_cierre']}')),redu_riesgo_cierre=trim(upper('{$_POST['redu_riesgo_cierre']}')),
-    `usu_update`=TRIM(UPPER('{$_SESSION['us_sds']}')),`fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
-    WHERE id_sificong =TRIM(UPPER('{$id[0]}'))";
-    // echo $sql;
-  }else if(count($id)==3){
-    $eq=opc_equ();
-    $sql="INSERT INTO vsp_sificong VALUES (NULL,trim(upper('{$id[0]}')),
-    trim(upper('{$_POST['fecha_seg']}')),trim(upper('{$_POST['numsegui']}')),trim(upper('{$_POST['evento']}')),trim(upper('{$_POST['estado_s']}')),trim(upper('{$_POST['motivo_estado']}')),trim(upper('{$_POST['asiste_control']}')),trim(upper('{$_POST['vacuna_comple']}')),trim(upper('{$_POST['lacmate_exclu']}')),trim(upper('{$_POST['altera_desarr']}')),trim(upper('{$_POST['serologia']}')),trim(upper('{$_POST['fecha_serolo']}')),trim(upper('{$_POST['resul_ser']}')),trim(upper('{$_POST['trata_rn']}')),TRIM(UPPER('{$_POST['ctrl_serolo']}')),trim(upper('{$_POST['fecha_controlser']}')),trim(upper('{$_POST['resul_controlser']}')),trim(upper('{$_POST['estrategia_1']}')),trim(upper('{$_POST['estrategia_2']}')),trim(upper('{$_POST['acciones_1']}')),trim(upper('{$_POST['desc_accion1']}')),trim(upper('{$_POST['acciones_2']}')),trim(upper('{$_POST['desc_accion2']}')),trim(upper('{$_POST['acciones_3']}')),trim(upper('{$_POST['desc_accion3']}')),trim(upper('{$_POST['activa_ruta']}')),trim(upper('{$_POST['ruta']}')),trim(upper('{$_POST['novedades']}')),trim(upper('{$_POST['signos_covid']}')),trim(upper('{$_POST['caso_afirmativo']}')),trim(upper('{$_POST['otras_condiciones']}')),trim(upper('{$_POST['observaciones']}')),trim(upper('{$_POST['cierre_caso']}')),trim(upper('{$_POST['motivo_cierre']}')),
-trim(upper('{$_POST['fecha_cierre']}')),trim(upper('{$_POST['redu_riesgo_cierre']}')),trim(upper('{$smbin}')),
-    '{$eq}',TRIM(UPPER('{$_SESSION['us_sds']}')),DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')";
-    // echo $sql;
+  $id = divide($_POST['id_sificong']);
+  $eq = opc_equ();
+  $smbin = null;
+  if (($smbina = $_POST['fusers_bina'] ?? null) && is_array($smbina)) {
+    $smbin = implode(",", str_replace("'", "", $smbina));
   }
-    $rta=dato_mysql($sql);
-    return $rta;
-  } 
+
+  // Orden de los campos según la tabla
+  $campos = [
+    'idpeople', 'fecha_seg', 'numsegui', 'evento', 'estado_s', 'motivo_estado', 'asiste_control', 'vacuna_comple', 'lacmate_exclu', 'altera_desarr',
+    'serologia', 'fecha_serolo', 'resul_ser', 'trata_rn', 'ctrl_serolo', 'fecha_controlser', 'resul_controlser',
+    'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
+    'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
+    'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'redu_riesgo_cierre', 'users_bina', 'equipo_bina',
+    'usu_creo', 'fecha_create', 'usu_update', 'fecha_update', 'estado'
+  ];
+  // Campos fecha que pueden ser nulos
+  $campos_fecha_null = ['fecha_serolo', 'fecha_controlser', 'fecha_cierre', 'fecha_update', 'fecha_create'];
+
+  if(count($id)==4){
+    // UPDATE
+    $set = [
+      'asiste_control', 'vacuna_comple', 'lacmate_exclu', 'altera_desarr', 'serologia', 'fecha_serolo', 'resul_ser', 'trata_rn', 'ctrl_serolo', 'fecha_controlser', 'resul_controlser',
+      'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
+      'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
+      'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'redu_riesgo_cierre', 'users_bina', 'equipo_bina'
+    ];
+    $params = [];
+    foreach ($set as $campo) {
+      if ($campo == 'users_bina') {
+        $params[] = ['type' => 's', 'value' => $smbin];
+      } elseif ($campo == 'equipo_bina') {
+        $params[] = ['type' => 's', 'value' => $eq];
+      } elseif (in_array($campo, $campos_fecha_null)) {
+        $val = $_POST[$campo] ?? null;
+        $params[] = [
+          'type' => ($val === '' || $val === null) ? 'z' : 's',
+          'value' => ($val === '' || $val === null) ? null : $val
+        ];
+      } else {
+        $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
+      }
+    }
+    $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_update
+    $sql = "UPDATE vsp_sificong SET "
+      . implode(' = ?, ', $set) . " = ?, usu_update = ?, fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR) "
+      . "WHERE id_sificong = ?";
+    $params[] = ['type' => 's', 'value' => $id[0]]; // id_sificong
+    $rta = mysql_prepd($sql, $params);
+
+  } else if(count($id)==3){
+    // INSERT
+    $params = [];
+    foreach ($campos as $campo) {
+      if ($campo == 'idpeople') {
+        $params[] = ['type' => 's', 'value' => $id[0]];
+      } elseif ($campo == 'users_bina') {
+        $params[] = ['type' => 's', 'value' => $smbin];
+      } elseif ($campo == 'equipo_bina') {
+        $params[] = ['type' => 's', 'value' => $eq];
+      } elseif ($campo == 'usu_creo') {
+        $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
+      } elseif ($campo == 'usu_update' || $campo == 'fecha_update') {
+        $params[] = ['type' => 'z', 'value' => null];
+      } elseif ($campo == 'fecha_create') {
+        $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')];
+      } elseif ($campo == 'estado') {
+        $params[] = ['type' => 's', 'value' => 'A'];
+      } elseif (in_array($campo, $campos_fecha_null)) {
+        $val = $_POST[$campo] ?? null;
+        $params[] = [
+          'type' => ($val === '' || $val === null) ? 'z' : 's',
+          'value' => ($val === '' || $val === null) ? null : $val
+        ];
+      } else {
+        $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
+      }
+    }
+    $placeholders = implode(', ', array_fill(0, count($params), '?'));
+    $sql = "INSERT INTO vsp_sificong (
+      id_sificong, " . implode(', ', $campos) . "
+    ) VALUES (
+      NULL, $placeholders
+    )";
+    $rta = mysql_prepd($sql, $params);
+  } else {
+    $rta = "Error: id_sificong inválido";
+  }
+  return $rta;
+} 
 
 
   function get_sificong(){
