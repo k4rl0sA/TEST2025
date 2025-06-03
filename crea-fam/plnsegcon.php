@@ -74,7 +74,7 @@ function cmp_segComp(){
       $c[]=new cmp($o,'e',null,'PLAN DE CUIDADO FAMILIAR CONCERTADO',$w);
       $c[]=new cmp('idcom','h',15,$_POST['id'],$w.' '.$key.' '.$o,'id','id',null,'####',false,false);
       $c[]=new cmp('compromiso','a',50,$d['compromiso'],$w.''.$o,'Compromisos concertados','observaciones',null,null,true,false,'','col-0');
-      $c[]=new cmp('fecha','d','3',$e,$w.' '.$o,'Fecha','fecha',null,null,true,true,'','col-5',"validDate(this,$days,0);");
+      $c[]=new cmp('fechac','d','3',$e,$w.' '.$o,'Fecha','fecha',null,null,true,true,'','col-5',"validDate(this,$days,0);");
       $c[]=new cmp('tipo','s','2',$e,$w.' '.$o,'Tipo de Seguimiento','tipo',null,null,true,true,'','col-1');
       $c[]=new cmp('cumplio','s','2',$e,$w.' '.$o,'cumplio','cumplio',null,null,true,true,'','col-1',"enbValue('cumplio','rt',2);");
       $c[]=new cmp('observacion','a',50,'',$w.' rt '.$o,'Observación del Incumplimiento','observaciones',null,null,false,false,'','col-7');
@@ -108,7 +108,7 @@ function cmp_segComp(){
       $params = [
         ['type' => 'i', 'value' => NULL ],
         ['type' => 's', 'value' => $id[1]],
-        ['type' => 's', 'value' => $_POST['fecha']],
+        ['type' => 's', 'value' => $_POST['fechac']],
         ['type' => 's', 'value' => $_POST['tipo']],
         ['type' => 's', 'value' => $_POST['cumplio']],
         ['type' => 's', 'value' => $_POST['observacion']],
