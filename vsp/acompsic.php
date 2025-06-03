@@ -228,7 +228,7 @@ function opc_equ(){
   return $info['responseResult'][0]['equipo'];
 }
 
-function gra_acompsic(){
+/* function gra_acompsic(){
   // print_r($_POST);
   $id=divide($_POST['id_acompsic']);
   if (($smbina = $_POST['fusers_bina'] ?? null) && is_array($smbina)) {$smbin = implode(",",str_replace("'", "", $smbina));}
@@ -279,7 +279,109 @@ function gra_acompsic(){
   }
     $rta=dato_mysql($sql);
     return $rta;
-  } 
+  } */
+ function gra_acompsic() {
+    $id = divide($_POST['id_acompsic']);
+    $eq = opc_equ();
+    $smbin = null;
+    if (($smbina = $_POST['fusers_bina'] ?? null) && is_array($smbina)) {
+        $smbin = implode(",", str_replace("'", "", $smbina));
+    }
+
+    // Lista de campos en el mismo orden que la tabla (sin id_acompsic/autoincremental)
+    $campos = [
+        'idpeople', 'fecha_seg', 'numsegui', 'evento', 'estado_s', 'motivo_estado',
+        'autocono', 'cumuni_aser', 'toma_decis', 'pensa_crea', 'manejo_emo', 'rela_interp', 'solu_prob', 'pensa_critico', 'manejo_tension', 'empatia',
+        'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
+        'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
+        'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'liker_dificul', 'liker_emocion', 'liker_decision', 'redu_riesgo_cierre',
+        'users_bina', 'equipo', 'usu_creo', 'fecha_create', 'usu_update', 'fecha_update', 'estado'
+    ];
+   if (count($id) == 4) { // UPDATE
+        $set = [
+            'autocono', 'cumuni_aser', 'toma_decis', 'pensa_crea', 'manejo_emo', 'rela_interp', 'solu_prob', 'pensa_critico', 'manejo_tension', 'empatia',
+            'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
+            'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
+            'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'liker_dificul', 'liker_emocion', 'liker_decision', 'redu_riesgo_cierre',
+            'users_bina'
+        ];
+        $params = [];
+        foreach ($set as $campo) {
+            if ($campo == 'users_bina') {
+                $params[] = ['type' => 's', 'value' => $smbin];
+            } else {
+                $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
+            }
+        }
+        $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_update
+
+        $sql = "UPDATE vsp_acompsic SET "
+            . implode(' = ?, ', $set) . " = ?, usu_update = ?, fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR) "
+            . "WHERE id_acompsic = ?";
+        $params[] = ['type' => 's', 'value' => $id[0]]; // id_acompsic
+        $rta = mysql_prepd($sql, $params);
+
+    } else if (count($id) == 3) { // INSERT
+      $params = [
+            ['type' => 's', 'value' => $id[0]], // idpeople
+            ['type' => 's', 'value' => $_POST['fecha_seg'] ?? null],
+            ['type' => 's', 'value' => $_POST['numsegui'] ?? null],
+            ['type' => 's', 'value' => $_POST['evento'] ?? null],
+            ['type' => 's', 'value' => $_POST['estado_s'] ?? null],
+            ['type' => 's', 'value' => $_POST['motivo_estado'] ?? null],
+            ['type' => 's', 'value' => $_POST['autocono'] ?? null],
+            ['type' => 's', 'value' => $_POST['cumuni_aser'] ?? null],
+            ['type' => 's', 'value' => $_POST['toma_decis'] ?? null],
+            ['type' => 's', 'value' => $_POST['pensa_crea'] ?? null],
+            ['type' => 's', 'value' => $_POST['manejo_emo'] ?? null],
+            ['type' => 's', 'value' => $_POST['rela_interp'] ?? null],
+            ['type' => 's', 'value' => $_POST['solu_prob'] ?? null],
+            ['type' => 's', 'value' => $_POST['pensa_critico'] ?? null],
+            ['type' => 's', 'value' => $_POST['manejo_tension'] ?? null],
+            ['type' => 's', 'value' => $_POST['empatia'] ?? null],
+            ['type' => 's', 'value' => $_POST['estrategia_1'] ?? null],
+            ['type' => 's', 'value' => $_POST['estrategia_2'] ?? null],
+            ['type' => 's', 'value' => $_POST['acciones_1'] ?? null],
+            ['type' => 's', 'value' => $_POST['desc_accion1'] ?? null],
+            ['type' => 's', 'value' => $_POST['acciones_2'] ?? null],
+            ['type' => 's', 'value' => $_POST['desc_accion2'] ?? null],
+            ['type' => 's', 'value' => $_POST['acciones_3'] ?? null],
+            ['type' => 's', 'value' => $_POST['desc_accion3'] ?? null],
+            ['type' => 's', 'value' => $_POST['activa_ruta'] ?? null],
+            ['type' => 's', 'value' => $_POST['ruta'] ?? null],
+            ['type' => 's', 'value' => $_POST['novedades'] ?? null],
+            ['type' => 's', 'value' => $_POST['signos_covid'] ?? null],
+            ['type' => 's', 'value' => $_POST['caso_afirmativo'] ?? null],
+            ['type' => 's', 'value' => $_POST['otras_condiciones'] ?? null],
+            ['type' => 's', 'value' => $_POST['observaciones'] ?? null],
+            ['type' => 's', 'value' => $_POST['cierre_caso'] ?? null],
+            ['type' => 's', 'value' => $_POST['motivo_cierre'] ?? null],
+            ['type' => 's', 'value' => $_POST['fecha_cierre'] ?? null],
+            ['type' => 's', 'value' => $_POST['liker_dificul'] ?? null],
+            ['type' => 's', 'value' => $_POST['liker_emocion'] ?? null],
+            ['type' => 's', 'value' => $_POST['liker_decision'] ?? null],
+            ['type' => 's', 'value' => $_POST['redu_riesgo_cierre'] ?? null],
+            ['type' => 's', 'value' => $smbin], // users_bina
+            ['type' => 's', 'value' => $eq],    // equipo
+            ['type' => 's', 'value' => $_SESSION['us_sds']], // usu_creo
+            // fecha_create (usa función SQL)
+            ['type' => 'z', 'value' => null], // usu_update
+            ['type' => 'z', 'value' => null], // fecha_update
+            ['type' => 's', 'value' => 'A']   // estado
+        ];
+
+        $placeholders = implode(', ', array_fill(0, count($params), '?'));
+        $sql = "INSERT INTO vsp_acompsic (
+            id_acompsic, " . implode(', ', $campos) . "
+        ) VALUES (
+            NULL, $placeholders
+        )";
+        $rta = mysql_prepd($sql, $params);
+    } else {
+        $rta = "Error: id_acompsic inválido";
+    }
+    return $rta;
+}      
 
 
   function get_acompsic(){
