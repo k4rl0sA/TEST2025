@@ -449,12 +449,12 @@ function opc_tipo_activi($id=''){
 	function gra_ambient() {
       $campos = [
         'fecha', 'tipo_activi', 'seguro', 'grietas', 'combustible', 'separadas', 'lena', 'ilumina', 'fuma', 'bano', 'cocina', 'elevado', 'electrica', 'elementos', 'barreras', 'zontrabajo',
-        'agua', 'tanques', 'adecagua', 'raciagua', 'sanitari', 'aguaresid', 'terraza', 'recipientes', 'vivaseada', 'separesiduos', 'reutresiduos', 'noresiduos', 'adecresiduos', 'horaresiduos',
-        'plagas', 'contplagas', 'pracsanitar', 'envaplaguicid', 'consealiment', 'limpcocina', 'cuidcuerpo', 'fechvencim', 'limputensilios', 'adqualime', 'almaquimicos', 'etiqprodu', 'juguetes',
+        'agua', 'tanques', 'adecagua', 'raciagua', 'sanitari', 'aguaresid', 'terraza', 'recipientes', 'vivaseada', 'separesiduos', 'reutresiduos', 'noresiduos', 'adecresiduos',
+        'horaresiduos','plagas', 'contplagas', 'pracsanitar', 'envaplaguicid', 'consealiment', 'limpcocina', 'cuidcuerpo', 'fechvencim', 'limputensilios', 'adqualime', 'almaquimicos', 'etiqprodu', 'juguetes',
         'medicamalma', 'medicvenc', 'adqumedicam', 'medidaspp', 'radiacion', 'contamaire', 'monoxido', 'residelectri', 'duermeelectri', 'vacunasmascot', 'aseamascot', 'alojmascot', 'excrmascot',
         'permmascot', 'salumascot', 'pilas', 'dispmedicamentos', 'dispcompu', 'dispplamo', 'dispbombill', 'displlanta', 'dispplaguic', 'dispaceite'
     ];
-    $id = divide($_POST['idvivamb']);
+   $id = divide($_POST['idvivamb']);
     if (count($id) == 1) {
         $params = [
             ['type' => 's', 'value' => $id[0]]
@@ -463,7 +463,6 @@ function opc_tipo_activi($id=''){
             $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
         }
         $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_creo
-        // Para usu_update y fecha_update puedes enviar NULL
         $params[] = ['type' => 'z', 'value' => null]; // usu_update
         $params[] = ['type' => 'z', 'value' => null]; // fecha_update
 
@@ -474,7 +473,6 @@ function opc_tipo_activi($id=''){
         )";
         $rta = mysql_prepd($sql, $params);
     }
-    // ...
     return $rta;
 }
 
