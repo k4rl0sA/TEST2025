@@ -24,7 +24,7 @@ WHERE hc.fecha BETWEEN '$fechadesde' AND '$fechahasta'
   AND hg.subred = '$subred'
   AND hg.territorio = '$territorio';";
 $caract = datos_mysql($sql);
-$data['sql_debug']$sql;
+$data['sql_debug']=$sql;
 if ($caract['code'] !== 0 || empty($caract['responseResult'])) {
     echo json_encode(["error" => "Objeto no encontrado"]);
     exit;
