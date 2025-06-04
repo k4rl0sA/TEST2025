@@ -285,10 +285,10 @@ function gra_apopsicduel(){
         'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
         'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
         'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'liker_dificul', 'liker_emocion', 'liker_decision', 'redu_riesgo_cierre',
-        'users_bina', 'equipo_bina', 'usu_creo', 'usu_update', 'fecha_update', 'estado'
+        'users_bina', 'equipo_bina', 'usu_creo', 'usu_update','estado'
     ];
     // Campos fecha que pueden ser nulos
-    $campos_fecha_null = ['fecha_defun', 'fecha_cierre'];
+    $campos_fecha_null = ['fecha_defun', 'fecha_cierre','fecha_update'];
     if(count($id)==4){ // UPDATE
         $set = [
             'causa_duelo', 'fecha_defun', 'parent_fallec', 'lugar_defun', 'vincu_afect',
