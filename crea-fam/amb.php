@@ -447,14 +447,14 @@ function opc_tipo_activi($id=''){
 	} */
 
 function gra_ambient() {
-    $campos = [
+   $campos = [
         'fecha', 'tipo_activi', 'seguro', 'grietas', 'combustible', 'separadas', 'lena', 'ilumina', 'fuma', 'bano', 'cocina', 'elevado', 'electrica', 'elementos', 'barreras', 'zontrabajo',
         'agua', 'tanques', 'adecagua', 'raciagua', 'sanitari', 'aguaresid', 'terraza', 'recipientes', 'vivaseada', 'separesiduos', 'reutresiduos', 'noresiduos', 'adecresiduos',
         'horaresiduos','plagas', 'contplagas', 'pracsanitar', 'envaplaguicid', 'consealiment', 'limpcocina', 'cuidcuerpo', 'fechvencim', 'limputensilios', 'adqualime', 'almaquimicos', 'etiqprodu', 'juguetes',
         'medicamalma', 'medicvenc', 'adqumedicam', 'medidaspp', 'radiacion', 'contamaire', 'monoxido', 'residelectri', 'duermeelectri', 'vacunasmascot', 'aseamascot', 'alojmascot', 'excrmascot',
         'permmascot', 'salumascot', 'pilas', 'dispmedicamentos', 'dispcompu', 'dispplamo', 'dispbombill', 'displlanta', 'dispplaguic', 'dispaceite'
     ];
-    $id = divide($_POST['idvivamb']);
+  $id = divide($_POST['idvivamb']);
     $rta = null;
     if (count($id) == 1) {
         // INSERT
@@ -465,13 +465,16 @@ function gra_ambient() {
             $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
         }
         $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_creo
+        $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')]; // fecha_create
         $params[] = ['type' => 'z', 'value' => null]; // usu_update
         $params[] = ['type' => 'z', 'value' => null]; // fecha_update
-        $placeholders = implode(', ', array_fill(0, 70, '?'));
+        $params[] = ['type' => 's', 'value' => 'A']; // estado
+
+        $placeholders = implode(', ', array_fill(0, count($params), '?'));
         $sql = "INSERT INTO hog_amb (
             idamb, idvivamb, " . implode(', ', $campos) . ", usu_creo, fecha_create, usu_update, fecha_update, estado
         ) VALUES (
-            NULL, $placeholders, DATE_SUB(NOW(), INTERVAL 5 HOUR), 'A'
+            NULL, $placeholders
         )";
         $rta = mysql_prepd($sql, $params);
     } else if (count($id) == 2) {
@@ -484,7 +487,8 @@ function gra_ambient() {
         }
         $set[] = "usu_update = ?";
         $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
-        $set[] = "fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR)";
+        $set[] = "fecha_update = ?";
+        $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')];
         $sql = "UPDATE hog_amb SET " . implode(', ', $set) . " WHERE idamb = ?";
         $params[] = ['type' => 's', 'value' => $id[0]];
         $rta = mysql_prepd($sql, $params);
