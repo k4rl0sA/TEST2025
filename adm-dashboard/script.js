@@ -270,6 +270,7 @@ function handleFilterChange() {
     const params = new URLSearchParams();
     params.append('subred', subred);
     params.append('territorio', territorio);
+    params.append('localidad', localidad);
     params.append('fecha_inicio', fecha_inicio);
     params.append('fecha_fin', fecha_fin);
 
