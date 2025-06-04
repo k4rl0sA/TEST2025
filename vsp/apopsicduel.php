@@ -333,7 +333,7 @@ function gra_apopsicduel(){
                 $params[] = ['type' => 's', 'value' => $eq];
             } elseif ($campo == 'usu_creo') {
                 $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
-            } elseif ($campo == 'usu_update' || $campo == 'fecha_update') {
+            } elseif ($campo == 'usu_update') {
                 $params[] = ['type' => 'z', 'value' => null];
             } elseif ($campo == 'estado') {
                 $params[] = ['type' => 's', 'value' => 'A'];
