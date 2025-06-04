@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard de Salud - EBEH</title>
-    <link rel="stylesheet" href="styles.css?v=6.0">
+    <link rel="stylesheet" href="styles.css?v=7.0">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -299,6 +299,6 @@
 
     <div id="toast-error" class="toast-error" style="display:none;"></div>
 
-    <script src="script.js?=6.0"></script>
+    <script src="script.js?=7.0"></script>
 </body>
 </html>
