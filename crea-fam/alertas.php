@@ -226,39 +226,53 @@ function men_alertas(){
 }
  */
 function gra_alertas() {
-    $campos = [
-        'cursovida', 'fecha', 'tipo', 'crit_epi', 'men_dnt', 'men_sinctrl', 'gestante', 'etapgest', 'ges_sinctrl',
+     $campos = [
+        'idpeople', 'cursovida', 'fecha', 'tipo', 'crit_epi', 'men_dnt', 'men_sinctrl', 'gestante', 'etapgest', 'ges_sinctrl',
         'cronico', 'cro_hiper', 'cro_diabe', 'cro_epoc', 'cro_sinctrl', 'esq_vacun',
-        'alert1', 'fselmul1', 'alert2', 'fselmul2', 'alert3', 'fselmul3', 'alert4', 'fselmul4',
-        'alert5', 'fselmul5', 'alert6', 'fselmul6', 'agen_intra', 'servicio', 'fecha_cita', 'hora_cita',
-        'lugar_cita', 'deriva_pf', 'evento_pf'
+        'alert1', 'selmul1', 'alert2', 'selmul2', 'alert3', 'selmul3', 'alert4', 'selmul4',
+        'alert5', 'selmul5', 'alert6', 'selmul6', 'agen_intra', 'servicio', 'fecha_cita', 'hora_cita',
+        'lugar_cita', 'deriva_pf', 'evento_pf', 'fecha_create', 'usu_creo', 'fecha_update', 'usu_update', 'estado'
     ];
 	 // Campos de tipo fecha que pueden ser nulos
-    $campos_fecha_null = ['fecha_cita'];
+      $campos_fecha_null = ['fecha_cita', 'fecha_update'];
 
     $id = divide($_POST['idp']);
     $params = [
         ['type' => 's', 'value' => $id[0]]
     ];
-    foreach ($campos as $campo) {
-        $valor = $_POST[$campo] ?? null;
-		if (in_array($campo, $campos_fecha_null)) {
+  // Resto de campos
+    foreach ($campos as $i => $campo) {
+        if ($campo == 'idpeople') continue; // ya agregado
+        if (in_array($campo, ['fecha_create'])) {
+            $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')];
+        } elseif ($campo == 'usu_creo') {
+            $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
+        } elseif ($campo == 'fecha_update' || $campo == 'usu_update') {
+            $params[] = ['type' => 'z', 'value' => null];
+        } elseif ($campo == 'estado') {
+            $params[] = ['type' => 's', 'value' => 'A'];
+        } elseif (in_array($campo, $campos_fecha_null)) {
+            $valor = $_POST[$campo] ?? null;
             $params[] = [
                 'type' => ($valor === '' || $valor === null) ? 'z' : 's',
                 'value' => ($valor === '' || $valor === null) ? null : $valor
             ];
         } else {
-        	if (strpos($campo, 'fselmul') === 0 && $valor !== null) {
-            	$valor = str_replace(["'", '"'], '', $valor);
-        	}
-        $params[] = ['type' => 's', 'value' => $valor];
-    	}
-	}
-    $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_creo
+            // Para los selmul, limpiar comillas
+            if (strpos($campo, 'selmul') === 0) {
+                $valor = isset($_POST[$campo]) ? str_replace(["'", '"'], '', $_POST[$campo]) : null;
+            } else {
+                $valor = $_POST[$campo] ?? null;
+            }
+            $params[] = ['type' => 's', 'value' => $valor];
+        }
+    }
 
-	  $placeholders = implode(', ', array_fill(0, count($params), '?'));
-    $sql = "INSERT INTO hog_alert VALUES (
-        NULL, $placeholders, DATE_SUB(NOW(), INTERVAL 5 HOUR), ?, NULL, NULL, 'A'
+    $placeholders = implode(', ', array_fill(0, count($params), '?'));
+    $sql = "INSERT INTO hog_alert (
+        id_alert, " . implode(', ', $campos) . "
+    ) VALUES (
+        NULL, $placeholders
     )";
     $rta = mysql_prepd($sql, $params);
     return $rta;
