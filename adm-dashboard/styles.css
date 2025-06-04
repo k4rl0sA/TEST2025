@@ -85,6 +85,26 @@ body {
     min-width: 150px;
 }
 
+/* Filter Button */
+.filter-btn {
+    background: #0066cc;
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+}
+
+.filter-btn:hover {
+    background: #004a99;
+}
+
 /* Main Content */
 .main-content {
     display: grid;

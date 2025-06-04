@@ -235,11 +235,8 @@ function setupEventListeners() {
         });
     });
 
-    // Filter change listeners
-    document.getElementById('departmentFilter').addEventListener('change', handleFilterChange);
-    document.getElementById('municipalityFilter').addEventListener('change', handleFilterChange);
-    document.getElementById('dateFilterFr').addEventListener('change', handleFilterChange);
-    document.getElementById('dateFilterTo').addEventListener('change', handleFilterChange);
+    // SOLO el botón aplica los filtros
+    document.getElementById('filterBtn').addEventListener('click', handleFilterChange);
 }
 
 // Toggle between age and gender charts
