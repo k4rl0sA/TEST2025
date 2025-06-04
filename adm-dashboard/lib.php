@@ -19,7 +19,7 @@ $where = [];
 if ($fechadesde && $fechahasta) $where[] = "hc.fecha BETWEEN '$fechadesde' AND '$fechahasta'";
 if ($subred) $where[] = "hg.subred = '$subred'";
 if ($territorio) $where[] = "hg.territorio = '$territorio'";
-if ($localidad) $where[] = "hg.localidad = '$territorio'";
+if ($localidad) $where[] = "hg.localidad = '$localidad'";
 $where_sql = $where ? 'WHERE ' . implode(' AND ', $where) : '';
 
 // Consultar datos 
