@@ -12,12 +12,14 @@ $fechadesde = $_POST['fecha_inicio'] ?? '';
 $fechahasta = $_POST['fecha_fin'] ?? '';
 $subred = $_POST['subred'] ?? '';
 $territorio = $_POST['territorio'] ?? '';
+$localidad = $_POST['localidad'] ?? '';
 
 // Validar parámetros si es necesario
 $where = [];
 if ($fechadesde && $fechahasta) $where[] = "hc.fecha BETWEEN '$fechadesde' AND '$fechahasta'";
 if ($subred) $where[] = "hg.subred = '$subred'";
 if ($territorio) $where[] = "hg.territorio = '$territorio'";
+if ($localidad) $where[] = "hg.localidad = '$territorio'";
 $where_sql = $where ? 'WHERE ' . implode(' AND ', $where) : '';
 
 // Consultar datos 

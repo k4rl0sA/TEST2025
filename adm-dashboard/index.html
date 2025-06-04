@@ -43,6 +43,18 @@
                         </select>
                     </div>
                     <div class="filter-group">
+                        <label>Localidad</label>
+                        <select id="localityFilter" name="localidad">
+                            <?php
+                                require_once __DIR__ . '/../libs/gestion.php';
+                                echo opc_sql(
+                                    "SELECT idcatalogo, descripcion FROM catadeta WHERE idcatalogo = 2 ORDER BY 2",
+                                    $_POST['localidad'] ?? ''
+                                );
+                            ?>
+                        </select>
+                    </div>
+                    <div class="filter-group">
                         <label>Fecha Desde</label>
                         <input type="date" id="dateFilterFr" value="2025-01-01">
                     </div>
