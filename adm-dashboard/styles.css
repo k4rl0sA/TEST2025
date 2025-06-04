@@ -1,0 +1,553 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: #333;
+    line-height: 1.6;
+}
+
+.dashboard-container {
+    min-height: 100vh;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Header Styles */
+.header {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 24px;
+    padding: 20px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #0066cc, #004499);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-section h1 {
+    color: #0066cc;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.filters {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.filter-group label {
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+}
+
+.filter-group select,
+.filter-group input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    background: white;
+    min-width: 150px;
+}
+
+/* Main Content */
+.main-content {
+    display: grid;
+    gap: 24px;
+}
+
+/* Metrics Section */
+.metrics-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.metric-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 120px;
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.metric-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.patients .metric-icon {
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    color: white;
+}
+
+.families .metric-icon {
+    background: linear-gradient(135deg, #ff6b9d, #cc5577);
+    color: white;
+}
+
+.pregnant .metric-icon {
+    background: linear-gradient(135deg, #a855f7, #7c3aed);
+    color: white;
+}
+
+.consultations .metric-icon {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.metric-content h3 {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+.metric-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.metric-subtitle {
+    font-size: 12px;
+    color: #999;
+}
+
+/* Charts Section */
+.charts-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+}
+
+.chart-container {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 340px;
+    min-height: 320px;
+    max-height: 400px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.chart-header h3 {
+    font-size: 18px;
+    color: #333;
+    font-weight: 600;
+}
+
+.chart-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.chart-btn {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.chart-btn.active {
+    background: #0066cc;
+    color: white;
+    border-color: #0066cc;
+}
+
+.chart-btn:hover:not(.active) {
+    background: #f5f5f5;
+}
+
+/* Canvas: altura y ajuste */
+.chart-container canvas {
+    height: 240px !important;
+    max-height: 240px !important;
+    width: 100% !important;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Health Indicators */
+.health-indicators {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.indicator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap; /* Permite que los elementos bajen si no caben */
+}
+
+.indicator-label {
+    min-width: 0;
+    max-width: 140px; /* Ajusta según tu diseño */
+    font-size: 14px;
+    color: #666;
+    word-break: break-word; /* Permite cortar palabras largas */
+    white-space: normal;    /* Permite saltos de línea */
+    flex: 1 1 140px;        /* Permite que crezca pero tenga un mínimo */
+}
+
+.progress-bar {
+    flex: 1;
+    height: 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+    min-width: 80px;
+    max-width: 200px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981, #059669);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.indicator-value {
+    min-width: 40px;
+    text-align: right;
+    font-weight: 600;
+    color: #10b981;
+}
+
+/* Demographics Section */
+.demographics-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.demo-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-height: 180px;
+    max-height: 340px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.demo-card h3 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.demo-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0066cc;
+    margin-bottom: 4px;
+}
+
+.demo-percentage {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 16px;
+}
+
+.demo-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 30px;
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.breakdown-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.breakdown-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Activity Section */
+.activity-section {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.activity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.activity-header h3 {
+    font-size: 18px;
+    color: #333;
+    font-weight: 600;
+}
+
+.refresh-btn {
+    padding: 8px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.2s ease;
+}
+
+.refresh-btn:hover {
+    background: #f5f5f5;
+    color: #333;
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    background: #f9f9f9;
+}
+
+.activity-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.activity-icon.success {
+    background: #10b981;
+    color: white;
+}
+
+.activity-icon.warning {
+    background: #f59e0b;
+    color: white;
+}
+
+.activity-icon.info {
+    background: #3b82f6;
+    color: white;
+}
+
+.activity-content {
+    flex: 1;
+}
+
+.activity-title {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.activity-time {
+    font-size: 12px;
+    color: #666;
+}
+
+/* Ajuste para los canvas dentro de .demo-card */
+.demo-card canvas, .chart-container canvas {
+    will-change: transform;
+}
+
+/* Asegura altura fija para los gráficos en tarjetas demográficas */
+.demo-card canvas {
+    height: 180px !important;
+    max-height: 180px !important;
+    width: 100% !important;
+    display: block;
+    margin: 0 auto;
+}
+
+.demo-card canvas#disabilityChart {
+    height: 180px !important;
+    max-height: 180px !important;
+    width: 100% !important;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .charts-section {
+        grid-template-columns: 1fr;
+    }
+    .demographics-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 12px;
+    }
+    .header-content {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .filters {
+        justify-content: center;
+    }
+    .metrics-section {
+        grid-template-columns: 1fr;
+    }
+    .charts-section {
+        grid-template-columns: 1fr;
+    }
+    .demographics-section {
+        grid-template-columns: 1fr;
+    }
+    .metric-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    .indicator {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    .indicator-label {
+        min-width: auto;
+    }
+    .chart-container {
+        height: 260px;
+        min-height: 220px;
+        max-height: 320px;
+        padding: 12px;
+    }
+    .chart-container canvas {
+        height: 180px !important;
+        max-height: 180px !important;
+    }
+    .demo-card {
+        min-height: 160px;
+        padding: 12px;
+    }
+}
+
+/* Animation for loading states */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.loading {
+    animation: pulse 2s infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
