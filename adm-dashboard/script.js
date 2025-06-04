@@ -261,10 +261,11 @@ function toggleChart(chartType) {
 function handleFilterChange() {
     const subred = document.getElementById('departmentFilter').value;
     const territorio = document.getElementById('municipalityFilter').value;
+    const localidad = document.getElementById('localityFilter').value;
     const fecha_inicio = document.getElementById('dateFilterFr').value;
     const fecha_fin = document.getElementById('dateFilterTo').value;
 
-    console.log({subred, territorio, fecha_inicio, fecha_fin});
+    console.log({subred, territorio,localidad, fecha_inicio, fecha_fin});
 
     const params = new URLSearchParams();
     params.append('subred', subred);
