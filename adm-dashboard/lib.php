@@ -109,7 +109,9 @@ $data = [
             "title" => "Nuevo reporte mensual disponible",
             "time" => "Hace 6 horas"
         ]
-    ]
+    ],
+    // Agrega la consulta SQL para depuración
+    "sql_debug" => $sql
 ];
 
 echo json_encode($data);
