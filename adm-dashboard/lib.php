@@ -14,6 +14,11 @@ $subred = $_POST['subred'] ?? '';
 $territorio = $_POST['territorio'] ?? '';
 
 // Validar parámetros si es necesario
+$where = [];
+if ($fechadesde && $fechahasta) $where[] = "hc.fecha BETWEEN '$fechadesde' AND '$fechahasta'";
+if ($subred) $where[] = "hg.subred = '$subred'";
+if ($territorio) $where[] = "hg.territorio = '$territorio'";
+$where_sql = $where ? 'WHERE ' . implode(' AND ', $where) : '';
 
 // Consultar datos 
 $sql = "SELECT COUNT(*) AS total_caracterizaciones
@@ -22,11 +27,6 @@ JOIN hog_fam hf ON hc.idfam = hf.id_fam
 JOIN hog_geo hg ON hf.idpre = hg.idgeo
 $where_sql;";
 
-$where = [];
-if ($fechadesde && $fechahasta) $where[] = "hc.fecha BETWEEN '$fechadesde' AND '$fechahasta'";
-if ($subred) $where[] = "hg.subred = '$subred'";
-if ($territorio) $where[] = "hg.territorio = '$territorio'";
-$where_sql = $where ? 'WHERE ' . implode(' AND ', $where) : '';
 
 $caract = datos_mysql($sql);
 $data['sql_debug']=$sql;
