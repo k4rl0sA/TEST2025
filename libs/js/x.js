@@ -12,8 +12,6 @@ function hideCuida(act,clsCmp) {
 	}
 }
 
-
-
 function valSist(a){
 	const sis=document.getElementById(a).value;
 	if(parseInt(sis)<60 || parseInt(sis)>310){
@@ -1252,13 +1250,20 @@ function enabRutOthSub() {
         enaFie(element, !conditionMet);
     });
 }
-
 function enabRutAgen() {
 	const conditions = [
 		{ id: 'estado_agenda', value: '1', compare: true }
 	];
-	EnabDepeDynamic(['AGe'], conditions);
+EnabDepeDynamic(['AGe'], conditions);
 }
+/* function enabRutAgen2() {
+	const estadoAgenda = document.getElementById('estado_agenda');
+	const isEnabled = estadoAgenda && (estadoAgenda.value === '1' || estadoAgenda.value === '11');
+	const elements = document.querySelectorAll('select.AGe, input.AGe, textarea.AGe');
+	elements.forEach(element => {
+		enaFie(element, !isEnabled);
+	});
+} */
 function enabRutRech() {
 	const conditions = [
 		{ id: 'estado_agenda', value: '2', compare: true }
@@ -1301,19 +1306,32 @@ function rutRute(){
 	];
 	EnabDepeDynamic(['ruta'], conditions);
 }
-function enabRutVisit(){
-	const est=document.getElementById('estado_llamada');
-	const agen=document.getElementById('estado_agenda');
-	if (est.value=="5"){
-		agen.value=1;
+function enabRutVisit() {
+	const est = document.getElementById('estado_llamada');
+	const agen = document.getElementById('estado_agenda');
+	if (est.value === "5" || est.value === "6") {
+		agen.value = 1;
 		const conditions = [
-			{ id: 'estado_llamada', value: '5', compare: true }
+			{ id: 'estado_llamada', value: '5', compare: true },
+			{ id: 'estado_llamada', value: '6', compare: true }
 		];
-		EnabDepeDynamic(['AGe'], conditions);
-		agen.value=1;
+		// Habilita los campos de la clase 'AGe' si estado_llamada es 5 o 6
+		EnabDepeDynamic(['AGe'], [
+			{ id: 'estado_llamada', value: est.value, compare: true }
+		]);
+	}else{
+		EnabDepeDynamic(['AGe'], [
+			{ id: 'estado_llamada', value: est.value, compare: false }
+		]);
 	}
 }
 
+function EnabFall(){
+		const conditions = [
+		{ id: 'estado_seg', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['ges','cronicos','menor5','signosV','antrop'], conditions);
+}
 function custSeleDepend(a, b, c = ruta_app, extraParams = {}) {
     try {
         const originSelect = document.getElementById(a);
