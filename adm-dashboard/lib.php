@@ -37,7 +37,7 @@ if ($caracterizaciones === 0) {
 // Simulación de datos, reemplaza por tus consultas reales
 $data = [
     "totalPatients" => 867656575,
-    "totalFamilies" => $caracterizaciones,
+    "totalFamilies" => $sql,
     "pregnantWomen" => 25933,
     "monthlyConsultations" => 89456,
     "lastUpdate" => "hace 1 hora",
