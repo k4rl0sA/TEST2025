@@ -22,7 +22,7 @@ else {
 function cmp_signos(){
 	$rta="<div class='encabezado medid'>TABLA DE TOMAS DE MEDIDA</div>
 	<div class='contenido' id='signos-lis'>".lis_signos()."</div></div>";
-	// $t=['nombres'=>'','fechanacimiento'=>'','edad'=>'','peso'=>'','talla'=>'','imc'=>'','tas'=>'','tad'=>'','glucometria'=>'','perime_braq'=>'','perime_abdom'=>'','percentil'=>'','zscore'=>'','findrisc'=>'','oms'=>'','alert1'=>'','alert2'=>'','alert3'=>'','alert4'=>'','alert5'=>'','alert6'=>'','alert7'=>'','alert8'=>'','alert9'=>'','alert10'=>'','select1'=>'','selmul1'=>'[]','selmul2'=>'[]','selmul3'=>'[]','selmul4'=>'[]','selmul5'=>'[]','selmul6'=>'[]','selmul7'=>'[]','selmul8'=>'[]','selmul9'=>'[]','selmul10'=>'[]','fecha'=>'','tipo'=>''];
+	// $t=['nombres'=>'','fechanacimiento'=>'','edad'=>'','peso'=>'','talla'=>'','imc'=>'','tas'=>'','tad'=>'','glucom'=>'','perime_braq'=>'','perime_abdom'=>'','percentil'=>'','zscore'=>'','findrisc'=>'','oms'=>'','alert1'=>'','alert2'=>'','alert3'=>'','alert4'=>'','alert5'=>'','alert6'=>'','alert7'=>'','alert8'=>'','alert9'=>'','alert10'=>'','select1'=>'','selmul1'=>'[]','selmul2'=>'[]','selmul3'=>'[]','selmul4'=>'[]','selmul5'=>'[]','selmul6'=>'[]','selmul7'=>'[]','selmul8'=>'[]','selmul9'=>'[]','selmul10'=>'[]','fecha'=>'','tipo'=>''];
 	$p=get_persona();
 	// if ($d==""){$d=$t;}
 	$id=divide($_POST['id']);
@@ -49,7 +49,7 @@ function cmp_signos(){
 	$o='med';
 	$c[]=new cmp($o,'e',null,'TOMA DE SIGNOS Y signos ANTROPOMÉTRICAS',$w);
 	$c[]=new cmp('peso','sd',6, $d,$w.' '.$z.' '.$o,'Peso (Kg) Mín=0.50 - Máx=150.00','fpe','rgxpeso','###.##',true,true,'','col-2',"valPeso('peso');Zsco('zscore','signos.php');calImc('peso','talla','imc');");
-	$c[]=new cmp('talla','sd',5, $d,$w.' '.$z.' '.$o,'Talla (Cm) Mín=20 - Máx=210','fta','rgxtalla','###.#',true,true,'','col-2',"calImc('peso','talla','imc');Zsco('zscore','signos.php');valTalla('talla');valGluc('glucometria');");
+	$c[]=new cmp('talla','sd',5, $d,$w.' '.$z.' '.$o,'Talla (Cm) Mín=20 - Máx=210','fta','rgxtalla','###.#',true,true,'','col-2',"calImc('peso','talla','imc');Zsco('zscore','signos.php');valTalla('talla');valGluc('glucom');");
 	$c[]=new cmp('imc','t',6, $d,$w.' '.$o,'IMC','imc','','',false,false,'','col-1');
 		
 	if($p['ano']>=18){
@@ -58,7 +58,7 @@ function cmp_signos(){
 		$c[]=new cmp('frecard','n',3, $d,$w.' '.$o,'Frecuencia Cardiaca Mín=60 - Máx=120','frecard',null,'##',true,true,'','col-2');
 	    $c[]=new cmp('satoxi','n',3, $d,$w.' '.$o,'saturación de Oxigeno Mín=60 - Máx=100','satoxi',null,'##',true,true,'','col-2'); 
         $c[]=new cmp('peri_abdomi','n',4,$d,$w.' AbD '.$o,'Perímetro Abdominal (Cm) Mín=50 - Máx=150','peri_abdomi','rgxperabd','###',$adul,$adul,'','col-3');
-		$c[]=new cmp('glucometria','n',4, $d,$w.' gL '.$o,'Glucometría Mín=5 - Máx=600','glu','','###',false,true,'','col-2',"valGluco('glucometria');");
+		$c[]=new cmp('glucom','n',4, $d,$w.' gL '.$o,'Glucometría Mín=5 - Máx=600','glu','','###',false,true,'','col-2',"valGluco('glucom');");
     }
 	//var_dump($meses);
     if($meses>= 6 && $meses < 60){
@@ -203,7 +203,7 @@ function men_signos(){
 		$zsco=explode("=",$_POST['zscore']?? null);
 		$z1=$zsco[0]??null;
 		$z2=$zsco[1]??null;
-		$glu=$_POST['glucometria'] ?? null;
+		$glu=$_POST['glucom'] ?? null;
 		
 
 		$sql = "INSERT INTO hog_signos VALUES (NULL,
@@ -239,10 +239,10 @@ function men_signos(){
     $zsco = explode("=", $_POST['zscore'] ?? null);
     $z1 = $zsco[0] ?? null;
     $z2 = $zsco[1] ?? null;
-    $glu = $_POST['glucometria'] ?? null;
+    $glu = $_POST['glucom'] ?? null;
     $campos = [
         'idpeople', 'fecha_toma', 'peso', 'talla', 'imc', 'tas', 'tad', 'frecard', 'satoxi',
-        'peri_abdomi', 'peri_braq','res_zscore', 'zscore', 'glucometria',
+        'peri_abdomi', 'peri_braq','res_zscore', 'zscore', 'glucom',
         'usu_create', 'fecha_create', 'usu_update', 'fecha_update', 'estado'
     ];
     $params = [
