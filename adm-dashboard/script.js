@@ -264,6 +264,8 @@ function handleFilterChange() {
     const fecha_inicio = document.getElementById('dateFilterFr').value;
     const fecha_fin = document.getElementById('dateFilterTo').value;
 
+    console.log({subred, territorio, fecha_inicio, fecha_fin});
+
     const params = new URLSearchParams();
     params.append('subred', subred);
     params.append('territorio', territorio);
