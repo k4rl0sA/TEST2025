@@ -28,7 +28,9 @@ function initializeCharts(data) {
 
 // Age distribution chart
 function initializeAgeChart(data) {
-    const ctx = document.getElementById('ageChart').getContext('2d');
+    const el = document.getElementById('ageChart');
+    if (!el) return;
+    const ctx = el.getContext('2d');
     if (ageChart) ageChart.destroy();
     ageChart = new Chart(ctx, {
         type: 'doughnut',
@@ -220,8 +222,6 @@ function formatNumber(num) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
-// ...existing code...
-
 // Setup event listeners
 function setupEventListeners() {
     // Chart toggle buttons
@@ -241,43 +241,6 @@ function setupEventListeners() {
     document.getElementById('dateFilterFr').addEventListener('change', handleFilterChange);
     document.getElementById('dateFilterTo').addEventListener('change', handleFilterChange);
 }
-
-// ÚNICA función para manejar los filtros y consultar el backend
-/* function handleFilterChange() {
-    const subred = document.getElementById('departmentFilter').value;
-    const territorio = document.getElementById('municipalityFilter').value;
-    const fecha_inicio = document.getElementById('dateFilterFr').value;
-    const fecha_fin = document.getElementById('dateFilterTo').value;
-
-    const params = new URLSearchParams();
-    params.append('subred', subred);
-    params.append('territorio', territorio);
-    params.append('fecha_inicio', fecha_inicio);
-    params.append('fecha_fin', fecha_fin);
-
-    document.body.classList.add('loading');
-
-    fetch('lib.php', {
-        method: 'POST',
-        body: params
-    })
-    .then(res => res.json())
-    .then(data => {
-        document.body.classList.remove('loading');
-        if (data.error) {
-            alert(data.error);
-            return;
-        }
-        dashboardData = data;
-        initializeCharts(data);
-        updateMetrics(data);
-    })
-    .catch(err => {
-        document.body.classList.remove('loading');
-        alert('Error cargando datos del backend');
-        console.error(err);
-    });
-} */
 
 // Toggle between age and gender charts
 function toggleChart(chartType) {
@@ -308,17 +271,16 @@ function handleFilterChange() {
     params.append('fecha_inicio', fecha_inicio);
     params.append('fecha_fin', fecha_fin);
 
-    document.body.classList.add('loading');
-
+    showLoader();
     fetch('lib.php', {
         method: 'POST',
         body: params
     })
     .then(res => res.json())
     .then(data => {
-        document.body.classList.remove('loading');
+        hideLoader();
         if (data.error) {
-            alert(data.error);
+            showError(data.error);
             return;
         }
         dashboardData = data;
@@ -326,8 +288,8 @@ function handleFilterChange() {
         updateMetrics(data);
     })
     .catch(err => {
-        document.body.classList.remove('loading');
-        alert('Error cargando datos del backend');
+        hideLoader();
+        showError('Error cargando datos del backend');
         console.error(err);
     });
 }
@@ -439,10 +401,30 @@ function startRealTimeUpdates() {
     }, 30000); // Update every 30 seconds
 }
 
+// Show loader
+function showLoader() {
+    document.getElementById('custom-loader').style.display = 'flex';
+}
+
+// Hide loader
+function hideLoader() {
+    document.getElementById('custom-loader').style.display = 'none';
+}
+
+// Show error message
+function showError(message) {
+    const toast = document.getElementById('toast-error');
+    toast.textContent = message;
+    toast.style.display = 'block';
+    // Oculta el toast después de 4 segundos
+    setTimeout(() => {
+        toast.style.display = 'none';
+    }, 4000);
+}
+
 // Export functions for global access
 window.refreshData = refreshData;
 
 if (ageChart) ageChart.destroy();
 if (specialtyChart) specialtyChart.destroy();
-if (disabilityChart) disabilityChart.destroy();
 if (elderlyChart) elderlyChart.destroy();
