@@ -285,7 +285,7 @@ function gra_apopsicduel(){
         'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
         'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
         'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'liker_dificul', 'liker_emocion', 'liker_decision', 'redu_riesgo_cierre',
-        'users_bina', 'equipo_bina', 'usu_creo', 'usu_update','estado'
+        'users_bina', 'equipo_bina', 'usu_creo', 'usu_update', 'estado'
     ];
     // Campos fecha que pueden ser nulos
     $campos_fecha_null = ['fecha_defun', 'fecha_cierre','fecha_update'];
@@ -323,6 +323,18 @@ function gra_apopsicduel(){
         $params[] = ['type' => 's', 'value' => $id[0]]; // id_psicduel
         $rta = mysql_prepd($sql, $params);
     } else if(count($id)==3){ // INSERT
+        // NO incluyas 'fecha_update' en $campos
+        $campos = [
+            'idpeople', 'fecha_seg', 'numsegui', 'evento', 'estado_s', 'motivo_estado',
+            'causa_duelo', 'fecha_defun', 'parent_fallec', 'lugar_defun', 'vincu_afect',
+            'senti_ident_1', 'senti_ident_2', 'senti_ident_3', 'etapa_duelo',
+            'sintoma_duelo_1', 'sintoma_duelo_2', 'sintoma_duelo_3',
+            'estrategia_1', 'estrategia_2',
+            'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
+            'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
+            'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'liker_dificul', 'liker_emocion', 'liker_decision', 'redu_riesgo_cierre',
+            'users_bina', 'equipo_bina', 'usu_creo', 'usu_update', 'estado'
+        ];
         $params = [];
         foreach ($campos as $campo) {
             if ($campo == 'idpeople') {
