@@ -233,20 +233,32 @@ function gra_alertas() {
         'alert5', 'fselmul5', 'alert6', 'fselmul6', 'agen_intra', 'servicio', 'fecha_cita', 'hora_cita',
         'lugar_cita', 'deriva_pf', 'evento_pf'
     ];
+	 // Campos de tipo fecha que pueden ser nulos
+    $campos_fecha_null = ['fecha_cita'];
+
     $id = divide($_POST['idp']);
     $params = [
         ['type' => 's', 'value' => $id[0]]
     ];
     foreach ($campos as $campo) {
         $valor = $_POST[$campo] ?? null;
-        if (strpos($campo, 'fselmul') === 0 && $valor !== null) {
-            $valor = str_replace(["'", '"'], '', $valor);
-        }
+		if (in_array($campo, $campos_fecha_null)) {
+            $params[] = [
+                'type' => ($valor === '' || $valor === null) ? 'z' : 's',
+                'value' => ($valor === '' || $valor === null) ? null : $valor
+            ];
+        } else {
+        	if (strpos($campo, 'fselmul') === 0 && $valor !== null) {
+            	$valor = str_replace(["'", '"'], '', $valor);
+        	}
         $params[] = ['type' => 's', 'value' => $valor];
-    }
+    	}
+	}
     $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_creo
+
+	  $placeholders = implode(', ', array_fill(0, count($params), '?'));
     $sql = "INSERT INTO hog_alert VALUES (
-        NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR), ?, NULL, NULL, 'A'
+        NULL, $placeholders, DATE_SUB(NOW(), INTERVAL 5 HOUR), ?, NULL, NULL, 'A'
     )";
     $rta = mysql_prepd($sql, $params);
     return $rta;
