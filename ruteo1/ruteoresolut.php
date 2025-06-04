@@ -51,7 +51,7 @@ function cmp_ruteresol(){
  $c[]=new cmp('fecha','d',3,$d['fecha'],$w.' RuE '.$o,'Fecha','fecha',null,null,true,false,'','col-2',"validDate(this,$days,7);");
  $c[]=new cmp('estado','s',3,$d['estado_rut'],$w.' RuE '.$o,'Estado Predio','estado',null,null,true,false,'','col-2',"changeSelect('estado','famili');validarPorTexto(this);");
  $c[]=new cmp('famili','s',3,$d['famili'],$w.' StG RuE '.$o,'famili','famili',null,'',true, false,'','col-15',"changeSelect('famili','usuario');");//N° FAMILIA
- $c[]=new cmp('usuario','s',3,$d['usuario'],$w.' StG RuE '.$o,'usuario','usuario',null,'',true,false,'','col-45'); //TIPO_DOC,DOCUMENTO Y NOMBRE USUARIO
+ $c[]=new cmp('usuario','s',3,$d['usuario'],$w.' StG  RuE '.$o,'usuario','usuario',null,'',true,false,'','col-45'); //TIPO_DOC,DOCUMENTO Y NOMBRE USUARIO
  for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
  return $rta;
 }

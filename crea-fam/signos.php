@@ -242,7 +242,7 @@ function men_signos(){
     $glu = $_POST['glucometria'] ?? null;
     $campos = [
         'idpeople', 'fecha_toma', 'peso', 'talla', 'imc', 'tas', 'tad', 'frecard', 'satoxi',
-        'peri_abdomi', 'peri_braq', 'zscore', 'zscore_desc', 'glucometria',
+        'peri_abdomi', 'peri_braq','res_zscore', 'zscore', 'glucometria',
         'usu_create', 'fecha_create', 'usu_update', 'fecha_update', 'estado'
     ];
     $params = [

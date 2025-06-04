@@ -10,7 +10,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
 <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch&family=Chicle&family=Merienda&family=Rancho&family=Boogaloo&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 <script src="../libs/js/a.js"></script>
-<script src="../libs/js/x.js?v=4.0"></script>
+<script src="../libs/js/x.js?v=14.0"></script>
 <script src="../libs/js/d.js"></script>
 <script src="../libs/js/popup.js"></script>
 <script>
@@ -26,7 +26,6 @@ document.onkeyup=function(ev) {
 	if (ev.ctrlKey && ev.keyCode==45) ev.target.value=ev.target.placeholder;
 };
 
-
 function actualizar(){
 	act_lista(mod);
 }
@@ -39,7 +38,8 @@ function grabar(tb='',ev){
   }
   var rutaMap = {
 			'ruteresol':'ruteoresolut.php',
-			'rutclasif':'clasifica.php'
+			'rutclasif':'clasifica.php',
+			'routing':'cargaRuteo.php'
 		};
 		var ruta_app = rutaMap[tb] || 'lib.php';
 	myFetch(ruta_app,"a=gra&tb="+tb,mod);
@@ -88,6 +88,7 @@ $prioridad=opc_sql("select idcatadeta,descripcion from catadeta where idcatalogo
 			<li class='icono actualizar'    title='Actualizar'      Onclick="actualizar();">
 			<li class='icono filtros'    title='Filtros'      Onclick="showFil(mod);">
 			<li class='icono lupa' title='Consultar Predio' Onclick="mostrar('predios','pro',event,'','../consultar/consulpred.php',7);">
+			<li class='icono crear' title='Cargue Individual Ruteo' Onclick="mostrar('routing','pro',event,'','cargaRuteo.php',7);">
 		</nav>
 		<nav class='menu right' >
 		<li class='icono ayuda'      title='Necesitas Ayuda'            Onclick=" window.open('https://drive.google.com/drive/folders/1JGd31V_12mh8-l2HkXKcKVlfhxYEkXpA', '_blank');"></li>

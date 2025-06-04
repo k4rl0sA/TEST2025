@@ -90,7 +90,6 @@ function whe_rute() {
 	return $sql1;
 }
 
-
 	/* if ($_POST['flocalidad'])
 		$sql .= " AND localidad = '".$_POST['flocalidad']."'";
 	if ($_POST['fgrupo'])
@@ -139,7 +138,7 @@ function cmp_rute(){
  $d=get_ruteo();
 //  var_dump($d);
  if ($d=="") {$d=$t;}
- $days=fechas_app('ruteo');
+ $days=fechas_app('agendamiento');
  $u=($d['idgeo']=='0')?true:false;
 //  var_dump($d['estado_g']);
  $x=($d['idgeo']=='0')?true:false;
@@ -189,7 +188,7 @@ function cmp_rute(){
  */
  $o='gesefc';
  $c[]=new cmp($o,'e',null,'PROCESO DE GESTIÓN',$w);
- $c[]=new cmp('estado_agenda','s',2,'',$w.' sTA '.$o,'Estado','estado_agenda',null,null,true,false,'','col-4','enabRutAgen();enabRutRech();enabRutOthSub();');//
+ $c[]=new cmp('estado_agenda','s',2,'',$w.' sTA '.$o,'Estado','estado_agenda',null,null,true,false,'','col-4','enabRutAgen();enabRutOthSub();');//
  $c[]=new cmp('motivo_estado','s','3','',$w.' ReC '.$o,'Motivo del Rechazado','motivo_estado',null,null,false,false,'','col-4');//
  $c[]=new cmp('fecha_gestion','d','10','',$w.' AGe '.$o,'Fecha de Agenda','fecha_gestion',null,null,false,false,'','col-2',"validDate(this,$days,30);");
  $c[]=new cmp('docu_confirm','nu','999999999999999999','',$w.' AGe '.$o,'Documento Confirmado  del Usuario','docu_confirm',null,null,false,false,'','col-2');
@@ -217,9 +216,9 @@ function lis_gestion(){ //revisar
 	$pag=(isset($_POST['pag-gestion']))? ($_POST['pag-gestion']-1)* $regxPag:0;
 		
 		$sql="SELECT id_rutges ACCIONES,id_rutges 'Cod Registro',erg.fecha_llamada 'Fecha',FN_CATALOGODESC(270,estado_llamada) 'Estado de la LLamada',
-		FN_CATALOGODESC(271,estado_agenda) 'Estado de la Agenda',erg.usuario_gest 'Asignado A', fecha_create 'Creó',erg.estado 'Estado' 
+		FN_CATALOGODESC(271,estado_agenda) 'Estado de la Agenda',erg.usuario_gest 'Asignado A', fecha_create 'Creó',erg.estado 'Estado'
  FROM eac_ruteo_ges erg 
- WHERE idruteo=$id[0] and estado='A'";
+ WHERE idruteo=$id[0] and estado='A' ";
 		$sql.=" ORDER BY fecha_create";
 		// echo $sql;
 		$_SESSION['sql_person']=$sql;
@@ -286,7 +285,6 @@ function opc_idgeo($a){
 			from hog_geo where 
 			sector_catastral='$co[0]' AND nummanzana='$co[1]' AND predio_num='$co[2]' AND unidad_habit='$co[3]' AND estado_v>3",$id);  */
 }
-
 function opc_estado($id=''){
 	$id=opc_idgeo($_REQUEST['id']);
 		$co=divide($id);
@@ -394,9 +392,9 @@ function opc_estado_g_filtrado($idruteo, $id = ''){
         } while ($con->more_results() && $con->next_result());
     }
     if (empty($estadosExistentes)) {
-        $estadosPermitidos = [1, 2];
+        $estadosPermitidos = [1, 2,6];
     } else {
-        $estadosPermitidos = [1];
+        $estadosPermitidos = [1,6];
         if (in_array(2, $estadosExistentes)) {
             if (in_array(3, $estadosExistentes)) {
                 if (in_array(4, $estadosExistentes)) {
@@ -552,7 +550,7 @@ function agend($id) {
     $sql = "SELECT COUNT(*) AS agenda from eac_ruteo_ges g
 LEFT JOIN eac_ruteo er ON g.idruteo=er.id_ruteo 
 	LEFT JOIN usuarios u ON er.actividad1=u.id_usuario
-	WHERE idruteo=$id[0] and (estado_agenda=1 or estado_agenda=9) and estado_llamada=1 and u.perfil IN ('AUXHOG','ADM');";
+	WHERE idruteo=$id[0] and (estado_agenda=1 or estado_agenda=6 or estado_agenda=9 or estado_agenda=11 ) and estado_llamada=1 and u.perfil IN ('AUXHOG','ADM');";
     $info = datos_mysql($sql);
 	// var_dump($info);
 	if(intval($info['responseResult'][0]["agenda"])>0){
