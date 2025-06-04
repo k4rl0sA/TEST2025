@@ -24,6 +24,7 @@ WHERE hc.fecha BETWEEN '$fechadesde' AND '$fechahasta'
   AND hg.subred = '$subred'
   AND hg.territorio = '$territorio';";
 $caract = datos_mysql($sql);
+echo json_encode(["error" => $sql]);
 if ($caract['code'] !== 0 || empty($caract['responseResult'])) {
     echo json_encode(["error" => "Objeto no encontrado"]);
     exit;
@@ -37,7 +38,7 @@ if ($caracterizaciones === 0) {
 // Simulación de datos, reemplaza por tus consultas reales
 $data = [
     "totalPatients" => 867656575,
-    "totalFamilies" => $sql,
+    "totalFamilies" => $caracterizaciones,
     "pregnantWomen" => 25933,
     "monthlyConsultations" => 89456,
     "lastUpdate" => "hace 1 hora",
