@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evaluación de Riesgos Familiares</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Colors */
+      --color-primary: #6366f1;
+      --color-primary-light: #818cf8;
+      --color-primary-dark: #4f46e5;
+      --color-secondary: #f59e0b;
+
+      --color-low-risk: #10b981;
+      --color-medium-risk: #f59e0b;
+      --color-high-risk: #ef4444;
+
+      --color-background: #f9fafb;
+      --color-surface: #ffffff;
+      --color-text: #1f2937;
+      --color-text-secondary: #6b7280;
+      --color-border: #e5e7eb;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+      /* Spacing */
+      --spacing-xs: 0.25rem;
+      --spacing-sm: 0.5rem;
+      --spacing-md: 1rem;
+      --spacing-lg: 1.5rem;
+      --spacing-xl: 2rem;
+      --spacing-2xl: 3rem;
+
+      /* Border radius */
+      --radius-sm: 0.25rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 1rem;
+      --radius-full: 9999px;
+
+      /* Transitions */
+      --transition-fast: 150ms ease;
+      --transition-normal: 250ms ease;
+      --transition-slow: 350ms ease;
+
+      /* Font sizes */
+      --font-size-xs: 0.75rem;
+      --font-size-sm: 0.875rem;
+      --font-size-md: 1rem;
+      --font-size-lg: 1.125rem;
+      --font-size-xl: 1.25rem;
+      --font-size-2xl: 1.5rem;
+      --font-size-3xl: 1.875rem;
+    }
+
+    .dark-theme {
+      --color-primary: #818cf8;
+      --color-primary-light: #a5b4fc;
+      --color-primary-dark: #6366f1;
+
+      --color-low-risk: #34d399;
+      --color-medium-risk: #fbbf24;
+      --color-high-risk: #f87171;
+
+      --color-background: #111827;
+      --color-surface: #1f2937;
+      --color-text: #f9fafb;
+      --color-text-secondary: #d1d5db;
+      --color-border: #374151;
+
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: var(--color-background);
+      color: var(--color-text);
+      line-height: 1.5;
+      transition: background-color var(--transition-normal), color var(--transition-normal);
+    }
+
+    /* Theme toggle */
+    .theme-toggle {
+      position: fixed;
+      top: var(--spacing-md);
+      right: var(--spacing-md);
+      z-index: 100;
+    }
+
+    .theme-switch {
+      opacity: 0;
+      position: absolute;
+    }
+
+    .theme-switch-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-full);
+      background-color: var(--color-surface);
+      box-shadow: var(--shadow-md);
+      cursor: pointer;
+      transition: background-color var(--transition-normal);
+    }
+
+    .theme-switch-label:hover {
+      background-color: var(--color-primary-light);
+      color: white;
+    }
+
+    .sun-icon, .moon-icon {
+      position: absolute;
+      transition: opacity var(--transition-normal), transform var(--transition-normal);
+    }
+
+    .sun-icon {
+      opacity: 0;
+      transform: scale(0.7);
+    }
+
+    .moon-icon {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .theme-switch:checked ~ .theme-switch-label .sun-icon {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .theme-switch:checked ~ .theme-switch-label .moon-icon {
+      opacity: 0;
+      transform: scale(0.7);
+    }
+
+    /* Layout */
+    .app-container {
+      /* 
+      max-width: 1200px; 
+      margin: 0 auto;
+      padding: var(--spacing-sm);
+      */
+      max-width: 100%;
+      padding: var(--spacing-sm);
+    }
+
+    .app-header {
+      text-align: center;
+      margin-bottom: var(--spacing-2xl);
+      padding-top: var(--spacing-xl);
+    }
+
+    .app-header h1 {
+      font-size: var(--font-size-3xl);
+      font-weight: 700;
+      margin-bottom: var(--spacing-xs);
+      background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-lg);
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--spacing-sm);
+    }
+
+    /* Card styles */
+    .card {
+      background-color: var(--color-surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--spacing-lg);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .card-header h2 {
+      font-size: var(--font-size-xl);
+      font-weight: 600;
+    }
+
+    .card-body {
+      padding: var(--spacing-lg);
+    }
+
+    .card-body p {
+      margin-bottom: var(--spacing-sm);
+    }
+
+    /* Button styles */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--radius-md);
+      font-weight: 500;
+      font-size: var(--font-size-sm);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border: none;
+      outline: none;
+    }
+
+    .btn svg {
+      transition: transform var(--transition-normal);
+    }
+
+    .btn:hover svg {
+      transform: rotate(180deg);
+    }
+
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-primary-dark);
+    }
+
+    /* Modern Risk Gauge styles */
+    .risk-gauge-container {
+      padding: var(--spacing-xl);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .risk-gauge {
+      position: relative;
+      width: 100%;
+      height: auto;
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .risk-gauge-svg {
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+
+    .risk-gauge-arc {
+      fill: none;
+      stroke-width: 12;
+      stroke-linecap: round;
+    }
+
+    .risk-gauge-center {
+      fill: var(--color-text);
+    }
+
+    .risk-meter-needle {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 4px;
+      height: 110px;
+      background-color: var(--color-text);
+      transform-origin: bottom center;
+      transform: translateX(-50%) rotate(-90deg);
+      transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 10;
+    }
+
+    .risk-meter-center {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 20px;
+      background-color: var(--color-text);
+      border-radius: 50%;
+      z-index: 20;
+    }
+
+    .risk-gauge-labels {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 var(--spacing-md);
+      margin-top: var(--spacing-sm);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+    }
+
+    .risk-gauge-value {
+      font-size: var(--font-size-3xl);
+      font-weight: 700;
+      margin-bottom: var(--spacing-xs);
+      text-align: center;
+    }
+
+    .risk-level {
+      font-size: var(--font-size-md);
+      font-weight: 600;
+      padding: var(--spacing-xs) var(--spacing-lg);
+      border-radius: var(--radius-full);
+      color: white;
+      transition: background-color var(--transition-normal);
+      text-align: center;
+    }
+
+    .risk-level.low {
+      background-color: var(--color-low-risk);
+    }
+
+    .risk-level.medium {
+      background-color: var(--color-medium-risk);
+    }
+
+    .risk-level.high {
+      background-color: var(--color-high-risk);
+    }
+
+    /* Risk classification styles */
+    .risk-classification {
+      padding: 0 var(--spacing-xl) var(--spacing-xl);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+
+    .animate-spin {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .risk-factors-section,
+      .risk-chart-section {
+        width: 100%; /* Asegúrate de que ocupen todo el ancho disponible */
+        max-width: 100%; /* Evita que se desborden */
+    }
+
+    .risk-class {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: var(--spacing-md);
+      border-radius: var(--radius-md);
+      background-color: rgba(0, 0, 0, 0.03);
+      transition: transform var(--transition-normal);
+    }
+
+    .dark-theme .risk-class {
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+
+    .risk-class:hover {
+      transform: scale(1.03);
+    }
+
+    .risk-indicator {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .risk-class.low .risk-indicator {
+      background-color: var(--color-low-risk);
+    }
+
+    .risk-class.medium .risk-indicator {
+      background-color: var(--color-medium-risk);
+    }
+
+    .risk-class.high .risk-indicator {
+      background-color: var(--color-high-risk);
+    }
+
+    .risk-class-details h4 {
+      font-size: var(--font-size-md);
+      font-weight: 600;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .risk-class-details p {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    /* Risk factors styles */
+    .total-risk {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      font-weight: 600;
+    }
+
+    .risk-factors {
+      padding: var(--spacing-lg);
+    }
+
+    .risk-factor {
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .risk-factor:last-child {
+      margin-bottom: 0;
+    }
+
+    .risk-factor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .risk-factor-name {
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+
+    .risk-factor-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: 600;
+      color: white;
+    }
+
+    .risk-factor-badge.low {
+      background-color: var(--color-low-risk);
+    }
+
+    .risk-factor-badge.medium {
+      background-color: var(--color-medium-risk);
+    }
+
+    .risk-factor-badge.high {
+      background-color: var(--color-high-risk);
+    }
+
+    .risk-factor-value {
+      font-weight: 600;
+    }
+
+    .risk-factor-weight {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+    }
+
+    .risk-factor-bar {
+      height: 8px;
+      width: 100%;
+      background-color: var(--color-border);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .risk-factor-progress {
+      height: 100%;
+      border-radius: var(--radius-full);
+      transition: width 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .risk-factor-progress.low {
+      background-color: var(--color-low-risk);
+    }
+
+    .risk-factor-progress.medium {
+      background-color: var(--color-medium-risk);
+    }
+
+    .risk-factor-progress.high {
+      background-color: var(--color-high-risk);
+    }
+
+    .risk-factor-details {
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+    }
+
+    /* Chart styles */
+    .chart-container {
+      padding: var(--spacing-lg);
+      height: auto;
+    }
+
+    /* Footer styles */
+    .app-footer {
+      margin-top: var(--spacing-2xl);
+      padding: var(--spacing-lg) 0;
+      text-align: center;
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+    }
+
+    /* Animations */
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    /* Input Styles */
+    .input-group {
+      display: flex;
+      width: 100%;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .form-control {
+      flex: 1;
+      padding: var(--spacing-sm) var(--spacing-md);
+      font-size: var(--font-size-md);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background-color: var(--color-surface);
+      color: var(--color-text);
+      transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 2px var(--color-primary-light);
+    }
+
+    .btn {
+      margin-left: var(--spacing-sm);
+      width: 100%;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .risk-classification {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      .content {
+        grid-template-columns: 1fr 1fr;
+      }
+      .risk-summary-section {
+        grid-column: span 2;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .content {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      .risk-summary-section {
+        grid-column: span 3;
+      }
+    }
+
+     /* Ajustes específicos para pantallas muy pequeñas (menos de 480px) */
+  @media (max-width: 480px) {
+    .content {
+      gap: var(--spacing-sm);
+    }
+    .card {
+      padding: var(--spacing-sm);
+    }
+
+    .app-header h1 {
+      font-size: var(--font-size-lg);
+    }
+
+    .subtitle {
+      font-size: var(--font-size-sm);
+    }
+
+    .card-header h2 {
+      font-size: var(--font-size-md);
+    }
+
+    .risk-gauge-labels text {
+      font-size: 10px;
+    }  
+
+    .risk-gauge-value {
+      font-size: var(--font-size-lg);
+    }
+
+    .risk-level {
+      font-size: var(--font-size-sm);
+    }
+
+    .risk-factor-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .risk-factor-details {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .app-container {
+      padding: var(--spacing-xs);
+    }
+  }
+
+
+  </style>
+</head>
+<body>
+  <div class="theme-toggle">
+    <input type="checkbox" id="theme-switch" class="theme-switch">
+    <label for="theme-switch" class="theme-switch-label">
+      <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </label>
+  </div>
+
+  <div class="app-container">
+    <header class="app-header">
+      <h1>Evaluación de Riesgos Familiares</h1>
+      <p class="subtitle">Evaluar y Visualizar Factores de Riesgos Familiares</p>
+    </header>
+
+    <main class="content">
+      <section class="search-info-risk">
+        <div class="card">
+          <div class="card-header">
+        <h2>Búsqueda de Usuario</h2>
+          </div>
+          <div class="card-body">
+        <p>Ingrese el número de documento para buscar información del usuario.</p><br>
+        <div class="input-group">
+          <input type="number" id="searchInput" class="form-control" placeholder="Número de Documento">
+          <button id="generateBtn" class="btn btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            Buscar usuario
+          </button>
+        </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="personal-info-section">
+        <div class="card">
+          <div class="card-header">
+        <h2>Información Personal</h2>
+          </div>
+          <div class="card-body" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+        <div>
+          <p><strong>Documento:</strong> <span id="documentInfo">-</span></p>
+          <p><strong>Sexo:</strong> <span id="sexInfo">-</span></p>
+          <p><strong>Género:</strong> <span id="genderInfo">-</span></p>
+          <p><strong>Nacionalidad:</strong> <span id="nationalityInfo">-</span></p>
+          <p><strong>Fecha de Nacimiento:</strong> <span id="birthDateInfo">-</span></p>
+          <p><strong>Curso de Vida:</strong> <span id="lifestageInfo">-</span></p>
+        </div>
+        <div>
+          <p><strong>Edad:</strong> <span id="ageInfo">-</span></p>
+          <p><strong>Localidad:</strong> <span id="locationInfo">-</span></p>
+          <p><strong>Upz:</strong> <span id="upzInfo">-</span></p>
+          <p><strong>Dirección:</strong> <span id="addressInfo">-</span></p>
+          <p><strong>Teléfono:</strong> <span id="phoneInfo">-</span></p>
+        </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      <!-- <section class="risk-summary-section">
+        <div class="card">
+          <div class="card-header">
+            <h2>Resumen de Riesgo Familiar</h2>
+          </div>
+          <div class="card-body">
+            <p>Esta herramienta evalúa los factores de riesgo familiar y proporciona un índice de riesgo general.</p>
+            <p>Utiliza la información personal para generar un perfil de riesgo y visualizar los resultados.</p>
+          </div>
+        </div>
+      </section> -->
+
+
+
+      <section class="risk-summary-section">
+        <div class="card risk-summary">
+          <div class="card-header">
+            <h2>Índice de Riesgo Familiar</h2>
+
+          </div>
+
+          <div class="risk-gauge-container">
+            <div class="risk-gauge">
+              <svg class="risk-gauge-svg" width="300" height="170" viewBox="0 0 300 170">
+                <!-- Background track (light gray) -->
+                <path class="risk-gauge-arc" d="M 30 150 A 120 120 0 0 1 270 150" stroke="#e5e7eb" />
+
+                <!-- Low risk segment (green, 0-40%) -->
+                <!-- <path id="lowRiskArc" class="risk-gauge-arc" d="M 30 150 A 120 120 0 0 1 126 66" stroke="#10b981" /> -->
+                <path id="lowRiskArc" class="risk-gauge-arc" d="M 30 150 A 120 120 0 0 1 100 41" stroke="#10b981" />
+
+                <!-- Medium risk segment (yellow, 41-70%) -->
+                <!-- <path id="mediumRiskArc" class="risk-gauge-arc" d="M 126 66 A 120 120 0 0 1 222 66" stroke="#f59e0b" /> -->
+                <path id="mediumRiskArc" class="risk-gauge-arc" d="M 116 35 A 120 120 0 0 1 236 66" stroke="#f59e0b" />
+
+                <!-- High risk segment (red, 71-100%) -->
+                <!-- <path id="highRiskArc" class="risk-gauge-arc" d="M 222 66 A 120 120 0 0 1 270 150" stroke="#ef4444" /> -->
+                <path id="highRiskArc" class="risk-gauge-arc" d="M 235 66 A 120 120 0 0 1 270 150" stroke="#ef4444" />
+
+
+                <!-- Labels -->
+                <text x="30" y="170" text-anchor="middle" fill="currentColor" font-size="12">0%</text>
+                <text x="90" y="170" text-anchor="middle" fill="currentColor" font-size="12">20%</text>
+                <text x="150" y="170" text-anchor="middle" fill="currentColor" font-size="12">50%</text>
+                <text x="210" y="170" text-anchor="middle" fill="currentColor" font-size="12">80%</text>
+                <text x="270" y="170" text-anchor="middle" fill="currentColor" font-size="12">100%</text>
+              </svg>
+              <div class="risk-meter-needle" id="riskMeterNeedle"></div>
+              <div class="risk-meter-center"></div>
+            </div>
+            <div class="risk-gauge-value" id="riskGaugeValue">27.1%</div>
+            <div class="risk-level low" id="riskLevel">Riesgo Bajo</div>
+          </div>
+
+          <div class="risk-classification">
+            <div class="risk-class low">
+              <div class="risk-indicator"></div>
+              <div class="risk-class-details">
+                <h4>Riesgo Bajo (0-40%)</h4>
+                <p>La familia tiene condiciones favorables y no requiere intervención prioritaria.</p>
+              </div>
+            </div>
+            <div class="risk-class medium">
+              <div class="risk-indicator"></div>
+              <div class="risk-class-details">
+                <h4>Riesgo Medio (41-70%)</h4>
+                <p>La familia tiene vulnerabilidades que requieren seguimiento y apoyo.</p>
+              </div>
+            </div>
+            <div class="risk-class high">
+              <div class="risk-indicator"></div>
+              <div class="risk-class-details">
+                <h4>Riesgo Alto (71-100%)</h4>
+                <p>La familia enfrenta múltiples factores de riesgo y necesita intervención urgente.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="risk-factors-section">
+        <div class="card">
+          <div class="card-header">
+            <h2>Factores de Riesgo</h2>
+            <div class="total-risk">
+              <span>Total:</span>
+              <span id="totalRiskText">27.1%</span>
+            </div>
+          </div>
+
+          <div class="risk-factors" id="riskFactors">
+            <!-- Risk factors will be inserted here by JavaScript -->
+          </div>
+        </div>
+      </section>
+
+      <section class="risk-chart-section">
+        <div class="card">
+          <div class="card-header">
+            <h2>Visualización de Riesgos</h2>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="riskChart" width="400" height="400"></canvas>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>Herramienta de Evaluación de Riesgo Familiar &copy; 2025</p>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Initial data
+    let factors = {
+      socioeconomic: {
+        name: "Nivel Socioeconómico",
+        value: 30,
+        weight: 0.18,
+        description: "Impacta directamente el acceso a bienes y servicios esenciales."
+      },
+      familyStructure: {
+        name: "Estructura Familiar",
+        value: 25,
+        weight: 0.20,
+        description: "Influye en el apoyo social, la funcionalidad y la estabilidad del hogar."
+      },
+      socialVulnerability: {
+        name: "Vulnerabilidad Social",
+        value: 20,
+        weight: 0.12,
+        description: "Considera factores como la violencia, el desplazamiento y la exclusión social."
+      },
+      accessToHealth: {
+        name: "Acceso a Servicios de Salud",
+        value: 15,
+        weight: 0.10,
+        description: "Clave para la prevención y el cuidado de enfermedades."
+      },
+      livingEnvironment: {
+        name: "Entorno Habitacional",
+        value: 40,
+        weight: 0.10,
+        description: "Evalúa las condiciones de la vivienda y su impacto en la salud."
+      },
+      demographics: {
+        name: "Características Demográficas",
+        value: 25,
+        weight: 0.30,
+        description: "Incluye edad, género y otras variables que influyen en la exposición al riesgo."
+      }
+    };
+    // DOM elements
+    const generateBtn = document.getElementById('generateBtn');
+    const riskMeterNeedle = document.getElementById('riskMeterNeedle');
+    const riskGaugeValue = document.getElementById('riskGaugeValue');
+    const riskLevel = document.getElementById('riskLevel');
+    const totalRiskText = document.getElementById('totalRiskText');
+    const riskFactorsContainer = document.getElementById('riskFactors');
+    const themeSwitch = document.getElementById('theme-switch');
+
+    // Chart.js instance
+    let riskChart;
+
+    // Initialize the application
+    function initApp() {
+      // Check for saved theme preference
+      if (localStorage.getItem('darkTheme') === 'true') {
+        document.body.classList.add('dark-theme');
+        themeSwitch.checked = true;
+      }
+
+      // Render initial risk factors
+      renderRiskFactors();
+
+      // Calculate and display total risk
+      calculateTotalRisk();
+
+      // Initialize chart
+      initChart();
+
+      // Add event listeners
+      generateBtn.addEventListener('click', fetchDataAndUpdate);
+      themeSwitch.addEventListener('change', toggleTheme);
+    }
+    // Toggle dark/light theme
+    function toggleTheme() {
+      document.body.classList.toggle('dark-theme');
+      localStorage.setItem('darkTheme', document.body.classList.contains('dark-theme'));
+      // Update chart colors
+      updateChartColors();
+    }
+   // Fetch data from PHP file and update UI
+   async function fetchDataAndUpdate() {
+  const documentNumber = document.getElementById('searchInput').value;
+
+  if (!documentNumber) {
+    alert('Por favor ingrese un número de documento');
+    return;
+  }
+
+  try {
+    // Mostrar estado de carga
+    generateBtn.disabled = true;
+    generateBtn.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-spin">
+        <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+      </svg>
+      Buscando...
+    `;
+
+    const response = await fetch(`lib.php?document=${documentNumber}`);
+
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (data.error) {
+      throw new Error(data.error);
+    }
+
+    console.log('Datos recibidos:', data); // Para depuración
+
+    // Actualizar información personal
+    updatePersonalInfo(data);
+
+    // Actualizar factores de riesgo
+    updateRiskFactors(data.riskFactors);
+
+    // Actualizar UI
+    renderRiskFactors();
+    calculateTotalRisk();
+    updateChart();
+
+  } catch (error) {
+    console.error('Error al obtener datos:', error);
+    alert(`Error: ${error.message}`);
+  } finally {
+    // Restaurar estado normal del botón
+    generateBtn.disabled = false;
+    generateBtn.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      Buscar usuario
+    `;
+  }
+}
+
+// Función auxiliar para actualizar información personal
+function updatePersonalInfo(data) {
+  const fields = {
+    documentInfo: data.document,
+    sexInfo: data.sex,
+    genderInfo: data.gender,
+    nationalityInfo: data.nationality,
+    birthDateInfo: data.birthDate,
+    lifestageInfo: data.lifestage,
+    ageInfo: data.age,
+    locationInfo: data.location,
+    upzInfo: data.upz,
+    addressInfo: data.address,
+    phoneInfo: data.phone
+  };
+  for (const [id, value] of Object.entries(fields)) {
+    const element = document.getElementById(id);
+    if (element) {
+      element.textContent = value || '-';
+    }
+  }
+}
+
+// Función auxiliar para actualizar factores de riesgo
+function updateRiskFactors(riskFactors) {
+  if (!riskFactors) return;
+  for (const key in factors) {
+    if (riskFactors[key]) {
+      factors[key].value = riskFactors[key].value;
+      // Mantener la descripción existente si no viene en los datos
+      factors[key].description = riskFactors[key].description || factors[key].description;
+    }
+  }
+}
+
+    // Calculate total risk based on all factors and their weights
+    function calculateTotalRisk() {
+      const totalRisk = Object.keys(factors).reduce((sum, key) => {
+        return sum + (factors[key].value * factors[key].weight);
+      }, 0);
+
+      // Update gauge needle rotation
+      const needleRotation = calculateNeedleRotation(totalRisk);
+      riskMeterNeedle.style.transform = `translateX(-50%) rotate(${needleRotation}deg)`;
+
+      // Update risk value display
+      riskGaugeValue.textContent = `${totalRisk.toFixed(1)}%`;
+      totalRiskText.textContent = `${totalRisk.toFixed(1)}%`;
+
+      // Update risk level
+      let riskLevelText = "";
+      riskLevel.classList.remove('low', 'medium', 'high');
+
+      if (totalRisk >= 71) {
+        riskLevelText = "Riesgo Alto";
+        riskLevel.classList.add('high');
+      } else if (totalRisk >= 41) {
+        riskLevelText = "Riesgo Medio";
+        riskLevel.classList.add('medium');
+      } else {
+        riskLevelText = "Riesgo Bajo";
+        riskLevel.classList.add('low');
+      }
+
+      riskLevel.textContent = riskLevelText;
+    }
+
+    // Calculate needle rotation angle based on risk value
+    function calculateNeedleRotation(riskValue) {
+      // Map risk value (0-100) to rotation angle (-90 to 90 degrees)
+      return -90 + (riskValue * 180 / 100);
+    }
+
+    // Render risk factors
+    function renderRiskFactors() {
+      riskFactorsContainer.innerHTML = '';
+
+      Object.keys(factors).forEach(key => { //ACA GENERA EL ERROR
+        const factor = factors[key];
+        const riskClass = getRiskClass(factor.value);
+
+        const factorElement = document.createElement('div');
+        factorElement.className = 'risk-factor';
+        factorElement.innerHTML = `
+          <div class="risk-factor-header">
+            <div class="risk-factor-name">
+              ${factor.name}
+              <span class="risk-factor-badge ${riskClass}">${getRiskLevelText(factor.value)}</span>
+            </div>
+            <div>
+              <span class="risk-factor-value">${factor.value}%</span>
+              <span class="risk-factor-weight">(${factor.weight * 100}%)</span>
+            </div>
+          </div>
+          <div class="risk-factor-bar">
+            <div class="risk-factor-progress ${riskClass}" style="width: ${factor.value}%"></div>
+          </div>
+          <div class="risk-factor-details">
+            <span>${factor.description}</span>
+            <span>Contribución: ${(factor.value * factor.weight).toFixed(1)}%</span>
+          </div>
+        `;
+
+        riskFactorsContainer.appendChild(factorElement);
+      });
+    }
+
+    // Get risk class based on value
+    function getRiskClass(value) {
+      if (value >= 71) return 'high';
+      if (value >= 41) return 'medium';
+      return 'low';
+    }
+
+    // Get risk level text based on value
+    function getRiskLevelText(value) {
+      if (value >= 71) return 'Alto';
+      if (value >= 41) return 'Medio';
+      return 'Bajo';
+    }
+
+    // Initialize Chart.js chart
+    function initChart() {
+      const ctx = document.getElementById('riskChart').getContext('2d');
+
+      // Prepare data for the chart
+      const chartData = {
+        labels: Object.values(factors).map(factor => factor.name),
+        datasets: [{
+          label: 'Factores de Riesgo',
+          data: Object.values(factors).map(factor => factor.value),
+          backgroundColor: Object.values(factors).map(factor => getChartColor(factor.value, 0.7)),
+          borderColor: Object.values(factors).map(factor => getChartColor(factor.value, 1)),
+          borderWidth: 1
+        }]
+      };
+
+      // Chart configuration
+      const chartConfig = {
+        type: 'radar',
+        data: chartData,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              beginAtZero: true,
+              max: 100,
+              ticks: {
+                stepSize: 20,
+                backdropColor: 'transparent'
+              },
+              grid: {
+                color: getComputedStyle(document.body).getPropertyValue('--color-border')
+              },
+              angleLines: {
+                color: getComputedStyle(document.body).getPropertyValue('--color-border')
+              },
+              pointLabels: {
+                font: {
+                  size: 12
+                },
+                color: getComputedStyle(document.body).getPropertyValue('--color-text')
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const label = context.label || '';
+                  const value = context.raw || 0;
+                  const index = context.dataIndex;
+                  const factor = Object.values(factors)[index];
+                  return [
+                    `${label}: ${value}%`,
+                    `Peso: ${factor.weight * 100}%`,
+                    `Contribución: ${(value * factor.weight).toFixed(1)}%`
+                  ];
+                }
+              }
+            }
+          }
+        }
+      };
+
+      // Create chart
+      riskChart = new Chart(ctx, chartConfig);
+    }
+
+    // Update chart with new data
+    function updateChart() {
+      riskChart.data.datasets[0].data = Object.values(factors).map(factor => factor.value);
+      riskChart.data.datasets[0].backgroundColor = Object.values(factors).map(factor => getChartColor(factor.value, 0.7));
+      riskChart.data.datasets[0].borderColor = Object.values(factors).map(factor => getChartColor(factor.value, 1));
+      riskChart.update();
+    }
+
+    // Update chart colors when theme changes
+    function updateChartColors() {
+      if (riskChart) {
+        riskChart.options.scales.r.grid.color = getComputedStyle(document.body).getPropertyValue('--color-border');
+        riskChart.options.scales.r.angleLines.color = getComputedStyle(document.body).getPropertyValue('--color-border');
+        riskChart.options.scales.r.pointLabels.color = getComputedStyle(document.body).getPropertyValue('--color-text');
+        riskChart.update();
+      }
+    }
+
+    // Get chart color based on risk value
+    function getChartColor(value, alpha) {
+      if (value >= 71) {
+        return `rgba(239, 68, 68, ${alpha})`; // red
+      } else if (value >= 41) {
+        return `rgba(245, 158, 11, ${alpha})`; // amber
+      } else {
+        return `rgba(16, 185, 129, ${alpha})`; // green
+      }
+    }
+
+    // Initialize the application when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchDataAndUpdate(); // Load initial data
+      initApp();
+    });
+  </script>
+</body>
+</html>
