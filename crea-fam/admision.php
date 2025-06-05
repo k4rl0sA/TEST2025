@@ -183,7 +183,7 @@ function gra_admision(){
             $rta = mysql_prepd($sql, $params);
         }
     } else {
-        $rta = "Error: id_factura inválido";
+		$rta="Error: msj['id_factura inválido']";
     }
     return $rta;
 }
