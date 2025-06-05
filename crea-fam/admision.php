@@ -136,40 +136,56 @@ function opc_estado_hist($id=''){
 
 
 function gra_admision(){
-	// print_r($_POST);
-	$id=divide($_POST['id_factura']);
-	// var_dump($id);
-	if(count($id)==4){
-		$rta = "'NO ES POSIBLE ACTUALIZAR EL REGISTRO'";
-	//    echo $sql;
-	}elseif(count($id)==3){
-		// $id=$id[0];
-		if(get_admi($id[0])){
-			$rta="Error: msj['No puedes realizar otra solicitud, ya fue enviada una al área encargada']";
-		}else{
-			  $sql="INSERT INTO adm_facturacion VALUES (NULL,$id[0],trim(upper('{$_POST['soli_admis']}')),
-			  trim(upper('{$_POST['fecha_consulta']}')), trim(upper('{$_POST['tipo_consulta']}')),trim(upper('{$_POST['cod_admin']}')),trim(upper('{$_POST['cod_cups']}')),trim(upper('{$_POST['final_consul']}')),
-			  trim(upper('{$_POST['cod_factura']}')),
-			  TRIM(UPPER('{$_POST['estado_hist']}')),
-			  TRIM(UPPER('{$_SESSION['us_sds']}')),DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')";
-			 echo $sql;
-			$rta=dato_mysql($sql);
-		}
-	}else{
-		// $id=$id[0];
-		if(get_admi($id[0])){
-			$rta="Error: msj['No puedes realizar otra solicitud, ya fue enviada una al área encargada']";
-		}else{
-			$sql="INSERT INTO adm_facturacion VALUES (NULL,$id[0],trim(upper('{$_POST['soli_admis']}')),
-		  trim(upper('{$_POST['fecha_consulta']}')), trim(upper('{$_POST['tipo_consulta']}')),trim(upper('{$_POST['cod_admin']}')),trim(upper('{$_POST['cod_cups']}')),trim(upper('{$_POST['final_consul']}')),
-		  trim(upper('{$_POST['cod_factura']}')),
-		  TRIM(UPPER('{$_POST['estado_hist']}')),
-		  TRIM(UPPER('{$_SESSION['us_sds']}')),DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')";
-		//    echo $sql;
-		  $rta=dato_mysql($sql);
-	  	}
-	}
-	 return $rta;
+    $id = divide($_POST['id_factura']);
+    // Campos en orden según la tabla adm_facturacion
+    $campos = [
+        'idpeople', 'soli_admis', 'fecha_consulta', 'tipo_consulta', 'cod_admin', 'cod_cups', 'final_consul',
+        'cod_factura', 'estado_hist', 'usu_creo', 'fecha_create', 'usu_update', 'fecha_update', 'estado'
+    ];
+    // Campos de tipo fecha que pueden ser nulos
+    $campos_fecha_null = ['fecha_consulta', 'fecha_update'];
+    if(count($id)==4){
+        $rta = "'NO ES POSIBLE ACTUALIZAR EL REGISTRO'";
+    } elseif(count($id)==3 || count($id)==1){
+        if(get_admi($id[0])){
+            $rta="Error: msj['No puedes realizar otra solicitud, ya fue enviada una al área encargada']";
+        } else {
+            $params = [];
+            $params[] = ['type' => 'i', 'value' => $id[0]]; // idpeople
+            foreach ($campos as $campo) {
+                if ($campo == 'idpeople') continue; // ya agregado
+                elseif ($campo == 'usu_creo') {
+                    $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
+                } elseif ($campo == 'fecha_create') {
+                    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')];
+                } elseif ($campo == 'usu_update') {
+                    $params[] = ['type' => 'z', 'value' => null];
+                } elseif ($campo == 'fecha_update') {
+                    $params[] = ['type' => 'z', 'value' => null];
+                } elseif ($campo == 'estado') {
+                    $params[] = ['type' => 's', 'value' => 'A'];
+                } elseif (in_array($campo, $campos_fecha_null)) {
+                    $valor = $_POST[$campo] ?? null;
+                    $params[] = [
+                        'type' => ($valor === '' || $valor === null) ? 'z' : 's',
+                        'value' => ($valor === '' || $valor === null) ? null : $valor
+                    ];
+                } else {
+                    $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
+                }
+            }
+            $placeholders = implode(', ', array_fill(0, count($params), '?'));
+            $sql = "INSERT INTO adm_facturacion (
+                id_factura, " . implode(', ', $campos) . "
+            ) VALUES (
+                NULL, $placeholders
+            )";
+            $rta = mysql_prepd($sql, $params);
+        }
+    } else {
+        $rta = "Error: id_factura inválido";
+    }
+    return $rta;
 }
 
 function get_admi($id){

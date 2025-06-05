@@ -8,43 +8,64 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet-search@3.0.2/dist/leaflet-search.min.css" />
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 20px;
+      background-color: #f5f7fa;
     }
     #map {
-      height: 600px;
+      height: 700px;
       margin-top: 20px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
     .search-input {
       width: 300px !important;
+      border-radius: 20px !important;
+      padding: 8px 15px !important;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2) !important;
     }
     .legend {
-      padding: 10px;
+      padding: 12px;
       background: white;
-      border-radius: 5px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
-      line-height: 1.5;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+    .legend h4 {
+      margin: 0 0 10px 0;
+      color: #2c3e50;
+      font-weight: 600;
     }
     .legend i {
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       float: left;
-      margin-right: 8px;
-      opacity: 0.7;
+      margin-right: 10px;
+      border-radius: 50%;
+      box-shadow: 0 2px 3px rgba(0,0,0,0.2);
     }
     h1 {
       color: #2c3e50;
+      margin-bottom: 10px;
+      font-weight: 600;
     }
-    /* Estilo para los marcadores */
     .custom-marker {
-      background: transparent;
-      border: none;
+      filter: drop-shadow(0 3px 5px rgba(0,0,0,0.3));
+      transition: all 0.2s ease;
     }
-    .custom-marker svg {
-      filter: drop-shadow(0px 0px 2px rgba(0,0,0,0.5));
+    .custom-marker:hover {
+      filter: drop-shadow(0 5px 8px rgba(0,0,0,0.4));
+      transform: scale(1.1);
+    }
+    .leaflet-popup-content {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .leaflet-popup-content-wrapper {
+      border-radius: 8px !important;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2) !important;
     }
   </style>
 </head>
@@ -103,49 +124,18 @@
             "MOTIVO_ESTADO": "N/A",
             "NOMBRE_GESTOR": "JENNIFER ALEXANDRA FONSECA ESCALANTE",
             "FECHA_CARACTERIZADO": 1741392000000
-          },
-          "geometry": {
-            "rings": [
-              [
-                [-74.09922819399992, 4.5571123490000787],
-                [-74.099255401999926, 4.5570654360000731],
-                [-74.099281086999952, 4.5570804140000405],
-                [-74.099302114999944, 4.5570926750000922],
-                [-74.099325478999901, 4.5571063000000436],
-                [-74.099310532999937, 4.5571321570000691],
-                [-74.09930739999993, 4.5571375770000486],
-                [-74.099298361999899, 4.5571532130000492],
-                [-74.099253953999948, 4.5571273510000765],
-                [-74.099245383999914, 4.5571223590000614],
-                [-74.09922819399992, 4.5571123490000787]
-              ]
-            ]
           }
         }
       ]
     };
 
-    // Convertir el formato ArcGIS a GeoJSON estándar usando las coordenadas X/Y
-    function convertToGeoJSONPoints(arcgisJson) {
-      return {
-        type: "FeatureCollection",
-        features: arcgisJson.features.map(feature => ({
-          type: "Feature",
-          properties: feature.attributes,
-          geometry: {
-            type: "Point",
-            coordinates: [feature.attributes.CORDENADA_X, feature.attributes.CORDENADA_Y]
-          }
-        }))
-      };
-    }
-
     // Crear mapa centrado en San Cristóbal, Bogotá
     const map = L.map('map').setView([4.5572, -74.0992], 17);
 
-    // Añadir capa base (OpenStreetMap)
+    // Añadir capa base (OpenStreetMap con estilo más claro)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 22
     }).addTo(map);
 
     // Función para determinar el color según el estado de visita
@@ -160,54 +150,74 @@
       }
     }
 
-    // Convertir los datos a GeoJSON con puntos
-    const geoJsonData = convertToGeoJSONPoints(prediosData);
-
-    // Crear icono personalizado más visible
-    function createMarkerIcon(color) {
+    // Crear icono personalizado moderno
+    function createMarkerIcon(color, selected = false) {
+      const size = selected ? 32 : 24;
+      const borderColor = selected ? '#f1c40f' : '#fff';
+      const borderWidth = selected ? 3 : 2;
+      
       return L.divIcon({
         className: 'custom-marker',
-        html: `<svg viewBox="0 0 24 24" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
-          <path fill="${color}" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-        </svg>`,
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
-        popupAnchor: [0, -32]
+        html: `
+          <svg viewBox="0 0 24 24" width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">
+            <path fill="${color}" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            <circle cx="12" cy="9" r="2.5" fill="#fff"/>
+            <circle cx="12" cy="9" r="1.5" fill="${color}"/>
+          </svg>
+        `,
+        iconSize: [size, size],
+        iconAnchor: [size/2, size],
+        popupAnchor: [0, -size]
       });
     }
 
-    // Crear capa de predios con marcadores
-    const prediosLayer = L.geoJSON(geoJsonData, {
-      pointToLayer: function(feature, latlng) {
-        return L.marker(latlng, {
-          icon: createMarkerIcon(getColorByEstado(feature.properties.ESTADO_VISITA))
-        });
-      },
-      onEachFeature: function(feature, layer) {
-        const props = feature.properties;
-        const popupContent = `
-          <div style="max-width: 300px;">
-            <h3 style="margin-top: 0; color: ${getColorByEstado(props.ESTADO_VISITA)}">${props.DIRECCION}</h3>
-            <p><b>Estado:</b> ${props.ESTADO_VISITA}</p>
-            <p><b>Fecha:</b> ${new Date(props.FECHA_CARACTERIZADO).toLocaleDateString()}</p>
-            <p><b>Gestor:</b> ${props.NOMBRE_GESTOR}</p>
-            <button onclick="alert('Más detalles: ' + JSON.stringify(props, null, 2))">Ver más detalles</button>
-          </div>
-        `;
-        layer.bindPopup(popupContent);
-        
-        // Mostrar el popup al hacer clic (para asegurar que funcione)
-        layer.on('click', function() {
-          layer.openPopup();
-        });
-      }
-    }).addTo(map);
+    // Crear un grupo de marcadores
+    const markers = L.layerGroup().addTo(map);
 
-    // Añadir control de búsqueda
+    // Procesar cada feature y crear marcadores
+    prediosData.features.forEach(feature => {
+      const props = feature.attributes;
+      const lat = props.COORDENADA_Y;
+      const lng = props.COORDENADA_X;
+      
+      // Crear un marcador con icono personalizado
+      const marker = L.marker([lat, lng], {
+        icon: createMarkerIcon(getColorByEstado(props.ESTADO_VISITA))
+      });
+      
+      // Contenido del popup con mejor formato
+      const popupContent = `
+        <div style="max-width: 250px;">
+          <h3 style="margin: 0 0 10px 0; color: #2c3e50; font-size: 16px;">${props.DIRECCION}</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 13px;">
+            <div><b>Localidad:</b></div><div>${props.LOCALIDAD}</div>
+            <div><b>UPZ:</b></div><div>${props.UPZ}</div>
+            <div><b>Barrio:</b></div><div>${props.COD_BARRIO}</div>
+            <div><b>Estado:</b></div><div style="color: ${getColorByEstado(props.ESTADO_VISITA)}; font-weight: bold;">${props.ESTADO_VISITA}</div>
+            <div><b>Fecha:</b></div><div>${new Date(props.FECHA_CARACTERIZADO).toLocaleDateString()}</div>
+            <div><b>Gestor:</b></div><div>${props.NOMBRE_GESTOR}</div>
+          </div>
+        </div>
+      `;
+      
+      // Asignar popup al marcador
+      marker.bindPopup(popupContent);
+      
+      // Guardar propiedades del feature en el marcador para la búsqueda
+      marker.feature = {
+        properties: props,
+        type: "Feature"
+      };
+      
+      // Añadir marcador al grupo
+      marker.addTo(markers);
+    });
+
+    // Añadir control de búsqueda mejorado
     const searchControl = new L.Control.Search({
-      layer: prediosLayer,
+      layer: markers,
       propertyName: "DIRECCION",
-      maxZoom: 22,
+      maxZoom: 22, 
       minZoom: 15,
       marker: false,
       textPlaceholder: "Buscar dirección...",
@@ -217,12 +227,12 @@
     });
 
     searchControl.on('search:locationfound', function(e) {
-      if (e.layer.setIcon) {
-        e.layer.setIcon(createMarkerIcon('#000000'));
-      }
+      // Resaltar el marcador encontrado
+      e.layer.setIcon(createMarkerIcon(getColorByEstado(e.layer.feature.properties.ESTADO_VISITA), true));
       e.layer.openPopup();
     }).on('search:collapsed', function() {
-      prediosLayer.eachLayer(function(layer) {
+      // Restaurar los iconos originales
+      markers.eachLayer(function(layer) {
         if (layer.feature) {
           layer.setIcon(createMarkerIcon(getColorByEstado(layer.feature.properties.ESTADO_VISITA)));
         }
@@ -231,7 +241,7 @@
 
     map.addControl(searchControl);
 
-    // Añadir leyenda
+    // Añadir leyenda mejorada
     const legend = L.control({ position: 'bottomright' });
     legend.onAdd = function(map) {
       const div = L.DomUtil.create('div', 'legend');
@@ -240,15 +250,24 @@
       
       div.innerHTML = '<h4>Estado de Visita</h4>';
       for (let i = 0; i < estados.length; i++) {
-        div.innerHTML += 
-          `<i style="background:${getColorByEstado(estados[i])}"></i>${nombres[i]}<br>`;
+        div.innerHTML += `
+          <div style="display: flex; align-items: center; margin-bottom: 5px;">
+            <i style="background:${getColorByEstado(estados[i])}"></i>
+            <span>${nombres[i]}</span>
+          </div>
+        `;
       }
       return div;
     };
     legend.addTo(map);
 
-    // Ajustar el mapa para mostrar todos los predios
-    map.fitBounds(prediosLayer.getBounds(), { padding: [50, 50] });
+    // Ajustar el mapa para mostrar todos los marcadores
+    if (prediosData.features.length > 0) {
+      const bounds = markers.getBounds();
+      if (bounds.isValid()) {
+        map.fitBounds(bounds, { padding: [50, 50] });
+      }
+    }
   </script>
 </body>
 </html>
