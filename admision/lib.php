@@ -278,6 +278,7 @@ function gra_admision(){
 			$estado='F';	
 		}else{
 			$estado='E';
+		}
 		// Usar consulta preparada en vez de SQL directo
 		$sql = "UPDATE `adm_facturacion` SET fecha_consulta = ?,tipo_consulta = ?,`cod_admin` = ?,`cod_cups` = ?,`final_consul` = ?,`cod_factura` = ?,`estado_hist` = ?,`usu_update` = ?,fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR),`estado` = ?
 			WHERE id_factura = ?";
@@ -296,7 +297,9 @@ function gra_admision(){
 		$rtaF .= mysql_prepd($sql, $params);
 		}else if(count($id)==3){
 			$rtaF.= "Error: msj['NO HA SELECIONADO LA ADMISION A EDITAR']";
-		}
+		} else {
+        	$rtaF .= "Error: msj['Cod de la factura inválido']";
+    	}
 	// echo $sql;
   		return $rtaF;
 	}
