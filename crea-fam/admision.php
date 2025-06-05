@@ -173,35 +173,6 @@ function opc_estado_hist($id=''){
 } */
 
 function gra_admision(){
-	$id = divide($_POST['id_factura']);
-	if(count($id) == 4){
-		return "'NO ES POSIBLE ACTUALIZAR EL REGISTRO'";
-	}
-
-	if(get_admi($id[0])){
-		return "Error: msj['No puedes realizar otra solicitud, ya fue enviada una al área encargada']";
-	}
-
-	$sql = "INSERT INTO adm_facturacion 
-		VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR), NULL, NULL, 'A')";
-
-	$params = [
-		['type' => 'i', 'value' => $id[0]], // idpeople
-		['type' => 's', 'value' => $_POST['soli_admis']],
-		['type' => 's', 'value' => $_POST['fecha_consulta']],
-		['type' => 's', 'value' => $_POST['tipo_consulta']],
-		['type' => 's', 'value' => $_POST['cod_admin']],
-		['type' => 's', 'value' => $_POST['cod_cups']],
-		['type' => 's', 'value' => $_POST['final_consul']],
-		['type' => 's', 'value' => $_POST['cod_factura']],
-		['type' => 's', 'value' => $_POST['estado_hist']],
-		['type' => 's', 'value' => $_SESSION['us_sds']]
-	];
-
-	return mysql_prepd($sql, $params);
-}
-
-function gra_admision(){
 	// print_r($_POST);
 	$id=divide($_POST['id_factura']);
 	// var_dump($id);
