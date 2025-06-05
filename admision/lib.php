@@ -44,7 +44,7 @@ function lis_admision(){
 	$regxPag=4;
 	
 	$pag=(isset($_POST['pag-admision']))? ($_POST['pag-admision']-1)* $regxPag:0;
-	$sql="SELECT ROW_NUMBER() OVER (ORDER BY 1) R,CONCAT_WS('_',P.idpeople,id_factura) ACCIONES, 
+	$sql="SELECT CONCAT_WS('_',P.idpeople,id_factura) ACCIONES, 
 	`cod_admin` 'Cod. Ingreso',P.idpersona documento,A.fecha_create AS Fecha_Solicitud,U.nombre Creó,U.perfil Perfil, FN_CATALOGODESC(184,A.estado_hist) Estado 
 	FROM `adm_facturacion` A 
 	LEFT JOIN person P ON A.idpeople=P.idpeople
