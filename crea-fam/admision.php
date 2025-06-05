@@ -211,7 +211,7 @@ function gra_admision(){
 				// ['type' => 's', 'value' => $_POST['fecha_consulta']],
 				['type' => 's', 'value' => ($_POST['fecha_consulta'] === '' ? NULL : $_POST['fecha_consulta'])],
 				['type' => 's', 'value' => $_POST['tipo_consulta']],
-				['type' => 's', 'value' => ($_POST['cod_admin'] === '' ? NULL : $_POST['cod_admin'])],
+				['type' => 's', 'value' => ($_POST['cod_admin'] === '' ? 0 : $_POST['cod_admin'])],
 				['type' => 's', 'value' => $_POST['cod_cups']],
 				['type' => 's', 'value' => $_POST['final_consul']],
 				['type' => 's', 'value' => $_POST['cod_factura']],
