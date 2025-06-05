@@ -188,7 +188,7 @@ function gra_admision(){
 			$params = [
 				['type' => 'i', 'value' => $id[0]],
 				['type' => 's', 'value' => $_POST['soli_admis']],
-				['type' => 's', 'value' => $_POST['fecha_consulta']],
+				['type' => 's', 'value' => ($_POST['fecha_consulta'] === '' ? NULL : $_POST['fecha_consulta'])],
 				['type' => 's', 'value' => $_POST['tipo_consulta']],
 				['type' => 's', 'value' => $_POST['cod_admin']],
 				['type' => 's', 'value' => $_POST['cod_cups']],
@@ -208,7 +208,8 @@ function gra_admision(){
 			$params = [
 				['type' => 'i', 'value' => $id[0]],
 				['type' => 's', 'value' => $_POST['soli_admis']],
-				['type' => 's', 'value' => $_POST['fecha_consulta']],
+				// ['type' => 's', 'value' => $_POST['fecha_consulta']],
+				['type' => 's', 'value' => ($_POST['fecha_consulta'] === '' ? NULL : $_POST['fecha_consulta'])],
 				['type' => 's', 'value' => $_POST['tipo_consulta']],
 				['type' => 's', 'value' => $_POST['cod_admin']],
 				['type' => 's', 'value' => $_POST['cod_cups']],
