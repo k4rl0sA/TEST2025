@@ -348,73 +348,7 @@ function gra_psicologia(){
 		['type' => 's', 'value' => 'A']
 		];
 		return $rta = mysql_prepd($sql, $params);
-		/* $sql="INSERT INTO psi_psicologia VALUES (
-			NULL,			
-			$idpsi[0],
-			trim(upper('{$_POST['fecha_ses1']}')),
-			trim(upper('{$_POST['tipo_caso']}')),
-			trim(upper('{$_POST['cod_admin']}')),
-			trim(upper('{$_POST['evachips']}')),
-			trim(upper('{$_POST['psi_validacion1']}')),
-			trim(upper('{$_POST['psi_validacion2']}')),
-			trim(upper('{$_POST['psi_validacion3']}')),
-			trim(upper('{$_POST['psi_validacion4']}')),
-			trim(upper('{$_POST['psi_validacion5']}')),
-			trim(upper('{$_POST['psi_validacion6']}')),
-			trim(upper('{$_POST['psi_validacion7']}')),
-			trim(upper('{$_POST['psi_validacion8']}')),
-			trim(upper('{$_POST['psi_validacion9']}')),
-			trim(upper('{$_POST['psi_validacion10']}')),
-			trim(upper('{$_POST['psi_validacion11']}')),
-			TRIM(upper('{$_POST['letra1']}')),
-			TRIM(upper('{$_POST['rango1']}')),
-			trim(upper('{$_POST['psi_diag12']}')),
-			trim(upper('{$_POST['psi_validacion13']}')),
-			trim(upper('{$_POST['psi_validacion14']}')),
-			trim(upper('{$_POST['otro']}')),
-			trim(upper('{$_POST['psi_validacion15']}')),
-			trim(upper('{$_POST['numsesi']}')),
-			{$_SESSION['us_sds']},
-			DATE_SUB(NOW(), INTERVAL 5 HOUR),
-			NULL,
-			NULL,
-			'A')"; */
-		//die();
-	  //echo $x;
-	//   echo $sql;
-	} else {
-		/* $sql="UPDATE `psi_psicologia` SET
-				eva_chips=TRIM(upper('{$_POST['evachips']}')),
-				psi_validacion1= TRIM(upper('{$_POST['psi_validacion1']}')),
-				psi_validacion2= TRIM(upper('{$_POST['psi_validacion2']}')),
-				psi_validacion3= TRIM(upper('{$_POST['psi_validacion3']}')),
-				psi_validacion4= TRIM(upper('{$_POST['psi_validacion4']}')),
-				psi_validacion5= TRIM(upper('{$_POST['psi_validacion5']}')),
-				psi_validacion6= TRIM(upper('{$_POST['psi_validacion6']}')),
-				psi_validacion7= TRIM(upper('{$_POST['psi_validacion7']}')),
-				psi_validacion8= TRIM(upper('{$_POST['psi_validacion8']}')),
-				psi_validacion9= TRIM(upper('{$_POST['psi_validacion9']}')),
-				psi_validacion10 = TRIM(upper('{$_POST['psi_validacion10']}')),
-				psi_validacion11 = TRIM(upper('{$_POST['psi_validacion11']}')),
-				letra1 = TRIM(upper('{$_POST['letra1']}')),
-				rango1 = TRIM(upper('{$_POST['rango1']}')),
-				psi_diag12 = TRIM(upper('{$_POST['psi_diag12']}')),
-				psi_validacion13 = TRIM(upper('{$_POST['psi_validacion13']}')),
-				psi_validacion14 = TRIM(upper('{$_POST['psi_validacion14']}')),
-				otro = TRIM(upper('{$_POST['otro']}')),
-				psi_validacion15 = TRIM(upper('{$_POST['psi_validacion15']}')),
-				numsesi = TRIM(upper('{$_POST['numsesi']}')),
-		`usu_update`=TRIM(UPPER('{$_SESSION['us_sds']}')),
-		`fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
-		WHERE psi_tipo_doc='$idpsi[0]' AND psi_documento='$idpsi[1]'"; 	
-			//  echo $sql;
-			$rta=dato_mysql($sql);
-			return $rta;  */
 	}
-
-	
-	//return "correctamente";
-	
 }
 
 
@@ -538,45 +472,7 @@ function gra_sesion2(){
 		];
 		return $rta = mysql_prepd($sql, $params);
 	
-	} else {
-		/* $sql="UPDATE psi_sesion2 SET 
-				psi_validacion1 = TRIM(upper('{$_POST['psi_validacion1']}')),
-				psi_validacion5 = TRIM(upper('{$_POST['psi_validacion5']}')),
-				psi_validacion8 = TRIM(upper('{$_POST['psi_validacion8']}')),
-				psi_validacion9 = TRIM(upper('{$_POST['psi_validacion9']}')),
-				psi_validacion10 = TRIM(upper('{$_POST['psi_validacion10']}')),
-		usu_update =TRIM(UPPER('{$_SESSION['us_sds']}')),
-		fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
-		WHERE id_sesion2='$idpsi[2]'";
-	  //echo $x;
-	//   echo $sql; 	
-	return $rta=dato_mysql($sql);
-		 
-		/* $sql="INSERT INTO psi_sesion2 VALUES (
-					NULL,
-					'$idpsi[0]',
-					'$idpsi[1]',
-					trim(upper('{$_POST['psi_fecha_sesion']}')),
-					trim(upper('{$_POST['cod_admin2']}')),
-					trim(upper('{$_POST['psi_validacion1']}')),
-					trim(upper('{$_POST['psi_validacion2']}')),
-					trim(upper('{$_POST['psi_validacion3']}')),
-					trim(upper('{$_POST['psi_validacion4']}')),
-					trim(upper('{$_POST['psi_validacion5']}')),
-					trim(upper('{$_POST['psi_validacion6']}')),
-					trim(upper('{$_POST['psi_validacion7']}')),
-					trim(upper('{$_POST['psi_validacion8']}')),
-					trim(upper('{$_POST['psi_validacion9']}')),
-					trim(upper('{$_POST['psi_validacion10']}')),
-					trim(upper('{$_POST['contin_caso']}')),
-					DATE_SUB(NOW(), INTERVAL 5 HOUR),
-					{$_SESSION['us_sds']},
-					NULL,
-					NULL,
-					'2')"; */
-		// echo $sql;
-	}
-	//return "correctamente";
+	} 
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -786,41 +682,6 @@ function gra_sesion_fin(){
 	['type' => 's', 'value' => 'A']
 	];
 	return $rta = mysql_prepd($sql, $params);
-	
-	
-	/* $sql="INSERT INTO psi_sesion_fin VALUES (
-		NULL,
-					$idpsi[0],
-					trim(upper('{$_POST['psi_fecha_sesion']}')),
-					trim(upper('{$_POST['cod_admisfin']}')),
-					trim(upper('{$_POST['zung_ini']}')),
-					trim(upper('{$_POST['hamilton_ini']}')),
-					trim(upper('{$_POST['whodas_ini']}')),
-					trim(upper('{$_POST['psi_validacion1']}')),
-					trim(upper('{$_POST['psi_validacion2']}')),
-					trim(upper('{$_POST['psi_validacion3']}')),
-					trim(upper('{$_POST['psi_validacion4']}')),
-					trim(upper('{$_POST['psi_validacion5']}')),
-					trim(upper('{$_POST['psi_validacion6']}')),
-					trim(upper('{$_POST['psi_validacion7']}')),
-					trim(upper('{$_POST['psi_validacion8']}')),
-					trim(upper('{$_POST['psi_validacion9']}')),
-					trim(upper('{$_POST['psi_validacion10']}')),
-					trim(upper('{$_POST['psi_validacion11']}')),
-					trim(upper('{$_POST['psi_validacion12']}')),
-					trim(upper('{$_POST['psi_validacion13']}')),
-					trim(upper('{$_POST['psi_validacion14']}')),
-					trim(upper('{$_POST['psi_validacion15']}')),
-					trim(upper('{$_POST['psi_validacion17']}')),
-					trim(upper('{$_POST['psi_validacion18']}')),
-					trim(upper('{$_POST['psi_validacion19']}')),
-					DATE_SUB(NOW(), INTERVAL 5 HOUR),
-					{$_SESSION['us_sds']},
-					NULL,
-					NULL,
-					'A')";
-					return $rta=dato_mysql($sql); */
-
 }
 
 

@@ -153,7 +153,8 @@ function cap_menus($a,$b='cap',$con='con') {
 function gra_sesiones_psi(){
 	$idpsi=divide($_POST['idpsi']);
 	if(count($idpsi) ==0){
-	$sql="UPDATE psi_sesiones SET 
+
+/* 	$sql="UPDATE psi_sesiones SET 
 		psi_validacion1  = TRIM(upper('{$_POST['psi_validacion1']}')),
 		psi_validacion3  = TRIM(upper('{$_POST['psi_validacion3']}')),
 		psi_validacion8  = TRIM(upper('{$_POST['psi_validacion8']}')),
@@ -166,9 +167,26 @@ function gra_sesiones_psi(){
 		psi_validacion17 = TRIM(upper('{$_POST['contin_caso']}')),
 		`usu_update`=TRIM(UPPER('{$_SESSION['us_sds']}')),
 		`fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
-		WHERE idsesipsi='$idpsi[0]'"; 
+		WHERE idsesipsi='$idpsi[0]'";  */
 	  //echo $x;
 	//   echo $sql;
+
+	 $sql = "UPDATE psi_sesiones SET psi_validacion1 = ?,psi_validacion3 = ?,psi_validacion8 = ?,psi_validacion9 = ?,psi_validacion11 = ?,psi_validacion12 = ?,psi_validacion14 = ?,psi_validacion15 = ?,psi_validacion16 = ?,psi_validacion17 = ?,usu_update = ?,fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR)  
+	 WHERE idsesipsi = ?";
+    $params = [
+      ['type' => 's', 'value' => $_POST['psi_validacion1']],
+      ['type' => 's', 'value' => $_POST['psi_validacion3']],
+      ['type' => 's', 'value' => $_POST['psi_validacion8']],
+      ['type' => 's', 'value' => $_POST['psi_validacion9']],
+	  ['type' => 's', 'value' => $_POST['psi_validacion11']],
+	  ['type' => 's', 'value' => $_POST['psi_validacion12']],
+	  ['type' => 's', 'value' => $_POST['psi_validacion14']],
+	  ['type' => 's', 'value' => $_POST['psi_validacion15']],
+	  ['type' => 's', 'value' => $_POST['psi_validacion16']],
+	  ['type' => 's', 'value' => $_POST['contin_caso']],
+      ['type' => 's', 'value' => $_SESSION['us_sds']],
+      ['type' => 's', 'value' => $idpsi[0]],
+    ];
 
 	} elseif(count($idpsi) ==2){
 		$nuse=numSess($idpsi[0]);
@@ -204,36 +222,6 @@ function gra_sesiones_psi(){
 		['type' => 's', 'value' => 'A']
 		];
 		return $rta = mysql_prepd($sql, $params);
-
-		/* $sql="INSERT INTO psi_sesiones VALUES (NULL,
-					trim(upper('{$idpsi[0]}')),
-					trim(upper('{$_POST['psi_fecha_sesion']}')),
-					$nuse,
-					trim(upper('{$_POST['cod_admin4']}')),
-					trim(upper('{$_POST['psi_validacion1']}')),
-					trim(upper('{$_POST['psi_validacion2']}')),
-					trim(upper('{$_POST['psi_validacion3']}')),
-					trim(upper('{$_POST['psi_validacion4']}')),
-					trim(upper('{$_POST['psi_validacion5']}')),
-					trim(upper('{$_POST['difhacer']}')),
-					trim(upper('{$_POST['psi_validacion6']}')),
-					trim(upper('{$_POST['psi_validacion7']}')),
-					trim(upper('{$_POST['psi_validacion8']}')),
-					trim(upper('{$_POST['psi_validacion9']}')),
-					trim(upper('{$_POST['psi_validacion10']}')),
-					trim(upper('{$_POST['psi_validacion11']}')),
-					trim(upper('{$_POST['psi_validacion12']}')),
-					trim(upper('{$_POST['psi_validacion13']}')),
-					trim(upper('{$_POST['psi_validacion14']}')),
-					trim(upper('{$_POST['psi_validacion15']}')),
-					trim(upper('{$_POST['psi_validacion16']}')),
-					trim(upper('{$_POST['contin_caso']}')),
-					DATE_SUB(NOW(), INTERVAL 5 HOUR),
-					{$_SESSION['us_sds']},
-					NULL,
-					NULL,
-					'A')"; */
-		// echo $sql;
 	}
 	$rta=dato_mysql($sql);
 	//return "correctamente";
