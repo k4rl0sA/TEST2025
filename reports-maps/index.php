@@ -38,14 +38,6 @@
     h1 {
       color: #2c3e50;
     }
-    /* Estilo para los marcadores */
-    .custom-marker {
-      background: transparent;
-      border: none;
-    }
-    .custom-marker svg {
-      filter: drop-shadow(0px 0px 2px rgba(0,0,0,0.5));
-    }
   </style>
 </head>
 <body>
@@ -55,7 +47,7 @@
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet-search@3.0.2/dist/leaflet-search.min.js"></script>
   <script>
-    // Datos del JSON
+    // Datos del JSON (copiar el contenido completo de Pred_3_atenciones_mz.json aquí)
     const prediosData = {
       "displayFieldName": "",
       "fieldAliases": {
@@ -79,62 +71,95 @@
         "MOTIVO_ESTADO": "MOTIVO_ESTADO",
         "NOMBRE_GESTOR": "NOMBRE_GESTOR",
         "FECHA_CARACTERIZADO": "FECHA_CARACTERIZADO"
-      },
-      "features": [
+    },
+       "features": [
         {
-          "attributes": {
-            "Id_geo": 658878,
-            "SUBRED": "CENTRO ORIENTE",
-            "ZONA": "1",
-            "LOCALIDAD": "SAN CRISTÓBAL",
-            "TERRITORIO": "CE043",
-            "UPZ": "LA GLORIA",
-            "COD_BARRIO": "40091",
-            "SECTOR_CATASTRAL_": "1354",
-            "N_MANZANA": "30",
-            "N_PREDIO": "13",
-            "UNIDAD_HABITACIONAL": "1",
-            "DIRECCION": "KR 2H 37D 21 SUR",
-            "VEREDA": "NULL",
-            "COORDENADA_X": -74.099276852299994,
-            "COORDENADA_Y": 4.5571093253799999,
-            "ESTRATO": "2",
-            "ESTADO_VISITA": "EFECTIVA",
-            "MOTIVO_ESTADO": "N/A",
-            "NOMBRE_GESTOR": "JENNIFER ALEXANDRA FONSECA ESCALANTE",
-            "FECHA_CARACTERIZADO": 1741392000000
-          },
-          "geometry": {
-            "rings": [
-              [
-                [-74.09922819399992, 4.5571123490000787],
-                [-74.099255401999926, 4.5570654360000731],
-                [-74.099281086999952, 4.5570804140000405],
-                [-74.099302114999944, 4.5570926750000922],
-                [-74.099325478999901, 4.5571063000000436],
-                [-74.099310532999937, 4.5571321570000691],
-                [-74.09930739999993, 4.5571375770000486],
-                [-74.099298361999899, 4.5571532130000492],
-                [-74.099253953999948, 4.5571273510000765],
-                [-74.099245383999914, 4.5571223590000614],
-                [-74.09922819399992, 4.5571123490000787]
-              ]
-            ]
-          }
+            "attributes": {
+                "Id_geo": 658878,
+                "SUBRED": "CENTRO ORIENTE",
+                "ZONA": "1",
+                "LOCALIDAD": "SAN CRISTÓBAL",
+                "TERRITORIO": "CE043",
+                "UPZ": "LA GLORIA",
+                "COD_BARRIO": "40091",
+                "SECTOR_CATASTRAL_": "1354",
+                "N_MANZANA": "30",
+                "N_PREDIO": "13",
+                "UNIDAD_HABITACIONAL": "1",
+                "DIRECCION": "KR 2H 37D 21 SUR",
+                "VEREDA": "NULL",
+                "COORDENADA_X": -74.099276852299994,
+                "COORDENADA_Y": 4.5571093253799999,
+                "ESTRATO": "2",
+                "ESTADO_VISITA": "EFECTIVA",
+                "MOTIVO_ESTADO": "N/A",
+                "NOMBRE_GESTOR": "JENNIFER ALEXANDRA FONSECA ESCALANTE",
+                "FECHA_CARACTERIZADO": 1741392000000,
+            },
+            "geometry": {
+                "rings": [
+                    [
+                        [
+                            -74.09922819399992,
+                            4.5571123490000787
+                        ],
+                        [
+                            -74.099255401999926,
+                            4.5570654360000731
+                        ],
+                        [
+                            -74.099281086999952,
+                            4.5570804140000405
+                        ],
+                        [
+                            -74.099302114999944,
+                            4.5570926750000922
+                        ],
+                        [
+                            -74.099325478999901,
+                            4.5571063000000436
+                        ],
+                        [
+                            -74.099310532999937,
+                            4.5571321570000691
+                        ],
+                        [
+                            -74.09930739999993,
+                            4.5571375770000486
+                        ],
+                        [
+                            -74.099298361999899,
+                            4.5571532130000492
+                        ],
+                        [
+                            -74.099253953999948,
+                            4.5571273510000765
+                        ],
+                        [
+                            -74.099245383999914,
+                            4.5571223590000614
+                        ],
+                        [
+                            -74.09922819399992,
+                            4.5571123490000787
+                        ]
+                    ]
+                ]
+            }
         }
-      ]
+     ]
     };
 
-    // Convertir el formato ArcGIS a GeoJSON estándar usando las coordenadas X/Y
-    function convertToGeoJSONPoints(arcgisJson) {
+    // Convertir el formato ArcGIS a GeoJSON estándar
+    function convertToGeoJSON(arcgisJson) {
       return {
         type: "FeatureCollection",
         features: arcgisJson.features.map(feature => ({
           type: "Feature",
           properties: feature.attributes,
           geometry: {
-            type: "Point",
-            coordinates: [feature.attributes.CORDENADA_X, feature.attributes.CORDENADA_Y]
+            type: "Polygon",
+            coordinates: feature.geometry.rings
           }
         }))
       };
@@ -160,46 +185,41 @@
       }
     }
 
-    // Convertir los datos a GeoJSON con puntos
-    const geoJsonData = convertToGeoJSONPoints(prediosData);
+    // Convertir los datos a GeoJSON
+    const geoJsonData = convertToGeoJSON(prediosData);
 
-    // Crear icono personalizado más visible
-    function createMarkerIcon(color) {
-      return L.divIcon({
-        className: 'custom-marker',
-        html: `<svg viewBox="0 0 24 24" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
-          <path fill="${color}" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-        </svg>`,
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
-        popupAnchor: [0, -32]
-      });
-    }
-
-    // Crear capa de predios con marcadores
+    // Crear capa de predios con estilos dinámicos
     const prediosLayer = L.geoJSON(geoJsonData, {
-      pointToLayer: function(feature, latlng) {
-        return L.marker(latlng, {
-          icon: createMarkerIcon(getColorByEstado(feature.properties.ESTADO_VISITA))
-        });
+      style: function(feature) {
+        return {
+          fillColor: getColorByEstado(feature.properties.ESTADO_VISITA),
+          weight: 1,
+          opacity: 1,
+          color: 'white',
+          fillOpacity: 0.7
+        };
       },
       onEachFeature: function(feature, layer) {
         const props = feature.properties;
         const popupContent = `
-          <div style="max-width: 300px;">
-            <h3 style="margin-top: 0; color: ${getColorByEstado(props.ESTADO_VISITA)}">${props.DIRECCION}</h3>
-            <p><b>Estado:</b> ${props.ESTADO_VISITA}</p>
-            <p><b>Fecha:</b> ${new Date(props.FECHA_CARACTERIZADO).toLocaleDateString()}</p>
-            <p><b>Gestor:</b> ${props.NOMBRE_GESTOR}</p>
-            <button onclick="alert('Más detalles: ' + JSON.stringify(props, null, 2))">Ver más detalles</button>
-          </div>
+          <b>Subred:</b> ${props.SUBRED}<br>
+          <b>Zona:</b> ${props.ZONA}<br>
+          <b>Dirección:</b> ${props.DIRECCION}<br>
+          <b>Localidad:</b> ${props.LOCALIDAD}<br>
+          <b>UPZ:</b> ${props.UPZ}<br>
+          <b>Barrio:</b> ${props.COD_BARRIO}<br>
+          <b>Territorio:</b> ${props.TERRITORIO}<br>
+          <b>Sector Catastral:</b> ${props.SECTOR_CATASTRAL_}<br>
+          <b>Manzana:</b> ${props.N_MANZANA}<br>
+          <b>Predio:</b> ${props.N_PREDIO}<br>
+          <b>Unidad Habitacional:</b> ${props.UNIDAD_HABITACIONAL}<br>
+          <b>Estrato:</b> ${props.ESTRATO}<br>
+          <b>Estado:</b> ${props.ESTADO_VISITA}<br>
+          <b>Motivo:</b> ${props.MOTIVO_ESTADO || 'N/A'}<br>
+          <b>Fecha Caracterizado:</b> ${new Date(props.FECHA_CARACTERIZADO).toLocaleDateString()}<br>
+          <b>Gestor:</b> ${props.NOMBRE_GESTOR}
         `;
         layer.bindPopup(popupContent);
-        
-        // Mostrar el popup al hacer clic (para asegurar que funcione)
-        layer.on('click', function() {
-          layer.openPopup();
-        });
       }
     }).addTo(map);
 
@@ -207,26 +227,20 @@
     const searchControl = new L.Control.Search({
       layer: prediosLayer,
       propertyName: "DIRECCION",
-      maxZoom: 22,
-      minZoom: 15,
+       maxZoom: 22, 
+        minZoom: 15,   // Zoom mínimo permitido
       marker: false,
       textPlaceholder: "Buscar dirección...",
       moveToLocation: function(latlng, title, map) {
-        map.setView(latlng, 18);
+        map.setView(latlng, 30);
       }
     });
 
     searchControl.on('search:locationfound', function(e) {
-      if (e.layer.setIcon) {
-        e.layer.setIcon(createMarkerIcon('#000000'));
-      }
+      e.layer.setStyle({ weight: 3, color: '#000', fillOpacity: 0.9 });
       e.layer.openPopup();
     }).on('search:collapsed', function() {
-      prediosLayer.eachLayer(function(layer) {
-        if (layer.feature) {
-          layer.setIcon(createMarkerIcon(getColorByEstado(layer.feature.properties.ESTADO_VISITA)));
-        }
-      });
+      prediosLayer.resetStyle();
     });
 
     map.addControl(searchControl);
@@ -252,3 +266,5 @@
   </script>
 </body>
 </html>
+
+
