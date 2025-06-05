@@ -146,7 +146,7 @@ function gra_admision(){
     $campos_fecha_null = ['fecha_consulta', 'fecha_update'];
     if(count($id)==4){
         $rta = "'NO ES POSIBLE ACTUALIZAR EL REGISTRO'";
-    } elseif(count($id)==3 || count($id)==1){
+    } elseif(count($id)==3){
         if(get_admi($id[0])){
             $rta="Error: msj['No puedes realizar otra solicitud, ya fue enviada una al área encargada']";
         } else {
