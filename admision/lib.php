@@ -278,38 +278,24 @@ function gra_admision(){
 			$estado='F';	
 		}else{
 			$estado='E';
-		}
-		// print_r($id);
-
-		/*$sql1="UPDATE `personas` SET
-		regimen=trim(upper('{$_POST['regimen']}')), 
-		eapb=trim(upper('{$_POST['eapb']}')),
-		usu_update=TRIM(UPPER('{$_SESSION['us_sds']}')),
-		fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR)
-		where idpersona='{$id[0]}' and tipo_doc='{$id[1]}'";
-		// echo $sql1;
-		$rta1=dato_mysql($sql1);
-
-		if (strpos($rta1, "Correctamente") !== false) {
-			$rtaF.= "";
-		} else {
-			$rtaF.= "Error: No se pudo actualizar el Regimen o la Eapb";
-		}	*/
-
-		$sql="UPDATE `adm_facturacion` SET
-	fecha_consulta=trim(upper('{$_POST['fecha_consulta']}')), 
-	tipo_consulta=trim(upper('{$_POST['tipo_consulta']}')),	
-	`cod_admin`=TRIM(UPPER('{$_POST['cod_admin']}')),
-	`cod_cups`=TRIM(UPPER('{$_POST['cod_cups']}')),
-	`final_consul`=TRIM(UPPER('{$_POST['final_consul']}')),
-	`cod_factura`=TRIM(UPPER('{$_POST['cod_factura']}')),
-	`estado_hist`=TRIM(UPPER('{$_POST['estado_hist']}')),
-	`usu_update`=TRIM(UPPER('{$_SESSION['us_sds']}')),
-	fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),
-	`estado`='{$estado}' WHERE id_factura='{$id[3]}'";
-		$rtaF.=dato_mysql($sql);
+		// Usar consulta preparada en vez de SQL directo
+		$sql = "UPDATE `adm_facturacion` SET fecha_consulta = ?,tipo_consulta = ?,`cod_admin` = ?,`cod_cups` = ?,`final_consul` = ?,`cod_factura` = ?,`estado_hist` = ?,`usu_update` = ?,fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR),`estado` = ?
+			WHERE id_factura = ?";
+		$params = [
+			['type' => 's', 'value' => $_POST['fecha_consulta']],
+			['type' => 's', 'value' => $_POST['tipo_consulta']],
+			['type' => 's', 'value' => $_POST['cod_admin']],
+			['type' => 's', 'value' => $_POST['cod_cups']],
+			['type' => 's', 'value' => $_POST['final_consul']],
+			['type' => 's', 'value' => $_POST['cod_factura']],
+			['type' => 's', 'value' => $_POST['estado_hist']],
+			['type' => 's', 'value' => $_SESSION['us_sds']],
+			['type' => 's', 'value' => $estado],
+			['type' => 's', 'value' => $id[3]],
+		];
+		$rtaF .= mysql_prepd($sql, $params);
 	}else if(count($id)==3){
-		$rtaF.= "NO HA SELECIONADO LA ADMISION A EDITAR";
+		$rtaF.= "Error: msj['NO HA SELECIONADO LA ADMISION A EDITAR']";
 	}
 	// echo $sql;
   return $rtaF;
