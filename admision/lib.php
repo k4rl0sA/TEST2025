@@ -301,6 +301,7 @@ function gra_admision(){
   return $rtaF;
 }
 
+
 function fac($id){
 	// var_dump($id);
 	$id=divide($id);
