@@ -120,29 +120,38 @@ function opc_momento($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=21 and estado='A' ORDER BY 1",$id);
   }
 
-function gra_vitals_signs(){
-// print_r($_POST);
-$id=divide($_POST['id_svital']);
-  if(count($id)==1){
-    $sql="UPDATE rel_signvitales SET
-tas=trim(upper('{$_POST['tas']}')),
-tad=trim(upper('{$_POST['tad']}')),
-frecard=trim(upper('{$_POST['frecard']}')),
-satoxi =trim(upper('{$_POST['satoxi']}')),
-    `usu_update`=TRIM(UPPER('{$_SESSION['us_sds']}')),`fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
-    WHERE idsignos =TRIM(UPPER('{$id[0]}'))";
-    // echo $sql;
-  }else if(count($id)==2){
-    $sql="INSERT INTO rel_signvitales VALUES (NULL,trim(upper('{$id[1]}')),trim(upper('{$id[0]}')),
-    trim(upper('{$_POST['fecha_toma']}')),
-    trim(upper('{$_POST['momento']}')),trim(upper('{$_POST['tas']}')),trim(upper('{$_POST['tad']}')),
-    trim(upper('{$_POST['frecard']}')),trim(upper('{$_POST['satoxi']}')),
-    TRIM(UPPER('{$_SESSION['us_sds']}')),DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')";
-    // echo $sql;
+function gra_vitals_signs() {
+  // print_r($_POST);
+  $id = divide($_POST['id_svital']);
+  if (count($id) == 1) {
+    $sql = "UPDATE rel_signvitales SET tas = ?,tad = ?,frecard = ?,satoxi = ?,usu_update = ?,fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR)  WHERE idsignos = ?";
+    $params = [
+      ['type' => 's', 'value' => $_POST['tas']],
+      ['type' => 's', 'value' => $_POST['tad']],
+      ['type' => 's', 'value' => $_POST['frecard']],
+      ['type' => 's', 'value' => $_POST['satoxi']],
+      ['type' => 's', 'value' => $_SESSION['us_sds']],
+      ['type' => 's', 'value' => $id[0]],
+    ];
+  } else if (count($id) == 2) {
+    $sql = "INSERT INTO rel_signvitales VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR), NULL, NULL, 'A')";
+    $params = [
+      ['type' => 's', 'value' => $id[1]],
+      ['type' => 's', 'value' => $id[0]],
+      ['type' => 's', 'value' => $_POST['fecha_toma']],
+      ['type' => 's', 'value' => $_POST['momento']],
+      ['type' => 's', 'value' => $_POST['tas']],
+      ['type' => 's', 'value' => $_POST['tad']],
+      ['type' => 's', 'value' => $_POST['frecard']],
+      ['type' => 's', 'value' => $_POST['satoxi']],
+      ['type' => 's', 'value' => $_SESSION['us_sds']],
+    ];
+  } else {
+    return "Error: ID inválido";
   }
-    $rta=dato_mysql($sql);
-    return $rta;
-  } 
+  $rta = mysql_prepd($sql, $params);
+  return $rta;
+}
 
 
   function get_vitals_signs(){
