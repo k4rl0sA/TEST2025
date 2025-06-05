@@ -44,7 +44,7 @@ function lis_admision(){
 	$regxPag=4;
 	
 	$pag=(isset($_POST['pag-admision']))? ($_POST['pag-admision']-1)* $regxPag:0;
-	$sql="SELECT CONCAT_WS('_',P.idpeople,id_factura) ACCIONES, 
+	$sql="SELECT ROW_NUMBER() OVER (ORDER BY 1) R,CONCAT_WS('_',P.idpeople,id_factura) ACCIONES, 
 	`cod_admin` 'Cod. Ingreso',P.idpersona documento,A.fecha_create AS Fecha_Solicitud,U.nombre Creó,U.perfil Perfil, FN_CATALOGODESC(184,A.estado_hist) Estado 
 	FROM `adm_facturacion` A 
 	LEFT JOIN person P ON A.idpeople=P.idpeople
@@ -279,30 +279,26 @@ function gra_admision(){
 		}else{
 			$estado='E';
 		}
-		// Usar consulta preparada en vez de SQL directo
-		$sql = "UPDATE `adm_facturacion` SET fecha_consulta = ?,tipo_consulta = ?,`cod_admin` = ?,`cod_cups` = ?,`final_consul` = ?,`cod_factura` = ?,`estado_hist` = ?,`usu_update` = ?,fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR),`estado` = ?
-			WHERE id_factura = ?";
-		$params = [
-			['type' => 's', 'value' => $_POST['fecha_consulta']],
-			['type' => 's', 'value' => $_POST['tipo_consulta']],
-			['type' => 's', 'value' => $_POST['cod_admin']],
-			['type' => 's', 'value' => $_POST['cod_cups']],
-			['type' => 's', 'value' => $_POST['final_consul']],
-			['type' => 's', 'value' => $_POST['cod_factura']],
-			['type' => 's', 'value' => $_POST['estado_hist']],
-			['type' => 's', 'value' => $_SESSION['us_sds']],
-			['type' => 's', 'value' => $estado],
-			['type' => 's', 'value' => $id[3]],
-		];
+		$sql = "UPDATE `adm_facturacion` SET fecha_consulta = ?,tipo_consulta = ?,`cod_admin` = ?,`cod_cups` = ?,`final_consul` = ?,`cod_factura` = ?,`estado_hist` = ?,`usu_update` = ?,fecha_update = NOW(),`estado` = ?
+            WHERE id_factura = ?";
+        $params = [
+            ['type' => 's', 'value' => $_POST['fecha_consulta']],
+            ['type' => 's', 'value' => $_POST['tipo_consulta']],
+            ['type' => 's', 'value' => $_POST['cod_admin']],
+            ['type' => 's', 'value' => $_POST['cod_cups']],
+            ['type' => 's', 'value' => $_POST['final_consul']],
+            ['type' => 's', 'value' => $_POST['cod_factura']],
+            ['type' => 's', 'value' => $_POST['estado_hist']],
+            ['type' => 's', 'value' => $_SESSION['us_sds']],
+            ['type' => 's', 'value' => $estado],
+            ['type' => 's', 'value' => $id[3]],
+        ];
 		$rtaF .= mysql_prepd($sql, $params);
-		}else if(count($id)==3){
-			$rtaF.= "Error: msj['NO HA SELECIONADO LA ADMISION A EDITAR']";
-		} else {
-        	$rtaF .= "Error: msj['Cod de la factura inválido']";
-    	}
-	// echo $sql;
-  		return $rtaF;
+	}else if(count($id)==3){
+		$rtaF.= "NO HA SELECIONADO LA ADMISION A EDITAR";
 	}
+	// echo $sql;
+  return $rtaF;
 }
 
 function fac($id){
