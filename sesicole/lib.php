@@ -24,10 +24,8 @@ function lis_sesigcole(){
 	if (!empty($_POST['fpred'])) {
 		$total = "SELECT COUNT(DISTINCT sc.id_cole) AS total  FROM hog_sescole sc
           LEFT JOIN usuarios u ON sc.usu_create = u.id_usuario
-          LEFT JOIN geo_gest gg ON sc.idpre = gg.idgeo
-          LEFT JOIN hog_geo hg ON gg.idgeo = hg.idgeo
-          WHERE gg.estado_v IN ('7')
-              AND hg.subred = (SELECT subred FROM usuarios WHERE id_usuario ='{$_SESSION['us_sds']}') 
+            LEFT JOIN hog_geo hg ON sc.idpre = hg.idgeo 
+          WHERE hg.subred = (SELECT subred FROM usuarios WHERE id_usuario ='{$_SESSION['us_sds']}') 
               " . whe_sesigcole();
         $info = datos_mysql($total);
         $total = $info['responseResult'][0]['total'];
@@ -46,17 +44,15 @@ function lis_sesigcole(){
             sc.estado
         FROM hog_sescole sc
         LEFT JOIN usuarios u ON sc.usu_create = u.id_usuario
-        LEFT JOIN geo_gest gg ON sc.idpre = gg.idgeo
-        LEFT JOIN hog_geo hg ON gg.idgeo = hg.idgeo
-        WHERE gg.estado_v IN ('7')
-          AND hg.subred = (SELECT subred FROM usuarios WHERE id_usuario ='{$_SESSION['us_sds']}')
+      LEFT JOIN hog_geo hg ON sc.idpre = hg.idgeo 
+        WHERE hg.subred = (SELECT subred FROM usuarios WHERE id_usuario ='{$_SESSION['us_sds']}')
           " . whe_sesigcole() . " 
         GROUP BY sc.id_cole, sc.fecha, sc.tipo_activ, sc.lugar, sc.tematica1, sc.des_temati1, u.nombre, sc.fecha_create, sc.estado 
         LIMIT $pag, $regxPag";
 		// var_dump($total);
-	// var_dump($sql);
+//var_dump($sql);
 		$datos=datos_mysql($sql);
-	return create_table($total,$datos["responseResult"],"sesigcole",$regxPag); 
+	return create_table($total,$datos["responseResult"],"sesigcole",$regxPag);
 	
 }else{
 	return "<div class='error' style='padding: 12px; background-color:#00a3ffa6;color: white; border-radius: 25px; z-index:100; top:0;text-transform:none'>
