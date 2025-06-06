@@ -521,13 +521,7 @@ function cmp_sesion_fin() {
 	$c[]=new cmp($o,'e',null,'RESULTADO DE EVALUACION pre EP+',$w);
 	$c[]=new cmp('cod_admisfin','s',2,$j['cod_admisfin'],$w.' '.$o,'Codigo Admisión','cod_admisfin',null,null,true,true,'','col-4');
 	
-	/* $sql="SELECT TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) AS edad
-		FROM person WHERE id_people='{$_POST['id']}'";
-		$info=datos_mysql($sql);
-		$edad=$info['responseResult'][0]['edad'];
-		$ed = ($edad<18) ? false :true; */
-
-
+	
 	$c[]=new cmp('psi_validacion4','a','1500',$j['psi_validacion4'],$w.' '.$o,'1. Éste es el problema que le preocupaba más, según usted nos dijo cuando le preguntamos al principio.','psi_validacion4',null,null,$ed,$ed,'','col-10');
 	$c[]=new cmp('psi_validacion5','s','3',$j['psi_validacion5'],$w.' '.$o,'1,1. ¿Cuánto le afectó durante la última semana?','psi_validacion5',null,null,$ed,$ed,'','col-10');
 	$c[]=new cmp('psi_validacion6','a','1500',$j['psi_validacion6'],$w.' '.$o,'2. Éste es el otro problema que le preocupa, según usted nos dijo cuando le preguntamos al principio.','psi_validacion6',null,null,$ed,$ed,'','col-10');

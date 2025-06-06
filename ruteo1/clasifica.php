@@ -134,19 +134,6 @@ function gra_rutclasif(){
   $rta = mysql_prepd($sql, $params);
   return $rta;
 
-
-/* $sql="UPDATE `eac_ruteo` SET 
-famili=TRIM(UPPER('{$_POST['famili']}')),
-usuario=TRIM(UPPER('{$_POST['usuario']}')),
-`predio`=TRIM(UPPER('{$_POST['estado']}')),
-`cod_admin`=TRIM(UPPER('{$_POST['cod_admin']}')),
-`usu_update`=TRIM(UPPER('{$_SESSION['us_sds']}')),
-`fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR),
-estado='G'
-	WHERE id_ruteo='{$_POST['id']}'";
-	//echo $sql;
-  $rta=dato_mysql($sql); 
-  return $rta;*/
 }
 
 function opc_pre_clasifclasificacion($id=''){

@@ -141,18 +141,19 @@ function get_ruteresol(){
 }
 
 function gra_ruteresol(){
-$sql="UPDATE `eac_ruteo` SET 
-estado_ruteo=TRIM(UPPER('{$_POST['est']}')),
-estado_rut=TRIM(UPPER('{$_POST['estado']}')),
-famili=TRIM(UPPER('{$_POST['famili']}')),
-usuario=TRIM(UPPER('{$_POST['usuario']}')),
-fecha=TRIM(UPPER('{$_POST['fecha']}')),
-usuario=TRIM(UPPER('{$_POST['usuario']}')),
-`usu_update`=TRIM(UPPER('{$_SESSION['us_sds']}')),
-`fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR)
-	WHERE id_ruteo='{$_POST['id']}'";
-	//echo $sql;
-  $rta=dato_mysql($sql);
+$sql = "UPDATE `eac_ruteo` SET estado_ruteo = ?,estado_rut = ?,famili = ?,usuario = ?,fecha = ?,usuario = ?,`usu_update` = ?,`fecha_update` = DATE_SUB(NOW(), INTERVAL 5 HOUR)
+	WHERE id_ruteo = ?";
+$params = [
+	['type' => 's', 'value' => $_POST['est']],
+	['type' => 's', 'value' => $_POST['estado']],
+	['type' => 's', 'value' => $_POST['famili']],
+	['type' => 's', 'value' => $_POST['usuario']],
+	['type' => 's', 'value' => $_POST['fecha']],
+	['type' => 's', 'value' => $_POST['usuario']],
+	['type' => 's', 'value' => $_SESSION['us_sds']],
+	['type' => 's', 'value' => $_POST['id']]
+];
+$rta = mysql_prepd($sql, $params);
   return $rta;
 }
 
