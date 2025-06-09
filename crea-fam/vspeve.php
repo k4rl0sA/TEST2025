@@ -202,8 +202,10 @@ function gra_vspeve(){
     trim(upper('{$_POST['fecha_even']}')),
     TRIM(UPPER('{$_SESSION['us_sds']}')),DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')"; */
     // echo $sql;
+  }else {
+    $rta"Error: msj['id inválido']";
   }
-    $rta=dato_mysql($sql);
+    $rta = mysql_prepd($sql, $params);
     return $rta;
   } 
 
