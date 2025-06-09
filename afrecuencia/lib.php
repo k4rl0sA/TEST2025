@@ -260,16 +260,36 @@ function gra_frecuenciauso(){
  if ($_POST['key']){
 	// var_dump($_POST);
 	 $id=divide($_POST['key']);
-	$sql="UPDATE frecuenciauso SET punto_atencion='{$_POST['pun']}', tipo_cita='{$_POST['cit']}',usu_update='".$_SESSION['us_sds']."',fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
- WHERE idfrecuencia={$id[0]}";
+	/* $sql="UPDATE frecuenciauso SET punto_atencion='{$_POST['pun']}', tipo_cita='{$_POST['cit']}',usu_update='".$_SESSION['us_sds']."',fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
+ WHERE idfrecuencia={$id[0]}"; */
+ $sql="UPDATE frecuenciauso SET punto_atencion=?, tipo_cita=?,usu_update=?,fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
+ WHERE idfrecuencia=?";
+ $params = [
+	['type' => 'i', 'value' => $_POST['pun']],
+	['type' => 'i', 'value' => $_POST['cit']],
+	['type' => 's', 'value' => $_SESSION['us_sds']],
+	['type' => 'i', 'value' => $id[0]]
+ ];
  }else{
 	$sql="SELECT idpeople from person where idpersona='".$_POST['idp']."' AND tipo_doc='".$_POST['tdo']."'";
 	$id=datos_mysql($sql);
 	$id=$id['responseResult'][0]['idpeople'];
-	 $sql="INSERT INTO frecuenciauso VALUES (NULL,{$id},'{$_POST['pun']}','{$_POST['cit']}','NO','{$_SESSION['us_sds']}',DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A');";
+	 /* $sql="INSERT INTO frecuenciauso VALUES (NULL,{$id},'{$_POST['pun']}','{$_POST['cit']}','NO','{$_SESSION['us_sds']}',DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A');"; 
+	 $rta=dato_mysql($sql);
+	 */
+	$sql="INSERT INTO frecuenciauso VALUES (?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR), NULL, NULL, ?)";
+	$params = [
+		['type' => 'i', 'value' => NULL],
+		['type' => 'i', 'value' => $id],
+		['type' => 'i', 'value' => $_POST['pun']],
+		['type' => 'i', 'value' => $_POST['cit']],
+		['type' => 's', 'value' => 'NO'],
+		['type' => 's', 'value' => $_SESSION['us_sds']],
+		['type' => 's', 'value' => 'A']
+	];
  }
+ $rta=mysql_prepd($sql, $params);
 	//~ echo $sql;
-	$rta=dato_mysql($sql);
 return $rta;
 }
 

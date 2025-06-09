@@ -325,23 +325,50 @@ function gra_agendamiento(){
 	$obs= trim(preg_replace("/[\r\n|\n|\r]+/",PHP_EOL,$_POST['obc']));
  if ($_POST['ipe']){
   $id=divide($_POST['ipe']);
-	$sql="UPDATE agendamiento SET punto_atencion='{$_POST['pun']}',fecha_cita='{$_POST['fci']}',
-	hora_cita='{$_POST['hci']}',nombre_atendio=UPPER('{$_POST['nom']}'),observac_cita=trim('{$obs}'),
-	usu_update='".$_SESSION['us_sds']."',
- fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
- WHERE idagendamiento='{$id[0]}';";
+	$sql="UPDATE agendamiento SET punto_atencion=?,fecha_cita=?,
+	hora_cita=?,nombre_atendio=?,observac_cita=?,
+	usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR)  
+	WHERE idagendamiento= ?;";
+$params=[
+	['type' => 's', 'value' => $_POST['pun']],
+	['type' => 's', 'value' => $_POST['fci']],
+	['type' => 's', 'value' => $_POST['hci']],
+	['type' => 's', 'value' => $_POST['nom']],
+	['type' => 's', 'value' => $obs],
+	['type' => 's', 'value' => $_SESSION['us_sds']],
+	['type' => 's', 'value' => $id[0]]
+];
+
  //~ echo $sql;
- $rta=dato_mysql($sql);
+ $rta = mysql_prepd($sql, $params);
+//  $rta=dato_mysql($sql);
 	return $rta;
  }else{
     $sql="SELECT idpeople from person where idpersona='".$_POST['idp']."' AND tipo_doc='".$_POST['tdo']."'";
 	$id=datos_mysql($sql);
 	$id=$id['responseResult'][0]['idpeople'];
-	$sql="INSERT INTO agendamiento VALUES (NULL,$id,'{$_POST['pun']}','{$_POST['cit']}',DATE_SUB(NOW(), INTERVAL 5 HOUR),
-    '{$_POST['fci']}','{$_POST['hci']}','{$_POST['nom']}',trim('{$obs}'),NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,'{$_SESSION['us_sds']}', NULL, NULL, '4');";
-    // echo $sql;
+	$sql="INSERT INTO agendamiento VALUES (?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),
+	?,?,?,?,NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,?, NULL, NULL,?);";
+	$params=[
+		['type' => 'i','value' => NULL],
+		['type' => 'i', 'value' => $id],
+		['type' => 'i', 'value' => $_POST['pun']],
+		['type' => 'i', 'value' => $_POST['cit']],
+		['type' => 's', 'value' => $_POST['fci']],
+		['type' => 's', 'value' => $_POST['hci']],
+		['type' => 's', 'value' => $_POST['nom']],
+		['type' => 's', 'value' => $obs],
+		['type' => 's', 'value' => $_SESSION['us_sds']],
+		['type' => 'i', 'value' => 4],
+	];
+	//~ echo $sql;";
+	$rta=mysql_prepd($sql, $params);
+/* 	$sql="INSERT INTO agendamiento VALUES (NULL,$id,'{$_POST['pun']}','{$_POST['cit']}',DATE_SUB(NOW(), INTERVAL 5 HOUR),
+    '{$_POST['fci']}','{$_POST['hci']}','{$_POST['nom']}',trim('{$obs}'),NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,'{$_SESSION['us_sds']}', NULL, NULL, '4');"; 
+    echo $sql;
 	$rta=datos_mysql($sql);
-    // var_dump($rta['responseResult'][0]["affected_rows"]);
+    var_dump($rta['responseResult'][0]["affected_rows"]);
+	*/
     $rta1=$rta['responseResult'][0]["affected_rows"];
 	if (strpos($rta1,1) === false) {
 		$rta='Ouch!, No se realizo la creación de la cita (Posiblemente este usuario ya tiene una cita agendada en esta misma fecha), compruebe la información del usuario e intente nuevamente.';
@@ -380,6 +407,7 @@ function gra_finalizado($a=''){
 	$rta1 = mysql_prepd($sql1, $params1);
   return $rta1;
 }
+
 function opc_idptdo(){
 	if($_REQUEST['id']!=''){
 		$id=divide($_REQUEST['id']);
@@ -487,14 +515,27 @@ function men_confirma_asistencia(){
 
 function gra_confirma_asistencia(){
 	$id=divide($_POST['ipe']);
-	$sql="UPDATE agendamiento SET fecha_llamada=DATE_SUB(NOW(), INTERVAL 5 HOUR),
+	/* $sql="UPDATE agendamiento SET fecha_llamada=DATE_SUB(NOW(), INTERVAL 5 HOUR),
 	nombre_llamada=UPPER('{$_POST['nom']}'),confirma_cita='{$_POST['con']}',
 	msjtxt='{$_POST['msj']}',observac_llamadas=trim(UPPER('{$_POST['obl']}')),
 	usu_update='".$_SESSION['us_sds']."',fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),estado='6' 
  WHERE idagendamiento='{$id[0]}';";
-	
 	//~ echo $sql;
-  $rta=dato_mysql($sql);
+  $rta=dato_mysql($sql); */
+  $sql="UPDATE agendamiento SET fecha_llamada=DATE_SUB(NOW(), INTERVAL 5 HOUR),
+	nombre_llamada=?,confirma_cita=?,msjtxt=?,observac_llamadas=?,
+	usu_update=?,fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),estado=? 
+ WHERE idagendamiento=?;";
+  $params=[
+		['type' => 's', 'value' => $_POST['nom']],
+		['type' => 's', 'value' => $_POST['con']],
+		['type' => 's', 'value' => $_POST['msj']],
+		['type' => 's', 'value' => $_POST['obl']],
+		['type' => 's', 'value' => $_SESSION['us_sds']],
+		['type' => 'i', 'value' => 6],
+		['type' => 'i', 'value' => $id[0]]
+	];
+	$rta = mysql_prepd($sql, $params);
   return $rta;	
 }
 
@@ -539,11 +580,24 @@ function gra_seguimiento(){
 	}else{
 		$est=$_POST['est'];
 	}
-	$sql="UPDATE agendamiento SET `fecha_llamada2`=DATE_SUB(NOW(), INTERVAL 5 HOUR), `nombre_llamada2`=UPPER('{$_POST['nom']}'),`motivo_inasistencia`='{$_POST['tin']}', `reasigno`='{$_POST['rea']}',
+	/* $sql="UPDATE agendamiento SET `fecha_llamada2`=DATE_SUB(NOW(), INTERVAL 5 HOUR), `nombre_llamada2`=UPPER('{$_POST['nom']}'),`motivo_inasistencia`='{$_POST['tin']}', `reasigno`='{$_POST['rea']}',
 	`observac_llamada2`=trim(UPPER('{$_POST['obi']}')),`usu_update`='".$_SESSION['us_sds']."', `fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR), `estado`='{$est}'
 	WHERE idagendamiento='{$id[0]}'";// AND tipodoc=UPPER('{$id[2]}') AND fecha_cita='{$id[3]}' AND hora_cita='{$id[4]}';
 	//~ echo $sql;
-  $rta=dato_mysql($sql);
+  $rta=dato_mysql($sql); */
+  $sql="UPDATE agendamiento SET `fecha_llamada2`=DATE_SUB(NOW(), INTERVAL 5 HOUR), `nombre_llamada2`=?,`motivo_inasistencia`=?, `reasigno`=?,
+	`observac_llamada2`=?,`usu_update`=?, `fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR), `estado`=?
+	WHERE idagendamiento=?";
+	$params=[
+		['type' => 's', 'value' => $_POST['nom']],
+		['type' => 's', 'value' => $_POST['tin']],
+		['type' => 's', 'value' => $_POST['rea']],
+		['type' => 's', 'value' => $_POST['obi']],
+		['type' => 's', 'value' => $_SESSION['us_sds']],
+		['type' => 'i', 'value' => $est],
+		['type' => 'i', 'value' => $id[0]]
+	];
+	$rta = mysql_prepd($sql, $params);
   return $rta;
 }
   /***********************FIN SEGUIMIENTO********************************/
