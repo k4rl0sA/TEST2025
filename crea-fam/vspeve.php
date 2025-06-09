@@ -167,19 +167,40 @@ function gra_vspeve(){
   // print_r($_POST);
   $id=divide($_POST['id']);
   if(count($id)==1){
-    $sql="UPDATE vspeve SET 
+    /* $sql="UPDATE vspeve SET 
             docum_base = TRIM(UPPER('{$_POST['docum_base']}')),
             evento = TRIM(UPPER('{$_POST['evento']}')),
             fecha_even = TRIM(UPPER('{$_POST['fecha_even']}')),
             `usu_update`=TRIM(UPPER('{$_SESSION['us_sds']}')),`fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
-            WHERE id_eve =TRIM(UPPER('{$id[0]}'))";
+            WHERE id_eve =TRIM(UPPER('{$id[0]}'))"; */
+    $sql="UPDATE vspeve SET docum_base= ?, evento= ?, fecha_even= ?,usu_update= ?, fecha_update= DATE_SUB(NOW(), INTERVAL 5 HOUR) 
+    WHERE id_eve = ?";
+    $params =[
+      ['type' => 's', 'value' =>$_POST['docum_base']],
+      ['type' => 'i', 'value' => $_POST['evento']],
+      ['type' => 's', 'value' => $_POST['fecha_even']],
+      ['type' => 's', 'value' => $_SESSION['us_sds']],
+      ['type' => 'i', 'value' => $id[0]]
+    ];
     // echo $sql;
   }else if(count($id)==2){
-    $sql="INSERT INTO vspeve VALUES (NULL,trim(upper('{$id[0]}')),
+    $sql="INSERT INTO vspeve VALUES (?,?,?,?,?, ?,DATE_SUB(NOW(), INTERVAL 5 HOUR),?,?,?)";
+    $params =[
+      ['type' => 'i', 'value' => null], // id_eve will be auto-incremented
+      ['type' => 's', 'value' => $id[0]],
+      ['type' => 's', 'value' => $_POST['docum_base']],
+      ['type' => 'i', 'value' => $_POST['evento']],
+      ['type' => 's', 'value' => $_POST['fecha_even']],
+      ['type' => 's', 'value' => $_SESSION['us_sds']],
+      ['type' => 's', 'value' => null], // usu_update
+      ['type' => 's', 'value' => null], // fecha_update
+      ['type' => 's', 'value' => 'A'] // estado
+    ];
+    /* $sql="INSERT INTO vspeve VALUES (NULL,trim(upper('{$id[0]}')),
     trim(upper('{$_POST['docum_base']}')),
     trim(upper('{$_POST['evento']}')),
     trim(upper('{$_POST['fecha_even']}')),
-    TRIM(UPPER('{$_SESSION['us_sds']}')),DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')";
+    TRIM(UPPER('{$_SESSION['us_sds']}')),DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')"; */
     // echo $sql;
   }
     $rta=dato_mysql($sql);

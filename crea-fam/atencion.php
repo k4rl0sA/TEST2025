@@ -404,7 +404,7 @@ function gra_atencion(){
 		if (($smu1 = $_POST['continuidad'] ?? null) && is_array($smu1)){$contin = implode(",",str_replace("'", "", $smu1));}
 		if (($smu3 = $_POST['cualremision'] ?? null) && is_array($smu3)){$remisi = implode(",",str_replace("'", "", $smu3));}
 
-	$sql="INSERT INTO eac_atencion VALUES (null,
+	/* $sql="INSERT INTO eac_atencion VALUES (null,
 		$id[0],
 		TRIM(UPPER('{$_POST['idf']}')),
 		TRIM(UPPER('{$_POST['fechaatencion']}')),
@@ -459,7 +459,67 @@ function gra_atencion(){
 		TRIM(UPPER('{$_SESSION['us_sds']}')),
 		DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')";
 		// echo $sql;
-	  return $rta=dato_mysql($sql);
+	  return $rta=dato_mysql($sql); */
+	  $sql = "INSERT INTO eac_atencion VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR),?, ?,?)";
+	  $params=[
+		['type'=>'i', 'value'=> null], // id_aten
+		['type'=>'i', 'value'=>$id[0]], // idpeople
+		['type'=>'s', 'value'=>$_POST['idf']], // id_factura
+		['type'=>'s', 'value'=>$_POST['fechaatencion']], // fechaatencion
+		['type'=>'s', 'value'=>$_POST['tipo_consulta']], // tipo_consulta
+		['type'=>'s', 'value'=>$_POST['codigocups']], // codigocups
+		['type'=>'s', 'value'=>$_POST['finalidadconsulta']], // finalidadconsulta
+		['type'=>'s', 'value'=>$_POST['letra1']], // letra1
+		['type'=>'s', 'value'=>$_POST['rango1']], // rango1
+		['type'=>'s', 'value'=>$_POST['diagnostico1']], // diagnostico1
+		['type'=>'s', 'value'=>$_POST['letra2']], // letra2
+		['type'=>'s', 'value'=>$_POST['rango2']], // rango2
+		['type'=>'s', 'value'=>$_POST['diagnostico2']], // diagnostico2
+		['type'=>'s', 'value'=>$_POST['letra3']], // letra3
+		['type'=>'s', 'value'=>$_POST['rango3']], // rango3
+		['type'=>'s', 'value'=>$_POST['diagnostico3']], // diagnostico3
+		['type'=>'s', 'value'=>$fertil], // fertil
+		['type'=>'s', 'value'=>$preconcepcional], // preconcepcional
+		['type'=>'s', 'value'=>$metodo], // metodo
+		['type'=>'s', 'value'=>$anticonceptivo], // anticonceptivo
+		['type'=>'s', 'value'=>$planificacion], // planificacion
+		['type'=>'s', 'value'=>$mestruacion], // mestruacion
+		['type'=>'s', 'value'=>$_POST['vih']], // vih
+		['type'=>'s', 'value'=>$_POST['resul_vih']], // resul_vih
+		['type'=>'s', 'value'=>$_POST['hb']], // hb
+		['type'=>'s', 'value'=>$_POST['resul_hb']], // resul_hb
+		['type'=>'s', 'value'=>$_POST['trepo_sifil']], // trepo_sifil
+		['type'=>'s', 'value'=>$_POST['resul_sifil']], // resul_sifil
+		['type'=>'s', 'value'=>$_POST['pru_embarazo']], // pru_embarazo
+		['type'=>'s', 'value'=>$_POST['resul_emba']], // resul_emba
+		['type'=>'s', 'value'=>$_POST['pru_apetito']], // pru_apetito
+		['type'=>'s', 'value'=>$_POST['resul_apetito']], // resul_apetito
+		['type'=>'s', 'value'=>$_POST['eventointeres']], // evento_interes
+		['type'=>'s', 'value'=>$_POST['evento']], // evento
+		['type'=>'s', 'value'=>$_POST['cualevento']], // cualevento
+		['type'=>'s', 'value'=>$_POST['sirc']], // sirc
+		['type'=>'s', 'value'=>$rutasirc], // ruta_sirc
+		['type'=>'s', 'value'=>$_POST['remision']], // remision
+		['type'=>'s', 'value'=>$remisi], // cual_remision
+		['type'=>'s', 'value'=>$_POST['ordenvacunacion']], // orden_vacunacion
+		['type'=>'s', 'value'=>$_POST['vacunacion']], // vacunacion
+		['type'=>'s', 'value'=>$_POST['ordenlaboratorio']], // orden_laboratorio
+		['type'=>'s', 'value'=>$_POST['laboratorios']], // laboratorios
+		['type'=>'s', 'value'=>$_POST['ordenmedicamentos']], // orden_medicamentos
+		['type'=>'s', 'value'=>$_POST['medicamentos']], // medicamentos
+		['type'=>'s', 'value'=>$_POST['rutacontinuidad']], // ruta_continuidad
+		['type'=>'s', 'value'=>$contin], // continuidad
+		['type'=>'s', 'value'=>$_POST['ordenimagenes']], // orden_imagenes
+		['type'=>'s', 'value'=>$_POST['ordenpsicologia']], // orden_psicologia
+		['type'=>'s', 'value'=>$_POST['relevo']], // relevo
+		['type'=>'s', 'value'=>$_POST['estrategia']], // estrategia
+		['type'=>'s', 'value'=>$_POST['tipo_estrategia']], // motivo_estrategia
+		['type'=>'s', 'value'=>$_SESSION['us_sds']], // usu_creo
+		['type'=>'s', 'value'=>null], // fecha_create
+		['type'=>'s', 'value'=>null], // usu_update
+		['type'=>'s', 'value'=>'A'] // estado
+	];
+	return $rta=mysql_prepd($sql, $params);
 	}elseif(count($id)==0){
 		return "No es posible actualizar consulte con el administrador";
 	}
