@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 // Cargar config y funciones necesarias
-require_once __DIR__ . '/../../libs/gestion.php';
+require_once __DIR__ . '/../libs/gestion.php';
 // Obtener el documento desde la URL
 $document = isset($_GET['document']) ? trim($_GET['document']) : null;
 $tipo = isset($_GET['tipo']) ? trim($_GET['tipo']) : null;
