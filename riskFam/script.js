@@ -158,6 +158,16 @@ function calculateSocioeconomicRisk(stratum, income) {
   };
 }
 
+function showError(message) {
+    const toast = document.getElementById('toast-error');
+    toast.textContent = message;
+    toast.style.display = 'block';
+    // Oculta el toast después de 4 segundos
+    setTimeout(() => {
+        toast.style.display = 'none';
+    }, 4000);
+}
+
 // Housing Environment Calculation
 function calculateHousingRisk(zone, geographicRisks) {
   // Zone score: Urban = 1, Rural = 2

@@ -194,6 +194,25 @@
   .progress-bar-fill.high {
     background-color: #ef4444;
   }
+
+  .toast-error {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  background: #ff4d4f;
+  color: #fff;
+  padding: 16px 28px;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+  font-size: 1.1em;
+  z-index: 99999;
+  opacity: 0.95;
+  animation: fadeIn 0.4s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px);}
+  to { opacity: 0.95; transform: translateY(0);}
+}
   
   /* Responsive adjustments */
   @media (max-width: 480px) {

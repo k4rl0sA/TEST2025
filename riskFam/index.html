@@ -215,6 +215,7 @@
       <p>Herramienta de Evaluación de Riesgo Familiar &copy; 2025</p>
     </footer>
   </div>
+<div id="toast-error" class="toast-error" style="display:none;"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
@@ -338,7 +339,7 @@
         if (data.error) {
           throw new Error(data.error);
         }
-
+        
         console.log('Datos recibidos:', data); // Para depuración
 
         // Actualizar información personal
@@ -354,7 +355,7 @@
 
       } catch (error) {
         console.error('Error al obtener datos:', error);
-        alert(`Error: ${error.message}`);
+        showToastError(`Error: ${error.message}`);
       } finally {
         // Restaurar estado normal del botón
         generateBtn.disabled = false;
@@ -366,6 +367,19 @@
           Buscar usuario
         `;
       }
+    }
+
+    function showToastError(message) {
+      const toast = document.getElementById('toast-error');
+      toast.textContent = message;
+      toast.style.display = 'block';
+      toast.style.opacity = '1';
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => {
+          toast.style.display = 'none';
+        }, 500);
+      }, 4000);
     }
 
     // Función auxiliar para actualizar información personal
