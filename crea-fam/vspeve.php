@@ -183,6 +183,7 @@ function gra_vspeve(){
       ['type' => 'i', 'value' => $id[0]]
     ];
     // echo $sql;
+    $rta = mysql_prepd($sql, $params);
   }else if(count($id)==2){
     $sql="INSERT INTO vspeve VALUES (?,?,?,?,?, ?,DATE_SUB(NOW(), INTERVAL 5 HOUR),?,?,?)";
     $params =[
@@ -196,6 +197,7 @@ function gra_vspeve(){
       ['type' => 's', 'value' => null], // fecha_update
       ['type' => 's', 'value' => 'A'] // estado
     ];
+    $rta = mysql_prepd($sql, $params);
     /* $sql="INSERT INTO vspeve VALUES (NULL,trim(upper('{$id[0]}')),
     trim(upper('{$_POST['docum_base']}')),
     trim(upper('{$_POST['evento']}')),
@@ -205,7 +207,7 @@ function gra_vspeve(){
   }else {
     $rta"Error: msj['id inválido']";
   }
-    $rta = mysql_prepd($sql, $params);
+    
     return $rta;
   } 
 
