@@ -158,13 +158,16 @@ function calculateSocioeconomicRisk(stratum, income) {
   };
 }
 
-function showError(message) {
+function showToastError(message) {
     const toast = document.getElementById('toast-error');
     toast.textContent = message;
     toast.style.display = 'block';
-    // Oculta el toast después de 4 segundos
+    toast.style.opacity = '1';
     setTimeout(() => {
-        toast.style.display = 'none';
+        toast.style.opacity = '0';
+        setTimeout(() => {
+            toast.style.display = 'none';
+        }, 500);
     }, 4000);
 }
 
