@@ -310,11 +310,12 @@
 
       const tipo = document.getElementById('searchSelect').value;
       if (!documentNumber) {
+        showToastError(`Error: Por favor ingrese un número de documento`);
         alert('Por favor ingrese un número de documento');
         return;
       }
       if (!tipo) {
-        alert('Por favor seleccione el tipo de documento');
+        showToastError(`Error: Por favor seleccione el tipo de documento`);
         return;
       }
 
