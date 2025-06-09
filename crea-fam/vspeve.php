@@ -164,52 +164,49 @@ function opc_evento($id=''){
 
 
 function gra_vspeve(){
-  // print_r($_POST);
-  $id=divide($_POST['id']);
-  if(count($id)==1){
-    /* $sql="UPDATE vspeve SET 
-            docum_base = TRIM(UPPER('{$_POST['docum_base']}')),
-            evento = TRIM(UPPER('{$_POST['evento']}')),
-            fecha_even = TRIM(UPPER('{$_POST['fecha_even']}')),
-            `usu_update`=TRIM(UPPER('{$_SESSION['us_sds']}')),`fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
-            WHERE id_eve =TRIM(UPPER('{$id[0]}'))"; */
-    $sql="UPDATE vspeve SET docum_base= ?, evento= ?, fecha_even= ?,usu_update= ?, fecha_update= DATE_SUB(NOW(), INTERVAL 5 HOUR) 
-    WHERE id_eve = ?";
-    $params =[
-      ['type' => 's', 'value' =>$_POST['docum_base']],
-      ['type' => 'i', 'value' => $_POST['evento']],
-      ['type' => 's', 'value' => $_POST['fecha_even']],
+  // Validación de campos obligatorios
+  if (
+    empty($_POST['docum_base']) ||
+    empty($_POST['evento']) ||
+    empty($_POST['fecha_even'])
+  ) {
+    return ['error' => 'Todos los campos son obligatorios.'];
+  }
+  // Validar formato de fecha (YYYY-MM-DD)
+  if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $_POST['fecha_even'])) {
+    return ['error' => 'El formato de la fecha es inválido.'];
+  }
+  $id = divide($_POST['id']);
+  if (count($id) == 1) {
+    $sql = "UPDATE vspeve SET docum_base= ?, evento= ?, fecha_even= ?, usu_update= ?, fecha_update= DATE_SUB(NOW(), INTERVAL 5 HOUR) 
+      WHERE id_eve = ?";
+    $params = [
+      ['type' => 's', 'value' => trim($_POST['docum_base'])],
+      ['type' => 'i', 'value' => intval($_POST['evento'])],
+      ['type' => 's', 'value' => trim($_POST['fecha_even'])],
       ['type' => 's', 'value' => $_SESSION['us_sds']],
-      ['type' => 'i', 'value' => $id[0]]
+      ['type' => 'i', 'value' => intval($id[0])]
     ];
-    // echo $sql;
     $rta = mysql_prepd($sql, $params);
-  }else if(count($id)==2){
-    $sql="INSERT INTO vspeve VALUES (?,?,?,?,?, ?,DATE_SUB(NOW(), INTERVAL 5 HOUR),?,?,?)";
-    $params =[
-      ['type' => 'i', 'value' => null], // id_eve will be auto-incremented
+  } else if (count($id) == 2) {
+    $sql = "INSERT INTO vspeve VALUES (?,?,?,?,?, ?,DATE_SUB(NOW(), INTERVAL 5 HOUR),?,?,?)";
+    $params = [
+      ['type' => 'i', 'value' => null], // id_eve auto-increment
       ['type' => 's', 'value' => $id[0]],
-      ['type' => 's', 'value' => $_POST['docum_base']],
-      ['type' => 'i', 'value' => $_POST['evento']],
-      ['type' => 's', 'value' => $_POST['fecha_even']],
+      ['type' => 's', 'value' => trim($_POST['docum_base'])],
+      ['type' => 'i', 'value' => intval($_POST['evento'])],
+      ['type' => 's', 'value' => trim($_POST['fecha_even'])],
       ['type' => 's', 'value' => $_SESSION['us_sds']],
       ['type' => 's', 'value' => null], // usu_update
       ['type' => 's', 'value' => null], // fecha_update
       ['type' => 's', 'value' => 'A'] // estado
     ];
     $rta = mysql_prepd($sql, $params);
-    /* $sql="INSERT INTO vspeve VALUES (NULL,trim(upper('{$id[0]}')),
-    trim(upper('{$_POST['docum_base']}')),
-    trim(upper('{$_POST['evento']}')),
-    trim(upper('{$_POST['fecha_even']}')),
-    TRIM(UPPER('{$_SESSION['us_sds']}')),DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')"; */
-    // echo $sql;
-  }else {
-    $rta"Error: msj['id inválido']";
+  } else {
+    return ['error' => 'ID inválido.'];
   }
-    
-    return $rta;
-  } 
+  return $rta;
+}
 
 function get_persona(){
   if($_REQUEST['id']==''){
