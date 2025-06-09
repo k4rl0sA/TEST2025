@@ -304,19 +304,6 @@
       updateChartColors();
     }
 
-    function showToastError(message) {
-      const toast = document.getElementById('toast-error');
-      toast.textContent = message;
-      toast.style.display = 'block';
-      toast.style.opacity = '1';
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        setTimeout(() => {
-          toast.style.display = 'none';
-        }, 500);
-      }, 4000);
-    }
-
     // Fetch data from PHP file and update UI
     async function fetchDataAndUpdate() {
       const documentNumber = document.getElementById('searchInput').value;
