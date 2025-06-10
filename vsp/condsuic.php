@@ -326,7 +326,7 @@ function gra_condsuic(){
     'redu_riesgo_cierre', 'users_bina', 'equipo_bina', 'usu_creo', 'usu_update', 'fecha_update','estado'
   ];
   // Campos fecha que pueden ser nulos
-  $campos_fecha_null = ['fecha_obstetrica', 'fecha_cierre', 'fecha_update', 'fecha_create','peso_nacer'];
+  $campos_fecha_null = ['fecha_obstetrica', 'fecha_cierre', 'fecha_update','peso_nacer'];
 
   if(count($id)==4){
     // UPDATE
