@@ -114,7 +114,7 @@ $ev=$event[2];
     $c[]=new cmp('imc','t','20',$d,$w.' '.$o,'Imc','imc',null,null,false,false,'','col-2');
     // $c[]=new cmp('imc','t','6',$d,$w.' '.$bl.' '.$o,'Imc','imc',null,null,false,false,'','col-1');
     // $c[]=new cmp('clas_nutri','t','50',$d,$w.' '.$bl.' '.$ge.' '.$o,'Clasificación Nutricional Segun Edad Gestacional','clas_nutri',null,null,false,$x,'','col-2');
-    $c[]=new cmp('clasi_nutri','s','3',$d,$w.' '.$bl.' '.$ge.' '.$o,'Clasificación Nutricional','clasi_nutri',null,null,false,false,'','col-2');
+    $c[]=new cmp('clas_nutri','s','3',$d,$w.' '.$bl.' '.$ge.' '.$o,'Clasificación Nutricional','clasi_nutri',null,null,false,false,'','col-2');
     $c[]=new cmp('gana_peso','s','2',$d,$w.' '.$bl.' '.$ge.' '.$o,'¿Se evidencia ganancia de peso?','rta',null,null,false,$x,'','col-15');
 
     $c[]=new cmp('cant_ganapesosem','s',3,$d,$w.' '.$bl.' '.$ge.' '.$o,'Ganancia de peso semanal','cant_ganapesosem',null,null,false,$x,'','col-35');
@@ -293,7 +293,7 @@ function gra_gestantes(){
   // Orden de los campos según la tabla
   $campos = [
     'idpeople', 'fecha_seg', 'numsegui', 'evento', 'estado_s', 'motivo_estado', 'etapa', 'sema_gest',
-    'asis_ctrpre', 'exam_lab', 'esqu_vacuna', 'cons_micronutr', 'peso', 'talla', 'imc', 'clasi_nutri', 'gana_peso',
+    'asis_ctrpre', 'exam_lab', 'esqu_vacuna', 'cons_micronutr', 'peso', 'talla', 'imc', 'clas_nutri', 'gana_peso',
     'cant_ganapesosem', 'ante_patogest', 'num_frutas', 'num_carnes', 'num_azucar', 'cant_actifisica', 'adop_recomenda',
     'apoy_alim', 'fecha_obstetrica', 'edad_gesta', 'resul_gest', 'meto_fecunda', 'cual', 'peso_nacer', 'asiste_control',
     'vacuna_comple', 'lacmate_exclu', 'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2',
@@ -306,7 +306,7 @@ function gra_gestantes(){
   if(count($id)==4){
     // UPDATE
     $set = [
-      'etapa', 'sema_gest', 'asis_ctrpre', 'exam_lab', 'esqu_vacuna', 'cons_micronutr', 'peso', 'talla', 'imc', 'clasi_nutri', 'gana_peso',
+      'etapa', 'sema_gest', 'asis_ctrpre', 'exam_lab', 'esqu_vacuna', 'cons_micronutr', 'peso', 'talla', 'imc', 'clas_nutri', 'gana_peso',
       'cant_ganapesosem', 'ante_patogest', 'num_frutas', 'num_carnes', 'num_azucar', 'cant_actifisica', 'adop_recomenda',
       'apoy_alim', 'fecha_obstetrica', 'edad_gesta', 'resul_gest', 'meto_fecunda', 'cual', 'peso_nacer', 'asiste_control',
       'vacuna_comple', 'lacmate_exclu', 'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2',
