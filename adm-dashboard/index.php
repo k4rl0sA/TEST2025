@@ -112,9 +112,7 @@
                         <div class="metric-subtitle">Prioridades Medias</div>
                     </div>
                 </div>
-            </section>
-            
-            <section class="metrics-section">
+
                 <div class="metric-card families">
                     <div class="metric-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -127,6 +125,9 @@
                         <div class="metric-subtitle">Prioridades Bajas</div>
                     </div>
                 </div>
+            </section>
+            
+            <section class="metrics-section">
 
                 <div class="metric-card pregnant">
                     <div class="metric-icon">
