@@ -62,7 +62,7 @@ $estrato= $res1['responseResult'][0]['Estrato'];
 $ingreso= $res1['responseResult'][0]['Ingreso'];
 
 //Riesgo Estructura Familiar
-$sql2="SELECT A.descripcion AS descripcion,ROUND(((CASE A.descripcion
+$sql2="SELECT A.descripcion,ROUND(((CASE A.descripcion
     WHEN 'DISFUNCIÓN FAMILIAR SEVERA' THEN 4
     WHEN 'DISFUNCIÓN FAMILIAR MODERADA' THEN 3
     WHEN 'DISFUNCIÓN FAMILIAR LEVE' THEN 2
