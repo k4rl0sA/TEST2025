@@ -47,13 +47,12 @@ if ($res['code'] !== 0 || empty($res['responseResult'])) {
 $datos = $res['responseResult'][0];
 
 //Riesgo Socioeconómico
-$sql1="SELECT 
-  G.estrato AS 'Estrato',FN_CATALOGODESC(13,C.ingreso) AS 'Ingreso', ROUND(((CASE G.estrato  WHEN 1 THEN 6 WHEN 2 THEN 5 WHEN 3 THEN 4 WHEN 4 THEN 3 WHEN 5 THEN 2 WHEN 6 THEN 1 ELSE 0 END + CASE C.ingreso  WHEN 1 THEN 3 WHEN 2 THEN 2  WHEN 3 THEN 1 ELSE 0 END ) - 2) * 100 / 7,2) AS SE
-FROM `person` P
+$sql1="SELECT G.estrato AS 'Estrato',FN_CATALOGODESC(13,C.ingreso) AS 'Ingreso', ROUND(((CASE G.estrato  WHEN 1 THEN 6 WHEN 2 THEN 5 WHEN 3 THEN 4 WHEN 4 THEN 3 WHEN 5 THEN 2 WHEN 6 THEN 1 ELSE 0 END + CASE C.ingreso  WHEN 1 THEN 3 WHEN 2 THEN 2  WHEN 3 THEN 1 ELSE 0 END ) - 2) * 100 / 7,2) AS SE
+FROM `person` P 
 LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
 LEFT JOIN hog_geo G ON F.idpre = G.idgeo
 LEFT JOIN hog_carac C ON F.id_fam = C.idfam
-WHERE C.fecha = (SELECT MAX(C2.fecha) FROM hog_carac C2 WHERE C2.idfam = C.idfam)
+WHERE C.fecha = (SELECT MAX(C2.fecha) FROM hog_carac C2 WHERE C2.idfam = C.idfam) 
 AND P.idpersona = '$document'  AND P.tipo_doc='$tipo' LIMIT 1";
 
 $res1 = datos_mysql($sql1);
