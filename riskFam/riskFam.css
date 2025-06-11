@@ -647,6 +647,12 @@
       color: var(--color-text-secondary);
     }
 
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+  }
+
     .toast-error {
       position: fixed;
       bottom: 32px;
