@@ -57,6 +57,10 @@ WHERE C.fecha = (SELECT MAX(C2.fecha) FROM hog_carac C2 WHERE C2.idfam = C.idfam
 AND P.idpersona = '$document'  AND P.tipo_doc='$tipo' LIMIT 1";
 
 $res1 = datos_mysql($sql1);
+if ($res1['code'] !== 0 || empty($res1['responseResult'])) {
+    echo json_encode(["error" => "Datos socioeconómicos no encontrados", "document" => $document]);
+    exit;
+}
 $socioEcono = $res1['responseResult'][0]['SE'];
 $estrato= $res1['responseResult'][0]['Estrato'];
 $ingreso= $res1['responseResult'][0]['Ingreso'];
@@ -82,6 +86,10 @@ WHERE A.fecha_toma = (
 AND A.descripcion IS NOT NULL AND P.idpersona = '$document'  AND P.tipo_doc='$tipo' LIMIT 1;";
 $res2 = datos_mysql($sql2);
 var_dump($res2);
+if ($res2['code'] !== 0 || empty($res2['responseResult'])) {
+    echo json_encode(["error" => "Datos de estructura familiar no encontrados", "document" => $document]);
+    exit;
+}
 $estruFamil = $res2['responseResult'][0]['EF_porcentaje'];
 $apgar = $res2['responseResult'][0]['descripcion'];
 
