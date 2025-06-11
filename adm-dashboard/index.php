@@ -113,7 +113,7 @@
                     <div class="metric-content">
                         <h3>Familias Caracterizadas</h3>
                         <div class="metric-value" id="totalFamilies">1.570.758</div>
-                        <div class="metric-subtitle">Última actualización: hace 1 hora</div>
+                        <div class="metric-subtitle"></div>
                     </div>
                 </div>
 
@@ -126,7 +126,7 @@
                     <div class="metric-content">
                         <h3>Familias Con Actualización</h3>
                         <div class="metric-value" id="familyUpdate">25.933</div>
-                        <div class="metric-subtitle">Última actualización: hace 1 hora</div>
+                        <div class="metric-subtitle"></div>
                     </div>
                 </div>
 
