@@ -81,6 +81,7 @@ WHERE A.fecha_toma = (
 )
 AND A.descripcion IS NOT NULL AND P.idpersona = '$document'  AND P.tipo_doc='$tipo' LIMIT 1;";
 $res2 = datos_mysql($sql2);
+var_dump($res2);
 $estruFamil = $res2['responseResult'][0]['EF_porcentaje'];
 $apgar = $res2['responseResult'][0]['descripcion'];
 
