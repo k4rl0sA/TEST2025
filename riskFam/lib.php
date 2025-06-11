@@ -118,7 +118,7 @@ $riesgos = [
         "name" => "Estructura Familiar",
         "value" => $estruFamil,
         "weight" => 0.20,
-        "puntaje" => $puntaje,
+        // "puntaje" => $puntaje,
         "apgar" => $apgar,
         "description" => "Influye en el apoyo social, la funcionalidad y la estabilidad del hogar."
     ],
