@@ -758,46 +758,20 @@
       }
     }
 
+    /* Asegurar que las secciones estén en filas separadas */
+.search-info-risk,
+.personal-info-section {
+  grid-column: span 2; /* Ocupa toda la fila */
+}
 
+@media (max-width: 768px) {
+  .search-info-risk,
+  .personal-info-section {
+    grid-column: span 1; /* Ocupa toda la fila en pantallas pequeñas */
+  }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /* Agregar esto al final del archivo CSS, antes de las media queries */
+/* Agregar esto al final del archivo CSS, antes de las media queries */
 
 /* Mejoras para tooltips y datos adicionales */
 .risk-factor-additional-info {
