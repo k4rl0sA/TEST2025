@@ -385,9 +385,27 @@
       }
           // Actualizar puntaje y apgar si existen
           if (key === 'familyStructure') {
+        factors[key].puntaje = riskFactors[key].puntaje || 0;
+        factors[key].apgar = riskFactors[key].apgar || 0;
+      }
+      // Actualizar puntaje de vulnerabilidad y régimen si existen
+      if (key === 'socialVulnerability') {
+        factors[key].puntajeVulnerabilidad = riskFactors[key].puntajeVulnerabilidad || 0;
+        factors[key].regimen = riskFactors[key].regimen || 0;
+      }
+      // Actualizar puntaje de acceso a salud y régimen si existen
+      if (key === 'accessToHealth') {
+        factors[key].puntajeAcceso = riskFactors[key].puntajeAcceso || 0;
+        factors[key].regimen = riskFactors[key].regimen || 0;
+      }
+          /*// Actualizar puntaje de entorno habitacional si existe
+          if (key === 'livingEnvironment') {
             factors[key].puntaje = riskFactors[key].puntaje || 0;
-            factors[key].apgar = riskFactors[key].apgar || 0;
           }
+          // Actualizar puntaje demográfico si existe
+          if (key === 'demographics') {
+            factors[key].puntaje = riskFactors[key].puntaje || 0;
+          }*/      
         } else {
           // Si no hay datos, mantener el valor original
           factors[key].value = factors[key].value || 0;
@@ -465,6 +483,32 @@
           <div class="tooltip-content">
             ${puntajeText}<br>
             ${apgarText}
+          </div>
+        </div>
+      `;
+    }
+
+    if (key === 'socialVulnerability' && (factor.puntajeVulnerabilidad || factor.regimen)) {
+      const puntajeText = factor.puntajeVulnerabilidad ? `Puntaje de vulnerabilidad: ${factor.puntajeVulnerabilidad}` : '';
+      const regimenText = factor.regimen ? `Régimen: ${factor.regimen}` : '';
+      additionalInfo = `
+        <div class="risk-factor-tooltip">
+          <div class="tooltip-content">
+            ${puntajeText}<br>
+            ${regimenText}
+          </div>
+        </div>
+      `;
+    }
+
+    if (key === 'accessToHealth' && (factor.puntajeAcceso || factor.regimen)) {
+      const puntajeText = factor.puntajeAcceso ? `Puntaje de acceso: ${factor.puntajeAcceso}` : '';
+      const regimenText = factor.regimen ? `Régimen: ${factor.regimen}` : '';
+      additionalInfo = `
+        <div class="risk-factor-tooltip">
+          <div class="tooltip-content">
+            ${puntajeText}<br>
+            ${regimenText}
           </div>
         </div>
       `;
