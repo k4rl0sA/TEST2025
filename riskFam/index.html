@@ -477,7 +477,7 @@
 
     if (key === 'familyStructure' && (factor.puntaje || factor.apgar)) {
       const puntajeText = factor.puntaje ? `Puntaje: ${factor.puntaje}` : '';
-      const ingresoText = factor.apgar ? `Descripcion Apgar: ${factor.apgar}` : '';
+      const apgarText = factor.apgar ? `Descripcion Apgar: ${factor.apgar}` : '';
       additionalInfo = `
         <div class="risk-factor-tooltip">
           <div class="tooltip-content">
