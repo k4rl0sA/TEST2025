@@ -92,18 +92,7 @@
             <!-- Key Metrics -->
             <section class="metrics-section">
                 
-                <div class="metric-card families">
-                    <div class="metric-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H17c-.8 0-1.54.37-2.01.99L12 14l-3-5.01A2.5 2.5 0 0 0 6.86 8H5.54c-.8 0-1.54.37-2.01.99L1 16h2.5v6h2v-6h2v6h2v-6h2v6h2z" fill="currentColor"/>
-                        </svg>
-                    </div>
-                    <div class="metric-content">
-                        <h3>Familias Caracterizadas</h3>
-                        <div class="metric-value" id="totalFamilies">1.570.758</div>
-                        <div class="metric-subtitle"></div>
-                    </div>
-                </div>
+                
 
                 <div class="metric-card pregnant">
                     <div class="metric-icon">
@@ -156,6 +145,19 @@
                         <h3>Familias Clasificadas</h3>
                         <div class="metric-value" id="totalFamilies">1.570.758</div>
                         <div class="metric-subtitle">Prioridades Bajas</div>
+                    </div>
+                </div>
+
+                <div class="metric-card families">
+                    <div class="metric-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H17c-.8 0-1.54.37-2.01.99L12 14l-3-5.01A2.5 2.5 0 0 0 6.86 8H5.54c-.8 0-1.54.37-2.01.99L1 16h2.5v6h2v-6h2v6h2v-6h2v6h2z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="metric-content">
+                        <h3>Familias Caracterizadas</h3>
+                        <div class="metric-value" id="totalFamilies">1.570.758</div>
+                        <div class="metric-subtitle"></div>
                     </div>
                 </div>
 
