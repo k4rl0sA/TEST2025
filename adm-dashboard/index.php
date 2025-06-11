@@ -91,19 +91,7 @@
         <main class="main-content">
             <!-- Key Metrics -->
             <section class="metrics-section">
-                <div class="metric-card patients">
-                    <div class="metric-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="currentColor"/>
-                        </svg>
-                    </div>
-                    <div class="metric-content">
-                        <h3>Individuos</h3>
-                        <div class="metric-value" id="totalPatients">3.553.128</div>
-                        <div class="metric-subtitle"> Caracterizados y Actualizados</div>
-                    </div>
-                </div>
-
+                
                 <div class="metric-card families">
                     <div class="metric-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -142,9 +130,7 @@
                         <div class="metric-subtitle">Prioridades Altas</div>
                     </div>
                 </div>
-            </section>
-            
-            <section class="metrics-section">
+
                 <div class="metric-card patients">
                     <div class="metric-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -157,7 +143,9 @@
                         <div class="metric-subtitle">Prioridades Medias</div>
                     </div>
                 </div>
-
+            </section>
+            
+            <section class="metrics-section">
                 <div class="metric-card families">
                     <div class="metric-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -168,6 +156,19 @@
                         <h3>Familias Clasificadas</h3>
                         <div class="metric-value" id="totalFamilies">1.570.758</div>
                         <div class="metric-subtitle">Prioridades Bajas</div>
+                    </div>
+                </div>
+
+                <div class="metric-card patients">
+                    <div class="metric-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="metric-content">
+                        <h3>Individuos</h3>
+                        <div class="metric-value" id="totalPatients">3.553.128</div>
+                        <div class="metric-subtitle"> Caracterizados y Actualizados</div>
                     </div>
                 </div>
 
