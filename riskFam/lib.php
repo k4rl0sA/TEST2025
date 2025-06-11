@@ -62,95 +62,27 @@ $estrato= $res1['responseResult'][0]['Estrato'];
 $ingreso= $res1['responseResult'][0]['Ingreso'];
 
 //Riesgo Estructura Familiar
-$sql2=" WITH Ultimo_Apgar AS (
-    SELECT 
-        A.idpeople,
-        A.fecha_toma,
-        A.puntaje,
-        A.descripcion,
-        ROW_NUMBER() OVER (PARTITION BY A.idpeople ORDER BY A.fecha_toma DESC) AS rn
-    FROM hog_tam_apgar A
-),
-Apgar_Persona_Familia AS (
-    SELECT 
-        P.idpeople,
-        P.vivipersona,
-        UA.fecha_toma,
-        UA.puntaje,
-        UA.descripcion
-    FROM person P
-    LEFT JOIN (
-        SELECT * FROM Ultimo_Apgar WHERE rn = 1
-    ) UA ON P.idpeople = UA.idpeople
-),
-Apgar_Completado AS (
-    SELECT 
-        PF1.idpeople,
-        PF1.vivipersona,
-        COALESCE(PF1.fecha_toma, PF2.fecha_toma) AS fecha_toma,
-        COALESCE(PF1.puntaje, PF2.puntaje) AS puntaje,
-        COALESCE(PF1.descripcion, PF2.descripcion) AS descripcion
-    FROM Apgar_Persona_Familia PF1
-    LEFT JOIN (
-        -- Buscar un resultado de APGAR dentro del mismo grupo familiar
-        SELECT 
-            P2.vivipersona,
-            UA2.fecha_toma,
-            UA2.puntaje,
-            UA2.descripcion
-        FROM person P2
-        INNER JOIN (
-            SELECT * FROM Ultimo_Apgar WHERE rn = 1
-        ) UA2 ON P2.idpeople = UA2.idpeople
-    ) PF2 ON PF1.vivipersona = PF2.vivipersona AND PF1.descripcion IS NULL
+$sql2="SELECT A.descripcion AS descripcion,ROUND(((CASE A.descripcion
+    WHEN 'DISFUNCIÓN FAMILIAR SEVERA' THEN 4
+    WHEN 'DISFUNCIÓN FAMILIAR MODERADA' THEN 3
+    WHEN 'DISFUNCIÓN FAMILIAR LEVE' THEN 2
+    WHEN 'FUNCIÓN FAMILIAR NORMAL' THEN 1
+    ELSE 0
+  END - 1) * 100 / 3), 2) AS EF_porcentaje
+FROM `person` P
+LEFT JOIN hog_tam_apgar A ON P.idpeople = A.idpeople
+LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
+LEFT JOIN hog_geo G ON F.idpre = G.idgeo
+-- Solo última medición por persona
+WHERE A.fecha_toma = (
+  SELECT MAX(A2.fecha_toma)
+  FROM hog_tam_apgar A2
+  WHERE A2.idpeople = A.idpeople
 )
-SELECT 
-    AC.idpeople,
-    AC.vivipersona,
-    AC.fecha_toma,
-    AC.puntaje,
-    AC.descripcion AS Descripcion_APGAR,
-    -- Puntaje invertido (más alto = más riesgo)
-    CASE AC.descripcion
-        WHEN 'Función Familiar Normal' THEN 1
-        WHEN 'Disfunción Familiar Leve' THEN 2
-        WHEN 'Disfunción Familiar Moderada' THEN 3
-        WHEN 'Disfunción Familiar Severa' THEN 4
-        ELSE NULL
-    END AS Puntaje_Invertido,
-    -- EF (estructura familiar): normalizado a 0-100 como el SE
-    ROUND((( 
-        CASE AC.descripcion
-            WHEN 'Función Familiar Normal' THEN 1
-            WHEN 'Disfunción Familiar Leve' THEN 2
-            WHEN 'Disfunción Familiar Moderada' THEN 3
-            WHEN 'Disfunción Familiar Severa' THEN 4
-            ELSE 1
-        END - 1
-    ) / 3.0 ) * 100, 2) AS EF_100,
-    -- Puntaje ponderado con el 20% de peso
-    ROUND((( 
-        CASE AC.descripcion
-            WHEN 'Función Familiar Normal' THEN 1
-            WHEN 'Disfunción Familiar Leve' THEN 2
-            WHEN 'Disfunción Familiar Moderada' THEN 3
-            WHEN 'Disfunción Familiar Severa' THEN 4
-            ELSE 1
-        END - 1
-    ) / 3.0 ) * 20.0, 2) AS Puntaje_EF_20,
-    -- Clasificación textual del riesgo
-    CASE AC.descripcion
-        WHEN 'Función Familiar Normal' THEN 'Bajo Riesgo'
-        WHEN 'Disfunción Familiar Leve' THEN 'Riesgo Medio'
-        WHEN 'Disfunción Familiar Moderada' THEN 'Alto Riesgo'
-        WHEN 'Disfunción Familiar Severa' THEN 'Muy Alto Riesgo'
-        ELSE 'Sin Clasificación'
-    END AS Clasificacion_Riesgo_EF
-FROM Apgar_Completado AC;";
+AND A.descripcion IS NOT NULL AND P.idpersona = '$document'  AND P.tipo_doc='$tipo' LIMIT 1;";
 $res2 = datos_mysql($sql2);
-$estruFamil = $res2['responseResult'][0]['EF_100'];
-$puntaje=$res2['responseResult'][0]['puntaje'];
-$apgar = $res2['responseResult'][0]['Descripcion_APGAR'];
+$estruFamil = $res2['responseResult'][0]['EF_porcentaje'];
+$apgar = $res2['responseResult'][0]['descripcion'];
 
 //Riesgo Vulnerabilidad Social
 $sql3="SELECT 1 FROM person P LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam";
