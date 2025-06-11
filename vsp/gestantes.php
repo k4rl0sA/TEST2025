@@ -423,7 +423,6 @@ function formato_dato($a,$b,$c,$d){
  return $rta;
 }
 
-
 function bgcolor($a,$c,$f='c'){
   $rta="";
   return $rta;

@@ -647,7 +647,6 @@
       color: var(--color-text-secondary);
     }
 
-
     .toast-error {
       position: fixed;
       bottom: 32px;
