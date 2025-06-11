@@ -147,12 +147,12 @@ body {
 }
 
 .patients .metric-icon {
-    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    background: linear-gradient(135deg, #eeff00, #c9cc00);
     color: white;
 }
 
 .families .metric-icon {
-    background: linear-gradient(135deg, #ff6b9d, #cc5577);
+    background: linear-gradient(135deg, #10b981, #059669);
     color: white;
 }
 
@@ -162,7 +162,7 @@ body {
 }
 
 .consultations .metric-icon {
-    background: linear-gradient(135deg, #10b981, #059669);
+    background: linear-gradient(135deg, #b91010, #960505);
     color: white;
 }
 
