@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard de Salud - EBEH</title>
     <link rel="stylesheet" href="styles.css?v=8.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -89,9 +90,10 @@
                 
                 <div class="metric-card consultations">
                     <div class="metric-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <i class="fa-solid fa-people-roof"></i>
+                        <!-- <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" fill="currentColor"/>
-                        </svg>
+                        </svg> -->
                     </div>
                     <div class="metric-content">
                         <h3>Familias Clasificadas</h3>
@@ -147,23 +149,7 @@
                         <!-- <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H17c-.8 0-1.54.37-2.01.99L12 14l-3-5.01A2.5 2.5 0 0 0 6.86 8H5.54c-.8 0-1.54.37-2.01.99L1 16h2.5v6h2v-6h2v6h2v-6h2v6h2z" fill="currentColor"/>
                         </svg> -->
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Adulto 1 (izquierda) -->
-                            <path d="M6 6C7.10457 6 8 5.10457 8 4C8 2.89543 7.10457 2 6 2C4.89543 2 4 2.89543 4 4C4 5.10457 4.89543 6 6 6Z" fill="currentColor"/>
-                            <path d="M7 22V10H5V22H7Z" fill="currentColor"/>
-                                                
-                            <!-- Niño (centro) -->
-                            <path d="M13 5C14.1046 5 15 4.10457 15 3C15 1.89543 14.1046 1 13 1C11.8954 1 11 1.89543 11 3C11 4.10457 11.8954 5 13 5Z" fill="currentColor"/>
-                            <path d="M14 22V8H12V22H14Z" fill="currentColor"/>
-                                                
-                            <!-- Adulto 2 (derecha) -->
-                            <path d="M18 6C19.1046 6 20 5.10457 20 4C20 2.89543 19.1046 2 18 2C16.8954 2 16 2.89543 16 4C16 5.10457 16.8954 6 18 6Z" fill="currentColor"/>
-                            <path d="M19 22V10H17V22H19Z" fill="currentColor"/>
-                                                
-                            <!-- Manos unidas -->
-                            <path d="M7 10C7 10 8 11 10 11C12 11 13 10 13 10" stroke="currentColor" stroke-width="2" fill="none"/>
-                            <path d="M13 10C13 10 14 11 16 11C18 11 19 10 19 10" stroke="currentColor" stroke-width="2" fill="none"/>
-                        </svg>
+                        
                     </div>
                     <div class="metric-content">
                         <h3>Familias Caracterizadas</h3>
