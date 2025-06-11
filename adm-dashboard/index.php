@@ -90,7 +90,7 @@
                 
                 <div class="metric-card consultations">
                     <div class="metric-icon">
-                        <i class="fa-solid fa-people-roof" style="font-size: 2.5em;"></i>
+                        <i class="fa-solid fa-people-roof"></i>
                     </div>
                     <div class="metric-content">
                         <h3>Familias Clasificadas</h3>
