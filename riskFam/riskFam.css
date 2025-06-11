@@ -757,3 +757,116 @@
         max-width: 350px;
       }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* Agregar esto al final del archivo CSS, antes de las media queries */
+
+/* Mejoras para tooltips y datos adicionales */
+.risk-factor-additional-info {
+  margin-top: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background-color: var(--color-background);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  border-left: 3px solid var(--color-primary);
+}
+
+.risk-factor-additional-info p {
+  margin-bottom: var(--spacing-xs);
+  display: flex;
+  justify-content: space-between;
+}
+
+.risk-factor-additional-info p:last-child {
+  margin-bottom: 0;
+}
+
+/* Mejorar los tooltips para móviles */
+@media (max-width: 768px) {
+  .risk-factor-tooltip {
+    position: relative;
+    display: block !important;
+    margin-top: var(--spacing-sm);
+    width: 100%;
+    padding: 0;
+    animation: none;
+  }
+  
+  .risk-factor-tooltip .tooltip-content {
+    width: 100%;
+    box-shadow: none;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+  }
+}
+
+/* Mejor contraste para los badges */
+.risk-factor-badge {
+  padding: 2px 8px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Ajustes para la información personal */
+.personal-info-grid p {
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+}
+
+.personal-info-grid p strong {
+  min-width: 120px;
+  display: inline-block;
+  color: var(--color-text-secondary);
+}
+
+/* Mejorar la visualización de los factores de riesgo */
+.risk-factor {
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  background-color: var(--color-background);
+  margin-bottom: var(--spacing-md);
+  transition: all var(--transition-fast);
+}
+
+.risk-factor:hover {
+  background-color: var(--color-surface);
+}
