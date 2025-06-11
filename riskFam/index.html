@@ -387,6 +387,7 @@
           if (key === 'familyStructure') {
         factors[key].puntaje = riskFactors[key].puntaje || 0;
         factors[key].apgar = riskFactors[key].apgar || 0;
+        console.log('Family Structure Apgar:', factors[key].apgar); // Verifica el valor aquí
       }
       // Actualizar puntaje de vulnerabilidad y régimen si existen
       if (key === 'socialVulnerability') {
