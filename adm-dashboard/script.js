@@ -191,7 +191,7 @@ function initializeElderlyChart(data) {
 function updateMetrics(data) {
     animateCounter('totalPatients', data.totalPatients);
     animateCounter('totalFamilies', data.totalFamilies);
-    animateCounter('pregnantWomen', data.pregnantWomen);
+    animateCounter('familyUpdate', data.familyUpdate);
     animateCounter('monthlyConsultations', data.monthlyConsultations);
     document.getElementById('disabilityTotal').textContent = formatNumber(data.disability.total);
     document.getElementById('disabilityPercentage').textContent = data.disability.percentage + '% de la población';

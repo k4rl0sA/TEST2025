@@ -46,7 +46,7 @@ if ($caracterizaciones === 0) {
 $data = [
     "totalPatients" => 867656575,
     "totalFamilies" => $caracterizaciones,
-    "pregnantWomen" => 25933,
+    "familyUpdate" => 25933,
     "monthlyConsultations" => 89456,
     "lastUpdate" => "hace 1 hora",
     // Distribución por edad (ejemplo)
