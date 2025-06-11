@@ -85,7 +85,7 @@ WHERE A.fecha_toma = (
 )
 AND A.descripcion IS NOT NULL AND P.idpersona = '$document'  AND P.tipo_doc='$tipo' LIMIT 1;";
 $res2 = datos_mysql($sql2);
-var_dump($res2);
+// var_dump($res2);
 if ($res2['code'] !== 0 || empty($res2['responseResult'])) {
     echo json_encode(["error" => "Datos de estructura familiar no encontrados", "document" => $document]);
     exit;
