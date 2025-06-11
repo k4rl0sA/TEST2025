@@ -95,7 +95,6 @@ $sql3="SELECT
         (CASE WHEN C.seg_pre7 = 'SI' THEN 5 ELSE 0 END) +
         (CASE WHEN C.seg_pre8 = 'SI' THEN 5 ELSE 0 END)
     ) AS puntaje_seguridad_alimentaria,
-
     -- Puntaje por población diferencial
     CASE P.pobladifer
         WHEN 1 THEN 5
@@ -108,7 +107,6 @@ $sql3="SELECT
         WHEN 13 THEN 5
         ELSE 0
     END AS puntaje_pobladifer,
-
     -- Puntaje por inclusión por oficio
     CASE P.incluofici
         WHEN 1 THEN 5
@@ -120,7 +118,6 @@ $sql3="SELECT
         WHEN 8 THEN 5
         ELSE 0
     END AS puntaje_incluofici,
-
     -- Total de los tres factores
     (
         (CASE WHEN C.seg_pre1 = 'SI' THEN 5 ELSE 0 END) +
@@ -153,7 +150,6 @@ $sql3="SELECT
         WHEN 8 THEN 5
         ELSE 0
     END AS puntaje_total_vulnerabilidad_social,
-
     -- Porcentaje del total sobre 50
     ROUND((
         (
@@ -188,7 +184,6 @@ $sql3="SELECT
             ELSE 0
         END
     ) * 100 / 50, 2) AS vulnerabilidad_social_porcentaje
-
 FROM person P
 LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
 LEFT JOIN hog_carac C ON F.id_fam = C.idfam
@@ -204,7 +199,6 @@ $puntajeTotal = $res3['responseResult'][0]['puntaje_total_vulnerabilidad_social'
 //Riesgo Acceso a Servicios de Salud
 $sql4="SELECT 
     P.idpeople,
-
     -- Puntaje según el régimen
     CASE P.regimen
         WHEN 1 THEN 4
@@ -214,7 +208,6 @@ $sql4="SELECT
         WHEN 5 THEN 6
         ELSE 0
     END AS puntaje_regimen_salud,
-
     -- Porcentaje sobre 6 puntos
     ROUND(
         CASE P.regimen
@@ -226,7 +219,6 @@ $sql4="SELECT
             ELSE 0
         END * 100 / 6, 2
     ) AS acceso_salud_porcentaje,
-
     -- Ponderación al 10%
     ROUND(
         CASE P.regimen
@@ -238,7 +230,6 @@ $sql4="SELECT
             ELSE 0
         END * 10 / 6, 8
     ) AS acceso_salud_ponderado
-
 FROM person P
 LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
 LEFT JOIN hog_geo G ON F.idpre = G.idgeo
