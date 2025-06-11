@@ -14,10 +14,7 @@
             <div class="header-content">
                 <div class="logo-section">
                     <div class="logo">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z" fill="#0066cc"/>
-                            <circle cx="12" cy="12" r="3" fill="#ffffff"/>
-                        </svg>
+                        <img src="../libs/img/masBienestar.webp" alt="Logo MAS Bienestar" style="height:32px;width:32px;object-fit:contain;vertical-align:middle;">
                     </div>
                     <h1>Equipos MAS Bienestar</h1>
                 </div>
