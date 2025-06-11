@@ -171,7 +171,7 @@
                     </div>
                 </div>
 
-                <div class="metric-card pregnant">
+                <!-- <div class="metric-card pregnant">
                     <div class="metric-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M9 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm7 9c-.83 0-1.5-.67-1.5-1.5 0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5c0 .83-.67 1.5-1.5 1.5zm-3 7v-3h-2v3c0 .55-.45 1-1 1s-1-.45-1-1v-3c-1.1 0-2-.9-2-2v-3c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v3c0 1.1-.9 2-2 2v3c0 .55-.45 1-1 1s-1-.45-1-1z" fill="currentColor"/>
@@ -195,7 +195,7 @@
                         <div class="metric-value" id="monthlyConsultations">89.456</div>
                         <div class="metric-subtitle">Prioridades Altas</div>
                     </div>
-                </div>
+                </div> -->
             </section>
 
             <!-- Charts Section -->
