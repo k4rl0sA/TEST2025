@@ -98,7 +98,7 @@
                         </svg>
                     </div>
                     <div class="metric-content">
-                        <h3>Pacientes Registrados</h3>
+                        <h3>Individuos Caracterizados</h3>
                         <div class="metric-value" id="totalPatients">3.553.128</div>
                         <div class="metric-subtitle">Última actualización: hace 1 hora</div>
                     </div>
@@ -111,7 +111,7 @@
                         </svg>
                     </div>
                     <div class="metric-content">
-                        <h3>Familias</h3>
+                        <h3>Familias Caracterizadas</h3>
                         <div class="metric-value" id="totalFamilies">1.570.758</div>
                         <div class="metric-subtitle">Última actualización: hace 1 hora</div>
                     </div>
