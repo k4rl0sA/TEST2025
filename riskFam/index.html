@@ -383,6 +383,14 @@
         factors[key].estrato = riskFactors[key].estrato || 0;
         factors[key].ingreso = riskFactors[key].ingreso || 0;
       }
+          // Actualizar puntaje y apgar si existen
+          if (key === 'familyStructure') {
+            factors[key].puntaje = riskFactors[key].puntaje || 0;
+            factors[key].apgar = riskFactors[key].apgar || 0;
+          }
+        } else {
+          // Si no hay datos, mantener el valor original
+          factors[key].value = factors[key].value || 0;
       
         }
       }
