@@ -14,7 +14,7 @@
         <header class="header">
             <div class="header-content">
                 <div class="logo-section">
-                        <img src="../libs/img/masBienestar.webp" alt="Logo MAS Bienestar" style="height:100px;width:100px;object-fit:contain;vertical-align:middle;">
+                        <img src="../../libs/img/masBienestar.webp" alt="Logo MAS Bienestar" style="height:100px;width:100px;object-fit:contain;vertical-align:middle;">
                     <h1>Equipos MAS Bienestar</h1>
                 </div>
                 

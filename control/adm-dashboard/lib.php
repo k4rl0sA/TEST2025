@@ -5,7 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Cargar config y funciones necesarias
-require_once __DIR__ . '/../libs/gestion.php';
+require_once __DIR__ . '/../../libs/gestion.php';
 
 // Obtener y sanitizar parámetros
 $fechadesde = $_POST['fecha_inicio'] ?? '';
