@@ -109,6 +109,17 @@
                     </div>
                 </div>
 
+                <div class="metric-card families">
+                    <div class="metric-icon">
+                        <i class="fa-solid fa-house-user"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>Familias Caracterizadas</h3>
+                        <div class="metric-value" id="totalFamilies">1.570.758</div>
+                        <div class="metric-subtitle"></div>
+                    </div>
+                </div>
+
                 <div class="metric-card patients">
                     <div class="metric-icon">
                         <i class="fa-solid fa-people-roof"></i>
@@ -120,6 +131,10 @@
                     </div>
                 </div>
 
+            </section>
+            
+            <section class="metrics-section">
+
                 <div class="metric-card families">
                     <div class="metric-icon">
                         <i class="fa-solid fa-people-roof"></i>
@@ -128,20 +143,6 @@
                         <h3>Familias Caracterizadas</h3>
                         <div class="metric-value" id="totalFamilies">1.570.758</div>
                         <div class="metric-subtitle">Unicas</div>
-                    </div>
-                </div>
-            </section>
-            
-            <section class="metrics-section">
-
-                <div class="metric-card families">
-                    <div class="metric-icon">
-                        <i class="fa-solid fa-house-user"></i>
-                    </div>
-                    <div class="metric-content">
-                        <h3>Familias Caracterizadas</h3>
-                        <div class="metric-value" id="totalFamilies">1.570.758</div>
-                        <div class="metric-subtitle"></div>
                     </div>
                 </div>
 
