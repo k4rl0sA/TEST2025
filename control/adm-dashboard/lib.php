@@ -129,7 +129,7 @@ $data = [
     "lastUpdate" => "hace 1 hora",
     // Distribución por edad (ejemplo)
     "ageDistribution" => [
-        "labels" => ["0-5", "6-17", "18-29", "30-44", "45-59", "60+"],
+        "labels" => ["0-5", "6-11", "12-17", "18-29", "30-59", "60+"],
         "values" => [341866, 800000, 900000, 700000, 600000, 659383]
     ],
     // Distribución por género (ejemplo)

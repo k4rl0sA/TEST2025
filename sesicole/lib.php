@@ -37,8 +37,8 @@ function lis_sesigcole(){
             sc.fecha,
             FN_CATALOGODESC(239, sc.tipo_activ),
             sc.lugar,
-            FN_CATALOGODESC(237, sc.tematica1),
-            FN_CATALOGODESC(238, sc.des_temati1),
+            sc.equipo,
+            
             u.nombre AS Creo,
             sc.fecha_create AS Creado,
             sc.estado
@@ -47,7 +47,7 @@ function lis_sesigcole(){
       LEFT JOIN hog_geo hg ON sc.idpre = hg.idgeo 
         WHERE hg.subred = (SELECT subred FROM usuarios WHERE id_usuario ='{$_SESSION['us_sds']}')
           " . whe_sesigcole() . " 
-        GROUP BY sc.id_cole, sc.fecha, sc.tipo_activ, sc.lugar, sc.tematica1, sc.des_temati1, u.nombre, sc.fecha_create, sc.estado 
+        GROUP BY sc.id_cole, sc.fecha, sc.tipo_activ, sc.lugar, sc.equipo,  u.nombre, sc.fecha_create, sc.estado 
         LIMIT $pag, $regxPag";
 		// var_dump($total);
 //var_dump($sql);
