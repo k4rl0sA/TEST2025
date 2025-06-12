@@ -357,6 +357,6 @@
 
     <div id="toast-error" class="toast-error" style="display:none;"></div>
 
-    <script src="script.js?v=11.0"></script>
+    <script src="script.js?v=12.0"></script>
 </body>
 </html>
