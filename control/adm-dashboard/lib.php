@@ -126,7 +126,7 @@ $params = [
     'localidad'  => $localidad
 ];
 // Consulta para distribución por edad  
-$sql4="SELECT CASE WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, P.fecha_create) BETWEEN 0 AND 5 THEN '1 Primera Infancia (0 a 5)' WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, P.fecha_create) BETWEEN 6 AND 11 THEN '2 Infancia (6 a 11)'  WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, P.fecha_create) BETWEEN 12 AND 17 THEN '3 Adolescencia (12 a 17)' WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, P.fecha_create) BETWEEN 18 AND 26 THEN '4 Juventud (18 a 26)' WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, P.fecha_create) BETWEEN 27 AND 59 THEN '5 Adultez (29 a 59)' ELSE '6 Vejez (60+)' END AS Rango_Edad,COUNT(*) AS Total 
+$sql4="SELECT CASE WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, P.fecha_create) BETWEEN 0 AND 5 THEN '1. Primera Infancia (0 a 5)' WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, P.fecha_create) BETWEEN 6 AND 11 THEN '2. Infancia (6 a 11)'  WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, P.fecha_create) BETWEEN 12 AND 17 THEN '3. Adolescencia (12 a 17)' WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, P.fecha_create) BETWEEN 18 AND 26 THEN '4 Juventud (18 a 26)' WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, P.fecha_create) BETWEEN 27 AND 59 THEN '5 Adultez (29 a 59)' ELSE '6 Vejez (60+)' END AS Rango_Edad,COUNT(*) AS Total 
 FROM person P
 LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
 LEFT JOIN hog_geo G ON F.idpre = G.idgeo
@@ -144,6 +144,32 @@ foreach ($age['responseResult'] as $row) {
     $age_distribution['values'][] = (int)$row['Total'];
 }
 
+
+//Filtros para personas por sexo
+$where_sql_sexo = build_where($params, 'P', 'fecha_create');
+$params = [
+    'fechadesde' => $fechadesde,
+    'fechahasta' => $fechahasta,
+    'subred'     => $subred,
+    'territorio' => $territorio,
+    'localidad'  => $localidad
+];
+// Consulta para distribución por sexo
+$sql5="SELECT FN_CATALOGODESC(21,P.sexo) AS sexos,COUNT(*) AS Total 
+FROM person P LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
+LEFT JOIN hog_geo G ON F.idpre = G.idgeo
+$where_sql_sexo AND  P.fecha_nacimiento IS NOT NULL
+GROUP BY P.sexo;";
+$sexo = datos_mysql($sql5);
+if ($sexo['code'] !== 0 || empty($sexo['responseResult'])) {
+    echo json_encode(["error" => "Objeto no encontrado"]);
+    exit;
+}
+$gender_distribution = [];
+foreach ($sexo['responseResult'] as $row) {
+    $gender_distribution['labels'][] = $row['sexos'];
+    $gender_distribution['values'][] = (int)$row['Total'];
+}
 
 // Simulación de datos, reemplaza por tus consultas reales
 $data = [
