@@ -52,8 +52,12 @@ foreach ($rtaMenu['responseResult'] as $key => $menu) {
     }
     foreach ($rtaMenu['responseResult'] as $key => $item){
       if($item['tipo']=="SUB" && $item['menu']==$menu['id']){
-        $nav.='<a href="'.$item['enlace'].'"
+        if($menu['id']==16){
+          $nav.='<a href="'.$item['enlace'].' " target="_blank" class="eff-text-menu">'.$item['link'].'</a></li>';
+        }else{
+          $nav.='<a href="'.$item['enlace'].'"
         class="eff-text-menu">'.$item['link'].'</a></li>';
+        }
       }
     }
     if($menu['contenedor']=="SI"){
