@@ -73,6 +73,13 @@ if ($subred) $where_fam[] = "hg.subred = '$subred'";
 if ($territorio) $where_fam[] = "hg.territorio = '$territorio'";
 if ($localidad) $where_fam[] = "hg.localidad = '$localidad'";
 $where_sql_fam = $where_fam ? 'WHERE ' . implode(' AND ', $where_fam) : ''; */
+$params = [
+    'fechadesde' => $fechadesde,
+    'fechahasta' => $fechahasta,
+    'subred'     => $subred,
+    'territorio' => $territorio,
+    'localidad'  => $localidad
+];
 
 $sql2= "SELECT COUNT(*) AS familia  FROM hog_fam hf LEFT JOIN hog_geo hg ON hf.idpre = hg.idgeo $where_sql_fam;";
 $fam = datos_mysql($sql2);
