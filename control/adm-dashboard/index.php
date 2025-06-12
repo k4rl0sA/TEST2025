@@ -145,7 +145,7 @@
                     </div>
                     <div class="metric-content">
                         <h3>Familias Clasificadas</h3>
-                        <div class="metric-value" id="totalPatients">3.553.128</div>
+                        <div class="metric-value" id="totalPeople">3.553.128</div>
                         <div class="metric-subtitle">Prioridades Medias</div>
                     </div>
                 </div>
