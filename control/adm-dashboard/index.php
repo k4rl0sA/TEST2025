@@ -116,7 +116,7 @@
                     <div class="metric-content">
                         <h3>Familias Caracterizadas</h3>
                         <div class="metric-value" id="totalFamilies">1.570.758</div>
-                        <div class="metric-subtitle"></div>
+                        <div class="metric-subtitle">Unicas</div>
                     </div>
                 </div>
 
@@ -150,7 +150,7 @@
                     </div>
                 </div>
 
-                
+
                 <div class="metric-card families">
                     <div class="metric-icon">
                         <i class="fa-solid fa-people-roof"></i>
@@ -158,7 +158,7 @@
                     <div class="metric-content">
                         <h3>Familias Caracterizadas</h3>
                         <div class="metric-value" id="totalFamilies">1.570.758</div>
-                        <div class="metric-subtitle">Unicas</div>
+                        <div class="metric-subtitle">Incorrecta</div>
                     </div>
                 </div>
 
