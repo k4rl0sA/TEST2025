@@ -4,22 +4,26 @@ let dashboardData = null;
 
 document.addEventListener('DOMContentLoaded', function() {
     fetch('lib.php')
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-            dashboardData = data;
-            initializeCharts(data);
-            updateMetrics(data);
-            setupEventListeners();
-            startRealTimeUpdates();
+        .then(res => res.text())
+        .then(text => {
+            console.log('Respuesta cruda del backend:', text);
+            try {
+                const data = JSON.parse(text);
+                dashboardData = data;
+                initializeCharts(data);
+                updateMetrics(data);
+                setupEventListeners();
+                startRealTimeUpdates();
+            } catch (e) {
+                showError('Error de formato en la respuesta del backend');
+                console.error('Error al parsear JSON:', e);
+            }
         })
         .catch(err => {
             showError('Error cargando datos del backend');
             console.error(err);
         });
-}
-
-);
+});
 
 // Inicializar todos los gráficos con datos del backend
 function initializeCharts(data) {
