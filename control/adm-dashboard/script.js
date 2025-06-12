@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
             startRealTimeUpdates();
         })
         .catch(err => {
-            alert('Error cargando datos del backend');
+            showError('Error cargando datos del backend');
             console.error(err);
         });
 });
