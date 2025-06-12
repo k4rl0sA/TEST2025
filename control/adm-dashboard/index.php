@@ -206,7 +206,7 @@
             <section class="charts-section">
                 <div class="chart-container">
                     <div class="chart-header">
-                        <h3>Distribución por Edad</h3>
+                        <h3>Individuos por Edad</h3>
                         <div class="chart-controls">
                             <button class="chart-btn active" data-chart="age">Edad</button>
                             <button class="chart-btn" data-chart="gender">Género</button>
