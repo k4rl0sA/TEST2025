@@ -20,9 +20,9 @@ function build_where($params, $alias, $campo_fecha = null) {
     if ($campo_fecha && $params['fechadesde'] && $params['fechahasta']) {
         $where[] = "$alias.$campo_fecha BETWEEN '{$params['fechadesde']}' AND '{$params['fechahasta']}'";
     }
-    if ($params['subred'])      $where[] = "$alias.subred = '{$params['subred']}'";
-    if ($params['territorio'])  $where[] = "$alias.territorio = '{$params['territorio']}'";
-    if ($params['localidad'])   $where[] = "$alias.localidad = '{$params['localidad']}'";
+    if ($params['subred'])      $where[] = "subred = '{$params['subred']}'";
+    if ($params['territorio'])  $where[] = " territorio = '{$params['territorio']}'";
+    if ($params['localidad'])   $where[] = " localidad = '{$params['localidad']}'";
     return $where ? 'WHERE ' . implode(' AND ', $where) : '';
 }
 
