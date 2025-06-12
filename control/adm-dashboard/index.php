@@ -156,9 +156,9 @@
                         <i class="fa-solid fa-people-roof"></i>
                     </div>
                     <div class="metric-content">
-                        <h3>Familias Caracterizadas</h3>
-                        <div class="metric-value" id="totalFamilies">1.570.758</div>
-                        <div class="metric-subtitle">Incorrecta</div>
+                        <h3>Disponible</h3>
+                        <div class="metric-value" id="total">1.570.758</div>
+                        <div class="metric-subtitle">Descripcion</div>
                     </div>
                 </div>
 
