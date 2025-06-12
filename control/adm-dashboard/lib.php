@@ -14,6 +14,28 @@ $subred = $_POST['subred'] ?? '';
 $territorio = $_POST['territorio'] ?? '';
 $localidad = $_POST['localidad'] ?? '';
 
+
+function build_where($params, $alias, $campo_fecha = null) {
+    $where = [];
+    if ($campo_fecha && $params['fechadesde'] && $params['fechahasta']) {
+        $where[] = "$alias.$campo_fecha BETWEEN '{$params['fechadesde']}' AND '{$params['fechahasta']}'";
+    }
+    if ($params['subred'])      $where[] = "$alias.subred = '{$params['subred']}'";
+    if ($params['territorio'])  $where[] = "$alias.territorio = '{$params['territorio']}'";
+    if ($params['localidad'])   $where[] = "$alias.localidad = '{$params['localidad']}'";
+    return $where ? 'WHERE ' . implode(' AND ', $where) : '';
+}
+
+$params = [
+    'fechadesde' => $fechadesde,
+    'fechahasta' => $fechahasta,
+    'subred'     => $subred,
+    'territorio' => $territorio,
+    'localidad'  => $localidad
+];
+
+$where_sql = build_where($params, 'hc', 'fecha');
+
 // Validar parámetros si es necesario
 $where = [];
 if ($fechadesde && $fechahasta) $where[] = "hc.fecha BETWEEN '$fechadesde' AND '$fechahasta'";
@@ -42,13 +64,15 @@ if ($caracterizaciones === 0) {
     exit;
 }
 
+
+$where_sql_fam = build_where($params, 'hf', 'fecha_create');
 // Filtros para hog_fam (familias)
-$where_fam = [];
+/* $where_fam = [];
 if ($fechadesde && $fechahasta) $where_fam[] = "hf.fecha_create BETWEEN '$fechadesde' AND '$fechahasta'";
 if ($subred) $where_fam[] = "hg.subred = '$subred'";
 if ($territorio) $where_fam[] = "hg.territorio = '$territorio'";
 if ($localidad) $where_fam[] = "hg.localidad = '$localidad'";
-$where_sql_fam = $where_fam ? 'WHERE ' . implode(' AND ', $where_fam) : '';
+$where_sql_fam = $where_fam ? 'WHERE ' . implode(' AND ', $where_fam) : ''; */
 
 $sql2= "SELECT COUNT(*) AS familia  FROM hog_fam hf LEFT JOIN hog_geo hg ON hf.idpre = hg.idgeo $where_sql_fam;";
 $fam = datos_mysql($sql2);
