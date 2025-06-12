@@ -192,14 +192,14 @@ function initializeElderlyChart(data) {
 
 // Update metrics with animation
 function updateMetrics(data) {
-    animateCounter('famCreate', Number(data.famCreate));
-    animateCounter('totalPatients', Number(data.totalPatients));
-    animateCounter('totalFamilies', Number(data.totalFamilies));
-    animateCounter('totalPeople', Number(data.totalPeople));
-    animateCounter('total', Number(data.total));
-    animateCounter('familyUpdate', Number(data.familyUpdate));
-    animateCounter('monthlyConsultations', Number(data.monthlyConsultations));
-    document.getElementById('disabilityTotal').textContent = formatNumber(Number(data.disability.total));
+    animateCounter('famCreate', data.famCreate);
+    animateCounter('totalPatients', data.totalPatients);
+    animateCounter('totalFamilies', data.totalFamilies);
+    animateCounter('totalPeople', data.totalPeople);
+    animateCounter('total', data.total);
+    animateCounter('familyUpdate', data.familyUpdate);
+    animateCounter('monthlyConsultations', data.monthlyConsultations);
+    document.getElementById('disabilityTotal').textContent = formatNumber(data.disability.total);
     document.getElementById('disabilityPercentage').textContent = data.disability.percentage + '% de la población';
 }
 
