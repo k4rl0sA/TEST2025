@@ -60,7 +60,7 @@ if ($familias === 0) {
 $data = [
     "totalPatients" => 867656575,
     "totalFamilies" => $caracterizaciones,
- /*    "famCreate"=>$familias, */
+     "famCreate"=>$familias,
     "familyUpdate" => 25933,
     "monthlyConsultations" => 89456,
     "lastUpdate" => "hace 1 hora",
