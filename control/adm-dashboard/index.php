@@ -72,19 +72,22 @@
                         </script>
                     </div>
                     <div class="filter-group" style="align-self: flex-end;">
-                        <button id="filterBtn" class="filter-btn" type="button">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;">
-                                <path d="M3 5h18M6 12h12M10 19h4" stroke="#0066cc" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                            Filtrar
-                        </button>
-                        <button id="closeTabBtn" onclick="cerrarPestana()" style="float:right;display:flex;align-items:center;gap:6px;background:#ef4444;color:#fff;border:none;padding:6px 14px;border-radius:5px;cursor:pointer;font-size:15px;">
-                            <i class="fa fa-times" aria-hidden="true"></i> Cerrar pestaña</button>
-                            <script>
-                              function cerrarPestana() {
-                                window.close();
-                              }
-                            </script>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <button id="filterBtn" class="filter-btn" type="button">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;">
+                                    <path d="M3 5h18M6 12h12M10 19h4" stroke="#0066cc" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                Filtrar
+                            </button>
+                            <button id="closeTabBtn" onclick="cerrarPestana()" style="display:flex;align-items:center;gap:6px;background:#ef4444;color:#fff;border:none;padding:6px 14px;border-radius:5px;cursor:pointer;font-size:15px;">
+                                <i class="fa fa-times" aria-hidden="true"></i> Cerrar pestaña
+                            </button>
+                        </div>
+                        <script>
+                          function cerrarPestana() {
+                            window.close();
+                          }
+                        </script>
                     </div>
                 </div>
             </div>
