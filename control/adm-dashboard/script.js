@@ -3,35 +3,20 @@ let ageChart, specialtyChart, disabilityChart, elderlyChart;
 let dashboardData = null;
 
 document.addEventListener('DOMContentLoaded', function() {
-   fetch('lib.php', {
-    method: 'POST',
-    body: params
-})
-.then(res => res.text()) // <-- OBTÉN TEXTO CRUDO
-.then(text => {
-    hideLoader();
-    // Intenta parsear JSON, pero primero muestra el texto recibido
-    try {
-        const data = JSON.parse(text);
-        if (data.error) {
-            showError(data.error);
-            console.error('Backend error:', data.error, data);
-            return;
-        }
-        dashboardData = data;
-        initializeCharts(data);
-        updateMetrics(data);
-    } catch (e) {
-        // Aquí puedes ver el texto que llegó y el error de parseo
-        showError('Error de formato en la respuesta del backend');
-        console.error('Respuesta cruda del backend:', text);
-        console.error('Error al parsear JSON:', e);
-    }
-})
-.catch(err => {
-    hideLoader();
-    showError('Error cargando datos del backend');
-    console.error('Error en fetch:', err);
+    fetch('lib.php')
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            dashboardData = data;
+            initializeCharts(data);
+            updateMetrics(data);
+            setupEventListeners();
+            startRealTimeUpdates();
+        })
+        .catch(err => {
+            showError('Error cargando datos del backend');
+            console.error(err);
+        });
 });
 
 // Inicializar todos los gráficos con datos del backend
