@@ -252,7 +252,7 @@ function toggleChart(chartType) {
     if (chartType === 'gender') {
         ageChart.data.labels = dashboardData.genderDistribution.labels;
         ageChart.data.datasets[0].data = dashboardData.genderDistribution.values;
-        ageChart.data.datasets[0].backgroundColor = ['#0066CC', '#FF6B9D', '#A855F7'];
+        ageChart.data.datasets[0].backgroundColor = ['#0066CC', '#A855F7', '#FF6B9D'];
     } else {
         ageChart.data.labels = dashboardData.ageDistribution.labels;
         ageChart.data.datasets[0].data = dashboardData.ageDistribution.values;
