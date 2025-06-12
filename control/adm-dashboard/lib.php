@@ -123,6 +123,7 @@ $data = [
     "totalFamilies" => $caracterizaciones,
      "famCreate"=>$familias,
      "totalPeople" => $individuos,
+     "total"=> 1750000,
     "familyUpdate" => 25933,
     "monthlyConsultations" => 89456,
     "lastUpdate" => "hace 1 hora",
