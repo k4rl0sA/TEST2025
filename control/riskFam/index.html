@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="riskFam.css?v=3.0" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
   <div class="theme-toggle">
@@ -32,6 +33,15 @@
         <div class="card">
           <div class="card-header">
             <h2>Búsqueda de Usuario</h2>
+            <button id="closeTabBtn" onclick="cerrarPestana()" style="float:right;display:flex;align-items:center;gap:6px;background:#ef4444;color:#fff;border:none;padding:6px 14px;border-radius:5px;cursor:pointer;font-size:15px;">
+              <i class="fa fa-times" aria-hidden="true"></i>
+              Cerrar pestaña
+            </button>
+            <script>
+              function cerrarPestana() {
+                window.close();
+              }
+            </script>
           </div>
           <div class="card-body">
             <p>Ingrese el número de documento para buscar información del usuario.</p>
