@@ -194,20 +194,30 @@ $data = [
         "percentages" => [25, 10, 8, 5, 2.5,20] */
 
     "Eventos"=>[
-        "VIH"=> [
+        "1"=> [
+            "evento" => "Acompañamiento Psicosocial",
             "labels" => ["Total Casos", "Abiertos", "Cerrados"],
             "totales" => [500, 100, 400],
             "abiertos" => [120, 20, 168],
             "cerrados" => [380, 80, 232],
             "porcentaje" => [76]
         ],
-        "HB"=> [
+        "2"=> [
+            "evento" => "Duelo",
             "labels" => ["Total Casos", "Abiertos", "Cerrados"],
             "totales" => [200, 80, 620],
             "abiertos" => [220, 200, 620],
             "cerrados" => [-20, -120, 0],
             "porcentaje" => [44]            
-        ]
+        ],
+        "3"=> [
+            "evento" => "Cancer",
+            "labels" => ["Total Casos", "Abiertos", "Cerrados"],
+            "totales" => [300, 150, 150],
+            "abiertos" => [100, 50, 50],
+            "cerrados" => [200, 100, 100],
+            "porcentaje" => [66.67]
+        ],
     ];
     ],
     // Indicadores de salud
