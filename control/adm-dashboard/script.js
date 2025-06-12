@@ -193,6 +193,7 @@ function initializeElderlyChart(data) {
 // Update metrics with animation
 function updateMetrics(data) {
     animateCounter('famCreate', data.famCreate);
+    animateCounter('totalPatients', data.totalPatients);
     animateCounter('totalFamilies', data.totalFamilies);
     animateCounter('totalPeople', data.totalPeople);
     animateCounter('familyUpdate', data.familyUpdate);

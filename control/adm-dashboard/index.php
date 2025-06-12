@@ -120,35 +120,20 @@
                     </div>
                 </div>
 
-                 <div class="metric-card patients">
-                    <div class="metric-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="currentColor"/>
-                        </svg>
-                    </div>
-                    <div class="metric-content">
-                        <h3>Individuos</h3>
-                        <div class="metric-value" id="totalPeople">3.553.128</div>
-                        <div class="metric-subtitle"> Caracterizados y Actualizados</div>
-                    </div>
-                </div>
-
-                
-
-            </section>
-            
-            <section class="metrics-section">
-
-            <div class="metric-card patients">
+                <div class="metric-card patients">
                     <div class="metric-icon">
                         <i class="fa-solid fa-people-roof"></i>
                     </div>
                     <div class="metric-content">
                         <h3>Familias Clasificadas</h3>
-                        <div class="metric-value" id="totalPeople">3.553.128</div>
+                        <div class="metric-value" id="totalPatients">3.553.128</div>
                         <div class="metric-subtitle">Prioridades Medias</div>
                     </div>
                 </div>
+
+            </section>
+            
+            <section class="metrics-section">
 
                 <div class="metric-card families">
                     <div class="metric-icon">
@@ -172,7 +157,18 @@
                     </div>
                 </div>
 
-               
+                <div class="metric-card patients">
+                    <div class="metric-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="metric-content">
+                        <h3>Individuos</h3>
+                        <div class="metric-value" id="totalPeople">3.553.128</div>
+                        <div class="metric-subtitle"> Caracterizados y Actualizados</div>
+                    </div>
+                </div>
 
                 <!-- <div class="metric-card pregnant">
                     <div class="metric-icon">
