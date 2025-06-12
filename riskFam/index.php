@@ -10,6 +10,10 @@
   <link href="riskFam.css?v=3.0" rel="stylesheet">
 </head>
 <body>
+<?php
+ini_set('display_errors','1');
+include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
+?>
   <div class="theme-toggle">
     <input type="checkbox" id="theme-switch" class="theme-switch">
     <label for="theme-switch" class="theme-switch-label">
