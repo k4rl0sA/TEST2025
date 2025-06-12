@@ -126,7 +126,7 @@ $params = [
     'localidad'  => $localidad
 ];
 // Consulta para distribución por edad  
-$sql4="SELECT CASE WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, P.fecha_create) BETWEEN 0 AND 5 THEN '0 a 5 años'  WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, P.fecha_create) BETWEEN 6 AND 11 THEN '6 a 11 años' WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, P.fecha_create) BETWEEN 12 AND 17 THEN '12 a 17 años' WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, P.fecha_create) BETWEEN 18 AND 26 THEN '18 a 26 años' WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, P.fecha_create) BETWEEN 27 AND 59 THEN '29 a 59 años' ELSE '60 años o más' END AS Rango_Edad,COUNT(*) AS Total 
+$sql4="SELECT WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, P.fecha_create) BETWEEN 0 AND 5 THEN '1 Primera Infancia (0 a 5)' WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, P.fecha_create) BETWEEN 6 AND 11 THEN '2 Infancia (6 a 11)'  WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, P.fecha_create) BETWEEN 12 AND 17 THEN '3 Adolescencia (12 a 17)' WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, P.fecha_create) BETWEEN 18 AND 26 THEN '4 Juventud (18 a 26)' WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, P.fecha_create) BETWEEN 27 AND 59 THEN '5 Adultez (29 a 59)' ELSE '6 Vejez (60+)' END AS Rango_Edad,COUNT(*) AS Total 
 FROM person P
 LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
 LEFT JOIN hog_geo G ON F.idpre = G.idgeo
