@@ -218,12 +218,16 @@
                 <div class="chart-container">
                     <div class="chart-header">
                         <h3>Personas por Evento VSP</h3>
+
+                        <div class="filter-group">
+                        <label>Localidad</label>
                         <select id="EventFilter" name="event">
-                            <?php
+                          <?php
                                 require_once __DIR__ . '/../../libs/gestion.php';
                                 echo opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo = 87 ORDER BY 1",'');
                             ?>
-                        </select>
+                    </select>
+                    </div>
                     </div>
                     <div class="demo-percentage" id="vspPercentage">23.58%</div>
                     <canvas id="specialtyChart"></canvas>
