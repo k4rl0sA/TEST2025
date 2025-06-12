@@ -17,7 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
             showError('Error cargando datos del backend');
             console.error(err);
         });
-});
+}
+
+);
 
 // Inicializar todos los gráficos con datos del backend
 function initializeCharts(data) {
@@ -281,21 +283,31 @@ function handleFilterChange() {
         method: 'POST',
         body: params
     })
-    .then(res => res.json())
-    .then(data => {
+    .then(res => res.text()) // <-- OBTÉN TEXTO CRUDO
+    .then(text => {
         hideLoader();
-        if (data.error) {
-            showError(data.error);
-            return;
+        // Intenta parsear JSON, pero primero muestra el texto recibido
+        try {
+            const data = JSON.parse(text);
+            if (data.error) {
+                showError(data.error);
+                console.error('Backend error:', data.error, data);
+                return;
+            }
+            dashboardData = data;
+            initializeCharts(data);
+            updateMetrics(data);
+        } catch (e) {
+            // Aquí puedes ver el texto que llegó y el error de parseo
+            showError('Error de formato en la respuesta del backend');
+            console.error('Respuesta cruda del backend:', text);
+            console.error('Error al parsear JSON:', e);
         }
-        dashboardData = data;
-        initializeCharts(data);
-        updateMetrics(data);
     })
     .catch(err => {
         hideLoader();
         showError('Error cargando datos del backend');
-        console.error(err);
+        console.error('Error en fetch:', err);
     });
 }
 
