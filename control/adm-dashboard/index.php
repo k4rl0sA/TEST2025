@@ -217,7 +217,7 @@
 
                 <div class="chart-container">
                     <div class="chart-header">
-                        <h3>Consultas por Especialidad</h3>
+                        <h3>Personas por Etnia</h3>
                     </div>
                     <canvas id="specialtyChart"></canvas>
                 </div>
