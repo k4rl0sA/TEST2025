@@ -42,6 +42,8 @@ if ($caracterizaciones === 0) {
     exit;
 }
 
+$sql1= "SELECT COUNT(*) FROM hog_fam hf LEFT JOIN hog_geo hg ON hf.idpre = hg.idgeo $where_sql;"
+
 // Simulación de datos, reemplaza por tus consultas reales
 $data = [
     "totalPatients" => 867656575,
