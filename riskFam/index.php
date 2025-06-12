@@ -23,13 +23,13 @@ include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
   </div>
 
   <div class="app-container">
-    <header class="app-header">
+    <div class="app-header">
       <div class="logo-section">
         <img src="../libs/img/masBienestar.webp" alt="Logo MAS Bienestar" style="height:100px;width:100px;object-fit:contain;vertical-align:middle;">
         <h1>Evaluación de Riesgos Familiares</h1>
       </div>
       <p class="subtitle">Evaluar y Visualizar Factores de Riesgos Familiares</p>
-    </header>
+</div>
 
     <main class="content">
        <section class="search-info-risk">
