@@ -217,7 +217,13 @@
 
                 <div class="chart-container">
                     <div class="chart-header">
-                        <h3>Personas por Etnia</h3>
+                        <h3>Personas por Evento VSP</h3>
+                        <select id="EventFilter" name="event">
+                            <?php
+                                require_once __DIR__ . '/../../libs/gestion.php';
+                                echo opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo = 87 ORDER BY 1",'');
+                            ?>
+                        </select>
                     </div>
                     <canvas id="specialtyChart"></canvas>
                 </div>
