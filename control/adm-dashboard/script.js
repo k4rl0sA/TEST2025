@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch('lib.php')
         .then(res => res.json())
         .then(data => {
+            console.log(data);
             dashboardData = data;
             initializeCharts(data);
             updateMetrics(data);
