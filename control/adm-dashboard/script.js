@@ -192,6 +192,7 @@ function initializeElderlyChart(data) {
 
 // Update metrics with animation
 function updateMetrics(data) {
+    console.log('updateMetrics', data);
     animateCounter('famCreate', Number(data.famCreate));
     animateCounter('totalPatients', Number(data.totalPatients));
     animateCounter('totalFamilies', Number(data.totalFamilies));
@@ -206,6 +207,7 @@ function updateMetrics(data) {
 // Animate counter function
 function animateCounter(elementId, targetValue) {
     const element = document.getElementById(elementId);
+      if (!element) return;
     const startValue = 0;
     const duration = 2000;
     const startTime = performance.now();
