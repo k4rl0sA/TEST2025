@@ -184,8 +184,8 @@ $data = [
     ],
     // Distribución por género (ejemplo)
     "genderDistribution" => [
-        "labels" => ["Femenino", "Masculino", "Otro"],
-        "values" => [1800000, 1750000, 53128]
+        "labels" => $gender_distribution['labels'], //["Femenino", "Masculino", "Otro"], 
+        "values" => $gender_distribution['values'] //[1800000, 1750000, 53128]
     ],
     // Consultas por especialidad (ejemplo)
     "specialtyConsultations" => [
