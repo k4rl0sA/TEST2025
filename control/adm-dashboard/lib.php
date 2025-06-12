@@ -119,13 +119,10 @@ if ($individuos === 0) {
 
 // Simulación de datos, reemplaza por tus consultas reales
 $data = [
-    "totalPatients" => 867656575,
     "totalFamilies" => $caracterizaciones,
      "famCreate"=>$familias,
      "totalPeople" => $individuos,
-     "total"=> 1750000,
-    "familyUpdate" => 25933,
-    "monthlyConsultations" => 89456,
+     
     "lastUpdate" => "hace 1 hora",
     // Distribución por edad (ejemplo)
     "ageDistribution" => [
