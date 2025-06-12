@@ -42,13 +42,25 @@ if ($caracterizaciones === 0) {
     exit;
 }
 
-$sql1= "SELECT COUNT(*) FROM hog_fam hf LEFT JOIN hog_geo hg ON hf.idpre = hg.idgeo $where_sql;"
+$sql2= "SELECT COUNT(*) AS  FROM hog_fam hf LEFT JOIN hog_geo hg ON hf.idpre = hg.idgeo $where_sql;";
+$fam = datos_mysql($sql2);
+if ($fam['code'] !== 0 || empty($fam['responseResult'])) {
+    echo json_encode(["error" => "Objeto no encontrado"]);
+    exit;
+}
+$familias = $fam['responseResult'][0]['COUNT(*)'] ?? 0;
+if ($familias === 0) {
+    echo json_encode(["error" => "No se encontraron familias en el rango de fechas especificado."]);
+    exit;
+}
+
+
 
 // Simulación de datos, reemplaza por tus consultas reales
 $data = [
     "totalPatients" => 867656575,
     "totalFamilies" => $caracterizaciones,
-    "famCreate"=>'CERO',
+    "famCreate"=>$familias,
     "familyUpdate" => 25933,
     "monthlyConsultations" => 89456,
     "lastUpdate" => "hace 1 hora",
