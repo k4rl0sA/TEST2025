@@ -125,9 +125,9 @@
                         <i class="fa-solid fa-people-roof"></i>
                     </div>
                     <div class="metric-content">
-                        <h3>Familias Clasificadas</h3>
+                        <h3>Familias Caracterizadas</h3>
                         <div class="metric-value" id="totalFamilies">1.570.758</div>
-                        <div class="metric-subtitle">Prioridades Bajas</div>
+                        <div class="metric-subtitle">Unicas</div>
                     </div>
                 </div>
             </section>
