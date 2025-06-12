@@ -42,7 +42,15 @@ if ($caracterizaciones === 0) {
     exit;
 }
 
-$sql2= "SELECT COUNT(*) AS familia  FROM hog_fam hf LEFT JOIN hog_geo hg ON hf.idpre = hg.idgeo $where_sql;";
+// Filtros para hog_fam (familias)
+$where_fam = [];
+if ($fechadesde && $fechahasta) $where_fam[] = "hf.fecha_create BETWEEN '$fechadesde' AND '$fechahasta'";
+if ($subred) $where_fam[] = "hg.subred = '$subred'";
+if ($territorio) $where_fam[] = "hg.territorio = '$territorio'";
+if ($localidad) $where_fam[] = "hg.localidad = '$localidad'";
+$where_sql_fam = $where_fam ? 'WHERE ' . implode(' AND ', $where_fam) : '';
+
+$sql2= "SELECT COUNT(*) AS familia  FROM hog_fam hf LEFT JOIN hog_geo hg ON hf.idpre = hg.idgeo $where_sql_fam;";
 $fam = datos_mysql($sql2);
 if ($fam['code'] !== 0 || empty($fam['responseResult'])) {
     echo json_encode(["error" => "Objeto no encontrado"]);
