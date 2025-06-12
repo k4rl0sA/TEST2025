@@ -220,7 +220,6 @@
                         <h3>Personas por Evento VSP</h3>
 
                         <div class="filter-group">
-                        <label>Localidad</label>
                         <select id="EventFilter" name="event">
                           <?php
                                 require_once __DIR__ . '/../../libs/gestion.php';
