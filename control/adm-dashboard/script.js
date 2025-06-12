@@ -206,7 +206,7 @@ function updateMetrics(data) {
 // Animate counter function
 function animateCounter(elementId, targetValue) {
     const element = document.getElementById(elementId);
-      if (!element) return;
+    //   if (!element) return;
     const startValue = 0;
     const duration = 2000;
     const startTime = performance.now();
