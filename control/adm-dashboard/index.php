@@ -78,6 +78,13 @@
                             </svg>
                             Filtrar
                         </button>
+                        <button id="closeTabBtn" onclick="cerrarPestana()" style="float:right;display:flex;align-items:center;gap:6px;background:#ef4444;color:#fff;border:none;padding:6px 14px;border-radius:5px;cursor:pointer;font-size:15px;">
+                            <i class="fa fa-times" aria-hidden="true"></i> Cerrar pestaña</button>
+                            <script>
+                              function cerrarPestana() {
+                                window.close();
+                              }
+                            </script>
                     </div>
                 </div>
             </div>
