@@ -82,13 +82,14 @@ function lis_predios(){
                 $docume = intval($docume);
                 $sql = "SELECT 
                             hg.idgeo AS 'Cod Predio',
+                            hf.id_fam AS 'Cod Familia',
+                            p.idpeople 'Cod Persona',
                             FN_CATALOGODESC(72, hg.subred) AS Subred,
                             hg.direccion AS Direccion,
                             u.nombre AS Creo,
                             u.perfil,
                             u.equipo,
                             p.fecha_create AS 'Fecha Creo',
-                            hf.id_fam AS 'Cod Familia',
                              FN_CATALOGODESC(44, gg.estado_v) AS Estado
                         FROM hog_fam hf
                         LEFT JOIN hog_geo hg ON hf.idpre = hg.idgeo

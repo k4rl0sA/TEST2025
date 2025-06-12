@@ -189,8 +189,26 @@ $data = [
     ],
     // Consultas por especialidad (ejemplo)
     "specialtyConsultations" => [
-        "labels" => ["Medicina General", "Pediatría", "Ginecología", "Odontología", "Enfermería"],
-        "values" => [40000, 15000, 12000, 8000, 14456]
+        /* "labels" => ["Acompañamiento Psicosocial", "Duelo", "Cancer", "Cronicos", "Desnutrición", "Gestantes"],
+        "values" => [40000, 15000, 12000, 8000, 14456,75000],
+        "percentages" => [25, 10, 8, 5, 2.5,20] */
+
+    "Eventos"=>[
+        "VIH"=> [
+            "labels" => ["Total Casos", "Abiertos", "Cerrados"],
+            "totales" => [500, 100, 400],
+            "abiertos" => [120, 20, 168],
+            "cerrados" => [380, 80, 232],
+            "porcentaje" => [76]
+        ],
+        "HB"=> [
+            "labels" => ["Total Casos", "Abiertos", "Cerrados"],
+            "totales" => [200, 80, 620],
+            "abiertos" => [220, 200, 620],
+            "cerrados" => [-20, -120, 0],
+            "porcentaje" => [44]            
+        ]
+    ];
     ],
     // Indicadores de salud
     "healthIndicators" => [
