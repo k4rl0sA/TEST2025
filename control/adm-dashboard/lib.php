@@ -107,7 +107,7 @@ $params = [
 $sql3 = "SELECT COUNT(*) as Individuos FROM person P LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo $where_sql_ind;";
 $ind = datos_mysql($sql3);
 if ($ind['code'] !== 0 || empty($ind['responseResult'])) {
-    echo json_encode(["error" => "Objeto no encontrado para individuos ".var_dump($ind)]);
+    echo json_encode(["error" => "Objeto no encontrado para individuos "]);
     exit;
 }
 $individuos = $ind['responseResult'][0]['Individuos'] ?? 0;
@@ -135,7 +135,7 @@ AND P.fecha_nacimiento IS NOT NULL
 GROUP BY Rango_Edad ORDER BY Rango_Edad;";
 $age = datos_mysql($sql4);
 if ($age['code'] !== 0 || empty($age['responseResult'])) {
-    echo json_encode(["error" => "Objeto no encontrado para distribución por edad"]);
+    echo json_encode(["error" => "Objeto no encontrado para distribución por edad".var_dump($age)]);
     exit;
 }
 $age_distribution = [];
