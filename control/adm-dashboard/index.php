@@ -103,9 +103,9 @@
                         <i class="fa-solid fa-people-roof"></i>
                     </div>
                     <div class="metric-content">
-                        <h3>Familias Clasificadas</h3>
-                        <div class="metric-value" id="monthlyConsultations">89.456</div>
-                        <div class="metric-subtitle">Prioridades Altas</div>
+                        <h3>Familias Creadas</h3>
+                        <div class="metric-value" id="famCreate">89.456</div>
+                        <div class="metric-subtitle">Familias Caracterizadas y Sin Caracterizar</div>
                     </div>
                 </div>
 
