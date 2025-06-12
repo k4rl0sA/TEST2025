@@ -225,6 +225,7 @@
                             ?>
                         </select>
                     </div>
+                    <div class="demo-percentage" id="vspPercentage">4.37%</div>
                     <canvas id="specialtyChart"></canvas>
                 </div>
 
