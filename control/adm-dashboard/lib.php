@@ -65,7 +65,7 @@ if ($caracterizaciones === 0) {
 }
 
 
-$where_sql_fam = build_where($params, 'hf', 'fecha_create');
+
 // Filtros para hog_fam (familias)
 /* $where_fam = [];
 if ($fechadesde && $fechahasta) $where_fam[] = "hf.fecha_create BETWEEN '$fechadesde' AND '$fechahasta'";
@@ -73,6 +73,7 @@ if ($subred) $where_fam[] = "hg.subred = '$subred'";
 if ($territorio) $where_fam[] = "hg.territorio = '$territorio'";
 if ($localidad) $where_fam[] = "hg.localidad = '$localidad'";
 $where_sql_fam = $where_fam ? 'WHERE ' . implode(' AND ', $where_fam) : ''; */
+$where_sql_fam = build_where($params, 'hf', 'fecha_create');
 $params = [
     'fechadesde' => $fechadesde,
     'fechahasta' => $fechahasta,
@@ -93,6 +94,27 @@ if ($familias === 0) {
     exit;
 }
 
+// Filtros para hog_ind (individuos)
+$where_sql_ind = build_where($params, 'P', 'fecha_create');
+$params = [
+    'fechadesde' => $fechadesde,
+    'fechahasta' => $fechahasta,
+    'subred'     => $subred,
+    'territorio' => $territorio,
+    'localidad'  => $localidad
+];
+// Consulta para contar individuos
+$sql3 = "SELECT COUNT(*) as Individuos FROM person P LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo $where_sql_ind;";
+$ind = datos_mysql($sql3);
+if ($ind['code'] !== 0 || empty($ind['responseResult'])) {
+    echo json_encode(["error" => "Objeto no encontrado"]);
+    exit;
+}
+$individuos = $ind['responseResult'][0]['Individuos'] ?? 0;
+if ($individuos === 0) {
+    echo json_encode(["error" => "No se encontraron individuos en el rango de fechas especificado."]);
+    exit;
+}
 
 
 // Simulación de datos, reemplaza por tus consultas reales
@@ -100,6 +122,7 @@ $data = [
     "totalPatients" => 867656575,
     "totalFamilies" => $caracterizaciones,
      "famCreate"=>$familias,
+     "totalPeople" => $individuos,
     "familyUpdate" => 25933,
     "monthlyConsultations" => 89456,
     "lastUpdate" => "hace 1 hora",

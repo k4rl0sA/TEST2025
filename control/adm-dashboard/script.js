@@ -195,6 +195,7 @@ function updateMetrics(data) {
     animateCounter('famCreate', data.famCreate);
     animateCounter('totalPatients', data.totalPatients);
     animateCounter('totalFamilies', data.totalFamilies);
+    animateCounter('totalPeople', data.totalPeople);
     animateCounter('familyUpdate', data.familyUpdate);
     animateCounter('monthlyConsultations', data.monthlyConsultations);
     document.getElementById('disabilityTotal').textContent = formatNumber(data.disability.total);

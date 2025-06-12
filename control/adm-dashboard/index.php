@@ -165,7 +165,7 @@
                     </div>
                     <div class="metric-content">
                         <h3>Individuos</h3>
-                        <div class="metric-value" id="totalPatients">3.553.128</div>
+                        <div class="metric-value" id="totalPeople">3.553.128</div>
                         <div class="metric-subtitle"> Caracterizados y Actualizados</div>
                     </div>
                 </div>
