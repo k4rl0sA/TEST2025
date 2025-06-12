@@ -107,7 +107,7 @@ $params = [
 $sql3 = "SELECT COUNT(*) as Individuos FROM person P LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo $where_sql_ind;";
 $ind = datos_mysql($sql3);
 if ($ind['code'] !== 0 || empty($ind['responseResult'])) {
-    echo json_encode(["error" => "Objeto no encontrado para individuos"]);
+    echo json_encode(["error" => "Objeto no encontrado para individuos ".var_dump($ind)]);
     exit;
 }
 $individuos = $ind['responseResult'][0]['Individuos'] ?? 0;
