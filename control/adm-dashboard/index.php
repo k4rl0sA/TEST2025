@@ -42,7 +42,7 @@
                         <label>Localidad</label>
                         <select id="localityFilter" name="localidad">
                             <?php
-                                require_once __DIR__ . '/../libs/gestion.php';
+                                require_once __DIR__ . '/../../libs/gestion.php';
                                 echo opc_sql(
                                     "SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo = 2 ORDER BY 1",
                                     $_POST['localidad'] ?? ''
