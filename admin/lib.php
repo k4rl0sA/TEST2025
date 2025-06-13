@@ -2308,10 +2308,13 @@ function lis_predios($txt){
 
 function lis_usuarios($txt){
 	$sql="SELECT p.subred AS Subred,p.idgeo AS Cod_Predio,t.territorio AS Cod_Territorio,FN_CATALOGODESC(283,t.territorio) AS Nombre_Territorio,f.idfam AS Cod_Familia,per.idpeople AS Cod_Persona,p.sector_catastral AS Sector_Catastral,p.direccion AS Dirección,IFNULL(per.telefono1,F.telefono1) AS Telefono1,IFNULL(per.telefono2,F.telefono2) AS Telefono2,F.telefono3 AS Telefono3,per.idpersona,per.tipo_doc,per.fecha_nacimiento,TIMESTAMPDIFF(YEAR, per.fecha_nacimiento, CURDATE()) AS edad_en_años,FN_CATALOGODESC(21,per.sexo) Sexo,FN_CATALOGODESC(19,per.genero) Genero,FN_CATALOGODESC(49,per.oriensexual) Orientacion, FN_CATALOGODESC(30,per.nacionalidad) Nacionalidad,FN_CATALOGODESC(16,per.etnia) Etnia,FN_CATALOGODESC(15,per.pueblo) Pueblo,FN_CATALOGODESC(178,per.pobladifer) Poblacion_Diferencial,FN_CATALOGODESC(14,per.discapacidad) Discapacidad,FN_CATALOGODESC(175,per.ocupacion) Ocupacion,FN_CATALOGODESC(17,per.regimen) Regimen,FN_CATALOGODESC(18,per.eapb) EAPB,per.usu_creo AS Usuario_Creo,MAX(us.nombre) AS Nombre_Creo,MAX(us.perfil) AS Perfil_Creo,MAX(us.equipo) AS Equipo_Creo,per.fecha_create AS Fecha_Creo,FN_CATALOGODESC(170,per.encuentra) Encuentra 
-	FROM person per	LEFT JOIN hog_fam F ON per.vivipersona = F.id_fam LEFT JOIN hog_geo p ON F.idpre = p.idgeo LEFT JOIN apro_terr t ON p.territorio = t.territorio LEFT JOIN hog_carac f ON per.vivipersona = f.idfam LEFT JOIN usuarios us ON per.usu_creo = us.id_usuario GROUP BY per.idpersona";
+	FROM person per	LEFT JOIN hog_fam F ON per.vivipersona = F.id_fam LEFT JOIN hog_geo p ON F.idpre = p.idgeo LEFT JOIN apro_terr t ON p.territorio = t.territorio LEFT JOIN hog_carac f ON per.vivipersona = f.idfam LEFT JOIN usuarios us ON per.usu_creo = us.id_usuario WHERE 1 ";
 	$sql.=whe_date30();
+	$sql.=" GROUP BY per.idpersona";
 	// echo $sql;
-	$tot="SELECT COUNT(*) total FROM person per	LEFT JOIN hog_fam F ON per.vivipersona = F.id_fam  LEFT JOIN hog_geo p ON F.idpre = p.idgeo	LEFT JOIN apro_terr t ON p.territorio = t.territorio LEFT JOIN hog_carac f ON per.vivipersona = f.idfam LEFT JOIN usuarios us ON per.usu_creo = us.id_usuario GROUP BY per.idpersona";	
+	$tot="SELECT COUNT(*) total FROM person per	LEFT JOIN hog_fam F ON per.vivipersona = F.id_fam  LEFT JOIN hog_geo p ON F.idpre = p.idgeo	LEFT JOIN apro_terr t ON p.territorio = t.territorio LEFT JOIN hog_carac f ON per.vivipersona = f.idfam LEFT JOIN usuarios us ON per.usu_creo = us.id_usuario WHERE 1 ";
+	$sql.=whe_date30();
+	$sql.=" GROUP BY per.idpersona";
 	$tot.=whe_date30();
 	$_SESSION['sql_'.$txt]=$sql;
 	$_SESSION['tot_'.$txt]=$tot;
