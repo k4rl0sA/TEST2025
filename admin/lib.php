@@ -496,6 +496,17 @@ function lis_planos() {
 			$encr = encript($tab, $clave);
 			if($tab=decript($encr,$clave))lis_usuarios($tab);
 			break;
+		case '67':
+			$tab = "Tamizaje RQC";
+			$encr = encript($tab, $clave);
+			if($tab=decript($encr,$clave))lis_tamrqc($tab);
+			break;
+		case '68':
+			$tab = "Tamizaje SRQ";
+			$encr = encript($tab, $clave);
+			if($tab=decript($encr,$clave))lis_tamsrq($tab);
+			break;
+	
 		default:
         break;    
     }
@@ -1187,7 +1198,7 @@ A.fecha_seg AS Fecha_Seguimiento, FN_CATALOGODESC(76,A.numsegui) AS N°_Seguimie
 A.fecha_control_mac AS Fecha_Control_MAC, FN_CATALOGODESC(170,A.ctrl_postpar_espe) AS Control_Post_Parto_Especialista, A.fecha_postpar_espe AS Fecha_Control_Post_Parto_Espec, FN_CATALOGODESC(88,A.asis_ctrl_postpar_espe) AS Asistio_Control_Post_Parto, A.porque_no_postpar AS Porque_No_Asist, FN_CATALOGODESC(170,A.consul_apoy_lacmater) AS Consulta_Apoyo_Lactancia, FN_CATALOGODESC(170,A.signos_alarma) AS Signos_Alarma_Seguimiento, A.desc_sigala AS Descripcion_Signos_Alarma, FN_CATALOGODESC(170,A.disc_ges) AS Getante_Discapacidad_O_Secuela, A.cual_disc_ges AS Cual, A.fecha_apoy_lacmater AS Fecha_Consulta_Apoyo_Lactancia, A.peso_rcnv AS Peso_RN, FN_CATALOGODESC(88,A.ctrl_recinac) AS Asiste_Control_RN, A.fecha_ctrl_nac AS Fecha_Control_RN, FN_CATALOGODESC(88,A.asis_ctrl_recinac) AS Asistio_Control_RN, A.porque_norec AS Porque, A.ult_peso AS Ultimo_Peso_Regis, FN_CATALOGODESC(170,A.consul_lacmate) AS Consulta_Apoyo_Lactancia_Mater, A.porque_nolact AS Porque_No, A.fecha_consul_lacmate AS Fecha_Consulta_LM, FN_CATALOGODESC(88,A.asiste_ctrl_cyd) AS Asiste_CYD, FN_CATALOGODESC(170,A.vacuna_comple) AS Esquema_Vacuna_Completo_Edad, FN_CATALOGODESC(170,A.lacmate_exclu) AS Lactancia_Materna_Exclusiva, FN_CATALOGODESC(170,A.signos_alarma_lac) AS Madre_Identifica_Signos_Alarma, FN_CATALOGODESC(170,A.cam_sign) AS Considera_Cambios_Significativos, FN_CATALOGODESC(170,A.qui_vida) AS Quitarse_la_Vida, FN_CATALOGODESC(170,A.viv_malt) AS Violencia_o_Maltrato, FN_CATALOGODESC(170,A.adec_red) AS Red_Apoyo, A.fecha_egreopost AS Fecha_Post_Egreso_Hospitalario, 
 
 FN_CATALOGODESC(90,A.estrategia_1) AS Estrategia_Plan_1, FN_CATALOGODESC(90,A.estrategia_2) AS Estrategia_Plan_2, FN_CATALOGODESC(22,A.acciones_1) AS Accion_1, FN_CATALOGODESC(75,A.desc_accion1) AS Descripcion_Accion_1, FN_CATALOGODESC(22,A.acciones_2) AS Accion_2, FN_CATALOGODESC(75,A.desc_accion2) AS Descripcion_Accion_2, FN_CATALOGODESC(22,A.acciones_3) AS Accion_3, FN_CATALOGODESC(75,A.desc_accion3) AS Descripcion_Accion_3, FN_CATALOGODESC(170,A.activa_ruta) AS Activacion_Ruta, FN_CATALOGODESC(79,A.ruta) AS Ruta, FN_CATALOGODESC(77,A.novedades) AS Novedades, A.otras_condiciones AS Otras_Condiciones, A.observaciones AS Observaciones, FN_CATALOGODESC(170,A.cierre_caso) AS Cierre_de_Caso, FN_CATALOGODESC(198,A.motivo_cierre) AS Motivo_cierre, A.fecha_cierre AS Fecha_Cierre, FN_CATALOGODESC(170,A.conti_segespecial) AS Continua_Seg_Especialista, A.cual_segespecial AS Cual_Seguimiento, A.recomen_cierre AS Recomendación_Cierre, FN_CATALOGODESC(170,A.redu_riesgo_cierre) AS Reduccion_Riesgo,
-A.usu_creo AS Usuario_Creo, U.nombre AS Nombre_Creo, U.perfil AS Perfil_Creo, U.equipo_bina AS Equipo_Creo, A.fecha_create AS Fecha_Creacion, A.estado AS Estado_Registro
+A.usu_creo AS Usuario_Creo, U.nombre AS Nombre_Creo, U.perfil AS Perfil_Creo, U.equipo AS Equipo_Creo, A.fecha_create AS Fecha_Creacion, A.estado AS Estado_Registro
 FROM `vsp_mme` A
 LEFT JOIN person P ON A.idpeople = P.idpeople
 LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
@@ -1463,7 +1474,7 @@ LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario WHERE 1 ";
 	if (perfilUsu()!=='ADM')	$sql.=whe_subred8();
 	$sql.=whe_date8();
 	// echo $sql;
-	$tot="SELECT COUNT(*) total FROM `vsp_violreite` A LEFT JOIN person P ON A.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario  WHERE 1 ";	
+	$tot="SELECT COUNT(*) total FROM `vsp_violges` A LEFT JOIN person P ON A.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario  WHERE 1 ";	
 	if (perfilUsu()!=='ADM')	$tot.=whe_subred8();
 	$tot.=whe_date8();
 	$_SESSION['sql_'.$txt]=$sql;
@@ -1902,7 +1913,7 @@ FN_CATALOGODESC(237,C.tematica6) AS Actividad_Tematica_6, FN_CATALOGODESC(238,C.
 FN_CATALOGODESC(237,C.tematica7) AS Actividad_Tematica_7, FN_CATALOGODESC(238,C.des_temati7) AS Descrip_Tematica_7,
 FN_CATALOGODESC(237,C.tematica8) AS Actividad_Tematica_8, FN_CATALOGODESC(238,C.des_temati8) AS Descrip_Tematica_8,
 P.id_person AS Cod_Persona, P.tipo_doc AS Tipo_Documento, P.idpersona AS N°_Documento, P.nombre1 AS Primer_Nombre, P.nombre2 AS Segundo_Nombre, P.apellido1 AS Primer_Apellido, P.apellido2 AS Seundo_Apellido, P.fecha_nacimiento AS Fecha_Nacimiento, FN_CATALOGODESC(21,P.sexo) AS Sexo, FN_CATALOGODESC(19,P.genero) AS Genero, FN_CATALOGODESC(30,P.nacionalidad) AS Nacionalidad, FN_CATALOGODESC(16,P.etnia) AS Etnia, FN_CATALOGODESC(15,P.pueblo) AS Pueblo_Etnia, FN_CATALOGODESC(17,P.regimen) AS Regimen,FN_CATALOGODESC(18,P.eapb) AS Eapb,
-C.usu_create AS Usuario_Creo, U.nombre AS Nombre_Creo, U.perfil AS Perfil_Creo, U.equipo AS Equipo_Creo
+C.usu_create AS Usuario_Creo, U.nombre AS Nombre_Creo, U.perfil AS Perfil_Creo, U.equipo AS Equipo_Creo, C.estado AS 'Estado Registro'
 FROM `persescol` P
 LEFT JOIN hog_sescole C ON P.sesion = C.id_cole
 LEFT JOIN hog_geo G ON C.idpre = G.idgeo
@@ -2313,9 +2324,8 @@ function lis_usuarios($txt){
 	$sql.=" GROUP BY per.idpersona";
 	// echo $sql;
 	$tot="SELECT COUNT(*) total FROM person per	LEFT JOIN hog_fam F ON per.vivipersona = F.id_fam  LEFT JOIN hog_geo p ON F.idpre = p.idgeo	LEFT JOIN apro_terr t ON p.territorio = t.territorio LEFT JOIN hog_carac f ON per.vivipersona = f.idfam LEFT JOIN usuarios us ON per.usu_creo = us.id_usuario WHERE 1 ";
-	$sql.=whe_date30();
-	$sql.=" GROUP BY per.idpersona";
 	$tot.=whe_date30();
+	$tot.=" GROUP BY per.idpersona";
 	$_SESSION['sql_'.$txt]=$sql;
 	$_SESSION['tot_'.$txt]=$tot;
 	$rta = array('type' => 'OK','file'=>$txt);
@@ -2421,8 +2431,8 @@ function lis_frecuencia($txt){
 }
 
 function lis_agendamiento($txt){
-	$sql="SELECT G.subred,G.idgeo 'Cod Predio',FN_CATALOGODESC(283,G.territorio) 'Territorio',H.id_fam 'Cod Familia',A.idpeople 'Cod Persona',P.idpersona 'Documento',FN_CATALOGODESC(1,P.tipo_doc) 'Tipo Documento',
-	P.fecha_nacimiento 'Fecha de Nacimiento',P.sexo,FN_CATALOGODESC(274,A.punto_atencion ) 'Punto de Atención',FN_CATALOGODESC(275,A.tipo_cita) 'Tipo de Cita',
+	$sql="SELECT G.subred,G.idgeo 'Cod Predio',FN_CATALOGODESC(283,G.territorio) 'Territorio', H.id_fam 'Cod Familia',A.idpeople 'Cod Persona',P.idpersona 'Documento',FN_CATALOGODESC(1,P.tipo_doc) 'Tipo Documento',
+	P.fecha_nacimiento 'Fecha de Nacimiento',P.sexo, A.idagendamiento AS 'Cos Registro', FN_CATALOGODESC(274,A.punto_atencion ) AS 'Punto de Atención',FN_CATALOGODESC(275,A.tipo_cita) 'Tipo de Cita',
 	A.fecha_create 'Fecha de Asignación',A.fecha_cita 'Fecha de la Cita',A.hora_cita 'Hora de la Cita',A.nombre_atendio 'Nombre quien Atendió Llamada',A.usu_creo 'Digitador',A.observac_cita 'Observación Cita',IFNULL(A.fecha_llamada,'00-00-0000') 'Fecha Recordación',
 	ifnull(A.nombre_llamada,'-') 'Nombre quien Recibió Llamada' ,ifnull(A.confirma_cita,'-') 'Confirmo Cita',ifnull(A.msjtxt,'-') 'Desea Envio de Msj',
 	ifnull(A.usu_update,'-') 'Digitador1',ifnull(A.observac_llamadas,'-') 'Observaciones de Recordación',ifnull(A.fecha_llamada2,'-') 'Fecha Llamada por Efectividad',ifnull(A.nombre_llamada2,'-') 'Nombre quien Contesto Llamada',ifnull(FN_CATALOGODESC(41,A.motivo_inasistencia),'-') 'Motivo de la Inasistencia',ifnull(A.reasigno,'-') 'Se reasigno la Cita',ifnull(A.usu_update,'-') 'Digitador2',ifnull(A.observac_llamada2,'-') 'Observaciones de Inasistencia',FN_CATALOGODESC(276,A.estado) 'Estado'
@@ -2444,6 +2454,105 @@ FROM agendamiento A
 	$rta = array('type' => 'OK','file'=>$txt);
 	echo json_encode($rta);
 }
+
+function lis_tamrqc($txt){
+	$sql="SELECT 
+G.idgeo Cod_Predio,F.id_fam AS Cod_Familia,A.tam_srq AS Cod_Registro,G.subred AS Subred,FN_CATALOGODESC(3,G.zona) AS Zona,G.localidad AS Localidad, G.territorio AS 'Cod Territorio', FN_CATALOGODESC(283,G.territorio) AS 'Nombre Territorio',
+P.idpeople AS Cod_Usuario,P.tipo_doc AS Tipo_Documento,P.idpersona AS N°_Documento,CONCAT(P.nombre1, ' ', P.nombre2) AS Nombres_Usuario,CONCAT(P.apellido1, ' ', P.apellido2) AS Apellidos_Usuario,P.fecha_nacimiento AS Fecha_Nacimiento,  FN_CATALOGODESC(21,P.sexo) AS Sexo,
+A.fecha_toma AS Fecha_Toma,
+FN_CATALOGODESC(170,A.sintoma1) AS '1. ¿El Lenguaje Del Niño(A) Es Anormal En Alguna Forma?',
+FN_CATALOGODESC(170,A.sintoma2) AS '2. ¿El Niño(A) Duere Mal?',
+FN_CATALOGODESC(170,A.sintoma3) AS '3. ¿Ha Tenido El Niño(A) En Algunas Ocasiones Convulsiones O Caídas Al Suelo Sin Razón?',
+FN_CATALOGODESC(170,A.sintoma4) AS '4. ¿Sufre El Niño(A) De Dolores Frecuentes De Cabeza?',
+FN_CATALOGODESC(170,A.sintoma5) AS '5. ¿El Niño(A) Ha Huido De La Casa Frecuentemente?',
+FN_CATALOGODESC(170,A.sintoma6) AS '6. ¿Ha Robado Cosas De La Casa?',
+FN_CATALOGODESC(170,A.sintoma7) AS '7. ¿Se Asusta O Se Pone Nervioso(A) Sin Razón?',
+FN_CATALOGODESC(170,A.sintoma8) AS '8. ¿Parece Como Retardado(A) O Lento(A) Para Aprender?',
+FN_CATALOGODESC(170,A.sintoma9) AS '9. ¿El (La) Niño(A) Casi Nunca Juega Con Otros Niños(As)?',
+FN_CATALOGODESC(170,A.sintoma10) AS '10. ¿El Niño(A) Se Orina O Defeca En La Ropa?',
+A.totalsi AS 'Total Respuesta Afirmativas',
+A.totalno AS 'Total Respuesta Negativas',
+A.descripcion AS 'Descripcion Puntaje',
+
+A.usu_creo AS Usuario_Creo, U.nombre AS Nombre_Creo, U.perfil AS Perfil_Creo, U.equipo AS Equipo_Creo, A.fecha_create AS Fecha_Creacion, A.estado AS Estado_Registro
+FROM `hog_tam_rqc` A
+LEFT JOIN person P ON A.idpeople=P.idpeople
+LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
+LEFT JOIN hog_geo G ON F.idpre = G.idgeo
+LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario
+WHERE 1";
+	if (perfilUsu()!=='ADM')	$sql.=whe_subred28();
+	$sql.=whe_date28();
+	// echo $sql;
+	$tot="SELECT COUNT(*) total FROM `hog_tam_rqc` A LEFT JOIN person P ON A.idpeople=P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario WHERE 1 ";	
+	if (perfilUsu()!=='ADM')	$tot.=whe_subred28();
+	$tot.=whe_date28();
+	$_SESSION['sql_'.$txt]=$sql;
+	$_SESSION['tot_'.$txt]=$tot;
+	$rta = array('type' => 'OK','file'=>$txt);
+	echo json_encode($rta);
+}
+
+function lis_tamsrq($txt){
+	$sql="SELECT 
+G.idgeo Cod_Predio,F.id_fam AS Cod_Familia,A.tam_srq AS Cod_Registro,G.subred AS Subred,FN_CATALOGODESC(3,G.zona) AS Zona,G.localidad AS Localidad, G.territorio AS 'Cod Territorio', FN_CATALOGODESC(283,G.territorio) AS 'Nombre Territorio',
+P.idpeople AS Cod_Usuario,P.tipo_doc AS Tipo_Documento,P.idpersona AS N°_Documento,CONCAT(P.nombre1, ' ', P.nombre2) AS Nombres_Usuario,CONCAT(P.apellido1, ' ', P.apellido2) AS Apellidos_Usuario,P.fecha_nacimiento AS Fecha_Nacimiento,  FN_CATALOGODESC(21,P.sexo) AS Sexo,
+A.fecha_toma AS Fecha_Toma,
+FN_CATALOGODESC(170,A.pregunta1) AS '1.¿Tiene Frecuentes Dolores De Cabeza?',
+FN_CATALOGODESC(170,A.pregunta2) AS '2.¿Tiene Mal Apetito?',
+FN_CATALOGODESC(170,A.pregunta3) AS '3.¿Duerme Mal?',
+FN_CATALOGODESC(170,A.pregunta4) AS '4.¿Se Asusta Con Facilidad?',
+FN_CATALOGODESC(170,A.pregunta5) AS '5.¿Sufre De Temblor En Las Manos?',
+FN_CATALOGODESC(170,A.pregunta6) AS '6.¿Se Siente Nervioso, Tenso O Aburrido?',
+FN_CATALOGODESC(170,A.pregunta7) AS '7.¿Sufre De Mala Digestión?',
+FN_CATALOGODESC(170,A.pregunta8) AS '8.¿No Puede Pensar Con Claridad?',
+FN_CATALOGODESC(170,A.pregunta9) AS '9.¿Se Siente Triste?',
+FN_CATALOGODESC(170,A.pregunta10) AS '10. ¿Llora Usted Con Mucha Frecuencia?',
+FN_CATALOGODESC(170,A.pregunta11) AS '11. ¿Tiene Dificultad De Disfrutar Sus Actividades Diarias?',
+FN_CATALOGODESC(170,A.pregunta12) AS '12. ¿Tiene Dificultad Para Tomar Decisiones?',
+FN_CATALOGODESC(170,A.pregunta13) AS '13. ¿Tiene Dificultad En Hacer Su Trabajo? (¿Sufre Usted Con Su Trabajo?)',
+FN_CATALOGODESC(170,A.pregunta14) AS '14. ¿Es Incapaz De Desempeñar Un Papel Útil En Su Vida?',
+FN_CATALOGODESC(170,A.pregunta15) AS '15. ¿Ha Perdido Interés En Las Cosas?',
+FN_CATALOGODESC(170,A.pregunta16) AS '16. ¿Siente Que Usted Es Una Persona Inútil?',
+FN_CATALOGODESC(170,A.pregunta17) AS '17. ¿Ha Tenido La Idea De Acabar Con Su Vida?',
+FN_CATALOGODESC(170,A.pregunta18) AS '18. ¿Si Siente Cansado Todo El Tiempo?',
+FN_CATALOGODESC(170,A.pregunta19) AS '19. ¿Tiene Sensaciones Desagradables En Su Estómago?',
+FN_CATALOGODESC(170,A.pregunta20) AS '20. ¿Se Cansa Con Facilidad?',
+FN_CATALOGODESC(170,A.pregunta21) AS '21. ¿Siente Usted Que Alguien Ha Tratado De Herirlo En Alguna Forma?',
+FN_CATALOGODESC(170,A.pregunta22) AS '22. ¿Es Usted Una Persona Mucho Más Importante De Lo Que Piensan Los Demás?',
+FN_CATALOGODESC(170,A.pregunta23) AS '23. ¿Ha Notado Interferencias O Algo Raro En Su Pensamiento?',
+FN_CATALOGODESC(170,A.pregunta24) AS '24. ¿Oye Voces Sin Saber De Dónde Vienen O Que Otras Personas No Puede Oir?',
+FN_CATALOGODESC(170,A.pregunta25) AS '25. ¿Ha Tenido Convulsiones, Ataques O Caídas Al Suelo, Con Movimientos De Brazos Y Piernas; Con Mordedura De La Lengua O Pérdida Del Conocimiento?',
+FN_CATALOGODESC(170,A.pregunta26) AS '26. ¿Alguna Vez Le Ha Parecido A Su Familia, Sus Amigos, Su Médico O A Su Sacerdote Que Usted Estaba Bebiendo Demasiado Licor?',
+FN_CATALOGODESC(170,A.pregunta27) AS '27. ¿Alguna Vez Ha Querido Dejar De Beber, Pero No Ha Podido?',
+FN_CATALOGODESC(170,A.pregunta28) AS '28. ¿Ha Tenido Alguna Vez Dificultades En El Trabajo (O Estudio) A Causa De La Bebida, Como Beber En El Trabajo O En El Colegio, O Faltar A Ellos?',
+FN_CATALOGODESC(170,A.pregunta29) AS '29. ¿Ha Estado En Riñas O La Han Detenido Estando Borracho?',
+FN_CATALOGODESC(170,A.pregunta30) AS '30. ¿Le Ha Parecido Alguna Vez Que Usted Bebía Demasiado?',
+A.ansiedad AS 'Resultado Ansiedad',
+A.suicida AS 'Resultado Suicida',
+A.psicosis AS 'Resultado Psicosis',
+A.epilepsia AS 'Resultado Epilepsia',
+A.alcoholismo AS 'Resultado Alcoholismo',
+
+A.usu_creo AS Usuario_Creo, U.nombre AS Nombre_Creo, U.perfil AS Perfil_Creo, U.equipo AS Equipo_Creo, A.fecha_create AS Fecha_Creacion, A.estado AS Estado_Registro
+FROM `hog_tam_srq` A
+LEFT JOIN person P ON A.idpeople=P.idpeople
+LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
+LEFT JOIN hog_geo G ON F.idpre = G.idgeo
+LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario
+WHERE 1";
+	if (perfilUsu()!=='ADM')	$sql.=whe_subred29();
+	$sql.=whe_date29();
+	// echo $sql;
+	$tot="SELECT COUNT(*) total FROM `hog_tam_srq` A LEFT JOIN person P ON A.idpeople=P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario WHERE 1 ";	
+	if (perfilUsu()!=='ADM')	$tot.=whe_subred29();
+	$tot.=whe_date29();
+	$_SESSION['sql_'.$txt]=$sql;
+	$_SESSION['tot_'.$txt]=$tot;
+	$rta = array('type' => 'OK','file'=>$txt);
+	echo json_encode($rta);
+}
+
 
 function lis_gestPredios($txt){
 	$sql="SELECT G.idgeo,U.nombre,FN_CATALOGODESC(44,ga.estado_v) ESTADO  FROM geo_gest ga 
@@ -2505,7 +2614,7 @@ function whe_date3(){
 	$dia=date('d');
 	$mes=date('m');
 	$ano=date('Y');
-	$sql= " AND date(P.fecha) BETWEEN '{$_POST['fechad']}' AND '{$_POST['fechah']}'";
+	$sql= " AND date(C.fecha) BETWEEN '{$_POST['fechad']}' AND '{$_POST['fechah']}'";
 	return $sql;
 }
 
@@ -2810,6 +2919,32 @@ function whe_date27(){
 	$mes=date('m');
 	$ano=date('Y');
 	$sql= " AND date(S.fecha_seg) BETWEEN '{$_POST['fechad']}' AND '{$_POST['fechah']}'";
+	return $sql;
+}
+
+function whe_subred28() {
+	$sql= " AND (G.subred) in (SELECT subred FROM usuarios where id_usuario='".$_SESSION['us_sds']."')";
+	return $sql;
+}
+
+function whe_date28(){
+	$dia=date('d');
+	$mes=date('m');
+	$ano=date('Y');
+	$sql= " AND date(A.fecha_toma) BETWEEN '{$_POST['fechad']}' AND '{$_POST['fechah']}'";
+	return $sql;
+}
+
+function whe_subred29() {
+	$sql= " AND (G.subred) in (SELECT subred FROM usuarios where id_usuario='".$_SESSION['us_sds']."')";
+	return $sql;
+}
+
+function whe_date29(){
+	$dia=date('d');
+	$mes=date('m');
+	$ano=date('Y');
+	$sql= " AND date(A.fecha_toma) BETWEEN '{$_POST['fechad']}' AND '{$_POST['fechah']}'";
 	return $sql;
 }
 
