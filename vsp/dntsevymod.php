@@ -105,7 +105,7 @@ $ev=$event[2];
     $c[]=new cmp('peso','sd','4',$d,$w.' '.$o,'Peso (Kg) (0.82 = 820 Gramos)','peso','rgxpeso','##.#',false,$x,'','col-2',"Zsco('zscore','../vsp/dntsevymod.php');");
     $c[]=new cmp('talla','sd','5',$d,$w.' '.$o,'Talla (Cm) (75.2 =Cm,mm)','talla','rgxtalla','###.#',false,$x,'','col-2',"Zsco('zscore','../vsp/dntsevymod.php');");
     $c[]=new cmp('zscore','t','20',$d,$w.' '.$bl.' '.$o,'Zscore','zscore',null,null,false,false,'','col-2');
-    $c[]=new cmp('clasi_nutri','s','3',$d,$w.' '.$ob.' '.$o,'Clasificación Nutricional','clasi_nutri',null,null,false,false,'','col-2');
+    $c[]=new cmp('clasi_nutri','s','3',$d,$w.' '.$o,'Clasificación Nutricional','clasi_nutri',null,null,false,false,'','col-2');//'.$ob.'
     $c[]=new cmp('gana_peso','s','2',$d,$w.' '.$o,'Ganancia de Peso','rta',null,null,false,$x,'','col-2');
     //$c[]=new cmp('trata_desnutri','s','3',$d,$w.' '.$o,'Tratamiento de Desnutrición','trata_desnutri',null,null,false,$x,'','col-2',"enabOthSi('trata_desnutri','tdnt');");
      $c[]=new cmp('trata_desnutri','s','3',$d,$w.' '.$o,'Tratamiento de Desnutrición','trata_desnutri',null,null,false,$x,'','col-2',"enbValue('trata_desnutri','tdnt','7');");
