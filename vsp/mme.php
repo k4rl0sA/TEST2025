@@ -118,7 +118,7 @@ function cmp_mme(){
     $c[]=new cmp('adhe_tratafarma','s','3',$d,$w.' pRe '.$o,'Adhe de Tratafarma','rta',null,null,false,$x,'','col-2',"disaOthNo('adhe_tratafarma','nAd');");
     $c[]=new cmp('porque_noadh','t','500',$d,$w.' nAd '.$o,'¿Por Qué?','porque_noadh',null,null,false,false,'','col-4');
     $c[]=new cmp('peso','sd',6,$d,$w.' pRe IMc pYT '.$o,'Peso (Kg) Mín=30 - Máx=150','fpe','rgxpesm','##.#',false,$x,'','col-2');
-    $c[]=new cmp('talla','sd',5,$d,$w.' pRe IMc pYT  '.$o,'Talla (Cm) Mín=40 - Máx=210','fta','rgxtalla','###.#',false,$x,'','col-2',"calImc('peso','talla','imc');");
+    $c[]=new cmp('talla','sd',5,$d,$w.' pRe IMc pYT  '.$o,'Talla (Cm) Mín=40 - Máx=210','fta','rgxtalm','###.#',false,$x,'','col-2',"calImc('peso','talla','imc');");
     $c[]=new cmp('imc','t','20',$d,$w.' '.$o,'Imc','imc',null,null,false,false,'','col-2');
     $c[]=new cmp('clasi_nutri','s','3',$d,$w.' pRe IMc '.$o,'Clasificación Nutricional','clasi_nutri',null,null,false,$x,'','col-2');
     $c[]=new cmp('signos_alarma_seg','s','2',$d,$w.' pRe '.$o,'Identifica signos de alarma al momento del seguimiento','rta',null,null,false,$x,'','col-2',"enabOthSi('signos_alarma_seg','SiA');");
