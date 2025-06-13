@@ -100,7 +100,7 @@ $c[]=new cmp('fecha_seg','d','10',$d,$w.' '.$o,'Fecha Seguimiento','fecha_seg',n
     $c[]=new cmp('peso','sd','4',$d,$w.' '.$o,'Peso (Kg) (0.82 = 820 Gramos)','peso',null,null,false,$x,'','col-2',"Zsco('zscore','../vsp/bpnterm.php');");
     $c[]=new cmp('talla','sd','5',$d,$w.' '.$o,'Talla (Cm) (75.2 =Cm,mm)','talla',null,null,false,$x,'','col-2',"Zsco('zscore','../vsp/bpnterm.php');");
     $c[]=new cmp('zscore','t','500',$d,$w.' '.$bl.' '.$o,'Z SCORE','zscore',null,null,false,false,'','col-2');
-    $c[]=new cmp('clasi_nutri','s','3',$d,$w.' '.$ob.' '.$o,'Clasificacion Nutricional','clasi_nutri',null,null,false,$x,'','col-4');
+    $c[]=new cmp('clasi_nutri','s','3',$d,$w.' '.$o,'Clasificacion Nutricional','clasi_nutri',null,null,false,$x,'','col-4');
     $c[]=new cmp('gana_peso','s','2',$d,$w.' '.$o,'¿Se evidencia ganancia de peso?','rta',null,null,false,$x,'','col-2',"enabOthSi('gana_peso','gP');");
     $c[]=new cmp('gana_peso_dia','s','3',$d,$w.' gP '.$no.' '.$bl.' '.$o,'Ganancia de Peso Diaria','gana_peso_dia',null,null,false,$x,'','col-2');
     $c[]=new cmp('signos_alarma','s','2',$d,$w.' '.$o,'¿El cuidador identifica signos de alarma?','rta',null,null,false,$x,'','col-3');
