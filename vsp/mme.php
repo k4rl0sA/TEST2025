@@ -338,13 +338,12 @@ function gra_mme(){
     'signos_alarma_lac', 'cam_sign', 'qui_vida', 'viv_malt', 'adec_red', 'fecha_egreopost', 'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1',
     'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3', 'activa_ruta', 'ruta', 'novedades', 'otras_condiciones', 'observaciones', 'cierre_caso',
     'motivo_cierre', 'fecha_cierre', 'conti_segespecial', 'cual_segespecial', 'recomen_cierre', 'redu_riesgo_cierre', 'users_bina', 'equipo_bina',
-    'usu_creo', 'usu_update', 'fecha_update', 'fecha_create', 'estado'
+    'usu_creo', 'usu_update', 'fecha_update', 'estado'
   ];
   // Campos fecha que pueden ser nulos
   $campos_fecha_null = [
     'fecha_egre', 'fecha_obstetrica', 'fecha_control_mac', 'fecha_postpar_espe', 'fecha_apoy_lacmater', 'fecha_ctrl_nac',
-    'fecha_consul_lacmate', 'fecha_cierre', 'fecha_egreopost', 'fecha_update', 'fecha_create'
-  ];
+    'fecha_consul_lacmate', 'fecha_cierre', 'fecha_egreopost', 'fecha_update','peso' ];
 
   if(count($id)==4){
     // UPDATE (ajusta los campos que realmente quieres actualizar)
