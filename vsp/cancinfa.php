@@ -261,10 +261,10 @@ function gra_cancinfa(){
     'caso_afirmativo', 'otras_condiciones', 'observaciones', 'cierre_caso', 'motivo_cierre',
     'fecha_cierre', 'supera_problema', 'supera_emocional', 'supera_dolor', 'supera_funcional',
     'supera_educacion', 'redu_riesgo_cierre', 'users_bina', 'equipo_bina', 'usu_creo',
-    'usu_update', 'fecha_update', 'fecha_create', 'estado'
+    'usu_update', 'fecha_update', 'estado'
   ];
   // Campos fecha que pueden ser nulos
-  $campos_fecha_null = ['fecha_dx', 'fecha_cirug', 'fecha_quimio', 'fecha_radiote', 'fecha_otro', 'fecha_cierre', 'fecha_update', 'fecha_create'];
+  $campos_fecha_null = ['fecha_dx', 'fecha_cirug', 'fecha_quimio', 'fecha_radiote', 'fecha_otro', 'fecha_cierre', 'fecha_update'];
 
   if(count($id)==4){
     // UPDATE

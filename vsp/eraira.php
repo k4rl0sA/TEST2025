@@ -252,10 +252,10 @@ function gra_eraira(){
     'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
     'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
     'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'redu_riesgo_cierre',
-    'users_bina', 'equipo_bina', 'usu_creo', 'usu_update', 'fecha_update', 'fecha_create', 'estado'
+    'users_bina', 'equipo_bina', 'usu_creo', 'usu_update', 'fecha_update', 'estado'
   ];
   // Campos fecha que pueden ser nulos
-  $campos_fecha_null = ['fecha_cierre', 'fecha_update', 'fecha_create'];
+  $campos_fecha_null = ['fecha_cierre', 'fecha_update'];
   if(count($id)==4){
     // UPDATE
     $set = [
