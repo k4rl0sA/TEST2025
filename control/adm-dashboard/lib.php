@@ -217,7 +217,7 @@ $data = [
             "abiertos" => [100, 50, 50],
             "cerrados" => [200, 100, 100],
             "porcentaje" => [66.67]
-        ],
+        ]
     ];
     ],
     // Indicadores de salud
