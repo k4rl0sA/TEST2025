@@ -245,7 +245,7 @@ foreach ($vsp['responseResult'] as $row) {
     ];
 }
 // Agregar datos de VSP al array principal
-$data['Vsp'] = $vsp_data;
+// $data['Vsp'] = $vsp_data;
 
 
 // Simulación de datos, reemplaza por tus consultas reales
