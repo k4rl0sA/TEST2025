@@ -342,6 +342,14 @@ body {
     margin-bottom: 16px;
 }
 
+.vsp-percent{
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: #0066cc;
+    margin-top: 3px;
+}
+
 .demo-breakdown {
     display: flex;
     flex-direction: column;

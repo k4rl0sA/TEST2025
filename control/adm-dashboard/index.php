@@ -228,7 +228,7 @@
                     </select>
                     </div>
                     </div>
-                    <div class="vsp-percent" id="vspPercen" style="text-align:center; font-size:24px; font-weight:700; color:#0066cc">23.58%</div>
+                    <div class="vsp-percent" id="vspPercen">23.58%</div>
                     <canvas id="vspChart"></canvas>
                 </div>
 
