@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateMetrics(data);
                 setupEventListeners();
                 startRealTimeUpdates();
+                initializevspChart(data, eventoSeleccionado);
+                updateVspPorcentaje(data, document.getElementById('vspEventFilter').value);
             } catch (e) {
                 showError('Error de formato en la respuesta del backend');
                 console.error('Respuesta cruda del backend:', text);
@@ -280,6 +282,8 @@ function setupEventListeners() {
 //listener para filtros de eventos  VSP
     document.getElementById('vspEventFilter').addEventListener('change', function() {
     initializevspChart(dashboardData, this.value);
+    updateVspPorcentaje(dashboardData, this.value);
+
 });
 
 }
@@ -334,6 +338,9 @@ function handleFilterChange() {
                 return;
             }
             dashboardData = data;
+            const eventoSeleccionado = document.getElementById('vspEventFilter').value;
+            initializevspChart(data, eventoSeleccionado);
+            updateVspPorcentaje(data, eventoSeleccionado);
             initializeCharts(data);
             updateMetrics(data);
         } catch (e) {
