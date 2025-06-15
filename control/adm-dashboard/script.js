@@ -78,13 +78,13 @@ function initializeAgeChart(data) {
 
 // Specialty consultations chart
 function initializevspChart(data,evento='1') {
+    const vspEvento = data.Vsp[evento];
+    const ctx = document.getElementById('vspChart').getContext('2d');
+    if (vspChart) vspChart.destroy(); // <-- destruye el anterior
     if (!data.Vsp || !data.Vsp[evento]) {
         showError('No hay datos para el evento seleccionado');
         return;
     }
-    const vspEvento = data.Vsp[evento];
-    const ctx = document.getElementById('vspChart').getContext('2d');
-    if (vspChart) vspChart.destroy(); // <-- destruye el anterior
     vspChart = new Chart(ctx, {
         type: 'bar',
         data: {
