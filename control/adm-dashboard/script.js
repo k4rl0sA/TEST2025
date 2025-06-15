@@ -35,7 +35,9 @@ document.addEventListener('DOMContentLoaded', function() {
 // Inicializar todos los gráficos con datos del backend
 function initializeCharts(data) {
     initializeAgeChart(data);
-    initializevspChart(data);
+    const eventoSeleccionado = document.getElementById('vspEventFilter').value || '20';
+    initializevspChart(data, eventoSeleccionado);
+    updateVspPorcentaje(data, eventoSeleccionado);
     initializeDisabilityChart(data);
     initializeElderlyChart(data);
 }
@@ -338,9 +340,6 @@ function handleFilterChange() {
                 return;
             }
             dashboardData = data;
-            const eventoSeleccionado = document.getElementById('vspEventFilter').value;
-            initializevspChart(data, eventoSeleccionado);
-            updateVspPorcentaje(data, eventoSeleccionado);
             initializeCharts(data);
             updateMetrics(data);
         } catch (e) {
