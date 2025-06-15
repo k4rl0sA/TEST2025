@@ -221,7 +221,7 @@ FROM `vsp_sifigest` T LEFT JOIN person P ON T.idpeople = P.idpeople LEFT JOIN ho
 UNION ALL SELECT G.subred, G.localidad, G.territorio, U.fecha_seg, U.evento AS id, FN_CATALOGODESC(87, U.evento) AS evento, U.estado_s, U.cierre_caso 
 FROM `vsp_vihgest` U LEFT JOIN person P ON U.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, V.fecha_seg, V.evento AS id, FN_CATALOGODESC(87, V.evento) AS evento, V.estado_s, V.cierre_caso 
-FROM `vsp_violgest` V LEFT JOIN person P ON V.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
+FROM `vsp_violges` V LEFT JOIN person P ON V.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, W.fecha_seg, W.evento AS id, FN_CATALOGODESC(87, W.evento) AS evento, W.estado_s, W.cierre_caso 
 FROM `vsp_violreite` W LEFT JOIN person P ON W.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 ) AS combined_data 
