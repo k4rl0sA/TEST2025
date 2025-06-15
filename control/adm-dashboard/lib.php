@@ -272,10 +272,7 @@ $data = [
         "abiertos" => [120, 20, 168],
         "cerrados" => [380, 80, 232],
         ],  */
-        "Vsp"=>[
-            $data['Vsp'] ?? []
-        ],
-        ]
+        "Vsp"=>$vsp_data,
      /* "Vsp"=>[
         "1"=> [
             "evento" => "Acompañamiento Psicosocial",
