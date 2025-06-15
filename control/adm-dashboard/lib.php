@@ -193,7 +193,7 @@ $data = [
             "totales" => [500, 100, 400],
             "abiertos" => [120, 20, 168],
             "cerrados" => [380, 80, 232],
-            "porcentaje" => [76]
+            "vspPercen" => [76]
         ],
         "2"=> [
             "evento" => "Duelo",
