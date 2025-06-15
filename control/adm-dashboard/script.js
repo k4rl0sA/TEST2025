@@ -143,7 +143,7 @@ function updateVspPorcentaje(data, evento = '1') {
         return;
     }
     const vspEvento = data.Vsp[evento];
-    document.getElementById('vspPercen').textContent = vspEvento.vspPercen[0];
+    document.getElementById('vspPercen').textContent = vspEvento.vspPercen[0]+' %';
 }
 
 // Disability chart
