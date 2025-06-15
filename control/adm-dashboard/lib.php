@@ -264,41 +264,8 @@ $data = [
         "labels" => $gender_distribution['labels'], //["Femenino", "Masculino", "Otro"], 
         "values" => $gender_distribution['values'] //[1800000, 1750000, 53128]
     ],
-    // Consultas por especialidad (ejemplo)
-    /* "specialtyConsultations" => [
-        "vspPercentage"=> 25,
-        "labels" => ["Total Casos", "Abiertos", "Cerrados"],
-        "totales" => [500, 100, 400],
-        "abiertos" => [120, 20, 168],
-        "cerrados" => [380, 80, 232],
-        ],  */
+    // Consultas por VSP 
         "Vsp"=>$vsp_data,
-     /* "Vsp"=>[
-        "1"=> [
-            "evento" => "Acompañamiento Psicosocial",
-            "labels" => ["Total Casos", "Abiertos", "Cerrados"],
-            "totales" => [500, 100, 400],
-            "abiertos" => [120, 20, 168],
-            "cerrados" => [380, 80, 232],
-            "vspPercen" => [76]
-        ],
-        "2"=> [
-            "evento" => "Duelo",
-            "labels" => ["Total Casos", "Abiertos", "Cerrados"],
-            "totales" => [200, 80, 620],
-            "abiertos" => [220, 200, 620],
-            "cerrados" => [-20, -120, 0],
-            "vspPercen" => [44]            
-        ],
-        "20"=> [
-            "evento" => "Cancer",
-            "labels" => ["Total Casos", "Abiertos", "Cerrados"],
-            "totales" => [300, 150, 150],
-            "abiertos" => [100, 50, 50],
-            "cerrados" => [200, 100, 100],
-            "vspPercen" => [66.67]
-        ]
-    ], */
     // Indicadores de salud
     "healthIndicators" => [
         "vacunacionCompleta" => 87,
