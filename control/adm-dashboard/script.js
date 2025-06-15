@@ -33,9 +33,25 @@ document.addEventListener('DOMContentLoaded', function() {
 // Inicializar todos los gráficos con datos del backend
 function initializeCharts(data) {
     initializeAgeChart(data);
+    updateVspEventStats(data, document.getElementById('vspEventFilter').value);
     initializeSpecialtyChart(data);
     initializeDisabilityChart(data);
     initializeElderlyChart(data);
+}
+
+function updateVspEventStats(data, evento = "1") {
+    const vspEvento = data.Vsp[evento];
+    if (!vspEvento) return;
+    // Suma los totales, abiertos y cerrados (puedes ajustar si quieres mostrar solo el primero)
+    const total = vspEvento.totales.reduce((a, b) => a + b, 0);
+    const abiertos = vspEvento.abiertos.reduce((a, b) => a + b, 0);
+    const cerrados = vspEvento.cerrados.reduce((a, b) => a + b, 0);
+    const porcentaje = vspEvento.porcentaje[0];
+
+    document.getElementById('vspTotal').textContent = formatNumber(total);
+    document.getElementById('vspAbiertos').textContent = formatNumber(abiertos);
+    document.getElementById('vspCerrados').textContent = formatNumber(cerrados);
+    document.getElementById('vspPorcentaje').textContent = porcentaje + '%';
 }
 
 // Age distribution chart
