@@ -179,15 +179,14 @@ $data = [
         "values" => $gender_distribution['values'] //[1800000, 1750000, 53128]
     ],
     // Consultas por especialidad (ejemplo)
-    "specialtyConsultations" => [
+    /* "specialtyConsultations" => [
         "vspPercentage"=> 25,
         "labels" => ["Total Casos", "Abiertos", "Cerrados"],
-        // "values" => [40000, 15000, 12000],
         "totales" => [500, 100, 400],
         "abiertos" => [120, 20, 168],
         "cerrados" => [380, 80, 232],
-        ], 
- /*    "Vsp"=>[
+        ],  */
+     "Vsp"=>[
         "1"=> [
             "evento" => "Acompañamiento Psicosocial",
             "labels" => ["Total Casos", "Abiertos", "Cerrados"],
@@ -212,7 +211,7 @@ $data = [
             "cerrados" => [200, 100, 100],
             "porcentaje" => [66.67]
         ]
-    ], */
+    ],
     // Indicadores de salud
     "healthIndicators" => [
         "vacunacionCompleta" => 87,
