@@ -179,10 +179,11 @@ $data = [
         "values" => $gender_distribution['values'] //[1800000, 1750000, 53128]
     ],
     // Consultas por especialidad (ejemplo)
-    // "specialtyConsultations" => [
-        /* "labels" => ["Acompañamiento Psicosocial", "Duelo", "Cancer", "Cronicos", "Desnutrición", "Gestantes"],
+    "specialtyConsultations" => [
+        "labels" => ["Acompañamiento Psicosocial", "Duelo", "Cancer", "Cronicos", "Desnutrición", "Gestantes"],
         "values" => [40000, 15000, 12000, 8000, 14456,75000],
-        "percentages" => [25, 10, 8, 5, 2.5,20] */
+        "percentages" => [25, 10, 8, 5, 2.5,20]
+        ], 
  /*    "Vsp"=>[
         "1"=> [
             "evento" => "Acompañamiento Psicosocial",
