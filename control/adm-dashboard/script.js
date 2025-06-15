@@ -18,8 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateMetrics(data);
                 setupEventListeners();
                 startRealTimeUpdates();
-                initializevspChart(data, eventoSeleccionado);
-                updateVspPorcentaje(data, document.getElementById('vspEventFilter').value);
             } catch (e) {
                 showError('Error de formato en la respuesta del backend');
                 console.error('Respuesta cruda del backend:', text);
