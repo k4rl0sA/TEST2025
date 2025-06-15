@@ -183,7 +183,7 @@ $data = [
         /* "labels" => ["Acompañamiento Psicosocial", "Duelo", "Cancer", "Cronicos", "Desnutrición", "Gestantes"],
         "values" => [40000, 15000, 12000, 8000, 14456,75000],
         "percentages" => [25, 10, 8, 5, 2.5,20] */
-    "Vsp"=>[
+ /*    "Vsp"=>[
         "1"=> [
             "evento" => "Acompañamiento Psicosocial",
             "labels" => ["Total Casos", "Abiertos", "Cerrados"],
@@ -208,7 +208,7 @@ $data = [
             "cerrados" => [200, 100, 100],
             "porcentaje" => [66.67]
         ]
-    ],
+    ], */
     // Indicadores de salud
     "healthIndicators" => [
         "vacunacionCompleta" => 87,

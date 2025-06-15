@@ -74,7 +74,8 @@ function initializeAgeChart(data) {
 }
 
 // Specialty consultations chart
-function initializeSpecialtyChart(data) {
+function initializeSpecialtyChart(data,evento='1') {
+    const vspEvento = data.Vsp[evento];
     const ctx = document.getElementById('specialtyChart').getContext('2d');
     if (specialtyChart) specialtyChart.destroy(); // <-- destruye el anterior
     specialtyChart = new Chart(ctx, {
