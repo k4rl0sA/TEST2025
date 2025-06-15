@@ -203,7 +203,7 @@ $data = [
             "cerrados" => [-20, -120, 0],
             "porcentaje" => [44]            
         ],
-        "3"=> [
+        "20"=> [
             "evento" => "Cancer",
             "labels" => ["Total Casos", "Abiertos", "Cerrados"],
             "totales" => [300, 150, 150],

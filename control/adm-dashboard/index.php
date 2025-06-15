@@ -223,7 +223,7 @@
                         <select id="vspEventFilter" name="event">
                           <?php
                                 require_once __DIR__ . '/../../libs/gestion.php';
-                                echo opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo = 87 ORDER BY LENGTH(idcatadeta), idcatadeta",'1');
+                                echo opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo = 87 ORDER BY LENGTH(idcatadeta), idcatadeta",'20');
                             ?>
                     </select>
                     </div>
