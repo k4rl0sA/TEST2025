@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard de Salud - EBEH</title>
-    <link rel="stylesheet" href="styles.css?v=11.0">
+    <link rel="stylesheet" href="styles.css?v=12S.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -367,6 +367,6 @@
 
     <div id="toast-error" class="toast-error" style="display:none;"></div>
 
-    <script src="script.js?v=16.0"></script>
+    <script src="script.js?v=17.0"></script>
 </body>
 </html>
