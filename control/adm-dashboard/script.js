@@ -81,9 +81,10 @@ function initializeSpecialtyChart(data,evento='1') {
     specialtyChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: data.specialtyConsultations.labels,
+            // labels: data.specialtyConsultations.labels,
+            labels:vspEvento.labels,
             datasets: [{
-                label: 'Consultas',
+                /* label: 'Consultas',
                 data: data.specialtyConsultations.values,
                 backgroundColor: [
                     '#0066CC',
@@ -92,6 +93,13 @@ function initializeSpecialtyChart(data,evento='1') {
                     '#10B981',
                     '#A855F7',
                     '#F59E0B'
+                ], */
+                 label: vspEvento.evento,
+                data: vspEvento.totales,
+                backgroundColor: [
+                    '#0066CC',
+                    '#00D4FF',
+                    '#FF6B9D'
                 ],
                 borderRadius: 6,
                 borderSkipped: false
@@ -255,6 +263,11 @@ function setupEventListeners() {
 
     // SOLO el botón aplica los filtros
     document.getElementById('filterBtn').addEventListener('click', handleFilterChange);
+//listener para filtros de eventos   
+    document.getElementById('vspEventFilter').addEventListener('change', function() {
+    initializeSpecialtyChart(dashboardData, this.value);
+});
+
 }
 
 // Toggle between age and gender charts
