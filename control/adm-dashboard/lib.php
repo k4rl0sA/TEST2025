@@ -235,8 +235,8 @@ if ($vsp['code'] !== 0 || empty($vsp['responseResult'])) {
 }
 $vsp_data = [];
 foreach ($vsp['responseResult'] as $row) {
-    $vsp_data[$row['id']] = [
-        "evento" => $row['evento'],
+    $vsp_data[$row['evento_id']] = [
+        "evento" => $row['evento_descripcion'],
         "labels" => ["Total Casos", "Abiertos", "Cerrados"],
         "totales" => [$row['total_casos'], $row['abiertos'], $row['cerrados']],
         "abiertos" => [$row['abiertos']],
