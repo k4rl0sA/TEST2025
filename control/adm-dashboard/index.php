@@ -220,7 +220,7 @@
                         <h3>Eventos VSP</h3>
 
                         <div class="filter-group">
-                        <select id="EventFilter" name="event">
+                        <select id="vspEventFilter" name="event">
                           <?php
                                 require_once __DIR__ . '/../../libs/gestion.php';
                                 echo opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo = 87 ORDER BY 1",'');
