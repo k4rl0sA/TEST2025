@@ -54,7 +54,7 @@ function initializeAgeChart(data) {
             datasets: [{
                 data: data.ageDistribution.values,
                 backgroundColor: [
-                    '#FF6B9D', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#2837d200'
+                    '#FF6B9D', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD'
                 ],
                 borderWidth: 2,
                 borderColor: '#fff'
