@@ -189,43 +189,41 @@ FROM `vsp_violreite` B LEFT JOIN person P ON B.idpeople = P.idpeople LEFT JOIN h
 UNION ALL SELECT G.subred, G.localidad, G.territorio, C.fecha_seg, C.evento AS id, FN_CATALOGODESC(87, C.evento) AS evento, C.estado_s, C.cierre_caso 
 FROM `vsp_bpnpret` C LEFT JOIN person P ON C.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, D.fecha_seg, D.evento AS id, FN_CATALOGODESC(87, D.evento) AS evento, D.estado_s, D.cierre_caso 
-FROM `vsp_bpnpret` D LEFT JOIN person P ON D.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
+FROM `vsp_acompsic` D LEFT JOIN person P ON D.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, E.fecha_seg, E.evento AS id, FN_CATALOGODESC(87, E.evento) AS evento, E.estado_s, E.cierre_caso 
-FROM `vsp_bpnpret` E LEFT JOIN person P ON E.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
+FROM `vsp_bpnterm` E LEFT JOIN person P ON E.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, Y.fecha_seg, Y.evento AS id, FN_CATALOGODESC(87, Y.evento) AS evento, Y.estado_s, Y.cierre_caso 
-FROM `vsp_bpnpret` Y LEFT JOIN person P ON Y.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
+FROM `vsp_cancinfa` Y LEFT JOIN person P ON Y.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, H.fecha_seg, H.evento AS id, FN_CATALOGODESC(87, H.evento) AS evento, H.estado_s, H.cierre_caso 
-FROM `vsp_bpnpret` H LEFT JOIN person P ON H.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
+FROM `vsp_condsuic` H LEFT JOIN person P ON H.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, I.fecha_seg, I.evento AS id, FN_CATALOGODESC(87, I.evento) AS evento, I.estado_s, I.cierre_caso 
-FROM `vsp_bpnpret` I LEFT JOIN person P ON I.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
+FROM `vsp_cronicos` I LEFT JOIN person P ON I.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, J.fecha_seg, J.evento AS id, FN_CATALOGODESC(87, J.evento) AS evento, J.estado_s, J.cierre_caso 
-FROM `vsp_bpnpret` J LEFT JOIN person P ON J.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
+FROM `vsp_dntsevymod` J LEFT JOIN person P ON J.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, K.fecha_seg, K.evento AS id, FN_CATALOGODESC(87, K.evento) AS evento, K.estado_s, K.cierre_caso 
-FROM `vsp_bpnpret` K LEFT JOIN person P ON K.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
+FROM `vsp_eraira` K LEFT JOIN person P ON K.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, L.fecha_seg, L.evento AS id, FN_CATALOGODESC(87, L.evento) AS evento, L.estado_s, L.cierre_caso 
-FROM `vsp_bpnpret` L LEFT JOIN person P ON L.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
+FROM `vsp_gestantes` L LEFT JOIN person P ON L.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, M.fecha_seg, M.evento AS id, FN_CATALOGODESC(87, M.evento) AS evento, M.estado_s, M.cierre_caso 
-FROM `vsp_bpnpret` M LEFT JOIN person P ON M.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
+FROM `vsp_hbgest` M LEFT JOIN person P ON M.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, N.fecha_seg, N.evento AS id, FN_CATALOGODESC(87, N.evento) AS evento, N.estado_s, N.cierre_caso 
-FROM `vsp_bpnpret` N LEFT JOIN person P ON N.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
+FROM `vsp_mme` N LEFT JOIN person P ON N.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, O.fecha_seg, O.evento AS id, FN_CATALOGODESC(87, O.evento) AS evento, O.estado_s, O.cierre_caso 
-FROM `vsp_bpnpret` O LEFT JOIN person P ON O.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
+FROM `vsp_mnehosp` O LEFT JOIN person P ON O.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, Q.fecha_seg, Q.evento AS id, FN_CATALOGODESC(87, Q.evento) AS evento, Q.estado_s, Q.cierre_caso 
-FROM `vsp_bpnpret` Q LEFT JOIN person P ON Q.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
+FROM `vsp_otroprio` Q LEFT JOIN person P ON Q.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, R.fecha_seg, R.evento AS id, FN_CATALOGODESC(87, R.evento) AS evento, R.estado_s, R.cierre_caso 
-FROM `vsp_bpnpret` R LEFT JOIN person P ON R.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
+FROM `vsp_saludoral` R LEFT JOIN person P ON R.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, S.fecha_seg, S.evento AS id, FN_CATALOGODESC(87, S.evento) AS evento, S.estado_s, S.cierre_caso 
-FROM `vsp_bpnpret` S LEFT JOIN person P ON S.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
+FROM `vsp_sificong` S LEFT JOIN person P ON S.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, T.fecha_seg, T.evento AS id, FN_CATALOGODESC(87, T.evento) AS evento, T.estado_s, T.cierre_caso 
-FROM `vsp_bpnpret` T LEFT JOIN person P ON T.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
+FROM `vsp_sifigest` T LEFT JOIN person P ON T.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, U.fecha_seg, U.evento AS id, FN_CATALOGODESC(87, U.evento) AS evento, U.estado_s, U.cierre_caso 
-FROM `vsp_bpnpret` U LEFT JOIN person P ON U.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
+FROM `vsp_vihgest` U LEFT JOIN person P ON U.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, V.fecha_seg, V.evento AS id, FN_CATALOGODESC(87, V.evento) AS evento, V.estado_s, V.cierre_caso 
-FROM `vsp_bpnpret` V LEFT JOIN person P ON V.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
+FROM `vsp_violgest` V LEFT JOIN person P ON V.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, W.fecha_seg, W.evento AS id, FN_CATALOGODESC(87, W.evento) AS evento, W.estado_s, W.cierre_caso 
-FROM `vsp_bpnpret` W LEFT JOIN person P ON W.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
-UNION ALL SELECT G.subred, G.localidad, G.territorio, X.fecha_seg, X.evento AS id, FN_CATALOGODESC(87, X.evento) AS evento, X.estado_s, X.cierre_caso 
-FROM `vsp_bpnpret` X LEFT JOIN person P ON X.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
+FROM `vsp_violreite` W LEFT JOIN person P ON W.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 ) AS combined_data 
 $where_sql_vsp GROUP BY subred, localidad, territorio, fecha_seg, id, evento;";
 $vsp = datos_mysql($sql6);
