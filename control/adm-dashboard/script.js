@@ -135,6 +135,15 @@ function initializevspChart(data,evento='1') {
     });
 }
 
+function updateVspPorcentaje(data, evento = '1') {
+    if (!data.Vsp || !data.Vsp[evento]) {
+        document.getElementById('vspPercen').textContent = '';
+        return;
+    }
+    const vspEvento = data.Vsp[evento];
+    document.getElementById('vspPercen').textContent = vspEvento.vspPercen[0];
+}
+
 // Disability chart
 function initializeDisabilityChart(data) {
     const ctx = document.getElementById('disabilityChart').getContext('2d');
