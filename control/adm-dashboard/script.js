@@ -263,7 +263,7 @@ function setupEventListeners() {
 
     // SOLO el botón aplica los filtros
     document.getElementById('filterBtn').addEventListener('click', handleFilterChange);
-//listener para filtros de eventos   
+//listener para filtros de eventos  VSP
     document.getElementById('vspEventFilter').addEventListener('change', function() {
     initializeSpecialtyChart(dashboardData, this.value);
 });
