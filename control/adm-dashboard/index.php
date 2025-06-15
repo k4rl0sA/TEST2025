@@ -217,7 +217,7 @@
 
                 <div class="chart-container">
                     <div class="chart-header">
-                        <h3>Eventos VSP</h3>
+                        <h3>VSP</h3>
 
                         <div class="filter-group">
                         <select id="vspEventFilter" name="event">
