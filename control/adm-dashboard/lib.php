@@ -49,7 +49,7 @@ $sql = "SELECT COUNT(*) AS total_caracterizaciones
 FROM hog_carac hc
 JOIN hog_fam hf ON hc.idfam = hf.id_fam
 JOIN hog_geo hg ON hf.idpre = hg.idgeo
-$where_sql;";
+$where_sql AND hc.estado='A';";
 
 
 $caract = datos_mysql($sql);
@@ -73,7 +73,7 @@ $params = [
     'localidad'  => $localidad
 ];
 
-$sql2= "SELECT COUNT(*) AS familia  FROM hog_fam hf LEFT JOIN hog_geo hg ON hf.idpre = hg.idgeo $where_sql_fam;";
+$sql2= "SELECT COUNT(*) AS familia  FROM hog_fam hf LEFT JOIN hog_geo hg ON hf.idpre = hg.idgeo $where_sql_fam AND hf.estado='A';";
 $fam = datos_mysql($sql2);
 if ($fam['code'] !== 0 || empty($fam['responseResult'])) {
     echo json_encode(["error" => "Objeto no encontrado para familias, por favor valide los filtros"]);
@@ -95,7 +95,7 @@ $params = [
     'localidad'  => $localidad
 ];
 // Consulta para contar individuos
-$sql3 = "SELECT COUNT(*) as Individuos FROM person P LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo $where_sql_ind;";
+$sql3 = "SELECT COUNT(*) as Individuos FROM person P LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo $where_sql_ind AND P.estado='A';";
 $ind = datos_mysql($sql3);
 if ($ind['code'] !== 0 || empty($ind['responseResult'])) {
     echo json_encode(["error" => "Objeto no encontrado para individuos, por favor valide los filtros"]);
@@ -122,7 +122,7 @@ FROM person P
 LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
 LEFT JOIN hog_geo G ON F.idpre = G.idgeo
 $where_sql_age
-AND P.fecha_nacimiento IS NOT NULL 
+AND P.estado='A' AND P.fecha_nacimiento IS NOT NULL 
 GROUP BY Rango_Edad ORDER BY Rango_Edad;";
 $age = datos_mysql($sql4);
 if ($age['code'] !== 0 || empty($age['responseResult'])) {
@@ -149,7 +149,7 @@ $params = [
 $sql5="SELECT FN_CATALOGODESC(21,P.sexo) AS sexos,COUNT(*) AS Total 
 FROM person P LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
 LEFT JOIN hog_geo G ON F.idpre = G.idgeo
-$where_sql_sexo AND  P.fecha_nacimiento IS NOT NULL
+$where_sql_sexo AND P.estado='A' AND  P.fecha_nacimiento IS NOT NULL
 GROUP BY P.sexo;";
 $sexo = datos_mysql($sql5);
 if ($sexo['code'] !== 0 || empty($sexo['responseResult'])) {
@@ -161,6 +161,42 @@ foreach ($sexo['responseResult'] as $row) {
     $gender_distribution['labels'][] = $row['sexos'];
     $gender_distribution['values'][] = (int)$row['Total'];
 }
+
+// Filtros para VSP
+$where_sql_vsp = build_where($params,'A','fecha_seg')
+$params = [
+    'fechadesde' => $fechadesde,
+    'fechahasta' => $fechahasta,
+    'subred'     => $subred,
+    'territorio' => $territorio,
+    'localidad'  => $localidad
+];
+$sql6="SELECT A.evento id,FN_CATALOGODESC(87, A.evento) AS evento,COUNT(A.evento) AS total_casos,SUM(CASE WHEN A.estado_s = 1 THEN 1 ELSE 0 END) AS abiertos,SUM(CASE WHEN A.cierre_caso = 1 THEN 1 ELSE 0 END) AS cerrados,(SUM(CASE WHEN A.cierre_caso = 1 THEN 1 ELSE 0 END) * 100.0 / NULLIF(SUM(CASE WHEN A.estado_s = 1 THEN 1 ELSE 0 END), 0)) AS vspPercen
+FROM `vsp_acompsic` A
+LEFT JOIN person P ON A.idpeople = P.idpeople
+LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
+LEFT JOIN hog_geo G ON F.idpre = G.idgeo
+LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario
+$where_sql_vsp AND A.estado='A' GROUP BY FN_CATALOGODESC(87, A.evento);";
+$vsp = datos_mysql($sql6);
+if ($vsp['code'] !== 0 || empty($vsp['responseResult'])) {
+    echo json_encode(["error" => "Objeto no encontrado para VSP, por favor valide los filtros"]);
+    exit;
+}
+$vsp_data = [];
+foreach ($vsp['responseResult'] as $row) {
+    $vsp_data[$row['id']] = [
+        "evento" => $row['evento'],
+        "labels" => ["Total Casos", "Abiertos", "Cerrados"],
+        "totales" => [$row['total_casos'], $row['abiertos'], $row['cerrados']],
+        "abiertos" => [$row['abiertos']],
+        "cerrados" => [$row['cerrados']],
+        "vspPercen" => [$row['vspPercen']]
+    ];
+}
+// Agregar datos de VSP al array principal
+$data['Vsp'] = $vsp_data;
+
 
 // Simulación de datos, reemplaza por tus consultas reales
 $data = [
@@ -186,7 +222,11 @@ $data = [
         "abiertos" => [120, 20, 168],
         "cerrados" => [380, 80, 232],
         ],  */
-     "Vsp"=>[
+        "Vsp"=>[
+            $data['Vsp'] ?? []
+        ],
+        ]
+     /* "Vsp"=>[
         "1"=> [
             "evento" => "Acompañamiento Psicosocial",
             "labels" => ["Total Casos", "Abiertos", "Cerrados"],
@@ -211,7 +251,7 @@ $data = [
             "cerrados" => [200, 100, 100],
             "vspPercen" => [66.67]
         ]
-    ],
+    ], */
     // Indicadores de salud
     "healthIndicators" => [
         "vacunacionCompleta" => 87,
