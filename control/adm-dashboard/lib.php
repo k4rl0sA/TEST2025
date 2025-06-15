@@ -163,7 +163,7 @@ foreach ($sexo['responseResult'] as $row) {
 }
 
 // Filtros para VSP
-$where_sql_vsp = build_where($params,'A','fecha_seg')
+$where_sql_vsp = build_where($params,'A','fecha_seg');
 $params = [
     'fechadesde' => $fechadesde,
     'fechahasta' => $fechahasta,
