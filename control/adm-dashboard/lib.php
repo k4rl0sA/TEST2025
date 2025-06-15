@@ -227,7 +227,7 @@ FROM `vsp_bpnpret` W LEFT JOIN person P ON W.idpeople = P.idpeople LEFT JOIN hog
 UNION ALL SELECT G.subred, G.localidad, G.territorio, X.fecha_seg, X.evento AS id, FN_CATALOGODESC(87, X.evento) AS evento, X.estado_s, X.cierre_caso 
 FROM `vsp_bpnpret` X LEFT JOIN person P ON X.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 ) AS combined_data 
-$where_sql_vsp AND estado='A' GROUP BY subred, localidad, territorio, fecha_seg, id, evento;";
+$where_sql_vsp GROUP BY subred, localidad, territorio, fecha_seg, id, evento;";
 $vsp = datos_mysql($sql6);
 if ($vsp['code'] !== 0 || empty($vsp['responseResult'])) {
     echo json_encode(["error" => "Objeto no encontrado para VSP, por favor valide los filtros"]);
