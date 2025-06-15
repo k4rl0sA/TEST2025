@@ -201,7 +201,7 @@ $data = [
             "totales" => [200, 80, 620],
             "abiertos" => [220, 200, 620],
             "cerrados" => [-20, -120, 0],
-            "porcentaje" => [44]            
+            "vspPercen" => [44]            
         ],
         "20"=> [
             "evento" => "Cancer",
@@ -209,7 +209,7 @@ $data = [
             "totales" => [300, 150, 150],
             "abiertos" => [100, 50, 50],
             "cerrados" => [200, 100, 100],
-            "porcentaje" => [66.67]
+            "vspPercen" => [66.67]
         ]
     ],
     // Indicadores de salud
