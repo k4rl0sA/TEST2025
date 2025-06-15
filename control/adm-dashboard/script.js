@@ -1,5 +1,5 @@
 // Global variables for charts
-let ageChart, specialtyChart, disabilityChart, elderlyChart;
+let ageChart, vspChart, disabilityChart, elderlyChart;
 let dashboardData = null;
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Inicializar todos los gráficos con datos del backend
 function initializeCharts(data) {
     initializeAgeChart(data);
-    initializeSpecialtyChart(data);
+    initializevspChart(data);
     initializeDisabilityChart(data);
     initializeElderlyChart(data);
 }
@@ -75,11 +75,11 @@ function initializeAgeChart(data) {
 }
 
 // Specialty consultations chart
-function initializeSpecialtyChart(data,evento='1') {
+function initializevspChart(data,evento='1') {
     const vspEvento = data.Vsp[evento];
-    const ctx = document.getElementById('specialtyChart').getContext('2d');
-    if (specialtyChart) specialtyChart.destroy(); // <-- destruye el anterior
-    specialtyChart = new Chart(ctx, {
+    const ctx = document.getElementById('vspChart').getContext('2d');
+    if (vspChart) vspChart.destroy(); // <-- destruye el anterior
+    vspChart = new Chart(ctx, {
         type: 'bar',
         data: {
             // labels: data.specialtyConsultations.labels,
@@ -266,7 +266,7 @@ function setupEventListeners() {
     document.getElementById('filterBtn').addEventListener('click', handleFilterChange);
 //listener para filtros de eventos  VSP
     document.getElementById('vspEventFilter').addEventListener('change', function() {
-    initializeSpecialtyChart(dashboardData, this.value);
+    initializevspChart(dashboardData, this.value);
 });
 
 }
@@ -342,8 +342,8 @@ function updateCharts() {
     ageChart.data.datasets[0].data = dashboardData.ageDistribution.values;
     ageChart.update();
 
-    specialtyChart.data.datasets[0].data = dashboardData.specialtyConsultations.values;
-    specialtyChart.update();
+    vspChart.data.datasets[0].data = dashboardData.specialtyConsultations.values;
+    vspChart.update();
 
     disabilityChart.data.datasets[0].data = dashboardData.disability.distribution.values;
     disabilityChart.update();
@@ -469,5 +469,5 @@ function showError(message) {
 window.refreshData = refreshData;
 
 if (ageChart) ageChart.destroy();
-if (specialtyChart) specialtyChart.destroy();
+if (vspChart) vspChart.destroy();
 if (elderlyChart) elderlyChart.destroy();

@@ -229,7 +229,7 @@
                     </div>
                     </div>
                     <div class="demo-percentage" id="vspPercentage">23.58%</div>
-                    <canvas id="specialtyChart"></canvas>
+                    <canvas id="vspChart"></canvas>
                 </div>
 
                 <div class="chart-container">
