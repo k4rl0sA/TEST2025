@@ -180,9 +180,12 @@ $data = [
     ],
     // Consultas por especialidad (ejemplo)
     "specialtyConsultations" => [
-        "labels" => ["Acompañamiento Psicosocial", "Duelo", "Cancer", "Cronicos", "Desnutrición", "Gestantes"],
+        "vspPercentage"=> 25,
+        "labels" => ["Total Casos", "Abiertos", "Cerrados"],
         "values" => [40000, 15000, 12000, 8000, 14456,75000],
-        "percentages" => [25, 10, 8, 5, 2.5,20]
+        "totales" => [500, 100, 400],
+        "abiertos" => [120, 20, 168],
+        "cerrados" => [380, 80, 232],
         ], 
  /*    "Vsp"=>[
         "1"=> [
