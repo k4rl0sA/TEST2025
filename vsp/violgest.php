@@ -310,9 +310,9 @@ function gra_violgest(){
     'acciones_3', 'desc_accion3', 'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones',
     'observaciones', 'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'aplica_tamiz', 'liker_dificul', 'liker_emocion', 'liker_decision',
     'cope_afronta', 'cope_evitacion', 'incremen_afron', 'incremen_evita', 'redu_riesgo_cierre', 'users_bina', 'equipo_bina',
-    'usu_creo', 'fecha_create', 'usu_update', 'fecha_update', 'estado'];
+    'usu_creo', 'usu_update', 'fecha_update', 'estado'];
   // Campos fecha que pueden ser nulos
-  $campos_fecha_null = ['fecha_obstetrica', 'fecha_cierre', 'fecha_create', 'fecha_update'];
+  $campos_fecha_null = ['fecha_obstetrica', 'fecha_cierre', 'peso_nacer', 'fecha_update'];
 
   if(count($id)==4){
     // UPDATE
