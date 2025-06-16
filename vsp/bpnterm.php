@@ -397,7 +397,6 @@ function gra_bpnterm(){
   return $rta;
 }
 
-
   function get_bpnterm(){
     if($_REQUEST['id']==''){
       return "";
