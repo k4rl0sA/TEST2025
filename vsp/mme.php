@@ -343,7 +343,7 @@ function gra_mme(){
   // Campos fecha que pueden ser nulos
   $campos_fecha_null = [
     'fecha_egre', 'fecha_obstetrica', 'fecha_control_mac', 'fecha_postpar_espe', 'fecha_apoy_lacmater', 'fecha_ctrl_nac',
-    'fecha_consul_lacmate', 'fecha_cierre', 'fecha_egreopost', 'fecha_update','peso' ];
+    'fecha_consul_lacmate', 'fecha_cierre', 'fecha_egreopost', 'fecha_update','peso','talla','imc','peso_rcnv','ult_peso'];
 
   if(count($id)==4){
     // UPDATE (ajusta los campos que realmente quieres actualizar)
