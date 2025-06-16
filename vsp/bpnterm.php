@@ -321,7 +321,7 @@ function gra_bpnterm(){
     'users_bina', 'equipo_bina', 'usu_creo', 'usu_update', 'fecha_update', 'estado'
   ];
   // Campos fecha que pueden ser nulos
-  $campos_fecha_null = ['fecha_cierre', 'fecha_update'];
+  $campos_fecha_null = ['fecha_cierre'];
 
   if(count($id)==4){
     // UPDATE
