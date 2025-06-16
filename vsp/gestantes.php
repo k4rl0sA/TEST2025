@@ -302,7 +302,7 @@ function gra_gestantes(){
     'users_bina', 'equipo_bina', 'usu_creo', 'usu_update', 'fecha_update', 'estado'
   ];
   // Campos fecha que pueden ser nulos
-  $campos_fecha_null = ['fecha_obstetrica', 'fecha_cierre', 'fecha_update', 'peso'];
+  $campos_fecha_null = ['fecha_obstetrica', 'fecha_cierre', 'fecha_update', 'peso', 'talla'];
   if(count($id)==4){
     // UPDATE
     $set = [
