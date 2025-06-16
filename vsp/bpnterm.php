@@ -332,7 +332,7 @@ function gra_bpnterm(){
       'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
       'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
       'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'redu_riesgo_cierre',
-      'users_bina', 'equipo_bina'
+      'users_bina', 'equipo_bina','fecha_update'
     ];
     $params = [];
     foreach ($set as $campo) {
