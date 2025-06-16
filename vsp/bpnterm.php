@@ -389,8 +389,8 @@ function gra_bpnterm(){
     ) VALUES (
       NULL, $placeholders
     )";
-    $rta=show_sql($sql, $params);
-    //$rta = mysql_prepd($sql, $params);
+    // $rta=show_sql($sql, $params);
+    $rta = mysql_prepd($sql, $params);
   } else {
     $rta = "Error: id_bpnterm inválido";
   }
