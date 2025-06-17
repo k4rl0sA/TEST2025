@@ -226,6 +226,7 @@ UNION ALL SELECT G.subred, G.localidad, G.territorio, W.fecha_seg, W.evento AS i
 FROM `vsp_violreite` W LEFT JOIN person P ON W.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 ) AS combined_data 
 $where_sql_vsp GROUP BY subred, localidad, territorio, fecha_seg, id, evento;";
+var_dump($sql6);
 $vsp = datos_mysql($sql6);
 if ($vsp['code'] !== 0 || empty($vsp['responseResult'])) {
     echo json_encode(["error" => "Objeto no encontrado para VSP, por favor valide los filtros"]);
