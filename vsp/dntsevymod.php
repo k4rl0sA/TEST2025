@@ -108,7 +108,7 @@ $ev=$event[2];
     $c[]=new cmp('clasi_nutri','s','3',$d,$w.' '.$o,'Clasificación Nutricional','clasi_nutri',null,null,false,false,'','col-2');//'.$ob.'
     $c[]=new cmp('gana_peso','s','2',$d,$w.' '.$o,'Ganancia de Peso','rta',null,null,false,$x,'','col-2');
     //$c[]=new cmp('trata_desnutri','s','3',$d,$w.' '.$o,'Tratamiento de Desnutrición','trata_desnutri',null,null,false,$x,'','col-2',"enabOthSi('trata_desnutri','tdnt');");
-     $c[]=new cmp('trata_desnutri','s','3',$d,$w.' '.$o,'Tratamiento de Desnutrición','trata_desnutri',null,null,false,$x,'','col-2',"enbValue('trata_desnutri','tdnt','7');");
+    $c[]=new cmp('trata_desnutri','s','3',$d,$w.' '.$o,'Tratamiento de Desnutrición','trata_desnutri',null,null,false,$x,'','col-2',"enbValue('trata_desnutri','tdnt','7');");
     $c[]=new cmp('tratamiento','t','500',$d,$w.' tdnt '.$no.' '.$bl.' '.$o,'Tratamiento','tratamiento',null,null,false,false,'','col-2');
     $c[]=new cmp('consume_fruyverd','s','2',$d,$w.' '.$o,'Consume Frutas y Verduras','rtaali',null,null,false,$x,'','col-2');
     $c[]=new cmp('consume_carnes','s','2',$d,$w.' '.$o,'Consume Carnes','rtaali',null,null,false,$x,'','col-2');
@@ -418,7 +418,8 @@ function gra_dntsevymod(){
         ) VALUES (
             NULL, $placeholders
         )";
-        $rta = mysql_prepd($sql, $params);
+        $rta=show_sql($sql, $params);
+        // $rta = mysql_prepd($sql, $params);
     } else {
         $rta = "Error: id_dntsevymod inválido";
     }
