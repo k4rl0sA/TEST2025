@@ -211,7 +211,7 @@ $sql="SELECT (POWER(($id[0] / (SELECT M FROM tabla_zscore WHERE indicador = '$in
 				$des=8;
 				break;
 		}
-    return json_encode($sql);
+    return $sql;
 		// return json_encode([$z,$des]);
 	}
 }
