@@ -199,7 +199,7 @@ function gra_caract() {
 		'facamb5','facamb6','facamb7','facamb8','facamb9','observacion'
     );
 
-	$campos_null=['domitorios'];
+	$campos_null=['fechanot','domitorios'];
 	foreach ($set as $campo) {
 		if (in_array($campos, $campos_fecha_null)) {
     	    $val = $_POST[$campo] ?? null;
