@@ -253,7 +253,8 @@ function gra_caract() {
         ) VALUES (
             NULL, $placeholders
         )";
-        return mysql_prepd($sql, $params);
+		return show_sql($sql, $params);
+        // return mysql_prepd($sql, $params);
     }
 
     // UPDATE
