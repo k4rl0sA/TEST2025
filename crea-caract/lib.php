@@ -212,12 +212,12 @@ function gra_caract() {
 			['type' => empty($_POST['fechanot']) ? 'z' : 's','value' => empty($_POST['fechanot']) ? null : $_POST['fechanot']]
 		];
 		$params = array_merge($params, params($campos));// Agregar los valores dinámicos
-		$params[] = array('type' => 's', 'value' => namequipo());
-        $params[] = array('type' => 's', 'value' => $_SESSION['us_sds']);
-        $params[] = array('type' => 's', 'value' => date("Y-m-d H:i:s"));
-		$params[] = array('type' => 's', 'value' => NULL);
-		$params[] = array('type' => 's', 'value' => NULL);
-		$params[] = array('type' => 's', 'value' => 'A');
+		$params[] = ['type' => 's', 'value' => namequipo()];
+        $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
+        $params[] = ['type' => 's', 'value' => date("Y-m-d H:i:s")];
+		$params[] = ['type' => 's', 'value' => NULL];
+		$params[] = ['type' => 's', 'value' => NULL];
+		$params[] = ['type' => 's', 'value' => 'A'];
 
         // Validar el número de campos
 		// echo $total_campos;
