@@ -186,6 +186,26 @@ function namequipo(){
     return $info['responseResult'][0]['equipo'];
 }
 
+function params_caract($campos) {
+    $campos_null = [
+        'dormitorios', 'personas', 'numero_perros', 'perro_vacunas', 'perro_esterilizado',
+        'numero_gatos', 'gato_vacunas', 'gato_esterilizado'
+    ];
+    $params = [];
+    foreach ($campos as $campo) {
+        $val = $_POST[$campo] ?? null;
+        if (in_array($campo, $campos_null)) {
+            $params[] = [
+                'type' => ($val === '' || $val === null) ? 'z' : 'i',
+                'value' => ($val === '' || $val === null) ? null : $val
+            ];
+        } else {
+            $params[] = ['type' => 's', 'value' => $val];
+        }
+    }
+    return $params;
+}
+
 function gra_caract() {
     $id = divide($_POST['idg']);
     // Campos comunes para INSERT y UPDATE
@@ -198,20 +218,6 @@ function gra_caract() {
 		'perro_esterilizado','gatos','numero_gatos','gato_vacunas','gato_esterilizado','otros','facamb1','facamb2','facamb3','facamb4',
 		'facamb5','facamb6','facamb7','facamb8','facamb9','observacion'
     );
- 	$campos_null = ['dormitorios'];
-    $params = [];
-
-	 foreach ($campos as $campo) {
-        if (in_array($campo, $campos_null)) {
-            $val = $_POST[$campo] ?? null;
-            $params[] = [
-                'type' => ($val === '' || $val === null) ? 'z' : 's',
-                'value' => ($val === '' || $val === null) ? null : $val
-            ];
-        } else {
-            $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
-        }
-    }
 	
     if (count($id) == 1) {
 		 $holders = array_fill(0, count($campos), '?');// Crear placeholders para los valores
@@ -224,7 +230,7 @@ function gra_caract() {
             ['type' => 's', 'value' => $_POST['eventoupd']],
 			['type' => empty($_POST['fechanot']) ? 'z' : 's','value' => empty($_POST['fechanot']) ? null : $_POST['fechanot']]
 		];
-		$params = array_merge($params, params($campos));// Agregar los valores dinámicos
+		$params = array_merge($params, params_caract($campos));// Agregar los valores dinámicos
 		$params[] = ['type' => 's', 'value' => namequipo()];
         $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
         $params[] = ['type' => 's', 'value' => date("Y-m-d H:i:s")];
@@ -237,7 +243,7 @@ function gra_caract() {
     }
 	if (count($id) == 2) {
 		$sql = "UPDATE hog_carac SET " . implode(" = ?, ", $campos) . " = ?, usu_update = ?, fecha_update = ? WHERE id_viv = ?";
-		 $params = params($campos);		 // Para UPDATE, agregamos los valores dinámicos
+		 $params = params_caract($campos);		 // Para UPDATE, agregamos los valores dinámicos
 		 $params[] = array('type' => 's', 'value' => $_SESSION['us_sds']);
 		 $params[] = array('type' => 's', 'value' => date("Y-m-d H:i:s"));
 		 $params[] = array('type' => 'i', 'value' => $id[1]);

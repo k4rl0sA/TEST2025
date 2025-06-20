@@ -158,7 +158,7 @@ function new_Admision(){
 	['type' => 'i', 'value' => NULL],
 	['type' => 's', 'value' => $id[0]],
 	['type' => 's', 'value' => 'SI'],
-	['type' => 's', 'value' => ''],
+	['type' => 'z', 'value' => NULL],
 	['type' => 's', 'value' => ''],
 	['type' => 's', 'value' => ''],
 	['type' => 's', 'value' => ''],
