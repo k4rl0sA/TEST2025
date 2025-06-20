@@ -189,106 +189,50 @@ function namequipo(){
 function gra_caract() {
     $id = divide($_POST['idg']);
     // Campos comunes para INSERT y UPDATE
- $campos = [
-        'idfam', 'fecha', 'motivoupd', 'eventoupd', 'fechanot',
+    $campos = array(
         'crit_epi','crit_geo','estr_inters','fam_peretn', 'fam_rurcer','tipo_vivienda','tenencia','dormitorios','actividad_economica','tipo_familia',
-        'personas','ingreso','seg_pre1','seg_pre2','seg_pre3','seg_pre4','seg_pre5','seg_pre6','seg_pre7','seg_pre8',
-        'subsidio_1','subsidio_2','subsidio_3','subsidio_4','subsidio_5','subsidio_6','subsidio_7','subsidio_8','subsidio_9','subsidio_10',
+		'personas','ingreso','seg_pre1','seg_pre2','seg_pre3','seg_pre4','seg_pre5','seg_pre6','seg_pre7','seg_pre8',
+		'subsidio_1','subsidio_2','subsidio_3','subsidio_4','subsidio_5','subsidio_6','subsidio_7','subsidio_8','subsidio_9','subsidio_10',
         'subsidio_11','subsidio_12','subsidio_13','subsidio_14','subsidio_15','subsidio_16','subsidio_17','subsidio_18','subsidio_19','subsidio_20',
-        'energia','gas','acueducto','alcantarillado','basuras','pozo','aljibe','perros','numero_perros','perro_vacunas',
-        'perro_esterilizado','gatos','numero_gatos','gato_vacunas','gato_esterilizado','otros','facamb1','facamb2','facamb3','facamb4',
-        'facamb5','facamb6','facamb7','facamb8','facamb9','observacion',
-        'equipo','usu_create','fecha_create','usu_update','fecha_update','estado'
-    ];
+		'energia','gas','acueducto','alcantarillado','basuras','pozo','aljibe','perros','numero_perros','perro_vacunas',
+		'perro_esterilizado','gatos','numero_gatos','gato_vacunas','gato_esterilizado','otros','facamb1','facamb2','facamb3','facamb4',
+		'facamb5','facamb6','facamb7','facamb8','facamb9','observacion'
+    );
 
-	// Campos de tipo fecha que pueden ser nulos
-   // Campos que pueden ser nulos
-    $campos_null = ['eventoupd','fechanot','numero_perros','perro_vacunas','perro_esterilizado','numero_gatos','gato_vacunas','gato_esterilizado','usu_update','fecha_update'];
-
-	// Prepara los valores para el insert
     if (count($id) == 1) {
-        $params = [];
-        $params[] = ['type' => 'i', 'value' => $id[0]]; // idfam
-        $params[] = ['type' => 's', 'value' => $_POST['fecha'] ?? null]; // fecha
-        $params[] = ['type' => 's', 'value' => $_POST['motivoupd'] ?? null]; // motivoupd
+		 $holders = array_fill(0, count($campos), '?');// Crear placeholders para los valores
+		 $sql = "INSERT INTO hog_carac VALUES (?,?,?,?,?,?, " . implode(", ", $holders) . ",?,?,?,?,?,?)";
+		$params = array(
+			array('type' => 'i', 'value' => NULL),
+            array('type' => 'i', 'value' => $id[0]),
+            array('type' => 's', 'value' => $_POST['fecha']),
+            array('type' => 's', 'value' => $_POST['motivoupd']),
+            array('type' => 's', 'value' => $_POST['eventoupd']),
+            array('type' => 's', 'value' => $_POST['fechanot'])
+        );
+		$params = array_merge($params, params($campos));// Agregar los valores dinámicos
+		$params[] = array('type' => 's', 'value' => namequipo());
+        $params[] = array('type' => 's', 'value' => $_SESSION['us_sds']);
+        $params[] = array('type' => 's', 'value' => date("Y-m-d H:i:s"));
+		$params[] = array('type' => 's', 'value' => NULL);
+		$params[] = array('type' => 's', 'value' => NULL);
+		$params[] = array('type' => 's', 'value' => 'A');
 
-        // eventoupd y fechanot pueden ser nulos
-        $params[] = [
-            'type' => (empty($_POST['eventoupd'])) ? 'z' : 's',
-            'value' => (empty($_POST['eventoupd'])) ? null : $_POST['eventoupd']
-        ];
-        $params[] = [
-            'type' => (empty($_POST['fechanot'])) ? 'z' : 's',
-            'value' => (empty($_POST['fechanot'])) ? null : $_POST['fechanot']
-        ];
-
-        // Resto de campos dinámicos
-        foreach (array_slice($campos, 5, 71) as $campo) {
-            if (in_array($campo, $campos_null)) {
-                $val = $_POST[$campo] ?? null;
-                $params[] = [
-                    'type' => ($val === '' || $val === null) ? 'z' : 's',
-                    'value' => ($val === '' || $val === null) ? null : $val
-                ];
-            } else {
-                $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
-            }
-        }
-
-        // equipo
-        $params[] = ['type' => 's', 'value' => namequipo()];
-        // usu_create
-        $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
-        // fecha_create
-        $params[] = ['type' => 's', 'value' => date("Y-m-d H:i:s")];
-        // usu_update y fecha_update nulos
-        $params[] = ['type' => 'z', 'value' => null];
-        $params[] = ['type' => 'z', 'value' => null];
-        // estado
-        $params[] = ['type' => 's', 'value' => 'A'];
-
-        $placeholders = implode(', ', array_fill(0, count($params), '?'));
-        $sql = "INSERT INTO hog_carac (
-            id_viv, " . implode(', ', $campos) . "
-        ) VALUES (
-            NULL, $placeholders
-        )";
-		//return show_sql($sql, $params);
-		if (count($campos) !== count($params)) {
-    		die("Error: columnas (".count($campos).") y valores (".count($params).") no coinciden");
-		}
-         //return mysql_prepd($sql, $params);
+        // Validar el número de campos
+		// echo $total_campos;
     }
-
-    // UPDATE
-    if (count($id) == 2) {
-        $set = [];
-        foreach ($campos as $campo) {
-            if ($campo != 'idfam') { // idfam no se actualiza
-                $set[] = "$campo = ?";
-            }
-        }
-        $params = [];
-        foreach (array_slice($campos, 1) as $campo) { // desde cursovida
-            if (in_array($campo, $campos_null)) {
-                $val = $_POST[$campo] ?? null;
-                $params[] = [
-                    'type' => ($val === '' || $val === null) ? 'z' : 's',
-                    'value' => ($val === '' || $val === null) ? null : $val
-                ];
-            } else {
-                $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
-            }
-        }
-        // usu_update y fecha_update
-        $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
-        $params[] = ['type' => 's', 'value' => date("Y-m-d H:i:s")];
-        // WHERE id_viv = ?
-        $params[] = ['type' => 'i', 'value' => $id[1]];
-
-        $sql = "UPDATE hog_carac SET " . implode(', ', $set) . ", usu_update = ?, fecha_update = ? WHERE id_viv = ?";
-        return mysql_prepd($sql, $params);
-    }
+	if (count($id) == 2) {
+		$sql = "UPDATE hog_carac SET " . implode(" = ?, ", $campos) . " = ?, usu_update = ?, fecha_update = ? WHERE id_viv = ?";
+		 $params = params($campos);		 // Para UPDATE, agregamos los valores dinámicos
+		 $params[] = array('type' => 's', 'value' => $_SESSION['us_sds']);
+		 $params[] = array('type' => 's', 'value' => date("Y-m-d H:i:s"));
+		 $params[] = array('type' => 'i', 'value' => $id[1]);
+	}
+	if (count($campos) !== count($params)) {
+    	die("Error: columnas (".count($campos).") y valores (".count($params).") no coinciden");
+	}
+	return show_sql($sql,$params);
+    //return mysql_prepd($sql, $params);
 }
 
 function opc_numfam($id=''){
