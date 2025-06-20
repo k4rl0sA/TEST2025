@@ -208,7 +208,7 @@ function gra_caract() {
             array('type' => 's', 'value' => $_POST['fecha']),
             array('type' => 's', 'value' => $_POST['motivoupd']),
             array('type' => 's', 'value' => $_POST['eventoupd']),
-            array('type' => 's', 'value' => $_POST['fechanot'])
+			array('type' => (empty($_POST['fechanot']) ? 'z' : 's'),'value' => (empty($_POST['fechanot']) ? null : $_POST['fechanot']))
         );
 		$params = array_merge($params, params($campos));// Agregar los valores dinámicos
 		$params[] = array('type' => 's', 'value' => namequipo());
