@@ -199,17 +199,18 @@ function gra_caract() {
 		'facamb5','facamb6','facamb7','facamb8','facamb9','observacion'
     );
 
+	$campos_null=[];
     if (count($id) == 1) {
 		 $holders = array_fill(0, count($campos), '?');// Crear placeholders para los valores
 		 $sql = "INSERT INTO hog_carac VALUES (?,?,?,?,?,?, " . implode(", ", $holders) . ",?,?,?,?,?,?)";
-		$params = array(
-			array('type' => 'i', 'value' => NULL),
-            array('type' => 'i', 'value' => $id[0]),
-            array('type' => 's', 'value' => $_POST['fecha']),
-            array('type' => 's', 'value' => $_POST['motivoupd']),
-            array('type' => 's', 'value' => $_POST['eventoupd']),
-			array('type' => (empty($_POST['fechanot']) ? 'z' : 's'),'value' => (empty($_POST['fechanot']) ? null : $_POST['fechanot']))
-        );
+		$params = [
+			['type' => 'i', 'value' => NULL], 
+            ['type' => 'i', 'value' => $id[0]],
+            ['type' => 's', 'value' => $_POST['fecha']],
+            ['type' => 's', 'value' => $_POST['motivoupd']],
+            ['type' => 's', 'value' => $_POST['eventoupd']],
+			['type' => empty($_POST['fechanot']) ? 'z' : 's','value' => empty($_POST['fechanot']) ? null : $_POST['fechanot']]
+		];
 		$params = array_merge($params, params($campos));// Agregar los valores dinámicos
 		$params[] = array('type' => 's', 'value' => namequipo());
         $params[] = array('type' => 's', 'value' => $_SESSION['us_sds']);
