@@ -160,7 +160,7 @@ function new_Admision(){
 	['type' => 's', 'value' => 'SI'],
 	['type' => 'z', 'value' => NULL],
 	['type' => 's', 'value' => ''],
-	['type' => 's', 'value' => ''],
+	['type' => 'i', 'value' => NULL],
 	['type' => 's', 'value' => ''],
 	['type' => 's', 'value' => ''],
 	['type' => 's', 'value' => ''],
