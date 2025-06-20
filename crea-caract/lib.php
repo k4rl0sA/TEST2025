@@ -199,7 +199,7 @@ function gra_caract() {
 		'facamb5','facamb6','facamb7','facamb8','facamb9','observacion'
     );
 
-	$campos_null=[];
+	// $campos_null=['domitorios'];
     if (count($id) == 1) {
 		 $holders = array_fill(0, count($campos), '?');// Crear placeholders para los valores
 		 $sql = "INSERT INTO hog_carac VALUES (?,?,?,?,?,?, " . implode(", ", $holders) . ",?,?,?,?,?,?)";
