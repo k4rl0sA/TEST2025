@@ -257,7 +257,7 @@ function gra_caract() {
 		if (count($campos) !== count($params)) {
     		die("Error: columnas (".count($campos).") y valores (".count($params).") no coinciden");
 		}
-         return mysql_prepd($sql, $params);
+         //return mysql_prepd($sql, $params);
     }
 
     // UPDATE
