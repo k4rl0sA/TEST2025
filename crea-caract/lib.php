@@ -228,9 +228,9 @@ function gra_caract() {
 		 $params[] = array('type' => 's', 'value' => date("Y-m-d H:i:s"));
 		 $params[] = array('type' => 'i', 'value' => $id[1]);
 	}
-	if (count($campos) !== count($params)) {
+/* 	if (count($campos) !== count($params)) {
     	die("Error: columnas (".count($campos).") y valores (".count($params).") no coinciden");
-	}
+	} */
 	//return show_sql($sql,$params);
     return mysql_prepd($sql, $params);
 }
