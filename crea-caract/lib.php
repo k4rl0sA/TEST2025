@@ -198,19 +198,21 @@ function gra_caract() {
 		'perro_esterilizado','gatos','numero_gatos','gato_vacunas','gato_esterilizado','otros','facamb1','facamb2','facamb3','facamb4',
 		'facamb5','facamb6','facamb7','facamb8','facamb9','observacion'
     );
+ 	$campos_null = ['dormitorios'];
+    $params = [];
 
-	$campos_null=['fechanot','domitorios'];
-	foreach ($set as $campo) {
-		if (in_array($campos, $campos_fecha_null)) {
-    	    $val = $_POST[$campo] ?? null;
-    	    $params[] = [
-    	        'type' => ($val === '' || $val === null) ? 'z' : 's',
-    	        'value' => ($val === '' || $val === null) ? null : $val
-    	    ];
-    	} else {
-    	    $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
-    	}
-	}
+	 foreach ($campos as $campo) {
+        if (in_array($campo, $campos_null)) {
+            $val = $_POST[$campo] ?? null;
+            $params[] = [
+                'type' => ($val === '' || $val === null) ? 'z' : 's',
+                'value' => ($val === '' || $val === null) ? null : $val
+            ];
+        } else {
+            $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
+        }
+    }
+	
     if (count($id) == 1) {
 		 $holders = array_fill(0, count($campos), '?');// Crear placeholders para los valores
 		 $sql = "INSERT INTO hog_carac VALUES (?,?,?,?,?,?, " . implode(", ", $holders) . ",?,?,?,?,?,?)";
