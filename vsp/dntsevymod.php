@@ -364,21 +364,37 @@ function gra_dntsevymod(){
             'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'redu_riesgo_cierre',
             'users_bina', 'equipo_bina'
         ];
+
+    $zscore_val = $_POST['zscore'] ?? null;
+    $zscore_part = null;
+    $clasi_nutri_part = null;
+    if($zscore_val && strpos($zscore_val, ',') !== false) {
+      list($zscore_part, $clasi_nutri_part) = explode(',', $zscore_val, 2);
+    }else{
+      $zscore_part = $zscore_val;
+      $clasi_nutri_part = $_POST['clasi_nutri'] ?? null;
+    }
+
+
         $params = [];
         foreach ($set as $campo) {
-            if ($campo == 'users_bina') {
+          if ($campo == 'zscore') {
+            $params[] = ['type' => 's', 'value' => $zscore_part];
+          }elseif ($campo == 'clasi_nutri') {
+            $params[] = ['type' => 's', 'value' => $clasi_nutri_part];
+          }elseif (campo == 'users_bina') {
                 $params[] = ['type' => 's', 'value' => $smbin];
-            } elseif ($campo == 'equipo_bina') {
+          }elseif ($campo == 'equipo_bina') {
                 $params[] = ['type' => 's', 'value' => $eq];
-            } elseif (in_array($campo, $campos_fecha_null)) {
+          }elseif (in_array($campo, $campos_fecha_null)) {
                 $val = $_POST[$campo] ?? null;
                 $params[] = [
                     'type' => ($val === '' || $val === null) ? 'z' : 's',
                     'value' => ($val === '' || $val === null) ? null : $val
                 ];
-            } else {
+          } else {
                 $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
-            }
+          }
         }
         $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_update
         $sql = "UPDATE vsp_dntsevymod SET "
@@ -389,9 +405,22 @@ function gra_dntsevymod(){
 
     } else if(count($id)==3){
         // INSERT
+        $zscore_val = $_POST['zscore'] ?? null;
+        $zscore_part = null;
+        $clasi_nutri_part = null;
+        if ($zscore_val && strpos($zscore_val, ',') !== false) {
+            list($zscore_part, $clasi_nutri_part) = explode(',', $zscore_val, 2);
+        } else {
+            $zscore_part = $zscore_val;
+            $clasi_nutri_part = $_POST['clasi_nutri'] ?? null;
+        }
         $params = [];
         foreach ($campos as $campo) {
-            if ($campo == 'idpeople') {
+            if ($campo == 'zscore') {
+            $params[] = ['type' => 's', 'value' => $zscore_part];
+        } elseif ($campo == 'clasi_nutri') {
+            $params[] = ['type' => 's', 'value' => $clasi_nutri_part];
+        } elseif ($campo == 'idpeople') {
                 $params[] = ['type' => 's', 'value' => $id[0]];
             } elseif ($campo == 'users_bina') {
                 $params[] = ['type' => 's', 'value' => $smbin];
