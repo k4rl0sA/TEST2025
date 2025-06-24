@@ -376,7 +376,10 @@ function gra_dntsevymod(){
     $params = [];
         foreach ($set as $campo) {
           if ($campo == 'zscore') {
-            $params[] = ['type' => 's', 'value' => $zscore_part];
+           $params[] = [
+            'type' => ($zscore_part === '' || $zscore_part === null) ? 'z' : 's',
+            'value' => ($zscore_part === '' || $zscore_part === null) ? null : $zscore_part
+          ];
           }elseif ($campo == 'users_bina') {
             $params[] = ['type' => 's', 'value' => $smbin];
           }elseif ($campo == 'equipo_bina') {
@@ -411,8 +414,11 @@ function gra_dntsevymod(){
         $params = [];
         foreach ($campos as $campo) {
             if ($campo == 'zscore') {
-            $params[] = ['type' => 's', 'value' => $zscore_part];
-        }elseif ($campo == 'idpeople') {
+            $params[] = [
+                'type' => ($zscore_part === '' || $zscore_part === null) ? 'z' : 's',
+                'value' => ($zscore_part === '' || $zscore_part === null) ? null : $zscore_part
+            ];
+            }elseif ($campo == 'idpeople') {
                 $params[] = ['type' => 's', 'value' => $id[0]];
             } elseif ($campo == 'users_bina') {
                 $params[] = ['type' => 's', 'value' => $smbin];
