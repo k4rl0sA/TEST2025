@@ -134,7 +134,7 @@ $params = [
         ['type' => 's', 'value' => $_POST['sexo']],
         ['type' => 'i', 'value' => $_POST['genero']],
         ['type' => 'i', 'value' => $_POST['etnia']],
-        ['type' => empty($_POST['pueblo']) ? 'z' : 's', 'value' => empty($_POST['pueblo']) ? null : $_POST['pueblo']],
+        ['type' => empty($_POST['pueblo']) ? 'z' : 'i', 'value' => empty($_POST['pueblo']) ? null : $_POST['pueblo']],
         ['type' => 's', 'value' => $_POST['nacionalidad']],
         ['type' => 'i', 'value' => $_POST['regimen']],
         ['type' => 'i', 'value' => $_POST['eapb']],
