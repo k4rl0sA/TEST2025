@@ -144,7 +144,8 @@ function gra_sespers(){
 	['type' => 's', 'value' => NULL],
 	['type' => 's', 'value' => 'A']
 	];
-	return  $rta= mysql_prepd($sql, $params);
+	return show_sql($sql, $params);
+	//return  $rta= mysql_prepd($sql, $params);
 }
 
 function get_person(){
