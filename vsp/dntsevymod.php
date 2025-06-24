@@ -372,17 +372,12 @@ function gra_dntsevymod(){
       list($zscore_part, $clasi_nutri_part) = explode(',', $zscore_val, 2);
     }else{
       $zscore_part = $zscore_val;
-    /*  $clasi_nutri_part = $_POST['clasi_nutri'] ?? null; */
     } 
-        $params = [];
+    $params = [];
         foreach ($set as $campo) {
           if ($campo == 'zscore') {
             $params[] = ['type' => 's', 'value' => $zscore_part];
-          }
-          /* elseif ($campo == 'clasi_nutri') {
-            $params[] = ['type' => 's', 'value' => $clasi_nutri_part];
-          */
-          elseif (campo == 'users_bina') {
+          }elseif (campo == 'users_bina') {
             $params[] = ['type' => 's', 'value' => $smbin];
           }elseif ($campo == 'equipo_bina') {
             $params[] = ['type' => 's', 'value' => $eq];
@@ -412,15 +407,12 @@ function gra_dntsevymod(){
             list($zscore_part, $clasi_nutri_part) = explode(',', $zscore_val, 2);
         } else {
             $zscore_part = $zscore_val;
-            // $clasi_nutri_part = $_POST['clasi_nutri'] ?? null;
         }
         $params = [];
         foreach ($campos as $campo) {
             if ($campo == 'zscore') {
             $params[] = ['type' => 's', 'value' => $zscore_part];
-        } /* elseif ($campo == 'clasi_nutri') {
-            $params[] = ['type' => 's', 'value' => $clasi_nutri_part];
-        }  */elseif ($campo == 'idpeople') {
+        }elseif ($campo == 'idpeople') {
                 $params[] = ['type' => 's', 'value' => $id[0]];
             } elseif ($campo == 'users_bina') {
                 $params[] = ['type' => 's', 'value' => $smbin];
