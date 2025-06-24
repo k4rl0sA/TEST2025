@@ -135,7 +135,7 @@ function gra_sespers(){
 	['type' => 's', 'value' => $_POST['sexo']],
 	['type' => 'i', 'value' => $_POST['genero']],
 	['type' => 'i', 'value' => $_POST['etnia']],
-	['type' => 'i', 'value' => $_POST['pueblo']?? NULL],
+	['type' => 'z', 'value' => $_POST['pueblo']?? NULL],
 	['type' => 'i', 'value' => $_POST['nacionalidad']],
 	['type' => 'i', 'value' => $_POST['regimen']],
 	['type' => 'i', 'value' => $_POST['eapb']],
