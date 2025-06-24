@@ -121,7 +121,7 @@ function gra_sespers(){
 
 	// var_dump($_POST);
 	$id=divide($_POST['ids']);
-	$sql = "INSERT INTO persescol VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,?)";
+	$sql = "INSERT INTO persescol VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),NULL,NULL,?)";
 $params = [
         ['type' => 'i', 'value' => $id[0]],
         ['type' => 'i', 'value' => $_POST['idpersona']],
@@ -139,8 +139,6 @@ $params = [
         ['type' => 'i', 'value' => $_POST['regimen']],
         ['type' => 'i', 'value' => $_POST['eapb']],
         ['type' => 'i', 'value' => $_SESSION['us_sds']],
-        ['type' => 'z', 'value' => NULL], // usu_update
-        ['type' => 'z', 'value' => NULL], // fecha_update
         ['type' => 's', 'value' => 'A']
     ];
 	return show_sql($sql, $params);
