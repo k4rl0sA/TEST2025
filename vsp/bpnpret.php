@@ -326,7 +326,7 @@ function gra_bpnpret(){
   // Orden de los campos según la tabla
   $campos = [
     'idpeople', 'fecha_seg', 'numsegui', 'evento', 'estado_s', 'motivo_estado',
-    'sem_ges', 'asiste_control', 'vacuna_comple', 'lacmate_exclu', 'peso', 'talla', 'edad_ges', 'diag_nutri', 'zscore', 'clasi_nutri',
+    'sem_ges', 'asiste_control', 'vacuna_comple', 'lacmate_exclu', 'peso', 'talla','edad_ges', 'diag_nutri', 'zscore', 'clasi_nutri',
     'gana_peso', 'gana_peso_dia', 'signos_alarma', 'signos_alarma_seg',
     'estrategia_1', 'estrategia_2',
     'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
@@ -335,7 +335,7 @@ function gra_bpnpret(){
     'users_bina', 'equipo_bina', 'usu_creo', 'usu_update', 'fecha_update', 'estado'
   ];
   // Campos fecha que pueden ser nulos
-  $campos_fecha_null = ['fecha_cierre', 'fecha_update'];
+  $campos_fecha_null = ['fecha_cierre','zscore','fecha_update'];
 
   if(count($id)==4){
     // UPDATE
@@ -348,9 +348,24 @@ function gra_bpnpret(){
       'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'redu_riesgo_cierre',
       'users_bina', 'equipo_bina'
     ];
+
+     $zscore_val = $_POST['zscore'] ?? null;
+    $zscore_part = null;
+    $clasi_nutri_part = null;
+    if($zscore_val && strpos($zscore_val, ',') !== false) {
+      list($zscore_part, $clasi_nutri_part) = explode(',', $zscore_val, 2);
+    }else{
+      $zscore_part = $zscore_val;
+    } 
+
     $params = [];
     foreach ($set as $campo) {
-      if ($campo == 'users_bina') {
+      if ($campo == 'zscore') {
+           $params[] = [
+            'type' => ($zscore_part === '' || $zscore_part === null) ? 'z' : 's',
+            'value' => ($zscore_part === '' || $zscore_part === null) ? null : $zscore_part
+          ];
+      }elseif ($campo == 'users_bina') {
         $params[] = ['type' => 's', 'value' => $smbin];
       } elseif ($campo == 'equipo_bina') {
         $params[] = ['type' => 's', 'value' => $eq];
@@ -373,9 +388,22 @@ function gra_bpnpret(){
 
   } else if(count($id)==3){
     // INSERT
+     $zscore_val = $_POST['zscore'] ?? null;
+        $zscore_part = null;
+        $clasi_nutri_part = null;
+        if ($zscore_val && strpos($zscore_val, ',') !== false) {
+            list($zscore_part, $clasi_nutri_part) = explode(',', $zscore_val, 2);
+        } else {
+            $zscore_part = $zscore_val;
+        }
     $params = [];
     foreach ($campos as $campo) {
-      if ($campo == 'idpeople') {
+      if ($campo == 'zscore') {
+            $params[] = [
+                'type' => ($zscore_part === '' || $zscore_part === null) ? 'z' : 's',
+                'value' => ($zscore_part === '' || $zscore_part === null) ? null : $zscore_part
+            ];
+      }elseif ($campo == 'idpeople') {
         $params[] = ['type' => 's', 'value' => $id[0]];
       } elseif ($campo == 'users_bina') {
         $params[] = ['type' => 's', 'value' => $smbin];
