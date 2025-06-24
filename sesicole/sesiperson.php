@@ -122,7 +122,7 @@ function gra_sespers(){
 	// var_dump($_POST);
 	$id=divide($_POST['ids']);
 	$sql = "INSERT INTO persescol VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,?)";
-	$pueblo = ($_POST['pueblo']=='') ? NULL : $_POST['pueblo'] ;
+	$pueblo=['type' => ($_POST['pueblo']==='') ? 'z' : 's',	'value' => ($_POST['pueblo'] === '') ? null : $_POST['pueblo']];
 	$params =[
 	['type' => 'i', 'value' => NULL],//id_person
 	['type' => 'i', 'value' => $id[0]],//sesion
@@ -136,7 +136,7 @@ function gra_sespers(){
 	['type' => 's', 'value' => $_POST['sexo']],
 	['type' => 'i', 'value' => $_POST['genero']],
 	['type' => 'i', 'value' => $_POST['etnia']],
-	['type' => 'i' ,'value' => $pueblo],
+	$pueblo,
 	['type' => 's', 'value' => $_POST['nacionalidad']],
 	['type' => 'i', 'value' => $_POST['regimen']],
 	['type' => 'i', 'value' => $_POST['eapb']],
