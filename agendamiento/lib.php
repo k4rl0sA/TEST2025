@@ -590,7 +590,7 @@ function gra_seguimiento(){
 	WHERE idagendamiento=?";
 	$params=[
 		['type' => 's', 'value' => $_POST['nom']],
-		['type' => 's', 'value' => $_POST['tin']],
+		['type' => (empty($_POST['tin']) ? 'z' : 's'), 'value' => (empty($_POST['tin']) ? null : $_POST['tin'])],
 		['type' => 's', 'value' => $_POST['rea']],
 		['type' => 's', 'value' => $_POST['obi']],
 		['type' => 's', 'value' => $_SESSION['us_sds']],
