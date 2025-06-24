@@ -142,8 +142,8 @@ $params = [
         ['type' => 'i', 'value' => $_SESSION['us_sds']],
         ['type' => 's', 'value' => 'A']
     ];
-	return show_sql($sql, $params);
-	//return  $rta= mysql_prepd($sql, $params);
+	//return show_sql($sql, $params);
+	return  $rta= mysql_prepd($sql, $params);
 }
 
 function get_person(){
