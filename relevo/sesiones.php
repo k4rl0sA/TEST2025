@@ -193,7 +193,7 @@ function gra_sesiones(){
 	$idrel=divide($_POST['id']);
 	if(COUNT($idrel)== 1){ 
 
-		$sql = "update rel_sesion SET rel_validacion5=?,usu_update=?,fecha_update=DATE_SUB(NOW(),INTERVAL 5 HOUR) WHERE idsesion=?";
+		$sql = "UPDATE rel_sesion SET rel_validacion5=?,usu_update=?,fecha_update=DATE_SUB(NOW(),INTERVAL 5 HOUR) WHERE idsesion=?";
 		$params = [
 			['type' => 's', 'value' => $_POST['rel_validacion5']],
 			['type' => 'i', 'value' => $_SESSION['us_sds']],
@@ -219,8 +219,11 @@ function gra_sesiones(){
 		['type' => 's', 'value' => NULL],
 		['type' => 's', 'value' => NULL]
 		];
-		return $rta = mysql_prepd($sql, $params);
+		
+		
 	}
+	$rta=show_sql($sql, $params);
+	//return $rta = mysql_prepd($sql, $params);
 }
 
 function opc_momento($id=''){
