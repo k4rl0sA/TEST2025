@@ -141,8 +141,8 @@ function gra_sespers(){
 	['type' => 'i', 'value' => $_POST['regimen']],
 	['type' => 'i', 'value' => $_POST['eapb']],
 	['type' => 'i', 'value' => $_SESSION['us_sds']],
-	['type' => 's', 'value' => NULL],
-	['type' => 's', 'value' => NULL],
+	['type' => 'z', 'value' => NULL],
+	['type' => 'z', 'value' => NULL],
 	['type' => 's', 'value' => 'A']
 	];
 	return show_sql($sql, $params);
