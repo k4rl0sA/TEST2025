@@ -372,25 +372,25 @@ function gra_dntsevymod(){
       list($zscore_part, $clasi_nutri_part) = explode(',', $zscore_val, 2);
     }else{
       $zscore_part = $zscore_val;
-      $clasi_nutri_part = $_POST['clasi_nutri'] ?? null;
-    }
-
-
+    /*  $clasi_nutri_part = $_POST['clasi_nutri'] ?? null; */
+    } 
         $params = [];
         foreach ($set as $campo) {
           if ($campo == 'zscore') {
             $params[] = ['type' => 's', 'value' => $zscore_part];
-          }elseif ($campo == 'clasi_nutri') {
+          }
+          /* elseif ($campo == 'clasi_nutri') {
             $params[] = ['type' => 's', 'value' => $clasi_nutri_part];
-          }elseif (campo == 'users_bina') {
-                $params[] = ['type' => 's', 'value' => $smbin];
+          */
+          elseif (campo == 'users_bina') {
+            $params[] = ['type' => 's', 'value' => $smbin];
           }elseif ($campo == 'equipo_bina') {
-                $params[] = ['type' => 's', 'value' => $eq];
+            $params[] = ['type' => 's', 'value' => $eq];
           }elseif (in_array($campo, $campos_fecha_null)) {
-                $val = $_POST[$campo] ?? null;
-                $params[] = [
-                    'type' => ($val === '' || $val === null) ? 'z' : 's',
-                    'value' => ($val === '' || $val === null) ? null : $val
+            $val = $_POST[$campo] ?? null;
+            $params[] = [
+                'type' => ($val === '' || $val === null) ? 'z' : 's',
+                'value' => ($val === '' || $val === null) ? null : $val
                 ];
           } else {
                 $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
@@ -412,15 +412,15 @@ function gra_dntsevymod(){
             list($zscore_part, $clasi_nutri_part) = explode(',', $zscore_val, 2);
         } else {
             $zscore_part = $zscore_val;
-            $clasi_nutri_part = $_POST['clasi_nutri'] ?? null;
+            // $clasi_nutri_part = $_POST['clasi_nutri'] ?? null;
         }
         $params = [];
         foreach ($campos as $campo) {
             if ($campo == 'zscore') {
             $params[] = ['type' => 's', 'value' => $zscore_part];
-        } elseif ($campo == 'clasi_nutri') {
+        } /* elseif ($campo == 'clasi_nutri') {
             $params[] = ['type' => 's', 'value' => $clasi_nutri_part];
-        } elseif ($campo == 'idpeople') {
+        }  */elseif ($campo == 'idpeople') {
                 $params[] = ['type' => 's', 'value' => $id[0]];
             } elseif ($campo == 'users_bina') {
                 $params[] = ['type' => 's', 'value' => $smbin];
