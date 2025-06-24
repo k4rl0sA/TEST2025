@@ -123,28 +123,28 @@ function gra_sespers(){
 	$id=divide($_POST['ids']);
 	$sql = "INSERT INTO persescol VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,?)";
 	$pueblo = ['type' => empty($_POST['pueblo']) ? 'z' : 's','value' => empty($_POST['pueblo']) ? null : $_POST['pueblo']];
-	$params =[
-	['type' => 'z', 'value' => NULL],//id_person
-	['type' => 'i', 'value' => $id[0]],//sesion
-	['type' => 'i', 'value' => $_POST['idpersona']],
-	['type' => 's', 'value' => $_POST['tipo_doc']],
-	['type' => 's', 'value' => $_POST['nombre1']],
-	['type' => 's', 'value' => $_POST['nombre2']],
-	['type' => 's', 'value' => $_POST['apellido1']],
-	['type' => 's', 'value' => $_POST['apellido2']],
-	['type' => 's', 'value' => $_POST['fecha_nacimiento']],
-	['type' => 's', 'value' => $_POST['sexo']],
-	['type' => 'i', 'value' => $_POST['genero']],
-	['type' => 'i', 'value' => $_POST['etnia']],
-	$pueblo,
-	['type' => 's', 'value' => $_POST['nacionalidad']],
-	['type' => 'i', 'value' => $_POST['regimen']],
-	['type' => 'i', 'value' => $_POST['eapb']],
-	['type' => 'i', 'value' => $_SESSION['us_sds']],
-	['type' => 'z', 'value' => NULL],
-	['type' => 'z', 'value' => NULL],
-	['type' => 's', 'value' => 'A']
-	];
+	 $params = [
+        ['type' => 'z', 'value' => NULL],
+        ['type' => 'i', 'value' => $id[0]],
+        ['type' => 'i', 'value' => $_POST['idpersona']],
+        ['type' => 's', 'value' => $_POST['tipo_doc']],
+        ['type' => 's', 'value' => $_POST['nombre1']],
+        ['type' => empty($_POST['nombre2']) ? 'z' : 's', 'value' => empty($_POST['nombre2']) ? null : $_POST['nombre2']],
+        ['type' => 's', 'value' => $_POST['apellido1']],
+        ['type' => empty($_POST['apellido2']) ? 'z' : 's', 'value' => empty($_POST['apellido2']) ? null : $_POST['apellido2']],
+        ['type' => 's', 'value' => $_POST['fecha_nacimiento']],
+        ['type' => 's', 'value' => $_POST['sexo']],
+        ['type' => 'i', 'value' => $_POST['genero']],
+        ['type' => 'i', 'value' => $_POST['etnia']],
+        ['type' => empty($_POST['pueblo']) ? 'z' : 's', 'value' => empty($_POST['pueblo']) ? null : $_POST['pueblo']],
+        ['type' => 's', 'value' => $_POST['nacionalidad']],
+        ['type' => 'i', 'value' => $_POST['regimen']],
+        ['type' => 'i', 'value' => $_POST['eapb']],
+        ['type' => 'i', 'value' => $_SESSION['us_sds']],
+        ['type' => 'z', 'value' => NULL],
+        ['type' => 'z', 'value' => NULL],
+        ['type' => 's', 'value' => 'A']
+    ];
 	return show_sql($sql, $params);
 	//return  $rta= mysql_prepd($sql, $params);
 }
