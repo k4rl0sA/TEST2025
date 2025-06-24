@@ -121,10 +121,9 @@ function gra_sespers(){
 
 	// var_dump($_POST);
 	$id=divide($_POST['ids']);
-	$sql = "INSERT INTO persescol VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,?)";
+	$sql = "INSERT INTO persescol VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,?)";
 	$pueblo = ['type' => empty($_POST['pueblo']) ? 'z' : 's','value' => empty($_POST['pueblo']) ? null : $_POST['pueblo']];
 	 $params = [
-        ['type' => 'z', 'value' => NULL],
         ['type' => 'i', 'value' => $id[0]],
         ['type' => 'i', 'value' => $_POST['idpersona']],
         ['type' => 's', 'value' => $_POST['tipo_doc']],
