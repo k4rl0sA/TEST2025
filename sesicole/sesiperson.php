@@ -124,7 +124,7 @@ function gra_sespers(){
 	$sql = "INSERT INTO persescol VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,?)";
 	$pueblo = ['type' => empty($_POST['pueblo']) ? 'z' : 's','value' => empty($_POST['pueblo']) ? null : $_POST['pueblo']];
 	$params =[
-	['type' => 'i', 'value' => NULL],//id_person
+	['type' => 'z', 'value' => NULL],//id_person
 	['type' => 'i', 'value' => $id[0]],//sesion
 	['type' => 'i', 'value' => $_POST['idpersona']],
 	['type' => 's', 'value' => $_POST['tipo_doc']],
