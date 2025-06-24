@@ -321,7 +321,7 @@ function gra_bpnterm(){
     'users_bina', 'equipo_bina', 'usu_creo', 'usu_update', 'fecha_update', 'estado'
   ];
   // Campos fecha que pueden ser nulos
-  $campos_fecha_null = ['fecha_cierre'];
+  $campos_fecha_null = ['fecha_cierre','zscore', 'fecha_update'];
 
   if(count($id)==4){
     // UPDATE
@@ -334,9 +334,24 @@ function gra_bpnterm(){
       'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'redu_riesgo_cierre',
       'users_bina', 'equipo_bina','usu_creo', 'usu_update', 'fecha_update', 'estado'
     ];
+
+     $zscore_val = $_POST['zscore'] ?? null;
+    $zscore_part = null;
+    $clasi_nutri_part = null;
+    if($zscore_val && strpos($zscore_val, ',') !== false) {
+      list($zscore_part, $clasi_nutri_part) = explode(',', $zscore_val, 2);
+    }else{
+      $zscore_part = $zscore_val;
+    } 
+
     $params = [];
     foreach ($set as $campo) {
-      if ($campo == 'users_bina') {
+      if ($campo == 'zscore') {
+           $params[] = [
+            'type' => ($zscore_part === '' || $zscore_part === null) ? 'z' : 's',
+            'value' => ($zscore_part === '' || $zscore_part === null) ? null : $zscore_part
+          ];
+      }elseif ($campo == 'users_bina') {
         $params[] = ['type' => 's', 'value' => $smbin];
       } elseif ($campo == 'equipo_bina') {
         $params[] = ['type' => 's', 'value' => $eq];
@@ -359,9 +374,22 @@ function gra_bpnterm(){
 
   } else if(count($id)==3){
     // INSERT
+    $zscore_val = $_POST['zscore'] ?? null;
+    $zscore_part = null;
+    $clasi_nutri_part = null;
+    if ($zscore_val && strpos($zscore_val, ',') !== false) {
+      list($zscore_part, $clasi_nutri_part) = explode(',', $zscore_val, 2);
+    } else {
+      $zscore_part = $zscore_val;
+    }
     $params = [];
     foreach ($campos as $campo) {
-      if ($campo == 'idpeople') {
+      if ($campo == 'zscore') {
+        $params[] = [
+         'type' => ($zscore_part === '' || $zscore_part === null) ? 'z' : 's',
+         'value' => ($zscore_part === '' || $zscore_part === null) ? null : $zscore_part
+        ];
+      }elseif ($campo == 'idpeople') {
         $params[] = ['type' => 's', 'value' => $id[0]];
       } elseif ($campo == 'users_bina') {
         $params[] = ['type' => 's', 'value' => $smbin];
