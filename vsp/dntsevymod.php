@@ -377,7 +377,7 @@ function gra_dntsevymod(){
         foreach ($set as $campo) {
           if ($campo == 'zscore') {
             $params[] = ['type' => 's', 'value' => $zscore_part];
-          }elseif (campo == 'users_bina') {
+          }elseif ($campo == 'users_bina') {
             $params[] = ['type' => 's', 'value' => $smbin];
           }elseif ($campo == 'equipo_bina') {
             $params[] = ['type' => 's', 'value' => $eq];
