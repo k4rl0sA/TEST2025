@@ -512,6 +512,7 @@ function gra_rute(){
 	['type' => empty($_POST['docu_confirm']) ? 'z' : 'i', 'value' => empty($_POST['docu_confirm']) ? null : $_POST['docu_confirm']],
 	['type' => empty($_POST['usuario_gest']) ? 'z' : 'i', 'value' => empty($_POST['usuario_gest']) ? null : $_POST['usuario_gest']],
 	['type' => empty($_POST['direccion_nueva_v']) ? 'z' : 'i', 'value' => empty($_POST['direccion_nueva_v']) ? null : $_POST['direccion_nueva_v']],
+	['type' => empty($_POST['sector_catastral_v']) ? 'z' : 'i', 'value' => empty($_POST['sector_catastral_v']) ? null : $_POST['sector_catastral_v']],
 	['type' => empty($_POST['nummanzana_v']) ? 'z' : 'i', 'value' => empty($_POST['nummanzana_v']) ? null : $_POST['nummanzana_v']],
 	['type' => empty($_POST['predio_num_v']) ? 'z' : 'i', 'value' => empty($_POST['predio_num_v']) ? null : $_POST['predio_num_v']],
 	['type' => 's', 'value' => $bina],
