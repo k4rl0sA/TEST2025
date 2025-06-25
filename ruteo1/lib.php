@@ -520,8 +520,8 @@ function gra_rute(){
 	['type' => 's', 'value' => NULL],
 	['type' => 's', 'value' => NULL]
 		];
-		$rta = mysql_prepd($sql, $params);
-	// $rta = show_sql($sql, $params);
+	//$rta = mysql_prepd($sql, $params);
+	$rta = show_sql($sql, $params);
 	// var_dump($_POST);
 if(!empty($_POST['fecha_gestion']) && !empty($_POST['usuario_gest'])){
 	$sql1 = "INSERT INTO geo_asig VALUES(NULL,?,?,?,?,NULL,NULL,'A')";
@@ -534,7 +534,7 @@ if(!empty($_POST['fecha_gestion']) && !empty($_POST['usuario_gest'])){
 	array('type' => 'i', 'value' => $_SESSION['us_sds']),
 	array('type' => 's', 'value' => date("Y-m-d H:i:s"))
 	);
-	$rta3=show_sql($sql1, $params1);
+	//$rta3=show_sql($sql1, $params1);
 	$rta1 = mysql_prepd($sql1, $params1);
 	if (strpos($rta1, "correctamente") !== false) {
 		$rta.= " Y Se ha asignado el predio";
