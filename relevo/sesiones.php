@@ -203,11 +203,10 @@ function gra_sesiones(){
 	  //echo $x;
 	//   echo $sql;
 	} else {
-		$sql = "INSERT INTO rel_sesion VALUES(?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,?,'2')";
+		$sql = "INSERT INTO rel_sesion VALUES(NULL,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,?,'2')";
 		$params = [
-		['type' => 'i', 'value' => NULL],
-		['type' => 's', 'value' => $idrel[0]],
-		['type' => 's', 'value' => $_POST['rel_validacion1']],
+		['type' => 'i', 'value' => $idrel[0]],
+		['type' => 'i', 'value' => $_POST['rel_validacion1']],
 		['type' => 's', 'value' => $_POST['rel_validacion2']],
 		['type' => 's', 'value' => $_POST['rel_validacion3']],
 		['type' => 's', 'value' => $_POST['rel_validacion4']],
