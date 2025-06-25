@@ -397,7 +397,7 @@ function gra_atencion(){
 		$metodo = isset($_POST['metodo']) ? trim($_POST['metodo']) : '';
 		$anticonceptivo = isset($_POST['anticonceptivo']) ? trim($_POST['anticonceptivo']) : '';
 		$planificacion = isset($_POST['planificacion']) ? trim($_POST['planificacion']) : '';
-		$mestruacion = isset($_POST['mestruacion']) ? trim($_POST['mestruacion']) : '';
+		$mestruacion = ['type' => empty($_POST['motivo_estado']) ? 'z' : 'i', 'value' => empty($_POST['motivo_estado']) ? null : $_POST['motivo_estado']];
 		$gestante = isset($_POST['gestante']) ? trim($_POST['gestante']) : '';
 
 		if (($smu2 = $_POST['rutasirc'] ?? null) && is_array($smu2)){$rutasirc = implode(",",str_replace("'", "", $smu2));}
