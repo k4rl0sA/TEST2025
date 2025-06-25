@@ -430,7 +430,7 @@ function gra_atencion(){
 		['type'=>'s', 'value'=>$metodo], // metodo
 		['type'=>'s', 'value'=>$anticonceptivo], // anticonceptivo
 		['type'=>'s', 'value'=>$planificacion], // planificacion
-		['type'=>'s', 'value'=>$mestruacion], // mestruacion
+		$mestruacion, // mestruacion
 		['type'=>'s', 'value'=>$_POST['vih']], // vih
 		['type'=>'s', 'value'=>$_POST['resul_vih']], // resul_vih
 		['type'=>'s', 'value'=>$_POST['hb']], // hb
