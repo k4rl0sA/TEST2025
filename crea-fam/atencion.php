@@ -459,7 +459,6 @@ function gra_atencion(){
 		['type'=>'s', 'value'=>$_POST['estrategia']], // estrategia
 		['type'=>'s', 'value'=>$_POST['tipo_estrategia']], // motivo_estrategia
 		['type'=>'s', 'value'=>$_SESSION['us_sds']], // usu_creo
-		['type'=>'s', 'value'=> DATE_SUB(NOW(), INTERVAL 5 HOUR)], // fecha_create
 		['type'=>'s', 'value'=>null], // usu_update
 		['type'=>'s', 'value'=>null], // fecha_update
 		['type'=>'s', 'value'=>'A'] // estado
