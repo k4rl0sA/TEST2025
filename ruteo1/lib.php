@@ -500,7 +500,7 @@ function gra_rute(){
 	$usu = $_SESSION['us_sds'];
 		// $equ=datos_mysql("select equipo from usuarios where id_usuario=".$_SESSION['us_sds']);
 	 $bina = isset($_POST['fequi'])?(is_array($_POST['fequi'])?implode("-", $_POST['fequi']):implode("-",array_map('trim',explode(",",str_replace("'","",$_POST['fequi']))))):'';
-		$sql = "INSERT INTO eac_ruteo_ges VALUES(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,'A')";
+		$sql = "INSERT INTO eac_ruteo_ges VALUES(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),NULL,NULL,'A')";
 		$params = [
 	['type' => 'i', 'value' => $id[0]],
 	['type' => 's', 'value' => $_POST['fecha_llamada'] ?? ''],
@@ -515,9 +515,7 @@ function gra_rute(){
 	['type' => empty($_POST['nummanzana_v']) ? 'z' : 'i', 'value' => empty($_POST['nummanzana_v']) ? null : $_POST['nummanzana_v']],
 	['type' => empty($_POST['predio_num_v']) ? 'z' : 'i', 'value' => empty($_POST['predio_num_v']) ? null : $_POST['predio_num_v']],
 	['type' => 's', 'value' => $bina],
-	['type' => 's', 'value' => $usu],
-	['type' => 's', 'value' => NULL],
-	['type' => 's', 'value' => NULL]
+	['type' => 's', 'value' => $usu]
 		];
 	//$rta = mysql_prepd($sql, $params);
 	$rta = show_sql($sql, $params);
