@@ -404,7 +404,7 @@ function gra_atencion(){
 		if (($smu1 = $_POST['continuidad'] ?? null) && is_array($smu1)){$contin = implode(",",str_replace("'", "", $smu1));}
 		if (($smu3 = $_POST['cualremision'] ?? null) && is_array($smu3)){$remisi = implode(",",str_replace("'", "", $smu3));}
 
-	  $sql = "INSERT INTO eac_atencion VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR),?, ?,?)";
+	  $sql = "INSERT INTO eac_atencion VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')";
 	  $params=[
 		// id_aten
 		['type'=>'i', 'value'=>$id[0]], // idpeople
@@ -458,10 +458,7 @@ function gra_atencion(){
 		['type'=>'s', 'value'=>$_POST['relevo']], // relevo
 		['type'=>'s', 'value'=>$_POST['estrategia']], // estrategia
 		['type'=>'s', 'value'=>$_POST['tipo_estrategia']], // motivo_estrategia
-		['type'=>'s', 'value'=>$_SESSION['us_sds']], // usu_creo
-		['type'=>'s', 'value'=>null], // usu_update
-		['type'=>'s', 'value'=>null], // fecha_update
-		['type'=>'s', 'value'=>'A'] // estado
+		['type'=>'s', 'value'=>$_SESSION['us_sds']] // usu_creo
 	];
 	return $rta=mysql_prepd($sql, $params);
 	}elseif(count($id)==0){
