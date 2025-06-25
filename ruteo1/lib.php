@@ -34,10 +34,10 @@ function lis_rute(){
     $pag = (isset($_POST['pag-rute'])) ? ($_POST['pag-rute'] - 1) * $regxPag : 0;
 
     $sql = "SELECT er.id_ruteo AS ACCIONES, er.idgeo AS Cod_Predio, 
-                FN_CATALOGODESC(235, tipo_prior) AS Grupo_Poblacion_Priorizada, 
+                FN_CTLG(235, tipo_prior) AS Grupo_Poblacion_Priorizada, 
                 er.documento AS Documento_Usuario, er.nombres AS Nombre_Usuario, 
-                FN_CATALOGODESC(218, er.perfil1) AS Interviene, 
-                FN_CATALOGODESC(269, er.actividad1) AS Realizar, 
+                FN_CTLG(218, er.perfil1) AS Interviene, 
+                FN_CTLG(269, er.actividad1) AS Realizar, 
                 er.estado
             FROM eac_ruteo er  
             LEFT JOIN hog_geo G ON er.idgeo = G.idgeo 
@@ -508,7 +508,7 @@ function gra_rute(){
 	['type' => 's', 'value' => $_POST['observacion']?? ''],
 	['type' => 'i', 'value' => $_POST['estado_agenda']?? ''],
 	['type' => 'i', 'value' => $_POST['motivo_estado']?? ''],
-	['type' => 's', 'value' => $_POST['fecha_gestion']?? ''],
+	['type' => empty($_POST['fecha_gestion']) ? 'z' : 'i', 'value' => empty($_POST['fecha_gestion']) ? null : $_POST['fecha_gestion']],
 	['type' => 'i', 'value' => $_POST['docu_confirm']?? ''],
 	['type' => 's', 'value' => $_POST['usuario_gest']?? ''],
 	['type' => 's', 'value' => $_POST['direccion_nueva_v']?? ''],
