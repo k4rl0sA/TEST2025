@@ -542,7 +542,7 @@ if(!empty($_POST['fecha_gestion']) && !empty($_POST['usuario_gest'])){
 		$rta.= " Y El predio ya se encontraba asignado";
 	}
 }
-	return $rta3;
+	return $rta;
 }
 
 function agend($id) {
