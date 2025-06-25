@@ -529,8 +529,8 @@ if(!empty($_POST['fecha_gestion']) && !empty($_POST['usuario_gest'])){
 	$info=datos_mysql($sql);
 	$id=$info['responseResult'][0]['id'];
 	$params1 = array(
-	array('type' => 's', 'value' =>$id ),
-	array('type' => 's', 'value' => $_POST['usuario_gest']),
+	array('type' => 'i', 'value' =>$id ),
+	array('type' => 'i', 'value' => $_POST['usuario_gest']),
 	array('type' => 'i', 'value' => $_SESSION['us_sds']),
 	array('type' => 's', 'value' => date("Y-m-d H:i:s"))
 	);
