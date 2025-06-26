@@ -404,6 +404,8 @@ function gra_atencion(){
 		if (($smu1 = $_POST['continuidad'] ?? null) && is_array($smu1)){$contin = implode(",", array_map('trim', $smu1));}
 		if (($smu3 = $_POST['cualremision'] ?? null) && is_array($smu3)){$remisi = implode(",", array_map('trim', $smu3));}
 
+		var_dump($rutasirc,$contin,$remisi);
+
 	  $sql = "INSERT INTO eac_atencion VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
 	  									     	  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
 												  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
