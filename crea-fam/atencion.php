@@ -53,7 +53,7 @@ function cmp_atencion(){
 	$o='consulta';
 	$c[]=new cmp($o,'e',null,'Datos de la atencion medica	',$w);
 	$c[]=new cmp('idf','h',15,'',$w.' '.$o,'idf','idf',null,'####',false,false,'','col-1');
-	$c[]=new cmp('fechaatencion','d',20,$x,$w.' '.$o,'Fecha de la consulta','fechaatencion',null,'',true,false,'','col-2');
+	$c[]=new cmp('fecha_atencion','d',20,$x,$w.' '.$o,'Fecha de la consulta','fechaatencion',null,'',true,false,'','col-2');
 	$c[]=new cmp('tipo_consulta','s',3,$x,$w.' '.$o,'Tipo de Consulta','tipo_consulta',null,'',true,false,'','col-2');
 	$c[]=new cmp('codigocups','s',3,$x,$w.' '.$o,'Código CUPS','cups',null,'',true,false,'','col-3');
 	$c[]=new cmp('finalidadconsulta','s',3,$x,$w.' '.$o,'Finalidad de la Consulta','consultamedica',null,'',true,false,'','col-3');
@@ -474,7 +474,7 @@ function opc_estrategia($id=''){
 
 function gra_atencion() {
     $campos = [
-        'idpeople', 'id_factura', 'fechaatencion', 'tipo_consulta', 'codigocups', 'finalidadconsulta',
+        'idpeople', 'id_factura', 'fecha_atencion', 'tipo_consulta', 'codigocups', 'finalidadconsulta',
         'letra1', 'rango1', 'diagnostico1', 'letra2', 'rango2', 'diagnostico2', 'letra3', 'rango3', 'diagnostico3',
         'fertil', 'preconcepcional', 'metodo', 'anticonceptivo', 'planificacion', 'mestruacion', 'gestante',
         'vih', 'resul_vih', 'hb', 'resul_hb', 'trepo_sifil', 'resul_sifil', 'pru_embarazo', 'resul_emba',
@@ -531,13 +531,13 @@ function gra_atencion() {
     $params[] = ['type' => 's', 'value' => 'A']; // estado
 
     $placeholders = implode(', ', array_fill(0, count($params), '?'));
-	
+
     $sql = "INSERT INTO eac_atencion (
         id_aten, " . implode(', ', $campos) . ", fecha_create, usu_creo, fecha_update, usu_update, estado
     ) VALUES (
         NULL, $placeholders
     )";
-    return mysql_prepd($sql, $params);
+    return show_mysql($sql, $params);
 }
 
 function cap_menus($a,$b='cap',$con='con') {
