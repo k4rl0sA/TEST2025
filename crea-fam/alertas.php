@@ -274,7 +274,7 @@ function gra_alertas() {
     ) VALUES (
         NULL, $placeholders
     )";
-    $rta = show_sql($sql, $params);
+    $rta = mysql_prepd($sql, $params);
     return $rta;
 } 
 
