@@ -243,31 +243,31 @@ function gra_alertas() {
     ];
   // Resto de campos
     foreach ($campos as $i => $campo) {
-    if ($campo == 'idpeople') continue; // ya agregado
-    if (in_array($campo, ['fecha_create'])) {
-        $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')];
-    } elseif ($campo == 'usu_creo') {
-        $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
-    } elseif ($campo == 'fecha_update' || $campo == 'usu_update') {
-        $params[] = ['type' => 'z', 'value' => null];
-    } elseif ($campo == 'estado') {
-        $params[] = ['type' => 's', 'value' => 'A'];
-    } elseif (in_array($campo, $campos_fecha_null)) {
-        $valor = $_POST[$campo] ?? null;
-        $params[] = [
-            'type' => ($valor === '' || $valor === null) ? 'z' : 's',
-            'value' => ($valor === '' || $valor === null) ? null : $valor
-        ];
-    } elseif (strpos($campo, 'selmul') === 0) {
-        // Usar el string de IDs de los select múltiples
-        $fsel = 'f' . $campo;
-        $valor = isset($_POST[$fsel]) ? str_replace([",", "'", '"'], ['-', '', ''], $_POST[$fsel]) : null;
-        $params[] = ['type' => 's', 'value' => $valor];
-    } else {
-        $valor = $_POST[$campo] ?? null;
-        $params[] = ['type' => 's', 'value' => $valor];
-    }
-}
+    	if ($campo == 'idpeople') continue; // ya agregado
+    	if (in_array($campo, ['fecha_create'])) {
+    	    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')];
+    	} elseif ($campo == 'usu_creo') {
+    	    $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
+    	} elseif ($campo == 'fecha_update' || $campo == 'usu_update') {
+    	    $params[] = ['type' => 'z', 'value' => null];
+    	} elseif ($campo == 'estado') {
+    	    $params[] = ['type' => 's', 'value' => 'A'];
+    	} elseif (in_array($campo, $campos_fecha_null)) {
+    	    $valor = $_POST[$campo] ?? null;
+    	    $params[] = [
+    	        'type' => ($valor === '' || $valor === null) ? 'z' : 's',
+    	        'value' => ($valor === '' || $valor === null) ? null : $valor
+    	    ];
+    	} elseif (strpos($campo, 'selmul') === 0) {
+    	    // Usar el string de IDs de los select múltiples
+    	    $fsel = 'f' . $campo;
+    	    $valor = isset($_POST[$fsel]) ? str_replace([",", "'", '"'], ['-', '', ''], $_POST[$fsel]) : null;
+    	    $params[] = ['type' => 's', 'value' => $valor];
+    	} else {
+    	    $valor = $_POST[$campo] ?? null;
+    	    $params[] = ['type' => 's', 'value' => $valor];
+    	}
+	}
     $placeholders = implode(', ', array_fill(0, count($params), '?'));
     $sql = "INSERT INTO hog_alert (
         id_alert, " . implode(', ', $campos) . "
