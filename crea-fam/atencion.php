@@ -484,9 +484,9 @@ function gra_atencion() {
     ];
 
 	$id = divide($_POST['ida']);
-    if (count($id) != 1 || empty($id[0])) return "Error: idpeople es obligatorio y no puede ser nulo.";
+        if (count($id) != 1) return "No es posible actualizar consulte con el administrador";
 
-	 $obligatorios = ['idpeople', 'idf', 'fechaatencion', 'tipo_consulta', 'codigocups', 'finalidadconsulta', 'letra1', 'rango1', 'diagnostico1', 'fertil', 'preconcepcional', 'metodo', 'anticonceptivo', 'planificacion', 'mestruacion', 'vih', 'resul_vih', 'hb', 'resul_hb', 'trepo_sifil', 'resul_sifil', 'pru_embarazo', 'resul_emba', 'estrategia'];
+	 $obligatorios = ['idpeople', 'idf', 'fechaatencion', 'tipo_consulta', 'codigocups', 'finalidadconsulta', 'letra1', 'rango1', 'diagnostico1','preconcepcional', 'metodo', 'anticonceptivo', 'planificacion', 'mestruacion', 'vih', 'resul_vih', 'hb', 'resul_hb', 'trepo_sifil', 'resul_sifil', 'pru_embarazo', 'resul_emba', 'estrategia'];
     foreach ($obligatorios as $campo) {
         $valor = ($campo == 'idpeople') ? $id[0] : ($_POST[$campo] ?? null);
         if ($valor === null || $valor === '') {
