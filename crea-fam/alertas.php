@@ -183,7 +183,7 @@ function men_alertas(){
 	} 
 
 
-function gra_alertas(){
+/* function gra_alertas(){
 		
 	$sm1 = isset($_POST['fselmul1']) ? str_replace(["'", '"'], '', $_POST['fselmul1']) : '';
     $sm2 = isset($_POST['fselmul2']) ? str_replace(["'", '"'], '', $_POST['fselmul2']) : '';
@@ -223,10 +223,10 @@ function gra_alertas(){
     // Ejecutar la consulta
     $rta = dato_mysql($sql);
     return $rta;
-}
+} */
 
 
-/* function gra_alertas() {
+function gra_alertas() {
      $campos = [
         'idpeople', 'cursovida', 'fecha', 'tipo', 'crit_epi', 'men_dnt', 'men_sinctrl', 'gestante', 'etapgest', 'ges_sinctrl',
         'cronico', 'cro_hiper', 'cro_diabe', 'cro_epoc', 'cro_sinctrl', 'esq_vacun',
@@ -243,31 +243,31 @@ function gra_alertas(){
     ];
   // Resto de campos
     foreach ($campos as $i => $campo) {
-        if ($campo == 'idpeople') continue; // ya agregado
-        if (in_array($campo, ['fecha_create'])) {
-            $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')];
-        } elseif ($campo == 'usu_creo') {
-            $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
-        } elseif ($campo == 'fecha_update' || $campo == 'usu_update') {
-            $params[] = ['type' => 'z', 'value' => null];
-        } elseif ($campo == 'estado') {
-            $params[] = ['type' => 's', 'value' => 'A'];
-        } elseif (in_array($campo, $campos_fecha_null)) {
-            $valor = $_POST[$campo] ?? null;
-            $params[] = [
-                'type' => ($valor === '' || $valor === null) ? 'z' : 's',
-                'value' => ($valor === '' || $valor === null) ? null : $valor
-            ];
-        } else {
-            // Para los selmul, limpiar comillas
-            if (strpos($campo, 'selmul') === 0) {
-                $valor = isset($_POST[$campo]) ? str_replace(["'", '"'], '', $_POST[$campo]) : null;
-            } else {
-                $valor = $_POST[$campo] ?? null;
-            }
-            $params[] = ['type' => 's', 'value' => $valor];
-        }
+    if ($campo == 'idpeople') continue; // ya agregado
+    if (in_array($campo, ['fecha_create'])) {
+        $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')];
+    } elseif ($campo == 'usu_creo') {
+        $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
+    } elseif ($campo == 'fecha_update' || $campo == 'usu_update') {
+        $params[] = ['type' => 'z', 'value' => null];
+    } elseif ($campo == 'estado') {
+        $params[] = ['type' => 's', 'value' => 'A'];
+    } elseif (in_array($campo, $campos_fecha_null)) {
+        $valor = $_POST[$campo] ?? null;
+        $params[] = [
+            'type' => ($valor === '' || $valor === null) ? 'z' : 's',
+            'value' => ($valor === '' || $valor === null) ? null : $valor
+        ];
+    } elseif (strpos($campo, 'selmul') === 0) {
+        // Usar el string de IDs de los select múltiples
+        $fsel = 'f' . $campo;
+        $valor = isset($_POST[$fsel]) ? str_replace(["'", '"'], '', $_POST[$fsel]) : null;
+        $params[] = ['type' => 's', 'value' => $valor];
+    } else {
+        $valor = $_POST[$campo] ?? null;
+        $params[] = ['type' => 's', 'value' => $valor];
     }
+}
 
     $placeholders = implode(', ', array_fill(0, count($params), '?'));
     $sql = "INSERT INTO hog_alert (
@@ -277,7 +277,7 @@ function gra_alertas(){
     )";
     $rta = mysql_prepd($sql, $params);
     return $rta;
-} */
+} 
 
 
 function opc_evento($id=''){
