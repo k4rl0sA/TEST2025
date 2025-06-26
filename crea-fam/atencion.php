@@ -400,9 +400,9 @@ function gra_atencion(){
 		$mestruacion = ['type' => empty($_POST['motivo_estado']) ? 'z' : 'i', 'value' => empty($_POST['motivo_estado']) ? null : $_POST['motivo_estado']];
 		$gestante = isset($_POST['gestante']) ? trim($_POST['gestante']) : '';
 
-		if (($smu2 = $_POST['rutasirc'] ?? null) && is_array($smu2)){$rutasirc = implode(",",str_replace("'", "", $smu2));}
-		if (($smu1 = $_POST['continuidad'] ?? null) && is_array($smu1)){$contin = implode(",",str_replace("'", "", $smu1));}
-		if (($smu3 = $_POST['cualremision'] ?? null) && is_array($smu3)){$remisi = implode(",",str_replace("'", "", $smu3));}
+		if (($smu2 = $_POST['rutasirc'] ?? null) && is_array($smu2)){$rutasirc = implode(",", array_map('trim', $smu2));}
+		if (($smu1 = $_POST['continuidad'] ?? null) && is_array($smu1)){$contin = implode(",", array_map('trim', $smu1));}
+		if (($smu3 = $_POST['cualremision'] ?? null) && is_array($smu3)){$remisi = implode(",", array_map('trim', $smu3));}
 
 	  $sql = "INSERT INTO eac_atencion VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
 	  									     	  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
