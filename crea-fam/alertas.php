@@ -183,7 +183,7 @@ function men_alertas(){
 	} 
 
 
-/* function gra_alertas(){
+function gra_alertas(){
 		
 	$sm1 = isset($_POST['fselmul1']) ? str_replace(["'", '"'], '', $_POST['fselmul1']) : '';
     $sm2 = isset($_POST['fselmul2']) ? str_replace(["'", '"'], '', $_POST['fselmul2']) : '';
@@ -224,8 +224,9 @@ function men_alertas(){
     $rta = dato_mysql($sql);
     return $rta;
 }
- */
-function gra_alertas() {
+
+
+/* function gra_alertas() {
      $campos = [
         'idpeople', 'cursovida', 'fecha', 'tipo', 'crit_epi', 'men_dnt', 'men_sinctrl', 'gestante', 'etapgest', 'ges_sinctrl',
         'cronico', 'cro_hiper', 'cro_diabe', 'cro_epoc', 'cro_sinctrl', 'esq_vacun',
@@ -276,7 +277,7 @@ function gra_alertas() {
     )";
     $rta = mysql_prepd($sql, $params);
     return $rta;
-}
+} */
 
 
 function opc_evento($id=''){
