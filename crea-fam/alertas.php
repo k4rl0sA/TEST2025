@@ -261,14 +261,13 @@ function gra_alertas() {
     } elseif (strpos($campo, 'selmul') === 0) {
         // Usar el string de IDs de los select múltiples
         $fsel = 'f' . $campo;
-        $valor = isset($_POST[$fsel]) ? str_replace(["'", '"'], '', $_POST[$fsel]) : null;
+        $valor = isset($_POST[$fsel]) ? str_replace(["'"-'"'], '', $_POST[$fsel]) : null;
         $params[] = ['type' => 's', 'value' => $valor];
     } else {
         $valor = $_POST[$campo] ?? null;
         $params[] = ['type' => 's', 'value' => $valor];
     }
 }
-
     $placeholders = implode(', ', array_fill(0, count($params), '?'));
     $sql = "INSERT INTO hog_alert (
         id_alert, " . implode(', ', $campos) . "
