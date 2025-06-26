@@ -537,7 +537,7 @@ function gra_atencion() {
     ) VALUES (
         NULL, $placeholders
     )";
-    return show_mysql($sql, $params);
+    return mysql_prepd($sql, $params);
 }
 
 function cap_menus($a,$b='cap',$con='con') {
