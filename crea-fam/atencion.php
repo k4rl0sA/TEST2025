@@ -483,8 +483,16 @@ function gra_atencion() {
         'cualremision'  => isset($_POST['cualremision']) && is_array($_POST['cualremision']) ? implode(',', array_map('trim', $_POST['cualremision'])) : ''
     ];
 
-    $id = divide($_POST['ida']);
-    if (count($id) != 1) return "No es posible actualizar consulte con el administrador";
+	$id = divide($_POST['ida']);
+    if (count($id) != 1 || empty($id[0])) return "Error: idpeople es obligatorio y no puede ser nulo.";
+
+	 $obligatorios = ['idpeople', 'idf', 'fechaatencion', 'tipo_consulta', 'codigocups', 'finalidadconsulta', 'letra1', 'rango1', 'diagnostico1', 'fertil', 'preconcepcional', 'metodo', 'anticonceptivo', 'planificacion', 'mestruacion', 'vih', 'resul_vih', 'hb', 'resul_hb', 'trepo_sifil', 'resul_sifil', 'pru_embarazo', 'resul_emba', 'estrategia'];
+    foreach ($obligatorios as $campo) {
+        $valor = ($campo == 'idpeople') ? $id[0] : ($_POST[$campo] ?? null);
+        if ($valor === null || $valor === '') {
+            return "Error: El campo '$campo' es obligatorio y no puede ser nulo o vacío.";
+        }
+    }
 
     $params = [];
     $cols = [];
