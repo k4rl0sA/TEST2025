@@ -463,7 +463,8 @@ function gra_atencion(){
 		['type'=>'s', 'value'=>$_POST['tipo_estrategia']], // motivo_estrategia
 		['type'=>'s', 'value'=>$_SESSION['us_sds']] // usu_creo
 	];
-	return $rta=mysql_prepd($sql, $params);
+	return show_sql($sql,$params);
+	// return $rta=mysql_prepd($sql, $params);
 	}elseif(count($id)==0){
 		return "No es posible actualizar consulte con el administrador";
 	}
