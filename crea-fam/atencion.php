@@ -387,7 +387,7 @@ function opc_estrategia($id=''){
 	return opc_sql("SELECT idcatadeta,descripcion,valor FROM `catadeta` WHERE idcatalogo=203 and estado='A'  ORDER BY 1 ",$id);
 }
 /****************FIN DESPLEGABLES*****************+*****/
-function gra_atencion(){
+/* function gra_atencion(){
 	// var_dump($_POST);
 		$id=divide($_POST['ida']);
 	// print_r($_POST['ida']);
@@ -470,6 +470,74 @@ function gra_atencion(){
 	}elseif(count($id)==0){
 		return "No es posible actualizar consulte con el administrador";
 	}
+} */
+
+function gra_atencion() {
+    $campos = [
+        'idpeople', 'id_factura', 'fechaatencion', 'tipo_consulta', 'codigocups', 'finalidadconsulta',
+        'letra1', 'rango1', 'diagnostico1', 'letra2', 'rango2', 'diagnostico2', 'letra3', 'rango3', 'diagnostico3',
+        'fertil', 'preconcepcional', 'metodo', 'anticonceptivo', 'planificacion', 'mestruacion', 'gestante',
+        'vih', 'resul_vih', 'hb', 'resul_hb', 'trepo_sifil', 'resul_sifil', 'pru_embarazo', 'resul_emba',
+        'pru_apetito', 'resul_apetito', 'eventointeres', 'evento', 'cualevento', 'sirc', 'rutasirc', 'remision',
+        'cualremision', 'ordenvacunacion', 'vacunacion', 'ordenlaboratorio', 'laboratorios', 'ordenmedicamentos',
+        'medicamentos', 'rutacontinuidad', 'continuidad', 'ordenimagenes', 'ordenpsicologia', 'relevo',
+        'estrategia', 'tipo_estrategia'
+    ];
+    $campos_fecha_null = []; 
+
+    $id = divide($_POST['ida']);
+    if (count($id) != 1) return "No es posible actualizar consulte con el administrador";
+
+    // Procesar campos múltiples para guardar solo los IDs seleccionados
+    $multi = [
+        'continuidad'   => isset($_POST['continuidad']) && is_array($_POST['continuidad']) ? implode(',', array_map('trim', $_POST['continuidad'])) : '',
+        'rutasirc'      => isset($_POST['rutasirc']) && is_array($_POST['rutasirc']) ? implode(',', array_map('trim', $_POST['rutasirc'])) : '',
+        'cualremision'  => isset($_POST['cualremision']) && is_array($_POST['cualremision']) ? implode(',', array_map('trim', $_POST['cualremision'])) : ''
+    ];
+
+    $params = [
+        ['type' => 'i', 'value' => $id[0]]
+    ];
+
+    foreach ($campos as $campo) {
+        if ($campo == 'idpeople') continue; // ya agregado
+        elseif ($campo == 'fecha_create') {
+            $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')];
+        } elseif ($campo == 'usu_creo') {
+            $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
+        } elseif ($campo == 'fecha_update' || $campo == 'usu_update') {
+            $params[] = ['type' => 'z', 'value' => null];
+        } elseif ($campo == 'estado') {
+            $params[] = ['type' => 's', 'value' => 'A'];
+        } elseif (in_array($campo, $campos_fecha_null)) {
+            $valor = $_POST[$campo] ?? null;
+            $params[] = [
+                'type' => ($valor === '' || $valor === null) ? 'z' : 's',
+                'value' => ($valor === '' || $valor === null) ? null : $valor
+            ];
+        } elseif (array_key_exists($campo, $multi)) {
+            $params[] = ['type' => 's', 'value' => $multi[$campo]];
+        } else {
+            $valor = $_POST[$campo] ?? null;
+            $params[] = ['type' => 's', 'value' => $valor];
+        }
+    }
+
+    // Campos finales: fecha_create, usu_creo, fecha_update, usu_update, estado
+    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')]; // fecha_create
+    $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_creo
+    $params[] = ['type' => 'z', 'value' => null]; // fecha_update
+    $params[] = ['type' => 'z', 'value' => null]; // usu_update
+    $params[] = ['type' => 's', 'value' => 'A']; // estado
+
+    $placeholders = implode(', ', array_fill(0, count($params), '?'));
+	
+    $sql = "INSERT INTO eac_atencion (
+        id_aten, " . implode(', ', $campos) . ", fecha_create, usu_creo, fecha_update, usu_update, estado
+    ) VALUES (
+        NULL, $placeholders
+    )";
+    return mysql_prepd($sql, $params);
 }
 
 function cap_menus($a,$b='cap',$con='con') {
