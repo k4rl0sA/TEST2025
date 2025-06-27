@@ -602,8 +602,8 @@ function gra_atencion() {
     ) VALUES (
         $placeholders
     )";
-	$rta=show_sql($sql, $params);
-    // $rta = mysql_prepd($sql, $params);
+	//$rta=show_sql($sql, $params);
+     $rta = mysql_prepd($sql, $params);
     return $rta;
 }
 
