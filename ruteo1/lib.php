@@ -501,22 +501,22 @@ function gra_rute(){
 		// $equ=datos_mysql("select equipo from usuarios where id_usuario=".$_SESSION['us_sds']);
 	 $bina = isset($_POST['fequi'])?(is_array($_POST['fequi'])?implode("-", $_POST['fequi']):implode("-",array_map('trim',explode(",",str_replace("'","",$_POST['fequi']))))):'';
 		$sql = "INSERT INTO eac_ruteo_ges VALUES(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),NULL,NULL,'A')";
-		$params = [
-	['type' => 'i', 'value' => $id[0]],
-	['type' => 's', 'value' => $_POST['fecha_llamada'] ?? ''],
-	['type' => 'i', 'value' => $_POST['estado_llamada']?? ''],
-	['type' => 's', 'value' => $_POST['observacion']?? ''],
-	['type' => 'i', 'value' => $_POST['estado_agenda']?? ''],
-	['type' => empty($_POST['motivo_estado']) ? 'z' : 'i', 'value' => empty($_POST['motivo_estado']) ? null : $_POST['motivo_estado']],
-	['type' => empty($_POST['fecha_gestion']) ? 'z' : 'i', 'value' => empty($_POST['fecha_gestion']) ? null : $_POST['fecha_gestion']],
-	['type' => empty($_POST['docu_confirm']) ? 'z' : 'i', 'value' => empty($_POST['docu_confirm']) ? null : $_POST['docu_confirm']],
-	['type' => empty($_POST['usuario_gest']) ? 'z' : 'i', 'value' => empty($_POST['usuario_gest']) ? null : $_POST['usuario_gest']],
-	['type' => empty($_POST['direccion_nueva_v']) ? 'z' : 'i', 'value' => empty($_POST['direccion_nueva_v']) ? null : $_POST['direccion_nueva_v']],
-	['type' => empty($_POST['sector_catastral_v']) ? 'z' : 'i', 'value' => empty($_POST['sector_catastral_v']) ? null : $_POST['sector_catastral_v']],
-	['type' => empty($_POST['nummanzana_v']) ? 'z' : 'i', 'value' => empty($_POST['nummanzana_v']) ? null : $_POST['nummanzana_v']],
-	['type' => empty($_POST['predio_num_v']) ? 'z' : 'i', 'value' => empty($_POST['predio_num_v']) ? null : $_POST['predio_num_v']],
-	['type' => 's', 'value' => $bina],
-	['type' => 's', 'value' => $usu]
+	$params = [
+		['type' => 'i', 'value' => $id[0]],
+		['type' => 's', 'value' => $_POST['fecha_llamada'] ?? ''],
+		['type' => 'i', 'value' => $_POST['estado_llamada']?? ''],
+		['type' => 's', 'value' => $_POST['observacion']?? ''],
+		['type' => 'i', 'value' => $_POST['estado_agenda']?? ''],
+		['type' => empty($_POST['motivo_estado']) ? 'z' : 'i', 'value' => empty($_POST['motivo_estado']) ? null : $_POST['motivo_estado']],
+		['type' => empty($_POST['fecha_gestion']) ? 'z' : 'i', 'value' => empty($_POST['fecha_gestion']) ? null : $_POST['fecha_gestion']],
+		['type' => empty($_POST['docu_confirm']) ? 'z' : 'i', 'value' => empty($_POST['docu_confirm']) ? null : $_POST['docu_confirm']],
+		['type' => empty($_POST['usuario_gest']) ? 'z' : 'i', 'value' => empty($_POST['usuario_gest']) ? null : $_POST['usuario_gest']],
+		['type' => empty($_POST['direccion_nueva_v']) ? 'z' : 'i', 'value' => empty($_POST['direccion_nueva_v']) ? null : $_POST['direccion_nueva_v']],
+		['type' => empty($_POST['sector_catastral_v']) ? 'z' : 'i', 'value' => empty($_POST['sector_catastral_v']) ? null : $_POST['sector_catastral_v']],
+		['type' => empty($_POST['nummanzana_v']) ? 'z' : 'i', 'value' => empty($_POST['nummanzana_v']) ? null : $_POST['nummanzana_v']],
+		['type' => empty($_POST['predio_num_v']) ? 'z' : 'i', 'value' => empty($_POST['predio_num_v']) ? null : $_POST['predio_num_v']],
+		['type' => 's', 'value' => $bina],
+		['type' => 's', 'value' => $usu]
 		];
 	$rta = mysql_prepd($sql, $params);
 	//$rta = show_sql($sql, $params);
