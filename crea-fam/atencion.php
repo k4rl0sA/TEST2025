@@ -542,13 +542,13 @@ function gra_atencion() {
 	 // Campos de tipo fecha que pueden ser nulos
     $campos_fecha_null = ['mestruacion'];
 
-	var_dump($rutasirc, $contin, $remisi);
+	var_dump($frutasirc, $fcualremision, $fcontinuidad);
 
     // Procesar campos múltiples para guardar solo los IDs seleccionados separados por guion
     $multi = [
-        'continuidad'   => isset($_POST['continuidad']) && is_array($_POST['continuidad']) ? implode('-', array_map('trim', $_POST['continuidad'])) : '',
-        'rutasirc'      => isset($_POST['rutasirc']) && is_array($_POST['rutasirc']) ? implode('-', array_map('trim', $_POST['rutasirc'])) : '',
-        'cualremision'  => isset($_POST['cualremision']) && is_array($_POST['cualremision']) ? implode('-', array_map('trim', $_POST['cualremision'])) : ''
+        'continuidad'   => isset($_POST['fcontinuidad']) && is_array($_POST['fcontinuidad']) ? implode('-', array_map('trim', $_POST['fcontinuidad'])) : '',
+        'rutasirc'      => isset($_POST['frutasirc']) && is_array($_POST['frutasirc']) ? implode('-', array_map('trim', $_POST['frutasirc'])) : '',
+        'cualremision'  => isset($_POST['fcualremision']) && is_array($_POST['fcualremision']) ? implode('-', array_map('trim', $_POST['fcualremision'])) : ''
     ];
 
     $id = divide($_POST['ida']);
