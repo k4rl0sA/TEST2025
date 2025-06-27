@@ -546,9 +546,9 @@ function gra_atencion() {
 
     // Procesar campos múltiples para guardar solo los IDs seleccionados separados por guion
     $multi = [
-        'continuidad'   => isset($_POST['fcontinuidad']) && is_array($_POST['fcontinuidad']) ? implode('-', array_map('trim', $_POST['fcontinuidad'])) : '',
-        'rutasirc'      => isset($_POST['frutasirc']) && is_array($_POST['frutasirc']) ? implode('-', array_map('trim', $_POST['frutasirc'])) : '',
-        'cualremision'  => isset($_POST['fcualremision']) && is_array($_POST['fcualremision']) ? implode('-', array_map('trim', $_POST['fcualremision'])) : ''
+        'continuidad' => isset($_POST['fcontinuidad']) && is_array($_POST['fcontinuidad']) ? implode('-', array_map('trim', $_POST['fcontinuidad'])) : '',
+        'rutasirc' => isset($_POST['frutasirc']) && is_array($_POST['frutasirc']) ? implode('-', array_map('trim', $_POST['frutasirc'])) : '',
+        'cualremision' => isset($_POST['fcualremision']) && is_array($_POST['fcualremision']) ? implode('-', array_map('trim', $_POST['fcualremision'])) : ''
     ];
 
     $id = divide($_POST['ida']);
