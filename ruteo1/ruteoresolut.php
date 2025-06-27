@@ -144,7 +144,7 @@ function gra_ruteresol(){
 $sql = "UPDATE `eac_ruteo` SET estado_ruteo = ?,estado_rut = ?,famili = ?,usuario = ?,fecha = ?,usuario = ?,`usu_update` = ?,`fecha_update` = DATE_SUB(NOW(), INTERVAL 5 HOUR)
 	WHERE id_ruteo = ?";
 $params = [
-	['type' => 's', 'value' => $_POST['est']],
+	['type' => empty($_POST['est']) ? 'z' : 's','value' => empty($_POST['est']) ? null : $_POST['est']],
 	['type' => 's', 'value' => $_POST['estado']],
 	['type' => 's', 'value' => $_POST['famili']],
 	['type' => 's', 'value' => $_POST['usuario']],
