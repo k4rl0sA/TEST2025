@@ -518,8 +518,8 @@ function gra_rute(){
 		['type' => 's', 'value' => $bina],
 		['type' => 's', 'value' => $usu]
 		];
-	// $rta = mysql_prepd($sql, $params);
-	$rta = show_sql($sql, $params);
+	$rta = mysql_prepd($sql, $params);
+	// $rta = show_sql($sql, $params);
 	// var_dump($_POST);
 if(!empty($_POST['fecha_gestion']) && !empty($_POST['usuario_gest'])){
 	$sql1 = "INSERT INTO geo_asig VALUES(NULL,?,?,?,?,NULL,NULL,'A')";
