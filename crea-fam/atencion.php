@@ -548,7 +548,7 @@ function gra_atencion() {
 	 $valor = isset($_POST[$fsel]) ? str_replace([",", "'", '"'], ['-', '', ''], $_POST[$fsel]) : null;
 
     $multi = [
-		'cntinuidad'=>isset($_POST['fcontinuidad'])? str_replace([",", "'", '"'], ['-', '', ''], $_POST['fcontinuidad']) : '',
+		'continuidad'=>isset($_POST['fcontinuidad'])? str_replace([",", "'", '"'], ['-', '', ''], $_POST['fcontinuidad']) : '',
         'rutasirc' => isset($_POST['frutasirc'])? str_replace([",", "'", '"'], ['-', '', ''], $_POST['frutasirc']) : '',
         'cualremision' => isset($_POST['fcualremision']) ? str_replace([",", "'", '"'], ['-', '', ''], $_POST['fcualremision']) : ''
     ];
