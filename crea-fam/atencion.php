@@ -545,8 +545,6 @@ function gra_atencion() {
 	print_r($_POST['frutasirc']);
 
     // Procesar campos múltiples para guardar solo los IDs seleccionados separados por guion
-	 $valor = isset($_POST[$fsel]) ? str_replace([",", "'", '"'], ['-', '', ''], $_POST[$fsel]) : null;
-
     $multi = [
 		'continuidad'=>isset($_POST['fcontinuidad'])? str_replace([",", "'", '"'], ['-', '', ''], $_POST['fcontinuidad']) : '',
         'rutasirc' => isset($_POST['frutasirc'])? str_replace([",", "'", '"'], ['-', '', ''], $_POST['frutasirc']) : '',
