@@ -472,7 +472,7 @@ function opc_estrategia($id=''){
 	}
 } */
 
-function gra_atencion() {
+/* function gra_atencion() {
     
     $cmps = ['idpeople' => 'idpeople','idf' => 'id_factura','fechaatencion' => 'fecha_atencion','tipo_consulta' => 'tipo_consulta','codigocups'  => 'codigo_cups','finalidadconsulta'=> 'finalidad_consulta','letra1'   => 'letra1','rango1'   => 'rango1','diagnostico1'  => 'diagnostico1','letra2'   => 'letra2','rango2'   => 'rango2','diagnostico2'  => 'diagnostico2','letra3'   => 'letra3','rango3'   => 'rango3','diagnostico3'  => 'diagnostico3','fertil'   => 'fertil','preconcepcional'  => 'preconcepcional','metodo'   => 'metodo','anticonceptivo'   => 'anticonceptivo','planificacion' => 'planificacion','mestruacion' => 'mestruacion','vih' => 'vih','resul_vih'   => 'resul_vih','hb'  => 'hb','resul_hb' => 'resul_hb','trepo_sifil' => 'trepo_sifil','resul_sifil' => 'resul_sifil','pru_embarazo'  => 'pru_embarazo','resul_emba'  => 'resul_emba','pru_apetito' => 'pru_apetito','resul_apetito' => 'resul_apetito','eventointeres' => 'evento_interes','evento'   => 'evento','cualevento'  => 'cuale_vento','sirc'  => 'sirc','rutasirc' => 'ruta_sirc','remision' => 'remision','cualremision'  => 'cual_remision','ordenvacunacion'  => 'orden_vacunacion','vacunacion'  => 'vacunacion','ordenlaboratorio' => 'orden_laboratorio','laboratorios'  => 'laboratorios','ordenmedicamentos'=> 'orden_medicamentos','medicamentos'  => 'medicamentos','rutacontinuidad'  => 'ruta_continuidad','continuidad' => 'continuidad','ordenimagenes' => 'orden_imagenes','ordenpsicologia'  => 'orden_psicologia','relevo'   => 'relevo','estrategia'  => 'estrategia','tipo_estrategia'  => 'motivo_estrategia'];
 
@@ -533,7 +533,57 @@ function gra_atencion() {
     )";
 	return show_sql($sql, $params);
     // return mysql_prepd($sql, $params);
-}
+} */
+
+function gra_atencion() {
+    // Mapeo: campo_formulario => campo_bd
+    $map = ['idpeople' => 'idpeople','idf' => 'id_factura','fechaatencion' => 'fecha_atencion','tipo_consulta' => 'tipo_consulta','codigocups'  => 'codigo_cups','finalidadconsulta'=> 'finalidad_consulta','letra1'   => 'letra1','rango1'   => 'rango1','diagnostico1'  => 'diagnostico1','letra2'   => 'letra2','rango2'   => 'rango2','diagnostico2'  => 'diagnostico2','letra3'   => 'letra3','rango3'   => 'rango3','diagnostico3'  => 'diagnostico3','fertil'   => 'fertil','preconcepcional'  => 'preconcepcional','metodo'   => 'metodo','anticonceptivo'   => 'anticonceptivo','planificacion' => 'planificacion','mestruacion' => 'mestruacion','vih' => 'vih','resul_vih'   => 'resul_vih','hb'  => 'hb','resul_hb' => 'resul_hb','trepo_sifil' => 'trepo_sifil','resul_sifil' => 'resul_sifil','pru_embarazo'  => 'pru_embarazo','resul_emba'  => 'resul_emba','pru_apetito' => 'pru_apetito','resul_apetito' => 'resul_apetito','eventointeres' => 'evento_interes','evento'   => 'evento','cualevento'  => 'cuale_vento','sirc'  => 'sirc','rutasirc' => 'ruta_sirc','remision' => 'remision','cualremision'  => 'cual_remision','ordenvacunacion'  => 'orden_vacunacion','vacunacion'  => 'vacunacion','ordenlaboratorio' => 'orden_laboratorio','laboratorios'  => 'laboratorios','ordenmedicamentos'=> 'orden_medicamentos','medicamentos'  => 'medicamentos','rutacontinuidad'  => 'ruta_continuidad','continuidad' => 'continuidad','ordenimagenes' => 'orden_imagenes','ordenpsicologia'  => 'orden_psicologia','relevo'   => 'relevo','estrategia'  => 'estrategia','tipo_estrategia'  => 'motivo_estrategia'];
+    // Campos de tipo fecha que pueden ser obligatorios o nulos
+	$obligatorios = ['mestruacion','fechaatencion'];
+
+    $id = divide($_POST['ida']);
+	if (count($id) != 1) return "No es posible actualizar consulte con el administrador"; 
+
+	$params = [
+        ['type' => 's', 'value' => $id[0]]
+    ];
+
+    foreach ($campos as $i => $campo) {
+    	if ($campo == 'idpeople') continue; // ya agregado
+    	if (in_array($campo, ['fecha_create'])) {
+    	    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')];
+    	} elseif ($campo == 'usu_creo') {
+    	    $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
+    	} elseif ($campo == 'fecha_update' || $campo == 'usu_update') {
+    	    $params[] = ['type' => 'z', 'value' => null];
+    	} elseif ($campo == 'estado') {
+    	    $params[] = ['type' => 's', 'value' => 'A'];
+    	} elseif (in_array($campo, $campos_fecha_null)) {
+    	    $valor = $_POST[$campo] ?? null;
+    	    $params[] = [
+    	        'type' => ($valor === '' || $valor === null) ? 'z' : 's',
+    	        'value' => ($valor === '' || $valor === null) ? null : $valor
+    	    ];
+    	} elseif (strpos($campo, 'selmul') === 0) {
+    	    // Usar el string de IDs de los select múltiples
+    	    $fsel = 'f' . $campo;
+    	    $valor = isset($_POST[$fsel]) ? str_replace([",", "'", '"'], ['-', '', ''], $_POST[$fsel]) : null;
+    	    $params[] = ['type' => 's', 'value' => $valor];
+    	} else {
+    	    $valor = $_POST[$campo] ?? null;
+    	    $params[] = ['type' => 's', 'value' => $valor];
+    	}
+	}
+    $placeholders = implode(', ', array_fill(0, count($params), '?'));
+    $sql = "INSERT INTO eac_atencion (
+         " . implode(', ', $campos) . "
+    ) VALUES (
+        NULL, $placeholders
+    )";
+    $rta = mysql_prepd($sql, $params);
+    return $rta;
+} 
+
 
 function cap_menus($a,$b='cap',$con='con') {
 	$rta = "";
