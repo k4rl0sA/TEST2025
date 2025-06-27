@@ -100,9 +100,9 @@ $o='prurap';
 	$c[]=new cmp('evento','s',3,$x,$w.' even '.$o,'Evento de Interes en Salud Publica','evento',null,'',false,false,'','col-4','cualEven(this,\'whic\');');//,'hidFieselet(\'evento\',\'hidd_aten\',this,true,\'5\')'
 	$c[]=new cmp('cualevento','t',300,$x,$w.' whic '.$o,'Otro, Cual?','cualevento	',null,'',false,false,'','col-25');
 	$c[]=new cmp('sirc','o',3,$x,$w.' '.$o,'Activación rutas SIRC (usuarios otras EAPB)','sirc	',null,'',false,true,'','col-5',"enabAlert(this,'sirc');");//,'hidFieOpt(\'sirc\',\'sirc\',this,true)'
-	$c[]=new cmp('rutasirc[]','m',3,$x,$w.' sirc '.$o,'Rutas SIRC','rutapoblacion',null,'',false,false,'','col-5');
+	$c[]=new cmp('rutasirc','m',3,$x,$w.' sirc '.$o,'Rutas SIRC','rutapoblacion',null,'',false,false,'','col-5');
 	$c[]=new cmp('remision','o',3,$x,$w.' '.$o,'Usuario que require control','remision	',null,'',false,true,'','col-5','enabAlert(this,\'rem\');');//,'hidFieOpt(\'remision\',\'espe_hid\',this,true)'
-	$c[]=new cmp('cualremision[]','m',3,$x,$w.' rem '.$o,'Cuales?	','remision	',null,'',false,false,'','col-5');
+	$c[]=new cmp('cualremision','m',3,$x,$w.' rem '.$o,'Cuales?	','remision	',null,'',false,false,'','col-5');
 	
 	$c[]=new cmp('ordenvacunacion','o',3,$x,$w.' '.$o,'Orden Vacunación?','ordenvacunacion	',null,'',false,true,'','col-1','enabAlert(this,\'vac\');');//,'hidFieOpt(\'ordenvacunacion\',\'vacu_hid\',this,true)'
 	$c[]=new cmp('vacunacion','s',3,$x,$w.' vac '.$o,'Vacunación	','vacunacion',null,'',false,false,'','col-2');
@@ -114,7 +114,7 @@ $o='prurap';
 	$c[]=new cmp('medicamentos','s',3,$x,$w.' med '.$o,'Medicamentos','medicamentos',null,'',false,false,'','col-2');
 	
 	$c[]=new cmp('rutacontinuidad','o',3,$x,$w.' '.$o,'Remisión para continuidad a rutas integrales de atencion en salud por parte de la subred','prueba	',null,'',false,true,'','col-5',"enabAlert(this,'rut');");//,'hidFieOpt(\'rutacontinuidad\',\'cont_hid\',this,true)'
-	$c[]=new cmp('continuidad[]','m',3,$x,$w.' rut '.$o,'.','rutapoblacion',null,'',false,false,'','col-5');
+	$c[]=new cmp('continuidad','m',3,$x,$w.' rut '.$o,'.','rutapoblacion',null,'',false,false,'','col-5');
 	$c[]=new cmp('ordenimagenes','o',3,$x,$w.' '.$o,'Ordena Imágenes Diagnósticas','ordenimagenes	',null,'',true,true,'','col-3');//,'hidFieOpt(\'ordenimagenes\',\'img_hid\',this,true)'
 	$c[]=new cmp('ordenpsicologia','s',3,$x,$w.' '.$o,'Ordena Psicología','aler',null,'',true,true,'','col-3');
 	$c[]=new cmp('relevo','s',3,$x,$w.' '.$o,'Cumple criterios Para relevo domiciliario a cuidadores','aler',null,'',true,true,'','col-4');
