@@ -545,10 +545,12 @@ function gra_atencion() {
 	pprint_r($_POST['frutasirc']);
 
     // Procesar campos múltiples para guardar solo los IDs seleccionados separados por guion
+	 $valor = isset($_POST[$fsel]) ? str_replace([",", "'", '"'], ['-', '', ''], $_POST[$fsel]) : null;
+
     $multi = [
-        'continuidad' => isset($_POST['fcontinuidad']) && is_array($_POST['fcontinuidad']) ? implode('-', array_map('trim', $_POST['fcontinuidad'])) : '',
-        'rutasirc' => isset($_POST['frutasirc']) && is_array($_POST['frutasirc']) ? implode('-', array_map('trim', $_POST['frutasirc'])) : '',
-        'cualremision' => isset($_POST['fcualremision']) && is_array($_POST['fcualremision']) ? implode('-', array_map('trim', $_POST['fcualremision'])) : ''
+		'cntinuidad'=>isset($_POST['fcontinuidad'])? str_replace([",", "'", '"'], ['-', '', ''], $_POST['fcontinuidad']) : '',
+        'rutasirc' => isset($_POST['frutasirc'])? str_replace([",", "'", '"'], ['-', '', ''], $_POST['frutasirc']) : '',
+        'cualremision' => isset($_POST['fcualremision']) ? str_replace([",", "'", '"'], ['-', '', ''], $_POST['fcualremision']) : ''
     ];
 
     $id = divide($_POST['ida']);
