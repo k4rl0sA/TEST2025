@@ -542,8 +542,6 @@ function gra_atencion() {
 	 // Campos de tipo fecha que pueden ser nulos
     $campos_fecha_null = ['mestruacion'];
 
-	print_r($_POST['frutasirc']);
-
     // Procesar campos múltiples para guardar solo los IDs seleccionados separados por guion
     $multi = [
 		'continuidad'=>isset($_POST['fcontinuidad'])? str_replace([",", "'", '"'], ['-', '', ''], $_POST['fcontinuidad']) : '',
