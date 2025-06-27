@@ -539,50 +539,70 @@ function gra_atencion() {
     // Mapeo: campo_formulario => campo_bd
     $map = ['idpeople' => 'idpeople','idf' => 'id_factura','fechaatencion' => 'fecha_atencion','tipo_consulta' => 'tipo_consulta','codigocups'  => 'codigo_cups','finalidadconsulta'=> 'finalidad_consulta','letra1'   => 'letra1','rango1'   => 'rango1','diagnostico1'  => 'diagnostico1','letra2'   => 'letra2','rango2'   => 'rango2','diagnostico2'  => 'diagnostico2','letra3'   => 'letra3','rango3'   => 'rango3','diagnostico3'  => 'diagnostico3','fertil'   => 'fertil','preconcepcional'  => 'preconcepcional','metodo'   => 'metodo','anticonceptivo'   => 'anticonceptivo','planificacion' => 'planificacion','mestruacion' => 'mestruacion','vih' => 'vih','resul_vih'   => 'resul_vih','hb'  => 'hb','resul_hb' => 'resul_hb','trepo_sifil' => 'trepo_sifil','resul_sifil' => 'resul_sifil','pru_embarazo'  => 'pru_embarazo','resul_emba'  => 'resul_emba','pru_apetito' => 'pru_apetito','resul_apetito' => 'resul_apetito','eventointeres' => 'evento_interes','evento'   => 'evento','cualevento'  => 'cuale_vento','sirc'  => 'sirc','rutasirc' => 'ruta_sirc','remision' => 'remision','cualremision'  => 'cual_remision','ordenvacunacion'  => 'orden_vacunacion','vacunacion'  => 'vacunacion','ordenlaboratorio' => 'orden_laboratorio','laboratorios'  => 'laboratorios','ordenmedicamentos'=> 'orden_medicamentos','medicamentos'  => 'medicamentos','rutacontinuidad'  => 'ruta_continuidad','continuidad' => 'continuidad','ordenimagenes' => 'orden_imagenes','ordenpsicologia'  => 'orden_psicologia','relevo'   => 'relevo','estrategia'  => 'estrategia','tipo_estrategia'  => 'motivo_estrategia'];
     // Campos de tipo fecha que pueden ser obligatorios o nulos
-	$obligatorios = ['mestruacion','fechaatencion'];
+	 // Campos de tipo fecha que pueden ser nulos
+    $campos_fecha_null = ['mestruacion'];
 
-    $id = divide($_POST['ida']);
-	if (count($id) != 1) return "No es posible actualizar consulte con el administrador"; 
-
-	$params = [
-        ['type' => 's', 'value' => $id[0]]
+    // Procesar campos múltiples para guardar solo los IDs seleccionados separados por guion
+    $multi = [
+        'continuidad'   => isset($_POST['continuidad']) && is_array($_POST['continuidad']) ? implode('-', array_map('trim', $_POST['continuidad'])) : '',
+        'rutasirc'      => isset($_POST['rutasirc']) && is_array($_POST['rutasirc']) ? implode('-', array_map('trim', $_POST['rutasirc'])) : '',
+        'cualremision'  => isset($_POST['cualremision']) && is_array($_POST['cualremision']) ? implode('-', array_map('trim', $_POST['cualremision'])) : ''
     ];
 
-    foreach ($campos as $i => $campo) {
-    	if ($campo == 'idpeople') continue; // ya agregado
-    	if (in_array($campo, ['fecha_create'])) {
-    	    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')];
-    	} elseif ($campo == 'usu_creo') {
-    	    $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
-    	} elseif ($campo == 'fecha_update' || $campo == 'usu_update') {
-    	    $params[] = ['type' => 'z', 'value' => null];
-    	} elseif ($campo == 'estado') {
-    	    $params[] = ['type' => 's', 'value' => 'A'];
-    	} elseif (in_array($campo, $campos_fecha_null)) {
-    	    $valor = $_POST[$campo] ?? null;
-    	    $params[] = [
-    	        'type' => ($valor === '' || $valor === null) ? 'z' : 's',
-    	        'value' => ($valor === '' || $valor === null) ? null : $valor
-    	    ];
-    	} elseif (strpos($campo, 'selmul') === 0) {
-    	    // Usar el string de IDs de los select múltiples
-    	    $fsel = 'f' . $campo;
-    	    $valor = isset($_POST[$fsel]) ? str_replace([",", "'", '"'], ['-', '', ''], $_POST[$fsel]) : null;
-    	    $params[] = ['type' => 's', 'value' => $valor];
-    	} else {
-    	    $valor = $_POST[$campo] ?? null;
-    	    $params[] = ['type' => 's', 'value' => $valor];
-    	}
-	}
+    $id = divide($_POST['ida']);
+    if (count($id) != 1 || empty($id[0])) return "Error: idpeople es obligatorio y no puede ser nulo.";
+
+    // Validar campos obligatorios (ajusta según tus campos NOT NULL)
+    $obligatorios = ['idpeople', 'idf', 'fechaatencion', 'tipo_consulta', 'codigocups', 'finalidadconsulta', 'letra1', 'rango1', 'diagnostico1', 'estrategia'];
+    foreach ($obligatorios as $campo) {
+        $valor = ($campo == 'idpeople') ? $id[0] : ($_POST[$campo] ?? null);
+        if ($valor === null || $valor === '') {
+            return "Error: El campo '$campo' es obligatorio y no puede ser nulo o vacío.";
+        }
+    }
+
+    $params = [];
+    $cols = [];
+    foreach ($map as $form => $col) {
+        $cols[] = $col;
+        if ($form == 'idpeople') {
+            $params[] = ['type' => 'i', 'value' => $id[0]];
+        } elseif (array_key_exists($form, $multi)) {
+            $params[] = ['type' => 's', 'value' => $multi[$form]];
+        } elseif (in_array($col, $campos_fecha_null)) {
+            $valor = $_POST[$form] ?? null;
+            $params[] = [
+                'type' => ($valor === '' || $valor === null) ? 'z' : 's',
+                'value' => ($valor === '' || $valor === null) ? null : $valor
+            ];
+        } else {
+            $valor = $_POST[$form] ?? null;
+            $params[] = ['type' => 's', 'value' => $valor];
+        }
+    }
+
+    // Campos finales: usu_creo, fecha_create, usu_update, fecha_update, estado
+    $cols[] = 'usu_creo';
+    $cols[] = 'fecha_create';
+    $cols[] = 'usu_update';
+    $cols[] = 'fecha_update';
+    $cols[] = 'estado';
+
+    $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_creo
+    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')]; // fecha_create
+    $params[] = ['type' => 'z', 'value' => null]; // usu_update
+    $params[] = ['type' => 'z', 'value' => null]; // fecha_update
+    $params[] = ['type' => 's', 'value' => 'A']; // estado
+
     $placeholders = implode(', ', array_fill(0, count($params), '?'));
     $sql = "INSERT INTO eac_atencion (
-         " . implode(', ', $campos) . "
+        " . implode(', ', $cols) . "
     ) VALUES (
-        NULL, $placeholders
+        $placeholders
     )";
     $rta = mysql_prepd($sql, $params);
     return $rta;
-} 
+}
 
 
 function cap_menus($a,$b='cap',$con='con') {
