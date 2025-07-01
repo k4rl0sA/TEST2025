@@ -175,7 +175,7 @@ function gra_seguim() {
 ['type' => 's', 'value' => $_POST['servicio_encu']],
 ['type' => 's', 'value' => $_POST['imp_diag2']],
 ['type' => 's', 'value' => $_POST['nece_apoy']],
-['type' => 's', 'value' => $_POST['fecha_egreso']],
+['type' => empty($_POST['fecha_egreso']) ? 'z' : 's','value' => empty($_POST['fecha_egreso']) ? null : $_POST['fecha_egreso']],
 ['type' => 's', 'value' => $_POST['espe1']],
 ['type' => 's', 'value' => $_POST['espe2']],
 ['type' => 's', 'value' => $_POST['adh_tto']],
