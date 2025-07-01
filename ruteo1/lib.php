@@ -521,25 +521,25 @@ function gra_rute(){
 	$rta = mysql_prepd($sql, $params);
 	// $rta = show_sql($sql, $params);
 	// var_dump($_POST);
-if(!empty($_POST['fecha_gestion']) && !empty($_POST['usuario_gest'])){
-	$sql1 = "INSERT INTO geo_asig VALUES(NULL,?,?,?,?,NULL,NULL,'A')";
-	$sql="SELECT idgeo id from eac_ruteo where id_ruteo=".$_POST['frut']."";
-	$info=datos_mysql($sql);
-	$id=$info['responseResult'][0]['id'];
-	$params1 = array(
-	array('type' => 'i', 'value' =>$id ),
-	array('type' => 'i', 'value' => $_POST['usuario_gest']),
-	array('type' => 'i', 'value' => $_SESSION['us_sds']),
-	array('type' => 's', 'value' => date("Y-m-d H:i:s"))
-	);
-	// $rta3=show_sql($sql1, $params1);
-	$rta1 = mysql_prepd($sql1, $params1);
-	if (strpos($rta1, "correctamente") !== false){
-		$rta.= " Y Se ha asignado el predio";
-	}elseif(strpos($rta1, "Duplicate")){
-		$rta.= " Y El predio ya se encontraba asignado";
+	if(!empty($_POST['fecha_gestion']) && !empty($_POST['usuario_gest'])){
+		$sql1 = "INSERT INTO geo_asig VALUES(NULL,?,?,?,?,NULL,NULL,'A')";
+		$sql="SELECT idgeo id from eac_ruteo where id_ruteo=".$_POST['frut']."";
+		$info=datos_mysql($sql);
+		$id=$info['responseResult'][0]['id'];
+		$params1 = array(
+		array('type' => 'i', 'value' =>$id ),
+		array('type' => 'i', 'value' => $_POST['usuario_gest']),
+		array('type' => 'i', 'value' => $_SESSION['us_sds']),
+		array('type' => 's', 'value' => date("Y-m-d H:i:s"))
+		);
+		// $rta3=show_sql($sql1, $params1);
+		$rta1 = mysql_prepd($sql1, $params1);
+		if (strpos($rta1, "correctamente") !== false){
+			$rta.= " Y Se ha asignado el predio";
+		}elseif(strpos($rta1, "Duplicate")){
+			$rta.= " Y El predio ya se encontraba asignado";
+		}
 	}
-}
 	// return $rta3;
 	return $rta;
 }
