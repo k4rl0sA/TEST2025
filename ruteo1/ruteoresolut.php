@@ -148,7 +148,7 @@ $params = [
 	['type' => 'i', 'value' => $_POST['estado']],
 	['type' => empty($_POST['famili']) ? 'z' : 'i','value' => empty($_POST['famili']) ? null : $_POST['famili']],
 	['type' => empty($_POST['usuario']) ? 'z' : 'i','value' => empty($_POST['usuario']) ? null : $_POST['usuario']],
-	['type' => 's', 'value' => $_POST['fecha']],
+	['type' => empty($_POST['fecha']) ? 'z' : 's','value' => empty($_POST['fecha']) ? null : $_POST['fecha']],
 	['type' => 's', 'value' => $_SESSION['us_sds']],
 	['type' => 's', 'value' => $_POST['id']]
 ];
