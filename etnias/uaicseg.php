@@ -184,7 +184,7 @@ function gra_uaic_seg(){
       $equ=datos_mysql("select equipo from usuarios where id_usuario=".$_SESSION['us_sds']);
       $bina = isset($_POST['fequi'])?(is_array($_POST['fequi'])?implode("-", $_POST['fequi']):implode("-",array_map('trim',explode(",",str_replace("'","",$_POST['fequi']))))):'';
       $equi=$equ['responseResult'][0]['equipo'];
-      $sql = "INSERT INTO uaic_seg VALUES (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,'A');";
+      $sql = "INSERT INTO uaic_seg VALUES (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),NULL,NULL,'A');";
       $params = [
 ['type' => 'i', 'value' => $id[0]],
 ['type' => 's', 'value' => $_POST['fecha_seg']],
@@ -205,9 +205,7 @@ function gra_uaic_seg(){
 ['type' => 's', 'value' => $_POST['observaciones']],
 ['type' => 's', 'value' => $bina],
 ['type' => 's', 'value' => $equi],
-['type' => 's', 'value' => $_SESSION['us_sds']],
-['type' => 's', 'value' => NULL],
-['type' => 's', 'value' => NULL]
+['type' => 's', 'value' => $_SESSION['us_sds']]
       ];
 // var_dump($sql);
       $rta = show_sql($sql, $params);
