@@ -265,7 +265,7 @@ function gra_segnoreg(){
 ['type' => 's', 'value' => $_POST['estado_seg']],
 ['type' => 's', 'value' => $_POST['motivo_estado']],
 ['type' => 's', 'value' => $_POST['prioridad']],
-['type' => 's', 'value' => $_POST['fecha_obs']],
+['type' => empty($_POST['fecha_obs']) ? 'z' : 's','value' => empty($_POST['fecha_obs']) ? null : $_POST['fecha_obs']],
 ['type' => 's', 'value' => $_POST['gestaciones']],
 ['type' => 's', 'value' => $_POST['partos']],
 ['type' => 's', 'value' => $_POST['abortos']],
