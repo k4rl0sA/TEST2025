@@ -171,7 +171,7 @@ function get_persona(){
 					$des='Error en el rango, por favor valide';
 					break;
 			}
-	
+	      var_dump($z." = ".$des);
 			return json_encode($z." = ".$des);
 		}
 	}
@@ -195,7 +195,7 @@ function gra_uaic_seg(){
 ['type' => 's', 'value' => $_POST['at_part']??''],
 ['type' => 'i', 'value' => $_POST['peso']],
 ['type' => 'i', 'value' => $_POST['talla']],
-['type' => 's', 'value' => get_zscore($_POST['peso'], $_POST['fecha_nacimiento'], $_POST['sexo'], $_POST['talla'])],
+['type' => 's', 'value' => $_POST['zscore']],
 ['type' => 's', 'value' => $_POST['clasi_nutri']],
 ['type' => 's', 'value' => $_POST['ftlc_apme']],
 ['type' => 's', 'value' => $_POST['cual']],
@@ -210,8 +210,8 @@ function gra_uaic_seg(){
 ['type' => 's', 'value' => NULL]
       ];
 // var_dump($sql);
-      //$rta = show_sql($sql, $params);
-    $rta = mysql_prepd($sql, $params);
+      $rta = show_sql($sql, $params);
+    //$rta = mysql_prepd($sql, $params);
     }else{
    $sql="UPDATE uaic_seg SET observaciones=?,fecha_update=DATE_SUB(NOW(),INTERVAL 5 HOUR),usu_update=? WHERE iduaicseg=?"; //  compromiso=?, equipo=?, 
     $params = [
