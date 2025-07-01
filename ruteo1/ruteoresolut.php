@@ -145,7 +145,8 @@ $sql = "UPDATE `eac_ruteo` SET estado_ruteo = ?,estado_rut = ?,famili = ?,usuari
 	WHERE id_ruteo = ?";
 $params = [
 	['type' => 'i', 'value' => $_POST['est']],
-	['type' => empty($_POST['famili']) ? 'z' : 's','value' => empty($_POST['famili']) ? null : $_POST['famili']],
+	['type' => 'i', 'value' => $_POST['estado']],
+	['type' => empty($_POST['famili']) ? 'z' : 'i','value' => empty($_POST['famili']) ? null : $_POST['famili']],
 	['type' => 's', 'value' => $_POST['usuario']],
 	['type' => 's', 'value' => $_POST['fecha']],
 	['type' => 's', 'value' => $_POST['usuario']],
