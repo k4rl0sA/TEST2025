@@ -551,7 +551,7 @@ LEFT JOIN eac_ruteo er ON g.idruteo=er.id_ruteo
 	LEFT JOIN usuarios u ON er.actividad1=u.id_usuario
 	WHERE idruteo=$id[0] and (estado_agenda=1 or estado_agenda=6 or estado_agenda=9 or estado_agenda=11 ) and estado_llamada=1 and u.perfil IN ('AUXHOG','ADM');";
     $info = datos_mysql($sql);
-	var_dump($sql);
+	// var_dump($sql);
 	if(intval($info['responseResult'][0]["agenda"])>0){
 		return true;
 	}else{
