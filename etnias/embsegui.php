@@ -164,7 +164,7 @@ function gra_seguim() {
 ['type' => 's', 'value' => $_POST['tel_conta']],
 ['type' => 's', 'value' => $_POST['ubi']],
 ['type' => 's', 'value' => $_POST['ser_req']],
-['type' => 's', 'value' => $_POST['fecha_ing']],
+['type' => empty($_POST['fecha_ing']) ? 'z' : 's','value' => empty($_POST['fecha_ing']) ? null : $_POST['fecha_ing']],
 ['type' => 's', 'value' => $_POST['uss_ing']],
 ['type' => 's', 'value' => $_POST['motivo_cons']],
 ['type' => 's', 'value' => $_POST['uss_tras']],
