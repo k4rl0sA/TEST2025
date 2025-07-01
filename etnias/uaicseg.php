@@ -19,19 +19,16 @@ else {
   }   
 }
 
-
 function focus_uaic_seg(){
 	return 'uaic_seg';
-   }
-      
+}
    
   function men_uaic_seg(){
 	$rta=cap_menus('uaic_seg','pro');
 	return $rta;
    }
    
-  
-  function cap_menus($a,$b='cap',$con='con') {
+function cap_menus($a,$b='cap',$con='con') {
 	 $rta = ""; 
 	 $acc=rol($a);
 	   if ($a=='uaic_seg'  && isset($acc['crear']) && $acc['crear']=='SI'){  
@@ -40,6 +37,7 @@ function focus_uaic_seg(){
     $rta .= "<li class='icono $a actualizar'  title='Actualizar'      Onclick=\"act_lista('$a',this);\"></li>";  
   return $rta;
 }
+
 function lis_uaic_seg(){
     // print_r($_POST);
 $id = (isset($_POST['id'])) ? divide($_POST['id']) : (isset($_POST['iduaicseg']) ? divide($_POST['iduaicseg']) : null);
@@ -59,7 +57,6 @@ left join usuarios u ON us.usu_creo = u.id_usuario
         $datos=datos_mysql($sql);
         return create_table($total,$datos["responseResult"],"uaic_seg",$regxPag,'uaicseg.php');
 }
-
 
 function cmp_uaic_seg(){
   $rta="<div class='encabezado'>TABLA SEGUIMIENTOS</div><div class='contenido' id='uaic_seg-lis'>".lis_uaic_seg()."</div></div>";
@@ -213,8 +210,8 @@ function gra_uaic_seg(){
 ['type' => 's', 'value' => NULL]
       ];
 // var_dump($sql);
-      // $rta = show_sql($sql, $params);
-    $rta = mysql_prepd($sql, $params);
+      $rta = show_sql($sql, $params);
+    //$rta = mysql_prepd($sql, $params);
     }else{
    $sql="UPDATE uaic_seg SET observaciones=?,fecha_update=DATE_SUB(NOW(),INTERVAL 5 HOUR),usu_update=? WHERE iduaicseg=?"; //  compromiso=?, equipo=?, 
     $params = [
