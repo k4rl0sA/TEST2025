@@ -141,15 +141,14 @@ function get_ruteresol(){
 }
 
 function gra_ruteresol(){
-$sql = "UPDATE `eac_ruteo` SET estado_ruteo = ?,estado_rut = ?,famili = ?,usuario = ?,fecha = ?,usuario = ?,`usu_update` = ?,`fecha_update` = DATE_SUB(NOW(), INTERVAL 5 HOUR)
+$sql = "UPDATE `eac_ruteo` SET estado_ruteo = ?,estado_rut = ?,famili = ?,usuario = ?,fecha = ?,`usu_update` = ?,`fecha_update` = DATE_SUB(NOW(), INTERVAL 5 HOUR)
 	WHERE id_ruteo = ?";
 $params = [
 	['type' => 'i', 'value' => $_POST['est']],
 	['type' => 'i', 'value' => $_POST['estado']],
 	['type' => empty($_POST['famili']) ? 'z' : 'i','value' => empty($_POST['famili']) ? null : $_POST['famili']],
-	['type' => 's', 'value' => $_POST['usuario']],
+	['type' => empty($_POST['usuario']) ? 'z' : 'i','value' => empty($_POST['usuario']) ? null : $_POST['usuario']],
 	['type' => 's', 'value' => $_POST['fecha']],
-	['type' => 's', 'value' => $_POST['usuario']],
 	['type' => 's', 'value' => $_SESSION['us_sds']],
 	['type' => 's', 'value' => $_POST['id']]
 ];
