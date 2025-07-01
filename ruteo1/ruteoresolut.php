@@ -156,6 +156,7 @@ $rta = mysql_prepd($sql, $params);
   return $rta;
 }
 
+
 function formato_dato($a,$b,$c,$d){
  $b=strtolower($b);
  $rta=$c[$d];
