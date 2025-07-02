@@ -110,7 +110,7 @@ function cmp_seguim(){
 
     $o='detsegp';
     $c[]=new cmp($o,'e',null,'DETALLE DEL SEGUIMIENTO POS EGRESO',$w);
-    $c[]=new cmp('fecha_egreso','d',10,$d,$w.' '.$bl.' '.$o,'Fecha De Egreso','fecha_egr',null,null,false,true,'','col-2');
+    $c[]=new cmp('fecha_egreso','d',10,$d,$w.' '.$bl.' '.$o,'Fecha De Egreso','fecha_egr',null,null,false,true,'','col-2',"validDate(this,-120,0);");
     $c[]=new cmp('espe1','t',50,$d,$w.' '.$bl.' '.$o,'Especialidad 1','espe1',null,null,false,true,'','col-35');
     $c[]=new cmp('espe2','t',50,$d,$w.' '.$bl.' '.$no,'Especialidad 2','espe2',null,null,false,false,'','col-35');
     $c[]=new cmp('adh_tto','s',3,$d,$w.' '.$bl.' '.$o,'Adherente Al Tratamiento','rta',null,null,false,true,'','col-3');
