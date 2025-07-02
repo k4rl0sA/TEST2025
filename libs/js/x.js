@@ -1423,7 +1423,7 @@ function validarPorTexto(selectElement) {
 
 function disFall(){
 	const conditions = [
-		{ id: 'estado_seg', value: '1', compare: false }
+		{ id: 'estado_seg', value: '1', compare: true }
 	];
 	EnabDepeDynamic(['datiden'], conditions);
 }
