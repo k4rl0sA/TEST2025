@@ -1429,8 +1429,8 @@ function disFall(){
 }
 function etnFall(){
 	const conditions = [
-		{ id: 'estado_seg', value: '1', compare: true },
-		{ id: 'prioridad', value: '1', compare: true }
+		{ id: 'estado_seg', value: '1', compare: false },
+		{ id: 'prioridad', value: '1', compare: false }
 	];
 	EnabDepeDynamic(['signosA'], conditions);
 }
