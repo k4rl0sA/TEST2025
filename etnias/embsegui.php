@@ -93,7 +93,7 @@ function cmp_seguim(){
     $o='infoserv';
     $c[]=new cmp($o,'e',null,'INFORMACIÓN DE SERVICIO - HOSPITALARIO',$w);
     $c[]=new cmp('ser_req','t',50,$d,$w.' '.$bl.' '.$o,'Servicio Requerido','ser_req',null,null,false,true,'','col-2');
-    $c[]=new cmp('fecha_ing','d',10,$d,$w.' '.$bl.' '.$o,'Fecha De Ingreso','fecha_ing',null,null,false,true,'','col-2');
+    $c[]=new cmp('fecha_ing','d',10,$d,$w.' '.$bl.' '.$o,'Fecha De Ingreso','fecha_ing',null,null,false,true,'','col-2',"validDate(this,-120,0);");
     $c[]=new cmp('uss_ing','t',50,$d,$w.' '.$bl.' '.$o,'Unidad De Servicio De Salud A La Que Ingresa','uss_ing',null,null,false,true,'','col-3');
     $c[]=new cmp('motivo_cons','t',50,$d,$w.' '.$bl.' '.$o,'Motivo De Consulta/Ingresó','motivo_cons',null,null,false,true,'','col-3');
     $c[]=new cmp('uss_tras','t',50,$d,$w.' '.$bl.' '.$o,'Unidad De Servicio De Salud De Traslado','uss_tras',null,null,false,true,'','col-25');
