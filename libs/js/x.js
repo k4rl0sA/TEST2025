@@ -1427,3 +1427,9 @@ function disFall(){
 	];
 	EnabDepeDynamic(['datiden','infoserv','detsegh','detsegp'], conditions);
 }
+function etnFall(){
+	const conditions = [
+		{ id: 'estado_seg', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['signosA'], conditions);
+}
