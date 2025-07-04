@@ -171,7 +171,7 @@ function get_persona(){
 					$des='Error en el rango, por favor valide';
 					break;
 			}
-	      var_dump($z." = ".$des);
+	      // var_dump($z." = ".$des);
 			return json_encode($z." = ".$des);
 		}
 	}

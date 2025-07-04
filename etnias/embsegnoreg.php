@@ -228,7 +228,6 @@ function get_persona(){
 					$des='Error en el rango, por favor valide';
 					break;
 			}
-	
 			return json_encode($z." = ".$des);
 		}
 	}

@@ -617,7 +617,6 @@ function Zsco(a,b='../vivienda/medidas.php'){
 				val=JSON.parse(rta);
 				document.getElementById('zscore').value=val;
 			}
-			
 		}
 }
 
