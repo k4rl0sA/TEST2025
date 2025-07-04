@@ -132,17 +132,16 @@ function cmp_segnoreg(){
   $c[]=new cmp($o,'e',null,'SIGNOS VITALES',$w);
   $c[]=new cmp('aten_med','s',3,$d,$w.' '.$o,'Recibio Atención por Medico Ancestral','rta',null,null,false,true,'','col-25');
   $c[]=new cmp('aten_par','s',3,$d,$w.' '.$o,'Recibio Atención por Partera','rta',null,null,false,true,'','col-25');
-  
+  $men = ($p['mes']>143) ? true : false ;
+  $o='signosA';
+  $c[]=new cmp('sistolica','sd',3,$d,$w.' '.$o,'Valor Sistolica (50 mmhg y 200 mmhg)','sistolica','rgxsisto',null,true,$men,'','col-25');
+  $c[]=new cmp('diastolica','sd',3,$d,$w.' '.$o,'Valor Diastolica (30 mmhg y 150 mmhg)','diastolica','rgxdiast',null,true,$men,'','col-25');
+  $o='signosV';
   $c[]=new cmp('frec_cardiaca','sd',3,$d,$w.' '.$o,'Frecuencia Cardiaca (50 a 150 lt)','frec_cardiaca','rgxfcard',null,true,true,'','col-25');
   $c[]=new cmp('frec_respiratoria','sd',3,$d,$w.' '.$o,'Frecuencia Respiratoria (15 a 60 x min)','frec_respiratoria','rgxfresp',null,true,true,'','col-25');
   $c[]=new cmp('saturacion','sd',3,$d,$w.' '.$o,'Saturación (40 a 99 %)','saturacion','rgxsatu',null,true,true,'','col-25');
   $c[]=new cmp('gluco','sd',3,$d,$w.' GlU '.$o,'Glucometria (40 a 500 mg/dl)','gluco','rgxgluco',null,true,false,'','col-25');
   
-  $o='signosA';
-  $men = ($p['mes']>143) ? true : false ;
-  $c[]=new cmp('sistolica','sd',3,$d,$w.' '.$o,'Valor Sistolica (50 mmhg y 200 mmhg)','sistolica','rgxsisto',null,true,$men,'','col-25');
-  $c[]=new cmp('diastolica','sd',3,$d,$w.' '.$o,'Valor Diastolica (30 mmhg y 150 mmhg)','diastolica','rgxdiast',null,true,$men,'','col-25');
-
   $o='antrop';
   $c[]=new cmp($o,'e',null,'VALORACIÓN ANTROPOMETRICA',$w);
   $men5 = ($p['mes']<60) ? true : false ;
