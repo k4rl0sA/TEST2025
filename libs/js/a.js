@@ -967,7 +967,7 @@ function getData(a, ev, i, blo, path = ruta_app) {
 			// Deshabilitar campos especificados en el arreglo `blo`.
 			if (blo.includes(element.name)) {
 			//   element.disabled = true;
-			  enaFie(element.name, true);
+			  enaFie(element.name, false);
 			}
 		  }
 		});
