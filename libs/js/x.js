@@ -1433,7 +1433,7 @@ function etnFall(){
 	];
 	EnabDepeDynamic(['signosA'], conditions);
 }
-function PsiPmtToggle() {
+function PsiPmt() {
 	const opcPmt = document.getElementById('psi_validacion13');
 	if(opcPmt.value==='1'){
 		expValue= '1';
