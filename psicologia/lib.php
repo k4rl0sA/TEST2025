@@ -314,7 +314,7 @@ function gra_psicologia(){
 	// var_dump($_POST);
 	$idpsi=divide($_POST['idpsi']);
 	if(count($idpsi)==2){ 
-
+		$planTerapia = ($_POST['psi_validacion13']==='1') ? 'SI' : 'NO';
 		$sql = "INSERT INTO psi_psicologia VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,?)";
 		$params = [
 		['type' => 'i', 'value' => NULL],
@@ -337,7 +337,7 @@ function gra_psicologia(){
 		['type' => 's', 'value' => $_POST['letra1']],
 		['type' => 's', 'value' => $_POST['rango1']],
 		['type' => 's', 'value' => $_POST['psi_diag12']],
-		['type' => 's', 'value' => $_POST['psi_validacion13']],
+		['type' => 's', 'value' => $planTerapia ],
 		['type' => 's', 'value' => $_POST['psi_validacion14']],
 		['type' => 's', 'value' => $_POST['otro']],
 		['type' => 's', 'value' => $_POST['psi_validacion15']],
