@@ -1443,7 +1443,7 @@ function PsiPmt() {
 		className = 'nPmT';
 	}
 	const conditions = [
-		{ id: 'psi_validacion13', value: expValue, compare: true }
+		{ id: 'psi_validacion13', expValue, compare: true }
 	];
 	EnabDepeDynamic([className], conditions);
 }
