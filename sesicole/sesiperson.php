@@ -134,16 +134,16 @@ $params = [
         ['type' => 's', 'value' => $_POST['fecha_nacimiento']],
         ['type' => 's', 'value' => $_POST['sexo']],
         ['type' => 'i', 'value' => $_POST['genero']],
+		['type' => 's', 'value' => $_POST['nacionalidad']],
         ['type' => 'i', 'value' => $_POST['etnia']],
         ['type' => empty($_POST['pueblo']) ? 'z' : 'i', 'value' => empty($_POST['pueblo']) ? null : $_POST['pueblo']],
-        ['type' => 's', 'value' => $_POST['nacionalidad']],
         ['type' => 'i', 'value' => $_POST['regimen']],
         ['type' => 'i', 'value' => $_POST['eapb']],
         ['type' => 'i', 'value' => $_SESSION['us_sds']],
         ['type' => 's', 'value' => 'A']
     ];
-	//return show_sql($sql, $params);
-	return  $rta= mysql_prepd($sql, $params);
+	return show_sql($sql, $params);
+	// return  $rta= mysql_prepd($sql, $params);
 }
 
 function get_person(){
