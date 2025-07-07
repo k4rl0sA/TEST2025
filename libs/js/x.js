@@ -1434,21 +1434,20 @@ function etnFall(){
 	EnabDepeDynamic(['signosA'], conditions);
 }
 function PsiPmt() {
-	const opcPmt = document.getElementById('psi_validacion13');
-	if(opcPmt.value==='1'){
-		expValue= '1';
-		className = 'PmT';
-		oth='nPmT';
-	}else{
-		expValue = '2';
-		className = 'nPmT';
-		oth='PmT';
-	}
-	const conditions = [
-		{ id: 'psi_validacion13', expValue, compare: true }
-	];
-	EnabDepeDynamic([className], conditions);
-	EnabDepeDynamic([oth], false);
+    const val = document.getElementById('psi_validacion13').value;
+    const pmtFields = document.querySelectorAll('.PmT');
+    const npmtFields = document.querySelectorAll('.nPmT');
+
+    if (val === '1') {
+        pmtFields.forEach(el => enaFie(el, false));
+        npmtFields.forEach(el => enaFie(el, true));
+    } else if (val === '2') {
+        pmtFields.forEach(el => enaFie(el, true));
+        npmtFields.forEach(el => enaFie(el, false));
+    } else {
+        // Si es otro valor, bloquea ambos
+        pmtFields.forEach(el => enaFie(el, true));
+        npmtFields.forEach(el => enaFie(el, true));
+    }
 }
-// Uso: PsiPmtToggle('1', 'PmT');  // Equivalente a PsiPmt()
-//      PsiPmtToggle('2', 'nPmT'); // Equivalente a PsiNoPmt()
+
