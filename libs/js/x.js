@@ -1435,8 +1435,8 @@ function etnFall(){
 }
 function PsiPmt() {
     const val = document.getElementById('psi_validacion13').value;
-    const pmtFields = document.querySelectorAll(`select.PmT, input.PmT`);
-    const npmtFields = document.querySelectorAll(`select.nPmT, input.nPmT`);
+    const pmtFields = document.querySelectorAll('select.PmT, input.PmT,textarea.PmT');
+    const npmtFields = document.querySelectorAll('select.nPmT, input.nPmT,textarea.nPmT');
 
     if (val === '1') {
         pmtFields.forEach(el => enaFie(el, false));
