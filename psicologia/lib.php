@@ -247,11 +247,11 @@ function cmp_psicologia() {
 	$c[]= new cmp('letra1','s','3',$d['letra1'],$w.' '.$o,'Letra CIE(1)','letra1',null,null,true,true,'','col-2',"selectDepend('letra1','rango1','../psicologia/lib.php');");
  	$c[]=new cmp('rango1','s','3',$d['rango1'],$w.' '.$o,'Tipo1','rango1',null,null,true,true,'','col-4',"selectDepend('rango1','psi_diag12','../psicologia/lib.php');");
  	$c[]=new cmp('psi_diag12','s','5',$d['psi_diag12'],$w.' '.$o,'3. Impresión diagnostica','psi_diag12',null,null,false,true,'','col-4');
-	$c[]=new cmp('psi_validacion13','o','2',$d['psi_validacion13'],$w.' '.$o,'4. Requiere plan de manejo terapeutico','psi_validacion13',null,null,false,true,'','col-10','hidOpt(\'psi_validacion13\',\'plan_hide\',\'plan_show\',false);');
-	$c[]=new cmp('psi_validacion14','s','3',$d['psi_validacion14'],$w.' plan_show '.$o,'5. Motivo de NO generaciôn de plan de manejo','psi_validacion14',null,null,false,true,'','col-10');
-	$c[]=new cmp('psi_validacion15','a','1500',$d['psi_validacion15'],$w.' plan_hide  '.$o,'6. Descripcion de Plan de Manejo','psi_validacion15',null,null,false,true,'','col-10');
-	$c[]=new cmp('otro','a','1500',$d['otro'],$w.' plan_show '.$o,'5.1 Observación del NO plan de manejo ','otro',null,null,false,true,'','col-10');
-	$c[]=new cmp('numsesi','n','2',$d['numsesi'],$w.' plan_hide '.$o,'Número de sesiones proyectadas','numsesi',null,null,false,true,'','col-10');
+	$c[]=new cmp('psi_validacion13','s','2',$d['psi_validacion13'],$w.' '.$o,'4. Requiere plan de manejo terapeutico','psi_validacion13',null,null,false,true,'','col-10',"PsiPmt();");
+	$c[]=new cmp('psi_validacion14','s','3',$d['psi_validacion14'],$w.' nPmT '.$o,'5. Motivo de NO generaciôn de plan de manejo','psi_validacion14',null,null,false,true,'','col-10');
+	$c[]=new cmp('psi_validacion15','a','1500',$d['psi_validacion15'],$w.' PmT  '.$o,'6. Descripcion de Plan de Manejo','psi_validacion15',null,null,false,true,'','col-10');
+	$c[]=new cmp('otro','a','1500',$d['otro'],$w.' nPmT '.$o,'5.1 Observación del NO plan de manejo ','otro',null,null,false,true,'','col-10');
+	$c[]=new cmp('numsesi','n','2',$d['numsesi'],$w.' PmT '.$o,'Número de sesiones proyectadas','numsesi',null,null,false,true,'','col-10');
 
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	//  $rta .="<div class='encabezado integrantes'>TABLA DE INTEGRANTES DE LA FAMILIA</div><div class='contenido' id='integrantes-lis' >".lis_integrantes1()."</div></div>";
@@ -683,6 +683,9 @@ function gra_sesion_fin(){
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function opc_rta($id=''){
+  return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=170 and estado='A' ORDER BY 1",$id);
+}
 
 function opc_cod_admisfin($id=''){
 	$cod=divide($_REQUEST['id']);

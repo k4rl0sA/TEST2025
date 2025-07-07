@@ -1433,3 +1433,19 @@ function etnFall(){
 	];
 	EnabDepeDynamic(['signosA'], conditions);
 }
+function PsiPmtToggle() {
+	const opcPmt = document.getElementById('psi_validacion13');
+	if(opcPmt.value==='1'){
+		expValue= '1';
+		className = 'PmT';
+	}else{
+		expValue = '2';
+		className = 'nPmT';
+	}
+	const conditions = [
+		{ id: 'psi_validacion13', value: expValue, compare: true }
+	];
+	EnabDepeDynamic([className], conditions);
+}
+// Uso: PsiPmtToggle('1', 'PmT');  // Equivalente a PsiPmt()
+//      PsiPmtToggle('2', 'nPmT'); // Equivalente a PsiNoPmt()
