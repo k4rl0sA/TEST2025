@@ -1438,14 +1438,17 @@ function PsiPmt() {
 	if(opcPmt.value==='1'){
 		expValue= '1';
 		className = 'PmT';
+		oth='nPmT';
 	}else{
 		expValue = '2';
 		className = 'nPmT';
+		oth='PmT';
 	}
 	const conditions = [
 		{ id: 'psi_validacion13', expValue, compare: true }
 	];
 	EnabDepeDynamic([className], conditions);
+	EnabDepeDynamic([oth], false);
 }
 // Uso: PsiPmtToggle('1', 'PmT');  // Equivalente a PsiPmt()
 //      PsiPmtToggle('2', 'nPmT'); // Equivalente a PsiNoPmt()
