@@ -68,6 +68,7 @@ function cmp_uaic_seg(){
   $bl='bL';
   $x=false;
   $d=get_uaic_seg();
+  var_dump($d);
   $d='';
   $d=($d=="")?$d=$t:$d;
   $days=fechas_app('etnias');
