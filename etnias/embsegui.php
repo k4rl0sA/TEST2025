@@ -39,6 +39,7 @@ function focus_seguim(){
 	   }
   return $rta;
 }
+
 function lis_seguim(){
   // print_r($_POST);
    $id = (isset($_POST['id'])) ? divide($_POST['id']) : divide($_POST['idp']) ;
