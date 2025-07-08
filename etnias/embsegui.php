@@ -55,7 +55,7 @@ left join usuarios u ON es.usu_creo = u.id_usuario
         $sql.=' LIMIT '.$pag.','.$regxPag;
         //  echo $sql;
         $datos=datos_mysql($sql);
-        return create_table($total,$datos["responseResult"],"seguim",$regxPag,'embsegui.php');
+        return create_table($total,$datos["responseResult"],"seguim",$regxPag,'../etnias/embsegui.php');
 }
 
 function cmp_seguim(){
