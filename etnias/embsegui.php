@@ -42,7 +42,7 @@ function focus_seguim(){
 
 function lis_seguim(){
   print_r($_POST);
-   $id = (isset($_POST['id'])) ? divide($_POST['id']) : divide($_POST['idp']) ;
+   $id = (isset($_POST['id'])) ? divide($_POST['id']) : divide($_POST['idseg']) ;
 $info=datos_mysql("SELECT COUNT(*) total FROM emb_segui WHERE idpeople=".$id[0]."");
 $total=$info['responseResult'][0]['total'];
 $regxPag=5;
