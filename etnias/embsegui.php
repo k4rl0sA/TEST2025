@@ -45,7 +45,7 @@ function lis_seguim(){
 $info=datos_mysql("SELECT COUNT(*) total FROM emb_segui WHERE idpeople=".$id[0]."");
 $total=$info['responseResult'][0]['total'];
 $regxPag=5;
-$pag=(isset($_POST['pag-seguimi']))? ($_POST['pag-seguimi']-1)* $regxPag:0;
+$pag=(isset($_POST['pag-seguim']))? ($_POST['pag-seguim']-1)* $regxPag:0;
 
     $sql="SELECT es.idseg AS ACCIONES, es.idseg 'Cod_Registro', es.fecha_seg 'Fecha', es.segui 'N Seguimiento', FN_CATALOGODESC(73,es.estado_seg)'Estado', FN_CATALOGODESC(262,es.interven) 'Intervención',u.nombre 
 FROM emb_segui es
@@ -55,11 +55,12 @@ left join usuarios u ON es.usu_creo = u.id_usuario
         $sql.=' LIMIT '.$pag.','.$regxPag;
         //  echo $sql;
         $datos=datos_mysql($sql);
-        return create_table($total,$datos["responseResult"],"seguimi",$regxPag,'embsegui.php');
+        return create_table($total,$datos["responseResult"],"seguim",$regxPag,'embsegui.php');
 }
 
 function cmp_seguim(){
-   $rta="<div class='encabezado seguiEmbera'>TABLA SEGUIMIENTOS</div><div class='contenido' id='seguimi-lis'>".lis_seguim()."</div>";
+   $rta="<div class='encabezado '>TABLA SEGUIMIENTOS</div>
+   <div class='contenido' id='seguimi-lis'>".lis_seguim()."</div></div>";//seguiEmbera
 // $rta='';
   $w="seguim";
 	$o='modini';
