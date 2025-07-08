@@ -195,7 +195,7 @@ function gra_uaic_seg(){
 ['type' => 's', 'value' => $_POST['at_part']??''],
 ['type' => 'i', 'value' => $_POST['peso']],
 ['type' => 'i', 'value' => $_POST['talla']],
-['type' => 's', 'value' => $_POST['zscore']],
+['type' => empty($_POST['zscore']) ? 'z' : 's', 'value' => empty($_POST['zscore']) ? null : $_POST['zscore']],
 ['type' => 's', 'value' => $_POST['clasi_nutri']],
 ['type' => 's', 'value' => $_POST['ftlc_apme']],
 ['type' => 's', 'value' => $_POST['cual']],
