@@ -89,7 +89,7 @@ function cmp_uaic_seg(){
     $c[]=new cmp('peso','sd',5,$d['peso'],$w.' '.$o,'Peso (Kg)','peso','rgxpeso',null,true,true,'','col-2',"Zsco('zscore','../etnias/uaicseg.php');");
     $c[]=new cmp('talla','sd',4,$d['talla'],$w.' '.$o,'Talla (Cm)','talla','rgxtalla',null,true,true,'','col-2',"Zsco('zscore','../etnias/uaicseg.php');");
     // $men = (p['ano']<5) ? true : false;
-    $c[]=new cmp('zscore','t',50,$d['zcore'],$w,'Zcore','zscore',null,null,false,false,'','col-35');
+    $c[]=new cmp('zscore','t',50,$d['zcore'],$w,'Zcore (Menores 5 Años)','zscore',null,null,false,false,'','col-35');
     $c[]=new cmp('clasi_nutri','s',3,$d['clasi_nutri'],$w.' '.$o,'Clasificacion Nutricional','clasi_nutri',null,null,true,true,'','col-2');
     $c[]=new cmp('ftlc_apme','s',3,$d['ftlc_apme'],$w.' '.$o,'Tiene Ftlc U Otro Apme (Cual)','rta',null,null,true,true,'','col-2','ftlc();');
     $c[]=new cmp('cual','t',50,$d['cual'],$w.' '.$bl.' Ftl ','Cual','cual',null,null,false,true,'','col-3');
