@@ -126,7 +126,9 @@ AND P.estado='A' AND P.fecha_nacimiento IS NOT NULL
 GROUP BY Rango_Edad ORDER BY Rango_Edad;";
 $age = datos_mysql($sql4);
 if ($age['code'] !== 0 || empty($age['responseResult'])) {
-    echo json_encode(["error" => "No se encontraron datos para distribución por edad, por favor valide los filtros.".$sql4]);
+    // $mss="No se encontraron datos para distribución por edad, por favor valide los filtros.";
+    $mss.=$sql4;
+    echo json_encode(["error" => "$mss"]);
     exit;
 }
 $age_distribution = [];
