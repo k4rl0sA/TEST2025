@@ -228,8 +228,8 @@ FROM `vsp_violreite` W LEFT JOIN person P ON W.idpeople = P.idpeople LEFT JOIN h
 $where_sql_vsp GROUP BY id;";//subred, localidad, territorio, fecha_seg,, evento 
 $vsp = datos_mysql($sql6);
 if ($vsp['code'] !== 0 || empty($vsp['responseResult'])) {
-    echo json_encode(["error" => "$sql6"]);//.var_dump($sql6)
-    // echo json_encode(["error" => "Objeto no encontrado para VSP, por favor valide los filtros"]);
+    // echo json_encode(["error" => "$sql6"]);//.var_dump($sql6)
+    echo json_encode(["error" => "No se encontraron datos para VSP, por favor valide los filtros"]);
     exit;
 }
 $vsp_data = [];
