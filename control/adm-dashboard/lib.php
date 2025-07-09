@@ -153,7 +153,7 @@ $where_sql_sexo AND P.estado='A' AND  P.fecha_nacimiento IS NOT NULL
 GROUP BY P.sexo;";
 $sexo = datos_mysql($sql5);
 if ($sexo['code'] !== 0 || empty($sexo['responseResult'])) {
-    echo json_encode(["error" => "Objeto no encontrado para distribución por sexo"]);
+    echo json_encode(["error" => "No se encontraron datos para distribución por sexo"]);
     exit;
 }
 $gender_distribution = [];
