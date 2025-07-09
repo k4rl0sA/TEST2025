@@ -76,7 +76,7 @@ $params = [
 $sql2= "SELECT COUNT(*) AS familia  FROM hog_fam hf LEFT JOIN hog_geo hg ON hf.idpre = hg.idgeo $where_sql_fam AND hf.estado='A';";
 $fam = datos_mysql($sql2);
 if ($fam['code'] !== 0 || empty($fam['responseResult'])) {
-    echo json_encode(["error" => "Objeto no encontrado para familias, por favor valide los filtros"]);
+    echo json_encode(["error" => "No se encontraron datos para familias, por favor valide los filtros"]);
     exit;
 }
 $familias = $fam['responseResult'][0]['familia'] ?? 0;
@@ -98,7 +98,7 @@ $params = [
 $sql3 = "SELECT COUNT(*) as Individuos FROM person P LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo $where_sql_ind AND P.estado='A';";
 $ind = datos_mysql($sql3);
 if ($ind['code'] !== 0 || empty($ind['responseResult'])) {
-    echo json_encode(["error" => "Objeto no encontrado para individuos, por favor valide los filtros"]);
+    echo json_encode(["error" => "No se encontraron datos para individuos, por favor valide los filtros"]);
     exit;
 }
 $individuos = $ind['responseResult'][0]['Individuos'] ?? 0;
@@ -126,7 +126,7 @@ AND P.estado='A' AND P.fecha_nacimiento IS NOT NULL
 GROUP BY Rango_Edad ORDER BY Rango_Edad;";
 $age = datos_mysql($sql4);
 if ($age['code'] !== 0 || empty($age['responseResult'])) {
-    echo json_encode(["error" => "Objeto no encontrado para distribución por edad, por favor valide los filtros.".$sql4." Age: ".print_r($age)]);//.var_dump($sql4)
+    echo json_encode(["error" => "No se encontraron datos para distribución por edad, por favor valide los filtros."]);//.var_dump($sql4)
     exit;
 }
 $age_distribution = [];
