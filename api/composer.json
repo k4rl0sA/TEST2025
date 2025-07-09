@@ -1,0 +1,6 @@
+{
+    "require": {
+        "ezyang/htmlpurifier": "^4.18",
+        "firebase/php-jwt": "^6.11"
+    }
+}

@@ -1,0 +1,79 @@
+<?php
+// File: api/index.php
+define('API_DIR', __DIR__);
+require_once 'config.php';
+require_once 'lib/security.php';
+require_once 'lib/auth.php';
+
+// Headers de seguridad
+header('Content-Type: application/json');
+header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: DENY');
+header('X-XSS-Protection: 1; mode=block');
+
+// Validar método permitido
+$allowedMethods = ['GET', 'POST', 'PUT'];
+if (!in_array($_SERVER['REQUEST_METHOD'], $allowedMethods)) {
+    http_response_code(405);
+    echo json_encode(['error' => 'Método HTTP no permitido']);
+    exit;
+}
+
+// Validar token de autenticación
+if (!Auth::isAuthorized()) {
+    http_response_code(401);
+    echo json_encode(['error' => 'No autorizado']);
+    exit;
+}
+
+// Obtener endpoint y datos
+$endpoint = $_GET['endpoint'] ?? '';
+$input = json_decode(file_get_contents('php://input'), true) ?? [];
+$input = Security::sanitizeArray($input);
+
+switch ($endpoint) {
+    case 'listar':
+        $tabla = $_GET['tabla'] ?? '';
+        $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+        $limite = isset($_GET['limite']) ? (int)$_GET['limite'] : 10;
+        $filtros = $input['filtros'] ?? [];
+        $ordenCampo = $input['ordenCampo'] ?? 'id';
+        $ordenDir = $input['ordenDir'] ?? 'ASC';
+
+        $result = listarRegistros($tabla, $pagina, $limite, $filtros, $ordenCampo, $ordenDir);
+        echo json_encode($result);
+        break;
+    case 'cambiarEstado':
+        $tabla = $_GET['tabla'] ?? '';
+        $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        $estado = $_GET['estado'] ?? '';
+        if (empty($tabla) || empty($estado) || $id <= 0) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Parámetros inválidos']);
+            exit;
+        }
+    case 'actualizar':
+        $tabla = $_GET['tabla'] ?? '';
+        $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        if (empty($tabla) || $id <= 0 || empty($input)) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Parámetros inválidos']);
+            exit;
+        }
+        $result = actualizarRegistro($tabla, $id, $input);
+        echo json_encode($result);
+        break;
+    case 'insertar':
+        $tabla = $_GET['tabla'] ?? '';
+        if (empty($tabla) || empty($input)) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Parámetros inválidos']);
+            exit;
+        }
+        $result = crearRegistro($tabla, $input);
+        echo json_encode($result);
+        break;
+    default:
+        http_response_code(404);
+        echo json_encode(['error' => 'Endpoint no encontrado']);
+}
