@@ -77,36 +77,31 @@ function initializeAgeChart(data) {
 }
 
 // Specialty consultations chart
-function initializevspChart(data, evento = '1') {
-    const chartContainer = document.getElementById('vspChart').parentElement;
-    const chartCanvas = document.getElementById('vspChart');
-    // Remove any previous "no data" message
-    const prevMsg = chartContainer.querySelector('.no-data-msg');
-    if (prevMsg) prevMsg.remove();
-
-    if (vspChart) vspChart.destroy();
-
-    if (!data.Vsp || !data.Vsp[evento] || !data.Vsp[evento].labels || data.Vsp[evento].labels.length === 0) {
-        // Hide the canvas and show a message
-        chartCanvas.style.display = 'none';
-        const msg = document.createElement('div');
-        msg.className = 'no-data-msg';
-        msg.style.cssText = 'display:flex;align-items:center;justify-content:center;height:100%;color:#888;font-size:1.1em;';
-        msg.textContent = 'SIN DATOS';
-        chartContainer.appendChild(msg);
-        return;
-    } else {
-        chartCanvas.style.display = 'block';
-    }
-
+function initializevspChart(data,evento='1') {
     const vspEvento = data.Vsp[evento];
-    const ctx = chartCanvas.getContext('2d');
+    const ctx = document.getElementById('vspChart').getContext('2d');
+    if (vspChart) vspChart.destroy(); // <-- destruye el anterior
+    if (!data.Vsp || !data.Vsp[evento]) {
+        showError('No hay datos para el evento VSP seleccionado hfdhgfnjg');
+        return;
+    }
     vspChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: vspEvento.labels,
+            // labels: data.specialtyConsultations.labels,
+            labels:vspEvento.labels,
             datasets: [{
-                label: vspEvento.evento,
+                /* label: 'Consultas',
+                data: data.specialtyConsultations.values,
+                backgroundColor: [
+                    '#0066CC',
+                    '#00D4FF',
+                    '#FF6B9D',
+                    '#10B981',
+                    '#A855F7',
+                    '#F59E0B'
+                ], */
+                 label: vspEvento.evento,
                 data: vspEvento.totales,
                 backgroundColor: [
                     '#0066CC',
