@@ -178,7 +178,7 @@ LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
 LEFT JOIN hog_geo G ON F.idpre = G.idgeo
 LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario
 $where_sql_vsp AND A.estado='A' GROUP BY FN_CATALOGODESC(87, A.evento);"; */
-$sql6="SELECT subred, localidad, territorio, fecha_seg, id AS evento_id, evento AS evento_descripcion,COUNT(cierre_caso) AS total_casos, 
+$sql6="SELECT A.subred, A.localidad, A.territorio, A.fecha_seg, id AS evento_id, evento AS evento_descripcion,COUNT(cierre_caso) AS total_casos, 
 SUM(CASE WHEN estado_s = 1 THEN 1 ELSE 0 END) AS abiertos, SUM(CASE WHEN cierre_caso = 1 THEN 1 ELSE 0 END) AS cerrados, 
 CAST(SUM(CASE WHEN cierre_caso = 1 THEN 1 ELSE 0 END) AS DECIMAL(10,2)) * 100.0 / NULLIF(SUM(CASE WHEN estado_s = 1 THEN 1 ELSE 0 END), 0) AS vspPercen 
 FROM (
@@ -224,7 +224,7 @@ UNION ALL SELECT G.subred, G.localidad, G.territorio, V.fecha_seg, V.evento AS i
 FROM `vsp_violges` V LEFT JOIN person P ON V.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
 UNION ALL SELECT G.subred, G.localidad, G.territorio, W.fecha_seg, W.evento AS id, FN_CATALOGODESC(87, W.evento) AS evento, W.estado_s, W.cierre_caso 
 FROM `vsp_violreite` W LEFT JOIN person P ON W.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo  
-) AS combined_data 
+) AS A  
 $where_sql_vsp GROUP BY id;";//subred, localidad, territorio, fecha_seg,, evento 
 // var_dump($sql6);
 $vsp = datos_mysql($sql6);
