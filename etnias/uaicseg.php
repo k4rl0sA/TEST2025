@@ -68,7 +68,6 @@ function cmp_uaic_seg(){
   $bl='bL';
   $x=false;
   $d=get_uaic_seg();
-  var_dump($d);
   $d='';
   $d=($d=="")?$d=$t:$d;
   $days=fechas_app('etnias');
@@ -125,7 +124,6 @@ function get_persona(){
 		}
 	}
 
-
   function get_zscore(){
 		// var_dump($_POST);
 		$id=divide($_POST['val']);
@@ -177,7 +175,6 @@ function get_persona(){
 		}
 	}
 
-
 function gra_uaic_seg(){
 	$id=divide($_POST['iduaicseg']);
   if (($rtaFec = validFecha('ETNIAS', $_POST['fecha_seg'] ?? '')) !== true) {return $rtaFec;}
@@ -187,26 +184,26 @@ function gra_uaic_seg(){
       $equi=$equ['responseResult'][0]['equipo'];
       $sql = "INSERT INTO uaic_seg VALUES (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),NULL,NULL,'A');";
       $params = [
-['type' => 'i', 'value' => $id[0]],
-['type' => 's', 'value' => $_POST['fecha_seg']],
-['type' => 's', 'value' => $_POST['segui']],
-['type' => 's', 'value' => $_POST['estado_seg']],
-['type' => 's', 'value' => $_POST['motivo_seg']],
-['type' => 's', 'value' => $_POST['at_medi']??''],
-['type' => 's', 'value' => $_POST['at_part']??''],
-['type' => 'i', 'value' => $_POST['peso']],
-['type' => 'i', 'value' => $_POST['talla']],
-['type' => empty($_POST['zscore']) ? 'z' : 's', 'value' => empty($_POST['zscore']) ? null : $_POST['zscore']],
-['type' => 's', 'value' => $_POST['clasi_nutri']],
-['type' => 's', 'value' => $_POST['ftlc_apme']],
-['type' => 's', 'value' => $_POST['cual']],
-['type' => 's', 'value' => $_POST['cita_nutri7']],
-['type' => 's', 'value' => $_POST['cita_nutri15']],
-['type' => 's', 'value' => $_POST['cita_nutri30']],
-['type' => 's', 'value' => $_POST['observaciones']],
-['type' => 's', 'value' => $bina],
-['type' => 's', 'value' => $equi],
-['type' => 's', 'value' => $_SESSION['us_sds']]
+        ['type' => 'i', 'value' => $id[0]],
+        ['type' => 's', 'value' => $_POST['fecha_seg']],
+        ['type' => 's', 'value' => $_POST['segui']],
+        ['type' => 's', 'value' => $_POST['estado_seg']],
+        ['type' => 's', 'value' => $_POST['motivo_seg']],
+        ['type' => 's', 'value' => $_POST['at_medi']??''],
+        ['type' => 's', 'value' => $_POST['at_part']??''],
+        ['type' => 'i', 'value' => $_POST['peso']],
+        ['type' => 'i', 'value' => $_POST['talla']],
+        ['type' => empty($_POST['zscore']) ? 'z' : 's', 'value' => empty($_POST['zscore']) ? null : $_POST['zscore']],
+        ['type' => 's', 'value' => $_POST['clasi_nutri']],
+        ['type' => 's', 'value' => $_POST['ftlc_apme']],
+        ['type' => 's', 'value' => $_POST['cual']],
+        ['type' => 's', 'value' => $_POST['cita_nutri7']],
+        ['type' => 's', 'value' => $_POST['cita_nutri15']],
+        ['type' => 's', 'value' => $_POST['cita_nutri30']],
+        ['type' => 's', 'value' => $_POST['observaciones']],
+        ['type' => 's', 'value' => $bina],
+        ['type' => 's', 'value' => $equi],
+        ['type' => 's', 'value' => $_SESSION['us_sds']]
       ];
 // var_dump($sql);
       //$rta = show_sql($sql, $params);
