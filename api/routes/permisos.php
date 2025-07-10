@@ -1,5 +1,5 @@
 <?php
-// File: api/routes/modulos.php
+// File: api/routes/permisos.php
 
 require_once __DIR__ . '/../modules/controller.php';
 require_once __DIR__ . '/../lib/security.php';
