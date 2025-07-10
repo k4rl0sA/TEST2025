@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function() {
      const user = JSON.parse(localStorage.getItem('user') || '{}');
         const token = localStorage.getItem('access_token');
         if (!user || !user.nombre || !token) {
-            window.location.href = 'login.html';
+            window.location.href = 'index.html';
         }else{
             document.querySelector('.user-info .user-name').textContent = user.nombre ;//|| user.correo
             document.querySelector('.user-info .user-role').textContent = user.perfil;
@@ -258,7 +258,7 @@ async function loadSection(page) {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const token = localStorage.getItem('access_token');
     if (!user || !user.perfil || !token) {
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
         return;
     }
     // Ejemplo: solo ADM y SUPERVISOR pueden ver inicio
