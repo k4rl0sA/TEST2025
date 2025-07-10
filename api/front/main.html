@@ -257,6 +257,16 @@ async function loadSection(page) {
      // Validar usuario y perfil antes de cargar
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const token = localStorage.getItem('access_token');
+    fetch('/api/routes/menu.php', {
+    headers: { 'Authorization': 'Bearer ' + token }
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.menu) {
+            renderMenu(data.menu); // función que arma el menú en el DOM
+        }
+    });
+
     if (!user || !user.perfil || !token) {
         window.location.href = 'index.html';
         return;
