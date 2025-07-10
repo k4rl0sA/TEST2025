@@ -75,7 +75,6 @@ function cmp_uaic_seg(){
 	  $c[]=new cmp($o,'e',null,'MODULO INICIAL',$w);
     $c[]=new cmp('fechanacimiento','h','10',$p['fecha_nacimiento'],'zsc','fecha nacimiento','fechanacimiento',null,'',true,false,'','col-2');
     $c[]=new cmp('sexo','h',1,$p['sexo'],'zsc','sexo','sexo',null,'',false,false,'','col-1');
-    
     $c[]=new cmp('iduaicseg','h',11,$_POST['id'],$w.' '.$o,'Iduaicseg','iduaicseg',null,null,true,true,'','col-2');
     $c[]=new cmp('fecha_seg','d',10,$d['fecha_seg'],$w.' '.$o,'Fecha Seguimiento','fecha_seg',null,null,true,true,'','col-25',"validDate(this,$days,0);");
     $c[]=new cmp('segui','s',3,$d['segui'],$w.' '.$o,'Seguimiento N°','segui',null,null,true,true,'','col-25',"staEfe('segui','sta');EnabEfec(this,['segdnt','aspe'],['Ob'],['nO'],['bL'])");
