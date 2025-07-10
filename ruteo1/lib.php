@@ -23,7 +23,7 @@ function lis_rute(){
 	$perfil = $info['responseResult'][0]['perfil'];
 // var_dump($perfil);
 	// $jAproTerr = ($_SESSION['us_sds'] != '80811594') ? "LEFT JOIN apro_terr A ON G.territorio = A.territorio" : ""; // Condiciona el JOIN
-	$jAproTerr = ($perfil != 'ADM') ? " LEFT JOIN apro_terr A ON G.territorio = A.territorio" : ""; // Condiciona el JOIN
+	$jAproTerr = ($perfil != 'ADM' || $perfil != 'SUPHOG') ? " LEFT JOIN apro_terr A ON G.territorio = A.territorio" : ""; // Condiciona el JOIN
 
 
     $info = datos_mysql("SELECT COUNT(*) total FROM eac_ruteo er 
@@ -76,7 +76,7 @@ function whe_rute() {
     // Agregar condición de apro_terr solo si el perfil no es 'ADM'
 	$info = datos_mysql("SELECT perfil FROM usuarios  where id_usuario='".$_SESSION['us_sds']."';" );
 	$perfil = $info['responseResult'][0]['perfil'];
-    if ($perfil != 'ADM') {
+    if ($perfil != 'ADM' || $perfil != 'SUPHOG') {
         $sql1 .= " AND A.doc_asignado = " . intval($doc_asignado);
     }
     if ($_POST['frut']) {
