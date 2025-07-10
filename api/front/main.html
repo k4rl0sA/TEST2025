@@ -291,9 +291,20 @@ async function loadSection(page) {
             // Ejemplo: deshabilitar botón de crear si no tiene permiso
             if (permisosData.permisos.crear !== 'SI') {
                 const btnCrear = document.getElementById('btn-crear');
-                if (btnCrear) btnCrear.disabled = true;
+                if (btnCrear) {
+                    btnCrear.disabled = true;
+                    btnCrear.style.display = 'none';
+                }
             }
             // Repite para editar, eliminar, etc.
+            /* if (permisosData.permisos.editar !== 'SI') {
+                const btnEditar = document.getElementById('btn-editar');
+                if (btnEditar) btnEditar.disabled = true;
+            }
+            if (permisosData.permisos.eliminar !== 'SI') {
+                const btnEliminar = document.getElementById('btn-eliminar');
+                if (btnEliminar) btnEliminar.disabled = true;
+            } */
         }
     } catch (e) {
         mainSection.innerHTML = `<div class="error">Error al cargar la sección: ${e.message}</div>`;
