@@ -1451,3 +1451,32 @@ function PsiPmt() {
     }
 }
 
+function EntState(a, b, c, d, e) {
+    const generateSelectors = (classes) => 
+        classes.map(clase => `select.${clase}, input.${clase}, textarea.${clase}`).join(', ');
+    const [selectorsB, selectorsC, selectorsD, selectorsE] = 
+        [b, c, d, e].map(generateSelectors);
+    const [elems, ele, el, elm] = 
+        [selectorsB, selectorsC, selectorsD, selectorsE]
+        .map(selector => [...document.querySelectorAll(selector)]);
+    const dynamicCondition = Number(a.value) > 2;
+    elems.forEach(element => {
+        enaFie(element, dynamicCondition);
+    });
+    el.forEach(element => {
+        if (element.classList.contains('nO')) {
+            noRequired(element, true);
+        }
+    });
+    ele.forEach(element => {
+        if (element.classList.contains('Ob')) {
+            enaFie(element, false);
+        }
+    });
+    elm.forEach(element => {
+        if (element.classList.contains('bL')) {
+            lockeds(element, true);
+        }
+    });
+    enaFie(document.getElementById('condi_diag'), a.value !== '1');
+}
