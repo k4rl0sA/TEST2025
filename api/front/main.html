@@ -276,13 +276,25 @@ async function loadSection(page) {
         mainSection.innerHTML = `<div class="error">No tienes permiso para acceder a esta sección.</div>`;
         return;
     }
-    try {
+     try {
         const res = await fetch(`/api/front/views/${page}.html`);
         if (!res.ok) throw new Error('No se pudo cargar la sección');
         const html = await res.text();
         mainSection.innerHTML = html;
-        // Si cada sección necesita JS propio, puedes cargarlo aquí:
-        //loadSectionScript(page);
+
+        // Consultar permisos para la sección
+        const permisosRes = await fetch(`/api/routes/permisos.php?tabla=${page}&accion=consultar`, {
+            headers: { 'Authorization': 'Bearer ' + token }
+        });
+        const permisosData = await permisosRes.json();
+        if (permisosData.permisos) {
+            // Ejemplo: deshabilitar botón de crear si no tiene permiso
+            if (permisosData.permisos.crear !== 'SI') {
+                const btnCrear = document.getElementById('btn-crear');
+                if (btnCrear) btnCrear.disabled = true;
+            }
+            // Repite para editar, eliminar, etc.
+        }
     } catch (e) {
         mainSection.innerHTML = `<div class="error">Error al cargar la sección: ${e.message}</div>`;
     }
