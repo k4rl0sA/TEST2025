@@ -1,57 +1,41 @@
 <?php
-// File: /api/routes/logout.php
+// File: api/routes/logout.php
 declare(strict_types=1);
 
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
-use Firebase\JWT\ExpiredException;
-use Firebase\JWT\SignatureInvalidException;
+define('API_DIR', __DIR__ . '/..');
 
-defined('API_DIR') || exit(header('HTTP/1.1 403 Forbidden'));
-
-require_once __DIR__ . '/../lib/security.php';
-require_once __DIR__ . '/../lib/auth.php';
+require_once API_DIR . '/config.php';
+require_once API_DIR . '/lib/security.php';
+require_once API_DIR . '/lib/auth.php';
 
 header('Content-Type: application/json');
 
 try {
-    // Validar método HTTP
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         throw new Exception('Método no permitido', 405);
     }
 
-    // Obtener el token del encabezado Authorization
     $headers = Security::getSafeHeaders();
-    if (!isset($headers['Authorization']) || strpos($headers['Authorization'], 'Bearer ') !== 0) {
+    $auth = $headers['Authorization'] ?? $headers['authorization'] ?? '';
+    if (!str_starts_with($auth, 'Bearer ')) {
         throw new Exception('Token de autenticación faltante', 401);
     }
 
-    $token = trim(str_replace('Bearer ', '', $headers['Authorization']));
+    $token = trim(substr($auth, 7));
 
-    // Decodificar el token usando la clave secreta
-    try {
-        $decoded = JWT::decode($token, new Key(JWT_SECRET_KEY, 'HS256'));
-    } catch (ExpiredException $e) {
-        throw new Exception('Token expirado', 401);
-    } catch (SignatureInvalidException $e) {
-        throw new Exception('Firma del token inválida', 401);
-    } catch (\Throwable $e) {
-        throw new Exception('Token inválido', 401);
+    $payload = Auth::isAuthorized();
+    if (!$payload) {
+        throw new Exception('Token inválido o expirado', 401);
     }
 
-    // Se puede guardar aquí el token expirado o en base de datos o memoria temporal por X tiempo
+    // Aquí podrías guardar jti en blacklist temporal (no implementado por defecto)
+    // ej: Blacklist::add($payload['jti']);
 
-    echo json_encode([
-        'success' => true,
-        'message' => 'Sesión cerrada correctamente'
-    ]);
+    echo json_encode(['success' => true, 'message' => 'Sesión cerrada correctamente']);
     exit;
 
 } catch (Exception $e) {
     http_response_code($e->getCode() ?: 500);
-    echo json_encode([
-        'success' => false,
-        'error' => $e->getMessage()
-    ]);
+    echo json_encode(['success' => false, 'error' => $e->getMessage()]);
     exit;
 }
