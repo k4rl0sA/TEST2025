@@ -39,10 +39,8 @@ try {
         throw new Exception('Token inválido', 401);
     }
 
-    // Si se usa blacklisting de tokens, puedes guardar aquí el token expirado
-    // Ejemplo: registrar en base de datos o memoria temporal por X tiempo
+    // Se puede guardar aquí el token expirado o en base de datos o memoria temporal por X tiempo
 
-    // Responder correctamente
     echo json_encode([
         'success' => true,
         'message' => 'Sesión cerrada correctamente'

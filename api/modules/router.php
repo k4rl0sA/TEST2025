@@ -12,6 +12,20 @@ require_once API_DIR . '/modules/controller.php';
 require_once API_DIR . '/lib/security.php';
 require_once API_DIR . '/lib/middleware.php';
 
+// Manejo de URL para nuevas rutas personalizadas
+$requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$basePath = '/api'; 
+$route = str_replace($basePath, '', $requestUri);
+
+if ($route === '/auth/logout') {
+    require_once API_DIR . '/routes/logout.php';
+    exit;
+}
+if ($route === '/auth/login') {
+    require_once API_DIR . '/routes/login.php';
+    exit;
+}
+
 $tabla = $_GET['tabla'] ?? '';
 $accion = $_GET['accion'] ?? '';
 $id     = isset($_GET['id']) ? (int)$_GET['id'] : 0;
