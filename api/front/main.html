@@ -163,7 +163,7 @@ function buildMenu(menuData) {
 }
 
 // Cargar menú y luego inicializar eventos
-fetch('/api/front/menu.php') // O '/api/menu.json' según tu backend
+fetch('/api/routes/menu.php') // O '/api/menu.json' según tu backend
     .then(res => res.json())
     .then(data => buildMenu(data));
 
