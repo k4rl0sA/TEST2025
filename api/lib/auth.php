@@ -32,13 +32,29 @@ class Auth {
         if (!$token) return false;
 
         try {
-            $decoded = JWT::decode($token, new Key(self::$jwtSecret, self::$jwtAlgorithm));
+            $key = self::getCurrentKey(); // clave rotativa
+            $decoded = JWT::decode($token, new Key($key, self::$jwtAlgorithm));
             $payload = (array) $decoded;
+        if (self::isTokenRevoked($payload['jti'])) {
+            return false;
+        }
             return self::validateClaims($payload) ? $payload : false;
         } catch (ExpiredException|SignatureInvalidException|DomainException|UnexpectedValueException|Exception $e) {
             error_log('JWT error: ' . $e->getMessage());
             return false;
         }
+    }
+
+    private static function getCurrentKey(): string {
+       $keyVersion = $_ENV['JWT_KEY_VERSION'] ?? 'default';
+        return $_ENV["JWT_SECRET_{$keyVersion}"];
+    }
+
+    private static function isTokenRevoked(string $jti): bool {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM revoked_tokens WHERE jti = ?");
+        $stmt->execute([$jti]);
+        return $stmt->fetchColumn() > 0;
     }
 
     private static function getBearerToken(): ?string {
@@ -90,13 +106,13 @@ class Auth {
 
     public static function refrescarToken(string $refreshToken): ?string {
         try {
-            $decoded = JWT::decode($refreshToken, new Key(self::$jwtSecret, self::$jwtAlgorithm));
+            $key = self::getCurrentKey(); // Usar clave rotativa
+            $decoded = JWT::decode($refreshToken, new Key($key, self::$jwtAlgorithm));
             $payload = (array) $decoded;
 
             if (($payload['type'] ?? '') !== 'refresh' || !self::validateClaims($payload)) {
                 return null;
             }
-
             // Si el refresh token contiene roles/permisos, mantenerlos
             $customClaims = [];
             if (isset($payload['roles'])) $customClaims['roles'] = $payload['roles'];

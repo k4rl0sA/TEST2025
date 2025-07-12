@@ -20,20 +20,33 @@ function requireAuth(array $roles = [], array $permisos = []): array {
         http_response_code(401);
         exit(json_encode(['error' => 'No autorizado']));
     }
-
     foreach ($roles as $rol) {
         if (!Auth::tieneRol($payload, $rol)) {
             http_response_code(403);
             exit(json_encode(['error' => "Acceso denegado. Se requiere perfil: $rol"]));
         }
     }
-
     foreach ($permisos as $permiso) {
         if (!Auth::tienePermiso($payload, $permiso)) {
             http_response_code(403);
             exit(json_encode(['error' => "Permiso insuficiente: $permiso"]));
         }
     }
+    return $payload;
+}
 
+    // Añadir sistema de permisos
+function requirePermission(string $requiredPermission): array {
+    $payload = requireAuth();
+    
+    if (!Auth::tienePermiso($payload, $requiredPermission)) {
+        http_response_code(403);
+        exit(json_encode([
+            'error' => 'Acceso denegado',
+            'required_permission' => $requiredPermission,
+            'user_permissions' => $payload['scope'] ?? []
+        ]));
+    }
+    
     return $payload;
 }

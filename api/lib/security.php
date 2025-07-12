@@ -69,21 +69,20 @@ class Security {
      * Usar con precaución - solo cuando sea necesario
      */
     public static function sanitizeRaw(string $value): string {
-        // Eliminar caracteres no deseados
-        $value = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F]/u', '', $value);
-        
-        // Configuración segura para HTMLPurifier si está disponible
-        if (class_exists('HTMLPurifier')) {
-            $config = HTMLPurifier_Config::createDefault();
-            $config->set('Core.Encoding', 'UTF-8');
-            $config->set('HTML.Doctype', 'HTML 5');
-            $config->set('HTML.Allowed', 'p,br,strong,em,a[href|title],ul,ol,li');
-            $purifier = new HTMLPurifier($config);
-            return $purifier->purify($value);
-        }
-        
-        // Fallback básico si HTMLPurifier no está disponible
-        return strip_tags($value, '<p><br><strong><em><a><ul><ol><li>');
+         // Usar HTMLPurifier solo si es necesario
+        if (strip_tags($value) !== $value && class_exists('HTMLPurifier')) {
+                // Eliminar caracteres no deseados
+                $value = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F]/u', '', $value);
+                // Configuración segura para HTMLPurifier si está disponible
+                    $config = HTMLPurifier_Config::createDefault();
+                    $config->set('Core.Encoding', 'UTF-8');
+                    $config->set('HTML.Doctype', 'HTML 5');
+                    $config->set('HTML.Allowed', 'p,br,strong,em,a[href|title],ul,ol,li');
+                    $purifier = new HTMLPurifier($config);
+                    return $purifier->purify($value);
+            }
+            // Fallback básico si HTMLPurifier no está disponible
+     return strip_tags($value);
     }
 
     /**
@@ -109,24 +108,6 @@ class Security {
             }
         }
         return $headers;
-    }
-
-    /**
-     * Genera un token CSRF
-     */
-    public static function generateCsrfToken(): string {
-        if (empty($_SESSION['csrf_token'])) {
-            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-        }
-        return $_SESSION['csrf_token'];
-    }
-
-    /**
-     * Valida un token CSRF
-     */
-    public static function validateCsrfToken(string $token): bool {
-        return isset($_SESSION['csrf_token']) && 
-               hash_equals($_SESSION['csrf_token'], $token);
     }
 
     /**
@@ -163,21 +144,19 @@ class Security {
     /**
      * Rate Limiting básico por IP
      */
-    public static function applyRateLimiting(int $maxRequests = 100, int $period = 60): void {
+    public static function applyRateLimiting(string $key, int $maxRequests = 100, int $period = 60): void {
+        $rateLimitKey = "rate_limit_{$key}_" . $_SERVER['REMOTE_ADDR'];
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-        $ip = $_SERVER['REMOTE_ADDR'];
-        $key = "rate_limit_{$ip}";
-
         if (function_exists('apcu_exists') && function_exists('apcu_store') && function_exists('apcu_inc')) {
-            if (!apcu_exists($key)) {
-                apcu_store($key, 1, $period);
+            if (!apcu_exists($rateLimitKey)) {
+                apcu_store($rateLimitKey, 1, $period);
                 return;
             }
-            $count = apcu_inc($key, 1, $success);
+            $count = apcu_inc($rateLimitKey, 1, $success);
             if (!$success) {
-                apcu_store($key, 1, $period);
+                apcu_store($rateLimitKey, 1, $period);
                 $count = 1;
             }
             if ($count > $maxRequests) {
@@ -185,26 +164,22 @@ class Security {
             }
             return;
         }
-
-        // Fallback a sesiones
-        if (!isset($_SESSION[$key])) {
-            $_SESSION[$key] = [
+        if (!isset($_SESSION[$rateLimitKey])) {
+            $_SESSION[$rateLimitKey] = [
                 'count' => 1,
                 'expire' => time() + $period
             ];
             return;
         }
-
-        if ($_SESSION[$key]['expire'] < time()) {
-            $_SESSION[$key] = [
+        if ($_SESSION[$rateLimitKey]['expire'] < time()) {
+            $_SESSION[$rateLimitKey] = [
                 'count' => 1,
                 'expire' => time() + $period
             ];
             return;
         }
-
-        $_SESSION[$key]['count']++;
-        if ($_SESSION[$key]['count'] > $maxRequests) {
+        $_SESSION[$rateLimitKey]['count']++;
+        if ($_SESSION[$rateLimitKey]['count'] > $maxRequests) {
             throw new Exception("Demasiadas solicitudes", 429);
         }
     }

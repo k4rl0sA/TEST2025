@@ -1,0 +1,24 @@
+<?php
+declare(strict_types=1);
+
+// Carga el autoloader de Composer
+require __DIR__ . '/vendor/autoload.php';
+
+// Inicializa la configuración global
+require __DIR__ . '/config.php';
+
+// Configuración de encabezados CORS y seguridad
+header('Access-Control-Allow-Origin: ' . Config::get('ALLOWED_ORIGINS', '*'));
+header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Authorization, Content-Type, X-CSRF-Token');
+header('Access-Control-Allow-Credentials: true');
+header('Content-Type: application/json; charset=utf-8');
+
+// Manejar solicitudes OPTIONS (preflight)
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
+
+// Incluye el enrutador principal
+require __DIR__ . '/routes/router.php';

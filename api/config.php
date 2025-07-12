@@ -76,7 +76,7 @@ define('JWT_SECRET', Config::get('JWT_SECRET', 'TU_SECRETO_SUPER_SEGURO'));
 define('JWT_ALGORITHM', Config::get('JWT_ALGORITHM', 'HS256'));
 define('JWT_EXPIRATION', (int)Config::get('JWT_EXPIRATION', 3600));
 
-// 3. Conexión a base de datos mejorada
+// Conexión a base de datos mejorada
 
 class Database {
     private static $pdo = null;
@@ -142,19 +142,20 @@ class Database {
 
 // 4. Configuración de seguridad adicional
 // Configuración de CORS
+if (!headers_sent()) {
 header('Access-Control-Allow-Origin: ' . Config::get('ALLOWED_ORIGINS', '*'));
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, X-CSRF-Token');
 header('Access-Control-Allow-Credentials: true');
-
 // Headers de seguridad
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: DENY');
 header('X-XSS-Protection: 1; mode=block');
 header('Strict-Transport-Security: max-age=63072000; includeSubDomains; preload');
+}
 
 // Configuración de sesión segura
-if (session_status() === PHP_SESSION_NONE) {
+/* if (session_status() === PHP_SESSION_NONE) {
     ini_set('session.cookie_httponly', '1');
     ini_set('session.cookie_secure', Config::get('SESSION_SECURE', '1'));
     ini_set('session.cookie_samesite', 'Lax');
@@ -165,19 +166,19 @@ if (session_status() === PHP_SESSION_NONE) {
     session_name(Config::get('SESSION_NAME', 'secure_session'));
     session_start();
 }
-
+ */
 // ==============================================
 // 5. Manejo de errores
 // ==============================================
 
-if (Config::get('APP_ENV', 'development') === 'production') {
+/* if (Config::get('APP_ENV', 'development') === 'production') {
     ini_set('display_errors', '0');
     ini_set('log_errors', '1');
     ini_set('error_log', __DIR__ . '/../logs/error.log');
 } else {
     ini_set('display_errors', '1');
     error_reporting(E_ALL);
-}
+} */
 
 set_error_handler(function($severity, $message, $file, $line) {
     if (!(error_reporting() & $severity)) {
