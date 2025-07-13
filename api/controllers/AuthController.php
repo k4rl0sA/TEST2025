@@ -15,8 +15,7 @@ class AuthController {
         $id = filter_var($input['documento'] ?? '', FILTER_SANITIZE_STRING);
         $pass = $input['clave'] ?? '';
         
-        // if (empty($id) || !ctype_alnum($id) || strlen($id) > 20 || empty($pass)) {
-        if (empty($id) || strlen($id) > 20 || empty($pass)) {
+       if (empty($id) || !ctype_alnum($id) || strlen($id) > 20 || empty($pass)) {
             http_response_code(400);
             echo json_encode(['error' => 'Credenciales inválidas']);
             return;
