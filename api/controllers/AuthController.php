@@ -49,7 +49,6 @@ class AuthController {
                 'sub'      => $user['id_usuario'],
                 'nombre'   => $user['nombre'],
                 'perfil'   => $user['perfil'],
-                'permisos' => $permisos,
                 'exp'      => time() + JWT_EXPIRATION
             ];
 
