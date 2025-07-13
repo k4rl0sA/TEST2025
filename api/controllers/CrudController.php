@@ -198,22 +198,18 @@ public static function obtenerUno(string $tabla, $id): void {
     try {
         $pdo = Database::getConnection();
         $config = self::getTablaConfig($tabla);
-        
-        // Construir consulta para clave primaria compuesta
+
+        // Clave primaria compuesta
         $whereClause = [];
         $params = [];
-        
-        // Parsear ID compuesto (formato: idgeo|estado_v|usu_creo)
         $idParts = explode('|', $id);
         if (count($idParts) !== count($config['primary_key'])) {
             throw new Exception("ID inválido para la tabla $tabla", 400);
         }
-        
         foreach ($config['primary_key'] as $index => $pk) {
             $whereClause[] = "$pk = :pk_$index";
             $params[":pk_$index"] = $idParts[$index];
         }
-        
         $sql = "SELECT * FROM $tabla WHERE " . implode(' AND ', $whereClause);
         $stmt = $pdo->prepare($sql);
         $stmt->execute($params);
@@ -225,8 +221,7 @@ public static function obtenerUno(string $tabla, $id): void {
             return;
         }
 
-        // Ocultar campos sensibles
-        foreach ($config['hidden'] as $campo) {
+        foreach ($config['hidden'] ?? [] as $campo) {
             unset($record[$campo]);
         }
 
