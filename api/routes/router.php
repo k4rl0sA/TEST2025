@@ -57,50 +57,38 @@ try {
     foreach ($routes as $pattern => $handlerConfig) {
         [$method, $pathPattern] = explode(' ', $pattern, 2);
         $pathRegex = '#^' . preg_replace('/\{(\w+)\}/', '(?P<$1>[^/]+)', $pathPattern) . '$#';
-        
         if ($_SERVER['REQUEST_METHOD'] === $method && preg_match($pathRegex, $route, $matches)) {
             $matched = true;
-            
             // Extraer parámetros de la ruta
             $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
-            
             // Cargar controlador
             [$controllerName, $actionName, $middlewares] = $handlerConfig;
             $controllerFile = API_DIR . "/controllers/$controllerName.php";
-            
             if (!file_exists($controllerFile)) {
                 throw new RuntimeException("Controlador $controllerName no encontrado");
             }
-            
             require_once $controllerFile;
-            
             if (!class_exists($controllerName)) {
                 throw new RuntimeException("Clase $controllerName no definida");
             }
-            
             // Aplicar middlewares
             foreach ($middlewares as $middleware) {
                 if ($middleware === 'auth') {
                     requireAuth();
                 } elseif (strpos($middleware, 'permission:') === 0) {
                     $permission = str_replace('permission:', '', $middleware);
-                    
                     // Reemplazar placeholders con valores reales
                     foreach ($params as $key => $value) {
                         $permission = str_replace("{{$key}}", $value, $permission);
                     }
-                    
                     requirePermission($permission);
                 }
             }
-            
             // Instanciar controlador y ejecutar acción
             $controller = new $controllerName();
-            
             if (!method_exists($controller, $actionName)) {
                 throw new RuntimeException("Método $actionName no existe en $controllerName");
             }
-            
             call_user_func_array([$controller, $actionName], $params);
             break;
         }
