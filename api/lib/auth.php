@@ -60,6 +60,7 @@ class Auth {
     private static function getBearerToken(): ?string {
         $headers = getallheaders();
         $authHeader = $headers['Authorization'] ?? $headers['authorization'] ?? null;
+        var_dump($authHeader); // Para depuración, eliminar en producción
         if (!$authHeader || !preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) return null;
         return $matches[1];
     }
