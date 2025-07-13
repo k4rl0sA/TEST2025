@@ -21,22 +21,24 @@ class AuthController {
             return;
         }
 
+        // Log de entrada recibida
+        error_log(date('Y-m-d H:i:s') . ' LOGIN INPUT: ' . print_r($input, true) . PHP_EOL, 3, __DIR__ . '/../logs/api.log');
         try {
             $pdo = Database::getConnection();
-            
             // Registrar intento de acceso
             $logStmt = $pdo->prepare("INSERT INTO access_log (user_id, ip, success, fecha_create) VALUES (?, ?, ?, ?)");
             $logStmt->execute([$id, $_SERVER['REMOTE_ADDR'], 0, date('Y-m-d H:i:s')]);
-            $logId = $pdo->lastInsertId();  // Obtener ID del log
-
+            $logId = $pdo->lastInsertId();
             // Verificar usuario
-            $stmt = $pdo->prepare("SELECT id_usuario, correo, nombre, clave, subred, perfil 
-                                  FROM usuarios 
-                                  WHERE id_usuario = :id AND estado = 'A' LIMIT 1");
+            $stmt = $pdo->prepare("SELECT id_usuario, correo, nombre, clave, subred, perfil FROM usuarios WHERE id_usuario = :id AND estado = 'A' LIMIT 1");
             $stmt->bindParam(':id', $id);
             $stmt->execute();
             $user = $stmt->fetch();
-
+            error_log(date('Y-m-d H:i:s') . ' USUARIO ENCONTRADO: ' . print_r($user, true) . PHP_EOL, 3, __DIR__ . '/../logs/api.log');
+            if ($user) {
+                $verif = password_verify($pass, $user['clave']);
+                error_log(date('Y-m-d H:i:s') . ' RESULTADO PASSWORD_VERIFY: ' . var_export($verif, true) . PHP_EOL, 3, __DIR__ . '/../logs/api.log');
+            }
             if (!$user || !password_verify($pass, $user['clave'])) {
                 http_response_code(401);
                 echo json_encode(['error' => 'Credenciales inválidas']);
@@ -75,8 +77,8 @@ class AuthController {
                 ]
             ]);
         } catch (Exception $e) {
+            error_log(date('Y-m-d H:i:s') . ' LOGIN ERROR: ' . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/../logs/api.log');
             http_response_code(500);
-            error_log("Login error: " . $e->getMessage());
             echo json_encode(['error' => 'Error en el servidor']);
         }
     }
