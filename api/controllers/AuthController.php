@@ -19,9 +19,6 @@ class AuthController {
             echo json_encode(['error' => 'Credenciales inválidas']);
             return;
         }
-
-        // Log de entrada recibida
-        error_log(date('Y-m-d H:i:s') . ' LOGIN INPUT: ' . print_r($input, true) . PHP_EOL, 3, __DIR__ . '/../../logs/api.log');
         try {
             $pdo = Database::getConnection();
             // Registrar intento de acceso
@@ -33,10 +30,8 @@ class AuthController {
             $stmt->bindParam(':id', $id);
             $stmt->execute();
             $user = $stmt->fetch();
-            error_log(date('Y-m-d H:i:s') . ' USUARIO ENCONTRADO: ' . print_r($user, true) . PHP_EOL, 3, __DIR__ . '/../../logs/api.log');
             if ($user) {
                 $verif = password_verify($pass, $user['clave']);
-                error_log(date('Y-m-d H:i:s') . ' RESULTADO PASSWORD_VERIFY: ' . var_export($verif, true) . PHP_EOL, 3, __DIR__ . '/../../logs/api.log');
             }
             if (!$user || !password_verify($pass, $user['clave'])) {
                 http_response_code(401);
@@ -76,7 +71,7 @@ class AuthController {
                 ]
             ]);
         } catch (Exception $e) {
-            error_log(date('Y-m-d H:i:s') . ' LOGIN ERROR: ' . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/../../logs/api.log');
+            // error_log(date('Y-m-d H:i:s') . ' LOGIN ERROR: ' . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/../../logs/api.log');
             http_response_code(500);
             echo json_encode(['error' => 'Error en el servidor']);
         }
