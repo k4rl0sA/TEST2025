@@ -5,11 +5,11 @@ require_once '../config.php';
 header('Content-Type: application/json');
 
 $user = Auth::verificarToken(); // Valida el JWT y retorna datos del usuario
-if (!$user) {
+/* if (!$user) {
     http_response_code(401);
     echo json_encode(['error' => 'No autorizado']);
     exit;
-}
+} */
 
 $perfil = $user['perfil'];
 
