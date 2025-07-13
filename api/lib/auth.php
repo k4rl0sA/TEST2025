@@ -59,9 +59,13 @@ class Auth {
 
     private static function getBearerToken(): ?string {
         $headers = getallheaders();
-        error_log(__FILE__ . ':' . __LINE__ . ' HEADERS: ' . print_r($headers, true), 3, __DIR__ . '/../../logs/api.log');
         $authHeader = $headers['Authorization'] ?? $headers['authorization'] ?? null;
-        error_log(__FILE__ . ':' . __LINE__ . ' AUTH_HEADER: ' . print_r($authHeader, true), 3, __DIR__ . '/../../logs/api.log');
+        if (!$authHeader && isset($_SERVER['HTTP_AUTHORIZATION'])) {
+            $authHeader = $_SERVER['HTTP_AUTHORIZATION'];
+        }
+        if (!$authHeader && isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) {
+            $authHeader = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+        }
         if (!$authHeader || !preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
             error_log(__FILE__ . ':' . __LINE__ . ' NO BEARER TOKEN ENCONTRADO', 3, __DIR__ . '/../../logs/api.log');
             return null;

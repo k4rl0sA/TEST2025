@@ -11,12 +11,5 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^ index.php [L]
-
-    # Asegurar que el header Authorization llegue a PHP
-    RewriteCond %{HTTP:Authorization} ^(.*)
-    RewriteRule ^(.*)$ - [E=HTTP_AUTHORIZATION:%1]
 </IfModule>
-
-# Para servidores que soportan SetEnvIf
-SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
 
