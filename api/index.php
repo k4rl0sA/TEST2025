@@ -1,13 +1,10 @@
 <?php
 declare(strict_types=1);
 
-// Carga el autoloader de Composer
-require __DIR__ . '/vendor/autoload.php';
-
-// Inicializa la configuración global
-require __DIR__ . '/config.php';
-
 define('API_DIR', dirname(__DIR__));
+
+require __DIR__ . '/vendor/autoload.php';// Carga el autoloader de Composer
+require __DIR__ . '/config.php';// Inicializa la configuración global
 require_once API_DIR . '/lib/auth.php';
 
 // Configuración de encabezados CORS y seguridad
