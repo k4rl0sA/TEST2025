@@ -21,6 +21,26 @@ $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $basePath = '/api';
 $route = str_replace($basePath, '', $requestUri);
 
+// Manejar login sin middleware
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $route === '/auth/login') {
+    $controllerName = 'AuthController';
+    $actionName = 'login';
+    $controllerFile = API_DIR . "/controllers/$controllerName.php";
+    
+    if (!file_exists($controllerFile)) {
+        throw new RuntimeException("Controlador $controllerName no encontrado");
+    }
+    require_once $controllerFile;
+    
+    if (!class_exists($controllerName)) {
+        throw new RuntimeException("Clase $controllerName no definida");
+    }
+    
+    $controller = new $controllerName();
+    $controller->$actionName();
+    exit;
+}
+
 // Sistema de enrutamiento mejorado
 $routes = [
     'POST /auth/login' => ['AuthController', 'login', []],
