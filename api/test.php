@@ -13,4 +13,5 @@ echo json_encode([
     'hasheada' => password_hash('Hogar2020+', PASSWORD_DEFAULT),
     'claveOk' => password_verify('Hogar2020+', '$2y$10$lTl9tdSIGWq1FUASoxZuRurRZ0VxDWnq4NBOhdpsyfaULiSEZO2Ia'),
     'pruebaLog' => error_log('Prueba de log', 3, __DIR__ . '/../logs/pi.log')
+    
 ]);
