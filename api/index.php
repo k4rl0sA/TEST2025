@@ -7,6 +7,9 @@ require __DIR__ . '/vendor/autoload.php';
 // Inicializa la configuración global
 require __DIR__ . '/config.php';
 
+define('API_DIR', dirname(__DIR__));
+require_once API_DIR . '/lib/auth.php';
+
 // Configuración de encabezados CORS y seguridad
 header('Access-Control-Allow-Origin: ' . Config::get('ALLOWED_ORIGINS', '*'));
 header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
