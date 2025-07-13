@@ -18,7 +18,7 @@ function requireAuth(array $roles = [], array $permisos = []): array {
     $payload = Auth::isAuthorized();
     if (!$payload) {
         http_response_code(401);
-        exit(json_encode(['error' => 'No autorizado']));
+        exit(json_encode(['error' => 'No autorizado +']));
     }
     foreach ($roles as $rol) {
         if (!Auth::tieneRol($payload, $rol)) {
