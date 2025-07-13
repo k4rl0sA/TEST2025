@@ -1,11 +1,10 @@
 <?php
 declare(strict_types=1);
 
-define('API_DIR', dirname(__DIR__));
-
+define('API_DIR', __DIR__);
 require __DIR__ . '/vendor/autoload.php';// Carga el autoloader de Composer
 require __DIR__ . '/config.php';// Inicializa la configuración global
-require_once API_DIR . '/lib/auth.php';
+require_once __DIR__ . '/lib/auth.php';
 
 // Configuración de encabezados CORS y seguridad
 header('Access-Control-Allow-Origin: ' . Config::get('ALLOWED_ORIGINS', '*'));
