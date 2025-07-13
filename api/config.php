@@ -6,6 +6,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 // Evitar acceso directo
 defined('API_DIR') || exit(header('HTTP/1.1 403 Forbidden'));
+ini_set('error_log', __DIR__ . '/../logs/api.log');
 
 // 1. Carga de variables de entorno optimizada
 class Config {
