@@ -113,54 +113,42 @@ public static function actualizar(string $tabla, $id): void {
         $pdo = Database::getConnection();
         $config = self::getTablaConfig($tabla);
         $input = self::getSanitizedInput($config);
-
         // Validación
         self::validateInput($input, $config['validation']['actualizar'] ?? []);
-
         // Callbacks
         if (isset($config['callbacks']['before_update'])) {
             $input = self::executeCallback($config['callbacks']['before_update'], $input, $tabla);
         }
-
         // Construir consulta para clave primaria compuesta
         $setClause = [];
         foreach ($input as $column => $value) {
             $setClause[] = "$column = :$column";
         }
-        
         $whereClause = [];
         $params = $input;
-        
         // Parsear ID compuesto (formato: idgeo|estado_v|usu_creo)
         $idParts = explode('|', $id);
         if (count($idParts) !== count($config['primary_key'])) {
             throw new Exception("ID inválido para la tabla $tabla", 400);
         }
-        
         foreach ($config['primary_key'] as $index => $pk) {
             $whereClause[] = "$pk = :pk_$index";
             $params["pk_$index"] = $idParts[$index];
         }
-        
         $sql = "UPDATE $tabla SET " . implode(', ', $setClause) . 
                " WHERE " . implode(' AND ', $whereClause);
-
         // Ejecutar
         $stmt = $pdo->prepare($sql);
         $stmt->execute($params);
-
         // Obtener registro actualizado
         $sql = "SELECT * FROM $tabla WHERE " . implode(' AND ', $whereClause);
         $stmt = $pdo->prepare($sql);
-        
         $pkParams = [];
         foreach ($config['primary_key'] as $index => $pk) {
             $pkParams[":pk_$index"] = $idParts[$index];
         }
-        
         $stmt->execute($pkParams);
         $updatedRecord = $stmt->fetch(PDO::FETCH_ASSOC);
-
         echo json_encode($updatedRecord);
     } catch (Throwable $e) {
         self::handleError($e);
@@ -199,67 +187,6 @@ public static function obtenerUno(string $tabla, $id): void {
         }
 
         echo json_encode($record);
-    } catch (Throwable $e) {
-        self::handleError($e);
-    }
-}
-
-// Los métodos activar/inactivar serían similares a actualizar pero solo cambian el estado
-
-    public static function actualizar(string $tabla, $id): void {
-    try {
-        $pdo = Database::getConnection();
-        $config = self::getTablaConfig($tabla);
-        $input = self::getSanitizedInput($config);
-
-        // Validación
-        self::validateInput($input, $config['validation']['actualizar'] ?? []);
-
-        // Callbacks
-        if (isset($config['callbacks']['before_update'])) {
-            $input = self::executeCallback($config['callbacks']['before_update'], $input, $tabla);
-        }
-
-        // Construir consulta para clave primaria compuesta
-        $setClause = [];
-        foreach ($input as $column => $value) {
-            $setClause[] = "$column = :$column";
-        }
-        
-        $whereClause = [];
-        $params = $input;
-        
-        // Parsear ID compuesto (formato: idgeo|estado_v|usu_creo)
-        $idParts = explode('|', $id);
-        if (count($idParts) !== count($config['primary_key'])) {
-            throw new Exception("ID inválido para la tabla $tabla", 400);
-        }
-        
-        foreach ($config['primary_key'] as $index => $pk) {
-            $whereClause[] = "$pk = :pk_$index";
-            $params["pk_$index"] = $idParts[$index];
-        }
-        
-        $sql = "UPDATE $tabla SET " . implode(', ', $setClause) . 
-               " WHERE " . implode(' AND ', $whereClause);
-
-        // Ejecutar
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute($params);
-
-        // Obtener registro actualizado
-        $sql = "SELECT * FROM $tabla WHERE " . implode(' AND ', $whereClause);
-        $stmt = $pdo->prepare($sql);
-        
-        $pkParams = [];
-        foreach ($config['primary_key'] as $index => $pk) {
-            $pkParams[":pk_$index"] = $idParts[$index];
-        }
-        
-        $stmt->execute($pkParams);
-        $updatedRecord = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        echo json_encode($updatedRecord);
     } catch (Throwable $e) {
         self::handleError($e);
     }
