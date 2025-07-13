@@ -37,6 +37,7 @@ class AuthController {
             $stmt->execute();
             $user = $stmt->fetch();
 
+            var_dump(password_verify('Hogar2020+', '$2y$10$QNrQsbSBb1i5kh8xcLR9.O8I3cBF/gnlZdQXh8112TXf/J0hI0xOC'));
             if (!$user || !password_verify($pass, $user['clave'])) {
                 http_response_code(401);
                 echo json_encode(['error' => 'Credenciales inválidas']);
@@ -56,6 +57,8 @@ class AuthController {
                 'permisos' => $permisos,
                 'exp'      => time() + JWT_EXPIRATION
             ];
+
+            
             $access_token = Auth::generarTokenJWT($user['id_usuario'], $tokenPayload);
             $refresh_token = Auth::generarRefreshToken($user['id_usuario']);
 
