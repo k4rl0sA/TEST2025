@@ -47,25 +47,29 @@ class AuthController {
             $updateLog = $pdo->prepare("UPDATE access_log SET success = 1 WHERE log_id = ?");
             $updateLog->execute([$logId]);
 
-            // Generar tokens
-            $access_token = Auth::generarTokenJWT((string)$user['id_usuario'], [
-                'roles' => [$user['perfil']],
-                'scope' => self::obtenerPermisosUsuario($user['id_usuario'])
-            ]);
-            
-            $refresh_token = Auth::generarRefreshToken((string)$user['id_usuario']);
+            // --- AQUÍ VA LA INCLUSIÓN DE PERMISOS EN EL JWT ---
+            $permisos = self::obtenerPermisosUsuario($user['perfil']);
+            $tokenPayload = [
+                'sub'      => $user['id_usuario'],
+                'nombre'   => $user['nombre'],
+                'perfil'   => $user['perfil'],
+                'permisos' => $permisos,
+                'exp'      => time() + JWT_EXPIRATION
+            ];
+            $access_token = Auth::generarTokenJWT($user['id_usuario'], $tokenPayload);
+            $refresh_token = Auth::generarRefreshToken($user['id_usuario']);
 
             echo json_encode([
-                'access_token' => $access_token,
+                'access_token'  => $access_token,
                 'refresh_token' => $refresh_token,
-                'token_type' => 'Bearer',
-                'expires_in' => JWT_EXPIRATION,
+                'token_type'    => 'Bearer',
+                'expires_in'    => JWT_EXPIRATION,
                 'user' => [
-                    'id' => $user['id_usuario'],
-                    'correo' => $user['correo'],
-                    'nombre' => $user['nombre'],
-                    'subred' => $user['subred'],
-                    'perfil' => $user['perfil']
+                    'id'      => $user['id_usuario'],
+                    'correo'  => $user['correo'],
+                    'nombre'  => $user['nombre'],
+                    'subred'  => $user['subred'],
+                    'perfil'  => $user['perfil']
                 ]
             ]);
         } catch (Exception $e) {
@@ -95,10 +99,22 @@ class AuthController {
         }
     }
 
-    private static function obtenerPermisosUsuario(string $userId): array {
+    private static function obtenerPermisosUsuario(string $perfil): array {
         $pdo = Database::getConnection();
-        $stmt = $pdo->prepare("SELECT permiso FROM usuario_permisos WHERE usuario_id = ?");
-        $stmt->execute([$userId]);
-        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+        $stmt = $pdo->prepare("SELECT modulo, componente, consultar, editar, crear, ajustar, importar
+            FROM adm_roles WHERE perfil = ? AND estado = 'A'");
+        $stmt->execute([$perfil]);
+        $permisos = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $key = "{$row['modulo']}.{$row['componente']}";
+            $permisos[$key] = [
+                'consultar' => $row['consultar'] === 'SI',
+                'editar'    => $row['editar'] === 'SI',
+                'crear'     => $row['crear'] === 'SI',
+                'ajustar'   => $row['ajustar'] === 'SI',
+                'importar'  => $row['importar'] === 'SI'
+            ];
+        }
+        return $permisos;
     }
 }
