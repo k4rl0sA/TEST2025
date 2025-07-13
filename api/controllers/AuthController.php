@@ -42,9 +42,6 @@ class AuthController {
             // Actualizar log a exitoso
             $updateLog = $pdo->prepare("UPDATE access_log SET success = 1 WHERE user_id = ?");
             $updateLog->execute([$logId]);
-
-            // --- AQUÍ VA LA INCLUSIÓN DE PERMISOS EN EL JWT ---
-            $permisos = self::obtenerPermisosUsuario($user['perfil']);
             $tokenPayload = [
                 'sub'      => $user['id_usuario'],
                 'nombre'   => $user['nombre'],
