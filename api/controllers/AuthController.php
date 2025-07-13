@@ -11,8 +11,7 @@ class AuthController {
         $input = json_decode(file_get_contents('php://input'), true) ?? [];
         $input = Security::sanitizeArray($input);
 
-        // Validación de entrada (mismo código de login.php)
-        $id = filter_var($input['documento'] ?? '', FILTER_SANITIZE_STRING);
+        $id = isset($input['documento']) ? trim($input['documento']) : '';
         $pass = $input['clave'] ?? '';
         
        if (empty($id) || !ctype_digit($id) || strlen($id) > 20 || empty($pass)) {
