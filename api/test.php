@@ -11,5 +11,5 @@ echo json_encode([
     ],
     'post' => array_intersect_key($_POST, array_flip(['key1', 'key2'])), // Replace 'key1', 'key2' with required keys
     'hasheada' => password_hash('Hogar2020+', PASSWORD_DEFAULT),
-    'claveOk' => password_verify('Hogar2020+', '$2y$10$QNrQsbSBb1i5kh8xcLR9.O8I3cBF/gnlZdQXh8112TXf/J0hI0xOC')
+    'claveOk' => password_verify('Hogar2020+', '$2y$10$lTl9tdSIGWq1FUASoxZuRurRZ0VxDWnq4NBOhdpsyfaULiSEZO2Ia')
 ]);
