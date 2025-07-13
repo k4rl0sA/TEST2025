@@ -11,9 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-// Directorio base de la API
-define('API_DIR', dirname(__DIR__));
-
 // Cargar configuración y dependencias
 require_once API_DIR . '/config.php';
 require_once API_DIR . '/lib/security.php';
