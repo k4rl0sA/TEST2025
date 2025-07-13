@@ -35,6 +35,7 @@ $routes = [
     'PATCH /{tabla}/{id}/activar' => ['CrudController', 'activar', ['permission:{tabla}.ajustar']],
     'PATCH /{tabla}/{id}/inactivar' => ['CrudController', 'inactivar', ['permission:{tabla}.ajustar']],
     'GET /reportes/{tipo}' => ['ReportController', 'generarReporte', ['auth']],
+    'GET /geo_gest/{id}' => ['CrudController','obtenerUno',['permission:geo_gest.leer'],'id' => 'complex'],
 ];
 
 // Registrar shutdown function para manejo de errores

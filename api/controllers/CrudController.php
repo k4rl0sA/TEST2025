@@ -92,81 +92,210 @@ class CrudController {
 
     // Implementar métodos restantes (crear, actualizar, etc.)
      public static function crear(string $tabla): void {
-        try {
-            $pdo = Database::getConnection();
-            $config = self::getTablaConfig($tabla);
-            $input = self::getSanitizedInput($config);
+    try {
+        $pdo = Database::getConnection();
+        $config = self::getTablaConfig($tabla);
+        $input = self::getSanitizedInput($config);
 
-            // Validación
-            self::validateInput($input, $config['validation']['crear'] ?? []);
+        // Validación
+        self::validateInput($input, $config['validation']['crear'] ?? []);
 
-            // Callbacks pre-procesamiento
-            if (isset($config['callbacks']['before_create'])) {
-                $input = self::executeCallback(
-                    $config['callbacks']['before_create'], 
-                    $input, 
-                    $tabla
-                );
-            }
-
-            // Construir consulta
-            $columns = implode(', ', array_keys($input));
-            $placeholders = ':' . implode(', :', array_keys($input));
-            $sql = "INSERT INTO $tabla ($columns) VALUES ($placeholders)";
-
-            // Ejecutar
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute($input);
-
-            // Obtener ID insertado
-            $lastId = $pdo->lastInsertId();
-            $newRecord = self::getById($tabla, $lastId, $config);
-
-            http_response_code(201);
-            echo json_encode($newRecord);
-        } catch (Throwable $e) {
-            self::handleError($e);
+        // Callbacks
+        if (isset($config['callbacks']['before_create'])) {
+            $input = self::executeCallback($config['callbacks']['before_create'], $input, $tabla);
         }
-    }
 
-    public static function actualizar(string $tabla, int $id): void {
-        try {
-            $pdo = Database::getConnection();
-            $config = self::getTablaConfig($tabla);
-            $input = self::getSanitizedInput($config);
+        // Construir consulta para clave primaria compuesta
+        $columns = implode(', ', array_keys($input));
+        $placeholders = ':' . implode(', :', array_keys($input));
+        $sql = "INSERT INTO $tabla ($columns) VALUES ($placeholders)";
 
-            // Validación
-            self::validateInput($input, $config['validation']['actualizar'] ?? []);
+        // Ejecutar
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($input);
 
-            // Callbacks pre-procesamiento
-            if (isset($config['callbacks']['before_update'])) {
-                $input = self::executeCallback(
-                    $config['callbacks']['before_update'], 
-                    $input, 
-                    $tabla
-                );
-            }
-
-            // Construir consulta
-            $setClause = [];
-            foreach ($input as $column => $value) {
-                $setClause[] = "$column = :$column";
-            }
-            $sql = "UPDATE $tabla SET " . implode(', ', $setClause) . " WHERE id_usuario = :id";
-            $input['id'] = $id;
-
-            // Ejecutar
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute($input);
-
-            // Obtener registro actualizado
-            $updatedRecord = self::getById($tabla, $id, $config);
-
-            echo json_encode($updatedRecord);
-        } catch (Throwable $e) {
-            self::handleError($e);
+        // Obtener registro creado usando clave primaria compuesta
+        $whereClause = [];
+        $params = [];
+        
+        foreach ($config['primary_key'] as $pk) {
+            $whereClause[] = "$pk = :$pk";
+            $params[$pk] = $input[$pk];
         }
+        
+        $sql = "SELECT * FROM $tabla WHERE " . implode(' AND ', $whereClause);
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+        $newRecord = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        http_response_code(201);
+        echo json_encode($newRecord);
+    } catch (Throwable $e) {
+        self::handleError($e);
     }
+}
+
+public static function actualizar(string $tabla, $id): void {
+    try {
+        $pdo = Database::getConnection();
+        $config = self::getTablaConfig($tabla);
+        $input = self::getSanitizedInput($config);
+
+        // Validación
+        self::validateInput($input, $config['validation']['actualizar'] ?? []);
+
+        // Callbacks
+        if (isset($config['callbacks']['before_update'])) {
+            $input = self::executeCallback($config['callbacks']['before_update'], $input, $tabla);
+        }
+
+        // Construir consulta para clave primaria compuesta
+        $setClause = [];
+        foreach ($input as $column => $value) {
+            $setClause[] = "$column = :$column";
+        }
+        
+        $whereClause = [];
+        $params = $input;
+        
+        // Parsear ID compuesto (formato: idgeo|estado_v|usu_creo)
+        $idParts = explode('|', $id);
+        if (count($idParts) !== count($config['primary_key'])) {
+            throw new Exception("ID inválido para la tabla $tabla", 400);
+        }
+        
+        foreach ($config['primary_key'] as $index => $pk) {
+            $whereClause[] = "$pk = :pk_$index";
+            $params["pk_$index"] = $idParts[$index];
+        }
+        
+        $sql = "UPDATE $tabla SET " . implode(', ', $setClause) . 
+               " WHERE " . implode(' AND ', $whereClause);
+
+        // Ejecutar
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+
+        // Obtener registro actualizado
+        $sql = "SELECT * FROM $tabla WHERE " . implode(' AND ', $whereClause);
+        $stmt = $pdo->prepare($sql);
+        
+        $pkParams = [];
+        foreach ($config['primary_key'] as $index => $pk) {
+            $pkParams[":pk_$index"] = $idParts[$index];
+        }
+        
+        $stmt->execute($pkParams);
+        $updatedRecord = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        echo json_encode($updatedRecord);
+    } catch (Throwable $e) {
+        self::handleError($e);
+    }
+}
+
+public static function obtenerUno(string $tabla, $id): void {
+    try {
+        $pdo = Database::getConnection();
+        $config = self::getTablaConfig($tabla);
+        
+        // Construir consulta para clave primaria compuesta
+        $whereClause = [];
+        $params = [];
+        
+        // Parsear ID compuesto (formato: idgeo|estado_v|usu_creo)
+        $idParts = explode('|', $id);
+        if (count($idParts) !== count($config['primary_key'])) {
+            throw new Exception("ID inválido para la tabla $tabla", 400);
+        }
+        
+        foreach ($config['primary_key'] as $index => $pk) {
+            $whereClause[] = "$pk = :pk_$index";
+            $params[":pk_$index"] = $idParts[$index];
+        }
+        
+        $sql = "SELECT * FROM $tabla WHERE " . implode(' AND ', $whereClause);
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$record) {
+            http_response_code(404);
+            echo json_encode(['error' => 'Registro no encontrado']);
+            return;
+        }
+
+        // Ocultar campos sensibles
+        foreach ($config['hidden'] as $campo) {
+            unset($record[$campo]);
+        }
+
+        echo json_encode($record);
+    } catch (Throwable $e) {
+        self::handleError($e);
+    }
+}
+
+// Los métodos activar/inactivar serían similares a actualizar pero solo cambian el estado
+
+    public static function actualizar(string $tabla, $id): void {
+    try {
+        $pdo = Database::getConnection();
+        $config = self::getTablaConfig($tabla);
+        $input = self::getSanitizedInput($config);
+
+        // Validación
+        self::validateInput($input, $config['validation']['actualizar'] ?? []);
+
+        // Callbacks
+        if (isset($config['callbacks']['before_update'])) {
+            $input = self::executeCallback($config['callbacks']['before_update'], $input, $tabla);
+        }
+
+        // Construir consulta para clave primaria compuesta
+        $setClause = [];
+        foreach ($input as $column => $value) {
+            $setClause[] = "$column = :$column";
+        }
+        
+        $whereClause = [];
+        $params = $input;
+        
+        // Parsear ID compuesto (formato: idgeo|estado_v|usu_creo)
+        $idParts = explode('|', $id);
+        if (count($idParts) !== count($config['primary_key'])) {
+            throw new Exception("ID inválido para la tabla $tabla", 400);
+        }
+        
+        foreach ($config['primary_key'] as $index => $pk) {
+            $whereClause[] = "$pk = :pk_$index";
+            $params["pk_$index"] = $idParts[$index];
+        }
+        
+        $sql = "UPDATE $tabla SET " . implode(', ', $setClause) . 
+               " WHERE " . implode(' AND ', $whereClause);
+
+        // Ejecutar
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+
+        // Obtener registro actualizado
+        $sql = "SELECT * FROM $tabla WHERE " . implode(' AND ', $whereClause);
+        $stmt = $pdo->prepare($sql);
+        
+        $pkParams = [];
+        foreach ($config['primary_key'] as $index => $pk) {
+            $pkParams[":pk_$index"] = $idParts[$index];
+        }
+        
+        $stmt->execute($pkParams);
+        $updatedRecord = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        echo json_encode($updatedRecord);
+    } catch (Throwable $e) {
+        self::handleError($e);
+    }
+}
 
     public static function activar(string $tabla, int $id): void {
         self::cambiarEstado($tabla, $id, 'A');
@@ -227,11 +356,31 @@ class CrudController {
                 }
                 return $input;
             
-            // Agregar más callbacks según sea necesario
-                
-            default:
+            case 'setGeoGestDefaults':
+                $input['fecha_create'] = date('Y-m-d H:i:s');
+                $input['estado'] = $input['estado'] ?? 'A';
                 return $input;
-        }
+        
+            case 'setUpdateInfo':
+                $input['fecha_update'] = date('Y-m-d H:i:s');
+                
+                // Obtener usuario actual del token JWT
+                $headers = getallheaders();
+                $token = str_replace('Bearer ', '', $headers['Authorization'] ?? '');
+
+         try {
+                $payload = Auth::isAuthorized($token);
+                $input['usu_update'] = $payload['sub'] ?? null;
+            } catch (Exception $e) {
+                // Si falla, mantener el valor existente o null
+                $input['usu_update'] = $input['usu_update'] ?? null;
+            }
+            
+            return $input;
+            
+        default:
+            return $input;
+    }
     }
 
     private static function getById(string $tabla, int $id, array $config): array {
