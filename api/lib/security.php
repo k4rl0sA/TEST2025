@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 // Evitar acceso directo
-defined('API_DIR') || exit(header('HTTP/1.1 403 Forbidden'));
+// defined('API_DIR') || exit(header('HTTP/1.1 403 Forbidden'));
 
 class Security {
     // Tipos de sanitización disponibles
