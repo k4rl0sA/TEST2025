@@ -26,6 +26,36 @@ return [
             'before_update' => 'hashPassword'
         ]
     ],
+    'geo_gest' => [
+        'fields' => [
+            'id_ges', 'idgeo', 'direccion_nueva', 'vereda_nueva', 
+            'cordxn', 'cordyn', 'estado_v', 'motivo_estado', 
+            'usu_creo', 'fecha_create', 'usu_update', 'fecha_update', 'estado'
+        ],
+        'editable' => [
+            'direccion_nueva', 'vereda_nueva', 'cordxn', 'cordyn', 
+            'estado_v', 'motivo_estado', 'usu_update', 'estado'
+        ],
+        'hidden' => [],
+        'order' => ['id_ges', 'fecha_create', 'idgeo'],
+        'filters' => ['direccion_nueva', 'vereda_nueva', 'estado_v', 'usu_creo', 'estado'],
+        'validation' => [
+            'crear' => [
+                'idgeo' => ['required', 'integer'],
+                'estado_v' => ['required', 'string', 'max:3'],
+                'usu_creo' => ['required', 'string', 'max:18']
+            ],
+            'actualizar' => [
+                'estado_v' => ['sometimes', 'string', 'max:3'],
+                'motivo_estado' => ['sometimes', 'string', 'max:3']
+            ]
+        ],
+        'callbacks' => [
+            'before_create' => 'setGeoGestDefaults',
+            'before_update' => 'setUpdateInfo'
+        ],
+        'primary_key' => ['idgeo', 'estado_v', 'usu_creo'] // Clave primaria compuesta
+    ],
 
     'geo_asig' => [
         'pk'        => 'id_asig',
