@@ -11,7 +11,7 @@ header('Content-Type: application/json');
 $user = Auth::verificarToken();
 if (!$user) {
     http_response_code(401);
-    echo json_encode(['error' => 'No autorizado -']);
+    echo json_encode(['error' => 'No autorizado']);
     exit;
 }
 $perfil = $user['perfil'] ?? '';
