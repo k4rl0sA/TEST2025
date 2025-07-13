@@ -40,7 +40,7 @@ class Auth {
         }
             return self::validateClaims($payload) ? $payload : false;
         } catch (ExpiredException|SignatureInvalidException|DomainException|UnexpectedValueException|Exception $e) {
-            error_log('JWT error: ' . $e->getMessage());
+            error_log('JWT error: ' . $e->getMessage(), 3, __DIR__ . '/../../logs/api.log');
             return false;
         }
     }
@@ -59,9 +59,14 @@ class Auth {
 
     private static function getBearerToken(): ?string {
         $headers = getallheaders();
+        error_log(__FILE__ . ':' . __LINE__ . ' HEADERS: ' . print_r($headers, true), 3, __DIR__ . '/../../logs/pi.log');
         $authHeader = $headers['Authorization'] ?? $headers['authorization'] ?? null;
-        var_dump($authHeader); // Para depuración, eliminar en producción
-        if (!$authHeader || !preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) return null;
+        error_log(__FILE__ . ':' . __LINE__ . ' AUTH_HEADER: ' . print_r($authHeader, true), 3, __DIR__ . '/../../logs/pi.log');
+        if (!$authHeader || !preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
+            error_log(__FILE__ . ':' . __LINE__ . ' NO BEARER TOKEN ENCONTRADO', 3, __DIR__ . '/../../logs/pi.log');
+            return null;
+        }
+        error_log(__FILE__ . ':' . __LINE__ . ' TOKEN EXTRAÍDO: ' . $matches[1], 3, __DIR__ . '/../../logs/pi.log');
         return $matches[1];
     }
 
@@ -121,7 +126,7 @@ class Auth {
 
             return self::generarTokenJWT($payload['sub'], $customClaims);
         } catch (Exception $e) {
-            error_log('Error al refrescar token: ' . $e->getMessage());
+            error_log('Error al refrescar token: ' . $e->getMessage(), 3, __DIR__ . '/../../logs/pi.log');
             return null;
         }
     }
