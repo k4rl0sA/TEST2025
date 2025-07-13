@@ -21,4 +21,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // Incluye el enrutador principal
-require __DIR__ . '/routes/router.php';
+require_once __DIR__ . '/routes/router.php';
