@@ -63,33 +63,6 @@ class CrudController {
         // Implementación completa con consultas preparadas
         // ... (similar a tu función original pero con PDO seguro)
     }
-
-    public static function obtenerUno(string $tabla, int $id): void {
-        try {
-            $config = self::getTablaConfig($tabla);
-            $pdo = Database::getConnection();
-            $stmt = $pdo->prepare("SELECT * FROM $tabla WHERE id = ?");
-            $stmt->execute([$id]);
-            $resultado = $stmt->fetch();
-
-            if (!$resultado) {
-                http_response_code(404);
-                echo json_encode(['error' => 'Registro no encontrado']);
-                return;
-            }
-
-            // Ocultar campos sensibles
-            foreach ($config['hidden'] ?? [] as $campo) {
-                unset($resultado[$campo]);
-            }
-
-            echo json_encode($resultado);
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode(['error' => $e->getMessage()]);
-        }
-    }
-
     // Implementar métodos restantes (crear, actualizar, etc.)
      public static function crear(string $tabla): void {
     try {
