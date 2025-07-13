@@ -11,5 +11,5 @@ echo json_encode([
     ],
     'get' => $_GET,
     'post' => array_intersect_key($_POST, array_flip(['key1', 'key2'])), // Replace 'key1', 'key2' with required keys
-    'example'=>var_dump(password_verify('Hogar2020+', '$2y$10$QNrQsbSBb1i5kh8xcLR9.O8I3cBF/gnlZdQXh8112TXf/J0hI0xOC'));
+    'example' => password_verify('Hogar2020+', '$2y$10$QNrQsbSBb1i5kh8xcLR9.O8I3cBF/gnlZdQXh8112TXf/J0hI0xOC')
 ]);
