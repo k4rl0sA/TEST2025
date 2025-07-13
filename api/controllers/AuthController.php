@@ -59,8 +59,8 @@ class AuthController {
             ];
 
             
-            $access_token = Auth::generarTokenJWT($user['id_usuario'], $tokenPayload);
-            $refresh_token = Auth::generarRefreshToken($user['id_usuario']);
+            $access_token = Auth::generarTokenJWT((string)$user['id_usuario'], $tokenPayload);
+            $refresh_token = Auth::generarRefreshToken((string)$user['id_usuario']);
 
             echo json_encode([
                 'access_token'  => $access_token,
