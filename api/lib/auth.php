@@ -40,7 +40,7 @@ class Auth {
         }
             return self::validateClaims($payload) ? $payload : false;
         } catch (ExpiredException|SignatureInvalidException|DomainException|UnexpectedValueException|Exception $e) {
-            error_log(date('Y-m-d H:i:s').' JWT error: ' . $e->getMessage(), 3, __DIR__ . '/../../logs/api.log');
+            error_log(date('Y-m-d H:i:s').' JWT error: ' . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/../../logs/api.log');
             return false;
         }
     }
@@ -67,10 +67,10 @@ class Auth {
             $authHeader = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
         }
         if (!$authHeader || !preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
-            error_log(date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . ' NO BEARER TOKEN ENCONTRADO' . PHP_EOL, 3, __DIR__ . '/../../logs/api.log');
+            // error_log(date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . ' NO BEARER TOKEN ENCONTRADO' . PHP_EOL, 3, __DIR__ . '/../../logs/api.log');
             return null;
         }
-        error_log(date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . ' TOKEN EXTRAÍDO: ' . $matches[1] . PHP_EOL, 3, __DIR__ . '/../../logs/api.log');
+        // error_log(date('Y-m-d H:i:s') . ' ' . __FILE__ . ':' . __LINE__ . ' TOKEN EXTRAÍDO: ' . $matches[1] . PHP_EOL, 3, __DIR__ . '/../../logs/api.log');
         return $matches[1];
     }
 
