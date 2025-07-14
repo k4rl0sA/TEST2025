@@ -299,7 +299,6 @@ public static function obtenerUno(string $tabla, $id): void {
     }
 
 }
-
 $payload = Auth::isAuthorized();
 if (!$payload || !Auth::tienePermisoBD($payload['perfil'], 'usuarios', 'consultar')) {
     http_response_code(403);
