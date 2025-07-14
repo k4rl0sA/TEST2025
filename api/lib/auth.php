@@ -85,6 +85,7 @@ class Auth {
             !empty($payload['sub']);
     }
 
+    // Genera un JWT solo con claims mínimos (sin permisos, solo info esencial)
     public static function generarTokenJWT(string $userId, array $customClaims = []): string {
         $now = time();
         $payload = array_merge([
@@ -95,8 +96,8 @@ class Auth {
             'exp' => $now + self::$jwtExpiration,
             'sub' => $userId,
             'jti' => bin2hex(random_bytes(16))
-        ], $customClaims=['perfil' => $perfil]);
-
+        ], $customClaims);
+        error_log(date('Y-m-d H:i:s') . ' Generando JWT para usuario: ' . $userId . ' con claims: ' . json_encode($customClaims) . PHP_EOL, 3, __DIR__ . '/../../logs/api.log');
         return JWT::encode($payload, self::$jwtSecret, self::$jwtAlgorithm);
     }
 
@@ -132,13 +133,16 @@ class Auth {
     }
 
     /**
-     * Verifica si contiene un permiso específico
+     * Verifica si el perfil tiene permiso para la acción en el módulo consultando la BD.
+     * Esta función debe usarse SIEMPRE para validar permisos, nunca el JWT.
      */
     public static function tienePermisoBD(string $perfil, string $modulo, string $accion): bool {
         $pdo = Database::getConnection();
         $stmt = $pdo->prepare("SELECT $accion FROM adm_roles WHERE perfil = ? AND modulo = ?");
         $stmt->execute([$perfil, $modulo]);
         $permiso = $stmt->fetchColumn();
+        $logMsg = sprintf('Permiso consultado: perfil=%s, modulo=%s, accion=%s, resultado=%s', $perfil, $modulo, $accion, var_export($permiso, true));
+        error_log(date('Y-m-d H:i:s') . ' ' . $logMsg . PHP_EOL, 3, __DIR__ . '/../../logs/api.log');
         return $permiso === 'SI'; // O el valor que uses para permitir
     }
 }
