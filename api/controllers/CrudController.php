@@ -308,4 +308,3 @@ if (!$payload || !Auth::tienePermisoBD($payload['perfil'], 'usuarios', 'consulta
 }
 
 CrudController::init();
-
