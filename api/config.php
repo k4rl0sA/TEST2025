@@ -71,8 +71,8 @@ define('DB_CHARSET', Config::get('DB_CHARSET', 'utf8mb4'));
 
 // Seguridad JWT
 // Configuración JWT
-define('JWT_ISSUER', 'solutiongroupss.com');
-define('JWT_AUDIENCE', 'solutiongroupss.com');
+define('JWT_ISSUER', 'pruebagtaps.site');
+define('JWT_AUDIENCE', 'pruebagtaps.site');
 define('JWT_SECRET', Config::get('JWT_SECRET', 'TU_SECRETO_SUPER_SEGURO'));
 define('JWT_ALGORITHM', Config::get('JWT_ALGORITHM', 'HS256'));
 define('JWT_EXPIRATION', (int)Config::get('JWT_EXPIRATION', 3600));
