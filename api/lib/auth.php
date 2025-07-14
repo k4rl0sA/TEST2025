@@ -40,7 +40,7 @@ class Auth {
         }
             return self::validateClaims($payload) ? $payload : false;
         } catch (ExpiredException|SignatureInvalidException|DomainException|UnexpectedValueException|Exception $e) {
-            error_log('JWT error: ' . $e->getMessage(), 3, __DIR__ . '/../../logs/api.log');
+            error_log(date('Y-m-d H:i:s').' JWT error: ' . $e->getMessage(), 3, __DIR__ . '/../../logs/api.log');
             return false;
         }
     }
