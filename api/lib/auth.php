@@ -76,6 +76,7 @@ class Auth {
 
     private static function validateClaims(array $payload): bool {
         $now = time();
+        error_log('Validando claims: ' . json_encode($payload), 3, __DIR__ . '/../../logs/api.log');
         return
             ($payload['iss'] ?? null) === self::$jwtIssuer &&
             ($payload['aud'] ?? null) === self::$jwtAudience &&
