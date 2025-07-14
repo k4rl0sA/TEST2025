@@ -124,11 +124,7 @@ class Auth {
             if (($payload['type'] ?? '') !== 'refresh' || !self::validateClaims($payload)) {
                 return null;
             }
-            // Si el refresh token contiene roles/permisos, mantenerlos
             $customClaims = [];
-            if (isset($payload['roles'])) $customClaims['roles'] = $payload['roles'];
-            if (isset($payload['scope'])) $customClaims['scope'] = $payload['scope'];
-
             return self::generarTokenJWT($payload['sub'], $customClaims);
         } catch (Exception $e) {
             return null;
@@ -136,17 +132,14 @@ class Auth {
     }
 
     /**
-     * Verifica si el payload contiene un rol específico
+     * Verifica si contiene un permiso específico
      */
-    public static function tieneRol(array $payload, string $rol): bool {
-        return isset($payload['roles']) && in_array($rol, (array)$payload['roles']);
-    }
-
-    /**
-     * Verifica si el payload contiene un permiso/scope específico
-     */
-    public static function tienePermiso(array $payload, string $permiso): bool {
-        return isset($payload['scope']) && in_array($permiso, (array)$payload['scope']);
+    public static function tienePermisoBD(string $perfil, string $modulo, string $accion): bool {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("SELECT $accion FROM adm_roles WHERE perfil = ? AND modulo = ?");
+        $stmt->execute([$perfil, $modulo]);
+        $permiso = $stmt->fetchColumn();
+        return $permiso === 'SI'; // O el valor que uses para permitir
     }
 }
 

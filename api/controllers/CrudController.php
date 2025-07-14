@@ -300,4 +300,16 @@ public static function obtenerUno(string $tabla, $id): void {
 
 }
 
+$perfil = $payload['perfil'];
+$modulo = 'usuarios';
+if (!Auth::tienePermisoBD($perfil, $modulo, 'consultar')) {
+    http_response_code(403);
+    echo json_encode([
+        'error' => 'Acceso denegado',
+        'required_permission' => "$modulo.consultar",
+        'user_perfil' => $perfil
+    ]);
+    exit;
+}
+
 CrudController::init();
