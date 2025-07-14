@@ -949,9 +949,7 @@ function formato_dato($a,$b,$c,$d){
 		
 	
 		$rta.="<li title='Validar Usuario' Onclick=\"mostrar('person','pro',event,'','lib.php',7,'person');Color('datos-lis');\"><i class='fas fa-user-check ico' id='".$c['ACCIONES']."'></i> </li>";
-		if(validUser()){
-
-
+		if(validUser($c['ACCIONES'])){
 			$rta .= acceso('signos') ? "<li title='Signos' onclick=\"mostrar('signos','pro',event,'','signos.php',7,'signos');Color('datos-lis');\"><i class='fa-solid fa-stethoscope ico' id='{$c['ACCIONES']}'></i></li>" : "";
 			$rta .= acceso('alertas') ? "<li title='Alertas' onclick=\"mostrar('alertas','pro',event,'','alertas.php',7,'alertas');Color('datos-lis');\"><i class='fa-solid fa-person-circle-exclamation ico' id='{$c['ACCIONES']}'></i></li>" : "";
 			
