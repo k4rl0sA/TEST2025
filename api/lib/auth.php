@@ -95,7 +95,7 @@ class Auth {
             'exp' => $now + self::$jwtExpiration,
             'sub' => $userId,
             'jti' => bin2hex(random_bytes(16))
-        ], $customClaims);
+        ], $customClaims=['perfil' => $perfil]);
 
         return JWT::encode($payload, self::$jwtSecret, self::$jwtAlgorithm);
     }
