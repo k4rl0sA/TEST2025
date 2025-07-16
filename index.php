@@ -59,7 +59,11 @@ function actualizarIngresoSiNull($id_usuario) {
     $rta = mysql_prepd($sql, $params);
    if ($rta === false) {
     echo "<div class='error'>Error al actualizar ingreso.</div>";
+	echo'<script>alert("Error al actualizar ingreso.</script>")';
+	// Puedes mostrar un mensaje de éxito si lo deseas (opcional)
+	echo "<div class='success'>Ingreso actualizado correctamente.</div>";
 	} else {
+		echo'<script>alert("Ingreso actualizado correctamente.</script>")';
     // Puedes mostrar un mensaje de éxito si lo deseas (opcional)
     echo "<div class='success'>Ingreso actualizado correctamente.</div>";
 	}
