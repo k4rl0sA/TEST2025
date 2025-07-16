@@ -83,59 +83,41 @@ function gra_validPerson() {
     $id = divide($_POST['idp']);
     $edit = (count($id) == 2);
 
-    // Recoger los campos del formulario
-    $idpeople          = $id[0];
-    $fecha_nacimiento  = $_POST['fecha_nacimiento'];
-    $sexo              = $_POST['sexo'];
-    $usu_creo          = $_SESSION['us_sds'];
 
     // Obtener datos actuales de la tabla person
-    $sql = "SELECT sexo, fecha_nacimiento FROM person WHERE idpeople = $idpeople";
+    $sql = "SELECT sexo, fecha_nacimiento FROM person WHERE idpeople = $id[0]";
     $info = datos_mysql($sql);
     $coincide = false;
 
     if ($info && isset($info['responseResult'][0])) {
         $row = $info['responseResult'][0];
         $coincide = (
-            $row['sexo'] == $sexo &&
-            $row['fecha_nacimiento'] == $fecha_nacimiento
+            $row['sexo'] == $_POST['sexo'] &&
+            $row['fecha_nacimiento'] == $_POST['fecha_nacimiento']
         );
     }
-
-    // Preparar datos para validaUsuario
-    $campos = [
-        'idpeople'      => $idpeople,
-        'sexo'          => $sexo,
-        'fecha_nacio'   => $fecha_nacimiento,
-        'usu_creo'      => $usu_creo,
-        'estado'        => $coincide ? 'A' : 'P'
+    $estado= $coincide ? 'A' : 'P';
+	$sql = "INSERT INTO validaUsuario (idpeople, sexo, fecha_nacio, usu_creo, estado) VALUES (?, ?, ?, ?, ?)";
+    $params = [
+        ['type' => 'i', 'value' => $id[0]],
+        ['type' => 's', 'value' => $_POST['sexo']],
+        ['type' => 's', 'value' => $_POST['fecha_nacimiento']],
+        ['type' => 's', 'value' => $_SESSION['us_sds']],
+        ['type' => 's', 'value' => $estado]
     ];
-
-
-    // Mostrar sentencia cruda antes de guardar
-    $sentencia = sprintf(
-        "INSERT INTO validaUsuario VALUES(NULL, %d, '%s', '%s', '%s', NOW(), NULL, NULL, '%s');",
-        $idpeople,
-        $sexo,
-        $fecha_nacimiento,
-        $usu_creo,
-        $coincide ? 'A' : 'P'
-    );
 	// echo "<!-- Sentencia SQL: $sentencia -->"; exit;
-
-     // Lógica de confirmación: si no coinciden y no viene confirmación, solo preguntar
+	// show_sql($sql, $params);exit;
     if (!$coincide && empty($_REQUEST['confirmado'])) {
         return [
             'confirm' => true,
-            'msg' => 'Los datos no coinciden con la información registrada. ¿Desea guardar de todas formas?',
-            'campos' => $campos
+            'msg' => 'Los datos no coinciden con la información registrada. ¿Desea guardar de todas formas?'
         ];
     }
 
 	//Mostrar como seria la sentencia cruda antes de guardar ejemplo :INSERT INTO validaUsuario VALUES(NULL, 4, 'M', '1984-10-10', '80811594', '2025-07-15 14:01:54', NULL, NULL, 'A');
 	
-    // Insertar en validaUsuario
-    $rta = mysql_prepd('validaUsuario', $campos, 'insert');
+    	// Insertar en validaUsuario
+      $rta = mysql_prepd($sql, $params);
     return $rta;
 
 }
