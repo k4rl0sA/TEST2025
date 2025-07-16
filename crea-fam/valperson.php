@@ -121,7 +121,7 @@ function gra_validPerson() {
         $usu_creo,
         $coincide ? 'A' : 'P'
     );
-	echo "<!-- Sentencia SQL: $sentencia -->"; exit;
+	// echo "<!-- Sentencia SQL: $sentencia -->"; exit;
 
      // Lógica de confirmación: si no coinciden y no viene confirmación, solo preguntar
     if (!$coincide && empty($_REQUEST['confirmado'])) {
