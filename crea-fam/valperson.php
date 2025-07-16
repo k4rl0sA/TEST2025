@@ -105,7 +105,6 @@ function gra_validPerson() {
         ['type' => 's', 'value' => $_SESSION['us_sds']],
         ['type' => 's', 'value' => $estado]
     ];
-	// echo "<!-- Sentencia SQL: $sentencia -->"; exit;
 	// show_sql($sql, $params);exit;
     if (!$coincide && empty($_REQUEST['confirmado'])) {
         return [
