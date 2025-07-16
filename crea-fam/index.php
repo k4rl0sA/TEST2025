@@ -162,7 +162,8 @@ function grabar(tb='',ev){
   'uaic_seg':'../etnias/uaicseg.php',
  'servagen':'../agendamient/serage.php',
   'tamrqc':'../rqc/lib.php',
-  'tamsrq':'../srq/lib.php'
+  'tamsrq':'../srq/lib.php',
+  'validPerson':'valperson.php'
  	};
    let ruta_app = rutaMap[tb] || 'lib.php';
   if(tb=='sesion2'){
@@ -171,6 +172,21 @@ function grabar(tb='',ev){
     if(res==true){
 				myFetch(ruta_app,"a=gra&tb="+tb,mod);
 			}
+  }elseif(tb=='validPerson'){
+     myFetch(ruta_app, "a=gra&tb="+tb, mod, function(res){
+      if(res && res.confirm){
+        // Si el backend pide confirmación, mostrar mensaje
+        if(confirm(res.msg)){
+          // Si el usuario acepta, enviar de nuevo con flag de confirmación
+          myFetch(ruta_app, "a=gra&tb="+tb+"&confirmado=1", mod);
+        } else {
+          alert("Operación cancelada por el usuario.");
+        }
+      } else {
+        // Proceso normal si no hay confirmación
+        // Aquí puedes poner lógica adicional si lo necesitas
+      }
+    });
   }else{
 		myFetch(ruta_app,"a=gra&tb="+tb,mod);
 	if (tb == 'person') {

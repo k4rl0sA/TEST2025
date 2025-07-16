@@ -39,20 +39,6 @@ function focus_vspeve(){
   return $rta;
 }
 
-/* function seg_vspeve(){
-	// var_dump($_POST['id']);
-	$id=divide($_POST['id']);
-	$sql="SELECT `id_eve` ACCIONES,
-  tipo_doc,documento,fecha_seg Fecha,numsegui Seguimiento,FN_CATALOGODESC(87,evento) EVENTO,FN_CATALOGODESC(73,estado_s) estado,cierre_caso Cierra,
-  fecha_cierre 'Fecha de Cierre',nombre Creó 
-  FROM vspeve A
-	  LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario ";
-	$sql.="WHERE tipo_doc='".$id[1]."' AND documento='".$id[0];
-	$sql.="' ORDER BY fecha_create";
-	// echo $sql;
-	$datos=datos_mysql($sql);
-	return panel_content($datos["responseResult"],"acompsic-lis",5);
-   } */
 
 function lis_eventos(){
     // var_dump($_POST['id']);
