@@ -52,6 +52,7 @@ function validar() {
     const noPermitidos = caracteresNoPermitidos(texto);
     const limpio = cleanTx(texto);
     let html = '';
+    html += `<div class="label">Caracteres totales (incluyendo espacios):</div><pre>${texto.length}</pre>`;
     if (noPermitidos.length > 0) {
         html += `<div class="bad">Caracteres no permitidos encontrados:</div>`;
         html += `<pre>${noPermitidos.join(' ')}</pre>`;
