@@ -50,7 +50,7 @@ include_once('./login/frmlogin.php');
 			}
 
 function actualizarIngresoSiNull($id_usuario) {
-    require_once('./gestion.php'); // Asegúrate de incluir la función mysql_prepd
+    require_once('./libs/gestion.php'); // Asegúrate de incluir la función mysql_prepd
     $sql = "UPDATE usuarios SET ingreso = NOW() WHERE id_usuario = ? AND ingreso IS NULL";
     $params = [
         ['type' => 's', 'value' => $id_usuario]
