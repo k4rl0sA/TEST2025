@@ -908,7 +908,7 @@ function uaic($id) {
 
 function validUser($id) {
 	$id = divide($id);
-	$sql = "SELECT COUNT(*) AS total FROM validaUsuario WHERE idpeople=$id[0] and estado='A'";
+	$sql = "SELECT COUNT(*) AS total FROM valida_usuario WHERE idpeople=$id[0] and estado='A'";
 	$info = datos_mysql($sql);
 	if(isset($info['responseResult'][0]['total']) && intval($info['responseResult'][0]['total']) > 0) {
 		return true;
