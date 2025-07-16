@@ -66,7 +66,7 @@ function get_person(){
 	if($_REQUEST['id']=='' || count($id)!=2){
 		return "";
 	}else{
-		$sql="SELECT concat_ws('_',idpeople,vivipersona)idpersona,tipo_doc
+		$sql="SELECT concat_ws('_',idpeople,vivipersona),idpersona,tipo_doc
 		FROM `person`
 		WHERE idpeople ='{$id[0]}'" ;
 		echo $sql;
