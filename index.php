@@ -57,7 +57,13 @@ function actualizarIngresoSiNull($id_usuario) {
     ];
 	show_sql($sql, $params); // Mostrar la consulta SQL para depuración
     $rta = mysql_prepd($sql, $params);
-    return $rta;
+   if ($rta === false) {
+    echo "<div class='error'>Error al actualizar ingreso.</div>";
+	} else {
+    // Puedes mostrar un mensaje de éxito si lo deseas (opcional)
+    echo "<div class='success'>Ingreso actualizado correctamente.</div>";
+	}
+	return $rta;
 }
 
 function db_connect(){
