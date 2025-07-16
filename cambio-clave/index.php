@@ -57,7 +57,6 @@ $comy = array(
       'p' => 'z9#KqH!YK2VEyJpT',
       'bd' => 'u470700275_08'
   ],
-  ,
 'gtaps.saludcapital.gov.co' => [
       's' => 'localhost',
       'u' => 'u470700275_08',
