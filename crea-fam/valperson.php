@@ -22,8 +22,8 @@ else {
 function cmp_validPerson(){
     $rta="";
 	// $p=get_edad();
-    $w='person';
-	$o='infgen';
+    $w='validperson';
+	$o='infusu';
 	$key='pEr';
 	$t=['idpersona'=>'','tipo_doc'=>'','fecha_nacimiento'=>'','sexo'=>''];
 	// print_r($_POST);
