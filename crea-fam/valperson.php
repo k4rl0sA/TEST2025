@@ -76,7 +76,7 @@ function get_person(){
 		$sql="SELECT concat_ws('_',idpeople,vivipersona)idpersona,tipo_doc
 		FROM `person`
 		WHERE idpeople ='{$id[0]}'" ;
-		// echo $sql;
+		echo $sql;
 		// print_r($id);
 		$info=datos_mysql($sql);
 		if (!$info['responseResult']) {
