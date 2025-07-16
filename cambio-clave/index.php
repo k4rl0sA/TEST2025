@@ -56,7 +56,15 @@ $comy = array(
       'u' => 'u470700275_08',
       'p' => 'z9#KqH!YK2VEyJpT',
       'bd' => 'u470700275_08'
+  ],
+  ,
+'gtaps.saludcapital.gov.co' => [
+      's' => 'localhost',
+      'u' => 'u470700275_08',
+      'p' => 'z9#KqH!YK2VEyJpT',
+      'bd' => 'u470700275_08'
   ]
+
 );
 	if (array_key_exists($dominio, $comy)) {
 	  $dbConfig = $comy[$dominio];
