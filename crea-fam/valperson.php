@@ -53,7 +53,6 @@ function men_validPerson(){
   function cap_menus($a,$b='cap',$con='con') {
 	 $rta = "";
 	 $acc=rol($a);
-	 var_dump($acc);
 	 if ($a=='validPerson' && isset($acc['crear']) && $acc['crear']=='SI') {  
 	 	$rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>"; //~ openModal();
 	 return $rta;
@@ -70,7 +69,7 @@ function get_person(){
 		$sql="SELECT concat_ws('_',idpeople,vivipersona),idpersona,tipo_doc
 		FROM `person`
 		WHERE idpeople ='{$id[0]}'" ;
-		echo $sql;
+		// echo $sql;
 		// print_r($id);
 		$info=datos_mysql($sql);
 		if (!$info['responseResult']) {
