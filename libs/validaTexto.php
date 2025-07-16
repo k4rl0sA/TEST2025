@@ -25,8 +25,7 @@
 <script>
 function cleanTx(val) {
     val = val.trim();
-    // htmlspecialchars no aplica en JS, pero para XSS puedes usar innerText en vez de innerHTML
-    const pattern = /[^\w\s\.\-@:\u00C0-\u00FF%=]/gu;
+    const pattern = /[^\w\s.\-@:,()+\u00C0-\u00FF%=]/gu;
     val = val.replace(/\s+/g, ' ');
     val = val.replace(pattern, '');
     val = val.replace(/[\n\r\t]/g, '');
@@ -36,7 +35,7 @@ function cleanTx(val) {
 
 function caracteresNoPermitidos(val) {
     // Mismo patrón que en cleanTx
-    const pattern = /[^\w\s\.\-@:\u00C0-\u00FF%=]/gu;
+    const pattern = /[^\w\s.\-@:,()+\u00C0-\u00FF%=]/gu;
     let encontrados = val.match(pattern);
     // También saltos de línea y tabulaciones
     let especiales = val.match(/[\n\r\t]/g);
