@@ -632,7 +632,7 @@ function gra_person(){
 	function opc_numfam($id=''){
 		return opc_sql("SELECT `idcatadeta`,concat(descripcion,' - ',idcatadeta) FROM `catadeta` WHERE idcatalogo=172 and estado='A' ORDER BY CAST(idcatadeta AS UNSIGNED)",$id);
 	}
-	 function opc_tipo_doc($id=''){
+	function opc_tipo_doc($id=''){
 	    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 2",$id);
     }
     function opc_sexo($id=''){

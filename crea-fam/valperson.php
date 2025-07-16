@@ -73,12 +73,7 @@ function get_person(){
 	if($_REQUEST['id']=='' || count($id)!=2){
 		return "";
 	}else{
-		$sql="SELECT concat_ws('_',idpeople,vivipersona),encuentra,idpersona,tipo_doc,nombre1,nombre2,
-		apellido1,apellido2,fecha_nacimiento,sexo,genero,oriensexual,nacionalidad,estado_civil,
-		niveduca,abanesc,ocupacion,tiemdesem,vinculo_jefe,etnia,pueblo,idioma,discapacidad,regimen,eapb,
-		afiliaoficio,sisben,catgosisb,pobladifer,incluofici,cuidador,perscuidada,tiempo_cuidador,
-		cuidador_unidad,vinculo,tiempo_descanso,descanso_unidad,reside_localidad,localidad_vive,
-		transporta,telefono1,telefono2,correo
+		$sql="SELECT concat_ws('_',idpeople,vivipersona)idpersona,tipo_doc
 		FROM `person`
 		WHERE idpeople ='{$id[0]}'" ;
 		// echo $sql;
@@ -140,6 +135,9 @@ function gra_validPerson() {
 
 function opc_sexo($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=21 and estado='A' ORDER BY CAST(idcatadeta AS UNSIGNED)",$id);
+}
+function opc_tipo_doc($id=''){
+	    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 2",$id);
 }
 
 function formato_dato($a,$b,$c,$d){
