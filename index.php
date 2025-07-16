@@ -55,7 +55,8 @@ function actualizarIngresoSiNull($id_usuario) {
     $params = [
         ['type' => 's', 'value' => $id_usuario]
     ];
-    mysql_prepd($sql, $params);
+    $rta = mysql_prepd($sql, $params);
+    return $rta;
 }
 
 function db_connect(){
