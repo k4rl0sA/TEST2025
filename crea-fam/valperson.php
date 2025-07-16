@@ -41,12 +41,12 @@ function cmp_validPerson(){
 }
 
 function focus_validPerson(){
-	return 'person';
+	return 'validPerson';
 }
    
    
 function men_validPerson(){
-	$rta=cap_menus('person','pro');
+	$rta=cap_menus('validPerson','pro');
 	return $rta;
 }
 
