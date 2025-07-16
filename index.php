@@ -38,6 +38,7 @@ include_once('./login/frmlogin.php');
 				}else{
 					$link="main/";
 					echo "<script>window.location.replace('".$link."');</script>";
+					actualizarIngresoSiNull($_SESSION["us_sds"]);
 				}
 			}else{
 				echo "<div class='error'>
