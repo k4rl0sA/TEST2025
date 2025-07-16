@@ -143,3 +143,5 @@ function bgcolor($a,$c,$f='c'){
 	$rta="";
 	return $rta;
 }
+
+
