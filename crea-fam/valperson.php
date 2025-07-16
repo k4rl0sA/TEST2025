@@ -97,7 +97,7 @@ function gra_validPerson() {
         );
     }
     $estado= $coincide ? 'A' : 'P';
-	$sql = "INSERT INTO valida_usuario VALUES (NULL, ?, ?, ?, ?, ?)";
+	$sql = "INSERT INTO valida_usuario (idValuser,idpeople,sexo,fecha_nacio,usu_creo,estado) VALUES (NULL, ?, ?, ?, ?, ?)";
     $params = [
         ['type' => 'i', 'value' => $id[0]],
         ['type' => 's', 'value' => $_POST['sexo']],
