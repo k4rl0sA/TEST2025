@@ -111,6 +111,18 @@ function gra_validPerson() {
         'estado'        => $coincide ? 'A' : 'P'
     ];
 
+
+    // Mostrar sentencia cruda antes de guardar
+    $sentencia = sprintf(
+        "INSERT INTO validaUsuario VALUES(NULL, %d, '%s', '%s', '%s', NOW(), NULL, NULL, '%s');",
+        $idpeople,
+        $sexo,
+        $fecha_nacimiento,
+        $usu_creo,
+        $coincide ? 'A' : 'P'
+    );
+	echo "<!-- Sentencia SQL: $sentencia -->"; exit;
+
      // Lógica de confirmación: si no coinciden y no viene confirmación, solo preguntar
     if (!$coincide && empty($_REQUEST['confirmado'])) {
         return [
@@ -120,6 +132,8 @@ function gra_validPerson() {
         ];
     }
 
+	//Mostrar como seria la sentencia cruda antes de guardar ejemplo :INSERT INTO validaUsuario VALUES(NULL, 4, 'M', '1984-10-10', '80811594', '2025-07-15 14:01:54', NULL, NULL, 'A');
+	
     // Insertar en validaUsuario
     $rta = mysql_prepd('validaUsuario', $campos, 'insert');
     return $rta;
