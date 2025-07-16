@@ -141,13 +141,13 @@ function get_predio(){
 	FROM `geo_asig` A 
 	LEFT JOIN hog_geo G ON A.idgeo = G.idgeo";
 	$perfil = perfil1($_SESSION['us_sds']);
-	if ($perfil == 'AUXHOG') {
+	/* if ($perfil == 'AUXHOG') {
 		$sql .= " LEFT JOIN apro_terr AP ON G.territorio = AP.territorio";
-	}
+	} */
 	$sql .= " WHERE A.estado = 'A' AND A.idgeo = '" . $id[0] . "'";
-	if ($perfil == 'AUXHOG') {
+	/* if ($perfil == 'AUXHOG') {
 		$sql .= " AND AP.doc_asignado = '" . $_SESSION['us_sds'] . "'";
-	}
+	} */
 	$info = datos_mysql($sql);
 	if (!$info['responseResult']) {
 		return json_encode(new stdClass);
