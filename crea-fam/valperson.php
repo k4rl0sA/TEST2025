@@ -60,7 +60,7 @@ function men_validPerson(){
   function cap_menus($a,$b='cap',$con='con') {
 	 $rta = "";
 	 $acc=rol($a);
-	 if ($a=='admision' && isset($acc['crear']) && $acc['crear']=='SI') {  
+	 if ($a=='validPerson' && isset($acc['crear']) && $acc['crear']=='SI') {  
 	 	$rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>"; //~ openModal();
 	 return $rta;
 	 }
