@@ -172,7 +172,7 @@ function grabar(tb='',ev){
     if(res==true){
 				myFetch(ruta_app,"a=gra&tb="+tb,mod);
 			}
-  }elseif(tb=='validPerson'){
+  }else if(tb=='validPerson'){
      myFetch(ruta_app, "a=gra&tb="+tb, mod, function(res){
       if(res && res.confirm){
         // Si el backend pide confirmación, mostrar mensaje
