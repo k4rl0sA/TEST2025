@@ -228,21 +228,135 @@ $accesoSaludPorcentaje = $res4['responseResult'][0]['acceso_salud_porcentaje'];
 $puntajeRegimenSalud = $res4['responseResult'][0]['puntaje_regimen_salud'];
 
 //Riesgo Entorno Habitacional
-$sql5="SELECT  P.idpersona,P.tipo_doc,FN_CATALOGODESC(3,G.zona) AS Zona,-- Zona y su puntaje
-  CASE WHEN G.zona = 1 THEN 1 WHEN G.zona = 2 THEN 2 ELSE NULL END AS Puntaje_Zona, FN_CATALOGODESC(4,C.tipo_vivienda) AS 'Tipo de Vivienda',  CASE C.tipo_vivienda   WHEN 1 THEN 1 WHEN 2 THEN 1 WHEN 3 THEN 2  WHEN 4 THEN 3 WHEN 5 THEN 4 WHEN 6 THEN 4 ELSE NULL END AS Puntaje_Tipo_Vivienda,-- Tipo de vivienda y puntaje
-  FN_CATALOGODESC(8,C.tenencia) AS 'Tenencia de la Vivienda',  CASE C.tenencia    WHEN 1 THEN 1 WHEN 2 THEN 2 WHEN 3 THEN 3   WHEN 4 THEN 4 WHEN 5 THEN 5 ELSE NULL END AS Puntaje_Tenencia,  -- Tenencia de vivienda y puntaje
-  C.actividad_economica AS 'Uso para actividad económicas',  CASE WHEN LOWER(C.actividad_economica) = 'si' THEN 2  WHEN LOWER(C.actividad_economica) = 'no' THEN 1 ELSE NULL END AS Puntaje_Actividad_Economica, -- Actividad económica 
-  C.energia AS 'Energía Eléctrica', CASE WHEN LOWER(C.energia) = 'si' THEN 1 WHEN LOWER(C.energia) = 'no' THEN 3 ELSE NULL END AS Puntaje_Energia, C.gas AS 'Gas natural de red pública',  CASE WHEN LOWER(C.gas) = 'si' THEN 1  WHEN LOWER(C.gas) = 'no' THEN 3 ELSE NULL END AS Puntaje_Gas, C.acueducto AS 'Acueducto',  CASE WHEN LOWER(C.acueducto) = 'si' THEN 1  WHEN LOWER(C.acueducto) = 'no' THEN 3 ELSE NULL END AS Puntaje_Acueducto,  C.alcantarillado AS 'Alcantarillado', CASE WHEN LOWER(C.alcantarillado) = 'si' THEN 1  WHEN LOWER(C.alcantarillado) = 'no' THEN 3 ELSE NULL END AS Puntaje_Alcantarillado, C.basuras AS 'Recolección de basuras', -- Servicios públicos (sí = 1, no = 3)
-  CASE WHEN LOWER(C.basuras) = 'si' THEN 1 WHEN LOWER(C.basuras) = 'no' THEN 3 ELSE NULL END AS Puntaje_Basuras, -- Fuentes de agua (sí = 2, no = 1)
-  C.pozo AS 'Pozo', CASE WHEN LOWER(C.pozo) = 'si' THEN 2 WHEN LOWER(C.pozo) = 'no' THEN 1 ELSE NULL END AS Puntaje_Pozo,  C.aljibe AS 'Aljibe', CASE WHEN LOWER(C.aljibe) = 'si' THEN 2     WHEN LOWER(C.aljibe) = 'no' THEN 1 ELSE NULL END AS Puntaje_Aljibe,  -- Factores ambientales (sí = 3, no = 1) excepto facamb3
-  C.facamb1 AS 'Tráfico pesado cercano', CASE WHEN LOWER(C.facamb1) = 'si' THEN 3 WHEN LOWER(C.facamb1) = 'no' THEN 1 ELSE NULL END AS Puntaje_facamb1, C.facamb2 AS 'Vías sin pavimentar o en construcción cercanas', CASE WHEN LOWER(C.facamb2) = 'si' THEN 3  WHEN LOWER(C.facamb2) = 'no' THEN 1 ELSE NULL END AS Puntaje_facamb2, C.facamb3 AS 'Cercanía a zonas verdes y recreativas', CASE WHEN LOWER(C.facamb3) = 'si' THEN 1  -- INVERSO
-  WHEN LOWER(C.facamb3) = 'no' THEN 3 ELSE NULL END AS Puntaje_facamb3,C.facamb4 AS 'Cercanía a fuentes contaminantes',CASE WHEN LOWER(C.facamb4) = 'si' THEN 3 WHEN LOWER(C.facamb4) = 'no' THEN 1 ELSE NULL END AS Puntaje_facamb4, C.facamb5 AS 'Conserva alimentos adecuadamente',CASE WHEN LOWER(C.facamb5) = 'si' THEN 3  WHEN LOWER(C.facamb5) = 'no' THEN 1 ELSE NULL END AS Puntaje_facamb5, C.facamb6 AS 'Manipula correctamente el agua', CASE WHEN LOWER(C.facamb6) = 'si' THEN 3  WHEN LOWER(C.facamb6) = 'no' THEN 1 ELSE NULL END AS Puntaje_facamb6, C.facamb7 AS 'Adquiere medicamentos con fórmula médica', CASE WHEN LOWER(C.facamb7) = 'si' THEN 3 WHEN LOWER(C.facamb7) = 'no' THEN 1 ELSE NULL END AS Puntaje_facamb7, C.facamb8 AS 'Almacena químicos de forma segura', CASE WHEN LOWER(C.facamb8) = 'si' THEN 3 WHEN LOWER(C.facamb8) = 'no' THEN 1 ELSE NULL END AS Puntaje_facamb8, C.facamb9 AS 'Manejo adecuado de residuos sólidos', CASE WHEN LOWER(C.facamb9) = 'si' THEN 3 WHEN LOWER(C.facamb9) = 'no' THEN 1 ELSE NULL END AS Puntaje_facamb9, -- Puntaje total bruto
-  (CASE WHEN G.zona = 1 THEN 1 WHEN G.zona = 2 THEN 2 ELSE 0 END + CASE C.tipo_vivienda WHEN 1 THEN 1 WHEN 2 THEN 1 WHEN 3 THEN 2 WHEN 4 THEN 3 WHEN 5 THEN 4 WHEN 6 THEN 4 ELSE 0 END + CASE C.tenencia WHEN 1 THEN 1 WHEN 2 THEN 2 WHEN 3 THEN 3 WHEN 4 THEN 4 WHEN 5 THEN 5 ELSE 0 END + CASE WHEN LOWER(C.actividad_economica) = 'si' THEN 2 WHEN LOWER(C.actividad_economica) = 'no' THEN 1 ELSE 0 END + CASE WHEN LOWER(C.energia) = 'si' THEN 1 WHEN LOWER(C.energia) = 'no' THEN 3 ELSE 0 END + CASE WHEN LOWER(C.gas) = 'si' THEN 1 WHEN LOWER(C.gas) = 'no' THEN 3 ELSE 0 END + CASE WHEN LOWER(C.acueducto) = 'si' THEN 1 WHEN LOWER(C.acueducto) = 'no' THEN 3 ELSE 0 END + CASE WHEN LOWER(C.alcantarillado) = 'si' THEN 1 WHEN LOWER(C.alcantarillado) = 'no' THEN 3 ELSE 0 END + CASE WHEN LOWER(C.basuras) = 'si' THEN 1 WHEN LOWER(C.basuras) = 'no' THEN 3 ELSE 0 END + CASE WHEN LOWER(C.pozo) = 'si' THEN 2 WHEN LOWER(C.pozo) = 'no' THEN 1 ELSE 0 END + CASE WHEN LOWER(C.aljibe) = 'si' THEN 2 WHEN LOWER(C.aljibe) = 'no' THEN 1 ELSE 0 END + CASE WHEN LOWER(C.facamb1) = 'si' THEN 3 WHEN LOWER(C.facamb1) = 'no' THEN 1 ELSE 0 END + CASE WHEN LOWER(C.facamb2) = 'si' THEN 3 WHEN LOWER(C.facamb2) = 'no' THEN 1 ELSE 0 END + CASE WHEN LOWER(C.facamb3) = 'si' THEN 1 WHEN LOWER(C.facamb3) = 'no' THEN 3 ELSE 0 END + CASE WHEN LOWER(C.facamb4) = 'si' THEN 3 WHEN LOWER(C.facamb4) = 'no' THEN 1 ELSE 0 END + CASE WHEN LOWER(C.facamb5) = 'si' THEN 3 WHEN LOWER(C.facamb5) = 'no' THEN 1 ELSE 0 END + CASE WHEN LOWER(C.facamb6) = 'si' THEN 3 WHEN LOWER(C.facamb6) = 'no' THEN 1 ELSE 0 END + CASE WHEN LOWER(C.facamb7) = 'si' THEN 3 WHEN LOWER(C.facamb7) = 'no' THEN 1 ELSE 0 END + CASE WHEN LOWER(C.facamb8) = 'si' THEN 3 WHEN LOWER(C.facamb8) = 'no' THEN 1 ELSE 0 END + CASE WHEN LOWER(C.facamb9) = 'si' THEN 3 WHEN LOWER(C.facamb9) = 'no' THEN 1 ELSE 0 END ) AS Puntaje_EH_Bruto, -- Puntaje escalado 0 a 100
-  ROUND(((CASE WHEN G.zona = 1 THEN 1 WHEN G.zona = 2 THEN 2 ELSE 0 END + CASE C.tipo_vivienda WHEN 1 THEN 1 WHEN 2 THEN 1 WHEN 3 THEN 2 WHEN 4 THEN 3 WHEN 5 THEN 4 WHEN 6 THEN 4 ELSE 0 END + CASE C.tenencia WHEN 1 THEN 1 WHEN 2 THEN 2 WHEN 3 THEN 3 WHEN 4 THEN 4 WHEN 5 THEN 5 ELSE 0 END + CASE WHEN LOWER(C.actividad_economica) = 'si' THEN 2 WHEN LOWER(C.actividad_economica) = 'no' THEN 1 ELSE 0 END  + CASE WHEN LOWER(C.energia) = 'si' THEN 1 WHEN LOWER(C.energia) = 'no' THEN 3 ELSE 0 END + CASE WHEN LOWER(C.gas) = 'si' THEN 1 WHEN LOWER(C.gas) = 'no' THEN 3 ELSE 0 END + CASE WHEN LOWER(C.acueducto) = 'si' THEN 1 WHEN LOWER(C.acueducto) = 'no' THEN 3 ELSE 0 END + CASE WHEN LOWER(C.alcantarillado) = 'si' THEN 1 WHEN LOWER(C.alcantarillado) = 'no' THEN 3 ELSE 0 END + CASE WHEN LOWER(C.basuras) = 'si' THEN 1 WHEN LOWER(C.basuras) = 'no' THEN 3 ELSE 0 END + CASE WHEN LOWER(C.pozo) = 'si' THEN 2 WHEN LOWER(C.pozo) = 'no' THEN 1 ELSE 0 END + CASE WHEN LOWER(C.aljibe) = 'si' THEN 2 WHEN LOWER(C.aljibe) = 'no' THEN 1 ELSE 0 END + CASE WHEN LOWER(C.facamb1) = 'si' THEN 3 WHEN LOWER(C.facamb1) = 'no' THEN 1 ELSE 0 END + CASE WHEN LOWER(C.facamb2) = 'si' THEN 3 WHEN LOWER(C.facamb2) = 'no' THEN 1 ELSE 0 END + CASE WHEN LOWER(C.facamb3) = 'si' THEN 1 WHEN LOWER(C.facamb3) = 'no' THEN 3 ELSE 0 END + CASE WHEN LOWER(C.facamb4) = 'si' THEN 3 WHEN LOWER(C.facamb4) = 'no' THEN 1 ELSE 0 END + CASE WHEN LOWER(C.facamb5) = 'si' THEN 3 WHEN LOWER(C.facamb5) = 'no' THEN 1 ELSE 0 END + CASE WHEN LOWER(C.facamb6) = 'si' THEN 3 WHEN LOWER(C.facamb6) = 'no' THEN 1 ELSE 0 END + CASE WHEN LOWER(C.facamb7) = 'si' THEN 3 WHEN LOWER(C.facamb7) = 'no' THEN 1 ELSE 0 END + CASE WHEN LOWER(C.facamb8) = 'si' THEN 3 WHEN LOWER(C.facamb8) = 'no' THEN 1 ELSE 0 END + CASE WHEN LOWER(C.facamb9) = 'si' THEN 3 WHEN LOWER(C.facamb9) = 'no' THEN 1 ELSE 0 END) - 13) * 100.0 / (35 - 13), 2) AS EH_Valor
- FROM person P
- LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
- LEFT JOIN hog_geo G ON F.idpre = G.idgeo
- LEFT JOIN (SELECT hc.* FROM hog_carac hc INNER JOIN (SELECT idfam, MAX(fecha) AS max_fecha FROM hog_carac  GROUP BY idfam) ult ON hc.idfam = ult.idfam AND hc.fecha = ult.max_fecha) C ON P.vivipersona = C.idfam 
+$sql5="SELECT  
+  P.idpersona,  -- Zona y su puntaje
+  FN_CATALOGODESC(3,G.zona) AS Zona,
+  CASE WHEN G.zona = 1 THEN 1
+       WHEN G.zona = 2 THEN 2 ELSE NULL END AS Puntaje_Zona,
+  -- Tipo de vivienda y puntaje
+  FN_CATALOGODESC(4,C.tipo_vivienda) AS 'Tipo de Vivienda',
+  CASE C.tipo_vivienda
+    WHEN 1 THEN 1 
+    WHEN 2 THEN 1 
+    WHEN 3 THEN 2
+    WHEN 4 THEN 3 
+    WHEN 5 THEN 4 
+    WHEN 6 THEN 4 ELSE NULL END AS Puntaje_Tipo_Vivienda,
+  -- Tenencia de vivienda y puntaje
+  FN_CATALOGODESC(8,C.tenencia) AS 'Tenencia de la Vivienda',
+  CASE C.tenencia
+    WHEN 1 THEN 1 
+    WHEN 2 THEN 2 
+    WHEN 3 THEN 3
+    WHEN 4 THEN 4 
+    WHEN 5 THEN 5 ELSE NULL END AS Puntaje_Tenencia,
+  -- Actividad económica
+  C.actividad_economica AS 'Uso para actividad económicas',
+  CASE WHEN LOWER(C.actividad_economica) = 'si' THEN 2
+       WHEN LOWER(C.actividad_economica) = 'no' THEN 1 ELSE NULL END AS Puntaje_Actividad_Economica,
+  -- Servicios públicos (sí = 0, no = 1)
+  C.energia AS 'Energía Eléctrica',
+  CASE WHEN LOWER(C.energia) = 'si' THEN 0
+       WHEN LOWER(C.energia) = 'no' THEN 1 ELSE NULL END AS Puntaje_Energia,
+  C.gas AS 'Gas natural de red pública',
+  CASE WHEN LOWER(C.gas) = 'si' THEN 0
+       WHEN LOWER(C.gas) = 'no' THEN 1 ELSE NULL END AS Puntaje_Gas,
+  C.acueducto AS 'Acueducto',
+  CASE WHEN LOWER(C.acueducto) = 'si' THEN 0
+       WHEN LOWER(C.acueducto) = 'no' THEN 1 ELSE NULL END AS Puntaje_Acueducto,
+  C.alcantarillado AS 'Alcantarillado',
+  CASE WHEN LOWER(C.alcantarillado) = 'si' THEN 0
+       WHEN LOWER(C.alcantarillado) = 'no' THEN 1 ELSE NULL END AS Puntaje_Alcantarillado,
+  C.basuras AS 'Recolección de basuras',
+  CASE WHEN LOWER(C.basuras) = 'si' THEN 0
+       WHEN LOWER(C.basuras) = 'no' THEN 1 ELSE NULL END AS Puntaje_Basuras,
+  -- Fuentes de agua (sí = 1, no = 0)
+  C.pozo AS 'Pozo',
+  CASE WHEN LOWER(C.pozo) = 'si' THEN 1
+       WHEN LOWER(C.pozo) = 'no' THEN 0 ELSE NULL END AS Puntaje_Pozo,
+  C.aljibe AS 'Aljibe',
+  CASE WHEN LOWER(C.aljibe) = 'si' THEN 1
+       WHEN LOWER(C.aljibe) = 'no' THEN 0 ELSE NULL END AS Puntaje_Aljibe,
+  -- Factores ambientales (sí = 3, no = 1) excepto facamb3
+  C.facamb1 AS 'Tráfico pesado cercano',
+  CASE WHEN LOWER(C.facamb1) = 'si' THEN 3
+       WHEN LOWER(C.facamb1) = 'no' THEN 1 ELSE NULL END AS Puntaje_facamb1,
+  C.facamb2 AS 'Vías sin pavimentar o en construcción cercanas',
+  CASE WHEN LOWER(C.facamb2) = 'si' THEN 3
+       WHEN LOWER(C.facamb2) = 'no' THEN 1 ELSE NULL END AS Puntaje_facamb2,
+  C.facamb3 AS 'Cercanía a zonas verdes y recreativas',
+  CASE WHEN LOWER(C.facamb3) = 'si' THEN 1  -- INVERSO
+       WHEN LOWER(C.facamb3) = 'no' THEN 3 ELSE NULL END AS Puntaje_facamb3,
+  C.facamb4 AS 'Cercanía a fuentes contaminantes',
+  CASE WHEN LOWER(C.facamb4) = 'si' THEN 3
+       WHEN LOWER(C.facamb4) = 'no' THEN 1 ELSE NULL END AS Puntaje_facamb4,
+  C.facamb5 AS 'Conserva alimentos adecuadamente',
+  CASE WHEN LOWER(C.facamb5) = 'si' THEN 1
+       WHEN LOWER(C.facamb5) = 'no' THEN 3 ELSE NULL END AS Puntaje_facamb5,
+  C.facamb6 AS 'Manipula correctamente el agua',
+  CASE WHEN LOWER(C.facamb6) = 'si' THEN 1
+       WHEN LOWER(C.facamb6) = 'no' THEN 3 ELSE NULL END AS Puntaje_facamb6,
+  C.facamb7 AS 'Adquiere medicamentos con fórmula médica',
+  CASE WHEN LOWER(C.facamb7) = 'si' THEN 1
+       WHEN LOWER(C.facamb7) = 'no' THEN 3 ELSE NULL END AS Puntaje_facamb7,
+  C.facamb8 AS 'Almacena químicos de forma segura',
+  CASE WHEN LOWER(C.facamb8) = 'si' THEN 1
+       WHEN LOWER(C.facamb8) = 'no' THEN 3 ELSE NULL END AS Puntaje_facamb8,
+  C.facamb9 AS 'Manejo adecuado de residuos sólidos',
+  CASE WHEN LOWER(C.facamb9) = 'si' THEN 1
+       WHEN LOWER(C.facamb9) = 'no' THEN 3 ELSE NULL END AS Puntaje_facamb9,
+  -- Puntaje total bruto
+(
+  CASE WHEN G.zona = 1 THEN 1 WHEN G.zona = 2 THEN 2 ELSE 0 END
+  + CASE C.tipo_vivienda WHEN 1 THEN 1 WHEN 2 THEN 1 WHEN 3 THEN 2 WHEN 4 THEN 3 WHEN 5 THEN 4 WHEN 6 THEN 4 ELSE 0 END
+  + CASE C.tenencia WHEN 1 THEN 1 WHEN 2 THEN 2 WHEN 3 THEN 3 WHEN 4 THEN 4 WHEN 5 THEN 5 ELSE 0 END
+  + CASE WHEN LOWER(C.actividad_economica) = 'si' THEN 2 WHEN LOWER(C.actividad_economica) = 'no' THEN 1 ELSE 0 END
+  + CASE WHEN LOWER(C.energia) = 'si' THEN 0 WHEN LOWER(C.energia) = 'no' THEN 1 ELSE 0 END
+  + CASE WHEN LOWER(C.gas) = 'si' THEN 0 WHEN LOWER(C.gas) = 'no' THEN 1 ELSE 0 END
+  + CASE WHEN LOWER(C.acueducto) = 'si' THEN 0 WHEN LOWER(C.acueducto) = 'no' THEN 1 ELSE 0 END
+  + CASE WHEN LOWER(C.alcantarillado) = 'si' THEN 0 WHEN LOWER(C.alcantarillado) = 'no' THEN 1 ELSE 0 END
+  + CASE WHEN LOWER(C.basuras) = 'si' THEN 0 WHEN LOWER(C.basuras) = 'no' THEN 1 ELSE 0 END
+  + CASE WHEN LOWER(C.pozo) = 'si' THEN 1 WHEN LOWER(C.pozo) = 'no' THEN 0 ELSE 0 END
+  + CASE WHEN LOWER(C.aljibe) = 'si' THEN 1 WHEN LOWER(C.aljibe) = 'no' THEN 0 ELSE 0 END
+  + CASE WHEN LOWER(C.facamb1) = 'si' THEN 3 WHEN LOWER(C.facamb1) = 'no' THEN 1 ELSE 0 END
+  + CASE WHEN LOWER(C.facamb2) = 'si' THEN 3 WHEN LOWER(C.facamb2) = 'no' THEN 1 ELSE 0 END
+  + CASE WHEN LOWER(C.facamb3) = 'si' THEN 1 WHEN LOWER(C.facamb3) = 'no' THEN 3 ELSE 0 END
+  + CASE WHEN LOWER(C.facamb4) = 'si' THEN 3 WHEN LOWER(C.facamb4) = 'no' THEN 1 ELSE 0 END
+  + CASE WHEN LOWER(C.facamb5) = 'si' THEN 1 WHEN LOWER(C.facamb5) = 'no' THEN 3 ELSE 0 END
+  + CASE WHEN LOWER(C.facamb6) = 'si' THEN 1 WHEN LOWER(C.facamb6) = 'no' THEN 3 ELSE 0 END
+  + CASE WHEN LOWER(C.facamb7) = 'si' THEN 1 WHEN LOWER(C.facamb7) = 'no' THEN 3 ELSE 0 END
+  + CASE WHEN LOWER(C.facamb8) = 'si' THEN 1 WHEN LOWER(C.facamb8) = 'no' THEN 3 ELSE 0 END
+  + CASE WHEN LOWER(C.facamb9) = 'si' THEN 1 WHEN LOWER(C.facamb9) = 'no' THEN 3 ELSE 0 END
+) AS Puntaje_EH_Bruto,
+-- Puntaje escalado 0 a 100
+ROUND((
+  (
+    CASE WHEN G.zona = 1 THEN 1 WHEN G.zona = 2 THEN 2 ELSE 0 END
+    + CASE C.tipo_vivienda WHEN 1 THEN 1 WHEN 2 THEN 1 WHEN 3 THEN 2 WHEN 4 THEN 3 WHEN 5 THEN 4 WHEN 6 THEN 4 ELSE 0 END
+    + CASE C.tenencia WHEN 1 THEN 1 WHEN 2 THEN 2 WHEN 3 THEN 3 WHEN 4 THEN 4 WHEN 5 THEN 5 ELSE 0 END
+    + CASE WHEN LOWER(C.actividad_economica) = 'si' THEN 2 WHEN LOWER(C.actividad_economica) = 'no' THEN 1 ELSE 0 END
+    + CASE WHEN LOWER(C.energia) = 'si' THEN 0 WHEN LOWER(C.energia) = 'no' THEN 1 ELSE 0 END
+    + CASE WHEN LOWER(C.gas) = 'si' THEN 0 WHEN LOWER(C.gas) = 'no' THEN 1 ELSE 0 END
+    + CASE WHEN LOWER(C.acueducto) = 'si' THEN 0 WHEN LOWER(C.acueducto) = 'no' THEN 1 ELSE 0 END
+    + CASE WHEN LOWER(C.alcantarillado) = 'si' THEN 0 WHEN LOWER(C.alcantarillado) = 'no' THEN 1 ELSE 0 END
+    + CASE WHEN LOWER(C.basuras) = 'si' THEN 0 WHEN LOWER(C.basuras) = 'no' THEN 1 ELSE 0 END
+    + CASE WHEN LOWER(C.pozo) = 'si' THEN 1 WHEN LOWER(C.pozo) = 'no' THEN 0 ELSE 0 END
+    + CASE WHEN LOWER(C.aljibe) = 'si' THEN 1 WHEN LOWER(C.aljibe) = 'no' THEN 0 ELSE 0 END
+    + CASE WHEN LOWER(C.facamb1) = 'si' THEN 3 WHEN LOWER(C.facamb1) = 'no' THEN 1 ELSE 0 END
+    + CASE WHEN LOWER(C.facamb2) = 'si' THEN 3 WHEN LOWER(C.facamb2) = 'no' THEN 1 ELSE 0 END
+    + CASE WHEN LOWER(C.facamb3) = 'si' THEN 1 WHEN LOWER(C.facamb3) = 'no' THEN 3 ELSE 0 END
+    + CASE WHEN LOWER(C.facamb4) = 'si' THEN 3 WHEN LOWER(C.facamb4) = 'no' THEN 1 ELSE 0 END
+    + CASE WHEN LOWER(C.facamb5) = 'si' THEN 1 WHEN LOWER(C.facamb5) = 'no' THEN 3 ELSE 0 END
+    + CASE WHEN LOWER(C.facamb6) = 'si' THEN 1 WHEN LOWER(C.facamb6) = 'no' THEN 3 ELSE 0 END
+    + CASE WHEN LOWER(C.facamb7) = 'si' THEN 1 WHEN LOWER(C.facamb7) = 'no' THEN 3 ELSE 0 END
+    + CASE WHEN LOWER(C.facamb8) = 'si' THEN 1 WHEN LOWER(C.facamb8) = 'no' THEN 3 ELSE 0 END
+    + CASE WHEN LOWER(C.facamb9) = 'si' THEN 1 WHEN LOWER(C.facamb9) = 'no' THEN 3 ELSE 0 END
+  ) - 13
+) * 100.0 / (47 - 13), 2) AS EH_Valor_0_100
+FROM person P
+LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
+LEFT JOIN hog_geo G ON F.idpre = G.idgeo
+LEFT JOIN (SELECT hc.* FROM hog_carac hc INNER JOIN (SELECT idfam, MAX(fecha) AS max_fecha FROM hog_carac GROUP BY idfam) ult ON hc.idfam = ult.idfam AND hc.fecha = ult.max_fecha) C ON P.vivipersona = C.idfam 
  WHERE P.idpersona = '$document' AND P.tipo_doc = '$tipo' LIMIT 1;";
 $res5 = datos_mysql($sql5);
 $EH_Valor = $res5['responseResult'][0]['EH_Valor'];
