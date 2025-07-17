@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tablas y Gráficos Dinámicos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+      animation: fadeIn 1s;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    h1 {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 18px;
+      color: #0066cc;
+      letter-spacing: 1px;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .controls select, .controls input {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #d1d5db;
+      font-size: 1rem;
+      background: #f3f4f6;
+      transition: border 0.2s;
+    }
+    .controls select:focus, .controls input:focus {
+      border-color: #0066cc;
+      outline: none;
+    }
+    .table-responsive {
+      overflow-x: auto;
+      margin-bottom: 32px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      background: #f9fafb;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      animation: fadeIn 0.7s;
+    }
+    th, td {
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    th {
+      background: #e0e7ff;
+      cursor: pointer;
+      position: relative;
+      user-select: none;
+      transition: background 0.2s;
+    }
+    th.sort-asc::after {
+      content: '\f0de';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      right: 10px;
+      color: #0066cc;
+    }
+    th.sort-desc::after {
+      content: '\f0dd';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      right: 10px;
+      color: #0066cc;
+    }
+    tr:hover td {
+      background: #f1f5f9;
+      transition: background 0.2s;
+    }
+    .filters-row {
+      background: #f3f4f6;
+    }
+    .filters-row input, .filters-row select {
+      width: 100%;
+      box-sizing: border-box;
+      border: none;
+      background: transparent;
+      padding: 6px 8px;
+      font-size: 0.95rem;
+      color: #222;
+    }
+    .chart-section {
+      margin-top: 30px;
+      background: #f3f4f6;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      animation: fadeIn 1s;
+    }
+    .chart-controls {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 18px;
+      justify-content: center;
+    }
+    .chart-controls select {
+      min-width: 120px;
+    }
+    .chart-controls label {
+      font-weight: 500;
+      margin-right: 6px;
+      color: #0066cc;
+    }
+    @media (max-width: 700px) {
+      .container { padding: 10px 2px; }
+      .controls, .chart-controls { flex-direction: column; gap: 10px; }
+      th, td { padding: 8px 6px; }
+      .chart-section { padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><i class="fa-solid fa-table"></i> Tablas y Gráficos Dinámicos</h1>
+    <div class="controls">
+      <label for="jsonSelect">Selecciona tabla:</label>
+      <select id="jsonSelect"></select>
+    </div>
+    <div class="table-responsive">
+      <table id="dataTable"></table>
+    </div>
+    <div class="chart-section">
+      <div class="chart-controls">
+        <label for="chartType">Tipo de gráfico:</label>
+        <select id="chartType">
+          <option value="bar">Barras</option>
+          <option value="line">Líneas</option>
+          <option value="pie">Pastel</option>
+          <option value="radar">Radar</option>
+        </select>
+        <label for="labelCol">Columna Labels:</label>
+        <select id="labelCol"></select>
+        <label for="dataCol">Columna Datos:</label>
+        <select id="dataCol"></select>
+      </div>
+      <canvas id="mainChart" height="120"></canvas>
+    </div>
+  </div>
+  <script>
+    // Ejemplo de varios JSON embebidos
+    const jsonDataSets = {
+      "Usuarios": {
+        "columns": ["ID", "Nombre", "Edad", "Género", "Ciudad"],
+        "rows": [
+          [1, "Ana", 23, "Femenino", "Bogotá"],
+          [2, "Luis", 31, "Masculino", "Medellín"],
+          [3, "Sofía", 27, "Femenino", "Cali"],
+          [4, "Carlos", 35, "Masculino", "Barranquilla"],
+          [5, "Lucía", 29, "Femenino", "Bogotá"]
+        ]
+      },
+      "Ventas": {
+        "columns": ["Mes", "Ventas", "Costos", "Ganancia"],
+        "rows": [
+          ["Enero", 12000, 8000, 4000],
+          ["Febrero", 15000, 9000, 6000],
+          ["Marzo", 17000, 11000, 6000],
+          ["Abril", 14000, 7000, 7000],
+          ["Mayo", 16000, 10000, 6000]
+        ]
+      },
+      "Productos": {
+        "columns": ["Producto", "Categoría", "Stock", "Precio"],
+        "rows": [
+          ["Laptop", "Electrónica", 25, 3200],
+          ["Celular", "Electrónica", 40, 1200],
+          ["Silla", "Muebles", 60, 350],
+          ["Mesa", "Muebles", 20, 900],
+          ["Monitor", "Electrónica", 15, 800]
+        ]
+      }
+    };
+
+    // Inicialización de selects
+    const jsonSelect = document.getElementById('jsonSelect');
+    const chartTypeSelect = document.getElementById('chartType');
+    const labelColSelect = document.getElementById('labelCol');
+    const dataColSelect = document.getElementById('dataCol');
+    const dataTable = document.getElementById('dataTable');
+    let currentData = null;
+    let sortState = {};
+
+    // Cargar nombres de JSON en el select
+    Object.keys(jsonDataSets).forEach(name => {
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = name;
+      jsonSelect.appendChild(opt);
+    });
+
+    // Función para renderizar la tabla con filtros y ordenamiento
+    function renderTable(data) {
+      dataTable.innerHTML = '';
+      if (!data) return;
+      const columns = data.columns;
+      const rows = data.rows;
+
+      // Filtros por columna
+      const filterRow = document.createElement('tr');
+      filterRow.className = 'filters-row';
+      columns.forEach((col, idx) => {
+        const cell = document.createElement('td');
+        // Si hay pocos valores únicos, usar select, si no, input
+        const uniqueVals = [...new Set(rows.map(r => r[idx]))];
+        if (uniqueVals.length <= 8) {
+          const sel = document.createElement('select');
+          sel.innerHTML = `<option value="">Todos</option>` + uniqueVals.map(v => `<option value="${v}">${v}</option>`).join('');
+          sel.onchange = () => applyFilters();
+          cell.appendChild(sel);
+        } else {
+          const inp = document.createElement('input');
+          inp.type = 'text';
+          inp.placeholder = 'Filtrar...';
+          inp.oninput = () => applyFilters();
+          cell.appendChild(inp);
+        }
+        filterRow.appendChild(cell);
+      });
+      dataTable.appendChild(filterRow);
+
+      // Encabezados con ordenamiento
+      const headerRow = document.createElement('tr');
+      columns.forEach((col, idx) => {
+        const th = document.createElement('th');
+        th.textContent = col;
+        th.onclick = () => sortTable(idx);
+        if (sortState.idx === idx) {
+          th.classList.add(sortState.dir === 'asc' ? 'sort-asc' : 'sort-desc');
+        }
+        headerRow.appendChild(th);
+      });
+      dataTable.appendChild(headerRow);
+
+      // Filas
+      let filteredRows = applyFilters(true);
+      filteredRows.forEach(row => {
+        const tr = document.createElement('tr');
+        row.forEach(val => {
+          const td = document.createElement('td');
+          td.textContent = val;
+          tr.appendChild(td);
+        });
+        dataTable.appendChild(tr);
+      });
+    }
+
+    // Aplica los filtros de la primera fila
+    function applyFilters(returnRows=false) {
+      const filters = [];
+      const filterCells = dataTable.querySelectorAll('.filters-row td');
+      filterCells.forEach(cell => {
+        const input = cell.querySelector('input,select');
+        filters.push(input ? input.value : '');
+      });
+      let rows = currentData.rows.filter(row => {
+        return filters.every((f, idx) => {
+          if (!f) return true;
+          return String(row[idx]).toLowerCase().includes(String(f).toLowerCase());
+        });
+      });
+      // Ordenar si hay sort activo
+      if (sortState.idx !== undefined) {
+        rows.sort((a, b) => {
+          if (a[sortState.idx] == b[sortState.idx]) return 0;
+          if (sortState.dir === 'asc') return a[sortState.idx] > b[sortState.idx] ? 1 : -1;
+          else return a[sortState.idx] < b[sortState.idx] ? 1 : -1;
+        });
+      }
+      if (returnRows) return rows;
+      // Si no, re-renderizar la tabla
+      // (solo filas, no encabezados ni filtros)
+      // Elimina las filas actuales
+      const trs = dataTable.querySelectorAll('tr:not(.filters-row):not(:nth-child(2))');
+      trs.forEach(tr => tr.remove());
+      rows.forEach(row => {
+        const tr = document.createElement('tr');
+        row.forEach(val => {
+          const td = document.createElement('td');
+          td.textContent = val;
+          tr.appendChild(td);
+        });
+        dataTable.appendChild(tr);
+      });
+      updateChart();
+    }
+
+    // Ordenar tabla por columna
+    function sortTable(idx) {
+      if (sortState.idx === idx) {
+        sortState.dir = sortState.dir === 'asc' ? 'desc' : 'asc';
+      } else {
+        sortState.idx = idx;
+        sortState.dir = 'asc';
+      }
+      renderTable(currentData);
+      updateChart();
+    }
+
+    // Actualiza los selects de columnas para el gráfico
+    function updateColSelects() {
+      labelColSelect.innerHTML = '';
+      dataColSelect.innerHTML = '';
+      if (!currentData) return;
+      currentData.columns.forEach((col, idx) => {
+        const opt1 = document.createElement('option');
+        opt1.value = idx;
+        opt1.textContent = col;
+        labelColSelect.appendChild(opt1);
+        const opt2 = document.createElement('option');
+        opt2.value = idx;
+        opt2.textContent = col;
+        dataColSelect.appendChild(opt2);
+      });
+      // Por defecto, primer columna como label, segunda como dato
+      labelColSelect.selectedIndex = 0;
+      dataColSelect.selectedIndex = 1;
+    }
+
+    // Actualiza el gráfico según selección
+    let chartInstance = null;
+    function updateChart() {
+      if (!currentData) return;
+      const rows = applyFilters(true);
+      const labelIdx = parseInt(labelColSelect.value);
+      const dataIdx = parseInt(dataColSelect.value);
+      const labels = rows.map(r => r[labelIdx]);
+      const dataVals = rows.map(r => Number(r[dataIdx]) || 0);
+
+      const chartType = chartTypeSelect.value;
+      const colors = [
+        '#0066cc','#38bdf8','#f59e42','#f87171','#a3e635','#f472b6','#facc15','#818cf8','#34d399','#fb7185'
+      ];
+
+      const chartData = {
+        labels: labels,
+        datasets: [{
+          label: currentData.columns[dataIdx],
+          data: dataVals,
+          backgroundColor: chartType === 'pie' ? colors : colors[0],
+          borderColor: chartType === 'line' ? colors[0] : undefined,
+          fill: chartType !== 'line'
+        }]
+      };
+
+      const chartOptions = {
+        responsive: true,
+        plugins: {
+          legend: { display: chartType === 'pie' || chartType === 'radar' }
+        },
+        animation: { duration: 900 }
+      };
+
+      // Destruir gráfico anterior si existe
+      if (chartInstance) chartInstance.destroy();
+      chartInstance = new Chart(document.getElementById('mainChart'), {
+        type: chartType,
+        data: chartData,
+        options: chartOptions
+      });
+    }
+
+    // Eventos
+    jsonSelect.onchange = () => {
+      currentData = jsonDataSets[jsonSelect.value];
+      sortState = {};
+      renderTable(currentData);
+      updateColSelects();
+      updateChart();
+    };
+    chartTypeSelect.onchange = updateChart;
+    labelColSelect.onchange = updateChart;
+    dataColSelect.onchange = updateChart;
+
+    // Inicialización
+    jsonSelect.selectedIndex = 0;
+    currentData = jsonDataSets[jsonSelect.value];
+    renderTable(currentData);
+    updateColSelects();
+    updateChart();
+
+    // Comentarios:
+    // - Puedes agregar más JSONs en jsonDataSets, aparecerán automáticamente en el select.
+    // - Los filtros y ordenamiento funcionan en todos los campos.
+    // - El gráfico se actualiza automáticamente al filtrar, ordenar o cambiar columnas/tipo.
+    // - Es responsive y moderno, puedes personalizar colores y estilos en el CSS.
+    // - Puedes adaptar el JSON para que los encabezados y filas sean dinámicos.
+  </script>
+</body>
+</html>
