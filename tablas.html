@@ -323,13 +323,21 @@
       let filteredRows = applyFilters(true);
       filteredRows.forEach(row => {
         const tr = document.createElement('tr');
-        row.forEach(val => {
-          const td = document.createElement('td');
-          td.textContent = val;
-          tr.appendChild(td);
-        });
-        dataTable.appendChild(tr);
-      });
+        row.forEach((val, idx) => {
+    const td = document.createElement('td');
+    // Si el valor es numérico y la columna no es texto, aplica formato
+    if (typeof val === "number" && !isNaN(val)) {
+      td.textContent = val.toLocaleString('es-ES');
+    } else if (typeof val === "string" && /^\d{4,}$/.test(val)) {
+      // Si es string pero parece número largo
+      td.textContent = Number(val).toLocaleString('es-ES');
+    } else {
+      td.textContent = val;
+    }
+    tr.appendChild(td);
+  });
+  dataTable.appendChild(tr);
+});
     }
 
     // Aplica los filtros de la primera fila
