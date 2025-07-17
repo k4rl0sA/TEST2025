@@ -432,9 +432,9 @@
     jsonSelect.onchange = () => {
       currentData = jsonDataSets[jsonSelect.value];
       sortState = {};
-      document.title = jsonSelect.value;
-        // Actualizar título de la página
-        document.querySelector('h1.title').textContent = '<i class="fa-solid fa-table"></i> '+jsonSelect.value;
+    document.title = jsonSelect.value;
+    // Actualizar título de la página
+    document.querySelector('h1.title').innerHTML = '<i class="fa-solid fa-table"></i> ' + jsonSelect.value;
       renderTable(currentData);
       updateColSelects();
       updateChart();
