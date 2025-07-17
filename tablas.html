@@ -384,7 +384,16 @@
       const labelIdx = parseInt(labelColSelect.value);
       const dataIdx = parseInt(dataColSelect.value);
       const labels = rows.map(r => r[labelIdx]);
-      const dataVals = rows.map(r => Number(r[dataIdx]) || 0);
+    //   const dataVals = rows.map(r => Number(r[dataIdx]) || 0);
+
+    const dataVals = rows.map(r => {
+      let val = r[dataIdx];
+      if (typeof val === "string" && val.includes("%")) {
+        val = val.replace(",", ".").replace("%", "");
+        return parseFloat(val) || 0;
+      }
+      return Number(val) || 0;
+    });
 
       const chartType = chartTypeSelect.value;
       const colors = [
@@ -423,6 +432,7 @@
     jsonSelect.onchange = () => {
       currentData = jsonDataSets[jsonSelect.value];
       sortState = {};
+      document.title = jsonSelect.value;
       renderTable(currentData);
       updateColSelects();
       updateChart();
@@ -434,6 +444,7 @@
     // Inicialización
     jsonSelect.selectedIndex = 0;
     currentData = jsonDataSets[jsonSelect.value];
+    document.title = jsonSelect.value;
     renderTable(currentData);
     updateColSelects();
     updateChart();
