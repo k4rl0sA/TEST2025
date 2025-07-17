@@ -150,7 +150,7 @@
     <div class="table-responsive">
       <table id="dataTable"></table>
     </div>
-    <div class="chart-section">
+ <!--    <div class="chart-section">
       <div class="chart-controls">
         <label for="chartType">Tipo de gráfico:</label>
         <select id="chartType">
@@ -165,7 +165,36 @@
         <select id="dataCol"></select>
       </div>
       <canvas id="mainChart" height="120"></canvas>
+    </div> -->
+    <!-- CARLOS 16-07-2025 -->
+    <div class="chart-section">
+  <div class="chart-controls">
+    <label for="labelCol">Columna Labels:</label>
+    <select id="labelCol"></select>
+    <label for="dataCol">Columna Datos:</label>
+    <select id="dataCol"></select>
+  </div>
+   <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center;">
+    <div>
+      <div style="text-align:center;font-weight:600;margin-bottom:4px;">Barras</div>
+      <canvas id="chartBar" height="120"></canvas>
     </div>
+    <div>
+      <div style="text-align:center;font-weight:600;margin-bottom:4px;">Líneas</div>
+      <canvas id="chartLine" height="120"></canvas>
+    </div>
+    <div>
+      <div style="text-align:center;font-weight:600;margin-bottom:4px;">Pastel</div>
+      <canvas id="chartPie" height="120"></canvas>
+    </div>
+    <div>
+      <div style="text-align:center;font-weight:600;margin-bottom:4px;">Radar</div>
+      <canvas id="chartRadar" height="120"></canvas>
+    </div>
+  </div>
+</div>
+<!-- CARLOS 16-07-2025 -->
+
   </div>
   <script>
     // Ejemplo de varios JSON embebidos
@@ -341,7 +370,7 @@
         });
         dataTable.appendChild(tr);
       });
-      updateChart();
+      updateAllCharts();
     }
 
     // Ordenar tabla por columna
@@ -353,7 +382,7 @@
         sortState.dir = 'asc';
       }
       renderTable(currentData);
-      updateChart();
+      updateAllCharts();
     }
 
     // Actualiza los selects de columnas para el gráfico
@@ -378,7 +407,7 @@
 
     // Actualiza el gráfico según selección
     let chartInstance = null;
-    function updateChart() {
+    function updateAllCharts() {
       if (!currentData) return;
       const rows = applyFilters(true);
       const labelIdx = parseInt(labelColSelect.value);
@@ -435,11 +464,12 @@
       document.title = jsonSelect.value;
       renderTable(currentData);
       updateColSelects();
-      updateChart();
+    //   updateAllCharts();
+        updateAllCharts();
     };
-    chartTypeSelect.onchange = updateChart;
-    labelColSelect.onchange = updateChart;
-    dataColSelect.onchange = updateChart;
+    chartTypeSelect.onchange = updateAllCharts;
+    labelColSelect.onchange = updateAllCharts;
+    dataColSelect.onchange = updateAllCharts;
 
     // Inicialización
     jsonSelect.selectedIndex = 0;
@@ -447,7 +477,7 @@
     document.title = jsonSelect.value;
     renderTable(currentData);
     updateColSelects();
-    updateChart();
+    updateAllCharts();
 
     // Comentarios:
     // - Puedes agregar más JSONs en jsonDataSets, aparecerán automáticamente en el select.
@@ -455,6 +485,55 @@
     // - El gráfico se actualiza automáticamente al filtrar, ordenar o cambiar columnas/tipo.
     // - Es responsive y moderno, puedes personalizar colores y estilos en el CSS.
     // - Puedes adaptar el JSON para que los encabezados y filas sean dinámicos.
+let chartInstances = {};
+
+function updateAllCharts() {
+  if (!currentData) return;
+  const rows = applyFilters(true);
+
+      const labelIdx = parseInt(labelColSelect.value);
+  const dataIdx = parseInt(dataColSelect.value);
+  const labels = rows.map(r => r[labelIdx]);
+  const dataVals = rows.map(r => {
+    let val = r[dataIdx];
+    if (typeof val === "string" && val.includes("%")) {
+      val = val.replace(",", ".").replace("%", "");
+      return parseFloat(val) || 0;
+    }
+    return Number(val) || 0;
+  });
+
+  const chartTypes = ['bar', 'line', 'pie', 'radar'];
+  const chartIds = ['chartBar', 'chartLine', 'chartPie', 'chartRadar'];
+  const colors = [
+    '#0066cc','#38bdf8','#f59e42','#f87171','#a3e635','#f472b6','#facc15','#818cf8','#34d399','#fb7185'
+  ];
+
+  chartTypes.forEach((type, i) => {
+    const ctx = document.getElementById(chartIds[i]);
+    if (chartInstances[type]) chartInstances[type].destroy();
+    chartInstances[type] = new Chart(ctx, {
+      type: type,
+      data: {
+        labels: labels,
+        datasets: [{
+          label: currentData.columns[dataIdx],
+          data: dataVals,
+          backgroundColor: type === 'pie' ? colors : colors[0],
+          borderColor: type === 'line' ? colors[0] : undefined,
+          fill: type !== 'line'
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: type === 'pie' || type === 'radar' }
+        },
+        animation: { duration: 900 }
+      }
+    });
+  });
+}
   </script>
 </body>
 </html>
