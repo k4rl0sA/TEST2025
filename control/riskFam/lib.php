@@ -418,6 +418,7 @@ $riesgos = [
         "value" => $vulnSocial,
         "weight" => 0.12,
         "puntajeTotal" => $puntajeTotal,
+
         "description" => "Considera factores como la violencia, el desplazamiento y la exclusión social."
     ],
     "accessToHealth" => [
@@ -442,15 +443,15 @@ $riesgos = [
         "basuras" => $basuras,
         "pozo" => $pozo,
         "aljibe" => $aljibe,
-        "facamb1" => $facamb1,
-        "facamb2" => $facamb2,
-        "facamb3" => $facamb3,
-        "facamb4" => $facamb4,
-        "facamb5" => $facamb5,
-        "facamb6" => $facamb6,
-        "facamb7" => $facamb7,
-        "facamb8" => $facamb8,
-        "facamb9" => $facamb9,
+        "Tráfico pesado cercano" => $facamb1,
+        "Vías sin pavimentar o en construcción cercanas" => $facamb2,
+        "Cercanía a zonas verdes y recreativas" => $facamb3,
+        "Cercanía a fuentes contaminantes" => $facamb4,
+        "Conserva alimentos adecuadamente" => $facamb5,
+        "Manipula correctamente el agua" => $facamb6,
+        "Adquiere medicamentos con fórmula médica" => $facamb7,
+        "Almacena químicos de forma segura" => $facamb8,
+        "Manejo adecuado de residuos sólidos" => $facamb9,
         "weight" => 0.10,
         "description" => "Evalúa las condiciones de la vivienda y su impacto en la salud."
     ],
