@@ -228,8 +228,7 @@ $accesoSaludPorcentaje = $res4['responseResult'][0]['acceso_salud_porcentaje'];
 $puntajeRegimenSalud = $res4['responseResult'][0]['puntaje_regimen_salud'];
 
 //Riesgo Entorno Habitacional
-$sql5="SELECT  
-  P.idpersona,  -- Zona y su puntaje
+$sql5="SELECT P.idpersona,  -- Zona y su puntaje
   FN_CATALOGODESC(3,G.zona) AS Zona,
   CASE WHEN G.zona = 1 THEN 1
        WHEN G.zona = 2 THEN 2 ELSE NULL END AS Puntaje_Zona,
@@ -352,7 +351,7 @@ ROUND((
     + CASE WHEN LOWER(C.facamb8) = 'si' THEN 1 WHEN LOWER(C.facamb8) = 'no' THEN 3 ELSE 0 END
     + CASE WHEN LOWER(C.facamb9) = 'si' THEN 1 WHEN LOWER(C.facamb9) = 'no' THEN 3 ELSE 0 END
   ) - 13
-) * 100.0 / (47 - 13), 2) AS EH_Valor_0_100
+) * 100.0 / (47 - 13), 2) AS EH_Valor
 FROM person P
 LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
 LEFT JOIN hog_geo G ON F.idpre = G.idgeo
