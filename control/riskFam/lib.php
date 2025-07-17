@@ -242,7 +242,8 @@ $sql5="SELECT  P.idpersona,P.tipo_doc,FN_CATALOGODESC(3,G.zona) AS Zona,-- Zona 
  FROM person P
  LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
  LEFT JOIN hog_geo G ON F.idpre = G.idgeo
- LEFT JOIN (SELECT hc.* FROM hog_carac hc  INNER JOIN (SELECT idfam, MAX(fecha) AS max_fecha FROM hog_carac  GROUP BY idfam) ult ON hc.idfam = ult.idfam AND hc.fecha = ult.max_fecha) C ON P.vivipersona = C.idfam;";
+ LEFT JOIN (SELECT hc.* FROM hog_carac hc INNER JOIN (SELECT idfam, MAX(fecha) AS max_fecha FROM hog_carac  GROUP BY idfam) ult ON hc.idfam = ult.idfam AND hc.fecha = ult.max_fecha) C ON P.vivipersona = C.idfam 
+ WHERE P.idpersona = '$document' AND P.tipo_doc = '$tipo' LIMIT 1;";
 $res5 = datos_mysql($sql5);
 $puntajeEHBruto = $res5['responseResult'][0]['Puntaje_EH_Bruto'];
 $zona= $res5['responseResult'][0]['Zona'];
