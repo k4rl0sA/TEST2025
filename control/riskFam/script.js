@@ -1,12 +1,12 @@
 // Initial data
-let socioeconomic = 60;
-let familyStructure = 45;
-let healthConditions = 70;
-let socialVulnerability = 50;
-let accessToHealth = 30;
-let livingEnvironment = 65;
-let demographics = 40;
-let totalRisk = 55;
+let socioeconomic = null;
+let familyStructure = null;
+let healthConditions = null;
+let socialVulnerability = null;
+let accessToHealth = null;
+let livingEnvironment = null;
+let demographics = null;
+let totalRisk = null;
 let riskLevel = "Medium Risk";
 
 // Get DOM elements
