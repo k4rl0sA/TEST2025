@@ -289,6 +289,7 @@ $riesgos = [
         "weight" => 0.20,
         // "puntaje" => $puntaje,
         "apgar" => $apgar,
+        "zona-Apgar" => $zona,
         "description" => "Influye en el apoyo social, la funcionalidad y la estabilidad del hogar."
     ],
     "socialVulnerability" => [
