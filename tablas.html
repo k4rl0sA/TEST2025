@@ -433,6 +433,8 @@
       currentData = jsonDataSets[jsonSelect.value];
       sortState = {};
       document.title = jsonSelect.value;
+        // Actualizar título de la página
+        document.querySelector('h1.title').textContent = jsonSelect.value;
       renderTable(currentData);
       updateColSelects();
       updateChart();
