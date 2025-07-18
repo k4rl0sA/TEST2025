@@ -333,29 +333,46 @@
 
       // Filas
       const formatNumber = (num) => {
-        return num.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".");
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
       };
        let filteredRows = applyFilters(true);
-      filteredRows.forEach(row => {
-        const tr = document.createElement('tr');
-        row.forEach((val, idx) => {
-          const td = document.createElement('td');
-          const colName = columns && idx < columns.length ? columns[idx] : '';
-          if (colName.trim() === "Cantidad") {
-            let numValue;
-            if (typeof val === "string") {
-              const cleaned = val.replace(/\./g, '').replace(',', '.');
-              numValue = parseFloat(cleaned);
-            } else {
-              numValue = val;
-            }
-            if (!isNaN(numValue)) {
-              td.textContent = formatNumber(Math.round(numValue));
-            } else {
-              td.textContent = val;
-            }
+  filteredRows.forEach(row => {
+    const tr = document.createElement('tr');
+    row.forEach((val, idx) => {
+      const td = document.createElement('td');
+      const colName = columns && idx < columns.length ? columns[idx] : '';
+      
+      // Detectar columnas que deben formatearse
+      const shouldFormat = 
+        typeof val === 'number' || 
+        (typeof val === 'string' && /^[\d,.]+$/.test(val) && !colName.includes('Porcentaje'));
+      if (shouldFormat) {
+        // Convertir a número eliminando formatos existentes
+        let numValue;
+        if (typeof val === 'string') {
+          // Limpiar formato existente (quitar puntos y comas)
+          const cleaned = val.replace(/\./g, '').replace(',', '.');
+          numValue = parseFloat(cleaned);
+        } else {
+          numValue = val;
+        }
+        // Formatear solo si es número válido
+        if (!isNaN(numValue)) {
+          // Verificar si es número entero
+          if (Number.isInteger(numValue)) {
+            td.textContent = formatNumber(numValue);
           } else {
-            // Mantener valor original para columnas no numéricas
+            // Manejar decimales
+            const fixedValue = numValue.toFixed(2).replace('.', ',');
+            const parts = fixedValue.split(',');
+            parts[0] = formatNumber(parseInt(parts[0]));
+            td.textContent = parts.join(',');
+          }
+        } else {
+          td.textContent = val;
+        }
+      } else {
+        // Mantener valor original para columnas no numéricas
             td.textContent = val;
           }
           tr.appendChild(td);
