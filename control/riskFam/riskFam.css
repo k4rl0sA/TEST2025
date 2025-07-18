@@ -750,7 +750,6 @@
       }
        .risk-factor-tooltip {
     position: relative;
-    display: block !important;
     margin-top: var(--spacing-sm);
     width: 100%;
     padding: 0;
