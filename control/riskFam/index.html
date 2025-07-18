@@ -437,14 +437,12 @@
         factors[key]["Almacena químicos de forma segura"] = riskFactors[key]["Almacena químicos de forma segura"] || '';
         factors[key]["Manejo adecuado de residuos sólidos"] = riskFactors[key]["Manejo adecuado de residuos sólidos"] || '';
       }
-        /*// Actualizar puntaje de entorno habitacional si existe
-          if (key === 'livingEnvironment') {
+      if (key === 'demographics') {
             factors[key].puntaje = riskFactors[key].puntaje || 0;
           }
+        /*// Actualizar puntaje de entorno habitacional si existe
           // Actualizar puntaje demográfico si existe
-          if (key === 'demographics') {
-            factors[key].puntaje = riskFactors[key].puntaje || 0;
-          }*/      
+          */      
         } else {
           // Si no hay datos, mantener el valor original
           factors[key].value = factors[key].value || 0;
