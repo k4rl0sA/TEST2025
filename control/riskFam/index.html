@@ -570,16 +570,23 @@
 
       additionalInfo = `
         <div class="risk-factor-tooltip">
-          <div class="tooltip-content">
-            ${zonaText}            ${tipoViviendaText}<br>
-            ${tenenciaText}<br>
-            ${energiaText}<br>
-            ${gasText}<br>
-            ${acueductoText}<br>
-            ${alcantarilladoText}<br>
-            ${basurasText}<br>
-            ${pozoText}<br>
-            ${aljibeText}
+          <div class="tooltip-content" style="display: flex; gap: 24px;">
+            <div>
+              ${zonaText}<br>
+              ${tipoViviendaText}<br>
+              ${tenenciaText}<br>
+              ${energiaText}<br>
+              ${gasText}<br>
+              ${acueductoText}
+            </div>
+            <div>
+              ${alcantarilladoText}<br>
+              ${basurasText}<br>
+              ${pozoText}<br>
+              ${aljibeText}<br>
+              ${traficoText}<br>
+              ${viasText}
+            </div>
           </div>
         </div>
       `;
