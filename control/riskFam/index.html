@@ -379,9 +379,6 @@
       }
     }
 
-    console.log(data.riskFactors.livingEnvironment);
-
-    
     // Función auxiliar para actualizar factores de riesgo
     function updateRiskFactors(riskFactors) {
       if (!riskFactors) return;
@@ -411,6 +408,28 @@
       if (key === 'accessToHealth') {
         factors[key].puntajeAcceso = riskFactors[key].puntajeAcceso || 0;
         factors[key].regimen = riskFactors[key].regimen || 0;
+      }
+      if (key === 'livingEnvironment') {
+        factors[key].zona = riskFactors[key].zona || '';
+        factors[key].tipoVivienda = riskFactors[key].tipoVivienda || '';
+        factors[key].tenencia = riskFactors[key].tenencia || '';
+        factors[key].actividadEconomica = riskFactors[key].actividadEconomica || '';
+        factors[key].energia = riskFactors[key].energia || '';
+        factors[key].gas = riskFactors[key].gas || '';
+        factors[key].acueducto = riskFactors[key].acueducto || '';
+        factors[key].alcantarillado = riskFactors[key].alcantarillado || '';
+        factors[key].basuras = riskFactors[key].basuras || '';
+        factors[key].pozo = riskFactors[key].pozo || '';
+        factors[key].aljibe = riskFactors[key].aljibe || '';
+        factors[key]["Tráfico pesado cercano"] = riskFactors[key]["Tráfico pesado cercano"] || '';
+        factors[key]["Vías sin pavimentar o en construcción cercanas"] = riskFactors[key]["Vías sin pavimentar o en construcción cercanas"] || '';
+        factors[key]["Cercanía a zonas verdes y recreativas"] = riskFactors[key]["Cercanía a zonas verdes y recreativas"] || '';
+        factors[key]["Cercanía a fuentes contaminantes"] = riskFactors[key]["Cercanía a fuentes contaminantes"] || '';
+        factors[key]["Conserva alimentos adecuadamente"] = riskFactors[key]["Conserva alimentos adecuadamente"] || '';
+        factors[key]["Manipula correctamente el agua"] = riskFactors[key]["Manipula correctamente el agua"] || '';
+        factors[key]["Adquiere medicamentos con fórmula médica"] = riskFactors[key]["Adquiere medicamentos con fórmula médica"] || '';
+        factors[key]["Almacena químicos de forma segura"] = riskFactors[key]["Almacena químicos de forma segura"] || '';
+        factors[key]["Manejo adecuado de residuos sólidos"] = riskFactors[key]["Manejo adecuado de residuos sólidos"] || '';
       }
         /*// Actualizar puntaje de entorno habitacional si existe
           if (key === 'livingEnvironment') {
