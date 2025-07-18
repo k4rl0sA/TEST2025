@@ -332,26 +332,34 @@
       dataTable.appendChild(headerRow);
 
       // Filas
+      const formatNumber = (num) => {
+        return num.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".");
+      };
        let filteredRows = applyFilters(true);
   filteredRows.forEach(row => {
     const tr = document.createElement('tr');
     row.forEach((val, idx) => {
       const td = document.createElement('td');
       const colName = columns && idx < columns.length ? columns[idx] : '';
+      
       console.log(`Procesando columna "${colName}":`, val, typeof val);
+      
       if (colName.trim() === "Cantidad") {
         // Conversión segura a número
         let numValue;
+        
         if (typeof val === "string") {
           // Limpiar formato existente
           const cleaned = val.replace(/\./g, '').replace(',', '.');
           numValue = parseFloat(cleaned);
         } else {
-          numValue = Number(val);
+          numValue = val;
         }
+        
         // Formatear solo si es número válido
         if (!isNaN(numValue)) {
-          td.textContent = numValue.toLocaleString('es-ES');
+          // Forzar formato con separadores de miles
+          td.textContent = formatNumber(Math.round(numValue));
           console.log("Valor formateado:", td.textContent);
         } else {
           td.textContent = val;
