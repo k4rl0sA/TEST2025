@@ -81,14 +81,15 @@
           <div class="card-body">
             <div class="personal-info-grid">
               <div>
+                <p><strong>Nombre:</strong> <span id="nameInfo">-</span></p>
                 <p><strong>Documento:</strong> <span id="documentInfo">-</span></p>
                 <p><strong>Sexo:</strong> <span id="sexInfo">-</span></p>
                 <p><strong>Género:</strong> <span id="genderInfo">-</span></p>
                 <p><strong>Nacionalidad:</strong> <span id="nationalityInfo">-</span></p>
                 <p><strong>Fecha de Nacimiento:</strong> <span id="birthDateInfo">-</span></p>
-                <p><strong>Curso de Vida:</strong> <span id="lifestageInfo">-</span></p>
               </div>
               <div>
+                <p><strong>Curso de Vida:</strong> <span id="lifestageInfo">-</span></p>
                 <p><strong>Edad:</strong> <span id="ageInfo">-</span></p>
                 <p><strong>Localidad:</strong> <span id="locationInfo">-</span></p>
                 <p><strong>Upz:</strong> <span id="upzInfo">-</span></p>
@@ -365,6 +366,7 @@
     // Función auxiliar para actualizar información personal
     function updatePersonalInfo(data) {
       const fields = {
+        nameInfo: data.nombre,
         documentInfo: data.document,
         sexInfo: data.sex,
         genderInfo: data.gender,
