@@ -329,12 +329,16 @@
       });
       dataTable.appendChild(headerRow);
       // Filas
-      let filteredRows = applyFilters(true);
+       // Filas
+  let filteredRows = applyFilters(true);
   filteredRows.forEach(row => {
     const tr = document.createElement('tr');
     row.forEach((val, idx) => {
       const td = document.createElement('td');
-      // Nuevo sistema de formateo numérico
+      
+      // Definir colName aquí para que esté disponible en todo el bloque
+      const colName = columns && idx < columns.length ? columns[idx] : '';
+      
       // Solo aplicar formato a columnas numéricas
       if (colName === "Cantidad") {
         if (typeof val === "number" && !isNaN(val)) {
