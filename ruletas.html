@@ -82,9 +82,11 @@
                 if (pasos > maxPasos) frenado = true;
                 if (frenado) velocidad *= 0.97;
                 if (velocidad < 0.01) {
-                    // Determinar opción ganadora
+                    // Determinar opción ganadora alineada con la flecha superior
                     const slice = 2 * Math.PI / opciones.length;
-                    let idx = Math.floor(((2 * Math.PI - (angulo % (2 * Math.PI))) % (2 * Math.PI)) / slice);
+                    let anguloFinal = angulo % (2 * Math.PI);
+                    let idx = Math.floor((anguloFinal) / slice);
+                    idx = (opciones.length - idx) % opciones.length; // Ajuste para que coincida con la flecha
                     callback(opciones[idx]);
                 } else {
                     requestAnimationFrame(animar);
