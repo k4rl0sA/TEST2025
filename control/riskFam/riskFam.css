@@ -635,6 +635,10 @@
       width: 100%;
       padding: var(--spacing-sm) 0;
       z-index: 100;
+      /* Cambio 18-07-2025 */
+      max-width: 400px;
+      min-width: 220px;
+      z-index: 100;
     }
 
     .risk-factor-tooltip .tooltip-content {
@@ -645,6 +649,14 @@
       box-shadow: var(--shadow-md);
       font-size: var(--font-size-xs);
       color: var(--color-text-secondary);
+      /* Cambios 18-07-2025 */
+      font-size: var(--font-size-sm);
+      max-width: 400px;
+      min-width: 220px;
+      max-height: 350px;
+      overflow-y: auto;
+      word-break: break-word;
+      white-space: normal;
     }
 
     .logo-section {
@@ -704,12 +716,23 @@
     /* Para dispositivos móviles */
 @media (max-width: 768px) {
   .risk-factor-tooltip {
-    position: static;
+    position: relative;
+    display: block !important;
     margin-top: var(--spacing-sm);
+    width: 100%;
+    padding: 0;
+    animation: none;
+    /* Cambio 18-07-2025 */
+    max-width: 98vw;
+    min-width: 180px;
   }
-  
   .risk-factor-tooltip .tooltip-content {
     width: 100%;
+    box-shadow: none;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+    /* Cambio 18-07-2025 */
+    font-size: var(--font-size-sm);
   }
 }
 
