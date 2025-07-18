@@ -409,7 +409,7 @@
         factors[key].puntajeAcceso = riskFactors[key].puntajeAcceso || 0;
         factors[key].regimen = riskFactors[key].regimen || 0;
       }
-          /*// Actualizar puntaje de entorno habitacional si existe
+        /*// Actualizar puntaje de entorno habitacional si existe
           if (key === 'livingEnvironment') {
             factors[key].puntaje = riskFactors[key].puntaje || 0;
           }
@@ -520,6 +520,36 @@
           <div class="tooltip-content">
             ${puntajeText}<br>
             ${regimenText}
+          </div>
+        </div>
+      `;
+    }
+    if (key === 'livingEnvironment') {
+      const zonaText = factor.zona ? `Zona: ${factor.zona}` : '';
+      const tipoViviendaText = factor.tipoVivienda ? `Tipo de vivienda: ${factor.tipoVivienda}` : '';
+      const tenenciaText = factor.tenencia ? `Tenencia: ${factor.tenencia}` : '';
+      const energiaText = factor.energia ? `Energía: ${factor.energia}` : '';
+      const gasText = factor.gas ? `Gas: ${factor.gas}` : '';
+      const acueductoText = factor.acueducto ? `Acueducto: ${factor.acueducto}` : '';
+      const alcantarilladoText = factor.alcantarillado ? `Alcantarillado: ${factor.alcantarillado}` : '';
+      const basurasText = factor.basuras ? `Basuras: ${factor.basuras}` : '';
+      const pozoText = factor.pozo ? `Pozo: ${factor.pozo}` : '';
+      const aljibeText = factor.aljibe ? `Aljibe: ${factor.aljibe}` : '';
+      // Puedes agregar más campos según tu JSON
+
+      additionalInfo = `
+        <div class="risk-factor-tooltip">
+          <div class="tooltip-content">
+            ${zonaText}<br>
+            ${tipoViviendaText}<br>
+            ${tenenciaText}<br>
+            ${energiaText}<br>
+            ${gasText}<br>
+            ${acueductoText}<br>
+            ${alcantarilladoText}<br>
+            ${basurasText}<br>
+            ${pozoText}<br>
+            ${aljibeText}
           </div>
         </div>
       `;
