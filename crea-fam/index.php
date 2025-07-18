@@ -174,9 +174,18 @@ function grabar(tb='',ev){
 			}
   }else if(tb=='validPerson'){
      myFetch(ruta_app, "a=gra&tb="+tb, mod, function(res){
-      if(res && res.confirm){
+      // Si la respuesta es string, intenta parsear a objeto
+      let resp = res;
+      if (typeof res === 'string') {
+        try {
+          resp = JSON.parse(res);
+        } catch(e) {
+          resp = res;
+        }
+      }
+      if(resp && resp.confirm){
         // Si el backend pide confirmación, mostrar mensaje
-        if(confirm(res.msg)){
+        if(confirm(resp.msg)){
           // Si el usuario acepta, enviar de nuevo con flag de confirmación
           myFetch(ruta_app, "a=gra&tb="+tb+"&confirmado=1", mod);
         } else {
