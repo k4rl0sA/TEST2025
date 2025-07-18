@@ -336,42 +336,32 @@
         return num.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".");
       };
        let filteredRows = applyFilters(true);
-  filteredRows.forEach(row => {
-    const tr = document.createElement('tr');
-    row.forEach((val, idx) => {
-      const td = document.createElement('td');
-      const colName = columns && idx < columns.length ? columns[idx] : '';
-      
-      console.log(`Procesando columna "${colName}":`, val, typeof val);
-      
-      if (colName.trim() === "Cantidad") {
-        // Conversión segura a número
-        let numValue;
-        
-        if (typeof val === "string") {
-          // Limpiar formato existente
-          const cleaned = val.replace(/\./g, '').replace(',', '.');
-          numValue = parseFloat(cleaned);
-        } else {
-          numValue = val;
-        }
-        
-        // Formatear solo si es número válido
-        if (!isNaN(numValue)) {
-          // Forzar formato con separadores de miles
-          td.textContent = formatNumber(Math.round(numValue));
-          console.log("Valor formateado:", td.textContent);
-        } else {
-          td.textContent = val;
-        }
-      } else {
-        // Mantener valor original para columnas no numéricas
-        td.textContent = val;
-      }
-      tr.appendChild(td);
-    });
-  dataTable.appendChild(tr);
-});
+      filteredRows.forEach(row => {
+        const tr = document.createElement('tr');
+        row.forEach((val, idx) => {
+          const td = document.createElement('td');
+          const colName = columns && idx < columns.length ? columns[idx] : '';
+          if (colName.trim() === "Cantidad") {
+            let numValue;
+            if (typeof val === "string") {
+              const cleaned = val.replace(/\./g, '').replace(',', '.');
+              numValue = parseFloat(cleaned);
+            } else {
+              numValue = val;
+            }
+            if (!isNaN(numValue)) {
+              td.textContent = formatNumber(Math.round(numValue));
+            } else {
+              td.textContent = val;
+            }
+          } else {
+            // Mantener valor original para columnas no numéricas
+            td.textContent = val;
+          }
+          tr.appendChild(td);
+        });
+      dataTable.appendChild(tr);
+      });
     }
 
     // Aplica los filtros de la primera fila
