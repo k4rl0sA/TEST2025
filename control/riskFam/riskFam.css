@@ -636,9 +636,15 @@
       padding: var(--spacing-sm) 0;
       z-index: 100;
       /* Cambio 18-07-2025 */
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      border: 1px solid #e5e7eb;
       max-width: 400px;
-      min-width: 220px;
+      min-width: 260px;
       z-index: 100;
+      padding: 12px 18px;
+      white-space: normal;
+      word-break: break-word;
     }
 
     .risk-factor-tooltip .tooltip-content {
@@ -651,12 +657,12 @@
       color: var(--color-text-secondary);
       /* Cambios 18-07-2025 */
       font-size: var(--font-size-sm);
+      color: #374151;
       max-width: 400px;
       min-width: 220px;
-      max-height: 350px;
+      max-height: 300px;
       overflow-y: auto;
-      word-break: break-word;
-      white-space: normal;
+      line-height: 1.6;
     }
 
     .logo-section {
@@ -713,9 +719,36 @@
       }
     }
 
-    /* Para dispositivos móviles */
-@media (max-width: 768px) {
-  .risk-factor-tooltip {
+    /* Responsive para móviles */
+    @media (max-width: 600px) {
+      .risk-factor-tooltip {
+        max-width: 95vw;
+        min-width: 180px;
+        padding: 10px 8px;
+      }
+      .risk-factor-tooltip .tooltip-content {
+        max-height: 180px;
+        font-size: 14px;
+      }
+    }
+    /* Medium devices (tablets, 768px and up) */
+    @media (min-width: 768px) {
+      html {
+        font-size: 16px;
+      }
+      
+      .content {
+        grid-template-columns: 1fr 1fr;
+      }
+      
+      .risk-summary-section {
+        grid-column: span 2;
+      }
+      
+      .risk-classification {
+        grid-template-columns: repeat(3, 1fr);
+      }
+       .risk-factor-tooltip {
     position: relative;
     display: block !important;
     margin-top: var(--spacing-sm);
@@ -734,25 +767,6 @@
     /* Cambio 18-07-2025 */
     font-size: var(--font-size-sm);
   }
-}
-
-    /* Medium devices (tablets, 768px and up) */
-    @media (min-width: 768px) {
-      html {
-        font-size: 16px;
-      }
-      
-      .content {
-        grid-template-columns: 1fr 1fr;
-      }
-      
-      .risk-summary-section {
-        grid-column: span 2;
-      }
-      
-      .risk-classification {
-        grid-template-columns: repeat(3, 1fr);
-      }
     }
 
     /* Large devices (desktops, 992px and up) */
