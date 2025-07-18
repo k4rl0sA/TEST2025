@@ -338,11 +338,24 @@
         row.forEach((val, idx) => {
     const td = document.createElement('td');
     // Si el valor es numérico y la columna no es texto, aplica formato
-    if (typeof val === "number" && !isNaN(val)) {
+    /* if (typeof val === "number" && !isNaN(val)) {
       td.textContent = val.toLocaleString('es-ES');
     } else if (typeof val === "string" && /^\d{4,}$/.test(val)) {
       // Si es string pero parece número largo
       td.textContent = Number(val).toLocaleString('es-ES');
+    } else {
+      td.textContent = val;
+    } */
+    if (typeof val === "number" && !isNaN(val)) {
+      td.textContent = val.toLocaleString('es-ES');
+    } else if (typeof val === "string") {
+      // Intenta convertir cualquier string que sea número válido (incluye 4 dígitos y elimina espacios/ceros)
+      const num = parseFloat(val.replace(/\s+/g, ''));
+      if (!isNaN(num) && val.trim() !== "") {
+        td.textContent = num.toLocaleString('es-ES');
+      } else {
+        td.textContent = val; // No es número, mantener original
+      }
     } else {
       td.textContent = val;
     }
