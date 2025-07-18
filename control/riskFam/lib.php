@@ -443,7 +443,7 @@ $riesgos = [
         "basuras" => $basuras,
         "pozo" => $pozo,
         "aljibe" => $aljibe,
-        "Tráfico pesado cercano" => $facamb1,
+       /*  "Tráfico pesado cercano" => $facamb1,
         "Vías sin pavimentar o en construcción cercanas" => $facamb2,
         "Cercanía a zonas verdes y recreativas" => $facamb3,
         "Cercanía a fuentes contaminantes" => $facamb4,
@@ -451,7 +451,7 @@ $riesgos = [
         "Manipula correctamente el agua" => $facamb6,
         "Adquiere medicamentos con fórmula médica" => $facamb7,
         "Almacena químicos de forma segura" => $facamb8,
-        "Manejo adecuado de residuos sólidos" => $facamb9,
+        "Manejo adecuado de residuos sólidos" => $facamb9, */
         "weight" => 0.10,
         "description" => "Evalúa las condiciones de la vivienda y su impacto en la salud."
     ],
@@ -460,6 +460,12 @@ $riesgos = [
         "value" => rand(0, 100),
         "weight" => 0.30,
         "description" => "Incluye edad, género y otras variables que influyen en la exposición al riesgo."
+    ],
+    "individualConditions" => [
+        "name" => "Condiciones Individuales",
+        "value" => rand(0, 100),
+        "weight" => 0.15,
+        "description" => "Factores personales como discapacidad, enfermedades crónicas o condiciones especiales."
     ]
 ];
 echo json_encode(array_merge($datos, ["riskFactors" => $riesgos]));
