@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ruletas Animadas</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background: #f0f0f0; }
+        .ruleta-container { display: flex; justify-content: center; gap: 40px; margin: 40px 0; }
+        canvas { background: #fff; border-radius: 50%; box-shadow: 0 2px 8px #aaa; }
+        button { padding: 12px 32px; font-size: 1.2em; cursor: pointer; margin-top: 30px; }
+        .resultado { font-size: 1.5em; margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Ruletas Animadas</h1>
+    <div class="ruleta-container">
+        <div>
+            <canvas id="ruleta1" width="250" height="250"></canvas>
+            <div id="resultado1" class="resultado"></div>
+        </div>
+        <div>
+            <canvas id="ruleta2" width="250" height="250"></canvas>
+            <div id="resultado2" class="resultado"></div>
+        </div>
+    </div>
+    <button id="btnGirar">Girar Ruletas</button>
+
+    <script>
+        // Ruleta 1: Técnico e Ingeniero
+        const opciones1 = ["Técnico", "Ingeniero"];
+        // Ruleta 2: Números del 1 al 12
+        const opciones2 = Array.from({length: 12}, (_, i) => (i + 1).toString());
+
+        function dibujarRuleta(canvas, opciones, anguloActual = 0) {
+            const ctx = canvas.getContext('2d');
+            const size = canvas.width;
+            const radio = size / 2;
+            ctx.clearRect(0, 0, size, size);
+            const slice = 2 * Math.PI / opciones.length;
+            for (let i = 0; i < opciones.length; i++) {
+                ctx.beginPath();
+                ctx.moveTo(radio, radio);
+                ctx.arc(radio, radio, radio, anguloActual + i * slice, anguloActual + (i + 1) * slice);
+                ctx.closePath();
+                ctx.fillStyle = i % 2 === 0 ? "#4fc3f7" : "#ffb74d";
+                ctx.fill();
+                ctx.stroke();
+                // Texto
+                ctx.save();
+                ctx.translate(radio, radio);
+                ctx.rotate(anguloActual + (i + 0.5) * slice);
+                ctx.textAlign = "right";
+                ctx.fillStyle = "#222";
+                ctx.font = "bold 20px Arial";
+                ctx.fillText(opciones[i], radio - 20, 8);
+                ctx.restore();
+            }
+            // Flecha
+            ctx.save();
+            ctx.translate(radio, radio);
+            ctx.beginPath();
+            ctx.moveTo(0, -radio + 10);
+            ctx.lineTo(-10, -radio + 30);
+            ctx.lineTo(10, -radio + 30);
+            ctx.closePath();
+            ctx.fillStyle = "#e53935";
+            ctx.fill();
+            ctx.restore();
+        }
+
+        // Animación de giro
+        function girarRuleta(canvas, opciones, callback) {
+            let angulo = 0;
+            let velocidad = Math.random() * 0.2 + 0.25;
+            let frenado = false;
+            let pasos = 0;
+            const maxPasos = Math.floor(Math.random() * 40) + 60;
+            function animar() {
+                dibujarRuleta(canvas, opciones, angulo);
+                angulo += velocidad;
+                pasos++;
+                if (pasos > maxPasos) frenado = true;
+                if (frenado) velocidad *= 0.97;
+                if (velocidad < 0.01) {
+                    // Determinar opción ganadora
+                    const slice = 2 * Math.PI / opciones.length;
+                    let idx = Math.floor(((2 * Math.PI - (angulo % (2 * Math.PI))) % (2 * Math.PI)) / slice);
+                    callback(opciones[idx]);
+                } else {
+                    requestAnimationFrame(animar);
+                }
+            }
+            animar();
+        }
+
+        // Inicializar ruletas
+        const canvas1 = document.getElementById('ruleta1');
+        const canvas2 = document.getElementById('ruleta2');
+        dibujarRuleta(canvas1, opciones1);
+        dibujarRuleta(canvas2, opciones2);
+
+        document.getElementById('btnGirar').onclick = function() {
+            document.getElementById('resultado1').textContent = '';
+            document.getElementById('resultado2').textContent = '';
+            girarRuleta(canvas1, opciones1, function(resultado1) {
+                document.getElementById('resultado1').textContent = "Resultado: " + resultado1;
+            });
+            girarRuleta(canvas2, opciones2, function(resultado2) {
+                document.getElementById('resultado2').textContent = "Resultado: " + resultado2;
+            });
+        };
+    </script>
+</body>
+</html>
