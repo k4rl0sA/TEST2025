@@ -75,6 +75,14 @@ const factors = [
     textEl: document.getElementById('demographicsText'),
     valueEl: document.getElementById('demographicsValue'),
     barEl: document.getElementById('demographicsBar')
+  },
+  {
+    name: 'individualConditions',
+    weight: 0.10,
+    value: null, // Placeholder for individual conditions
+    textEl: document.getElementById('individualConditionsText'),
+    valueEl: document.getElementById('individualConditionsValue'),
+    barEl: document.getElementById('individualConditionsBar')
   }
 ];
 
