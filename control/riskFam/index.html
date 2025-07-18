@@ -591,6 +591,16 @@
         </div>
       `;
     }
+    if (key === 'individualConditions' && (factor.puntaje )) {
+      const puntajeText = factor.puntaje ? `Puntaje: ${factor.puntaje}` : '';
+      additionalInfo = `
+        <div class="risk-factor-tooltip">
+          <div class="tooltip-content">
+            ${puntajeText}<br>
+          </div>
+        </div>
+      `;
+    }
 
         const factorElement = document.createElement('div');
         factorElement.className = 'risk-factor';
