@@ -294,7 +294,6 @@
       if (!data) return;
       const columns = data.columns;
       const rows = data.rows;
-
       // Filtros por columna
       const filterRow = document.createElement('tr');
       filterRow.className = 'filters-row';
@@ -317,7 +316,6 @@
         filterRow.appendChild(cell);
       });
       dataTable.appendChild(filterRow);
-
       // Encabezados con ordenamiento
       const headerRow = document.createElement('tr');
       columns.forEach((col, idx) => {
@@ -330,40 +328,47 @@
         headerRow.appendChild(th);
       });
       dataTable.appendChild(headerRow);
-
       // Filas
       let filteredRows = applyFilters(true);
-      filteredRows.forEach(row => {
-        const tr = document.createElement('tr');
-        row.forEach((val, idx) => {
-    const td = document.createElement('td');
-    // Si el valor es numérico y la columna no es texto, aplica formato
-    /* if (typeof val === "number" && !isNaN(val)) {
-      td.textContent = val.toLocaleString('es-ES');
-    } else if (typeof val === "string" && /^\d{4,}$/.test(val)) {
-      // Si es string pero parece número largo
-      td.textContent = Number(val).toLocaleString('es-ES');
-    } else {
-      td.textContent = val;
-    } */
-    if (typeof val === "number" && !isNaN(val)) {
-      td.textContent = val.toLocaleString('es-ES');
-    } else if (typeof val === "string") {
-      // Intenta convertir cualquier string que sea número válido (incluye 4 dígitos y elimina espacios/ceros)
-      const num = parseFloat(val.replace(/\s+/g, ''));
-      if (!isNaN(num) && val.trim() !== "") {
-        td.textContent = num.toLocaleString('es-ES');
+  filteredRows.forEach(row => {
+    const tr = document.createElement('tr');
+    row.forEach((val, idx) => {
+      const td = document.createElement('td');
+      // Nuevo sistema de formateo numérico
+      if (typeof val === "number" && !isNaN(val)) {
+        td.textContent = val.toLocaleString('es-ES');
+      } else if (typeof val === "string") {
+        const trimmedVal = val.trim();
+        // Caso 1: String vacío
+        if (trimmedVal === "") {
+          td.textContent = val;
+        }
+        // Caso 2: Solo dígitos (números enteros sin formato)
+        else if (/^\d+$/.test(trimmedVal)) {
+          const num = parseInt(trimmedVal, 10);
+          td.textContent = num.toLocaleString('es-ES');
+        }
+        // Caso 3: Números con formato (contienen puntos o comas)
+        else {
+          // Eliminar puntos existentes y convertir coma decimal a punto
+          let cleaned = trimmedVal.replace(/\./g, '');
+          cleaned = cleaned.replace(',', '.');
+          const num = parseFloat(cleaned);
+          if (!isNaN(num)) {
+            td.textContent = num.toLocaleString('es-ES');
+          } else {
+            console.log("Otro tipo:", val, typeof val);
+            td.textContent = val;
+          }
+        }
       } else {
-        td.textContent = val; // No es número, mantener original
+        td.textContent = val;
       }
-    } else {
-      td.textContent = val;
-    }
-    tr.appendChild(td);
+      tr.appendChild(td);
+    });
+    dataTable.appendChild(tr);
   });
-  dataTable.appendChild(tr);
-});
-    }
+}
 
     // Aplica los filtros de la primera fila
     function applyFilters(returnRows=false) {
