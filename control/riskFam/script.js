@@ -6,6 +6,7 @@ let socialVulnerability = null;
 let accessToHealth = null;
 let livingEnvironment = null;
 let demographics = null;
+let individualConditions = null;
 let totalRisk = null;
 let riskLevel = "Medium Risk";
 
