@@ -205,11 +205,11 @@ function grabar(tb='',ev){
           warnin("Operación cancelada por el usuario.");
         }
       } else if(resp && resp.success){
-        ok(resp.msg);
+        ok(resp.msg+' Por favor espere para que se actualice la información.');
         // alert(resp.msg + " Estado: " + resp.estado);
       } else {
         // Si no es JSON, mostrar como antes
-        alert(data+' Por favor, espere mientras se actualiza la información del usuario.');
+        error("Error al guardar: " + (data || "Respuesta no válida"));
       }
     });
   }else{
