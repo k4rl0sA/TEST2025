@@ -173,27 +173,41 @@ function grabar(tb='',ev){
 				myFetch(ruta_app,"a=gra&tb="+tb,mod);
 			}
   }else if(tb=='validPerson'){
-     myFetch(ruta_app, "a=gra&tb="+tb, mod, function(res){
-      // Si la respuesta es string, intenta parsear a objeto
-      let resp = res;
-      if (typeof res === 'string') {
-        try {
-          resp = JSON.parse(res);
-        } catch(e) {
-          resp = res;
-        }
-      }
+      fetch(ruta_app, {
+      method: 'POST',
+      headers: {'Content-type': 'application/x-www-form-urlencoded'},
+      body: "a=gra&tb="+tb + form_input('fapp')
+    })
+    .then(response => response.text())
+    .then(data => {
+      let resp = data;
+      try { resp = JSON.parse(data); } catch(e){}
       if(resp && resp.confirm){
-        // Si el backend pide confirmación, mostrar mensaje
         if(confirm(resp.msg)){
           // Si el usuario acepta, enviar de nuevo con flag de confirmación
-          myFetch(ruta_app, "a=gra&tb="+tb+"&confirmado=1", mod);
+          fetch(ruta_app, {
+            method: 'POST',
+            headers: {'Content-type': 'application/x-www-form-urlencoded'},
+            body: "a=gra&tb="+tb+"&confirmado=1" + form_input('fapp')
+          })
+          .then(r => r.text())
+          .then(d => {
+            let rta = d;
+            try { rta = JSON.parse(d); } catch(e){}
+            if(rta && rta.success){
+              alert(rta.msg + " Estado: " + rta.estado);
+            } else {
+              alert("Error al guardar.");
+            }
+          });
         } else {
           alert("Operación cancelada por el usuario.");
         }
+      } else if(resp && resp.success){
+        alert(resp.msg + " Estado: " + resp.estado);
       } else {
-        // Proceso normal si no hay confirmación
-        // Aquí puedes poner lógica adicional si lo necesitas
+        // Si no es JSON, mostrar como antes
+        alert(data);
       }
     });
   }else{

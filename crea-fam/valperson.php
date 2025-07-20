@@ -109,7 +109,8 @@ function gra_validPerson() {
     if (!$coincide && empty($_REQUEST['confirmado'])) {
         return [
             'confirm' => true,
-            'msg' => 'Los datos no coinciden con la información registrada. ¿Desea guardar de todas formas?'
+            'msg' => 'Los datos no coinciden con la información registrada. ¿Desea guardar de todas formas?',
+			'estado' => $estado
         ];
     }
 
@@ -117,6 +118,11 @@ function gra_validPerson() {
 	
     	// Insertar en validaUsuario
       $rta = mysql_prepd($sql, $params);
+	  return [
+        'success' => true,
+        'msg' => 'Registro guardado correctamente',
+        'estado' => $estado
+    ];
     return $rta;
 
 }
