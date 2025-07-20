@@ -195,16 +195,18 @@ function grabar(tb='',ev){
             let rta = d;
             try { rta = JSON.parse(d); } catch(e){}
             if(rta && rta.success){
-              alert(rta.msg + " Estado: " + rta.estado);
+              ok(rta.msg);
+              // alert(rta.msg + " Estado: " + rta.estado);
             } else {
-              alert("Error al guardar.");
+              error("Error al guardar: " + (rta.msg || "Respuesta no válida"));
             }
           });
         } else {
-          alert("Operación cancelada por el usuario.");
+          warnin("Operación cancelada por el usuario.");
         }
       } else if(resp && resp.success){
-        alert(resp.msg + " Estado: " + resp.estado);
+        ok(resp.msg);
+        // alert(resp.msg + " Estado: " + resp.estado);
       } else {
         // Si no es JSON, mostrar como antes
         alert(data);
