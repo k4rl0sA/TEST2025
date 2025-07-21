@@ -35,7 +35,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/libs/gestion.php';
         WHERE m.estado = 'A'AND (EXISTS (
               SELECT 1 FROM adm_menuusuarios mu
                   JOIN usuarios u ON mu.perfil = u.perfil
-                  WHERE (mu.idmenu = m.id OR mu.idmenu = m.menu) AND u.id_usuario = '80811594' AND u.estado = 'A' AND mu.estado = 'A'  AND mu.componente = u.componente
+                  WHERE (mu.idmenu = m.id OR mu.idmenu = m.menu) AND u.id_usuario = '".$_SESSION["us_sds"]."' AND u.estado = 'A' AND mu.estado = 'A'  AND mu.componente = u.componente
               )
           )
         ORDER BY m.id ASC;";
