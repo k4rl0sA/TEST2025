@@ -55,7 +55,7 @@ function actualizarIngresoSiNull($id_usuario) {
     $params = [
         ['type' => 's', 'value' => $id_usuario]
     ];
-	show_sql($sql, $params); // Mostrar la consulta SQL para depuración
+	// show_sql($sql, $params); // Mostrar la consulta SQL para depuración
     $rta = mysql_prepd($sql, $params);
 }
 
