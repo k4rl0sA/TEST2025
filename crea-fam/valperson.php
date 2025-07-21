@@ -32,8 +32,8 @@ function cmp_validPerson(){
 	// var_dump($d);
 	$c[]=new cmp($o,'e',null,'INFORMACIÓN GENERAL',$w);
 	$c[]=new cmp('idp','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
-	$c[]=new cmp('idpersona','nu','9999999999999999',$d['idpersona'],$w.' '.$key.' '.$o,'Identificación <a href="https://www.adres.gov.co/consulte-su-eps" target="_blank">     Abrir ADRES</a>','idpersona',null,null,true,false,'','col-4');
-	$c[]=new cmp('tipo_doc','s','3',$d['tipo_doc'],$w.' '.$key.' '.$o,'Tipo documento','tipo_doc',null,null,true,false,'','col-4');
+	$c[]=new cmp('idpersona','nu','9999999999999999',$t['idpersona'],$w.' '.$key.' '.$o,'Identificación <a href="https://www.adres.gov.co/consulte-su-eps" target="_blank">     Abrir ADRES</a>','idpersona',null,null,true,false,'','col-4');
+	$c[]=new cmp('tipo_doc','s','3',$t['tipo_doc'],$w.' '.$key.' '.$o,'Tipo documento','tipo_doc',null,null,true,false,'','col-4');
 	$c[]=new cmp('fecha_nacimiento','d','',$t['fecha_nacimiento'],$w.' '.$o,'Fecha de nacimiento','fecha_nacimiento',null,null,true,true,'','col-2',"validDate(this,-43800,0);");
 	$c[]=new cmp('sexo','s','3',$t['sexo'],$w.' '.$o,'Sexo','sexo',null,null,true,true,'','col-2');
     for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
@@ -85,7 +85,7 @@ function gra_validPerson() {
 
 
     // Obtener datos actuales de la tabla person
-    $sql = "SELECT sexo, fecha_nacimiento FROM person WHERE idpeople = $id[0]";
+    $sql = "SELECT idpersona,tipo_doc,sexo, fecha_nacimiento FROM person WHERE idpeople = $id[0]";
     $info = datos_mysql($sql);
     $coincide = false;
 
