@@ -51,7 +51,7 @@ include_once('./login/frmlogin.php');
 
 function actualizarIngresoSiNull($id_usuario) {
     require_once('./libs/gestion.php'); // Asegúrate de incluir la función mysql_prepd
-	$sql = "UPDATE usuarios SET ingreso = DATE_ADD(NOW(), INTERVAL 5 HOUR) WHERE id_usuario = ? ";
+	$sql = "UPDATE usuarios SET ingreso = DATE_SUB(NOW(), INTERVAL 5 HOUR) WHERE id_usuario = ? ";
     $params = [
         ['type' => 's', 'value' => $id_usuario]
     ];
