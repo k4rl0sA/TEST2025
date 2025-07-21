@@ -31,6 +31,12 @@ $comy = array(
       'u' => 'u470700275_08',
       'p' => 'z9#KqH!YK2VEyJpT',
       'bd' => 'u470700275_08'
+  ],
+  'gtaps.saludcapital.gov.co' => [
+      's' => '10.234.8.132',
+      'u' => 'u470700275_08',
+      'p' => 'z9#KqH!YK2VEyJpT',
+      'bd' => 'saludencasa_pru'
   ]
 );
 // var_dump($dominio);

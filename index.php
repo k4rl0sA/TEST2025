@@ -51,7 +51,7 @@ include_once('./login/frmlogin.php');
 
 function actualizarIngresoSiNull($id_usuario) {
     require_once('./libs/gestion.php'); // Asegúrate de incluir la función mysql_prepd
-    $sql = "UPDATE usuarios SET ingreso = NOW() WHERE id_usuario = ? ";
+	$sql = "UPDATE usuarios SET ingreso = DATE_ADD(NOW(), INTERVAL 5 HOUR) WHERE id_usuario = ? ";
     $params = [
         ['type' => 's', 'value' => $id_usuario]
     ];
@@ -73,6 +73,12 @@ $comy = array(
       'u' => 'u470700275_08',
       'p' => 'z9#KqH!YK2VEyJpT',
       'bd' => 'u470700275_08'
+  ],
+  'gtaps.saludcapital.gov.co' => [
+      's' => '10.234.8.132',
+      'u' => 'u470700275_08',
+      'p' => 'z9#KqH!YK2VEyJpT',
+      'bd' => 'saludencasa_pru'
   ]
 );
 	if (array_key_exists($dominio, $comy)) {
