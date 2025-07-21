@@ -17,7 +17,7 @@ ini_set('display_errors','1');
 $vers='1.03.29.1';
 // if (!isset($_SESSION["us_riesgo"])){ die("<script>window.top.location.href = '/';</script>");}
 require_once $_SERVER['DOCUMENT_ROOT'].'/libs/gestion.php';
-  $sql="SELECT *
+ /*  $sql="SELECT *
   FROM adm_menu
   WHERE id IN (
         SELECT m.id
@@ -30,7 +30,15 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/libs/gestion.php';
     JOIN adm_menuusuarios mu ON m.id=mu.idmenu 
       JOIN usuarios u ON mu.perfil=u.perfil 
   WHERE  u.id_usuario = '".$_SESSION["us_sds"]."' AND m.estado='A' AND u.estado='A') 
-   ORDER BY `id`  ASC;";
+   ORDER BY `id`  ASC;"; */
+   $sql="SELECT m.* FROM adm_menu m
+        WHERE m.estado = 'A'AND (EXISTS (
+              SELECT 1 FROM adm_menuusuarios mu
+                  JOIN usuarios u ON mu.perfil = u.perfil
+                  WHERE (mu.idmenu = m.id OR mu.idmenu = m.menu) AND u.id_usuario = '80811594' AND u.estado = 'A' AND mu.estado = 'A'  AND mu.componente = u.componente
+              )
+          )
+        ORDER BY m.id ASC;";
 $rtaMenu=datos_mysql($sql);
 // echo $sql;
 // print_r($rtaMenu);
