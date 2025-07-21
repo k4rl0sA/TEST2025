@@ -42,7 +42,7 @@ function cmp_caract(){
 	$c[]=new cmp($o,'e',null,'INFORMACIÓN DE LA VIVIENDA',$w);
 	$c[]=new cmp('idg','h',15,$_POST['id'],$w.' '.$o,'id','idg',null,'####',false,false);
 	$c[]=new cmp('fecha','d','10',$d,$w.' '.$o,'fecha Caracterización','fecha',null,'',true,true,'','col-2',"validDate(this,$days,0);");
-	$c[]=new cmp('motivoupd','s','3',$d,$w.' '.$o,'Tipo de Caracterización','motivoupd',null,'',true,true,'','col-3');
+	$c[]=new cmp('motivoupd','t','3',$d,$w.' '.$o,'Tipo de Caracterización','motivoupd',null,'',true,true,'','col-3');
 	$c[]=new cmp('eventoupd','s','3',$d,$w.' '.$o,'Evento Notificado','evenupd',null,'',false,true,'','col-3');
 	$c[]=new cmp('fechanot','d','10',$d,$w.' '.$o,'fecha Notificación','fechanot',null,'',false,true,'','col-2',"validDate(this,$days,0);");
 	
@@ -288,9 +288,9 @@ function opc_tipo_familia($id=''){
 function opc_ingreso($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=13 and estado='A' ORDER BY 1",$id);
 }
-function opc_motivoupd($id=''){
+/* function opc_motivoupd($id=''){
 	return opc_sql("SELECT `idcatadeta`,concat(idcatadeta,' - ',descripcion) FROM `catadeta` WHERE idcatalogo=215 and estado='A' ORDER BY 1",$id);
-}
+} */
 function opc_evenupd($id=''){
 	return opc_sql("SELECT `idcatadeta`,concat(idcatadeta,' - ',descripcion) FROM `catadeta` WHERE idcatalogo=87 and estado='A' ORDER BY CAST(idcatadeta AS UNSIGNED) ",$id);
 }
@@ -313,7 +313,7 @@ function cap_menus($a,$b='cap',$con='con') {
 		// print_r($_POST);
 		$id=divide($_REQUEST['id']);
 		// print_r($id);
-		$sql="SELECT concat_ws('_',idfam,id_viv), fecha, motivoupd, eventoupd, fechanot, crit_epi, crit_geo, estr_inters, fam_peretn, fam_rurcer, tipo_vivienda, tenencia, dormitorios, actividad_economica, tipo_familia, personas, ingreso, seg_pre1, seg_pre2, seg_pre3, seg_pre4, seg_pre5, seg_pre6, seg_pre7, seg_pre8, subsidio_1, subsidio_2, subsidio_3, subsidio_4, subsidio_5, subsidio_6, subsidio_7, subsidio_8, subsidio_9, subsidio_10, subsidio_11, subsidio_12, subsidio_13, subsidio_14, subsidio_15, subsidio_16, subsidio_17, subsidio_18, subsidio_19, subsidio_20, energia, gas, acueducto, alcantarillado, basuras, pozo, aljibe, perros, numero_perros, perro_vacunas, perro_esterilizado, gatos, numero_gatos, gato_vacunas, gato_esterilizado, otros, facamb1, facamb2, facamb3, facamb4, facamb5, facamb6, facamb7, facamb8, facamb9, observacion
+		$sql="SELECT concat_ws('_',idfam,id_viv), fecha, FN_CATALOGODESC(215,motivoupd) AS motivoupd, eventoupd, fechanot, crit_epi, crit_geo, estr_inters, fam_peretn, fam_rurcer, tipo_vivienda, tenencia, dormitorios, actividad_economica, tipo_familia, personas, ingreso, seg_pre1, seg_pre2, seg_pre3, seg_pre4, seg_pre5, seg_pre6, seg_pre7, seg_pre8, subsidio_1, subsidio_2, subsidio_3, subsidio_4, subsidio_5, subsidio_6, subsidio_7, subsidio_8, subsidio_9, subsidio_10, subsidio_11, subsidio_12, subsidio_13, subsidio_14, subsidio_15, subsidio_16, subsidio_17, subsidio_18, subsidio_19, subsidio_20, energia, gas, acueducto, alcantarillado, basuras, pozo, aljibe, perros, numero_perros, perro_vacunas, perro_esterilizado, gatos, numero_gatos, gato_vacunas, gato_esterilizado, otros, facamb1, facamb2, facamb3, facamb4, facamb5, facamb6, facamb7, facamb8, facamb9, observacion
 		FROM hog_carac
 		WHERE id_viv='{$id[1]}'";
 		// echo $sql;
