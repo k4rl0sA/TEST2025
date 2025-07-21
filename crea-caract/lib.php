@@ -220,6 +220,12 @@ function gra_caract() {
     );
 	
     if (count($id) == 1) {
+		$sql_check = "SELECT COUNT(*) as total FROM hog_carac WHERE idfam = ?";
+    	$params_check = [['type' => 'i', 'value' => $id[0]]];
+    	$info = datos_mysql($sql_check, $params_check);
+    	$total = isset($info['responseResult'][0]['total']) ? intval($info['responseResult'][0]['total']) : 0;
+        $motivoupd = ($total == 0) ? 1 : 2;
+
 		 $holders = array_fill(0, count($campos), '?');// Crear placeholders para los valores
 		 $sql = "INSERT INTO hog_carac VALUES (?,?,?,?,?,?, " . implode(", ", $holders) . ",?,?,?,?,?,?)";
 		$params = [
