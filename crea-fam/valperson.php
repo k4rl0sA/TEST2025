@@ -114,7 +114,7 @@ function gra_validPerson() {
 		];
 	}
 	// Insertar en soporte
-    $sql = "INSERT INTO soporte (idsoporte,idpeople, documento, tipo_doc, sexo, fecha_nacio, usu_creo,fecha_create,estado) VALUES (NULL,?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO soporte (idsoporte,idpeople, documento, tipo_doc, sexo, fecha_nacio, usu_creo,fecha_create,estado) VALUES (NULL,?, ?, ?, ?, ?, ?, ?, ?)";
     $params = [
         ['type' => 'i', 'value' => $id[0]], // idpeople
         ['type' => 'i', 'value' => $_POST['idpersona'] ], // documento
