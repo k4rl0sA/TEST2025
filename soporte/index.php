@@ -68,7 +68,7 @@ $digitadores=opc_sql("SELECT `id_usuario`,nombre FROM `usuarios` ORDER BY 2 ASC"
 
 
 <div class="campo">
-	<div>Cod. Eliminar ó N° Documento (Editado)</div>
+	<div>Cod. Ticket</div>
 	<input class="captura" type="text" id="fcod" name="fcod" OnChange="actualizar();">
 </div>
 <div class="campo">
