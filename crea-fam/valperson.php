@@ -99,6 +99,20 @@ function gra_validPerson() {
         );
     }
     $estado= $coincide ? 4 : 2;
+	//se comprueba que antes de insertar el registro no exista un registro con el mismo idpersona y estado
+	$sql = "SELECT idsoporte FROM soporte WHERE idpeople = ? AND estado = ? and sexo is not null";
+	$params = [
+		['type' => 'i', 'value' => $id[0]], // idpeople
+		['type' => 'i', 'value' => $estado] // estado
+	];
+	$result = mysql_prepd($sql, $params);
+	if ($result && count($result) > 0) {
+		return [
+			'success' => false,
+			'msg' => 'Ya existe un registro con los mismos datos.',
+			'estado' => $estado
+		];
+	}
 	// Insertar en soporte
     $sql = "INSERT INTO soporte (idsoporte,idpeople, documento, tipo_doc, sexo, fecha_nacio, usu_creo, estado) VALUES (NULL,?, ?, ?, ?, ?, ?, ?)";
     $params = [
