@@ -13,7 +13,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
 <script src="../libs/js/d.js"></script>
 <script src="../libs/js/popup.js"></script>
 <script>
-var mod='ajustar';	
+var mod='soporte';	
 var ruta_app='lib.php';
 function csv(b){
 		var myWindow = window.open("../libs/gestion.php?a=exportar&b="+b,"Descargar archivo");
@@ -31,47 +31,24 @@ function actualizar(){
 }
 
 function grabar(tb='',ev){
-	if(document.getElementById('id').value=='0'){
-		if (tb=='' && ev.target.classList.contains(proc)) tb=proc;
-  			var f=document.getElementsByClassName('valido '+tb);
-   			for (i=0;i<f.length;i++) {
-    			if (!valido(f[i])) {f[i].focus(); return};
-  			}
-	
-	  		var res = confirm("Desea guardar la información, recuerda que no se podrá editar posteriormente?");
-			if(res==true){
-				myFetch(ruta_app,"a=gra&tb="+tb,mod);
-    			/* if (document.getElementById(mod+'-modal').innerHTML.includes('Correctamente')){
-					document.getElementById(mod+'-image').innerHTML='<svg class="icon-popup" ><use xlink:href="#ok"/></svg>';
-				}else{
-					document.getElementById(mod+'-image').innerHTML='<svg class="icon-popup" ><use xlink:href="#bad"/></svg>';
-				}
-				openModal(); */
-				setTimeout(actualizar, 1000);
-			}
-	}else{
-		const message = `La función de Editar no esta habilitada en este momento`;
+    if(document.getElementById('id').value=='0'){
+        if (tb=='' && ev.target.classList.contains(proc)) tb=proc;
+        var f=document.getElementsByClassName('valido '+tb);
+        for (i=0;i<f.length;i++) {
+            if (!valido(f[i])) {f[i].focus(); return};
+        }
+        var res = confirm("¿Desea guardar la información? Recuerda que no se podrá editar posteriormente.");
+        if(res==true){
+            myFetch(ruta_app,"a=gra&tb="+tb,mod);
+            setTimeout(actualizar, 1000);
+        }
+    }else{
+        const message = `La función de Editar no está habilitada en este momento`;
         document.getElementById(mod+'-modal').innerHTML = message;
         document.getElementById(mod+'-image').innerHTML = '<svg class="icon-popup" ><use xlink:href="#bad"/></svg>';
         openModal();
-		
-	}
+    }
 }
-
-function hiddxedad(xedad,cls) {
-	const edad=document.getElementById(xedad);
-	const cmpHid1 = document.querySelectorAll(`.${cls}`);
-	if(edad.value > 39 ){
-		for(i=0;i<cmpHid1.length;i++){
-			hidFie(cmpHid1[i],false);
-		}
-	}else{
-		for(i=0;i<cmpHid1.length;i++){
-			hidFie(cmpHid1[i],true);
-		}
-	}
-}
-
 
 </script>
 </head>
@@ -80,7 +57,7 @@ function hiddxedad(xedad,cls) {
 require_once "../libs/gestion.php";
 if (!isset($_SESSION["us_sds"])){ die("<script>window.top.location.href = '/';</script>");}
 
-$mod='ajustar';
+$mod='soporte';
 $ya = new DateTime();
 // $localidades=opc_sql("select idcatadeta,descripcion from catadeta where idcatalogo=2 and estado='A' order by 1",'');
 $acciones=opc_sql("select idcatadeta,descripcion from catadeta where idcatalogo=302 and estado='A' order by 1",'');
@@ -113,7 +90,7 @@ $digitadores=opc_sql("SELECT `id_usuario`,nombre FROM `usuarios` ORDER BY 2 ASC"
 	
 </div>
 <div class='col-8 panel' id='<?php echo $mod; ?>'>
-      <div class='titulo' >AJUSTES
+      <div class='titulo' >SOPORTE
 		<nav class='menu left' >
 			<li class='icono actualizar'    title='Actualizar'      Onclick="actualizar();">
 			<li class='icono filtros'    title='Filtros'      Onclick="showFil(mod);">
