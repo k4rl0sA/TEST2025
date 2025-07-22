@@ -223,7 +223,7 @@ function gra_caract() {
 		$sql_check = "SELECT COUNT(*) as total FROM hog_carac WHERE idfam = '{$id[0]}'";
     	$info = datos_mysql($sql_check);
     	$total = isset($info['responseResult'][0]['total']) ? intval($info['responseResult'][0]['total']) : 0;
-    	$motivoupd = ($total == 0) ? 1 : 2;
+    	$motivoupd = ($total == 0) ? 1 : $total+1;
 
 		 $holders = array_fill(0, count($campos), '?');// Crear placeholders para los valores
 		 $sql = "INSERT INTO hog_carac VALUES (?,?,?,?,?,?, " . implode(", ", $holders) . ",?,?,?,?,?,?)";
