@@ -231,7 +231,7 @@ function gra_caract() {
 			['type' => 'i', 'value' => NULL], 
             ['type' => 'i', 'value' => $id[0]],
             ['type' => 's', 'value' => $_POST['fecha']],
-            ['type' => 's', 'value' => $_POST['motivoupd']],
+            ['type' => 'i', 'value' => $_POST['motivoupd']],
             ['type' => 's', 'value' => $_POST['eventoupd']],
 			['type' => empty($_POST['fechanot']) ? 'z' : 's','value' => empty($_POST['fechanot']) ? null : $_POST['fechanot']]
 		];
