@@ -41,6 +41,8 @@ function whe_soporte() {
 		$sql .= " AND idsoporte LIKE '%" . cleanTx($_POST['ftic']) . "%'";
     if (!empty($_POST['fpredio']))   
 		$sql .= " AND cod_predio = '" . cleanTx($_POST['fpredio']) . "'";
+	if (!empty($_POST['fuser']))   
+		$sql .= " AND idpeople = '" . cleanTx($_POST['fuser']) . "'";
 	if ($_POST['fdigita'])	
 		$sql .= " AND usu_creo='".$_POST['fdigita']."'";
     if (!empty($_POST['fest'])) 
