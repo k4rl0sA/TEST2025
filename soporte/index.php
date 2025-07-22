@@ -69,7 +69,7 @@ $digitadores=opc_sql("SELECT `id_usuario`,nombre FROM `usuarios` ORDER BY 2 ASC"
 
 <div class="campo">
 	<div>Cod. Ticket</div>
-	<input class="captura" type="number" id="fcod" name="fcod" OnChange="actualizar();">
+	<input class="captura" type="number" id="ftic" name="ftic" OnChange="actualizar();">
 </div>
 <div class="campo">
 	<div>Cod. Predio</div>
