@@ -36,18 +36,14 @@ function lis_soporte() {
 
 function whe_soporte() {
     $sql = "";
-    if (!empty($_POST['fdoc'])) {
-        $sql .= " AND documento LIKE '%" . cleanTxt($_POST['fdoc']) . "%'";
-    }
-    if (!empty($_POST['ftipo_doc'])) {
-        $sql .= " AND tipo_doc = '" . cleanTxt($_POST['ftipo_doc']) . "'";
-    }
-    if (!empty($_POST['fsexo'])) {
-        $sql .= " AND sexo = '" . cleanTxt($_POST['fsexo']) . "'";
-    }
-    if (!empty($_POST['festado'])) {
-        $sql .= " AND estado = '" . intval($_POST['festado']) . "'";
-    }
+    if (!empty($_POST['ftic'])) 
+		$sql .= " AND idsoporte LIKE '%" . cleanTxt($_POST['ftic']) . "%'";
+    if (!empty($_POST['fpredio']))   
+		$sql .= " AND cod_predio = '" . cleanTxt($_POST['fpredio']) . "'";
+	if ($_POST['fdigita'])	
+		$sql .= " AND A.usu_creo='".$_POST['fdigita']."'";
+    if (!empty($_POST['festado'])) 
+		$sql .= " AND estado = '" . intval($_POST['festado']) . "'";
     return $sql;
 }
 
