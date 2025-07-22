@@ -27,13 +27,13 @@ function cmp_validPerson(){
 	$key='pEr';
 	$t=['idpersona'=>'','tipo_doc'=>'','fecha_nacimiento'=>'','sexo'=>''];
 	// print_r($_POST);
-	$d = get_person();
+	// $d = get_person();
 	if ($d==""){$d=$t;}
 	// var_dump($d);
 	$c[]=new cmp($o,'e',null,'INFORMACIÓN GENERAL',$w);
 	$c[]=new cmp('idp','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
-	$c[]=new cmp('idpersona','nu','9999999999999999',$t['idpersona'],$w.' '.$key.' '.$o,'Identificación <a href="https://www.adres.gov.co/consulte-su-eps" target="_blank">     Abrir ADRES</a>','idpersona',null,null,true,false,'','col-4');
-	$c[]=new cmp('tipo_doc','s','3',$t['tipo_doc'],$w.' '.$key.' '.$o,'Tipo documento','tipo_doc',null,null,true,false,'','col-4');
+	$c[]=new cmp('idpersona','nu','9999999999999999',$t['idpersona'],$w.' '.$key.' '.$o,'Identificación <a href="https://www.adres.gov.co/consulte-su-eps" target="_blank">     Abrir ADRES</a>','idpersona',null,null,true,true,'','col-4');
+	$c[]=new cmp('tipo_doc','s','3',$t['tipo_doc'],$w.' '.$key.' '.$o,'Tipo documento','tipo_doc',null,null,true,true,'','col-4');
 	$c[]=new cmp('fecha_nacimiento','d','',$t['fecha_nacimiento'],$w.' '.$o,'Fecha de nacimiento','fecha_nacimiento',null,null,true,true,'','col-2',"validDate(this,-43800,0);");
 	$c[]=new cmp('sexo','s','3',$t['sexo'],$w.' '.$o,'Sexo','sexo',null,null,true,true,'','col-2');
     for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
@@ -60,7 +60,7 @@ function men_validPerson(){
    }
 
 
-function get_person(){
+/* function get_person(){
 	//  print_r($_REQUEST);
 	 $id=divide($_REQUEST['id']);
 	if($_REQUEST['id']=='' || count($id)!=2){
@@ -77,7 +77,7 @@ function get_person(){
 		}
 	return $info['responseResult'][0];
 	} 
-}
+} */
 
 function gra_validPerson() {
     $id = divide($_POST['idp']);
@@ -92,18 +92,23 @@ function gra_validPerson() {
     if ($info && isset($info['responseResult'][0])) {
         $row = $info['responseResult'][0];
         $coincide = (
+			$row['idpersona'] == $_POST['idpersona'] &&
+			$row['tipo_doc'] == $_POST['tipo_doc'] &&
             $row['sexo'] == $_POST['sexo'] &&
             $row['fecha_nacimiento'] == $_POST['fecha_nacimiento']
         );
     }
     $estado= $coincide ? 'A' : 'P';
-	$sql = "INSERT INTO valida_usuario (idValuser,idpeople,sexo,fecha_nacio,usu_creo,estado) VALUES (NULL, ?, ?, ?, ?, ?)";
-    $params = [
-        ['type' => 'i', 'value' => $id[0]],
-        ['type' => 's', 'value' => $_POST['sexo']],
-        ['type' => 's', 'value' => $_POST['fecha_nacimiento']],
-        ['type' => 's', 'value' => $_SESSION['us_sds']],
-        ['type' => 's', 'value' => $estado]
+	// Insertar en soporte
+    $sql_soporte = "INSERT INTO soporte (idpeople, documento, tipo_doc, sexo, fecha_nacio, usu_creo, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $params_soporte = [
+        ['type' => 'i', 'value' => $id[0]], // idpeople
+        ['type' => 'i', 'value' => $_POST['idpersona'] ], // documento
+        ['type' => 's', 'value' => $_POST['tipo_doc'] ], // tipo_doc
+        ['type' => 's', 'value' => $_POST['sexo'] ], // sexo
+        ['type' => 's', 'value' => $_POST['fecha_nacimiento'] ], // fecha_nacio
+        ['type' => 's', 'value' => $_SESSION['us_sds']], // usu_creo
+        ['type' => 's', 'value' => $estado] // estado
     ];
 	// show_sql($sql, $params);exit;
     if (!$coincide && empty($_REQUEST['confirmado'])) {
