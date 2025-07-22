@@ -42,8 +42,8 @@ function whe_soporte() {
 		$sql .= " AND cod_predio = '" . cleanTxt($_POST['fpredio']) . "'";
 	if ($_POST['fdigita'])	
 		$sql .= " AND A.usu_creo='".$_POST['fdigita']."'";
-    if (!empty($_POST['festado'])) 
-		$sql .= " AND estado = '" . intval($_POST['festado']) . "'";
+    if (!empty($_POST['fest'])) 
+		$sql .= " AND estado = '" . intval($_POST['fest']) . "'";
     return $sql;
 }
 

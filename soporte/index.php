@@ -60,7 +60,7 @@ if (!isset($_SESSION["us_sds"])){ die("<script>window.top.location.href = '/';</
 $mod='soporte';
 $ya = new DateTime();
 // $localidades=opc_sql("select idcatadeta,descripcion from catadeta where idcatalogo=2 and estado='A' order by 1",'');
-$acciones=opc_sql("select idcatadeta,descripcion from catadeta where idcatalogo=302 and estado='A' order by 1",'');
+$estados=opc_sql("select idcatadeta,descripcion from catadeta where idcatalogo=284 and estado='A' order by 1",'');
 $digitadores=opc_sql("SELECT `id_usuario`,nombre FROM `usuarios` ORDER BY 2 ASC",$_SESSION["us_sds"]);
 ?>
 <form method='post' id='fapp' >
@@ -76,9 +76,9 @@ $digitadores=opc_sql("SELECT `id_usuario`,nombre FROM `usuarios` ORDER BY 2 ASC"
 	<input class="captura" type="number" id="fpredio" name="fpredio" OnChange="actualizar();">
 </div>
 
-<div class="campo"><div>Acción</div>
-		<select class="captura" id="facci" name="facci" OnChange="actualizar();">
-			<?php echo $acciones; ?>
+<div class="campo"><div>Estado</div>
+		<select class="captura" id="fest" name="fest" OnChange="actualizar();">
+			<?php echo $estados; ?>
 		</select>
 </div>
 	
