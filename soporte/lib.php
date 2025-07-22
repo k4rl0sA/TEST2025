@@ -38,9 +38,9 @@ function lis_soporte() {
 function whe_soporte() {
     $sql = "";
     if (!empty($_POST['ftic'])) 
-		$sql .= " AND idsoporte LIKE '%" . cleanTxt($_POST['ftic']) . "%'";
+		$sql .= " AND idsoporte LIKE '%" . cleanTx($_POST['ftic']) . "%'";
     if (!empty($_POST['fpredio']))   
-		$sql .= " AND cod_predio = '" . cleanTxt($_POST['fpredio']) . "'";
+		$sql .= " AND cod_predio = '" . cleanTx($_POST['fpredio']) . "'";
 	if ($_POST['fdigita'])	
 		$sql .= " AND usu_creo='".$_POST['fdigita']."'";
     if (!empty($_POST['fest'])) 
