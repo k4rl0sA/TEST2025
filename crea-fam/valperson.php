@@ -100,7 +100,7 @@ function gra_validPerson() {
     }
     $estado= $coincide ? 4 : 2;
 	// Insertar en soporte
-    $sql_soporte = "INSERT INTO soporte (idsoporte,idpeople, documento, tipo_doc, sexo, fecha_nacio, usu_creo, estado) VALUES (NULL,?, ?, ?, ?, ?, ?, ?)";
+    $sql_soporte = "INSERT INTO soporte (idpeople, documento, tipo_doc, sexo, fecha_nacio, usu_creo, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $params = [
         ['type' => 'i', 'value' => $id[0]], // idpeople
         ['type' => 'i', 'value' => $_POST['idpersona'] ], // documento
