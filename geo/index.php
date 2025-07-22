@@ -5,7 +5,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Información Geografica || SIGINF</title>
+<title>Información Geografica || <?php echo $APP; ?></title>
 <link href="../libs/css/stylePop.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch&family=Chicle&family=Merienda&family=Rancho&family=Boogaloo&display=swap" rel="stylesheet">
 <script src="../libs/js/a.js"></script>
