@@ -199,7 +199,7 @@ function grabar(tb='',ev){
               // ok(rta.msg);
               // alert(rta.msg + " Estado: " + rta.estado);
             } else {
-              error("Error al guardar: " + (rta.msg || "Respuesta no válida"));
+              errors("Error al guardar: " + (rta.msg || "Respuesta no válida"));
             }
           });
         } else {
@@ -210,7 +210,7 @@ function grabar(tb='',ev){
         // alert(resp.msg + " Estado: " + resp.estado);
       } else {
         // Si no es JSON, mostrar como antes
-        error("Error al guardar: " + (data || "Respuesta no válida"));
+        errors("Error al guardar: " + (data.msg));
       }
     });
   }else{
