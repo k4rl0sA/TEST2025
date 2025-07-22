@@ -25,7 +25,7 @@ function lis_soporte() {
     $total = $info['responseResult'][0]['total'];
     $regxPag = 12;
     $pag = (isset($_POST['pag-soporte'])) ? ($_POST['pag-soporte']-1) * $regxPag : 0;
-    $sql = "SELECT idsoporte AS Ticket, idpeople AS Cod.Persona, documento, tipo_doc, sexo, fecha_nacio, cod_predio, cod_familia, cod_registro, formulario, error, ok, prioridad, observaciones, rta, usu_creo AS Creo, fecha_create AS Fecha_Creo, estado
+    $sql = "SELECT idsoporte AS Ticket, idpeople AS 'Cod Persona', documento, tipo_doc, sexo, fecha_nacio, cod_predio, cod_familia, cod_registro, formulario, error, ok, prioridad, observaciones, rta, usu_creo AS Creo, fecha_create AS 'Fecha Creo', estado
             FROM soporte
             WHERE 1 ";
     $sql .= whe_soporte();
