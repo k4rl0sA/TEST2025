@@ -114,7 +114,7 @@ function gra_validPerson() {
 		];
 	}
 	// Insertar en soporte
-    $sql = "INSERT INTO soporte (idsoporte,idpeople, documento, tipo_doc, sexo, fecha_nacio, usu_creo, estado) VALUES (NULL,?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO soporte (idsoporte,idpeople, documento, tipo_doc, sexo, fecha_nacio, usu_creo,fecha_create,estado) VALUES (NULL,?, ?, ?, ?, ?, ?, ?)";
     $params = [
         ['type' => 'i', 'value' => $id[0]], // idpeople
         ['type' => 'i', 'value' => $_POST['idpersona'] ], // documento
@@ -122,6 +122,7 @@ function gra_validPerson() {
         ['type' => 's', 'value' => $_POST['sexo'] ], // sexo
         ['type' => 's', 'value' => $_POST['fecha_nacimiento'] ], // fecha_nacio
         ['type' => 's', 'value' => $_SESSION['us_sds']], // usu_creo
+		['type' => 's', 'value' => DATE_SUB(NOW(),INTERVAL 5 HOUR)], // fecha_create
         ['type' => 'i', 'value' => $estado] // estado
     ];
 	// show_sql($sql, $params);exit;
