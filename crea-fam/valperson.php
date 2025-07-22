@@ -119,8 +119,6 @@ function gra_validPerson() {
         ];
     }
 
-	//Mostrar como seria la sentencia cruda antes de guardar ejemplo :INSERT INTO validaUsuario VALUES(NULL, 4, 'M', '1984-10-10', '80811594', '2025-07-15 14:01:54', NULL, NULL, 'A');
-	
     	// Insertar en validaUsuario
       $rta = mysql_prepd($sql, $params);
 	  return [
