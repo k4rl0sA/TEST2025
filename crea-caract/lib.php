@@ -42,7 +42,7 @@ function cmp_caract(){
 	$c[]=new cmp($o,'e',null,'INFORMACIÓN DE LA VIVIENDA',$w);
 	$c[]=new cmp('idg','h',15,$_POST['id'],$w.' '.$o,'id','idg',null,'####',false,false);
 	$c[]=new cmp('fecha','d','10',$d,$w.' '.$o,'fecha Caracterización','fecha',null,'',true,true,'','col-2',"validDate(this,$days,0);");
-	$c[]=new cmp('motivoupd','t','3','TIPO',$w.' '.$o,'Tipo de Caracterización','motivoupd',null,'',false,false,'','col-3');
+	$c[]=new cmp('motivoupd','t','3','CARACTERIZACIÓN',$w.' '.$o,'Tipo de Caracterización','motivoupd',null,'',false,false,'','col-3');
 	$c[]=new cmp('eventoupd','s','3',$d,$w.' '.$o,'Evento Notificado','evenupd',null,'',false,true,'','col-3');
 	$c[]=new cmp('fechanot','d','10',$d,$w.' '.$o,'fecha Notificación','fechanot',null,'',false,true,'','col-2',"validDate(this,$days,0);");
 	
