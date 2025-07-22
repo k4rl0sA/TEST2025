@@ -100,19 +100,19 @@ function gra_validPerson() {
     }
     $estado= $coincide ? 4 : 2;
 	//se comprueba que antes de insertar el registro no exista un registro con el mismo idpersona y estado
-	$sql1 = "SELECT idsoporte FROM soporte WHERE idpeople = ? AND estado = ? and sexo is not null";
-	$params1 = [
-		['type' => 'i', 'value' => $id[0]], // idpeople
-		['type' => 'i', 'value' => $estado] // estado
-	];
-	$result = mysql_prepd($sql1, $params1);
-	if ($result && count($result) > 0) {
+	$sql1 = "SELECT COUNT(*) AS total FROM soporte WHERE idpeople = {$id[0]} AND estado = $estado and sexo is not null";
+	$info = datos_mysql($sql1);
+	$result = $info['responseResult'] ?? [];
+	// Si ya existe un registro con los mismos datos, retornar un mensaje de error
+	// print_r($result);
+	// Verificar si ya existe un registro con los mismos datos y estado
+	if (!empty($result) && isset($result[0]['total']) && $result[0]['total'] > 0) {
 		return [
 			'success' => false,
-			'msg' => 'Ya existe un registro con los mismos datos.',
-			'estado' => $estado
+			'msg' => 'Ya existe un registro con los mismos datos y estado.'.$estado 
 		];
 	}
+	// Si no existe, continuar
 	// Insertar en soporte
     $sql = "INSERT INTO soporte (idsoporte,idpeople, documento, tipo_doc, sexo, fecha_nacio, usu_creo,fecha_create,estado) VALUES (NULL,?, ?, ?, ?, ?, ?, ?, ?)";
     $params = [
