@@ -105,52 +105,63 @@ function men_ajustar(){
   }
    
 function gra_soporte() {
+    $campos = [
+        'idpeople', 'documento', 'tipo_doc', 'sexo', 'fecha_nacio', 'cod_predio', 'cod_familia', 'cod_registro',
+        'formulario', 'error', 'ok', 'prioridad', 'observaciones', 'rta', 'usu_creo', 'fecha_create', 'estado'
+    ];
+
     if ($_POST['id'] == 0) {
         // Insertar nuevo registro
-        $sql = "INSERT INTO soporte (idpeople, documento, tipo_doc, sexo, fecha_nacio, cod_predio, cod_familia, cod_registro, formulario, error, ok, prioridad, observaciones, rta, usu_creo, fecha_create, estado)
-                VALUES (
-                    '" . cleanTxt($_POST['idpeople']) . "',
-                    '" . cleanTxt($_POST['documento']) . "',
-                    '" . cleanTxt($_POST['tipo_doc']) . "',
-                    '" . cleanTxt($_POST['sexo']) . "',
-                    '" . cleanTxt($_POST['fecha_nacio']) . "',
-                    '" . cleanTxt($_POST['cod_predio']) . "',
-                    '" . cleanTxt($_POST['cod_familia']) . "',
-                    '" . cleanTxt($_POST['cod_registro']) . "',
-                    '" . cleanTxt($_POST['formulario']) . "',
-                    '" . cleanTxt($_POST['error']) . "',
-                    '" . cleanTxt($_POST['ok']) . "',
-                    '" . cleanTxt($_POST['prioridad']) . "',
-                    '" . cleanTxt($_POST['observaciones']) . "',
-                    '" . cleanTxt($_POST['rta']) . "',
-                    '" . $_SESSION['us_sds'] . "',
-                    NOW(),
-                    '" . cleanTxt($_POST['estado']) . "'
-                )";
-        $rta = mysql_prepd($sql,$params);
+        $sql = "INSERT INTO soporte (" . implode(',', $campos) . ")
+                VALUES (" . implode(',', array_fill(0, count($campos), '?')) . ")";
+        $params = [
+            ['type' => 'i', 'value' => $_POST['idpeople']],
+            ['type' => 'i', 'value' => $_POST['documento']],
+            ['type' => 's', 'value' => $_POST['tipo_doc']],
+            ['type' => 's', 'value' => $_POST['sexo']],
+            ['type' => 's', 'value' => $_POST['fecha_nacio']],
+            ['type' => 'i', 'value' => $_POST['cod_predio']],
+            ['type' => 'i', 'value' => $_POST['cod_familia']],
+            ['type' => 'i', 'value' => $_POST['cod_registro']],
+            ['type' => 'i', 'value' => $_POST['formulario']],
+            ['type' => 's', 'value' => $_POST['error']],
+            ['type' => 's', 'value' => $_POST['ok']],
+            ['type' => 's', 'value' => $_POST['prioridad']],
+            ['type' => 's', 'value' => $_POST['observaciones']],
+            ['type' => 'i', 'value' => $_POST['rta']],
+            ['type' => 's', 'value' => $_SESSION['us_sds']],
+            ['type' => 's', 'value' => date('Y-m-d H:i:s')],
+            ['type' => 'i', 'value' => $_POST['estado']]
+        ];
+        $rta = mysql_prepd($sql, $params);
     } else {
         // Actualizar registro existente
         $id = intval($_POST['id']);
         $sql = "UPDATE soporte SET
-                    idpeople = '" . cleanTxt($_POST['idpeople']) . "',
-                    documento = '" . cleanTxt($_POST['documento']) . "',
-                    tipo_doc = '" . cleanTxt($_POST['tipo_doc']) . "',
-                    sexo = '" . cleanTxt($_POST['sexo']) . "',
-                    fecha_nacio = '" . cleanTxt($_POST['fecha_nacio']) . "',
-                    cod_predio = '" . cleanTxt($_POST['cod_predio']) . "',
-                    cod_familia = '" . cleanTxt($_POST['cod_familia']) . "',
-                    cod_registro = '" . cleanTxt($_POST['cod_registro']) . "',
-                    formulario = '" . cleanTxt($_POST['formulario']) . "',
-                    error = '" . cleanTxt($_POST['error']) . "',
-                    ok = '" . cleanTxt($_POST['ok']) . "',
-                    prioridad = '" . cleanTxt($_POST['prioridad']) . "',
-                    observaciones = '" . cleanTxt($_POST['observaciones']) . "',
-                    rta = '" . cleanTxt($_POST['rta']) . "',
-                    usu_update = '" . $_SESSION['us_sds'] . "',
-                    fecha_update = NOW(),
-                    estado = '" . cleanTxt($_POST['estado']) . "'
-                WHERE idsoporte = '$id'";
-        $rta = mysql_prepd($sql,$params);
+                    idpeople = ?, documento = ?, tipo_doc = ?, sexo = ?, fecha_nacio = ?, cod_predio = ?, cod_familia = ?, cod_registro = ?,
+                    formulario = ?, error = ?, ok = ?, prioridad = ?, observaciones = ?, rta = ?, usu_update = ?, fecha_update = ?, estado = ?
+                WHERE idsoporte = ?";
+        $params = [
+            ['type' => 'i', 'value' => $_POST['idpeople']],
+            ['type' => 'i', 'value' => $_POST['documento']],
+            ['type' => 's', 'value' => $_POST['tipo_doc']],
+            ['type' => 's', 'value' => $_POST['sexo']],
+            ['type' => 's', 'value' => $_POST['fecha_nacio']],
+            ['type' => 'i', 'value' => $_POST['cod_predio']],
+            ['type' => 'i', 'value' => $_POST['cod_familia']],
+            ['type' => 'i', 'value' => $_POST['cod_registro']],
+            ['type' => 'i', 'value' => $_POST['formulario']],
+            ['type' => 's', 'value' => $_POST['error']],
+            ['type' => 's', 'value' => $_POST['ok']],
+            ['type' => 's', 'value' => $_POST['prioridad']],
+            ['type' => 's', 'value' => $_POST['observaciones']],
+            ['type' => 'i', 'value' => $_POST['rta']],
+            ['type' => 's', 'value' => $_SESSION['us_sds']],
+            ['type' => 's', 'value' => date('Y-m-d H:i:s')],
+            ['type' => 'i', 'value' => $_POST['estado']],
+            ['type' => 'i', 'value' => $id]
+        ];
+        $rta = mysql_prepd($sql, $params);
     }
     return $rta;
 }
