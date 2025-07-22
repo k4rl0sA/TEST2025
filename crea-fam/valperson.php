@@ -98,7 +98,7 @@ function gra_validPerson() {
             $row['fecha_nacimiento'] == $_POST['fecha_nacimiento']
         );
     }
-    $estado= $coincide ? 'A' : 'P';
+    $estado= $coincide ? 4 : 2;
 	// Insertar en soporte
     $sql_soporte = "INSERT INTO soporte (idpeople, documento, tipo_doc, sexo, fecha_nacio, usu_creo, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $params_soporte = [
@@ -108,7 +108,7 @@ function gra_validPerson() {
         ['type' => 's', 'value' => $_POST['sexo'] ], // sexo
         ['type' => 's', 'value' => $_POST['fecha_nacimiento'] ], // fecha_nacio
         ['type' => 's', 'value' => $_SESSION['us_sds']], // usu_creo
-        ['type' => 's', 'value' => $estado] // estado
+        ['type' => 'i', 'value' => $estado] // estado
     ];
 	// show_sql($sql, $params);exit;
     if (!$coincide && empty($_REQUEST['confirmado'])) {
