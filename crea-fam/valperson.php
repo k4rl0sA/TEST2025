@@ -103,8 +103,6 @@ function gra_validPerson() {
 	$sql1 = "SELECT COUNT(*) AS total FROM soporte WHERE idpeople = {$id[0]} AND estado = $estado and sexo is not null";
 	$info = datos_mysql($sql1);
 	$result = $info['responseResult'] ?? [];
-	// Si ya existe un registro con los mismos datos, retornar un mensaje de error
-	// print_r($result);
 	// Verificar si ya existe un registro con los mismos datos y estado
 	if (!empty($result) && isset($result[0]['total']) && $result[0]['total'] > 0) {
 		return [
