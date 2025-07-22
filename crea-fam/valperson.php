@@ -28,7 +28,7 @@ function cmp_validPerson(){
 	$t=['idpersona'=>'','tipo_doc'=>'','fecha_nacimiento'=>'','sexo'=>''];
 	// print_r($_POST);
 	// $d = get_person();
-	if ($d==""){$d=$t;}
+	// if ($d==""){$d=$t;}
 	// var_dump($d);
 	$c[]=new cmp($o,'e',null,'INFORMACIÓN GENERAL',$w);
 	$c[]=new cmp('idp','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
