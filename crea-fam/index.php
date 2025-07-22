@@ -204,7 +204,7 @@ function grabar(tb='',ev){
         } else {
           warnin("Operación cancelada por el usuario.");
         }
-      } else if(resp && resp.success){
+      } else if(resp && resp.confirm){
         ok(resp.msg+' Por favor espere para que se actualice la información.');
         // alert(resp.msg + " Estado: " + resp.estado);
       } else {
