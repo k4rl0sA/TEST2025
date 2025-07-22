@@ -100,12 +100,12 @@ function gra_validPerson() {
     }
     $estado= $coincide ? 4 : 2;
 	//se comprueba que antes de insertar el registro no exista un registro con el mismo idpersona y estado
-	$sql = "SELECT idsoporte FROM soporte WHERE idpeople = ? AND estado = ? and sexo is not null";
-	$params = [
+	$sql1 = "SELECT idsoporte FROM soporte WHERE idpeople = ? AND estado = ? and sexo is not null";
+	$params1 = [
 		['type' => 'i', 'value' => $id[0]], // idpeople
 		['type' => 'i', 'value' => $estado] // estado
 	];
-	$result = mysql_prepd($sql, $params);
+	$result = mysql_prepd($sql1, $params1);
 	if ($result && count($result) > 0) {
 		return [
 			'success' => false,
@@ -121,10 +121,10 @@ function gra_validPerson() {
         ['type' => 's', 'value' => $_POST['tipo_doc'] ], // tipo_doc
         ['type' => 's', 'value' => $_POST['sexo'] ], // sexo
         ['type' => 's', 'value' => $_POST['fecha_nacimiento'] ], // fecha_nacio
-        ['type' => 's', 'value' => $_SESSION['us_sds']], // usu_creo
-		['type' => 's', 'value' => DATE_SUB(NOW(),INTERVAL 5 HOUR)], // fecha_create
-        ['type' => 'i', 'value' => $estado] // estado
-    ];
+		['type' => 's', 'value' => $_SESSION['us_sds']], // usu_creo
+		['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))], // fecha_create
+		['type' => 'i', 'value' => $estado] // estado
+	];
 	// show_sql($sql, $params);exit;
     if (!$coincide && empty($_REQUEST['confirmado'])) {
         return [
