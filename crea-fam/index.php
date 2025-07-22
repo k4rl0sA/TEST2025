@@ -195,7 +195,8 @@ function grabar(tb='',ev){
             let rta = d;
             try { rta = JSON.parse(d); } catch(e){}
             if(rta && rta.success){
-              ok(rta.msg);
+              ok(rta.msg+' Por favor espere para que se actualice la información.');
+              // ok(rta.msg);
               // alert(rta.msg + " Estado: " + rta.estado);
             } else {
               error("Error al guardar: " + (rta.msg || "Respuesta no válida"));
