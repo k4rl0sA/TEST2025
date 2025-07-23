@@ -1022,7 +1022,7 @@ function formato_dato($a,$b,$c,$d){
 			}
 			$rta .= acceso('servagen') ? "<li title='Servicio de Agendamiento' onclick=\"mostrar('servagen','pro',event,'','../agendamient/serage.php',7,'Servicio de Agendamiento');Color('datos-lis');\"><i class=' fa-solid fa-square-phone ico' id='{$c['ACCIONES']}'></i></li>":"";
 
-			$rta.="<li title='Trasladar Usuario' Onclick=\"mostrar('traslados','pro',event,'','trasladloc.php',7,'traslados');Color('datos-lis');\"><i class='fas fa-exchange-alt ico' id='".$c['ACCIONES']."'></i> </li>";
+			$rta.="<li title='Trasladar Usuario' Onclick=\"mostrar('traslados','pro',event,'','trasladloc.php',4,'traslados');Color('datos-lis');\"><i class='fas fa-exchange-alt ico' id='".$c['ACCIONES']."'></i> </li>";
 		}
 	}
 		if($a=='atencion' && $b=='acciones'){
