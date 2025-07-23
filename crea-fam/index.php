@@ -173,8 +173,8 @@ function grabar(tb='',ev){
     if(res==true){
 				myFetch(ruta_app,"a=gra&tb="+tb,mod);
 			}
-  }else{
-  /*  if(tb=='validPerson'){
+  
+  /* }else{ if(tb=='validPerson'){
       fetch(ruta_app, {
       method: 'POST',
       headers: {'Content-type': 'application/x-www-form-urlencoded'},
