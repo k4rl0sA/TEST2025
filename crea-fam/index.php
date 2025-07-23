@@ -195,7 +195,7 @@ function grabar(tb='',ev){
             let rta = d;
             try { rta = JSON.parse(d); } catch(e){}
             if(rta && rta.success){
-              ok(rta.msg+' Por favor espere para que se actualice la información desde SDS.');
+                ok('La información se guardó correctamente. Los cambios estarán disponibles en el sistema en un plazo de hasta 24 horas. Después de ese tiempo, repita el proceso de "Validar Usuario".');
               // ok(rta.msg);
               // alert(rta.msg + " Estado: " + rta.estado);
             } else {
