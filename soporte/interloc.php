@@ -27,8 +27,9 @@ function cmp_trasladint(){
     $o = 'inftrasint';
     $t = ['idpeople'=>'','cod_familia'=>''];
     $c[] = new cmp($o,'e',null,'TRASLADO INTERLOCAL / ENTRE SUBREDES',$w);
-    $c[]=new cmp('idp','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
-    $c[] = new cmp('cod_familia','nu','999999999',$t['cod_familia'],$w.' '.$o,'Código de Familia destino (otra subred)','cod_familia',null,null,true,true,'','col-4');
+    //incluir campos idpeople
+    $c[]=new cmp('docum','nu','99999999999',$t['documento'],$w.' '.$o,'Número de Documento','documento',null,'####',true,true,'','col-4');
+    $c[]=new  cmp('tip_doc','s',2,$t['tipo'],$w.' '.$o,'Tipo de Documento','tipo',null,null,true,true,'','col-4');
     for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
     return $rta;
 }
@@ -103,6 +104,10 @@ function gra_trasladint() {
 }
 
 // Si necesitas opciones para selects, puedes agregar funciones opc_trasladint(), etc.
+function opc_tipo_doc_new($id=''){
+	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 1",$id);
+}
+
 function formato_dato($a,$b,$c,$d){
     return $c[$d];
 }
