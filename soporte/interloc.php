@@ -28,6 +28,7 @@ function cmp_trasladint(){
     $t = ['documento'=>'','tipo'=>''];
     $c[] = new cmp($o,'e',null,'TRASLADO INTERLOCAL / ENTRE SUBREDES',$w);
     //incluir campos idpeople
+    $c[]=new cmp('idfam','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
     $c[]=new cmp('docum','nu','99999999999',$t['documento'],$w.' '.$o,'Número de Documento','documento',null,'####',true,true,'','col-4');
     $c[]=new  cmp('tip_doc','s',2,$t['tipo'],$w.' '.$o,'Tipo de Documento','tipo',null,null,true,true,'','col-4');
     for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
@@ -55,6 +56,7 @@ function cap_menus($a,$b='cap',$con='con') {
 }
 // Guardar traslado interlocalidad/subred
 function gra_trasladint() {
+    $id = divide($_POST['idfam']);
     $doc = divide($_POST['docum']);
     $tipo = intval($_POST['tip_doc']);
     $usu_creo = $_SESSION['us_sds'];
@@ -69,7 +71,6 @@ function gra_trasladint() {
     if (!$subred_usr) {
         return "Error: msj['No se pudo determinar la subred del usuario.']";
     }
-
     //Obtener subred del cod_familia destino
     $sql_fam = "SELECT hg.subred 
                 FROM hog_fam hf 
