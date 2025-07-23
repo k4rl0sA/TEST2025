@@ -67,7 +67,7 @@ function gra_traslados() {
     $subred_usr = isset($info_usr['responseResult'][0]['subred']) ? $info_usr['responseResult'][0]['subred'] : null;
 
     if (!$subred_usr) {
-        return ['success' => false, 'msg' => 'No se pudo determinar la subred del usuario.'];
+        return "Error: msj['No se pudo determinar la subred del usuario.']";
     }
 
     //Obtener subred del cod_familia destino
