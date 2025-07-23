@@ -98,49 +98,67 @@ function gra_validPerson() {
             $row['fecha_nacimiento'] == $_POST['fecha_nacimiento']
         );
     }
-    $estado= $coincide ? 4 : 2;
-	//se comprueba que antes de insertar el registro no exista un registro con el mismo idpersona y estado
-	$sql1 = "SELECT COUNT(*) AS total FROM soporte WHERE idpeople = {$id[0]} AND estado = $estado and sexo is not null";
-	$info = datos_mysql($sql1);
-	$result = $info['responseResult'] ?? [];
-	// Verificar si ya existe un registro con los mismos datos y estado
-	if (!empty($result) && isset($result[0]['total']) && $result[0]['total'] > 0) {
-		return [
-			'success' => false,
-			'msg' => 'Ya existe un registro con los mismos datos y estado.'.$estado 
-		];
-	}
-	// Si no existe, continuar
-	// Insertar en soporte
-    $sql = "INSERT INTO soporte (idsoporte,idpeople, documento, tipo_doc, sexo, fecha_nacio, usu_creo,fecha_create,estado) VALUES (NULL,?, ?, ?, ?, ?, ?, ?, ?)";
-    $params = [
-        ['type' => 'i', 'value' => $id[0]], // idpeople
-        ['type' => 'i', 'value' => $_POST['idpersona'] ], // documento
-        ['type' => 's', 'value' => $_POST['tipo_doc'] ], // tipo_doc
-        ['type' => 's', 'value' => $_POST['sexo'] ], // sexo
-        ['type' => 's', 'value' => $_POST['fecha_nacimiento'] ], // fecha_nacio
-		['type' => 's', 'value' => $_SESSION['us_sds']], // usu_creo
-		['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))], // fecha_create
-		['type' => 'i', 'value' => $estado] // estado
-	];
-	// show_sql($sql, $params);exit;
-    if (!$coincide && empty($_REQUEST['confirmado'])) {
-        return [
-            'confirm' => true,
-            'msg' => 'Los datos no coinciden con la información registrada. ¿Desea guardar de todas formas?',
-			'estado' => $estado
-        ];
-    }
+    $estado= $coincide ? 'A' : 2;
 
-    	// Insertar en validaUsuario
-      $rta = mysql_prepd($sql, $params);
+	//Si el registro coincide con la tabla person, se ingresa el registro en la tabla validuser
+	if ($coincide) {
+	 	$sql = "INSERT INTO validuser (idvaluser,idpeople, documento, tipo_doc, sexo, fecha_nacio, usu_creo,fecha_create,estado) VALUES (NULL,?, ?, ?, ?, ?, ?, ?, ?)";
+    	$params = [
+    	    ['type' => 'i', 'value' => $id[0]], // idpeople
+    	    ['type' => 'i', 'value' => $_POST['idpersona'] ], // documento
+    	    ['type' => 's', 'value' => $_POST['tipo_doc'] ], // tipo_doc
+    	    ['type' => 's', 'value' => $_POST['sexo'] ], // sexo
+    	    ['type' => 's', 'value' => $_POST['fecha_nacimiento'] ], // fecha_nacio
+			['type' => 's', 'value' => $_SESSION['us_sds']], // usu_creo
+			['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))], // fecha_create
+			['type' => 'i', 'value' => $estado] // estado
+		];
+		$rta = mysql_prepd($sql, $params);
+	  	return [
+        	'success' => true,
+        	'msg' => 'Registro guardado correctamente',
+        	'estado' => $estado
+    	];
+    	return $rta;
+	}else{
+		//se comprueba que antes de insertar el registro no exista un registro con el mismo idpersona y estado 
+		$sql1 = "SELECT COUNT(*) AS total FROM soporte WHERE idpeople = {$id[0]} AND estado = $estado and formulario=1 ";
+		$info = datos_mysql($sql1);
+		$result = $info['responseResult'] ?? [];
+		// Verificar si ya existe un registro con los mismos datos y estado
+		if (!empty($result) && isset($result[0]['total']) && $result[0]['total'] > 0) {
+			return [
+				'success' => false,
+				'msg' => 'Ya existe un registro con los mismos datos y estado.'.$estado 
+			];
+		}
+		// Si no existe, Insertar en soporte
+    	$sql = "INSERT INTO soporte (idsoporte,idpeople, documento, tipo_doc, sexo, fecha_nacio, usu_creo,fecha_create,estado) VALUES (NULL,?, ?, ?, ?, ?, ?, ?, ?)";
+    	$params = [
+    	    ['type' => 'i', 'value' => $id[0]], // idpeople
+    	    ['type' => 'i', 'value' => $_POST['idpersona'] ], // documento
+    	    ['type' => 's', 'value' => $_POST['tipo_doc'] ], // tipo_doc
+    	    ['type' => 's', 'value' => $_POST['sexo'] ], // sexo
+    	    ['type' => 's', 'value' => $_POST['fecha_nacimiento'] ], // fecha_nacio
+			['type' => 's', 'value' => $_SESSION['us_sds']], // usu_creo
+			['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))], // fecha_create
+			['type' => 'i', 'value' => $estado] // estado
+		];
+		if (empty($_REQUEST['confirmado'])) {
+        	return [
+        	    'confirm' => true,
+        	    'msg' => 'Los datos no coinciden con la información registrada. ¿Desea guardar de todas formas?',
+				'estado' => $estado
+        	];
+    	}
+		$rta = mysql_prepd($sql, $params);
 	  return [
         'success' => true,
         'msg' => 'Registro guardado correctamente',
         'estado' => $estado
     ];
     return $rta;
-
+	}
 }
 
 function opc_sexo($id=''){
