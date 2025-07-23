@@ -210,7 +210,7 @@ function grabar(tb='',ev){
         // alert(resp.msg + " Estado: " + resp.estado);
       } else {
         // Si no es JSON, mostrar como antes
-        errors("Error al guardar: " + (JSON.parse(data).msg));
+        errors(JSON.parse(data).msg);
       }
     });
   }else{
