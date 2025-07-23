@@ -129,7 +129,7 @@ function gra_validPerson() {
 		if (!empty($result) && isset($result[0]['total']) && $result[0]['total'] > 0) {
 			return [
 				'success' => false,
-				'msg' => 'Ya existe un registro con los mismos datos. '
+				'msg' => 'Ya existe una solicitud registrada para este usuario, por favor espere la respuesta del área de soporte.'
 			];
 		}
 		// Si no existe, Insertar en soporte
