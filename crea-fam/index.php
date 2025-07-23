@@ -206,7 +206,7 @@ function grabar(tb='',ev){
           warnin("Operación cancelada por el usuario.");
         }
       } else if(resp && resp.success){
-        ok(resp.msg+' Información guardada correctamente. Haga clic en "Mostrar Integrantes" para ver los cambios.');
+        ok(resp.msg+' Por favor de click en Mostrar Integrantespara actualizar ');
         // alert(resp.msg + " Estado: " + resp.estado);
       } else {
         // Si no es JSON, mostrar como antes
