@@ -64,7 +64,7 @@ function gra_trasladint() {
     $estado = 3;
 
     //Obtener subred del usuario de la sesión
-    $sql_usr = "SELECT subred FROM usuarios WHERE nombre = '{$usu_creo}' LIMIT 1";
+    $sql_usr = "SELECT subred FROM usuarios WHERE id_usuario = '{$usu_creo}' LIMIT 1";
     $info_usr = datos_mysql($sql_usr);
     $subred_usr = isset($info_usr['responseResult'][0]['subred']) ? $info_usr['responseResult'][0]['subred'] : null;
 
@@ -72,10 +72,11 @@ function gra_trasladint() {
         return "Error: msj['No se pudo determinar la subred del usuario.']";
     }
     //Obtener subred del cod_familia destino
-    $sql_fam = "SELECT hg.subred 
-                FROM hog_fam hf 
-                INNER JOIN hog_geo hg ON hf.idpre = hg.idgeo 
-                WHERE hf.id_fam = {$familia} LIMIT 1";
+    $sql_fam = "SELECT hg.subred,P.idpeople 
+ 	    FROM hog_fam hf 
+        INNER JOIN hog_geo hg ON hf.idpre = hg.idgeo
+        INNER JOIN personas P ON hf.id_fam=P.vivipersona 
+        WHERE P.idpersona= {$doc} AND P.tipo_doc={$tipo} LIMIT 1";
     $info_fam = datos_mysql($sql_fam);
     $subred_fam = isset($info_fam['responseResult'][0]['subred']) ? $info_fam['responseResult'][0]['subred'] : null;
 

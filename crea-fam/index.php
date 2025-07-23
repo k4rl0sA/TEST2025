@@ -163,8 +163,8 @@ function grabar(tb='',ev){
  'servagen':'../agendamient/serage.php',
   'tamrqc':'../rqc/lib.php',
   'tamsrq':'../srq/lib.php',
-  'validPerson':'valperson.php',
-  'traslados': 'trasladloc.php'
+  'validPerson':'../soporte/valperson.php',
+  'traslados': '../soporte/trasladloc.php'
  	};
    let ruta_app = rutaMap[tb] || 'lib.php';
   if(tb=='sesion2'){
@@ -173,8 +173,7 @@ function grabar(tb='',ev){
     if(res==true){
 				myFetch(ruta_app,"a=gra&tb="+tb,mod);
 			}
-  
-  /* }else{ if(tb=='validPerson'){
+  }else if(tb=='validPerson'){
       fetch(ruta_app, {
       method: 'POST',
       headers: {'Content-type': 'application/x-www-form-urlencoded'},
@@ -214,7 +213,7 @@ function grabar(tb='',ev){
         // Si no es JSON, mostrar como antes
         errors(JSON.parse(data).msg);
       }
-    }); */
+    });
   }else{
 		myFetch(ruta_app,"a=gra&tb="+tb,mod);
 	if (tb == 'person') {

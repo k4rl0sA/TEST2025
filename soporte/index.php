@@ -38,59 +38,11 @@ function grabar(tb='',ev){
         for (i=0;i<f.length;i++) {
             if (!valido(f[i])) {f[i].focus(); return};
         }
-		const rutaMap = {
-			'validPerson':'valperson.php',
-  			'traslados': 'trasladloc.php'
-		}
-		let ruta_app = rutaMap[tb] || 'lib.php';
-		if(tb=='validPerson'){
-      fetch(ruta_app, {
-      method: 'POST',
-      headers: {'Content-type': 'application/x-www-form-urlencoded'},
-      body: "a=gra&tb="+tb + form_input('fapp')
-    })
-    .then(response => response.text())
-    .then(data => {
-      let resp = data;
-      try { resp = JSON.parse(data); } catch(e){}
-      if(resp && resp.confirm){
-        if(confirm(resp.msg)){
-          // Si el usuario acepta, enviar de nuevo con flag de confirmación
-          fetch(ruta_app, {
-            method: 'POST',
-            headers: {'Content-type': 'application/x-www-form-urlencoded'},
-            body: "a=gra&tb="+tb+"&confirmado=1" + form_input('fapp')
-          })
-          .then(r => r.text())
-          .then(d => {
-            let rta = d;
-            try { rta = JSON.parse(d); } catch(e){}
-            if(rta && rta.success){
-              ok(rta.msg+' Los cambios estarán disponibles en el sistema en un plazo de hasta 24 horas. Después de ese tiempo, repita el proceso de "Validar Usuario".');
-              // ok(rta.msg);
-              // alert(rta.msg + " Estado: " + rta.estado);
-            } else {
-              errors("Error al guardar: " + (rta.msg || "Respuesta no válida"));
-            }
-          });
-        } else {
-          warnin("Operación cancelada por el usuario.");
-        }
-      } else if(resp && resp.success){
-        ok(resp.msg+' Información guardada correctamente. Haga clic en "Mostrar Integrantes" para ver los cambios.');
-        // alert(resp.msg + " Estado: " + resp.estado);
-      } else {
-        // Si no es JSON, mostrar como antes
-        errors(JSON.parse(data).msg);
-      }
-    });
-  }else{
         var res = confirm("¿Desea guardar la información? Recuerda que no se podrá editar posteriormente.");
         if(res==true){
             myFetch(ruta_app,"a=gra&tb="+tb,mod);
             setTimeout(actualizar, 1000);
         }
-	}
     }else{
         const message = `La función de Editar no está habilitada en este momento`;
         document.getElementById(mod+'-modal').innerHTML = message;
