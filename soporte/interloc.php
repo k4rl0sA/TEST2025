@@ -25,7 +25,7 @@ function cmp_trasladint(){
     $rta = "";
     $w = 'trasladint';
     $o = 'inftrasint';
-    $t = ['idpeople'=>'','cod_familia'=>''];
+    $t = ['documento'=>'','tipo'=>''];
     $c[] = new cmp($o,'e',null,'TRASLADO INTERLOCAL / ENTRE SUBREDES',$w);
     //incluir campos idpeople
     $c[]=new cmp('docum','nu','99999999999',$t['documento'],$w.' '.$o,'Número de Documento','documento',null,'####',true,true,'','col-4');
