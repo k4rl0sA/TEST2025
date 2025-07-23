@@ -53,7 +53,6 @@ function cap_menus($a,$b='cap',$con='con') {
     }
     return $rta;
 }
-
 // Guardar traslado interlocalidad/subred
 function gra_trasladint() {
     $doc = divide($_POST['docum']);
