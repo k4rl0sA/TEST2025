@@ -58,7 +58,6 @@ function gra_validPerson() {
     $id = divide($_POST['idp']);
     $edit = (count($id) == 2);
 
-
     // Obtener datos actuales de la tabla person
     $sql = "SELECT idpersona,tipo_doc,sexo, fecha_nacimiento FROM person WHERE idpeople = $id[0]";
     $info = datos_mysql($sql);
