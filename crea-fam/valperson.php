@@ -21,15 +21,10 @@ else {
 
 function cmp_validPerson(){
     $rta="";
-	// $p=get_edad();
     $w='validperson';
 	$o='infusu';
 	$key='pEr';
 	$t=['idpersona'=>'','tipo_doc'=>'','fecha_nacimiento'=>'','sexo'=>''];
-	// print_r($_POST);
-	// $d = get_person();
-	// if ($d==""){$d=$t;}
-	// var_dump($d);
 	$c[]=new cmp($o,'e',null,'INFORMACIÓN GENERAL',$w);
 	$c[]=new cmp('idp','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
 	$c[]=new cmp('idpersona','nu','9999999999999999',$t['idpersona'],$w.' '.$key.' '.$o,'Identificación <a href="https://www.adres.gov.co/consulte-su-eps" target="_blank">     Abrir ADRES</a>','idpersona',null,null,true,true,'','col-3');
