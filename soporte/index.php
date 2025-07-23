@@ -39,8 +39,8 @@ function grabar(tb='',ev){
             if (!valido(f[i])) {f[i].focus(); return};
         }
 		const rutaMap = {
-			'prinfancia':'prinfancia.php',
-			'adolesce':'adolescencia.php'
+			'validPerson':'valperson.php',
+  			'traslados': 'trasladloc.php'
 		}
 		let ruta_app = rutaMap[tb] || 'lib.php';
 		if(tb=='validPerson'){
