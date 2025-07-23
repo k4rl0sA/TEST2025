@@ -79,7 +79,8 @@ function gra_traslados() {
     $subred_fam = isset($info_fam['responseResult'][0]['subred']) ? $info_fam['responseResult'][0]['subred'] : null;
 
     if (!$subred_fam) {
-        return ['success' => false, 'msg' => 'No se encontró la familia destino o no tiene subred asociada.'];
+        return "Error: msj['No se encontró la familia destino o no tiene subred asociada.']";
+        // return ['success' => false, 'msg' => 'No se encontró la familia destino o no tiene subred asociada.'];
     }
 
     // Comparar subredes
