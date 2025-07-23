@@ -940,6 +940,8 @@ function formato_dato($a,$b,$c,$d){
 			$rta .= "<li title='Compromisos Concertados' onclick=\"mostrar('compConc','pro',event,'','plncon.php',7);Color('famili-lis');\"><i class='fa-solid fa-handshake-angle ico' id='{$c['Cod_Familiar']}'></i></li>";
 		}
 		$rta.=(acceso('ambient')) ? "<li title='Riesgo Ambiental' Onclick=\"mostrar('ambient','pro',event,'','amb.php',7);Color('famili-lis');\"><i class='fa-solid fa-tree-city ico' id='".$c['Cod_Familiar']."' ></i></li>":'';
+
+		$rta.="<li title='Interlocales' Onclick=\"mostrar('trasladint','pro',event,'','../soporte/interloc.php',4,'Interlocales');Color('datos-lis');\"><i class='fas fa-exchange-alt ico' id='".$c['ACCIONES']."'></i> </li>";//soporte traslados
 	}
 	if ($a=='datos-lis' && $b=='acciones'){
 		$rta="<nav class='menu right'>";
@@ -948,7 +950,7 @@ function formato_dato($a,$b,$c,$d){
 		//mostrar('person','pro',event,'','lib.php',7,'person');Color('datos-lis');setTimeout(enabAfil,1000,'regimen','eaf');setTimeout(enabEtni,1000,'etnia','ocu','idi');setTimeout(enabLoca,1000,'reside_localidad','lochi');setTimeout(EditOcup,1000,'ocupacion','true');setTimeout(hideCuida,1000,'cuidador','cUi')
 		
 	
-		$rta.="<li title='Validar Usuario' Onclick=\"mostrar('validPerson','pro',event,'','valperson.php',7,'person');Color('datos-lis');\"><i class='fas fa-user-check ico' id='".$c['ACCIONES']."'></i> </li>";
+		$rta.="<li title='Validar Usuario' Onclick=\"mostrar('validPerson','pro',event,'','../soporte/valperson.php',7,'person');Color('datos-lis');\"><i class='fas fa-user-check ico' id='".$c['ACCIONES']."'></i> </li>";
 		if(validUser($c['ACCIONES'])){
 			$rta .= acceso('signos') ? "<li title='Signos' onclick=\"mostrar('signos','pro',event,'','signos.php',7,'signos');Color('datos-lis');\"><i class='fa-solid fa-stethoscope ico' id='{$c['ACCIONES']}'></i></li>" : "";
 			$rta .= acceso('alertas') ? "<li title='Alertas' onclick=\"mostrar('alertas','pro',event,'','alertas.php',7,'alertas');Color('datos-lis');\"><i class='fa-solid fa-person-circle-exclamation ico' id='{$c['ACCIONES']}'></i></li>" : "";
@@ -1022,7 +1024,7 @@ function formato_dato($a,$b,$c,$d){
 			}
 			$rta .= acceso('servagen') ? "<li title='Servicio de Agendamiento' onclick=\"mostrar('servagen','pro',event,'','../agendamient/serage.php',7,'Servicio de Agendamiento');Color('datos-lis');\"><i class=' fa-solid fa-square-phone ico' id='{$c['ACCIONES']}'></i></li>":"";
 
-			$rta.="<li title='Trasladar Usuario' Onclick=\"mostrar('traslados','pro',event,'','trasladloc.php',4,'traslados');Color('datos-lis');\"><i class='fas fa-exchange-alt ico' id='".$c['ACCIONES']."'></i> </li>";
+			$rta.="<li title='Trasladar Usuario' Onclick=\"mostrar('traslados','pro',event,'','../soporte/trasladloc.php',4,'traslados');Color('datos-lis');\"><i class='fas fa-exchange-alt ico' id='".$c['ACCIONES']."'></i> </li>";
 		}
 	}
 		if($a=='atencion' && $b=='acciones'){

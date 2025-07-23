@@ -56,11 +56,11 @@ function cap_menus($a,$b='cap',$con='con') {
 
 // Guardar traslado interlocalidad/subred
 function gra_trasladint() {
-    $id = divide($_POST['idp']);
-    $familia = intval($_POST['cod_familia']);
+    $doc = divide($_POST['docum']);
+    $tipo = intval($_POST['tip_doc']);
     $usu_creo = $_SESSION['us_sds'];
     $creo = date('Y-m-d H:i:s', strtotime('-5 hours'));
-    $estado = 2;
+    $estado = 3;
 
     //Obtener subred del usuario de la sesión
     $sql_usr = "SELECT subred FROM usuarios WHERE nombre = '{$usu_creo}' LIMIT 1";
