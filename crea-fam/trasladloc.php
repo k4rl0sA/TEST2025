@@ -62,7 +62,7 @@ function gra_traslados() {
     $estado = 2;
 
     //Obtener subred del usuario de la sesión
-    $sql_usr = "SELECT subred FROM usuarios WHERE nombre = '{$usu_creo}' LIMIT 1";
+    $sql_usr = "SELECT subred FROM usuarios WHERE id_usuario = '{$usu_creo}' LIMIT 1";
     $info_usr = datos_mysql($sql_usr);
     $subred_usr = isset($info_usr['responseResult'][0]['subred']) ? $info_usr['responseResult'][0]['subred'] : null;
 
