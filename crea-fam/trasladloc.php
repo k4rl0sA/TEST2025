@@ -61,7 +61,33 @@ function gra_traslados() {
     $creo = date('Y-m-d H:i:s', strtotime('-5 hours'));
     $estado = 2;
 
-    // Insertar en soporte
+    //Obtener subred del usuario de la sesión
+    $sql_usr = "SELECT subred FROM usuarios WHERE nombre = '{$usu_creo}' LIMIT 1";
+    $info_usr = datos_mysql($sql_usr);
+    $subred_usr = isset($info_usr['responseResult'][0]['subred']) ? $info_usr['responseResult'][0]['subred'] : null;
+
+    if (!$subred_usr) {
+        return ['success' => false, 'msg' => 'No se pudo determinar la subred del usuario.'];
+    }
+
+    //Obtener subred del cod_familia destino
+    $sql_fam = "SELECT hg.subred 
+                FROM hog_fam hf 
+                INNER JOIN hog_geo hg ON hf.idpre = hg.idgeo 
+                WHERE hf.id_fam = {$familia} LIMIT 1";
+    $info_fam = datos_mysql($sql_fam);
+    $subred_fam = isset($info_fam['responseResult'][0]['subred']) ? $info_fam['responseResult'][0]['subred'] : null;
+
+    if (!$subred_fam) {
+        return ['success' => false, 'msg' => 'No se encontró la familia destino o no tiene subred asociada.'];
+    }
+
+    // Comparar subredes
+    if ($subred_usr !== $subred_fam) {
+        return ['success' => false, 'msg' => 'No es posible trasladar a una familia de otra subred. Para traslados entre subredes, utilice el módulo de soporte.'];
+    }
+
+    // Insertar en soporte si la subred es la misma
     $sql = "INSERT INTO soporte (idsoporte, idpeople, cod_familia, formulario, prioridad, usu_creo, fecha_create, estado) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)";
     $params = [
         ['type' => 'i', 'value' => $id[0]],      // idpeople
