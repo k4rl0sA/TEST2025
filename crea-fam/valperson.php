@@ -54,26 +54,6 @@ function men_validPerson(){
 	 }
    }
 
-
-/* function get_person(){
-	//  print_r($_REQUEST);
-	 $id=divide($_REQUEST['id']);
-	if($_REQUEST['id']=='' || count($id)!=2){
-		return "";
-	}else{
-		$sql="SELECT concat_ws('_',idpeople,vivipersona),idpersona,tipo_doc
-		FROM `person`
-		WHERE idpeople ='{$id[0]}'" ;
-		// echo $sql;
-		// print_r($id);
-		$info=datos_mysql($sql);
-		if (!$info['responseResult']) {
-			return '';
-		}
-	return $info['responseResult'][0];
-	} 
-} */
-
 function gra_validPerson() {
     $id = divide($_POST['idp']);
     $edit = (count($id) == 2);
