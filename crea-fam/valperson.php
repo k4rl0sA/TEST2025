@@ -149,7 +149,7 @@ function gra_validPerson() {
 		if (empty($_REQUEST['confirmado'])) {
         	return [
         	    'confirm' => true,
-        	    'msg' => 'Los datos no coinciden con la información registrada. ¿Desea guardar de todas formas?',
+				'msg' => 'Los datos ingresados no coinciden con la información anterior. ¿Desea enviar una solicitud al área de soporte? Recibirá una respuesta en un plazo máximo de 24 horas.',
 				'estado' => $estado
         	];
     	}
