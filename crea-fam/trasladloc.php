@@ -85,7 +85,8 @@ function gra_traslados() {
 
     // Comparar subredes
     if ($subred_usr !== $subred_fam) {
-        return ['success' => false, 'msg' => 'No es posible trasladar a una familia de otra subred. Para traslados entre subredes, utilice el módulo de soporte.'];
+        return "Error: msj['No es posible trasladar a una familia de otra subred. Para traslados entre subredes, utilice el módulo de soporte.']";
+        // return ['success' => false, 'msg' => 'No es posible trasladar a una familia de otra subred. Para traslados entre subredes, utilice el módulo de soporte.'];
     }
 
     // Insertar en soporte si la subred es la misma
