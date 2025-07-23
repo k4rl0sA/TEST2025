@@ -195,7 +195,7 @@ function grabar(tb='',ev){
             let rta = d;
             try { rta = JSON.parse(d); } catch(e){}
             if(rta && rta.success){
-              ok(rta.msg+' Por favor espere para que se actualice la información desde SDS.');
+              ok(rta.msg+' Los cambios estarán disponibles en el sistema en un plazo de hasta 24 horas. Después de ese tiempo, repita el proceso de "Validar Usuario".');
               // ok(rta.msg);
               // alert(rta.msg + " Estado: " + rta.estado);
             } else {
@@ -206,11 +206,11 @@ function grabar(tb='',ev){
           warnin("Operación cancelada por el usuario.");
         }
       } else if(resp && resp.success){
-        ok(resp.msg+' Por favor de click en Mostrar Integrantespara actualizar ');
+        ok(resp.msg+' Información guardada correctamente. Haga clic en "Mostrar Integrantes" para ver los cambios.');
         // alert(resp.msg + " Estado: " + resp.estado);
       } else {
         // Si no es JSON, mostrar como antes
-        errors("Error al guardar: " + (data.msg));
+        errors("Error al guardar: " + (JSON.parse(data).msg));
       }
     });
   }else{
