@@ -104,7 +104,7 @@ function gra_trasladint() {
 }
 
 // Si necesitas opciones para selects, puedes agregar funciones opc_trasladint(), etc.
-function opc_tipo_doc_new($id=''){
+function opc_tipo($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 1",$id);
 }
 
