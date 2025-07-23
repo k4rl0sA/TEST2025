@@ -163,7 +163,8 @@ function grabar(tb='',ev){
  'servagen':'../agendamient/serage.php',
   'tamrqc':'../rqc/lib.php',
   'tamsrq':'../srq/lib.php',
-  'validPerson':'valperson.php'
+  'validPerson':'valperson.php',
+  'traslados': 'trasladloc.php'
  	};
    let ruta_app = rutaMap[tb] || 'lib.php';
   if(tb=='sesion2'){
