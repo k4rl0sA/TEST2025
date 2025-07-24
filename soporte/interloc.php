@@ -79,6 +79,7 @@ function gra_trasladint() {
         WHERE P.idpersona= {$doc} AND P.tipo_doc={$tipo} LIMIT 1";
     $info_fam = datos_mysql($sql_fam);
     $subred_fam = isset($info_fam['responseResult'][0]['subred']) ? $info_fam['responseResult'][0]['subred'] : null;
+    $familia = isset($info_fam['responseResult'][0]['idpeople']) ? $info_fam['responseResult'][0]['idpeople'] : null;
 
     if (!$subred_fam) {
         return "Error: msj['No se encontró la familia destino o no tiene subred asociada.']";
