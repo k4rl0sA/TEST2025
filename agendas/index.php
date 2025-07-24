@@ -220,12 +220,8 @@
                     </div>
                     
                     <div class="wizard-actions">
-                        <button class="btn btn-outline">
-                            <i class="fas fa-arrow-left"></i> Anterior
-                        </button>
-                        <button class="btn btn-primary">
-                            Siguiente <i class="fas fa-arrow-right"></i>
-                        </button>
+                        <button class="btn btn-outline"><i class="fas fa-arrow-left"></i></button>
+                        <button class="btn btn-primary"><i class="fas fa-arrow-right"></i></button>
                     </div>
                 </div>
             </main>
