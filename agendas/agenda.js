@@ -1,4 +1,4 @@
-        document.addEventListener('DOMContentLoaded', () => {
+    
             // --- DATOS DE EJEMPLO ---
             const mockData = {
                 profiles: [
@@ -391,4 +391,3 @@
 
             // Iniciar la aplicación
             init();
-        });
