@@ -59,75 +59,22 @@
                 </div>
                 
                 <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Email</th>
-                                <th>Categoría</th>
-                                <th>Estado</th>
-                                <th>Fecha</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>001</td>
-                                <td>Carlos Martínez</td>
-                                <td>carlos@example.com</td>
-                                <td>Tecnología</td>
-                                <td><span class="status status-active">Activo</span></td>
-                                <td>12/05/2023</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="action-btn edit-btn" title="Editar">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="action-btn delete-btn" title="Eliminar">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>002</td>
-                                <td>Ana Rodríguez</td>
-                                <td>ana@example.com</td>
-                                <td>Finanzas</td>
-                                <td><span class="status status-pending">Pendiente</span></td>
-                                <td>15/05/2023</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="action-btn edit-btn" title="Editar">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="action-btn delete-btn" title="Eliminar">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>003</td>
-                                <td>Luis González</td>
-                                <td>luis@example.com</td>
-                                <td>Recursos Humanos</td>
-                                <td><span class="status status-active">Activo</span></td>
-                                <td>18/05/2023</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="action-btn edit-btn" title="Editar">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="action-btn delete-btn" title="Eliminar">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div id="calendar-container">
+                    <div class="flex justify-between items-center mb-4">
+                        <button id="prev-week" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300"><i class="fas fa-chevron-left"></i> Semana Anterior</button>
+                        <h2 id="week-range" class="text-xl font-bold text-center text-blue-700"></h2>
+                        <button id="next-week" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Siguiente Semana <i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div id="calendar" class="overflow-x-auto">
+                        <!-- El calendario se generará aquí -->
+                    </div>
+                     <div class="mt-4 text-sm text-gray-600 flex flex-wrap gap-4">
+                        <div class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-green-200 border border-green-400"></span> Disponible</div>
+                        <div class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-red-200 border border-red-400"></span> Ocupado</div>
+                        <div class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-blue-200 border border-blue-400"></span> Realizado</div>
+                        <div class="flex items-center gap-2"><span class="w-4 h-4 rounded bg-yellow-200 border border-yellow-400"></span> Reasignado</div>
+                    </div>
+                </div>
                 </div>
                 
                 <!-- Formulario Embebido -->
