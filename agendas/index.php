@@ -22,17 +22,9 @@
                 <h2><i class="fas fa-filter"></i> Filtros</h2>
                 
                 <div class="filter-group">
-                    <label for="search">Buscar</label>
-                    <input type="text" id="search" placeholder="Ingrese término...">
-                </div>
-                
-                <div class="filter-group">
-                    <label for="profile">Estado</label>
+                    <label for="profile">Perfil Profesional</label>
                     <select id="profile">
                         <option value="">Todos</option>
-                        <option value="active">Activo</option>
-                        <option value="inactive">Inactivo</option>
-                        <option value="pending">Pendiente</option>
                     </select>
                 </div>
                 
