@@ -27,8 +27,8 @@
                 </div>
                 
                 <div class="filter-group">
-                    <label for="status">Estado</label>
-                    <select id="status">
+                    <label for="profile">Estado</label>
+                    <select id="profile">
                         <option value="">Todos</option>
                         <option value="active">Activo</option>
                         <option value="inactive">Inactivo</option>
