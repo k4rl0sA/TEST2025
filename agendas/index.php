@@ -76,12 +76,11 @@
         .filters-card h2 {
             font-size: 1.3rem;
             margin-bottom: 20px;
-            color: var(--dark);
+            color: var(--primary);
             display: flex;
             align-items: center;
             gap: 10px;
             border-bottom: 1px solid var(--light-gray);
-            color: rgb(29 78 216 / var(--tw-text-opacity, 1));
         }
 
         .filter-group {
@@ -169,7 +168,7 @@
 
         .table-header h2 {
             font-size: 1.5rem;
-            color: var(--dark);
+            color: var(--primary);
         }
 
         .btn-add {
