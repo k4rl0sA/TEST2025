@@ -81,6 +81,7 @@
             align-items: center;
             gap: 10px;
             border-bottom: 1px solid var(--light-gray);
+            color: rgb(29 78 216 / var(--tw-text-opacity, 1));
         }
 
         .filter-group {
