@@ -80,6 +80,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            border-bottom: 1px solid var(--light-gray);
         }
 
         .filter-group {
