@@ -1,0 +1,72 @@
+{
+    "perfiles": [
+        {"id": "1", "name": "Medicina"},
+        {"id": "2", "name": "Odontología"},
+        {"id": "4", "name": "Terapeuta"},
+        {"id": "5", "name": "Nutrición"},
+        {"id": "6", "name": "Psicología"},
+        {"id": "7", "name": "Estética"},
+        {"id": "8", "name": "Fisioterapia"}
+    ],
+    "profesionales": {
+        "1": [
+            {"id": "10000001", "name": "Dr. Pablo Torres"},
+            {"id": "10000002", "name": "Dr. Sergio Ramírez"},
+            {"id": "10000003", "name": "Dra. Valeria Mendoza"},
+            {"id": "10000004", "name": "Dr. Andrés Castillo"},
+            {"id": "10000005", "name": "Dra. Camila Herrera"},
+            {"id": "10000006", "name": "Dr. Felipe Ríos"},
+            {"id": "10000007", "name": "Dra. Lucía Vargas"},
+            {"id": "10000008", "name": "Dr. Tomás Silva"}
+        ],
+        "2": [
+            {"id": "10000009", "name": "Dr. Javier Molina"},
+            {"id": "10000010", "name": "Dr. Esteban Cruz"},
+            {"id": "10000011", "name": "Dra. Sofía Paredes"},
+            {"id": "10000012", "name": "Dr. Mauricio León"},
+            {"id": "10000013", "name": "Dra. Paula Guzmán"},
+            {"id": "10000014", "name": "Dr. Ricardo Soto"},
+            {"id": "10000015", "name": "Dra. Fernanda Peña"},
+            {"id": "10000016", "name": "Dr. Álvaro Espinoza"}
+        ],
+        "4": [
+            {"id": "10000017", "name": "Dr. Diego Fuentes"},
+            {"id": "10000018", "name": "Dr. Matías Ortega"},
+            {"id": "10000019", "name": "Dra. Gabriela Salas"},
+            {"id": "10000020", "name": "Dr. Sebastián Reyes"},
+            {"id": "10000021", "name": "Dra. Daniela Muñoz"},
+            {"id": "10000022", "name": "Dr. Cristian Vega"},
+            {"id": "10000023", "name": "Dra. Patricia Bravo"},
+            {"id": "10000024", "name": "Dr. Francisco Cordero"}
+        ],
+        "5": [
+            {"id": "10000025", "name": "Dr. Leonardo Ponce"},
+            {"id": "10000026", "name": "Dr. Martín Aguirre"},
+            {"id": "10000027", "name": "Dra. Teresa Morales"},
+            {"id": "10000028", "name": "Dr. Nicolás Ibáñez"},
+            {"id": "10000029", "name": "Dra. Verónica Díaz"},
+            {"id": "10000030", "name": "Dr. Gustavo Medina"},
+            {"id": "10000031", "name": "Dra. Carla Rojas"},
+            {"id": "10000032", "name": "Dr. Hernán Salazar"}
+        ]
+    },
+    "servicios": {
+        "1": [
+            {"id": "consulta", "name": "Consulta Médica"},
+            {"id": "examenes", "name": "Exámenes de Laboratorio"},
+            {"id": "radiologia", "name": "Radiología"},
+            {"id": "vacunas", "name": "Vacunación"},
+            {"id": "tratamientos", "name": "Tratamientos Especializados"},
+            {"id": "cirugia", "name": "Cirugía General"}
+        ],
+        "2": [
+            {"id": "odontologia", "name": "Odontología"},
+            {"id": "estetica", "name": "Ortodoncia"},
+            {"id": "cirugia", "name": "Cirugía Dental"},
+            {"id": "endodoncia", "name": "Endodoncia"},
+            {"id": "periodoncia", "name": "Periodoncia"},
+            {"id": "implantes", "name": "Implantes Dentales"},
+            {"id": "blanqueamiento", "name": "Blanqueamiento Dental"}
+        ]
+    }
+}

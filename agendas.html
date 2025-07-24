@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Agendamiento de Citas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="mb-10 text-center">
+            <h1 class="text-4xl font-bold text-blue-800 mb-2">Agendamiento de Citas</h1>
+            <p class="text-lg text-gray-600">Programa tus citas de manera fácil y rápida</p>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <div class="flex mb-8 bg-white rounded-lg shadow-sm p-1">
+            <button id="appointmentsTab" class="px-6 py-3 font-medium rounded-md transition-all 
+                  bg-blue-600 text-white shadow">
+                <i class="fas fa-calendar-alt mr-2"></i>Agendar Citas
+            </button>
+            <button id="calendarTab" class="px-6 py-3 font-medium text-gray-600 hover:bg-gray-100 rounded-md transition-all">
+                <i class="fas fa-calendar-week mr-2"></i>Calendario
+            </button>
+        </div>
+
+        <!-- Main Content -->
+        <div id="appointmentsView" class="content-view grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Appointment Form -->
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 overflow-hidden">
+                <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-6 py-4 -mx-6 -mt-6 mb-6">
+                    <h2 class="text-2xl font-semibold">
+                        <i class="fas fa-calendar-plus mr-2"></i> Nueva Cita
+                    </h2>
+                </div>
+                <form id="appointmentForm" class="space-y-4">
+                    <!-- Profile Selection -->
+                    <div>
+                        <label for="profile" class="block text-sm font-medium text-gray-700 mb-1">Perfil Profesional</label>
+                        <select id="profile" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                        </select>
+                    </div>
+
+                    <!-- Professional Selection -->
+                    <div>
+                        <label for="professional" class="block text-sm font-medium text-gray-700 mb-1">Profesional</label>
+                        <select id="professional" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" disabled>
+                            <option value="">Seleccione un profesional</option>
+                        </select>
+                    </div>
+
+                    <!-- Service Type -->
+                    <div>
+                        <label for="service" class="block text-sm font-medium text-gray-700 mb-1">Tipo de Servicio</label>
+                        <select id="service" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                            <option value="">Seleccione un servicio</option>
+                            <option value="consulta">Consulta Médica</option>
+                            <option value="odontologia">Odontología</option>
+                            <option value="estetica">Estética</option>
+                            <option value="terapia">Terapia</option>
+                            <option value="otros">Otros</option>
+                        </select>
+                    </div>
+
+                    <!-- Date Picker -->
+                    <div>
+                        <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Fecha</label>
+                        <div class="relative">
+                            <input type="date" id="date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                            <div class="absolute right-3 top-2 text-gray-400">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Time Selection -->
+                    <div>
+                        <label for="time" class="block text-sm font-medium text-gray-700 mb-1">Hora</label>
+                        <select id="time" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                            <option value="">Seleccione un cupo</option>
+                            <option value="cupo1">Cupo 1 (8:00 - 9:00 AM)</option>
+                            <option value="cupo2">Cupo 2 (9:00 - 10:00 AM)</option>
+                            <option value="cupo3">Cupo 3 (10:00 - 11:00 AM)</option>
+                            <option value="cupo4">Cupo 4 (11:00 - 12:00 PM)</option>
+                            <option value="cupo5">Cupo 5 (1:00 - 2:00 PM)</option>
+                        </select>
+                    </div>
+
+                    <!-- Client Information -->
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nombre Completo</label>
+                        <input type="text" id="name" placeholder="Ej: Juan Pérez" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                    </div>
+
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+                        <input type="tel" id="phone" placeholder="Ej: 555-123-4567" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="email" placeholder="Ej: ejemplo@dominio.com" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                    </div>
+
+                    <!-- Notes -->
+                    <div>
+                        <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">Notas Adicionales</label>
+                        <textarea id="notes" rows="3" placeholder="Detalles adicionales sobre la cita..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white font-medium py-3 px-4 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-[1.01] shadow-lg hover:shadow-xl">
+                        <i class="fas fa-calendar-check mr-2"></i> Agendar Cita
+                    </button>
+                </form>
+            </div>
+
+            <!-- Appointments List -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-semibold text-blue-700">Citas Programadas</h2>
+                    <div class="relative">
+                        <select id="filter" class="appearance-none bg-white pl-4 pr-8 py-2 border border-gray-300 rounded-lg
+                            focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition shadow-sm w-48">
+                            <i class="fas fa-chevron-down absolute right-3 top-3 text-gray-400 pointer-events-none"></i>
+                            <option value="all">Todas las citas</option>
+                            <option value="today">Hoy</option>
+                            <option value="upcoming">Próximas</option>
+                            <option value="past">Pasadas</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="appointmentsList" class="space-y-4">
+                    <!-- Sample Appointment -->
+                    <div class="border-b border-gray-200 pb-4 mb-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-semibold text-lg text-gray-800">Consulta Médica</h3>
+                                <p class="text-sm text-gray-600">Juan Pérez</p>
+                                <p class="text-sm text-gray-500"><i class="far fa-clock mr-1"></i> 15 Jun 2023, 09:00 AM</p>
+                            </div>
+                            <div class="space-x-2">
+                                <button class="text-blue-600 hover:text-blue-800">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="text-red-600 hover:text-red-800">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Placeholder for dynamic content -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Professional Calendar Module -->
+        <div id="calendarView" class="content-view hidden">
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h2 class="text-2xl font-semibold text-blue-700 mb-6">Calendario de Profesionales</h2>
+                <div class="flex flex-wrap items-center mb-4 gap-2">
+                    <select id="professionalSelect" class="flex-1 min-w-[200px] px-4 py-2 border rounded-lg">
+                        <option value="">Todos los perfiles</option>
+                        <option value="medicina">Medicina</option>
+                        <option value="enfermeria">Enfermería</option>
+                        <option value="psicologia">Psicología</option>
+                    </select>
+                    <select id="specificProfessional" class="flex-1 min-w-[200px] px-4 py-2 border rounded-lg" disabled>
+                        <option value="">Todos los profesionales</option>
+                    </select>
+                    <div class="flex space-x-2">
+                        <button id="prevWeek" class="bg-white px-3 py-2 rounded-lg border border-gray-300 shadow-sm
+                            hover:bg-gray-50 transition-colors">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button id="todayBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-sm
+                            hover:bg-blue-700 transition-colors">
+                            Hoy
+                        </button>
+                        <button id="nextWeek" class="bg-white px-3 py-2 rounded-lg border border-gray-300 shadow-sm
+                            hover:bg-gray-50 transition-colors">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <div id="weekCalendar" class="min-w-full">
+                        <!-- Week view will be generated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Form submission handler
+            const appointmentForm = document.getElementById('appointmentForm');
+            const appointmentsList = document.getElementById('appointmentsList');
+            const filterSelect = document.getElementById('filter');
+            
+            // Professional data with IDs
+            let professionals = {};
+            let agendaData = {};
+
+            function loadProfessionals() {
+                fetch('lib.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        professionals = data;
+                    });
+            }
+
+            function loadAgendaData() {
+                fetch('lib.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        agendaData = data;
+                        // Cargar perfiles en el select
+                        const profileSelect = document.getElementById('profile');
+                        profileSelect.innerHTML = '<option value="">Seleccione un perfil</option>';
+                        data.perfiles.forEach(perfil => {
+                            profileSelect.innerHTML += `<option value="${perfil.id}">${perfil.name}</option>`;
+                        });
+                    });
+            }
+
+            // Llama a la función al cargar la página
+            loadProfessionals();
+            loadAgendaData();
+
+            document.getElementById('profile').addEventListener('change', function() {
+                const profile = this.value;
+                const professionalSelect = document.getElementById('professional');
+                professionalSelect.innerHTML = '<option value="">Seleccione un profesional</option>';
+                if (profile && professionals[profile]) {
+                    professionals[profile].forEach(prof => {
+                        professionalSelect.innerHTML += `<option value="${prof.id}">${prof.name}</option>`;
+                    });
+                    professionalSelect.disabled = false;
+                } else {
+                    professionalSelect.disabled = true;
+                }
+            });
+
+            // Cuando cambia el perfil, carga los profesionales dependientes
+            document.getElementById('profile').addEventListener('change', function() {
+                const profileId = this.value;
+                const professionalSelect = document.getElementById('professional');
+                professionalSelect.innerHTML = '<option value="">Seleccione un profesional</option>';
+                professionalSelect.disabled = true;
+                document.getElementById('service').innerHTML = '<option value="">Seleccione un servicio</option>';
+                document.getElementById('service').disabled = true;
+
+                if (profileId && agendaData.profesionales[profileId]) {
+                    agendaData.profesionales[profileId].forEach(prof => {
+                        professionalSelect.innerHTML += `<option value="${prof.id}">${prof.name}</option>`;
+                    });
+                    professionalSelect.disabled = false;
+                }
+            });
+
+            // Cuando cambia el profesional, carga los servicios dependientes
+            document.getElementById('professional').addEventListener('change', function() {
+                const profileId = document.getElementById('profile').value;
+                const professionalId = this.value;
+                const serviceSelect = document.getElementById('service');
+                serviceSelect.innerHTML = '<option value="">Seleccione un servicio</option>';
+                serviceSelect.disabled = true;
+
+                // Si los servicios están por perfil
+                if (profileId && agendaData.servicios[profileId]) {
+                    agendaData.servicios[profileId].forEach(serv => {
+                        serviceSelect.innerHTML += `<option value="${serv.id}">${serv.name}</option>`;
+                    });
+                    serviceSelect.disabled = false;
+                }
+                // Si los servicios están por profesional (ajusta según tu estructura)
+                else if (professionalId && agendaData.servicios[professionalId]) {
+                    agendaData.servicios[professionalId].forEach(serv => {
+                        serviceSelect.innerHTML += `<option value="${serv.id}">${serv.name}</option>`;
+                    });
+                    serviceSelect.disabled = false;
+                }
+            });
+
+            // Sample data - in a real app this would come from a database
+            let appointments = [
+             /*   {
+                    id: 1,
+                    profile: 'medicina',
+                    professional: 'med1',
+                    professionalName: 'Dr. Juan Pérez',
+                    service: 'consulta',
+                    serviceName: 'Consulta Médica', 
+                    date: '2023-06-15',
+                    time: 'cupo1',
+                    name: 'Carlos López',
+                    phone: '555-123-4567',
+                    email: 'carlos@example.com',
+                    notes: 'Control de rutina',
+                    status: 'confirmada'
+                },
+                {
+                    id: 2,
+                    profile: 'odontologia',
+                    professional: 'Dra. María García',
+                    service: 'odontologia',
+                    serviceName: 'Limpieza Dental',
+                    date: '2023-06-20',
+                    time: 'cupo5',
+                    name: 'Ana Martínez',
+                    phone: '555-987-6543',
+                    email: 'ana@example.com',
+                    notes: 'Limpieza dental',
+                    status: 'pendiente'
+                }
+                    */
+            ];
+
+            // Render appointments
+            function renderAppointments(filter = 'all') {
+                appointmentsList.innerHTML = '';
+                
+                let filteredAppointments = appointments;
+                const today = new Date().toISOString().split('T')[0];
+                
+                if (filter === 'today') {
+                    filteredAppointments = appointments.filter(app => app.date === today);
+                } else if (filter === 'upcoming') {
+                    filteredAppointments = appointments.filter(app => app.date >= today);
+                } else if (filter === 'past') {
+                    filteredAppointments = appointments.filter(app => app.date < today);
+                }
+                
+                if (filteredAppointments.length === 0) {
+                    appointmentsList.innerHTML = '<p class="text-gray-500 text-center py-4">No hay citas para mostrar</p>';
+                    return;
+                }
+                
+                filteredAppointments.forEach(appointment => {
+                    const dateObj = new Date(appointment.date);
+                    const formattedDate = dateObj.toLocaleDateString('es-ES', { 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                    });
+                    
+                    const appointmentElement = document.createElement('div');
+                    appointmentElement.className = 'border rounded-xl p-5 mb-4 bg-white shadow-sm hover:shadow-md transition-all';
+                    appointmentElement.innerHTML = `
+                        <div class="flex justify-between items-start gap-4">
+                            <div class="flex-1">
+                                <div class="flex items-baseline gap-2">
+                                    <h3 class="font-bold text-lg text-gray-800">${appointment.serviceName}</h3>
+                                    <span class="text-xs px-2 py-1 rounded-full ${getStatusColor(appointment.status)}">
+                                        ${appointment.status}
+                                    </span>
+                                </div>
+                                <div class="flex items-center text-sm text-gray-500 mt-1">
+                                    <i class="far fa-user mr-2"></i>
+                                    <span>${appointment.name}</span>
+                                </div>
+                                <div class="flex items-center text-sm text-gray-500 mt-1">
+                                    <i class="far fa-clock mr-2"></i>
+                                    <span>${formattedDate}, ${appointment.time.replace('cupo', 'Cupo ')}</span>
+                                </div>
+                                ${appointment.notes ? `<p class="text-sm mt-1 text-gray-600"><i class="fas fa-info-circle mr-1"></i> ${appointment.notes}</p>` : ''}
+                            </div>
+                            <div class="space-x-2">
+                                <button class="edit-btn text-blue-600 hover:text-blue-800" data-id="${appointment.id}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="delete-btn text-red-600 hover:text-red-800" data-id="${appointment.id}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    appointmentsList.appendChild(appointmentElement);
+                });
+                
+                // Add event listeners to buttons
+                document.querySelectorAll('.edit-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        const appointment = appointments.find(app => app.id === id);
+                        if (appointment) {
+                            populateFormForEdit(appointment);
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        if (confirm('¿Estás seguro de que deseas eliminar esta cita?')) {
+                            deleteAppointment(id);
+                        }
+                    });
+                });
+            }
+            
+            // Populate form for editing
+            function populateFormForEdit(appointment) {
+                // Set all values
+                document.getElementById('profile').value = appointment.profile || '';
+                document.getElementById('service').value = appointment.service;
+                document.getElementById('date').value = appointment.date;
+                document.getElementById('time').value = appointment.time;
+                document.getElementById('name').value = appointment.name;
+                document.getElementById('phone').value = appointment.phone;
+                document.getElementById('email').value = appointment.email;
+                document.getElementById('notes').value = appointment.notes;
+
+                // Visual styling for edit mode
+                document.getElementById('appointmentForm').classList.add('border-2', 'border-blue-500');
+                document.querySelector('#appointmentForm button[type="submit"]').textContent = 'Actualizar Cita';
+                document.querySelector('#appointmentForm button[type="submit"]').classList.remove('bg-blue-600');
+                document.querySelector('#appointmentForm button[type="submit"]').classList.add('bg-green-600');
+                
+                // Scroll to form
+                document.querySelector('#appointmentForm').scrollIntoView({ 
+                    behavior: 'smooth' 
+                });
+            }
+            
+            // Delete appointment
+            function deleteAppointment(id) {
+                appointments = appointments.filter(app => app.id !== id);
+                renderAppointments(filterSelect.value);
+            }
+            
+            // Form validation
+            function validateForm(formData) {
+                if (!formData.service) {
+                    alert('Por favor seleccione un tipo de servicio');
+                    return false;
+                }
+                
+                if (!formData.date) {
+                    alert('Por favor seleccione una fecha');
+                    return false;
+                }
+                
+                if (!formData.time) {
+                    alert('Por favor seleccione una hora');
+                    return false;
+                }
+                
+                if (!formData.name.trim()) {
+                    alert('Por favor ingrese su nombre');
+                    return false;
+                }
+                
+                if (!formData.phone.trim()) {
+                    alert('Por favor ingrese su teléfono');
+                    return false;
+                }
+                
+                if (!formData.email.trim()) {
+                    alert('Por favor ingrese su email');
+                    return false;
+                }
+                
+                return true;
+            }
+            
+            // Handle form submission
+            appointmentForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = {
+                    service: document.getElementById('service').value,
+                    serviceName: document.getElementById('service').selectedOptions[0].text,
+                    date: document.getElementById('date').value,
+                    time: document.getElementById('time').value,
+                    name: document.getElementById('name').value,
+                    phone: document.getElementById('phone').value,
+                    email: document.getElementById('email').value,
+                    notes: document.getElementById('notes').value
+                };
+                
+                if (!validateForm(formData)) {
+                    return;
+                }
+                
+                // Check for existing appointments at same date/time
+                const hasConflict = appointments.some(app => 
+                    app.date === formData.date && app.time === formData.time
+                );
+                
+                if (hasConflict) {
+                    alert('Ya existe una cita programada para esta fecha y hora');
+                    return;
+                }
+                
+                // In a real app, this would be saved to a database
+                const newAppointment = {
+                    id: appointments.length > 0 ? Math.max(...appointments.map(a => a.id)) + 1 : 1,
+                    ...formData
+                };
+                
+                appointments.push(newAppointment);
+                renderAppointments(filterSelect.value);
+                
+                // Reset form
+                this.reset();
+                
+                // Show success message
+                alert('Cita agendada exitosamente');
+            });
+            
+            // Filter appointments
+            filterSelect.addEventListener('change', function() {
+                renderAppointments(this.value);
+            });
+            
+            // Handle profile selection change
+            document.getElementById('profile').addEventListener('change', function() {
+                const profile = this.value;
+                const professionalSelect = document.getElementById('professional');
+                
+                professionalSelect.innerHTML = '<option value="">Seleccione un profesional</option>';
+                
+                if (profile && professionals[profile]) {
+                    professionals[profile].forEach(prof => {
+                        professionalSelect.innerHTML += `<option value="${prof.id}">${prof.name}</option>`;
+                    });
+                    professionalSelect.disabled = false;
+                } else {
+                    professionalSelect.disabled = true;
+                }
+            });
+
+            // Handle professional filter in calendar
+            document.getElementById('professionalSelect').addEventListener('change', function() {
+                const profile = this.value;
+                const specificSelect = document.getElementById('specificProfessional');
+                
+                specificSelect.innerHTML = '<option value="">Todos los profesionales</option>';
+                
+                if (profile && professionals[profile]) {
+                    professionals[profile].forEach(prof => {
+                        specificSelect.innerHTML += `<option value="${prof.id}">${prof.name}</option>`;
+                    });
+                    specificSelect.disabled = false;
+                } else {
+                    specificSelect.disabled = true;
+                }
+                
+                generateWeekView(currentCalendarDate);
+            });
+
+            // Initial render
+            renderAppointments();
+
+            // Reset form button
+            document.querySelector('#appointmentForm').addEventListener('reset', function() {
+                this.querySelector('button[type="submit"]').textContent = 'Agendar Cita';
+                this.classList.remove('border-2', 'border-blue-500');
+                this.querySelector('button[type="submit"]').classList.add('bg-blue-600');
+                this.querySelector('button[type="submit"]').classList.remove('bg-green-600');
+                
+                // Enable all fields
+                Array.from(this.elements).forEach(el => el.disabled = false);
+            });
+            
+            // Status change handler
+            document.addEventListener('change', function(e) {
+                if (e.target.classList.contains('status-select')) {
+                    const id = parseInt(e.target.getAttribute('data-id'));
+                    const newStatus = e.target.value;
+                    // In a real app, you would update this in your database
+                    alert(`Estado de cita ${id} actualizado a: ${newStatus}`);
+                }
+            });
+
+            // Tab switching
+            document.getElementById('appointmentsTab').addEventListener('click', function() {
+                document.getElementById('appointmentsView').classList.remove('hidden');
+                document.getElementById('calendarView').classList.add('hidden');
+                this.classList.add('text-blue-600', 'border-blue-600');
+                document.getElementById('calendarTab').classList.remove('text-blue-600', 'border-blue-600');
+            });
+
+            document.getElementById('calendarTab').addEventListener('click', function() {
+                document.getElementById('appointmentsView').classList.add('hidden');
+                document.getElementById('calendarView').classList.remove('hidden');
+                this.classList.add('text-blue-600', 'border-blue-600');
+                document.getElementById('appointmentsTab').classList.remove('text-blue-600', 'border-blue-600');
+            });
+
+            // Calendar functions
+            function generateWeekView(date = new Date()) {
+                const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+                const hours = ['8:00-9:00', '9:00-10:00', '10:00-11:00', '11:00-12:00', '13:00-14:00'];
+                
+                let calendarHTML = `<div class="grid grid-cols-6 gap-1 mb-2">`;
+                calendarHTML += `<div class="bg-gray-100 p-2 font-semibold">Hora</div>`;
+                
+                // Get current week dates
+                const weekDates = getWeekDates(date);
+                
+                // Header with dates
+                weekDates.forEach((dayDate, i) => {
+                    if(i < 5) { // Only weekdays
+                        const dateStr = dayDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+                        calendarHTML += `<div class="bg-blue-50 p-2 font-semibold text-blue-800">${days[i]} ${dateStr}</div>`;
+                    }
+                });
+                
+                calendarHTML += `</div>`;
+                
+                // Grid with appointments
+                hours.forEach(hour => {
+                    calendarHTML += `<div class="grid grid-cols-6 gap-1 h-20">`;
+                    calendarHTML += `<div class="bg-blue-50 p-2 font-medium text-blue-800">${hour}</div>`;
+                    
+                    weekDates.forEach((dayDate, i) => {
+                        if(i < 5) { // Only weekdays
+                            const dateStr = formatDate(dayDate);
+                            // Filter appointments based on selected professional
+                            const selectedProfile = document.getElementById('professionalSelect').value;
+                            const selectedProfessional = document.getElementById('specificProfessional').value;
+                            
+                            let cellAppointments = appointments.filter(app => 
+                                app.date === dateStr && 
+                                app.time === `cupo${hours.indexOf(hour)+1}`
+                            );
+                            
+                            if (selectedProfile) {
+                                cellAppointments = cellAppointments.filter(app => app.profile === selectedProfile);
+                            }
+                            
+                            if (selectedProfessional) {
+                                cellAppointments = cellAppointments.filter(app => app.professional === selectedProfessional);
+                            }
+                            
+                            let cellContent = cellAppointments.map(app => `
+                                <div class="p-1 mb-1 rounded text-xs ${getStatusColor(app.status)}">
+                                    <div class="font-medium">${app.professionalName || app.professional}</div>
+                                    <div>${app.serviceName}</div>
+                                    <div class="text-xs opacity-75">${app.name}</div>
+                                    ${app.notes ? `<div class="text-xs italic">${app.notes}</div>` : ''}
+                                </div>
+                            `).join('');
+                            
+                            calendarHTML += `<div class="border border-gray-200 p-1 bg-white">${cellContent || '<div class="text-gray-400 text-center py-2">-</div>'}</div>`;
+                        }
+                    });
+                    
+                    calendarHTML += `</div>`;
+                });
+                
+                document.getElementById('weekCalendar').innerHTML = calendarHTML;
+            }
+            
+            function getWeekDates(date) {
+                const curr = new Date(date);
+                const week = [];
+                
+                // Set to Monday of this week
+                curr.setDate(curr.getDate() - curr.getDay() + (curr.getDay() === 0 ? -6 : 1));
+                
+                for (let i = 0; i < 7; i++) {
+                    week.push(new Date(curr));
+                    curr.setDate(curr.getDate() + 1);
+                }
+                return week;
+            }
+            
+            function formatDate(date) {
+                return date.toISOString().split('T')[0];
+            }
+            
+            function getStatusColor(status) {
+                const colors = {
+                    pendiente: 'bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800',
+                    confirmada: 'bg-green-50 border-l-4 border-green-400 text-green-800',
+                    cancelada: 'bg-red-50 border-l-4 border-red-400 text-red-800',
+                    completada: 'bg-blue-50 border-l-4 border-blue-400 text-blue-800'
+                };
+                return colors[status] || 'bg-gray-100';
+            }
+
+            // Initialize calendar with current date
+            let currentCalendarDate = new Date();
+            generateWeekView(currentCalendarDate);
+            
+            // Add navigation handlers
+            document.getElementById('prevWeek').addEventListener('click', () => {
+                currentCalendarDate.setDate(currentCalendarDate.getDate() - 7);
+                generateWeekView(currentCalendarDate);
+            });
+            
+            document.getElementById('nextWeek').addEventListener('click', () => {
+                currentCalendarDate.setDate(currentCalendarDate.getDate() + 7);
+                generateWeekView(currentCalendarDate);
+            });
+            
+            document.getElementById('todayBtn').addEventListener('click', () => {
+                currentCalendarDate = new Date();
+                generateWeekView(currentCalendarDate);
+            });
+        });
+    </script>
+</body>
+</html>
