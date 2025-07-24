@@ -24,17 +24,12 @@
                 <div class="filter-group">
                     <label for="profile">Perfil Profesional</label>
                     <select id="profile">
-                        <option value="">Todos</option>
                     </select>
                 </div>
                 
                 <div class="filter-group">
-                    <label for="professional">Categoría</label>
+                    <label for="professional">Profesional</label>
                     <select id="professional">
-                        <option value="">Todas</option>
-                        <option value="tech">Tecnología</option>
-                        <option value="finance">Finanzas</option>
-                        <option value="hr">Recursos Humanos</option>
                     </select>
                 </div>
                 
