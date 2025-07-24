@@ -553,12 +553,12 @@
 </head>
 <body>
     <div class="container">
-        <header>
+        <!-- <header>
             <div class="logo">Sistema Modular</div>
             <div class="user-info">
                 <i class="fas fa-user-circle"></i> Admin
             </div>
-        </header>
+        </header> -->
         
         <div class="main-layout">
             <!-- Panel de Filtros -->
