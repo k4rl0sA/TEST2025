@@ -37,8 +37,8 @@
                 </div>
                 
                 <div class="filter-group">
-                    <label for="category">Categoría</label>
-                    <select id="category">
+                    <label for="professional">Categoría</label>
+                    <select id="professional">
                         <option value="">Todas</option>
                         <option value="tech">Tecnología</option>
                         <option value="finance">Finanzas</option>
