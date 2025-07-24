@@ -1,4 +1,3 @@
-    
             // --- DATOS DE EJEMPLO ---
             const mockData = {
                 profiles: [

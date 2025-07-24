@@ -298,5 +298,6 @@
             showToast('Cambios guardados correctamente', 'success');
         });
     </script>
+    <script src="agenda.js"></script>
 </body>
 </html>
