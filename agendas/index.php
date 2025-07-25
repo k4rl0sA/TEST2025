@@ -10,14 +10,12 @@
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="logo">Sistema de Agendamiento de Citas</div>
-        </header>
         <div class="main-layout">
             <!-- Filtros -->
             <aside>
                 <div class="filters-card">
-                    <h2><i class="fas fa-filter"></i> Filtros de Búsqueda</h2>
+                    <h2><i class="fas fa-filter"></i> Filtros</h2>
+
                     <div class="filter-group">
                         <label for="profile">Perfil Profesional</label>
                         <select id="profile">
@@ -30,6 +28,11 @@
                             <option value="">-- Seleccione un Profesional --</option>
                         </select>
                     </div>
+                </div>
+            </aside>
+            <!-- Calendario y contenido -->
+            <section>
+                <div class="content-card">
                     <div class="filter-actions">
                         <button id="prev-week" class="btn btn-outline"><i class="fas fa-chevron-left"></i> Semana Anterior</button>
                         <button id="next-week" class="btn btn-outline">Siguiente Semana <i class="fas fa-chevron-right"></i></button>
@@ -40,11 +43,6 @@
                         <div class="status status-info">Realizado</div>
                         <div class="status status-warning">Reasignado</div>
                     </div>
-                </div>
-            </aside>
-            <!-- Calendario y contenido -->
-            <section>
-                <div class="content-card">
                     <div class="table-header">
                         <h2 id="week-range">Semana</h2>
                     </div>
