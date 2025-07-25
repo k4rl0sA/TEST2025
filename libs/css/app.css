@@ -544,8 +544,8 @@
         .border {
             border-width: 1px;
         }
-        .border-green-400 {
-            border-color: rgb(74 222 128 / 1, 1);
+        .border-green {
+            border-color: rgb(74 222 128);
         }
         .ali-center {
             align-items: center;
