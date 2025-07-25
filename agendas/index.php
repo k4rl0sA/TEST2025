@@ -34,11 +34,13 @@
             <section>
                 <div class="content-card">
                     <div class="filter-actions">
-                        <button id="prev-week" class="btn btn-outline"><i class="fas fa-chevron-left"></i> Semana Anterior</button>
-                        <button id="next-week" class="btn btn-outline">Siguiente Semana <i class="fas fa-chevron-right"></i></button>
+                        
+                        
                     </div>
                     <div class="table-header">
-                        <h2 id="week-range">Semana</h2>
+                        <button id="prev-week" class="btn btn-outline"><i class="fas fa-chevron-left"></i> Semana Anterior</button>
+                        <h2 id="week-range"></h2>
+                        <button id="next-week" class="btn btn-outline">Siguiente Semana <i class="fas fa-chevron-right"></i></button>
                     </div>
                     <div id="calendar-container">
                         <div id="calendar" class="table-container">
