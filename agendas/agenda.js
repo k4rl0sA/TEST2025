@@ -142,7 +142,7 @@
                 const firstDay = weekDays[0];
                 const lastDay = weekDays[6];
 
-                weekRangeEl.textContent = `Semana +${firstDay.toLocaleDateString('es-ES', { month: 'short', day: 'numeric' })} - ${lastDay.toLocaleDateString('es-ES', { month: 'long', day: 'numeric' })}`;
+                weekRangeEl.textContent = `Semana ${firstDay.toLocaleDateString('es-ES', { month: 'short', day: 'numeric' })} - ${lastDay.toLocaleDateString('es-ES', { month: 'long', day: 'numeric' })}`;
                 
                 renderCalendarGrid(weekDays);
             }
