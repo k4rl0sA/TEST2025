@@ -38,19 +38,19 @@
                         <button id="next-week" class="btn btn-outline">Siguiente Semana <i class="fas fa-chevron-right"></i></button>
                     </div>
                     <div class="convents-group" style="margin-top:20px;">
-                        <div class="divflex gap-1">
+                        <div class="flex gap-1">
                             <span class="w-4 h-4 rounded status-active border border-green-400"></span>
                              Disponible
                         </div>
-                        <div class="divflex gap-1">
+                        <div class="flex gap-1">
                             <span class="w-4 h-4 rounded status-active border border-green-400"></span>
                              Ocupado
                         </div>
-                        <div class="divflex gap-1">
+                        <div class="flex gap-1">
                             <span class="w-4 h-4 rounded status-active border border-green-400"></span>
                              Realizado
                         </div>
-                        <div class="divflex gap-1">
+                        <div class="flex gap-1">
                             <span class="w-4 h-4 rounded status-active border border-green-400"></span>
                              Reasignado
                         </div>
