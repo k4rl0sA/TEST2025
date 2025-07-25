@@ -25,12 +25,12 @@ function lis_soporte() {
     $total = $info['responseResult'][0]['total'];
     $regxPag = 12;
     $pag = (isset($_POST['pag-soporte'])) ? ($_POST['pag-soporte']-1) * $regxPag : 0;
-    $sql = "SELECT idsoporte AS Ticket, idpeople AS 'Cod Persona', documento, tipo_doc AS Tipo, sexo, fecha_nacio AS Nacio, cod_predio AS Predio, cod_familia AS Familia, cod_registro AS Registro, FN_CATALOGODESC(286,formulario) AS Accion, error, ok, prioridad, observaciones, rta, usu_creo AS Creo, fecha_create AS 'Fecha Creo', FN_CATALOGODESC(285,estado) AS Estado
+    $sql = "SELECT idsoporte AS Ticket, idpeople AS 'Cod Persona', documento, tipo_doc AS Tipo, sexo, fecha_nacio AS Nacio, cod_predio AS Predio, cod_familia AS Familia, cod_registro AS Registro, FN_CATALOGODESC(286,formulario) AS Accion, error, ok, prioridad, observaciones, aprueba, usu_creo AS Creo, fecha_create AS 'Fecha Creo', FN_CATALOGODESC(285,estado) AS Estado
             FROM soporte
             WHERE 1 ";
     $sql .= whe_soporte();
     $sql .= " ORDER BY fecha_create DESC LIMIT $pag, $regxPag";
-	// var_dump($sql);
+	var_dump($sql);
     $datos = datos_mysql($sql);
     return create_table($total, $datos["responseResult"], "soporte", $regxPag);
 }
@@ -44,7 +44,7 @@ function whe_soporte() {
 	if (!empty($_POST['fuser']))   
 		$sql .= " AND idpeople = '" . cleanTx($_POST['fuser']) . "'";
 	if ($_POST['fdigita'])	
-		$sql .= " AND usu_creo='".$_POST['fdigita']."'";
+		$sql .= " AND usu_creo='".$_POST['fdigita']."' OR perfil('".$_POST['fdigita']."')='PROAPO'";
     if (!empty($_POST['fest'])) 
 		$sql .= " AND estado = '" . intval($_POST['fest']) . "'";
     return $sql;
