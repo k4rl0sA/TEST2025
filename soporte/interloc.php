@@ -75,7 +75,7 @@ function gra_trasladint() {
     $sql_fam = "SELECT hg.subred,P.idpeople 
  	    FROM hog_fam hf 
         INNER JOIN hog_geo hg ON hf.idpre = hg.idgeo
-        INNER JOIN personas P ON hf.id_fam=P.vivipersona 
+        INNER JOIN person P ON hf.id_fam=P.vivipersona 
         WHERE P.idpersona= {$doc} AND P.tipo_doc='{$tipo}' LIMIT 1";
     //mostrar sql_fam
     // var_dump($sql_fam);
