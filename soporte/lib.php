@@ -31,7 +31,7 @@ function lis_soporte() {
 WHERE 1";
     $sql .= whe_soporte();
     $sql .= " ORDER BY fecha_create DESC LIMIT $pag, $regxPag";
-	var_dump($sql);
+	// var_dump($sql);
     $datos = datos_mysql($sql);
     return create_table($total, $datos["responseResult"], "soporte", $regxPag);
 }
