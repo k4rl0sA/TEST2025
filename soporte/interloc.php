@@ -57,8 +57,8 @@ function cap_menus($a,$b='cap',$con='con') {
 // Guardar traslado interlocalidad/subred
 function gra_trasladint() {
     $id = divide($_POST['idfam']);
-    $doc = divide($_POST['docum']);
-    $tipo = intval($_POST['tip_doc']);
+    $doc = $_POST['docum'];
+    $tipo = $_POST['tip_doc'];
     $usu_creo = $_SESSION['us_sds'];
     $creo = date('Y-m-d H:i:s', strtotime('-5 hours'));
     $estado = 3;
