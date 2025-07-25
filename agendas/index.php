@@ -35,10 +35,10 @@
                         <button id="next-week" class="btn btn-outline">Siguiente Semana <i class="fas fa-chevron-right"></i></button>
                     </div>
                     <div class="filter-group" style="margin-top:20px;">
-                        <div class="status status-active">Disponible</div>
-                        <div class="status status-pending" style="color:var(--error);background:rgba(244,67,54,0.08)">Ocupado</div>
-                        <div class="status" style="color:var(--info);background:rgba(33,150,243,0.08)">Realizado</div>
-                        <div class="status" style="color:var(--warning);background:rgba(255,152,0,0.08)">Reasignado</div>
+                         <div class="status status-active">Disponible</div>
+                        <div class="status status-pending">Ocupado</div>
+                        <div class="status status-info">Realizado</div>
+                        <div class="status status-warning">Reasignado</div>
                     </div>
                 </div>
             </aside>
