@@ -38,6 +38,10 @@
                         <button id="next-week" class="btn btn-outline">Siguiente Semana <i class="fas fa-chevron-right"></i></button>
                     </div>
                     <div class="filter-group" style="margin-top:20px;">
+                        <div class="divflex items-center gap-1">
+                            <span class="w-4 h-4 rounded bg-green-200 border border-green-400"></span>
+                        </div>
+
                          <div class="status status-active">Disponible</div>
                         <div class="status status-pending">Ocupado</div>
                         <div class="status status-info">Realizado</div>
