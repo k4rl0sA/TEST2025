@@ -39,15 +39,15 @@ WHERE 1";
 function whe_soporte() {
     $sql = "";
     if (!empty($_POST['ftic'])) 
-		$sql .= " AND idsoporte LIKE '%" . cleanTx($_POST['ftic']) . "%'";
+        $sql .= " AND idsoporte LIKE '%" . cleanTx($_POST['ftic']) . "%'";
     if (!empty($_POST['fpredio']))   
-		$sql .= " AND cod_predio = '" . cleanTx($_POST['fpredio']) . "'";
-	if (!empty($_POST['fuser']))   
-		$sql .= " AND idpeople = '" . cleanTx($_POST['fuser']) . "'";
-	if ($_POST['fdigita'])	
-		$sql .= " AND usu_creo='".$_POST['fdigita']."' OR (u.perfil= 'PROAPO' )";
+        $sql .= " AND cod_predio = '" . cleanTx($_POST['fpredio']) . "'";
+    if (!empty($_POST['fuser']))   
+        $sql .= " AND idpeople = '" . cleanTx($_POST['fuser']) . "'";
+    if (!empty($_POST['fdigita']))	
+        $sql .= " AND (usu_creo='" . cleanTx($_POST['fdigita']) . "' OR aprueba = 'PROAPO')";
     if (!empty($_POST['fest'])) 
-		$sql .= " AND estado = '" . intval($_POST['fest']) . "'";
+        $sql .= " AND estado = '" . intval($_POST['fest']) . "'";
     return $sql;
 }
 
@@ -230,4 +230,3 @@ function opc_cod_famcod_individuo(){
 	   function bgcolor($a,$c,$f='c'){
 		// return $rta;
 	   }
-	
