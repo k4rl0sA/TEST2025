@@ -497,13 +497,49 @@
             cursor: pointer;
         }
 
- 
-            .gap-1 {
-                gap: 0.25rem;
-            }
-            .gap-2 {
-                gap: 0.5rem;
-            }
+        /* Estilos adicionales */
+        .gap-1 {
+            gap: 0.25rem;
+        }
+        .gap-2 {
+            gap: 0.5rem;
+        }
+        .flex {
+            display: flex;
+        }
+        .w-4 {
+            width: 1rem;
+        }
+        .w-8 {
+            width: 2rem;
+        }
+        .h-4 {
+            height: 1rem;
+        }
+        .h-8 {
+            height: 2rem;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-left {
+            text-align: left;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .mrgn-to2{
+            margin-top: 2rem;
+        }
+        .rounded {
+            border-radius: 0.25rem;
+        }
+        .border {
+            border-width: 1px;
+        }
+        .border-green-400 {
+            border-color: rgb(74 222 128 / 1, 1);
+        }
         /* Responsive */
         @media (max-width: 992px) {
             .main-layout {

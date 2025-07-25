@@ -39,7 +39,7 @@
                     </div>
                     <div class="filter-group" style="margin-top:20px;">
                         <div class="divflex gap-1">
-                            <span class="w-4 h-4 rounded bg-green-200 border border-green-400"></span>
+                            <span class="w-4 h-4 rounded status-active border border-green-400"></span>
                              Disponible
                         </div>
 
@@ -56,7 +56,7 @@
                             <!-- Aquí se renderiza el calendario -->
                         </div>
                     </div>
-                    <div id="no-professional-selected" style="text-align:center; margin:40px 0;">
+                    <div id="no-professional-selected" class="text-center" style="margin:40px 0;">
                         <i class="fas fa-user-md" style="font-size:3rem;color:var(--light-gray)"></i>
                         <p style="margin-top:10px;color:var(--gray)">Por favor, seleccione un perfil y un profesional para ver su agenda.</p>
                     </div>
