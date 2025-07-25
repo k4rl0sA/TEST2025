@@ -1,6 +1,6 @@
 <?php
 ini_set('display_errors','1');
-// include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
+include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
 ?>
 <head>
 <meta charset="utf-8"/>
