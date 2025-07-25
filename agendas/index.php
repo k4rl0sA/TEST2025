@@ -37,7 +37,7 @@
                         <button id="prev-week" class="btn btn-outline"><i class="fas fa-chevron-left"></i> Semana Anterior</button>
                         <button id="next-week" class="btn btn-outline">Siguiente Semana <i class="fas fa-chevron-right"></i></button>
                     </div>
-                    <div class="convents-group" style="flex margin-top:20px;">
+                    <div class="convents-group flex gap-45">
                         <div class="flex gap-1">
                             <span class="w-4 h-4 rounded status-active border border-green-400"></span>
                              Disponible
