@@ -78,7 +78,7 @@ function gra_trasladint() {
         INNER JOIN personas P ON hf.id_fam=P.vivipersona 
         WHERE P.idpersona= {$doc} AND P.tipo_doc='{$tipo}' LIMIT 1";
     //mostrar sql_fam
-    var_dump($sql_fam);
+    // var_dump($sql_fam);
     $info_fam = datos_mysql($sql_fam);
     $subred_fam = isset($info_fam['responseResult'][0]['subred']) ? $info_fam['responseResult'][0]['subred'] : null;
     $familia = isset($info_fam['responseResult'][0]['idpeople']) ? $info_fam['responseResult'][0]['idpeople'] : null;
