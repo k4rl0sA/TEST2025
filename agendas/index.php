@@ -42,11 +42,18 @@
                             <span class="w-4 h-4 rounded status-active border border-green-400"></span>
                              Disponible
                         </div>
-
-                         <div class="status status-active">Disponible</div>
-                        <div class="status status-pending">Ocupado</div>
-                        <div class="status status-info">Realizado</div>
-                        <div class="status status-warning">Reasignado</div>
+                        <div class="divflex gap-1">
+                            <span class="w-4 h-4 rounded status-active border border-green-400"></span>
+                             Ocupado
+                        </div>
+                        <div class="divflex gap-1">
+                            <span class="w-4 h-4 rounded status-active border border-green-400"></span>
+                             Realizado
+                        </div>
+                        <div class="divflex gap-1">
+                            <span class="w-4 h-4 rounded status-active border border-green-400"></span>
+                             Reasignado
+                        </div>
                     </div>
                     <div class="table-header">
                         <h2 id="week-range">Semana</h2>
