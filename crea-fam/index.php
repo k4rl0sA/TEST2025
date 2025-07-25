@@ -164,7 +164,8 @@ function grabar(tb='',ev){
   'tamrqc':'../rqc/lib.php',
   'tamsrq':'../srq/lib.php',
   'validPerson':'../soporte/valperson.php',
-  'traslados': '../soporte/trasladloc.php'
+  'traslados': '../soporte/trasladloc.php',
+  'trasladint': '../soporte/interloc.php'
  	};
    let ruta_app = rutaMap[tb] || 'lib.php';
   if(tb=='sesion2'){
