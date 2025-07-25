@@ -37,6 +37,18 @@
                         <button id="prev-week" class="btn btn-outline"><i class="fas fa-chevron-left"></i> Semana Anterior</button>
                         <button id="next-week" class="btn btn-outline">Siguiente Semana <i class="fas fa-chevron-right"></i></button>
                     </div>
+                    <div class="table-header">
+                        <h2 id="week-range">Semana</h2>
+                    </div>
+                    <div id="calendar-container">
+                        <div id="calendar" class="table-container">
+                            <!-- Aquí se renderiza el calendario -->
+                        </div>
+                    </div>
+                    <div id="no-professional-selected" class="text-center" style="margin:40px 0;">
+                        <i class="fas fa-user-md" style="font-size:3rem;color:var(--light-gray)"></i>
+                        <p style="margin-top:10px;color:var(--gray)">Por favor, seleccione un perfil y un profesional para ver su agenda.</p>
+                    </div>
                     <div class="convents-group flex gap-45">
                         <div class="flex gap-1">
                             <span class="w-4 h-4 rounded status-active border border-green-400"></span>
@@ -54,18 +66,6 @@
                             <span class="w-4 h-4 rounded status-active border border-green-400"></span>
                              Reasignado
                         </div>
-                    </div>
-                    <div class="table-header">
-                        <h2 id="week-range">Semana</h2>
-                    </div>
-                    <div id="calendar-container">
-                        <div id="calendar" class="table-container">
-                            <!-- Aquí se renderiza el calendario -->
-                        </div>
-                    </div>
-                    <div id="no-professional-selected" class="text-center" style="margin:40px 0;">
-                        <i class="fas fa-user-md" style="font-size:3rem;color:var(--light-gray)"></i>
-                        <p style="margin-top:10px;color:var(--gray)">Por favor, seleccione un perfil y un profesional para ver su agenda.</p>
                     </div>
                 </div>
                 <!-- Modal de Agendamiento -->
