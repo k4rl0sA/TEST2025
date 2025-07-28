@@ -6,7 +6,7 @@
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin-top: 60px; }
         .container { background: #f9f9f9; padding: 40px; border-radius: 8px; display: inline-block; }
-        input[type="file"], input[type="number"] { margin-bottom: 20px; }
+        input[type="file"] { margin-bottom: 20px; }
         .success { color: green; font-weight: bold; }
         .error { color: red; font-weight: bold; }
     </style>
@@ -23,9 +23,16 @@
     <script>
         document.getElementById('pdfForm').onsubmit = async function(e) {
             e.preventDefault();
-            const id_usuario = document.getElementById('id_usuario').value;
             const fileInput = document.getElementById('pdfFile');
-            if (!fileInput.files.length || !id_usuario) return;
+            if (!fileInput.files.length) return;
+            const fileName = fileInput.files[0].name;
+            // Extrae el id_usuario del nombre del archivo (ejemplo: 123.pdf)
+            const match = fileName.match(/^(\d+)\.pdf$/i);
+            if (!match) {
+                document.getElementById('mensaje').innerHTML = '<span class="error">El nombre del archivo debe ser el ID del usuario, por ejemplo: 123.pdf</span>';
+                return;
+            }
+            const id_usuario = match[1];
             const formData = new FormData();
             formData.append('pdf', fileInput.files[0]);
             formData.append('id_usuario', id_usuario);
