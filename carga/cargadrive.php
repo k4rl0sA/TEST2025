@@ -41,8 +41,29 @@ if (isset($_SESSION['google_access_token'])) {
 $service = new Google_Service_Drive($client);
 
 // Carpeta destino en Google Drive (ID de la carpeta)
-$folderId = 'TU_ID_DE_CARPETA'; // Reemplaza por el ID real de la carpeta
+$folderId = '1Dh4_o5mrTY-DGFec1-bfzKqDhCpVCLA9'; // Reemplaza por el ID real de la carpeta
+if (!$folderId) {
+    echo json_encode(['success' => false, 'error' => 'Carpeta de destino no configurada']);
+    exit;
+}
+// Verificar si el archivo ya existe en la carpeta
+$files = $service->files->listFiles([
+    'q' => "name='$pdfName' and '$folderId' in parents",
+    'fields' => 'files(id, name)'
+]);
+if (count($files->files) > 0) {
+    // Si el archivo ya existe, puedes optar por actualizarlo o eliminarlo
+    $existingFile = $files->files[0];
+    $fileId = $existingFile->id;
 
+    // Eliminar el archivo existente
+    try {
+        $service->files->delete($fileId);
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'error' => 'Error al eliminar el archivo existente: ' . $e->getMessage()]);
+        exit;
+    }
+}
 $fileMetadata = [
     'name' => $pdfName,
     'parents' => [$folderId]
