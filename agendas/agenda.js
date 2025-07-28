@@ -133,7 +133,7 @@
                 if (!selectedProfessionalId) {
                     calendarView.classList.add('hidden');
                     noProfessionalSelected.classList.remove('hidden');
-                    appointment-window.classList.add('hidden');
+                    modal.classList.add('hidden');
                     weekRangeEl.textContent = '';
                     return;
                 }
