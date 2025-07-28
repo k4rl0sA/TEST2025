@@ -69,12 +69,8 @@
                     </div>
                 </div>
                 <!-- Modal de Agendamiento -->
-                <div id="appointment-modal" class="modal" style="display:none;">
-                    <div class="modal-content form-section" style="max-width:600px;margin:auto;">
-                        <div style="display:flex;justify-content:space-between;align-items:center;">
-                            <h3 id="modal-title"><i class="fas fa-calendar-plus"></i> Programar Agenda</h3>
-                            <button id="close-modal" class="action-btn" type="button">&times;</button>
-                        </div>
+                <div id="appointment-modal" class="form-section hidden">
+                    <h3><i class="fas fa-edit"></i> Editar Registro</h3>
                         <form id="appointment-form">
                             <input type="hidden" id="slot-date">
                             <input type="hidden" id="slot-time">
