@@ -139,6 +139,6 @@
             </section>
         </div>
     </div>
-    <script src="agenda.js?v=8"></script>
+    <script src="agenda.js?v=9"></script>
 </body>
 </html>
