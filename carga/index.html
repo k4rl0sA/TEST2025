@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cargar PDF y actualizar usuario</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 60px; }
+        .container { background: #f9f9f9; padding: 40px; border-radius: 8px; display: inline-block; }
+        input[type="file"], input[type="number"] { margin-bottom: 20px; }
+        .success { color: green; font-weight: bold; }
+        .error { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Subir PDF y actualizar usuario</h2>
+        <form id="pdfForm">
+            <input type="number" id="id_usuario" name="id_usuario" placeholder="ID Usuario" required><br>
+            <input type="file" id="pdfFile" accept="application/pdf" required><br>
+            <button type="submit">Subir PDF</button>
+        </form>
+        <div id="mensaje"></div>
+    </div>
+    <script>
+        document.getElementById('pdfForm').onsubmit = async function(e) {
+            e.preventDefault();
+            const id_usuario = document.getElementById('id_usuario').value;
+            const fileInput = document.getElementById('pdfFile');
+            if (!fileInput.files.length || !id_usuario) return;
+            const formData = new FormData();
+            formData.append('pdf', fileInput.files[0]);
+            formData.append('id_usuario', id_usuario);
+            const res = await fetch('upload_pdf.php', { method: 'POST', body: formData });
+            const data = await res.json();
+            if (data.success) {
+                document.getElementById('mensaje').innerHTML = '<span class="success">¡PDF subido y usuario actualizado!</span>';
+            } else {
+                document.getElementById('mensaje').innerHTML = '<span class="error">Error: ' + data.error + '</span>';
+            }
+        };
+    </script>
+</body>
+</html>
