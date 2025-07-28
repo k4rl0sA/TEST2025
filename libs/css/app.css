@@ -574,6 +574,10 @@
         .convents-group .bg-blue { background-color: #bfdbfe !important; border-color: #3b82f6 !important; }
         .convents-group .bg-yellow { background-color: #fef08a !important; border-color: #eab308 !important; }
 
+        .hidden {
+            display: none;
+        }
+
         /* =========================
            CALENDARIO DE AGENDAS
            ========================= */
