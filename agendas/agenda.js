@@ -257,7 +257,7 @@
                 }
 
                 modal.classList.remove('hidden');
-                setTimeout(() => modal.querySelector('.modal-content').classList.replace('scale-95', 'scale-100'), 10);
+                // setTimeout(() => modal.querySelector('.modal-content').classList.replace('scale-95', 'scale-100'), 10);
             }
 
             function closeModal() {
