@@ -573,6 +573,86 @@
         .convents-group .bg-red { background-color: #fecaca !important; border-color: #ef4444 !important; }
         .convents-group .bg-blue { background-color: #bfdbfe !important; border-color: #3b82f6 !important; }
         .convents-group .bg-yellow { background-color: #fef08a !important; border-color: #eab308 !important; }
+
+        /* =========================
+           CALENDARIO DE AGENDAS
+           ========================= */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: 90px repeat(7, 1fr);
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 2rem;
+            border: 1px solid var(--light-gray);
+        }
+        .calendar-grid > div {
+            border-right: 1px solid var(--light-gray);
+            border-bottom: 1px solid var(--light-gray);
+            padding: 12px 8px;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            background: white;
+            transition: background 0.2s;
+        }
+        .calendar-grid > div.font-bold {
+            background: var(--primary-light);
+            color: white;
+            font-weight: 600;
+            border-bottom: 2px solid var(--primary);
+            font-size: 1.08rem;
+        }
+        .calendar-grid > div.text-center {
+            text-align: center;
+            justify-content: center;
+        }
+        .calendar-grid > div.border-r:last-child,
+        .calendar-grid > div:last-child {
+            border-right: none;
+        }
+        .calendar-slot {
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 0.98rem;
+            font-weight: 500;
+            transition: background 0.15s, color 0.15s;
+            min-height: 44px;
+            min-width: 80px;
+            margin: 2px;
+            border: 1.5px solid transparent;
+        }
+        .calendar-slot.bg-green-200 { background: #bbf7d0; color: #166534; border-color: #22c55e; }
+        .calendar-slot.bg-green-300 { background: #86efac; color: #166534; border-color: #22c55e; }
+        .calendar-slot.bg-red-200 { background: #fecaca; color: #991b1b; border-color: #ef4444; }
+        .calendar-slot.bg-red-300 { background: #fca5a5; color: #991b1b; border-color: #ef4444; }
+        .calendar-slot.bg-blue-200 { background: #bfdbfe; color: #1e40af; border-color: #3b82f6; }
+        .calendar-slot.bg-blue-300 { background: #93c5fd; color: #1e40af; border-color: #3b82f6; }
+        .calendar-slot.bg-yellow-200 { background: #fef08a; color: #b45309; border-color: #eab308; }
+        .calendar-slot.bg-yellow-300 { background: #fde047; color: #b45309; border-color: #eab308; }
+        .calendar-slot:hover {
+            filter: brightness(0.97);
+            border-color: var(--primary);
+            box-shadow: 0 2px 8px rgba(67,97,238,0.07);
+        }
+        /* Ocultar scroll horizontal en el calendario */
+        .table-container {
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--light-gray);
+        }
+        .table-container::-webkit-scrollbar {
+            height: 7px;
+            background: var(--light-gray);
+        }
+        .table-container::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
         /* Responsive */
         @media (max-width: 992px) {
             .main-layout {
@@ -583,27 +663,43 @@
                 margin-bottom: 20px;
             }
         }
+        @media (max-width: 900px) {
+            .calendar-grid {
+                grid-template-columns: 70px repeat(7, 1fr);
+                font-size: 0.95rem;
+            }
+            .calendar-grid > div {
+                padding: 8px 4px;
+                min-width: 60px;
+            }
+        }
 
         @media (max-width: 768px) {
             .form-row {
                 grid-template-columns: 1fr;
             }
-            
             .floating-action-btn {
                 display: flex;
             }
-            
             .table-header {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 15px;
             }
-            
             .btn-add {
                 width: 100%;
             }
         }
-
+        @media (max-width: 700px) {
+            .calendar-grid {
+                grid-template-columns: 50px repeat(7, 1fr);
+                font-size: 0.92rem;
+            }
+            .calendar-grid > div {
+                padding: 6px 2px;
+                min-width: 40px;
+            }
+        }
         @media (max-width: 576px) {
             .container {
                 padding: 15px;

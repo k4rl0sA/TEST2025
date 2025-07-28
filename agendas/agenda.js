@@ -166,22 +166,22 @@
                         const dateStr = day.toISOString().split('T')[0];
                         const appointment = findAppointment(dateStr, time);
                         
-                        let cellClass = 'bg-green-200 hover:bg-green-300 cursor-pointer';
+                        let cellClass = 'bg-green hover:bg-green-300 cursor-pointer';
                         let cellContent = 'Disponible';
                         let appointmentId = '';
                         
                         if (appointment) {
                              switch(appointment.status) {
                                 case 'Agendado':
-                                    cellClass = 'bg-red-200 hover:bg-red-300 cursor-pointer';
+                                    cellClass = 'bg-red hover:bg-red cursor-pointer';
                                     cellContent = 'Ocupado';
                                     break;
                                 case 'Realizado':
-                                    cellClass = 'bg-blue-200 hover:bg-blue-300 cursor-pointer';
+                                    cellClass = 'bg-blue hover:bg-blue cursor-pointer';
                                     cellContent = 'Carlos';
                                     break;
                                 case 'Reasignado':
-                                     cellClass = 'bg-yellow-200 hover:bg-yellow-300 cursor-pointer';
+                                     cellClass = 'bg-yellow hover:bg-yellow cursor-pointer';
                                      cellContent = 'Reasignado';
                                      break;
                             }
