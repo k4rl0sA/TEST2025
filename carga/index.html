@@ -36,7 +36,7 @@
             const formData = new FormData();
             formData.append('pdf', fileInput.files[0]);
             formData.append('id_usuario', id_usuario);
-            const res = await fetch('upload_pdf.php', { method: 'POST', body: formData });
+            const res = await fetch('cargadrive.php', { method: 'POST', body: formData });
             const data = await res.json();
             if (data.success) {
                 document.getElementById('mensaje').innerHTML = '<span class="success">¡PDF subido y usuario actualizado!</span>';
