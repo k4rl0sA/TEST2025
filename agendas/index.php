@@ -71,7 +71,7 @@
                 <!-- Window de Agendamiento -->
                 <div id="appointment-window" class="form-section modal-content hidden">
                     <h3 id="win-title"><i class="fas fa-edit"></i> Ingresar Cupo</h3>
-                    <button id="close-win" class="close-win-btn action-btn" type="button" aria-label="Cerrar ventana">&times;</button>
+                    <button id="close-win" class="btn btn-outline"><i class="fa-solid fa-xmark"></i></button>
                         <form id="appointment-form">
                             <input type="hidden" id="slot-date">
                             <input type="hidden" id="slot-time">
