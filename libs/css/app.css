@@ -14,6 +14,7 @@
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.12);
             --transition: all 0.3s ease;
+            --tw-border-opacity: 1;
         }
 
         * {
@@ -553,7 +554,7 @@
             border-width: 1px;
         }
         .border-green {
-            border-color: rgb(74 222 128);
+            border-color: rgb(74 222 128 / var(--tw-border-opacity, 1));
         }
         .ali-center {
             align-items: center;
