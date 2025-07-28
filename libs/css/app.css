@@ -569,10 +569,10 @@
             font-size: 1.08rem;
             color: var(--dark);
         }
-        .bg-green { background-color: #bbf7d0 !important; border-color: #22c55e !important; }
-        .bg-red { background-color: #fecaca !important; border-color: #ef4444 !important; }
-         .bg-blue { background-color: #bfdbfe !important; border-color: #3b82f6 !important; }
-        .convents-group .bg-yellow { background-color: #fef08a !important; border-color: #eab308 !important; }
+        .bg-green { background-color: #bbf7d0 !important; border-color: #22c55e !important; border: solid .06rem; }
+        .bg-red { background-color: #fecaca !important; border-color: #ef4444 !important; border: solid .06rem;}
+        .bg-blue { background-color: #bfdbfe !important; border-color: #3b82f6 !important; border: solid .06rem; }
+        .bg-yellow { background-color: #fef08a !important; border-color: #eab308 !important; border: solid .06rem; }
         .hidden {
             display: none;
         }
