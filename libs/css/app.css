@@ -288,7 +288,7 @@
 
         .input-group label {
             position: absolute;
-            top: 16px;
+            top: 8px;
             left: 15px;
             color: var(--gray);
             pointer-events: none;
