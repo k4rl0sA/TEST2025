@@ -570,6 +570,14 @@
             --tw-bg-opacity: 1;
             background-color: rgb(254 202 202 / var(--tw-bg-opacity, 1));
         }
+        .bg-yellow {
+            --tw-bg-opacity: 1;
+            background-color: rgb(254 240 138 / var(--tw-bg-opacity, 1));
+        }
+        .border-yellow {
+            --tw-border-opacity: 1;
+            border-color: rgb(250 204 21 / var(--tw-border-opacity, 1));
+        }
         .ali-center {
             align-items: center;
         }
