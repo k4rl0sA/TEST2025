@@ -257,11 +257,11 @@
                 }
 
                 modal.classList.remove('hidden');
-                // setTimeout(() => modal.querySelector('.modal-content').classList.replace('scale-95', 'scale-100'), 10);
+                setTimeout(() => modal.querySelector('.modal-content').classList.replace('scale-95', 'scale-100'), 10);
             }
 
             function closeModal() {
-                // modal.querySelector('.modal-content').classList.replace('scale-100', 'scale-95');
+                modal.querySelector('.modal-content').classList.replace('scale-100', 'scale-95');
                 setTimeout(() => modal.classList.add('hidden'), 300);
             }
 
