@@ -34,7 +34,7 @@ if (!move_uploaded_file($pdfTmp, $rutaFinal)) {
 }
 
 // Actualiza el campo file en la tabla usuarios (guarda el nombre del archivo)
-$sql = "UPDATE usuarios SET file = '$pdfName' WHERE id_usuario = $id_usuario";
+$sql = "UPDATE usuarios SET file = 1 WHERE id_usuario = $id_usuario";
 $res = dato_mysql($sql);
 
 // Verifica resultado y responde
