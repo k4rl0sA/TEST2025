@@ -166,7 +166,7 @@
                         const dateStr = day.toISOString().split('T')[0];
                         const appointment = findAppointment(dateStr, time);
                         
-                        let cellClass = 'bg-green hover:bg-green-300 cursor-pointer';
+                        let cellClass = 'bg-green hover:bg-green cursor-pointer';
                         let cellContent = 'Disponible';
                         let appointmentId = '';
                         
@@ -178,7 +178,7 @@
                                     break;
                                 case 'Realizado':
                                     cellClass = 'bg-blue hover:bg-blue cursor-pointer';
-                                    cellContent = 'Carlos';
+                                    cellContent = 'Realizado';
                                     break;
                                 case 'Reasignado':
                                      cellClass = 'bg-yellow hover:bg-yellow cursor-pointer';
