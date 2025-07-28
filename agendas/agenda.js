@@ -133,6 +133,7 @@
                 if (!selectedProfessionalId) {
                     calendarView.classList.add('hidden');
                     noProfessionalSelected.classList.remove('hidden');
+                    appointment-window.classList.add('hidden');
                     return;
                 }
                 calendarView.classList.remove('hidden');
