@@ -243,7 +243,7 @@
                     // Nueva cita: mostrar formulario para agendar
                     modalTitle.innerHTML = '';
                     const icon = document.createElement('i');
-                    icon.className = 'fas fa-edit';
+                    icon.className = 'fa-solid fa-calendar-days';
                     modalTitle.appendChild(icon);
                     modalTitle.appendChild(document.createTextNode(' Programar Agenda'));
                     const today = new Date().toISOString().split('T')[0];
