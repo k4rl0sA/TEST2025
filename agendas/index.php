@@ -33,8 +33,6 @@
             <!-- Calendario y contenido -->
             <section>
                 <div class="content-card">
-                    <div class="filter-actions">
-                    </div>
                     <div id="calendar-container">
                         <div class="table-header">
                             <button id="prev-week" class="btn btn-outline"><i class="fas fa-chevron-left"></i> Semana Anterior</button>
