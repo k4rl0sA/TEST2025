@@ -70,8 +70,8 @@
                 
                 <!-- Window de Agendamiento -->
                 <div id="appointment-window" class="form-section modal-content hidden">
-                    <h3 id="win-title"><i class="fas fa-edit"></i> Ingresar Cupo</h3>
-                    <button id="close-win" class="btn btn-outline"><i class="fa-solid fa-xmark"></i></button>
+                    <div class="table-header"><h3 id="win-title"><i class="fas fa-edit"></i> Ingresar Cupo</h3>
+                    <button id="close-win" class="btn btn-outline"><i class="fa-solid fa-xmark"></i></button></div>
                         <form id="appointment-form">
                             <input type="hidden" id="slot-date">
                             <input type="hidden" id="slot-time">
