@@ -555,6 +555,13 @@
             align-items: center;
             margin: 2rem 0 1rem 0;
         }
+        .convents-group .w-4,
+        .convents-group .h-4 {
+            border: 2px solid #222 !important; /* Borde oscuro por defecto */
+            box-sizing: border-box;
+            display: inline-block;
+            vertical-align: middle;
+        }
         .convents-group .flex {
             display: flex;
             align-items: center;
