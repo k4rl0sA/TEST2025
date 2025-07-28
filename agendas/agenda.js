@@ -261,11 +261,15 @@
                 }
 
                 modal.classList.remove('hidden');
+                //cerrar calendar-container
+                calendarView.classList.add('hidden');
                 // setTimeout(() => modal.querySelector('.modal-content').classList.replace('scale-95', 'scale-100'), 10);
             }
 
             function closeModal() {
                 // modal.querySelector('.modal-content').classList.replace('scale-100', 'scale-95');
+                //mostrar calendar-container
+                calendarView.classList.remove('hidden');
                 setTimeout(() => modal.classList.add('hidden'), 300);
             }
 
