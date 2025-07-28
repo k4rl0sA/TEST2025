@@ -67,7 +67,7 @@
                              Reasignado
                         </div>
                     </div>
-                </div>
+                
                 <!-- Window de Agendamiento -->
                 <div id="appointment-window" class="form-section modal-content hidden">
                     <h3 id="win-title"><i class="fas fa-edit"></i> Ingresar Cupo</h3>
@@ -136,6 +136,9 @@
                         </form>
                     </div>
                 </div>
+            </div>
+            <div id="loading-spinner" class="loading-spinner hidden">
+                <i class="fas fa-spinner fa-spin"></i>
             </section>
         </div>
     </div>
