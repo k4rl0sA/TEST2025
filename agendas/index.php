@@ -44,12 +44,7 @@
                         <div id="calendar" class="table-container">
                             <!-- Aquí se renderiza el calendario -->
                         </div>
-                    </div>
-                    <div id="no-professional-selected" class="text-center" style="margin:40px 0;">
-                        <i class="fas fa-user-md" style="font-size:3rem;color:var(--light-gray)"></i>
-                        <p style="margin-top:10px;color:var(--gray)">Por favor, seleccione un perfil y un profesional para ver su agenda.</p>
-                    </div>
-                    <div class="convents-group flex gap-45">
+                        <div class="convents-group flex gap-45">
                         <div class="flex gap-1">
                             <span class="w-4 h-4 rounded border bg-green"></span>
                              Disponible
@@ -67,6 +62,12 @@
                              Reasignado
                         </div>
                     </div>
+                    </div>
+                    <div id="no-professional-selected" class="text-center" style="margin:40px 0;">
+                        <i class="fas fa-user-md" style="font-size:3rem;color:var(--light-gray)"></i>
+                        <p style="margin-top:10px;color:var(--gray)">Por favor, seleccione un perfil y un profesional para ver su agenda.</p>
+                    </div>
+                    
                 
                 <!-- Window de Agendamiento -->
                 <div id="appointment-window" class="form-section modal-content hidden">
