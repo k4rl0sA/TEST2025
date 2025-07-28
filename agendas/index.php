@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <!-- Window de Agendamiento -->
-                <div id="appointment-window" class="form-section hidden">
+                <div id="appointment-window" class="form-section modal-content hidden">
                     <h3 id="win-title"><i class="fas fa-edit"></i> Ingresar Cupo</h3>
                     <button id="close-win" class="text-white hover:text-gray-200 text-2xl">×</button>
                         <form id="appointment-form">
@@ -139,6 +139,6 @@
             </section>
         </div>
     </div>
-    <script src="agenda.js?v=7"></script>
+    <script src="agenda.js?v=8"></script>
 </body>
 </html>
