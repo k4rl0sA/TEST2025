@@ -63,7 +63,7 @@
                     </div>
                     <div id="no-professional-selected" class="text-center" style="margin:40px 0;">
                         <i class="fas fa-user-md" style="font-size:3rem;color:var(--light-gray)"></i>
-                        <p style="margin-top:10px;color:var(--dark)">Por favor, seleccione un perfil y un profesional para ver su agenda.</p>
+                        <p class="status status-pending" style="margin-top:10px;">Por favor, seleccione un perfil y un profesional para ver su agenda.</p>
                     </div>
                     
                 
