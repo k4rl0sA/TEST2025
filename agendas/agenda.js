@@ -237,7 +237,6 @@
                     fillFormWithAppointmentData(appointment);
                     setFormReadOnly(true);
                     submitBtn.classList.add('hidden');
-                    calendarView.classList.add('hidden');
                     statusSection.classList.remove('hidden');
                     appointmentStatusSelect.value = appointment.status;
                     reassignBtn.classList.toggle('hidden', appointment.status !== 'Reasignado');
@@ -269,7 +268,6 @@
             function closeModal() {
                 // modal.querySelector('.modal-content').classList.replace('scale-100', 'scale-95');
                 setTimeout(() => modal.classList.add('hidden'), 300);
-                calendarView.classList.remove('hidden');
             }
 
             function resetModalState() {
