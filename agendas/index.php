@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <!-- Modal de Agendamiento -->
-                <div id="appointment-modal" class="form-section hidden">
+                <div id="appointment-window" class="form-section hidden">
                     <h3><i class="fas fa-edit"></i> Editar Registro</h3>
                         <form id="appointment-form">
                             <input type="hidden" id="slot-date">

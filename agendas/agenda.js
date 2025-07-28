@@ -34,9 +34,9 @@
             const calendarView = document.getElementById('calendar-container');
 
             // Modal elements
-            const modal = document.getElementById('appointment-modal');
-            const modalTitle = document.getElementById('modal-title');
-            const closeModalBtn = document.getElementById('close-modal');
+            const modal = document.getElementById('appointment-window');
+            /* const modalTitle = document.getElementById('modal-title');
+            const closeModalBtn = document.getElementById('close-modal'); */
             const cancelBtn = document.getElementById('cancel-btn');
             const form = document.getElementById('appointment-form');
             const searchPatientBtn = document.getElementById('search-patient');
