@@ -435,8 +435,9 @@ function crear_panel(tb, a, b = 7, lib = ruta_app, tit = '') {
 			</div>
 			<span id="${id}-msj" class="mensaje"></span>
 			<div class="contenido ${a === 'lib' ? 'lib-con' : ''}" id="${id}-con"></div>
+			<li class="icono ${tb} cancelar" title="Cerrar" onclick="ocultar('${tb}', '${a}');"></li>
 		`;
-		<li class="icono ${tb} cancelar" title="Cerrar" onclick="ocultar('${tb}', '${a}');"></li>// linea 433 25-07-2025
+		
 		p.innerHTML = txt;
 		document.getElementById('fapp').appendChild(p);
 		Drag.init(document.getElementById(`${id}-tit`), p);
