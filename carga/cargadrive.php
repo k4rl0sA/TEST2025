@@ -1,5 +1,7 @@
 <?php
-<?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 require_once "../libs/gestion.php";
 header('Content-Type: application/json');
 
@@ -24,18 +26,13 @@ if (!move_uploaded_file($pdfTmp, $rutaFinal)) {
     exit;
 }
 
-// Aquí deberías subir el archivo a OneDrive usando su API y guardar la ruta si lo deseas.
-//lógica real de subida a OneDrive
-
-
-
 // Actualiza el campo file en la tabla usuarios
 $sql = "UPDATE usuarios SET file = '$pdfName' WHERE id_usuario = $id_usuario";
-$res = dato_mysql($sql);
+$res = mysqli_query($GLOBALS['con'], $sql);
 
-if (strpos($res, 'Se ha Actualizado') !== false) {
+if ($res) {
     echo json_encode(['success' => true]);
 } else {
-    echo json_encode(['success' => false, 'error' => $res]);
+    echo json_encode(['success' => false, 'error' => mysqli_error($GLOBALS['con'])]);
 }
 ?>
