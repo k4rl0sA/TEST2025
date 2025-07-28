@@ -325,7 +325,7 @@
         .input-group select:not([value=""]) ~ label,
         .input-group textarea:focus ~ label,
         .input-group textarea:not(:placeholder-shown) ~ label {
-            top: .62rem;
+            top: -1.38rem;
             font-size: 0.8rem;
             color: var(--primary);
         }
