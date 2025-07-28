@@ -16,7 +16,13 @@
                 patients: [
                     { docType: 'Cédula de Ciudadanía', docNumber: '12345678', fullName: 'Juan Pérez', phone: '3001234567', address: 'Calle Falsa 123' }
                 ],
-                appointments: []
+                appointments: [],
+                 docTypes: [
+                    { value: 'CC', label: 'Cédula de Ciudadanía' },
+                    { value: 'TI', label: 'Tarjeta de Identidad' },
+                    { value: 'CE', label: 'Cédula de Extranjería' },
+                    { value: 'PA', label: 'Pasaporte' },
+                    { value: 'RC', label: 'Registro Civil' }]
             };
 
             // --- ESTADO DE LA APLICACIÓN ---
