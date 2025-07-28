@@ -51,19 +51,19 @@
                     </div>
                     <div class="convents-group flex gap-45">
                         <div class="flex gap-1">
-                            <span class="w-4 h-4 rounded border bg-green border-green"></span>
+                            <span class="w-4 h-4 rounded border bg-green"></span>
                              Disponible
                         </div>
                         <div class="flex gap-1">
-                            <span class="w-4 h-4 rounded  border bg-red border-red"></span>
+                            <span class="w-4 h-4 rounded  border bg-red"></span>
                              Ocupado
                         </div>
                         <div class="flex gap-1">
-                            <span class="w-4 h-4 rounded  border bg-blue border-blue"></span>
+                            <span class="w-4 h-4 rounded  border bg-blue"></span>
                              Realizado
                         </div>
                         <div class="flex gap-1">
-                            <span class="w-4 h-4 rounded  border bg-yellow border-yellow"></span>
+                            <span class="w-4 h-4 rounded  border bg-yellow"></span>
                              Reasignado
                         </div>
                     </div>
