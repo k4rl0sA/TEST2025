@@ -546,7 +546,7 @@
         .border {
             border-width: 1px;
         }
-        .border-green {
+        /* .border-green {
             --tw-border-opacity: 1;
             border-color: rgb(74 222 128 / var(--tw-border-opacity, 1));
         }
@@ -577,7 +577,7 @@
         .border-yellow {
             --tw-border-opacity: 1;
             border-color: rgb(250 204 21 / var(--tw-border-opacity, 1));
-        }
+        } */
         .ali-center {
             align-items: center;
         }
@@ -594,6 +594,10 @@
             font-size: 1.08rem;
             color: var(--dark);
         }
+        .convents-group .bg-green { background-color: #bbf7d0 !important; border-color: #22c55e !important; }
+        .convents-group .bg-red { background-color: #fecaca !important; border-color: #ef4444 !important; }
+        .convents-group .bg-blue { background-color: #bfdbfe !important; border-color: #3b82f6 !important; }
+        .convents-group .bg-yellow { background-color: #fef08a !important; border-color: #eab308 !important; }
         /* Responsive */
         @media (max-width: 992px) {
             .main-layout {
