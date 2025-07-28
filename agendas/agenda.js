@@ -134,8 +134,10 @@
                     calendarView.classList.add('hidden');
                     noProfessionalSelected.classList.remove('hidden');
                     appointment-window.classList.add('hidden');
+                    weekRangeEl.textContent = '';
                     return;
                 }
+                
                 calendarView.classList.remove('hidden');
                 noProfessionalSelected.classList.add('hidden');
 
