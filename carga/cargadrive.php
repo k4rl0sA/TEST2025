@@ -3,6 +3,8 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 require_once "../libs/gestion.php";
+require_once '../libs/vendor/autoload.php'; // Google API Client
+
 header('Content-Type: application/json');
 
 // Validar sesión
@@ -21,26 +23,51 @@ $id_usuario = intval($_POST['id_usuario']);
 $pdfTmp = $_FILES['pdf']['tmp_name'];
 $pdfName = $id_usuario . '.pdf';
 
-// Carpeta destino local (puedes adaptar para OneDrive)
-$carpetaDestino = __DIR__ . "/pdfs/";
-if (!is_dir($carpetaDestino)) {
-    mkdir($carpetaDestino, 0777, true);
-}
-$rutaFinal = $carpetaDestino . $pdfName;
+// Autenticación con Google
+$client = new Google_Client();
+$client->setAuthConfig(__DIR__ . '/../libs/credentials.json');
+$client->addScope(Google_Service_Drive::DRIVE_FILE);
+$client->setAccessType('offline');
 
-if (!move_uploaded_file($pdfTmp, $rutaFinal)) {
-    echo json_encode(['success' => false, 'error' => 'No se pudo guardar el archivo']);
+// Puedes guardar y reutilizar el token de acceso en sesión o archivo
+if (isset($_SESSION['google_access_token'])) {
+    $client->setAccessToken($_SESSION['google_access_token']);
+} else {
+    // Aquí deberías implementar el flujo OAuth2 para obtener el token
+    echo json_encode(['success' => false, 'error' => 'No hay token de Google Drive']);
     exit;
 }
 
-// Actualiza el campo file en la tabla usuarios (guarda el nombre del archivo)
-$sql = "UPDATE usuarios SET file = 1 WHERE id_usuario = $id_usuario";
-$res = dato_mysql($sql);
+$service = new Google_Service_Drive($client);
 
-// Verifica resultado y responde
-if (strpos($res, 'Se ha Actualizado') !== false) {
-    echo json_encode(['success' => true]);
-} else {
-    echo json_encode(['success' => false, 'error' => $res]);
+// Carpeta destino en Google Drive (ID de la carpeta)
+$folderId = 'TU_ID_DE_CARPETA'; // Reemplaza por el ID real de la carpeta
+
+$fileMetadata = [
+    'name' => $pdfName,
+    'parents' => [$folderId]
+];
+
+$content = file_get_contents($pdfTmp);
+
+try {
+    $file = $service->files->create($fileMetadata, [
+        'data' => $content,
+        'mimeType' => 'application/pdf',
+        'uploadType' => 'multipart'
+    ]);
+
+    // Actualiza el campo file en la tabla usuarios (puedes guardar el ID o la URL del archivo)
+    $fileId = $file->id;
+    $sql = "UPDATE usuarios SET file = '$fileId' WHERE id_usuario = $id_usuario";
+    $res = dato_mysql($sql);
+
+    if (strpos($res, 'Se ha Actualizado') !== false) {
+        echo json_encode(['success' => true, 'fileId' => $fileId]);
+    } else {
+        echo json_encode(['success' => false, 'error' => $res]);
+    }
+} catch (Exception $e) {
+    echo json_encode(['success' => false, 'error' => $e->getMessage()]);
 }
 ?>
