@@ -241,7 +241,11 @@
                     reassignBtn.classList.toggle('hidden', appointment.status !== 'Reasignado');
                 } else {
                     // Nueva cita: mostrar formulario para agendar
-                    modalTitle.textContent ='<i class="fas fa-edit"></i>'+'Programar Agenda';
+                    modalTitle.innerHTML = '';
+                    const icon = document.createElement('i');
+                    icon.className = 'fas fa-edit';
+                    modalTitle.appendChild(icon);
+                    modalTitle.appendChild(document.createTextNode(' Programar Agenda'));
                     const today = new Date().toISOString().split('T')[0];
                     const maxDate = new Date();
                     maxDate.setDate(maxDate.getDate() + 15);
