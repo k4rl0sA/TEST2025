@@ -68,9 +68,9 @@
                         </div>
                     </div>
                 </div>
-                <!-- Modal de Agendamiento -->
+                <!-- Window de Agendamiento -->
                 <div id="appointment-window" class="form-section hidden">
-                    <h3 id="win-title"><i class="fas fa-edit"></i> Editar Registro</h3>
+                    <h3 id="win-title"><i class="fas fa-edit"></i> Ingresar Cupo</h3>
                     <button id="close-win" class="text-white hover:text-gray-200 text-2xl">×</button>
                         <form id="appointment-form">
                             <input type="hidden" id="slot-date">
