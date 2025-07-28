@@ -5,6 +5,13 @@ error_reporting(E_ALL);
 require_once "../libs/gestion.php";
 header('Content-Type: application/json');
 
+// Validar sesión
+if (!isset($_SESSION['us_sds'])) {
+    echo json_encode(['success' => false, 'error' => 'Sesión no iniciada']);
+    exit;
+}
+
+// Validar archivo y usuario
 if (!isset($_FILES['pdf']) || $_FILES['pdf']['error'] !== UPLOAD_ERR_OK || !isset($_POST['id_usuario'])) {
     echo json_encode(['success' => false, 'error' => 'Archivo o usuario no recibido']);
     exit;
@@ -26,13 +33,14 @@ if (!move_uploaded_file($pdfTmp, $rutaFinal)) {
     exit;
 }
 
-// Actualiza el campo file en la tabla usuarios
-$sql = "UPDATE usuarios SET file = 1 WHERE id_usuario = $id_usuario";
-$res = mysqli_query($GLOBALS['con'], $sql);
-var_dump($res);
-if ($res) {
+// Actualiza el campo file en la tabla usuarios (guarda el nombre del archivo)
+$sql = "UPDATE usuarios SET file = '$pdfName' WHERE id_usuario = $id_usuario";
+$res = dato_mysql($sql);
+
+// Verifica resultado y responde
+if (strpos($res, 'Se ha Actualizado') !== false) {
     echo json_encode(['success' => true]);
 } else {
-    echo json_encode(['success' => false, 'error' => mysqli_error($GLOBALS['con'])]);
+    echo json_encode(['success' => false, 'error' => $res]);
 }
 ?>
