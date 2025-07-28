@@ -218,7 +218,6 @@
                 const appointmentId = slot.dataset.appointmentId || null;
 
                 openModal(date, time, appointmentId);
-                
             }
 
             function openModal(date, time, appointmentId = null) {
