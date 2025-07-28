@@ -34,8 +34,6 @@
             <section>
                 <div class="content-card">
                     <div class="filter-actions">
-                        
-                        
                     </div>
                     <div class="table-header">
                         <button id="prev-week" class="btn btn-outline"><i class="fas fa-chevron-left"></i> Semana Anterior</button>
@@ -53,19 +51,19 @@
                     </div>
                     <div class="convents-group flex gap-45">
                         <div class="flex gap-1">
-                            <span class="w-4 h-4 rounded status-active border border-green-400"></span>
+                            <span class="w-4 h-4 rounded  border bg-green-200 border-green-400"></span>
                              Disponible
                         </div>
                         <div class="flex gap-1">
-                            <span class="w-4 h-4 rounded status-active border border-green-400"></span>
+                            <span class="w-4 h-4 rounded  border border-green-400"></span>
                              Ocupado
                         </div>
                         <div class="flex gap-1">
-                            <span class="w-4 h-4 rounded status-active border border-green-400"></span>
+                            <span class="w-4 h-4 rounded  border border-green-400"></span>
                              Realizado
                         </div>
                         <div class="flex gap-1">
-                            <span class="w-4 h-4 rounded status-active border border-green-400"></span>
+                            <span class="w-4 h-4 rounded  border border-green-400"></span>
                              Reasignado
                         </div>
                     </div>

@@ -221,6 +221,9 @@
             background-color: rgba(255,152,0,0.08);
             color: var(--warning);
         }
+        .bg-green-200 {
+            background-color: rgb(187 247 208 / var(1, 1));
+        }
 
         .action-buttons {
             display: flex;
