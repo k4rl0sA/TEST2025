@@ -27,9 +27,9 @@ if (!move_uploaded_file($pdfTmp, $rutaFinal)) {
 }
 
 // Actualiza el campo file en la tabla usuarios
-$sql = "UPDATE usuarios SET file = '$pdfName' WHERE id_usuario = $id_usuario";
+$sql = "UPDATE usuarios SET file = 1 WHERE id_usuario = $id_usuario";
 $res = mysqli_query($GLOBALS['con'], $sql);
-
+var_dump($res);
 if ($res) {
     echo json_encode(['success' => true]);
 } else {
