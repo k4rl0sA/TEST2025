@@ -21,16 +21,17 @@ $id_usuario = intval($_POST['id_usuario']);
 $pdfTmp = $_FILES['pdf']['tmp_name'];
 $pdfName = $id_usuario . '.pdf';
 
-$sql1 = "SELECT subred from usuarios WHERE id_usuario = $id_usuario";
+// Obtener la subred del usuario
+$sql1 = "SELECT subred FROM usuarios WHERE id_usuario = $id_usuario";
 $res = datos_mysql($sql1);
-$subred=$res['responseResult'][0]['subred'] ?? null;
 if (!$res || !isset($res['responseResult'][0]['subred'])) {
     echo json_encode(['success' => false, 'error' => 'Usuario no encontrado']);
     exit;
 }
+$subred = $res['responseResult'][0]['subred'];
 
-// Carpeta destino local (puedes adaptar para OneDrive)
-$carpetaDestino = __DIR__ . "/pdfs/".$subred;
+// Carpeta destino: /pdfs/{subred}/
+$carpetaDestino = __DIR__ . "/pdfs/" . $subred . "/";
 if (!is_dir($carpetaDestino)) {
     mkdir($carpetaDestino, 0777, true);
 }
