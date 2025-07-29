@@ -2,16 +2,18 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-require_once "../libs/gestion.php";
-require_once '../libs/vendor/autoload.php'; // Google API Client
-
-header('Content-Type: application/json');
-
 // Validar sesión
 if (!isset($_SESSION['us_sds'])) {
     echo json_encode(['success' => false, 'error' => 'Sesión no iniciada']);
     exit;
+}else{
+    require_once "../libs/gestion.php";
 }
+require_once '../libs/vendor/autoload.php'; // Google API Client
+
+header('Content-Type: application/json');
+
+
 
 // Validar archivo y usuario
 if (!isset($_FILES['pdf']) || $_FILES['pdf']['error'] !== UPLOAD_ERR_OK || !isset($_POST['id_usuario'])) {
