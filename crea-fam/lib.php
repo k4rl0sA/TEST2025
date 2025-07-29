@@ -158,7 +158,7 @@ function lis_famili(){
 			LEFT JOIN hog_carac C ON V.id_fam=C.idfam AND C.fecha = (SELECT MAX(fecha) FROM hog_carac WHERE C.idfam = V.id_fam)
 			
 		WHERE idpre='".$_POST['id'];
-		$sql.="' AND C.estado='A' ORDER BY V.fecha_create";
+		$sql.="'  ORDER BY V.fecha_create";//AND C.estado='A'
 		//  echo $sql;
 			$datos=datos_mysql($sql);
 		return panel_content($datos["responseResult"],"famili-lis",15);
