@@ -159,7 +159,7 @@ function lis_famili(){
 			
 		WHERE idpre='".$_POST['id'];
 		$sql.="'  ORDER BY V.fecha_create";//AND C.estado='A'
-		//  echo $sql;
+		 echo $sql;
 			$datos=datos_mysql($sql);
 		return panel_content($datos["responseResult"],"famili-lis",15);
 }
