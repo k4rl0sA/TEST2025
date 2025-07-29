@@ -2,6 +2,7 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+require_once "../libs/gestion.php";
 // Validar sesión
 if (!isset($_SESSION['us_sds'])) {
     echo json_encode([
@@ -9,8 +10,6 @@ if (!isset($_SESSION['us_sds'])) {
         'error' => 'Sesión no iniciada. <a href="/">Iniciar sesión</a>'
     ]);
     exit;
-}else{
-    require_once "../libs/gestion.php";
 }
 require_once '../libs/vendor/autoload.php'; // Google API Client
 
