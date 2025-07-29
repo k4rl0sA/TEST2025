@@ -108,31 +108,65 @@
             <button type="submit">Subir PDF</button>
         </form>
         <div id="mensaje"></div>
+        <div id="progress-container" style="width:100%;margin-top:18px;display:none;">
+    <div id="progress-bar" style="height:18px;width:0%;background:#6366f1;border-radius:8px;transition:width 0.2s;"></div>
+</div>
     </div>
     <script>
-        document.getElementById('pdfForm').onsubmit = async function(e) {
-            e.preventDefault();
-            const fileInput = document.getElementById('pdfFile');
-            if (!fileInput.files.length) return;
-            const fileName = fileInput.files[0].name;
-            // Extrae el id_usuario del nombre del archivo (ejemplo: 123.pdf)
-            const match = fileName.match(/^(\d+)\.pdf$/i);
-            if (!match) {
-                document.getElementById('mensaje').innerHTML = '<span class="error">El nombre del archivo debe ser el ID del usuario, por ejemplo: 123.pdf</span>';
-                return;
-            }
-            const id_usuario = match[1];
-            const formData = new FormData();
-            formData.append('pdf', fileInput.files[0]);
-            formData.append('id_usuario', id_usuario);
-            const res = await fetch('cargadrive.php', { method: 'POST', body: formData });
-            const data = await res.json();
-            if (data.success) {
-                document.getElementById('mensaje').innerHTML = '<span class="success">¡PDF subido y usuario actualizado!</span>';
-            } else {
-                document.getElementById('mensaje').innerHTML = '<span class="error">Error: ' + data.error + '</span>';
-            }
-        };
+    document.getElementById('pdfForm').onsubmit = function(e) {
+    e.preventDefault();
+    const fileInput = document.getElementById('pdfFile');
+    if (!fileInput.files.length) return;
+    const fileName = fileInput.files[0].name;
+    const match = fileName.match(/^(\d+)\.pdf$/i);
+    if (!match) {
+        document.getElementById('mensaje').innerHTML = '<span class="error">El nombre del archivo debe ser el ID del usuario, por ejemplo: 123.pdf</span>';
+        return;
+    }
+    const id_usuario = match[1];
+    const formData = new FormData();
+    formData.append('pdf', fileInput.files[0]);
+    formData.append('id_usuario', id_usuario);
+    // Mostrar barra de progreso
+    const progressContainer = document.getElementById('progress-container');
+    const progressBar = document.getElementById('progress-bar');
+    progressContainer.style.display = 'block';
+    progressBar.style.width = '0%';
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'cargadrive.php', true);
+
+    xhr.upload.onprogress = function(e) {
+        if (e.lengthComputable) {
+            const percent = Math.round((e.loaded / e.total) * 100);
+            progressBar.style.width = percent + '%';
+        }
+    };
+    xhr.onload = function() {
+        progressBar.style.width = '100%';
+        let data;
+        try {
+            data = JSON.parse(xhr.responseText);
+        } catch {
+            data = {success: false, error: 'Respuesta inválida del servidor'};
+        }
+        if (data.success) {
+            document.getElementById('mensaje').innerHTML = '<span class="success">¡PDF subido y usuario actualizado!</span>';
+        } else {
+            document.getElementById('mensaje').innerHTML = '<span class="error">Error: ' + data.error + '</span>';
+        }
+        setTimeout(() => {
+            progressContainer.style.display = 'none';
+            progressBar.style.width = '0%';
+        }, 1500);
+    };
+    xhr.onerror = function() {
+        document.getElementById('mensaje').innerHTML = '<span class="error">Error de red o servidor.</span>';
+        progressContainer.style.display = 'none';
+        progressBar.style.width = '0%';
+    };
+    xhr.send(formData);
+};
     </script>
 </body>
 </html>
