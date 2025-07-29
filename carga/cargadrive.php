@@ -3,17 +3,21 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 require_once "../libs/gestion.php";
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 // Validar sesión
 if (!isset($_SESSION['us_sds'])) {
     echo json_encode([
         'success' => false,
         'error' => 'Sesión no iniciada. <a href=\"/\">Iniciar sesión</a>'
     ]);
+if (!file_exists(__DIR__ . '/../libs/vendor/autoload.php')) {
+    echo json_encode(['success' => false, 'error' => 'No se encuentra el archivo de Google API Client (vendor/autoload.php)']);
     exit;
 }
-require_once '../libs/vendor/autoload.php'; // Google API Client
-
+require_once __DIR__ . '/../libs/vendor/autoload.php'; // Google API Client
+}
 header('Content-Type: application/json');
 
 
