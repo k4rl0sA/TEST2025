@@ -4,11 +4,100 @@
     <meta charset="UTF-8">
     <title>Cargar PDF y actualizar usuario</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin-top: 60px; }
-        .container { background: #f9f9f9; padding: 40px; border-radius: 8px; display: inline-block; }
-        input[type="file"] { margin-bottom: 20px; }
-        .success { color: green; font-weight: bold; }
-        .error { color: red; font-weight: bold; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #e0e7ff 0%, #f9fafb 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: #fff;
+            padding: 48px 36px 36px 36px;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(60, 72, 100, 0.18);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 340px;
+        }
+        h2 {
+            margin-bottom: 28px;
+            color: #2d3a4a;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input[type="file"] {
+            margin-bottom: 24px;
+            padding: 10px 0;
+            border: none;
+            background: none;
+            font-size: 1rem;
+            color: #374151;
+        }
+        input[type="file"]::-webkit-file-upload-button {
+            background: #6366f1;
+            color: #fff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        input[type="file"]::file-selector-button {
+            background: #6366f1;
+            color: #fff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        input[type="file"]:hover::-webkit-file-upload-button,
+        input[type="file"]:hover::file-selector-button {
+            background: #4f46e5;
+        }
+        button[type="submit"] {
+            background: linear-gradient(90deg, #6366f1 0%, #60a5fa 100%);
+            color: #fff;
+            border: none;
+            padding: 12px 36px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.12);
+            transition: background 0.2s, transform 0.1s;
+        }
+        button[type="submit"]:hover {
+            background: linear-gradient(90deg, #4f46e5 0%, #2563eb 100%);
+            transform: translateY(-2px) scale(1.03);
+        }
+        #mensaje {
+            margin-top: 28px;
+            min-height: 32px;
+            font-size: 1.05rem;
+        }
+        .success {
+            color: #16a34a;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .error {
+            color: #dc2626;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
     </style>
 </head>
 <body>
