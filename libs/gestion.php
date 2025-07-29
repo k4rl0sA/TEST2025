@@ -735,6 +735,9 @@ class cmp { //ntwplcsdxhvuf
   case 'm':
       $b=select_mult($this);
 		break;
+  case 'mu':
+      $b=select_multi($this);
+		break;
   case 'nu':
       $b = input_num($this);
       break;
@@ -802,6 +805,48 @@ function select_mult($a){
   $opc="opc=opc_{$a->c}('$a->d');";
   eval('$'.$opc);
   $rta.=">$opc</select>";	
+  return $rta;
+}
+
+function select_multi($a) {
+  // Sanitizar todas las entradas
+  $w = saniti($a->w);$ww = saniti($a->ww);$n = saniti($a->n);$x = saniti($a->x);$vc = saniti($a->vc);$so = saniti($a->so);$l = saniti($a->l);$u = $a->u; // Propiedad para habilitar/deshabilitar el campo
+  // Construir el HTML
+  $rta = "<div class='campo {$w} {$ww} borde1 oscuro'><div>{$l}</div>";
+  $rta .= "<input type='search' id='{$n}' class='mult' placeholder='-- SELECCIONE --' onclick='showMult(this,true);' onsearch='searchMult(this);'" . (!$u ? " disabled" : "") . ">";
+  $rta .= "<select multiple id='f{$n}' name='f{$n}' class='{$w} captura check mult close " . ($a->v ? 'valido' : '') . "' onblur='showMult(this,false);'";
+  $rta .= " required onchange=\"";
+  if ($a->v) $rta .= "if(valido(this))";
+  if ($x) $rta .= "solo_reg(this,{$x});";
+  if ($vc) $rta .= "{$vc}(this);";
+  $rta .= "\"";
+  if (!empty($a->sd)) {
+      $rta .= " onchange=\"";
+      foreach ($a->sd as $dep) {
+          if ($dep) $rta .= "changeSelect('{$n}','" . saniti($dep) . "');";
+      }
+      if ($so) $rta .= "{$so}(this);";
+      $rta .= "\"";
+  }
+  $rta .= (!$u ? " disabled" : "") . ">"; // Deshabilitar el select si $u es false
+  // Obtener las opciones del select
+  $func = "opc_{$a->c}";
+  $opc = '';
+  if (function_exists($func)) {
+      $opc = call_user_func($func, saniti($a->d));
+  }
+  $rta .= $opc . "</select></div>";
+  // Agregar lógica de Choices.js si el campo está deshabilitado
+  if (!$u) {
+      $rta .= "<script>
+          document.addEventListener('DOMContentLoaded', function() {
+              const selectElement = document.getElementById('f{$n}');
+              const choices = new Choices(selectElement);
+              choices.disable(); // Desactivar el campo con Choices.js
+          });
+          alert('El campo {$n} está deshabilitado.');
+      </script>";
+  }
   return $rta;
 }
 
