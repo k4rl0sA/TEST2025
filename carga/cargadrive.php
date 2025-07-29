@@ -22,7 +22,7 @@ $pdfTmp = $_FILES['pdf']['tmp_name'];
 $pdfName = $id_usuario . '.pdf';
 
 $sql1 = "SELECT subred WHERE id_usuario = $id_usuario";
-$res = datos_mysql($sql);
+$res = datos_mysql($sql1);
 $subred=$res['responseResult'][0]['subred'] ?? null;
 if (!$res || !isset($res['responseResult'][0]['subred'])) {
     echo json_encode(['success' => false, 'error' => 'Usuario no encontrado']);
