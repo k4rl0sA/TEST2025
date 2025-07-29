@@ -78,8 +78,10 @@
                             <input type="hidden" id="appointment-id">
                             <div class="form-row">
                                 <div class="input-group">
-                                    <input id="doc-type" type="text" required placeholder=" " value="Cédula de Ciudadanía">
-                                    <label for="doc-type">Tipo de Documento</label>
+                                    <label for="doc-type">Tipo de Docuemnto</label>
+                                    <select id="doc-type" required placeholder=" ">
+                                        <option value="">-- Seleccione un Tipo de Documento --</option>
+                                    </select>
                                 </div>
                                 <div class="input-group">
                                     <input id="doc-number" type="text" required placeholder=" ">
