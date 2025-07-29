@@ -7,6 +7,7 @@
     <link href="../libs/css/app.css?v=2" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../libs/css/choices.min.css">
 </head>
 <body>
     <div class="container">
@@ -144,5 +145,6 @@
         </div>
     </div>
     <script src="agenda.js?v=4"></script>
+    <script src="../libs/js/choices.min.js"></script>
 </body>
 </html>
