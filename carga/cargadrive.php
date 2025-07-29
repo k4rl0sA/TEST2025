@@ -3,11 +3,12 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 require_once "../libs/gestion.php";
+session_start();
 // Validar sesión
 if (!isset($_SESSION['us_sds'])) {
     echo json_encode([
         'success' => false,
-        'error' => 'Sesión no iniciada. <a href="/">Iniciar sesión</a>'
+        'error' => 'Sesión no iniciada. <a href=\"/\">Iniciar sesión</a>'
     ]);
     exit;
 }
