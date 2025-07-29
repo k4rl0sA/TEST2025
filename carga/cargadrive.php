@@ -4,7 +4,10 @@ error_reporting(E_ALL);
 
 // Validar sesión
 if (!isset($_SESSION['us_sds'])) {
-    echo json_encode(['success' => false, 'error' => 'Sesión no iniciada']);
+    echo json_encode([
+        'success' => false,
+        'error' => 'Sesión no iniciada. <a href=\"https://pruebagtaps.site/\">Iniciar sesión</a>'
+    ]);
     exit;
 }else{
     require_once "../libs/gestion.php";
