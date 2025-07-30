@@ -95,8 +95,8 @@ function cmp_apopsicduel(){
     $o='hab';
     $c[]=new cmp($o,'e',null,'INFORMACIÓN ',$w);
     $c[]=new cmp('causa_duelo','s','',$d,$w.' '.$o,'Causa deL Duelo','causa_duelo',null,null,false,$x,'','col-2');
-    $c[]=new cmp('fecha_defun','d','10',$d,$w.' '.$o,'Fecha de Defunción','fecha_defun',null,null,false,$x,'','col-2');
-    $c[]=new cmp('parent_fallec','s','3',$d,$w.' '.$o,'Parentesco o Relación con elFallec','parent_fallec',null,null,false,$x,'','col-2');
+    $c[]=new cmp('fecha_defun','d','10',$d,$w.' '.$o,'Fecha de Defunción','fecha_defun',null,null,false,$x,'','col-2',"validDate(this,1825,0);");
+    $c[]=new cmp('parent_fallec','s','3',$d,$w.' '.$o,'Parentesco o Relación con el Fallecido','parent_fallec',null,null,false,$x,'','col-2');
     $c[]=new cmp('lugar_defun','s','3',$d,$w.' '.$o,'Lugar de Defunción','lugar_defun',null,null,false,$x,'','col-2');
     $c[]=new cmp('vincu_afect','s','3',$d,$w.' '.$o,'Vinculo Afectivo con el Caso','vincu_afect',null,null,false,$x,'','col-2');
     $c[]=new cmp('senti_ident_1','s','3',$d,$w.' '.$o,'Sentimientos y Emociones Identificados 1','senti_ident_1',null,null,false,$x,'','col-2');
