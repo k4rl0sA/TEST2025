@@ -174,7 +174,7 @@ function gra_soporte() {
 function int_approve(){
 	//~ $id=divide($_REQUEST['id']);
 		$sql="UPDATE soporte SET aprueba=?,usu_update=?,`fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR),`estado`=4 
-		WHERE ficha=?";
+		WHERE idsoporte=?";
         $params = [
             ['type' => 'i', 'value' => $_SESSION['us_sds']],
             ['type' => 'i', 'value' => $_SESSION['us_sds']],

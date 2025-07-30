@@ -58,7 +58,7 @@ document.getElementById('soporte-lis').addEventListener('click', function(event)
     if (icon) {
         const id = icon.id;
         if (!id) return;
-        if (confirm("¿Desea aprobar la ficha " + id + " ?")) {
+        if (confirm("¿Desea aprobar la interlocal del ticket : " + id + " ?")) {
             if (typeof loader !== "undefined") loader.style.display = 'block';
             fetch(ruta_app, {
                 method: "POST",
@@ -71,19 +71,20 @@ document.getElementById('soporte-lis').addEventListener('click', function(event)
             .then(data => {
                 if (typeof loader !== "undefined") loader.style.display = 'none';
                 if (data.includes('Se ha') || data.includes('Correctamente')) {
-                    alert('Se ha aprobado la ficha ' + id);
+                    inform('Se ha aprobado la interlocal con ticket ' + id);
                     actualizar();
                 } else {
-                    alert('No se pudo aprobar la ficha. ' + data);
+                    warnin('No se pudo aprobar la ficha. ' + data);
                 }
             })
             .catch(error => {
                 if (typeof loader !== "undefined") loader.style.display = 'none';
-                alert('Error: ' + error);
+                errors('Error: ' + error);
             });
         }
     }
 });
+
 </script>
 </head>
 <body Onload="actualizar();">
