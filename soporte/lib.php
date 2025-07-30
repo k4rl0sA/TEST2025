@@ -185,10 +185,12 @@ function approve_interl_soporte(){
     return $rta;
 }
 function get_documento_soporte(){
+    $id = IdHash($_REQUEST['id'],$_REQUEST['accion'] ?? ''); // Centralizado
+    if (!$id) return "ID inválido o expirado";
     $sql = "SELECT p.idpersona 
             FROM person p 
             INNER JOIN soporte s ON p.idpeople = s.idpeople  
-            WHERE s.idsoporte = {$_REQUEST['id']}";
+            WHERE s.idsoporte = $id";
     $info = datos_mysql($sql);
     $doc = isset($info['responseResult'][0]['idpersona']) ? $info['responseResult'][0]['idpersona'] : '';
     return json_encode(['doc' => $doc]);
