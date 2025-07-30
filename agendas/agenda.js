@@ -36,6 +36,7 @@ const appointmentStatusSelect = document.getElementById('appointment-status');
 
 // --- INICIALIZACIÓN ---
 function init() {
+    loadOptions();
     populateProfiles();
     profileSelect.addEventListener('change', onProfileChange);
     professionalSelect.addEventListener('change', onProfessionalChange);
@@ -57,7 +58,33 @@ function init() {
     updateCalendar();
 }
 
-// --- LÓGICA DE POBLACIÓN DE DATOS ---
+// --- CARGAR LOS DATOS DE LOS SELECTS ---
+function loadOptions() {
+     // Cargar perfiles
+    fetch('agendas/lib.php?a=getProfiles')
+      .then(res => res.json())
+      .then(data => loadSelectChoices('profile', data, '-- Seleccione un Perfil --'));
+    // Cargar tipos de documento
+    fetch('agendas/lib.php?a=getDocTypes')
+      .then(res => res.json())
+      .then(data => loadSelectChoices('doc-type', data, '-- Seleccione un Tipo de Documento --'));
+
+    // Select dependiente: profesionales según perfil
+    document.getElementById('profile').addEventListener('change', function() {
+        const profileId = this.value;
+        loadSelectChoices('professional', [], '-- Seleccione un Profesional --');
+        document.getElementById('professional').disabled = true;
+        if (profileId) {
+            fetch(`agendas/lib.php?a=getProfessionals&profileId=${profileId}`)
+              .then(res => res.json())
+              .then(data => {
+                  loadSelectChoices('professional', data, '-- Seleccione un Profesional --');
+                  document.getElementById('professional').disabled = false;
+              });
+        }
+    });
+}
+
 function populateProfiles() {
     mockData.profiles.forEach(profile => {
         const option = document.createElement('option');
@@ -382,46 +409,5 @@ function reassignAppointment() {
     closeModal();
 }
 
-/**
- * Carga dinámicamente opciones en un select usando Choices.js
- * @param {string} selectId - ID del select
- * @param {Array} options - Array de objetos {value, label}
- * @param {string} placeholder - Texto para la opción por defecto
- * @param {string|null} selectedValue - Valor a seleccionar automáticamente (si existe)
- */
-function loadSelectChoices(selectId, options, placeholder = '-- Seleccione --', selectedValue = null) {
-    const select = document.getElementById(selectId);
-    if (!select) return;
-    // Limpia opciones previas
-    select.innerHTML = '';
-    // Agrega placeholder
-    const placeholderOption = document.createElement('option');
-    placeholderOption.value = '';
-    placeholderOption.textContent = placeholder;
-    select.appendChild(placeholderOption);
-    // Agrega opciones
-    options.forEach(opt => {
-        const option = document.createElement('option');
-        option.value = opt.value;
-        option.textContent = opt.label;
-        select.appendChild(option);
-    });
-    // Inicializa Choices.js (destruye si ya existe)
-    if (select.choicesInstance) {
-        select.choicesInstance.destroy();
-    }
-    select.choicesInstance = new Choices(select, {
-        searchEnabled: true,
-        itemSelectText: '',
-        shouldSort: false,
-        placeholder: true,
-        placeholderValue: placeholder
-    });
-    // Selecciona valor si existe
-    if (selectedValue) {
-        select.choicesInstance.setChoiceByValue(selectedValue);
-    }
-}
 
-// Iniciar la aplicación
 init();

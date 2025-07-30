@@ -1,7 +1,6 @@
 <?php
 ini_set('display_errors','1');
 // print_r($_POST['a']);
-if ($_POST['a']!='opc' && $_POST['tb']!='person') $perf=perfil($_POST['tb']);
 if (!isset($_SESSION['us_sds'])) die("<script>window.top.location.href='/';</script>");
 else {
   $rta="";
