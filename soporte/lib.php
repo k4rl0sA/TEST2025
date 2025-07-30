@@ -181,11 +181,11 @@ return $rta;
     function formato_dato($a, $b, $c, $d) {
         $b = strtolower($b);
         $rta = $c[$d];
-        var_dump($c);
         if ($a == 'soporte' && $b == 'acciones') {
             if (isset($c["Accion"]) && $c["Accion"] === 'INTERLOCAL' && $c['Estado']=='POR APROBAR') {
                 $rta = "<nav class='menu right'>";
-                $rta .= acceso('soporte') ? "<li title='Aprobar Interlocal' onclick=\"inactiva();Color('famili-lis');\"><i class='fa-solid fa-file-circle-plus ico' id='{$c['Cod_Familiar']}'></i></li>" : "";
+                // $rta .= "<li title='Aprobar Interlocal' Onclick=\"inactiva('{$c['ACCIONES']}');\"><i class='fa-solid fa-thumbs-up ico' id='" . $c['ACCIONES'] . "'></i> </li>";
+                $rta .= acceso('soporte') ? "<li title='Aprobar Interlocal' onclick=\"inactiva();Color('famili-lis');\"><i class='fa-solid fa-thumbs-up ico' id='{$c['ACCIONES']}'></i></li>" : "";
                 $rta .= "</nav>";
             } else {
                 $rta = "";
