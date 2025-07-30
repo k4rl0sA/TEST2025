@@ -37,7 +37,6 @@ const appointmentStatusSelect = document.getElementById('appointment-status');
 // --- INICIALIZACIÓN ---
 function init() {
     loadOptions();
-    populateProfiles();
     profileSelect.addEventListener('change', onProfileChange);
     professionalSelect.addEventListener('change', onProfessionalChange);
     prevWeekBtn.addEventListener('click', () => changeWeek(-1));
@@ -82,15 +81,6 @@ function loadOptions() {
                   document.getElementById('professional').disabled = false;
               });
         }
-    });
-}
-
-function populateProfiles() {
-    mockData.profiles.forEach(profile => {
-        const option = document.createElement('option');
-        option.value = profile.id;
-        option.textContent = profile.name;
-        profileSelect.appendChild(option);
     });
 }
 

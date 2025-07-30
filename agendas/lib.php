@@ -34,3 +34,15 @@ if ($req == 'getDocTypes') {
     $sql = "SELECT idcatadeta AS id, descripcion AS name FROM catadeta WHERE idcatalogo=1 AND estado='A'";
     getSelectOptions($sql);
 }
+if ($req == 'searchPatient') {
+    $docType = $_GET['docType'] ?? '';
+    $docNumber = $_GET['docNumber'] ?? '';
+    $sql = "SELECT nombre AS fullName, telefono AS phone, direccion AS address FROM pacientes WHERE tipo_doc = '$docType' AND num_doc = '$docNumber' LIMIT 1";
+    $result = datos_mysql($sql);
+    if (!empty($result['responseResult'])) {
+        echo json_encode(['success' => true, 'patient' => $result['responseResult'][0]]);
+    } else {
+        echo json_encode(['success' => false]);
+    }
+    exit;
+}
