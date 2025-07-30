@@ -247,7 +247,7 @@ function formato_dato($a, $b, $c, $d) {
             ];
         foreach ($accionesDisponibles as $key => $accion) {
             if ($accion['condicion'] && $accion['permiso']) {
-                limpiar_hashes_viejos();
+                limpiar_hashes();
                 $_SESSION['hash'][$accion['hash'] . '_' . $key] = $c['ACCIONES'];
                 $acciones[] = "<li title='{$accion['title']}'><i class='{$accion['icono']} {$accion['clase']}' id='{$accion['hash']}' data-acc='{$key}'></i></li>";
             }
