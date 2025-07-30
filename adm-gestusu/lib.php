@@ -166,7 +166,7 @@ function opc_perfilusuario($id=''){
             perfil=(select descripcion from catadeta c where idcatalogo=218 and idcatadeta='{$_REQUEST['id']}' and estado='A') 
             and subred=(SELECT subred FROM usuarios WHERE id_usuario ='{$_SESSION['us_sds']}') ORDER BY nombre";
 			// and componente=(SELECT componente FROM usuarios WHERE id_usuario ='{$_SESSION['us_sds']}') 
-            echo $sql;
+            // echo $sql;
             $info = datos_mysql($sql);		
             return json_encode($info['responseResult']);	
         }
