@@ -202,7 +202,7 @@ function get_documento_soporte(){
             if (isset($c["Accion"]) && $c["Accion"] === 'INTERLOCAL' && $c['Estado']=='POR APROBAR') {
                 $rta = "<nav class='menu right'>";
                 // $rta .= "<li title='Aprobar Interlocal' Onclick=\"inactiva('{$c['ACCIONES']}');\"><i class='fa-solid fa-thumbs-up ico' id='" . $c['ACCIONES'] . "'></i> </li>";
-                $rta .= acceso('soporte') ? "<li title='Aprobar Interlocal' onclick=\"Color('famili-lis');\"><i class='fa-solid fa-thumbs-up ico' id='{$c['ACCIONES']}'></i></li>" : "";
+                $rta .= acceso('soporte') ? "<li title='Aprobar Interlocal' onclick=\"Color('soporte');\"><i class='fa-solid fa-thumbs-up ico' id='{$c['ACCIONES']}'></i></li>" : "";
                 $rta .= "</nav>";
             } else {
                 $rta = "";
