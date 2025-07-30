@@ -10,7 +10,7 @@ else {
 	else echo $rta;
   }   
 
-require_once "../libs/gestion.php";
+require_once "../libs/app.php";
 
 // Validar sesión
 if (!isset($_SESSION['us_sds'])) {
