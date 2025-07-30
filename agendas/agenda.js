@@ -1,29 +1,6 @@
-// --- DATOS DE EJEMPLO ---
-const mockData = {
-    profiles: [
-        { id: 1, name: 'Médicos' },
-        { id: 2, name: 'Psicólogos' },
-        { id: 3, name: 'Odontólogos' },
-    ],
-    professionals: [
-        { id: 101, profileId: 1, name: 'Dr. Carlos Fernández' },
-        { id: 102, profileId: 1, name: 'Dra. Ana Martínez' },
-        { id: 201, profileId: 2, name: 'Psic. María Duarte' },
-        { id: 202, profileId: 2, name: 'Psic. Jorge Rojas' },
-        { id: 301, profileId: 3, name: 'Od. Laura Gómez' },
-    ],
-    // Simulación de una base de datos de pacientes y citas
-    patients: [
-        { docType: 'Cédula de Ciudadanía', docNumber: '12345678', fullName: 'Juan Pérez', phone: '3001234567', address: 'Calle Falsa 123' }
-    ],
-    appointments: [],
-    docTypes: [
-        { value: 'CC', label: 'Cédula de Ciudadanía' },
-        { value: 'TI', label: 'Tarjeta de Identidad' },
-        { value: 'CE', label: 'Cédula de Extranjería' },
-        { value: 'PA', label: 'Pasaporte' },
-        { value: 'RC', label: 'Registro Civil' }]
-};
+// --- DATOS DE BD lib.php ---
+
+
 
 // --- ESTADO DE LA APLICACIÓN ---
 let currentDate = new Date();

@@ -1,5 +1,4 @@
 <?php
-require_once "../libs/gestion.php";
 ini_set('display_errors','1');
 // print_r($_POST['a']);
 if ($_POST['a']!='opc' && $_POST['tb']!='person') $perf=perfil($_POST['tb']);
@@ -24,24 +23,36 @@ if (!isset($_SESSION['us_sds'])) {
 $req = $_GET['a'] ?? $_POST['a'] ?? '';
 
 if ($req == 'getProfiles') {
-    $sql = "SELECT id, name FROM perfiles WHERE estado='A'";
-    $result = datos_mysql($sql);
-    $data = [];
-    foreach ($result['responseResult'] as $row) {
-        $data[] = ['value' => $row['id'], 'label' => $row['name']];
-    }
-    header('Content-Type: application/json');
-    echo json_encode($data);
-    exit;
+    $sql = "SELECT idcatadeta AS id, descripcion AS name FROM catadeta WHERE idcatalogo=218 AND estado='A'";
+    getSelectOptions($sql);
 }
-
 if ($req == 'getProfessionals') {
     $profileId = intval($_GET['profileId'] ?? 0);
-    $sql = "SELECT id, name FROM profesionales WHERE profileId=$profileId AND estado='A'";
+    $sql = "SELECT id_usuario AS id, nombre AS name FROM usuarios WHERE perfil=$profileId AND estado='A'";
+    getSelectOptions($sql);
+}
+if ($req == 'getDocTypes') {
+    $sql = "SELECT idcatadeta AS id, descripcion AS name FROM catadeta WHERE idcatalogo=1 AND estado='A'";
+    getSelectOptions($sql);
+}
+
+
+
+
+
+
+
+//Function opc
+function getSelectOptions($sql, $idField = 'id', $labelField = 'name') {
     $result = datos_mysql($sql);
     $data = [];
-    foreach ($result['responseResult'] as $row) {
-        $data[] = ['value' => $row['id'], 'label' => $row['name']];
+    if (isset($result['responseResult']) && is_array($result['responseResult'])) {
+        foreach ($result['responseResult'] as $row) {
+            $data[] = [
+                'value' => $row[$idField],
+                'label' => $row[$labelField]
+            ];
+        }
     }
     header('Content-Type: application/json');
     echo json_encode($data);
