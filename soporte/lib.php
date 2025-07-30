@@ -25,9 +25,10 @@ function lis_soporte() {
     $total = $info['responseResult'][0]['total'];
     $regxPag = 12;
     $pag = (isset($_POST['pag-soporte'])) ? ($_POST['pag-soporte']-1) * $regxPag : 0;
-    $sql = "SELECT	idsoporte AS ACCIONES,idsoporte AS Ticket,	idpeople AS 'Cod Persona',	documento,	tipo_doc AS Tipo,	sexo,	fecha_nacio AS Nacio,	cod_predio AS Predio,	cod_familia AS Familia,	cod_registro AS Registro,	FN_CATALOGODESC(286,formulario) AS Accion,	error,	ok,	prioridad,	observaciones,	aprueba,	s.usu_creo AS Creo,	s.fecha_create AS 'Fecha Creo',	FN_CATALOGODESC(285,s.estado) AS Estado
+    $sql = "SELECT	idsoporte AS ACCIONES,idsoporte AS Ticket,	idpeople AS 'Cod Persona',	documento,	tipo_doc AS Tipo,	sexo,	fecha_nacio AS Nacio,	cod_predio AS Predio,	cod_familia AS Familia,	cod_registro AS Registro,	FN_CATALOGODESC(286,formulario) AS Accion,	error,	ok,	prioridad,	observaciones,u1.nombre AS aprueba,	s.usu_creo AS Creo,	s.fecha_create AS 'Fecha Creo',	FN_CATALOGODESC(285,s.estado) AS Estado
     FROM	soporte s
-	LEFT JOIN usuarios u ON s.aprueba = u.perfil 
+	LEFT JOIN usuarios u ON s.aprueba = u.perfil
+    LEFT JOIN usuarios u1 ON s.usu_update=u1.nombre 
 WHERE 1";
     $sql .= whe_soporte();
     $sql .= " ORDER BY fecha_create DESC LIMIT $pag, $regxPag";
@@ -170,12 +171,16 @@ function gra_soporte() {
     return $rta;
 }
 
-function inactiva_ficha(){
+function int_approve(){
 	//~ $id=divide($_REQUEST['id']);
-		$sql="UPDATE `fichas` SET `usu_update`='{$_SESSION['us_riesgo']}',`fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR),`estado`='7' 
+		$sql="UPDATE soporte SET usu_update=?,`fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR),`estado`='7' 
 		WHERE ficha={$_REQUEST['id']}";
+        $params = [
+            ['type' => 's', 'value' => $_SESSION['us_sds']],
+            ['type' => 'i', 'value' => $_REQUEST['id']]
+        ];
 		//~ echo $sql;
-		$rta=mysql_prepd($sql);
+		$rta=mysql_prepd($sql,$params);
 return $rta;
 }
     function formato_dato($a, $b, $c, $d) {
@@ -185,7 +190,7 @@ return $rta;
             if (isset($c["Accion"]) && $c["Accion"] === 'INTERLOCAL' && $c['Estado']=='POR APROBAR') {
                 $rta = "<nav class='menu right'>";
                 // $rta .= "<li title='Aprobar Interlocal' Onclick=\"inactiva('{$c['ACCIONES']}');\"><i class='fa-solid fa-thumbs-up ico' id='" . $c['ACCIONES'] . "'></i> </li>";
-                $rta .= acceso('soporte') ? "<li title='Aprobar Interlocal' onclick=\"inactiva();Color('famili-lis');\"><i class='fa-solid fa-thumbs-up ico' id='{$c['ACCIONES']}'></i></li>" : "";
+                $rta .= acceso('soporte') ? "<li title='Aprobar Interlocal' onclick=\"approve();Color('famili-lis');\"><i class='fa-solid fa-thumbs-up ico' id='{$c['ACCIONES']}'></i></li>" : "";
                 $rta .= "</nav>";
             } else {
                 $rta = "";
