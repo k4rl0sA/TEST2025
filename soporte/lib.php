@@ -184,6 +184,19 @@ function approve_interl_soporte(){
 		$rta=mysql_prepd($sql,$params);
 return $rta;
 }
+
+function get_documento_soporte(){
+    $sql = "SELECT p.idpersona 
+            FROM person p 
+            INNER JOIN soporte s ON p.idpeople = s.idpeople  
+            WHERE s.idsoporte = ?";
+    $params = [
+        ['type' => 'i', 'value' => $_REQUEST['id']]
+    ];
+    $info = datos_mysql($sql, $params);
+    $doc = isset($info['responseResult'][0]['idpersona']) ? $info['responseResult'][0]['idpersona'] : '';
+    return json_encode(['doc' => $doc]);
+}
     function formato_dato($a, $b, $c, $d) {
         $b = strtolower($b);
         $rta = $c[$d];
