@@ -99,6 +99,7 @@ function addDynamicListAction(options) {
             const icon = event.target.closest(options.selector);
             if (icon) {
                 const id = icon.id;
+                const accion = icon.dataset.acc || ''; // <-- obtiene el tipo de acción
                 if (!id) return;
                 // Confirmación opcional
                 if (options.confirmMsg) {
@@ -110,7 +111,7 @@ function addDynamicListAction(options) {
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded"
                     },
-                    body: 'a=' + options.action + '&tb=' + options.tb + '&id=' + encodeURIComponent(id)
+                    body: 'a=' + options.action + '&tb=' + options.tb + '&id=' + encodeURIComponent(id) + '&accion=' + encodeURIComponent(accion)
                 })
                 .then(response => response.text())
                 .then(data => {
@@ -132,7 +133,7 @@ function addDynamicListAction(options) {
     });
 }
 
-addDynamicListAction({
+/* addDynamicListAction({
     containerId: 'soporte-lis',
     selector: 'i.fa-thumbs-up.ico',
     action: 'approve_interl_soporte', // debe coincidir con tu función backend
@@ -140,7 +141,7 @@ addDynamicListAction({
     confirmMsg: "¿Desea aprobar la interlocal del ticket : {id} ?",
     successMsg: "Se ha aprobado la interlocal con ticket {id}",
     errorMsg: "No se pudo aprobar la ficha {id}."
-});
+}); */
 
 </script>
 </head>

@@ -171,7 +171,8 @@ function gra_soporte() {
 
 function approve_interl_soporte(){
     $hash = $_REQUEST['id'];
-    $id = IdHash($hash); // Centralizado
+    $accion = $_REQUEST['accion'] ?? '';
+    $id = IdHash($hash,$accion); // Centralizado
     if (!$id) return "ID inválido o expirado";
     $sql="UPDATE soporte SET aprueba=?, usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR), estado=4 
           WHERE idsoporte=?";
