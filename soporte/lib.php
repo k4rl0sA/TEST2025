@@ -221,8 +221,10 @@ function opc_cod_famcod_individuo(){
 	   var_dump($c);
 	//    var_dump($rta);
 		   if ($a=='soporte' && $b=='acciones'){
-			$rta="<nav class='menu right'>";		
-				// $rta.="<li class='icono editar ' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('ajustar','pro',event,'','lib.php',7,'ajustar');setTimeout(hiddxedad,300,'edad','prufin');\"></li>";  //act_lista(f,this);
+                if($c["Accion"]='INTERLOCAL'){
+                    $rta="<nav class='menu right'>";
+                    $rta.="<li title='Aprobar Interlocal' Onclick=\"mostrar('traslados','pro',event,'','../soporte/trasladloc.php',4,'traslados');\"><i class='fa-solid fa-thumbs-up ico' id='".$c['ACCIONES']."'></i> </li>";
+                }
 			}
 		return $rta;
 	   }
