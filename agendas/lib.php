@@ -35,26 +35,3 @@ if ($req == 'getDocTypes') {
     $sql = "SELECT idcatadeta AS id, descripcion AS name FROM catadeta WHERE idcatalogo=1 AND estado='A'";
     getSelectOptions($sql);
 }
-
-
-
-
-
-
-
-//Function opc
-function getSelectOptions($sql, $idField = 'id', $labelField = 'name') {
-    $result = datos_mysql($sql);
-    $data = [];
-    if (isset($result['responseResult']) && is_array($result['responseResult'])) {
-        foreach ($result['responseResult'] as $row) {
-            $data[] = [
-                'value' => $row[$idField],
-                'label' => $row[$labelField]
-            ];
-        }
-    }
-    header('Content-Type: application/json');
-    echo json_encode($data);
-    exit;
-}

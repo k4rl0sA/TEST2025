@@ -326,3 +326,20 @@ function mysql_prepd($sql, $params) {
   }
   return $rs;
 }
+
+//Function opc
+function getSelectOptions($sql, $idField = 'id', $labelField = 'name') {
+    $result = datos_mysql($sql);
+    $data = [];
+    if (isset($result['responseResult']) && is_array($result['responseResult'])) {
+        foreach ($result['responseResult'] as $row) {
+            $data[] = [
+                'value' => $row[$idField],
+                'label' => $row[$labelField]
+            ];
+        }
+    }
+    header('Content-Type: application/json');
+    echo json_encode($data);
+    exit;
+}
