@@ -170,61 +170,29 @@ function gra_soporte() {
     return $rta;
 }
 
-/* function opc_cod_predcod_fam(){
-	if($_REQUEST['id']!=''){
-		$id=divide($_REQUEST['id']);
-		$sql="SELECT idviv 'id',idviv 'cod' FROM hog_viv hv where idpre={$id[0]} ORDER BY 1";
-		$info=datos_mysql($sql);
-		// print_r($sql);
-		return json_encode($info['responseResult']);
-	} 
+function inactiva_ficha(){
+	//~ $id=divide($_REQUEST['id']);
+		$sql="UPDATE `fichas` SET `usu_update`='{$_SESSION['us_riesgo']}',`fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR),`estado`='7' 
+		WHERE ficha={$_REQUEST['id']}";
+		//~ echo $sql;
+		$rta=mysql_prepd($sql);
+return $rta;
 }
-
-function opc_cod_famcod_individuo(){
-	if($_REQUEST['id']!=''){
-		$id=divide($_REQUEST['id']);
-		$sql="SELECT idpeople,CONCAT_WS('-',idpersona,tipo_doc,CONCAT_WS(' ',nombre1,apellido1)) FROM personas p WHERE vivipersona={$id[0]} ORDER BY 1";
-		$info=datos_mysql($sql);
-		// print_r($sql);
-		return json_encode($info['responseResult']);
-	} 					
-}
-
-	function opc_tipo_doc_new($id=''){
-		return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 1",$id);
-	}
-	function opc_sexo_new($id=''){
-		return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=21 and estado='A' ORDER BY 1",$id);
-	}
-	function opc_accion($id=''){
-		return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=302 and estado='A' ORDER BY 1",$id);
-	}
-	function opc_cmp_editar($id=''){
-		return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=303 and estado='A' ORDER BY 1",$id);
-	}
-	function opc_cod_fam($id=''){
-		// return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=21 and estado='A' ORDER BY 1",$id);
-	}
-	function opc_cod_individuo($id=''){
-		// return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=21 and estado='A' ORDER BY 1",$id);
-	}
-	function opc_formulario($id=''){
-		return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=213 and estado='A' ORDER BY 2",$id);
-	}
- */	
-
-
     function formato_dato($a, $b, $c, $d) {
         $b = strtolower($b);
         $rta = $c[$d];
         if ($a == 'soporte' && $b == 'acciones') {
-            if (isset($c["Accion"]) && $c["Accion"] === 'INTERLOCAL') {
+            if (isset($c["Accion"]) && $c["Accion"] === 'INTERLOCAL' && $c['estado']==3) {
                 $rta = "<nav class='menu right'>";
                 $rta .= "<li title='Aprobar Interlocal' Onclick=\"mostrar('traslados','pro',event,'','../soporte/trasladloc.php',4,'traslados');\"><i class='fa-solid fa-thumbs-up ico' id='" . $c['ACCIONES'] . "'></i> </li>";
+                $rta .= acceso('soporte') ? "<li title='Crear Caracterización Familiar' onclick=\"mostrar('approve','pro',event,'','../crea-caract/lib.php',7,'caract');Color('famili-lis');\"><i class='fa-solid fa-file-circle-plus ico' id='{$c['Cod_Familiar']}'></i></li>" : "";
                 $rta .= "</nav>";
             } else {
                 $rta = "";
             }
+            /* if ($c['estado']=='3' && ($perfil['responseResult'][0]['perfil']=='TEC' || $perfil['responseResult'][0]['perfil']=='ADM') ){
+		        $rta.="<li class='icono grabar' title='Ficha Recibida' id='".$c['ACCIONES']."' Onclick=\"entrega('{$c['ACCIONES']}',{$c['estado']});\"></li>";
+	        } */
         }
         return $rta;
     }

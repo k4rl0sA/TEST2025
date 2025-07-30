@@ -10,7 +10,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
 <!-- <link href="../libs/css/s.css" rel="stylesheet"> -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch&family=Chicle&family=Merienda&family=Rancho&family=Boogaloo&display=swap" rel="stylesheet">
-<script src="../libs/js/a.js"></script>
+<script src="../libs/js/a.js?v=1"></script>
 <script src="../libs/js/x.js"></script>
 <script src="../libs/js/d.js"></script>
 <script src="../libs/js/popup.js"></script>
@@ -50,6 +50,31 @@ function grabar(tb='',ev){
         document.getElementById(mod+'-image').innerHTML = '<svg class="icon-popup" ><use xlink:href="#bad"/></svg>';
         openModal();
     }
+}
+
+function inactiva(a){
+	//~ let rta=pajax(ruta_app, data, callback,'POST', headers = null);
+	var res = confirm("Desea confirmar la inactivación de la ficha "+a+" ?");
+		if(res==true){
+			if (loader != undefined) loader.style.display = 'block';
+		if (window.XMLHttpRequest)
+			xmlhttp = new XMLHttpRequest();
+		else
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			xmlhttp.onreadystatechange = function () {
+			if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)){
+				data =xmlhttp.responseText;
+				if (loader != undefined) loader.style.display = 'none';
+					console.log(data)
+			}}
+			xmlhttp.open("POST", ruta_app,false);
+			xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xmlhttp.send('a=inactiva&tb=ficha&id='+a);
+			if (data.includes('Correctamente')){
+				alert('Se ha inactivado la ficha '+a);
+				actualizar();
+			}
+	}
 }
 
 </script>
