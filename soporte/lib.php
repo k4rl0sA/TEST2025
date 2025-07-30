@@ -181,6 +181,7 @@ return $rta;
     function formato_dato($a, $b, $c, $d) {
         $b = strtolower($b);
         $rta = $c[$d];
+        var_dump($c);
         if ($a == 'soporte' && $b == 'acciones') {
             if (isset($c["Accion"]) && $c["Accion"] === 'INTERLOCAL' && $c['Estado']=='POR APROBAR') {
                 $rta = "<nav class='menu right'>";
