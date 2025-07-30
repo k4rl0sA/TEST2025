@@ -318,7 +318,7 @@ function searchPatient() {
         return;
     }
 
-    fetch(`/lib.php?a=searchPatient&docType=${encodeURIComponent(docType)}&docNumber=${encodeURIComponent(docNumber)}`)
+    fetch(`lib.php?a=searchPatient&docType=${encodeURIComponent(docType)}&docNumber=${encodeURIComponent(docNumber)}`)
         .then(res => res.json())
         .then(data => {
             if (data.success && data.patient) {
