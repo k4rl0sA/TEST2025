@@ -184,8 +184,7 @@ return $rta;
         if ($a == 'soporte' && $b == 'acciones') {
             if (isset($c["Accion"]) && $c["Accion"] === 'INTERLOCAL' && $c['Estado']=='POR APROBAR') {
                 $rta = "<nav class='menu right'>";
-                $rta .= "<li title='Aprobar Interlocal' Onclick=\"mostrar('traslados','pro',event,'','../soporte/trasladloc.php',4,'traslados');\"><i class='fa-solid fa-thumbs-up ico' id='" . $c['ACCIONES'] . "'></i> </li>";
-                $rta .= acceso('soporte') ? "<li title='Crear Caracterización Familiar' onclick=\"mostrar('approve','pro',event,'','../crea-caract/lib.php',7,'caract');Color('famili-lis');\"><i class='fa-solid fa-file-circle-plus ico' id='{$c['Cod_Familiar']}'></i></li>" : "";
+                $rta .= acceso('soporte') ? "<li title='Aprobar Interlocal' onclick=\"inactiva();Color('famili-lis');\"><i class='fa-solid fa-file-circle-plus ico' id='{$c['Cod_Familiar']}'></i></li>" : "";
                 $rta .= "</nav>";
             } else {
                 $rta = "";
