@@ -91,6 +91,57 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+function addDynamicListAction(options) {
+    document.addEventListener('DOMContentLoaded', function() {
+        const contenedor = document.getElementById(options.containerId);
+        if (!contenedor) return;
+        contenedor.addEventListener('click', function(event) {
+            const icon = event.target.closest(options.selector);
+            if (icon) {
+                const id = icon.id;
+                if (!id) return;
+                // Confirmación opcional
+                if (options.confirmMsg) {
+                    if (!confirm(options.confirmMsg.replace('{id}', id))) return;
+                }
+                if (typeof loader !== "undefined") loader.style.display = 'block';
+                fetch(ruta_app, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: 'a=' + options.action + '&tb=' + options.tb + '&id=' + encodeURIComponent(id)
+                })
+                .then(response => response.text())
+                .then(data => {
+                    if (typeof loader !== "undefined") loader.style.display = 'none';
+                    if (data.includes('Se ha') || data.includes('Correctamente')) {
+                        if (options.successMsg) inform(options.successMsg.replace('{id}', id));
+                        if (typeof options.onSuccess === 'function') options.onSuccess(id, data);
+                        if (typeof actualizar === 'function') actualizar();
+                    } else {
+                        if (options.errorMsg) warnin(options.errorMsg.replace('{id}', id) + ' ' + data);
+                    }
+                })
+                .catch(error => {
+                    if (typeof loader !== "undefined") loader.style.display = 'none';
+                    errors('Error: ' + error);
+                });
+            }
+        });
+    });
+}
+
+addDynamicListAction({
+    containerId: 'soporte-lis',
+    selector: 'i.fa-thumbs-up.ico',
+    action: 'approve_interl_soporte', // debe coincidir con tu función backend
+    tb: 'soporte',
+    confirmMsg: "¿Desea aprobar la interlocal del ticket : {id} ?",
+    successMsg: "Se ha aprobado la interlocal con ticket {id}",
+    errorMsg: "No se pudo aprobar la ficha {id}."
+});
+
 </script>
 </head>
 <body Onload="actualizar();">

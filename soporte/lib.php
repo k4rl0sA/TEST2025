@@ -170,19 +170,19 @@ function gra_soporte() {
 }
 
 function approve_interl_soporte(){
-	//~ $id=divide($_REQUEST['id']);
-		$sql="UPDATE soporte SET aprueba=?,usu_update=?,`fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR),`estado`=4 
-		WHERE idsoporte=?";
-        $params = [
-            ['type' => 's', 'value' => $_SESSION['us_sds']],
-            ['type' => 's', 'value' => $_SESSION['us_sds']],
-            ['type' => 'i', 'value' => $_REQUEST['id']]
-        ];
-		//~ echo $sql;
-		$rta=mysql_prepd($sql,$params);
-return $rta;
+    $hash = $_REQUEST['id'];
+    $id = IdHash($hash); // Centralizado
+    if (!$id) return "ID inválido o expirado";
+    $sql="UPDATE soporte SET aprueba=?, usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR), estado=4 
+          WHERE idsoporte=?";
+    $params = [
+        ['type' => 's', 'value' => $_SESSION['us_sds']],
+        ['type' => 's', 'value' => $_SESSION['us_sds']],
+        ['type' => 'i', 'value' => $id]
+    ];
+    $rta = mysql_prepd($sql, $params);
+    return $rta;
 }
-
 function get_documento_soporte(){
     $sql = "SELECT p.idpersona 
             FROM person p 
@@ -195,24 +195,72 @@ function get_documento_soporte(){
     $doc = isset($info['responseResult'][0]['idpersona']) ? $info['responseResult'][0]['idpersona'] : '';
     return json_encode(['doc' => $doc]);
 }
-    function formato_dato($a, $b, $c, $d) {
-        $b = strtolower($b);
-        $rta = $c[$d];
-        if ($a == 'soporte' && $b == 'acciones') {
-            if (isset($c["Accion"]) && $c["Accion"] === 'INTERLOCAL' && $c['Estado']=='POR APROBAR') {
-                $rta = "<nav class='menu right'>";
-                // $rta .= "<li title='Aprobar Interlocal' Onclick=\"inactiva('{$c['ACCIONES']}');\"><i class='fa-solid fa-thumbs-up ico' id='" . $c['ACCIONES'] . "'></i> </li>";
-                $rta .= acceso('soporte') ? "<li title='Aprobar Interlocal' onclick=\"Color('soporte');\"><i class='fa-solid fa-thumbs-up ico' id='{$c['ACCIONES']}'></i></li>" : "";
-                $rta .= "</nav>";
-            } else {
-                $rta = "";
-            }
-            /* if ($c['estado']=='3' && ($perfil['responseResult'][0]['perfil']=='TEC' || $perfil['responseResult'][0]['perfil']=='ADM') ){
-		        $rta.="<li class='icono grabar' title='Ficha Recibida' id='".$c['ACCIONES']."' Onclick=\"entrega('{$c['ACCIONES']}',{$c['estado']});\"></li>";
-	        } */
-        }
-        return $rta;
+
+function myhash($a){
+    $hash = md5($a . $_SESSION['us_sds'] . 'D2AC5E5211884EA15F1E950D1445C5E8');
+    return $hash;
+}
+
+function IdHash($hash, $accion = '') {
+    $key = $accion ? $hash . '_' . $accion : $hash;
+    if (isset($_SESSION['hash'][$hash])) {
+        return $_SESSION['hash'][$hash];
     }
+    if (isset($_SESSION['hash'][$key])) {
+        return $_SESSION['hash'][$key];
+    }
+    return null;
+}
+function limpiar_hashes($max = 500) {
+    if (!isset($_SESSION['hash']) || !is_array($_SESSION['hash'])) return;
+    // Si hay más de $max hashes, elimina los más antiguos
+    if (count($_SESSION['hash']) > $max) {
+        // Mantén solo los últimos $max elementos
+        $_SESSION['hash'] = array_slice($_SESSION['hash'], -$max, $max, true);
+    }
+}    
+function formato_dato($a, $b, $c, $d) {
+    $b = strtolower($b);
+    $rta = $c[$d];
+        if ($a == 'soporte' && $b == 'acciones') {
+            $acciones=[];
+            // Definición de acciones posibles
+            $accionesDisponibles = [
+                'INTERLOCAL' => ['condicion' => ($c['Accion'] === 'INTERLOCAL' && $c['Estado'] == 'POR APROBAR'),
+                    'icono' => 'fa-solid fa-thumbs-up',
+                    'clase' => 'ico',
+                    'title' => 'Aprobar Interlocal',
+                    'permiso' => acceso('soporte'),
+                    'hash' => myhash($c['ACCIONES']),
+                    'evento' => '',
+                ],
+                // Puedes agregar más acciones aquí fácilmente
+                'ELIMINAR' => [
+                  'condicion' => ($c['Estado'] == 'POR APROBAR'),
+                  'icono' => 'fa-solid fa-trash',
+                  'clase' => 'ico',
+                  'title' => 'Eliminar',
+                  'permiso' => acceso('soporte'),
+                  'hash' => myhash($c['ACCIONES'] . 'ELIMINAR'),
+                  'evento' => '',
+                ]
+            ];
+        foreach ($accionesDisponibles as $key => $accion) {
+            if ($accion['condicion'] && $accion['permiso']) {
+                limpiar_hashes_viejos();
+                $_SESSION['hash'][$accion['hash'] . '_' . $key] = $c['ACCIONES'];
+                $acciones[] = "<li title='{$accion['title']}'><i class='{$accion['icono']} {$accion['clase']}' id='{$accion['hash']}' data-acc='{$key}'></i></li>";
+            }
+        }
+        if (count($acciones)) {
+            $rta = "<nav class='menu right'>" . implode('', $acciones) . "</nav>";
+        } else {
+            $rta = "";
+        }
+    }
+    return $rta;
+}
+
 	   function bgcolor($a,$c,$f='c'){
 		// return $rta;
 	   }
