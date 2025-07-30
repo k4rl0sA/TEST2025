@@ -177,9 +177,10 @@ function opc_perfil($id=''){
     if (adm()=='ADM') {
         return opc_sql("SELECT idcatadeta, descripcion FROM `catadeta` WHERE idcatalogo = 218 AND estado = 'A'",$id);
     } else {
-        $com = datos_mysql("SELECT CASE WHEN componente = 'MIN' THEN 2 WHEN componente = 'HOG' THEN 1 END as componente FROM usuarios WHERE id_usuario ='{$_SESSION['us_sds']}'");
+        // $com = datos_mysql("SELECT CASE WHEN componente = 'MIN' THEN 2 WHEN componente = 'HOG' THEN 1 END as componente FROM usuarios WHERE id_usuario ='{$_SESSION['us_sds']}'");
+		$com = 1,2;
         $comp = $com['responseResult'][0]['componente'] ;
-        return opc_sql("SELECT idcatadeta, descripcion FROM `catadeta` WHERE idcatalogo = 218 AND estado = 'A' AND valor='$comp'",$id);
+        return opc_sql("SELECT idcatadeta, descripcion FROM `catadeta` WHERE idcatalogo = 218 AND estado = 'A' AND valor in($comp)",$id);
     }
 }
 
