@@ -188,7 +188,7 @@ function get_documento_soporte(){
     $sql = "SELECT p.idpersona 
             FROM person p 
             INNER JOIN soporte s ON p.idpeople = s.idpeople  
-            WHERE s.idsoporte = $_REQUEST['id']";
+            WHERE s.idsoporte = {$_REQUEST['id']}";
     $info = datos_mysql($sql);
     $doc = isset($info['responseResult'][0]['idpersona']) ? $info['responseResult'][0]['idpersona'] : '';
     return json_encode(['doc' => $doc]);
