@@ -176,8 +176,8 @@ function approve_interl_soporte(){
 		$sql="UPDATE soporte SET aprueba=?,usu_update=?,`fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR),`estado`=4 
 		WHERE idsoporte=?";
         $params = [
-            ['type' => 'i', 'value' => $_SESSION['us_sds']],
-            ['type' => 'i', 'value' => $_SESSION['us_sds']],
+            ['type' => 's', 'value' => $_SESSION['us_sds']],
+            ['type' => 's', 'value' => $_SESSION['us_sds']],
             ['type' => 'i', 'value' => $_REQUEST['id']]
         ];
 		//~ echo $sql;
