@@ -214,20 +214,21 @@ function opc_cod_famcod_individuo(){
  */	
 
 
-	function formato_dato($a,$b,$c,$d){
-		$b=strtolower($b);
-		$rta=$c[$d];
-	   // $rta=iconv('UTF-8','ISO-8859-1',$rta);
-	   var_dump($c);
-	//    var_dump($rta);
-		   if ($a=='soporte' && $b=='acciones'){
-                if($c["Accion"]='INTERLOCAL'){
-                    $rta="<nav class='menu right'>";
-                    $rta.="<li title='Aprobar Interlocal' Onclick=\"mostrar('traslados','pro',event,'','../soporte/trasladloc.php',4,'traslados');\"><i class='fa-solid fa-thumbs-up ico' id='".$c['ACCIONES']."'></i> </li>";
-                }
-			}
-		return $rta;
-	   }
+    function formato_dato($a, $b, $c, $d) {
+        $b = strtolower($b);
+        $rta = $c[$d];
+        // $rta=iconv('UTF-8','ISO-8859-1',$rta);
+        // var_dump($c);
+        // var_dump($rta);
+        if ($a == 'soporte' && $b == 'acciones') {
+            if (isset($c["Accion"]) && $c["Accion"] === 'INTERLOCAL') {
+                $rta = "<nav class='menu right'>";
+                $rta .= "<li title='Aprobar Interlocal' Onclick=\"mostrar('traslados','pro',event,'','../soporte/trasladloc.php',4,'traslados');\"><i class='fa-solid fa-thumbs-up ico' id='" . $c['ACCIONES'] . "'></i> </li>";
+                $rta .= "</nav>";
+            }
+        }
+        return $rta;
+    }
 	   
 	   function bgcolor($a,$c,$f='c'){
 		// return $rta;
