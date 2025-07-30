@@ -151,7 +151,7 @@ function addDynamicListAction(options) {
 addDynamicListAction({
     containerId: 'soporte-lis',
     selector: 'i.fa-thumbs-up.ico',
-    action: 'approve_interl_soporte',
+    action: 'approve_interl',
     tb: 'soporte',
     confirmMsg: "¿Desea aprobar la interlocal para el usuario {doc}?",
     successMsg: "Se ha aprobado la interlocal",
