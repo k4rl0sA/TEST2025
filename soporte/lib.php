@@ -218,7 +218,7 @@ function opc_cod_famcod_individuo(){
 		$b=strtolower($b);
 		$rta=$c[$d];
 	   // $rta=iconv('UTF-8','ISO-8859-1',$rta);
-	   var_dump($b);
+	   var_dump($c);
 	//    var_dump($rta);
 		   if ($a=='soporte' && $b=='acciones'){
 			$rta="<nav class='menu right'>";		
