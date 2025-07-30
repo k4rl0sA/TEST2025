@@ -185,7 +185,7 @@ function approve_interl_soporte(){
     return $rta;
 }
 function get_documento_soporte(){
-    $id = IdHash($_REQUEST['id']); // Centralizado
+    $id = IdHash($_REQUEST['id'], $_REQUEST['accion'] ?? ''); // <-- ahora sí busca con el sufijo correcto
     if (!$id) return "ID inválido o expirado";
     $sql = "SELECT p.idpersona 
             FROM person p 
