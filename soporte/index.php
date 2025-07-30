@@ -133,7 +133,7 @@ function addDynamicListAction(options) {
     });
 }
 
-/* addDynamicListAction({
+addDynamicListAction({
     containerId: 'soporte-lis',
     selector: 'i.fa-thumbs-up.ico',
     action: 'approve_interl_soporte', // debe coincidir con tu función backend
@@ -141,7 +141,7 @@ function addDynamicListAction(options) {
     confirmMsg: "¿Desea aprobar la interlocal del ticket : {id} ?",
     successMsg: "Se ha aprobado la interlocal con ticket {id}",
     errorMsg: "No se pudo aprobar la ficha {id}."
-}); */
+});
 
 </script>
 </head>
