@@ -60,11 +60,11 @@ function init() {
 // --- CARGAR LOS DATOS DE LOS SELECTS ---
 function loadOptions() {
      // Cargar perfiles
-    fetch('lib.php?a=getProfiles')
+    fetch('agendas/lib.php?a=getProfiles')
       .then(res => res.json())
       .then(data => loadSelectChoices('profile', data, '-- Seleccione un Perfil --'));
     // Cargar tipos de documento
-    fetch('lib.php?a=getDocTypes')
+    fetch('agendas/lib.php?a=getDocTypes')
       .then(res => res.json())
       .then(data => loadSelectChoices('doc-type', data, '-- Seleccione un Tipo de Documento --'));
 
@@ -74,7 +74,7 @@ function loadOptions() {
         loadSelectChoices('professional', [], '-- Seleccione un Profesional --');
         document.getElementById('professional').disabled = true;
         if (profileId) {
-            fetch(`lib.php?a=getProfessionals&profileId=${profileId}`)
+            fetch(`agendas/lib.php?a=getProfessionals&profileId=${profileId}`)
               .then(res => res.json())
               .then(data => {
                   loadSelectChoices('professional', data, '-- Seleccione un Profesional --');
@@ -318,7 +318,7 @@ function searchPatient() {
         return;
     }
 
-    fetch(`lib.php?a=searchPatient&docType=${encodeURIComponent(docType)}&docNumber=${encodeURIComponent(docNumber)}`)
+    fetch(`agendas/lib.php?a=searchPatient&docType=${encodeURIComponent(docType)}&docNumber=${encodeURIComponent(docNumber)}`)
         .then(res => res.json())
         .then(data => {
             if (data.success && data.patient) {
@@ -360,7 +360,7 @@ function handleFormSubmit(e) {
         return;
     }
 
-    fetch('lib.php?a=saveAppointment', {
+    fetch('agendas/lib.php?a=saveAppointment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newAppointment)
@@ -401,7 +401,7 @@ function reassignAppointment() {
 }
 
 function getAppointments(professionalId, weekStart, weekEnd) {
-    return fetch(`lib.php?a=getAppointments&professionalId=${professionalId}&weekStart=${weekStart}&weekEnd=${weekEnd}`)
+    return fetch(`agendas/lib.php?a=getAppointments&professionalId=${professionalId}&weekStart=${weekStart}&weekEnd=${weekEnd}`)
         .then(res => res.json());
 }
 
