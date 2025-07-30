@@ -52,31 +52,38 @@ function grabar(tb='',ev){
     }
 }
 
-function inactiva(a){
-	//~ let rta=pajax(ruta_app, data, callback,'POST', headers = null);
-	var res = confirm("Desea confirmar la inactivación de la ficha "+a+" ?");
-		if(res==true){
-			if (loader != undefined) loader.style.display = 'block';
-		if (window.XMLHttpRequest)
-			xmlhttp = new XMLHttpRequest();
-		else
-			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-			xmlhttp.onreadystatechange = function () {
-			if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)){
-				data =xmlhttp.responseText;
-				if (loader != undefined) loader.style.display = 'none';
-					console.log(data)
-			}}
-			xmlhttp.open("POST", ruta_app,false);
-			xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xmlhttp.send('a=inactiva&tb=ficha&id='+a);
-			if (data.includes('Correctamente')){
-				alert('Se ha inactivado la ficha '+a);
-				actualizar();
-			}
-	}
-}
-
+document.getElementById('soporte-lis').addEventListener('click', function(event) {
+    // Busca si el click fue en un <i> con la clase de aprobar
+    const icon = event.target.closest('i.fa-thumbs-up.ico');
+    if (icon) {
+        const id = icon.id;
+        if (!id) return;
+        if (confirm("¿Desea aprobar la ficha " + id + " ?")) {
+            if (typeof loader !== "undefined") loader.style.display = 'block';
+            fetch(ruta_app, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: 'a=int_approve&tb=soporte&id=' + encodeURIComponent(id)
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (typeof loader !== "undefined") loader.style.display = 'none';
+                if (data.includes('Se ha') || data.includes('Correctamente')) {
+                    alert('Se ha aprobado la ficha ' + id);
+                    actualizar();
+                } else {
+                    alert('No se pudo aprobar la ficha. ' + data);
+                }
+            })
+            .catch(error => {
+                if (typeof loader !== "undefined") loader.style.display = 'none';
+                alert('Error: ' + error);
+            });
+        }
+    }
+});
 </script>
 </head>
 <body Onload="actualizar();">
