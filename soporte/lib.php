@@ -171,7 +171,7 @@ function gra_soporte() {
     return $rta;
 }
 
-function int_approve(){
+function approve_interl_soporte(){
 	//~ $id=divide($_REQUEST['id']);
 		$sql="UPDATE soporte SET aprueba=?,usu_update=?,`fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR),`estado`=4 
 		WHERE idsoporte=?";
