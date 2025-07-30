@@ -55,38 +55,40 @@ function grabar(tb='',ev){
 
 
 document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('soporte-lis').addEventListener('click', function(event) {
-    // Busca si el click fue en un <i> con la clase de aprobar
-    const icon = event.target.closest('i.fa-thumbs-up.ico');
-    if (icon) {
-        const id = icon.id;
-        if (!id) return;
-        if (confirm("¿Desea aprobar la interlocal del ticket : " + id + " ?")) {
-            if (typeof loader !== "undefined") loader.style.display = 'block';
-            fetch(ruta_app, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: 'a=int_approve&tb=soporte&id=' + encodeURIComponent(id)
-            })
-            .then(response => response.text())
-            .then(data => {
-                if (typeof loader !== "undefined") loader.style.display = 'none';
-                if (data.includes('Se ha') || data.includes('Correctamente')) {
-                    inform('Se ha aprobado la interlocal con ticket ' + id);
-                    actualizar();
-                } else {
-                    warnin('No se pudo aprobar la ficha. ' + data);
+    const soporteLis = document.getElementById('soporte-lis');
+    if (soporteLis) {
+        soporteLis.addEventListener('click', function(event) {
+            const icon = event.target.closest('i.fa-thumbs-up.ico');
+            if (icon) {
+                const id = icon.id;
+                if (!id) return;
+                if (confirm("¿Desea aprobar la interlocal del ticket : " + id + " ?")) {
+                    if (typeof loader !== "undefined") loader.style.display = 'block';
+                    fetch(ruta_app, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        },
+                        body: 'a=int_approve&tb=soporte&id=' + encodeURIComponent(id)
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        if (typeof loader !== "undefined") loader.style.display = 'none';
+                        if (data.includes('Se ha') || data.includes('Correctamente')) {
+                            inform('Se ha aprobado la interlocal con ticket ' + id);
+                            actualizar();
+                        } else {
+                            warnin('No se pudo aprobar la ficha. ' + data);
+                        }
+                    })
+                    .catch(error => {
+                        if (typeof loader !== "undefined") loader.style.display = 'none';
+                        errors('Error: ' + error);
+                    });
                 }
-            })
-            .catch(error => {
-                if (typeof loader !== "undefined") loader.style.display = 'none';
-                errors('Error: ' + error);
-            });
-        }
+            }
+        });
     }
-	});
 });
 
 </script>
