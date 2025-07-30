@@ -46,3 +46,22 @@ if ($req == 'searchPatient') {
     }
     exit;
 }
+if ($req == 'saveAppointment') {
+    $input = json_decode(file_get_contents('php://input'), true);
+    // Validar y sanitizar $input aquí
+    // Guardar en la BD (INSERT INTO citas ...)
+    // Si todo va bien:
+    echo json_encode(['success' => true]);
+    // Si hay error:
+    // echo json_encode(['success' => false, 'error' => 'Mensaje de error']);
+    exit;
+}
+if ($req == 'getAppointments') {
+    $professionalId = intval($_GET['professionalId'] ?? 0);
+    $weekStart = $_GET['weekStart'] ?? '';
+    $weekEnd = $_GET['weekEnd'] ?? '';
+    $sql = "SELECT * FROM citas WHERE professionalId=$professionalId AND date BETWEEN '$weekStart' AND '$weekEnd'";
+    $result = datos_mysql($sql);
+    echo json_encode($result['responseResult']);
+    exit;
+}

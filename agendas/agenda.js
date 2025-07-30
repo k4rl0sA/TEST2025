@@ -318,32 +318,32 @@ function searchPatient() {
         return;
     }
 
-    const patient = mockData.patients.find(p => p.docNumber === docNumber && p.docType === docType);
-
-    if (patient) {
-        document.getElementById('full-name').value = patient.fullName;
-        document.getElementById('phone').value = patient.phone;
-        document.getElementById('address').value = patient.address;
-        alert('Paciente encontrado.');
-    } else {
-        alert('Paciente no encontrado. Por favor, complete la información.');
-        document.getElementById('full-name').value = '';
-        document.getElementById('phone').value = '';
-        document.getElementById('address').value = '';
-        document.getElementById('full-name').focus();
-    }
+    fetch(`agendas/lib.php?a=searchPatient&docType=${encodeURIComponent(docType)}&docNumber=${encodeURIComponent(docNumber)}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.success && data.patient) {
+                document.getElementById('full-name').value = data.patient.fullName;
+                document.getElementById('phone').value = data.patient.phone;
+                document.getElementById('address').value = data.patient.address;
+                alert('Paciente encontrado.');
+            } else {
+                alert('Paciente no encontrado. Por favor, complete la información.');
+                document.getElementById('full-name').value = '';
+                document.getElementById('phone').value = '';
+                document.getElementById('address').value = '';
+                document.getElementById('full-name').focus();
+            }
+        })
+        .catch(() => alert('Error al buscar paciente.'));
 }
 
 function handleFormSubmit(e) {
     e.preventDefault();
 
-    // Recolectar datos del formulario
     const newAppointment = {
-        id: `APT-${Date.now()}`,
         professionalId: parseInt(document.getElementById('slot-professional-id').value),
         date: document.getElementById('appointment-date').value,
         time: document.getElementById('slot-time').value,
-        status: 'Agendado',
         patient: {
             docType: document.getElementById('doc-type').value,
             docNumber: document.getElementById('doc-number').value.trim(),
@@ -355,26 +355,27 @@ function handleFormSubmit(e) {
         notes: document.getElementById('notes').value.trim(),
     };
 
-    // Validaciones
     if (!newAppointment.patient.fullName || !newAppointment.patient.docNumber) {
         alert('El nombre completo y el número de documento son obligatorios.');
         return;
     }
 
-    // Guardar la cita
-    mockData.appointments.push(newAppointment);
-
-    // Guardar o actualizar paciente
-    const existingPatientIndex = mockData.patients.findIndex(p => p.docNumber === newAppointment.patient.docNumber);
-    if (existingPatientIndex > -1) {
-        mockData.patients[existingPatientIndex] = newAppointment.patient;
-    } else {
-        mockData.patients.push(newAppointment.patient);
-    }
-
-    alert('Cita programada exitosamente.');
-    closeModal();
-    updateCalendar();
+    fetch('agendas/lib.php?a=saveAppointment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newAppointment)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            alert('Cita programada exitosamente.');
+            closeModal();
+            updateCalendar();
+        } else {
+            alert('Error al guardar la cita: ' + (data.error || ''));
+        }
+    })
+    .catch(() => alert('Error de red al guardar la cita.'));
 }
 
 function updateAppointmentStatus() {
@@ -399,5 +400,9 @@ function reassignAppointment() {
     closeModal();
 }
 
+function getAppointments(professionalId, weekStart, weekEnd) {
+    return fetch(`agendas/lib.php?a=getAppointments&professionalId=${professionalId}&weekStart=${weekStart}&weekEnd=${weekEnd}`)
+        .then(res => res.json());
+}
 
 init();
