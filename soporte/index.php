@@ -153,9 +153,9 @@ addDynamicListAction({
     selector: 'i.fa-thumbs-up.ico',
     action: 'approve_interl_soporte',
     tb: 'soporte',
-    confirmMsg: "¿Desea aprobar la interlocal del usuario {doc}?",
-    successMsg: "Se ha aprobado la interlocal de {doc}",
-    errorMsg: "No se pudo aprobar la interlocal {doc}.",
+    confirmMsg: "¿Desea aprobar la interlocal para el usuario {doc}?",
+    successMsg: "Se ha aprobado la interlocal",
+    errorMsg: "No se pudo aprobar la interlocal para el usuario {doc}.",
     preFetch: async function(id) {
         // Puedes consultar cualquier cosa aquí
         const res = await fetch(ruta_app, {
