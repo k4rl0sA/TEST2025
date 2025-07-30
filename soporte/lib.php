@@ -234,7 +234,7 @@ function formato_dato($a, $b, $c, $d) {
                     'hash' => myhash($c['ACCIONES']),
                     'evento' => '',
                 ],
-                // Puedes agregar más acciones aquí fácilmente
+              /*   // Puedes agregar más acciones aquí fácilmente
                 'ELIMINAR' => [
                   'condicion' => ($c['Estado'] == 'POR APROBAR'),
                   'icono' => 'fa-solid fa-trash',
@@ -243,7 +243,7 @@ function formato_dato($a, $b, $c, $d) {
                   'permiso' => acceso('soporte'),
                   'hash' => myhash($c['ACCIONES'] . 'ELIMINAR'),
                   'evento' => '',
-                ]
+                ] */
             ];
         foreach ($accionesDisponibles as $key => $accion) {
             if ($accion['condicion'] && $accion['permiso']) {
