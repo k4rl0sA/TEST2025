@@ -52,7 +52,10 @@ function grabar(tb='',ev){
     }
 }
 
-document.getElementById('soporte-lis').addEventListener('click', function(event) {
+
+
+document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('soporte-lis').addEventListener('click', function(event) {
     // Busca si el click fue en un <i> con la clase de aprobar
     const icon = event.target.closest('i.fa-thumbs-up.ico');
     if (icon) {
@@ -83,6 +86,7 @@ document.getElementById('soporte-lis').addEventListener('click', function(event)
             });
         }
     }
+	});
 });
 
 </script>
