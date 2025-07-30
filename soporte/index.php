@@ -54,7 +54,7 @@ function grabar(tb='',ev){
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
+/* document.addEventListener('DOMContentLoaded', function() {
     const soporteLis = document.getElementById('soporte-lis');
     if (soporteLis) {
         soporteLis.addEventListener('click', function(event) {
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-});
+}); */
 
 function addDynamicListAction(options) {
     document.addEventListener('DOMContentLoaded', function() {
