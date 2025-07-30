@@ -138,10 +138,12 @@ addDynamicListAction({
     selector: 'i.fa-thumbs-up.ico',
     action: 'approve_interl_soporte', // debe coincidir con tu función backend
     tb: 'soporte',
-    confirmMsg: "¿Desea aprobar la interlocal del ticket : {id} ?",
-    successMsg: "Se ha aprobado la interlocal con ticket {id}",
-    errorMsg: "No se pudo aprobar la ficha {id}."
+    confirmMsg: "¿Desea aprobar la interlocal del usuario : {doc} ?",
+    successMsg: "Se ha aprobado la interlocal ",
+    errorMsg: "No se pudo aprobar la interlocal {id}."
 });
+
+
 
 </script>
 </head>
