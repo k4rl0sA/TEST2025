@@ -161,7 +161,7 @@ addDynamicListAction({
         const res = await fetch(ruta_app, {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: 'a=get_documento&tb=soporte&id=' + encodeURIComponent(id)
+            body: 'a=get_documento&tb=soporte&id=' + encodeURIComponent(id)+ '&accion=' + encodeURIComponent(accion)
         });
         const data = await res.json();
         return { doc: data.doc || '' };
