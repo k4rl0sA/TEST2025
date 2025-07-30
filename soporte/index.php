@@ -141,7 +141,8 @@ $digitadores=opc_sql("SELECT `id_usuario`,nombre FROM `usuarios` ORDER BY 2 ASC"
 			<li class='icono actualizar'    title='Actualizar'      Onclick="actualizar();">
 			<li class='icono filtros'    title='Filtros'      Onclick="showFil(mod);">
 			<!-- <li class='icono crear'       title='Crear'     Onclick="mostrar(mod,'pro');"></li> setTimeout(load,500); -->
-			<li class='icono casa'       title='Interlocales'     Onclick="mostrar('trasladint','pro',event,'','interloc.php',7,'Interlocales');"></li>
+			<!-- <li class='icono casa'       title='Interlocales'     Onclick="mostrar('trasladint','pro',event,'','interloc.php',7,'Interlocales');"></li> -->
+			<li class='icono lupa' title='Consultar Predio' Onclick="mostrar('predios','pro',event,'','../consultar/consulpred.php',7);">
 		</nav>
 		<nav class='menu right' >
 			<li class='icono ayuda'      title='Necesitas Ayuda'            Onclick=" window.open('https://sites.google.com/', '_blank');"></li>
