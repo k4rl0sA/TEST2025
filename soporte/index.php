@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         headers: {
                             "Content-Type": "application/x-www-form-urlencoded"
                         },
-                        body: 'a=int_approve&tb=soporte&id=' + encodeURIComponent(id)
+                        body: 'a=approve&tb=interl&id=' + encodeURIComponent(id)
                     })
                     .then(response => response.text())
                     .then(data => {
