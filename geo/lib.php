@@ -148,7 +148,7 @@ function get_predio(){
 	/* if ($perfil == 'AUXHOG') {
 		$sql .= " AND AP.doc_asignado = '" . $_SESSION['us_sds'] . "'";
 	} */
-var_dump($sql);
+// var_dump($sql);
 	$info = datos_mysql($sql);
 	if (!$info['responseResult']) {
 		return json_encode(new stdClass);
