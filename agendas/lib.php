@@ -1,6 +1,7 @@
 <?php
 ini_set('display_errors','1');
 // print_r($_POST['a']);
+require_once "../lib/php/app.php";
 if (!isset($_SESSION['us_sds'])) die("<script>window.top.location.href='/';</script>");
 else {
   $rta="";
@@ -8,8 +9,6 @@ else {
     if (is_array($rta)) json_encode($rta);
 	else echo $rta;
   }   
-
-require_once "../lib/php/app.php";
 
 // Validar sesión
 if (!isset($_SESSION['us_sds'])) {
