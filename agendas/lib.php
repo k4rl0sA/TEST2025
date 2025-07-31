@@ -29,6 +29,7 @@ if ($req == 'getProfiles') {
 if ($req == 'getProfessionals') {
     $profileId = $_GET['profileId'] ?? 0;
     $sql = "SELECT id_usuario AS id, nombre AS name FROM usuarios WHERE perfil=$profileId AND estado='A'";
+    var_dump($sql);
     getSelectOptions($sql);
 }
 if ($req == 'getDocTypes') {
