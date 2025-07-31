@@ -23,7 +23,7 @@ if (!isset($_SESSION['us_sds'])) {
 $req = $_GET['a'] ?? $_POST['a'] ?? '';
 
 if ($req == 'getProfiles') {
-    $sql = "SELECT idcatadeta AS id, descripcion AS name FROM catadeta WHERE idcatalogo=218 AND estado='A'";
+    $sql = "SELECT descripcion AS id, descripcion AS name FROM catadeta WHERE idcatalogo=218 AND estado='A'";
     getSelectOptions($sql);
 }
 if ($req == 'getProfessionals') {
