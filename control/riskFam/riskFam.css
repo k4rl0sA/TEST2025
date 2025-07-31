@@ -879,3 +879,127 @@
 .risk-factor:hover {
   background-color: var(--color-surface);
 }
+
+/* Mejoras para móviles */
+
+/* Reduce padding y márgenes en tarjetas y contenedores */
+@media (max-width: 600px) {
+  .app-container {
+    padding: var(--spacing-xs);
+  }
+  .card {
+    padding: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+    border-radius: var(--radius-md);
+  }
+  .card-header, .card-body {
+    padding: var(--spacing-xs);
+  }
+  .risk-gauge-container {
+    padding: var(--spacing-xs);
+  }
+  .risk-classification {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xs);
+  }
+  .risk-class {
+    padding: var(--spacing-xs);
+    margin-bottom: var(--spacing-xs);
+  }
+  .risk-factors-section, .risk-chart-section, .personal-info-section, .search-info-risk {
+    padding: 0;
+    margin: 0;
+  }
+  .risk-factor {
+    padding: var(--spacing-xs);
+    margin-bottom: var(--spacing-xs);
+  }
+  .risk-factor-details {
+    flex-direction: column;
+    gap: 2px;
+    font-size: var(--font-size-xs);
+  }
+  .input-group {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+  .form-control, .btn {
+    font-size: var(--font-size-sm);
+    min-height: 36px;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+  .personal-info-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xs);
+  }
+  .personal-info-grid p {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-xs);
+    flex-direction: column;
+  }
+  .risk-gauge {
+    max-width: 220px;
+  }
+  .risk-gauge-value, .risk-level {
+    font-size: var(--font-size-md);
+  }
+  .risk-factor-tooltip, .risk-factor-tooltip .tooltip-content {
+    font-size: var(--font-size-xs);
+    max-width: 98vw;
+    min-width: 120px;
+    padding: 6px 4px;
+  }
+  .chart-container {
+    min-height: 180px;
+    padding: var(--spacing-xs);
+  }
+  .app-header h1 {
+    font-size: var(--font-size-lg);
+  }
+  .subtitle {
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* Ajustes para que los botones y selects sean más grandes y fáciles de tocar */
+@media (max-width: 400px) {
+  .btn {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-md);
+    min-height: 40px;
+  }
+  .form-control {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-md);
+  }
+  .risk-meter-needle {
+    width: 4px;
+    height: 80px;
+  }
+  .risk-meter-center {
+    width: 18px;
+    height: 18px;
+  }
+  .risk-gauge-value {
+    font-size: var(--font-size-lg);
+  }
+  .risk-level {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-md);
+  }
+  .risk-classification {
+    grid-template-columns: 1fr;
+  }
+  .risk-class {
+    padding: var(--spacing-sm);
+  }
+  .risk-factor {
+    padding: var(--spacing-sm);
+  }
+  .input-group {
+    flex-direction: column;
+  }
+  .personal-info-grid {
+    grid-template-columns: 1fr;
+  }
+}
