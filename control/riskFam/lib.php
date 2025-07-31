@@ -464,7 +464,7 @@ $riesgos = [
     "individualConditions" => [
         "name" => "Condiciones Individuales",
         "value" => rand(50, 100),
-        "weight" => 0.15,
+        "weight" => 0.20,
         "description" => "Factores personales como discapacidad, enfermedades crónicas o condiciones especiales."
     ]
 ];
