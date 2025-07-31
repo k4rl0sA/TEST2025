@@ -327,6 +327,46 @@ function mysql_prepd($sql, $params) {
   return $rs;
 }
 
+function datos_mysql($sql,$resulttype = MYSQLI_ASSOC, $pdbs = false){
+  $arr = ['code' => 0, 'message' => '', 'responseResult' => []];
+  $con = $GLOBALS['con'];
+if (!$con) {
+  $arr['code'] = 30;
+  $arr['message'] = 'No hay conexión activa a la base de datos.';
+  log_error($_SESSION["us_sds"] . ' = Connection error');
+  return $arr;
+}
+try {
+  $con->set_charset('utf8');
+  $rs = $con->query($sql);
+  if (!$rs) {
+    log_error($_SESSION["us_sds"] . ' Error en la consulta: ' . $con->error, $con->errno);
+    throw new mysqli_sql_exception("Error en la consulta: " . $con->error, $con->errno);
+  }
+  fetch($con, $rs, $resulttype, $arr);
+} catch (mysqli_sql_exception $e) {
+  echo json_encode(['code' => 30, 'message' => 'Error BD', 'errors' => ['code' => $e->getCode(), 'message' => $e->getMessage()]]);
+  log_error($_SESSION["us_sds"].'=>'.$e->getCode().'='.$e->getMessage());
+}finally {
+  // $GLOBALS['con']->close();
+}
+return $arr;
+}
+function fetch(&$con, &$rs, $resulttype, &$arr) {
+	if ($rs === TRUE) {
+		$arr['responseResult'][] = ['affected_rows' => $con->affected_rows];
+	}else {
+		if ($rs === FALSE) {
+			die(json_encode(['code' => $con->errno, 'message' => $con->error]));
+		}
+		while ($r = $rs->fetch_array($resulttype)) {
+			$arr['responseResult'][] = $r;
+		}
+		$rs->free();
+	}
+	return $arr;
+}
+
 //Function opc
 function getSelectOptions($sql, $idField = 'id', $labelField = 'name') {
     $result = datos_mysql($sql);
