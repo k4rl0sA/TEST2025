@@ -4,11 +4,13 @@ ini_set('display_errors','1');
 require_once "../lib/php/app.php";
 if (!isset($_SESSION['us_sds'])) die("<script>window.top.location.href='/';</script>");
 else {
-  $rta="";
+  if (isset($_POST['a']) && isset($_POST['tb']) && $_POST['a'] && $_POST['tb']) {
+    $rta = "";
     eval('$rta='.$_POST['a'].'_'.$_POST['tb'].'();');
     if (is_array($rta)) json_encode($rta);
-	else echo $rta;
-  }   
+    else echo $rta;
+  }
+}   
 
 // Validar sesión
 if (!isset($_SESSION['us_sds'])) {
