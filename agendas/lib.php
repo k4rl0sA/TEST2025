@@ -9,7 +9,7 @@ else {
 	else echo $rta;
   }   
 
-require_once "../libs/app.php";
+require_once "../lib/php/app.php";
 
 // Validar sesión
 if (!isset($_SESSION['us_sds'])) {
