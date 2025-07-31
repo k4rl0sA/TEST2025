@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Evaluación de Riesgos Familiares</title>
+  <title>Evaluación de Prioridades</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -25,7 +25,7 @@
         <img src="../../libs/img/masBienestar.webp" alt="Logo MAS Bienestar" style="height:100px;width:100px;object-fit:contain;vertical-align:middle;">
         <h1>Escala de Bienestar Familiar</h1>
       </div>
-      <p class="subtitle">Evaluar y Visualizar Factores de Riesgos Familiares</p>
+      <p class="subtitle">Evaluar y Visualizar Factores de Prioridad Familiares y/o Individuales</p>
 </div>
 
     <main class="content">
@@ -104,7 +104,7 @@
       <section class="risk-summary-section">
         <div class="card risk-summary">
           <div class="card-header">
-            <h2>Índice de Riesgo Familiar</h2>
+            <h2>Índice de Prioridad</h2>
           </div>
 
           <div class="risk-gauge-container">
@@ -133,29 +133,29 @@
               <div class="risk-meter-center"></div>
             </div>
             <div class="risk-gauge-value" id="riskGaugeValue">27.1%</div>
-            <div class="risk-level low" id="riskLevel">Riesgo Bajo</div>
+            <div class="risk-level low" id="riskLevel">Prioridad Baja</div>
           </div>
 
           <div class="risk-classification">
             <div class="risk-class low">
               <div class="risk-indicator"></div>
               <div class="risk-class-details">
-                <h4>Riesgo Bajo (0-40%)</h4>
+                <h4>Prioridad Baja (0-40%)</h4>
                 <p>La familia tiene condiciones favorables y no requiere intervención prioritaria.</p>
               </div>
             </div>
             <div class="risk-class medium">
               <div class="risk-indicator"></div>
               <div class="risk-class-details">
-                <h4>Riesgo Medio (41-70%)</h4>
+                <h4>Prioridad Media (41-70%)</h4>
                 <p>La familia tiene vulnerabilidades que requieren seguimiento y apoyo.</p>
               </div>
             </div>
             <div class="risk-class high">
               <div class="risk-indicator"></div>
               <div class="risk-class-details">
-                <h4>Riesgo Alto (71-100%)</h4>
-                <p>La familia enfrenta múltiples factores de riesgo y necesita intervención urgente.</p>
+                <h4>Prioridad Alto (71-100%)</h4>
+                <p>La familia enfrenta múltiples factores de Prioridad y necesita intervención urgente.</p>
               </div>
             </div>
           </div>
@@ -165,7 +165,7 @@
       <section class="risk-factors-section">
         <div class="card">
           <div class="card-header">
-            <h2>Factores de Riesgo</h2>
+            <h2>Factores de Prioridad</h2>
             <div class="total-risk">
               <span>Total:</span>
               <span id="totalRiskText">27.1%</span>
@@ -181,7 +181,7 @@
       <section class="risk-chart-section">
         <div class="card">
           <div class="card-header">
-            <h2>Visualización de Riesgos</h2>
+            <h2>Visualización de Prioridades</h2>
           </div>
 
           <div class="chart-container">
@@ -192,7 +192,7 @@
     </main>
 
     <footer class="app-footer">
-      <p>Herramienta de Evaluación de Riesgo Familiar &copy; 2025</p>
+      <p>Herramienta de Evaluación de Prioridad Familiar &copy; 2025</p>
     </footer>
   </div>
 <div id="toast-error" class="toast-error" style="display:none;"></div>
@@ -475,13 +475,13 @@
       riskLevel.classList.remove('low', 'medium', 'high');
 
       if (totalRisk >= 71) {
-        riskLevelText = "Riesgo Alto";
+        riskLevelText = "Prioridad Alta";
         riskLevel.classList.add('high');
       } else if (totalRisk >= 41) {
-        riskLevelText = "Riesgo Medio";
+        riskLevelText = "Prioridad Media";
         riskLevel.classList.add('medium');
       } else {
-        riskLevelText = "Riesgo Bajo";
+        riskLevelText = "Prioridad Baja";
         riskLevel.classList.add('low');
       }
 
@@ -720,7 +720,7 @@ function setupTooltips() {
       const chartData = {
         labels: Object.values(factors).map(factor => factor.name),
         datasets: [{
-          label: 'Factores de Riesgo',
+          label: 'Factores de Prioridad',
           data: Object.values(factors).map(factor => factor.value),
           backgroundColor: Object.values(factors).map(factor => getChartColor(factor.value, 0.7)),
           borderColor: Object.values(factors).map(factor => getChartColor(factor.value, 1)),
