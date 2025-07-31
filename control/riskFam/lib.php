@@ -457,7 +457,7 @@ $riesgos = [
     ],
     "demographics" => [
         "name" => "Características Demográficas",
-        "value" => rand(0, 100),
+        "value" => rand(30, 100),
         "weight" => 0.30,
         "description" => "Incluye edad, género y otras variables que influyen en la exposición al riesgo."
     ],
