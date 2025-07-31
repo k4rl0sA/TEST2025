@@ -27,7 +27,7 @@ if ($req == 'getProfiles') {
     getSelectOptions($sql);
 }
 if ($req == 'getProfessionals') {
-    $profileId = intval($_GET['profileId'] ?? 0);
+    $profileId = $_GET['profileId'] ?? 0;
     $sql = "SELECT id_usuario AS id, nombre AS name FROM usuarios WHERE perfil=$profileId AND estado='A'";
     getSelectOptions($sql);
 }
