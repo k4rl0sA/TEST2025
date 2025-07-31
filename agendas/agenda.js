@@ -90,7 +90,6 @@ function onProfileChange() {
     professionalSelect.disabled = true;
     selectedProfessionalId = null;
     updateCalendar();
-
     if (profileId) {
         // Cargar profesionales desde el backend
         fetch(`/agendas/lib.php?a=getProfessionals&profileId=${profileId}`)
