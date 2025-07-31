@@ -92,14 +92,13 @@ function onProfileChange() {
     updateCalendar();
 
     if (profileId) {
-        const professionals = mockData.professionals.filter(p => p.profileId === profileId);
-        professionals.forEach(prof => {
-            const option = document.createElement('option');
-            option.value = prof.id;
-            option.textContent = prof.name;
-            professionalSelect.appendChild(option);
-        });
-        professionalSelect.disabled = false;
+        // Cargar profesionales desde el backend
+        fetch(`/agendas/lib.php?a=getProfessionals&profileId=${profileId}`)
+            .then(res => res.json())
+            .then(data => {
+                loadSelectChoices('professional', data, '-- Seleccione un Profesional --');
+                professionalSelect.disabled = false;
+            });
     }
 }
 
