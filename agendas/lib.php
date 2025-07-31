@@ -2,6 +2,10 @@
 ini_set('display_errors','1');
 // print_r($_POST['a']);
 require_once "../lib/php/app.php";
+if (!isset($_SESSION["us_sds"])) {
+  header("Location: /index.php"); 
+  exit;
+}
 if (!isset($_SESSION['us_sds'])) die("<script>window.top.location.href='/';</script>");
 else {
   if (isset($_POST['a']) && isset($_POST['tb']) && $_POST['a'] && $_POST['tb']) {
