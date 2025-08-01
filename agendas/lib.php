@@ -17,15 +17,6 @@ if (!isset($_SESSION["us_sds"])) {
     if (is_array($rta)) json_encode($rta);
     else echo $rta;
   }
-
-// Validar sesión
-if (!isset($_SESSION['us_sds'])) {
-    echo json_encode([
-        'success' => false,
-        'error' => 'Sesión no iniciada. <a href=\"/\">Iniciar sesión</a>'
-    ]);
-    exit;
-}
 $req = $_GET['a'] ?? $_POST['a'] ?? '';
 
 if ($req == 'getProfiles') {
