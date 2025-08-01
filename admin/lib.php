@@ -2331,7 +2331,6 @@ function lis_usuarios($txt){
 	$rta = array('type' => 'OK','file'=>$txt);
 	echo json_encode($rta);
 }
-
 function lis_identEmb($txt){
 	$sql="SELECT G.idgeo Cod_Predio,F.id_fam AS Cod_Familia, V.idriesgo AS Cod_Registro, G.subred AS Subred,V.idpeople AS Cod_Persona, 
 P.tipo_doc AS Tipo_Documento, P.idpersona AS N°_Documento,P.nombre1 AS Primer_Nombre, P.nombre2 AS Segundo_Nombre, P.apellido1 AS Primer_Apellido, P.apellido2 AS Seundo_Apellido, P.fecha_nacimiento AS Fecha_Nacimiento, FN_CATALOGODESC(21,P.sexo) AS Sexo,	V.fechavisi AS Fecha_Visita, V.lider AS Lider, V.educacion AS Educación,V.espanol AS Habla_Español, FN_CATALOGODESC(256,V.saberes) AS Saberes, FN_CATALOGODESC(257,V.enfoque) AS Enfoque, FN_CATALOGODESC(266,V.pueblo) AS Pueblo,	V.usu_creo,	U.nombre AS Nombre_Creo,V.fecha_create,	V.usu_update, V.fecha_update, U.perfil AS Perfil_Creo, U.equipo AS Equipo_Creo, V.estado AS Estado_Registro
