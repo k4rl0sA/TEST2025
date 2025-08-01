@@ -77,6 +77,7 @@ async function onProfileChange() {
     updateCalendar();
     if (profileId) {
         const data = await fetchJsonWithSessionCheck(`/agendas/lib.php?a=getProfessionals&profileId=${profileId}`);
+        console.log('Profesionales recibidos:', data);
         if (data) {
             loadSelectChoices('professional', data, '-- Seleccione un Profesional --');
             professionalSelect.disabled = false;
