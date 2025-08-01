@@ -193,8 +193,9 @@ function renderCalendarGrid(weekDays) {
 }
 
 function findAppointment(date, time) {
+    if (!selectedProfessionalId) return undefined;
     return appointments.find(a =>
-        parseInt(a.professionalId) === selectedProfessionalId &&
+        String(a.professionalId) === String(selectedProfessionalId) &&
         a.date === date &&
         a.time === time
     );
