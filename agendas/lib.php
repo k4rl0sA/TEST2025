@@ -84,7 +84,8 @@ if ($req == 'getAppointments') {
         ['type' => 's', 'value' => $weekEnd],
     ];
     $result = mysql_prepd($sql, $params);
-    $appointments = [];
+   $appointments = [];
+if (is_array($result) && isset($result['responseResult']) && is_array($result['responseResult'])) {
     foreach ($result['responseResult'] as $row) {
         $appointments[] = [
             'id' => $row['id'],
@@ -104,7 +105,11 @@ if ($req == 'getAppointments') {
         ];
     }
     echo json_encode($appointments);
-    exit;
+} else {
+    // Devuelve error en formato JSON para el frontend
+    echo json_encode(['success' => false, 'error' => $result['error'] ?? 'Error al consultar citas']);
+}
+exit;
 }
 if ($req == 'updateAppointmentStatus') {
     $input = json_decode(file_get_contents('php://input'), true);
