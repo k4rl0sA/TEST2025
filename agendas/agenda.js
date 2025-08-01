@@ -59,10 +59,17 @@ function init() {
 
 // --- CARGAR LOS DATOS DE LOS SELECTS ---
 function loadOptions() {
-     // Cargar perfiles
     fetch('/agendas/lib.php?a=getProfiles')
-      .then(res => res.json())
-      .then(data => loadSelectChoices('profile', data, '-- Seleccione un Perfil --'));
+      .then(res => {
+        return res.json().catch(() => ({success: false, error: 'Sesión no iniciada o respuesta inválida'}));
+      })
+      .then(data => {
+        if (data.success === false && data.error) {
+          window.location.href = '/index.php';
+          return;
+        }
+        loadSelectChoices('profile', data, '-- Seleccione un Perfil --');
+      });
     // Cargar tipos de documento
     fetch('/agendas/lib.php?a=getDocTypes')
       .then(res => res.json())
