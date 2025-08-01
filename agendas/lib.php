@@ -19,18 +19,18 @@ if (!isset($_SESSION["us_sds"])) {
   }
 $req = $_GET['a'] ?? $_POST['a'] ?? '';
 if ($req == 'getProfiles') {
-    $sql = "SELECT descripcion AS value, descripcion AS label FROM catadeta WHERE idcatalogo=218 AND estado='A'";
+    $sql = "SELECT descripcion AS id, descripcion AS name FROM catadeta WHERE idcatalogo=218 AND estado='A'";
     getSelectOptions($sql);
     exit;
 }
 if ($req == 'getProfessionals') {
     $profileId = $_GET['profileId'] ?? 0;
-    $sql = "SELECT id_usuario AS value, nombre AS label FROM usuarios WHERE perfil IN ('$profileId') AND estado='A'";
+    $sql = "SELECT id_usuario AS id, nombre AS name FROM usuarios WHERE perfil IN ('$profileId') AND estado='A'";
     getSelectOptions($sql);
     exit;
 }
 if ($req == 'getDocTypes') {
-    $sql = "SELECT idcatadeta AS value, descripcion AS label FROM catadeta WHERE idcatalogo=1 AND estado='A'";
+    $sql = "SELECT idcatadeta AS id, descripcion AS name FROM catadeta WHERE idcatalogo=1 AND estado='A'";
     getSelectOptions($sql);
     exit;
 }
