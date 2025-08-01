@@ -430,33 +430,43 @@ async function fetchJsonWithSessionCheck(url, options) {
 function loadSelectChoices(selectId, options, placeholder = '-- Seleccione --', selectedValue = null) {
     const select = document.getElementById(selectId);
     if (!select) return;
+
+    // Destruye Choices anterior si existe
+    if (select.choicesInstance) {
+        select.choicesInstance.destroy();
+        select.choicesInstance = null;
+    } else if (select._choices) {
+        // Para versiones antiguas de Choices.js
+        select._choices.destroy();
+        select._choices = null;
+    }
+
     // Limpia opciones previas
     select.innerHTML = '';
-    // Agrega placeholder
     const placeholderOption = document.createElement('option');
     placeholderOption.value = '';
     placeholderOption.textContent = placeholder;
     select.appendChild(placeholderOption);
-    // Agrega opciones
+
     options.forEach(opt => {
         const option = document.createElement('option');
         option.value = opt.value;
         option.textContent = opt.label;
         select.appendChild(option);
     });
-    // Inicializa Choices.js (destruye si ya existe)
-    if (select.choicesInstance) {
-        select.choicesInstance.destroy();
-    }
-    select.choicesInstance = new Choices(select, {
+
+    // Inicializa Choices.js
+    const instance = new Choices(select, {
         searchEnabled: true,
         itemSelectText: '',
         shouldSort: false,
         placeholder: true,
         placeholderValue: placeholder
     });
+    select.choicesInstance = instance;
+
     // Selecciona valor si existe
     if (selectedValue) {
-        select.choicesInstance.setChoiceByValue(selectedValue);
+        instance.setChoiceByValue(selectedValue);
     }
 }
