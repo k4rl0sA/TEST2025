@@ -75,8 +75,8 @@ if ($req == 'getAppointments') {
     $professionalId = intval($_GET['professionalId'] ?? 0);
     $weekStart = $_GET['weekStart'] ?? '';
     $weekEnd = $_GET['weekEnd'] ?? '';
-    $sql = "SELECT id, professionalId, date, time, status, activity, notes, docType, docNumber, fullName, phone, address
-            FROM citas
+    $sql = "SELECT id, professionalId, fecha, hora, estado, actividad, notas, tipo_doc, documento, nombre, telefono, direccion
+            FROM agenda
             WHERE professionalId=? AND date BETWEEN ? AND ?";
     $params = [
         ['type' => 'i', 'value' => $professionalId],
@@ -90,17 +90,17 @@ if (is_array($result) && isset($result['responseResult']) && is_array($result['r
         $appointments[] = [
             'id' => $row['id'],
             'professionalId' => $row['professionalId'],
-            'date' => $row['date'],
-            'time' => $row['time'],
-            'status' => $row['status'],
-            'activity' => $row['activity'],
-            'notes' => $row['notes'],
+            'fecha' => $row['fecha'],
+            'hora' => $row['hora'],
+            'estado' => $row['estado'],
+            'actividad' => $row['actividad'],
+            'notas' => $row['notas'],
             'patient' => [
-                'docType' => $row['docType'],
-                'docNumber' => $row['docNumber'],
-                'fullName' => $row['fullName'],
-                'phone' => $row['phone'],
-                'address' => $row['address'],
+                'tipo_doc' => $row['tipo_doc'],
+                'documento' => $row['documento'],
+                'nombre' => $row['nombre'],
+                'telefono' => $row['telefono'],
+                'direccion' => $row['direccion'],
             ]
         ];
     }
