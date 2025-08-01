@@ -135,6 +135,10 @@ function log_error($message) {
   }
 }
 
+function usuSess(){
+  return $usu = isset($_SESSION['us_sds']) ? $_SESSION['us_sds'] : 'Usuario Desconocido';
+}
+
 function validFecha($mod,$fecha){
   $days = fechas_app($mod);
   $fechaMin = date('Y-m-d', strtotime("$days days"));
