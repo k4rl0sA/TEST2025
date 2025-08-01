@@ -18,20 +18,21 @@ if (!isset($_SESSION["us_sds"])) {
     else echo $rta;
   }
 $req = $_GET['a'] ?? $_POST['a'] ?? '';
-
 if ($req == 'getProfiles') {
-    $sql = "SELECT descripcion AS id, descripcion AS name FROM catadeta WHERE idcatalogo=218 AND estado='A'";
+    $sql = "SELECT descripcion AS value, descripcion AS label FROM catadeta WHERE idcatalogo=218 AND estado='A'";
     getSelectOptions($sql);
+    exit;
 }
 if ($req == 'getProfessionals') {
     $profileId = $_GET['profileId'] ?? 0;
-    $sql = "SELECT id_usuario AS id, nombre AS name FROM usuarios WHERE perfil IN ('$profileId') AND estado='A'";
-    // var_dump($sql);
+    $sql = "SELECT id_usuario AS value, nombre AS label FROM usuarios WHERE perfil IN ('$profileId') AND estado='A'";
     getSelectOptions($sql);
+    exit;
 }
 if ($req == 'getDocTypes') {
-    $sql = "SELECT idcatadeta AS id, descripcion AS name FROM catadeta WHERE idcatalogo=1 AND estado='A'";
+    $sql = "SELECT idcatadeta AS value, descripcion AS label FROM catadeta WHERE idcatalogo=1 AND estado='A'";
     getSelectOptions($sql);
+    exit;
 }
 if ($req == 'searchPatient') {
     $docType = $_GET['docType'] ?? '';
@@ -48,19 +49,77 @@ if ($req == 'searchPatient') {
 if ($req == 'saveAppointment') {
     $input = json_decode(file_get_contents('php://input'), true);
     // Validar y sanitizar $input aquí
-    // Guardar en la BD (INSERT INTO citas ...)
-    // Si todo va bien:
-    echo json_encode(['success' => true]);
-    // Si hay error:
-    // echo json_encode(['success' => false, 'error' => 'Mensaje de error']);
+    $sql = "INSERT INTO citas (professionalId, date, time, status, activity, notes, docType, docNumber, fullName, phone, address)
+            VALUES (?, ?, ?, 'Agendado', ?, ?, ?, ?, ?, ?, ?)";
+    $params = [
+        ['type' => 'i', 'value' => $input['professionalId']],
+        ['type' => 's', 'value' => $input['date']],
+        ['type' => 's', 'value' => $input['time']],
+        ['type' => 's', 'value' => $input['activity']],
+        ['type' => 's', 'value' => $input['notes']],
+        ['type' => 's', 'value' => $input['patient']['docType']],
+        ['type' => 's', 'value' => $input['patient']['docNumber']],
+        ['type' => 's', 'value' => $input['patient']['fullName']],
+        ['type' => 's', 'value' => $input['patient']['phone']],
+        ['type' => 's', 'value' => $input['patient']['address']],
+    ];
+    $result = mysql_prepd($sql, $params);
+    if ($result['success']) {
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false, 'error' => $result['error'] ?? 'Error al guardar']);
+    }
     exit;
 }
 if ($req == 'getAppointments') {
     $professionalId = intval($_GET['professionalId'] ?? 0);
     $weekStart = $_GET['weekStart'] ?? '';
     $weekEnd = $_GET['weekEnd'] ?? '';
-    $sql = "SELECT * FROM citas WHERE professionalId=$professionalId AND date BETWEEN '$weekStart' AND '$weekEnd'";
-    $result = datos_mysql($sql);
-    echo json_encode($result['responseResult']);
+    $sql = "SELECT id, professionalId, date, time, status, activity, notes, docType, docNumber, fullName, phone, address
+            FROM citas
+            WHERE professionalId=? AND date BETWEEN ? AND ?";
+    $params = [
+        ['type' => 'i', 'value' => $professionalId],
+        ['type' => 's', 'value' => $weekStart],
+        ['type' => 's', 'value' => $weekEnd],
+    ];
+    $result = mysql_prepd($sql, $params);
+    $appointments = [];
+    foreach ($result['responseResult'] as $row) {
+        $appointments[] = [
+            'id' => $row['id'],
+            'professionalId' => $row['professionalId'],
+            'date' => $row['date'],
+            'time' => $row['time'],
+            'status' => $row['status'],
+            'activity' => $row['activity'],
+            'notes' => $row['notes'],
+            'patient' => [
+                'docType' => $row['docType'],
+                'docNumber' => $row['docNumber'],
+                'fullName' => $row['fullName'],
+                'phone' => $row['phone'],
+                'address' => $row['address'],
+            ]
+        ];
+    }
+    echo json_encode($appointments);
+    exit;
+}
+if ($req == 'updateAppointmentStatus') {
+    $input = json_decode(file_get_contents('php://input'), true);
+    $id = intval($input['id']);
+    $status = $input['status'];
+    $sql = "UPDATE citas SET status=? WHERE id=?";
+    $params = [
+        ['type' => 's', 'value' => $status],
+        ['type' => 'i', 'value' => $id]
+    ];
+    $result = mysql_prepd($sql, $params);
+    if ($result['success']) {
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false, 'error' => $result['error'] ?? 'Error al actualizar']);
+    }
     exit;
 }
