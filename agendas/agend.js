@@ -141,7 +141,9 @@ async function updateCalendar() {
     const weekStart = firstDay.toISOString().split('T')[0];
     const weekEnd = lastDay.toISOString().split('T')[0];
     appointments = await getAppointments(selectedProfessionalId, weekStart, weekEnd);
-
+    if (!Array.isArray(appointments)) {
+            appointments = [];
+    }
     renderCalendarGrid(weekDays);
 }
 
@@ -400,7 +402,8 @@ function reassignAppointment() {
 
 function getAppointments(professionalId, weekStart, weekEnd) {
     return fetch(`/agendas/lib.php?a=getAppointments&professionalId=${professionalId}&weekStart=${weekStart}&weekEnd=${weekEnd}`)
-        .then(res => res.json());
+        .then(res => res.json())
+        .then(data => Array.isArray(data) ? data : []);
 }
 
 // --- CONTROL DE SESIÓN Y FETCH SEGURO ---
