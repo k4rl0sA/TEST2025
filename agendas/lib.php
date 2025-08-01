@@ -3,18 +3,20 @@ ini_set('display_errors','1');
 // print_r($_POST['a']);
 require_once "../lib/php/app.php";
 if (!isset($_SESSION["us_sds"])) {
-  header("Location: /index.php"); 
-  exit;
+    if (isAjax()) {
+        header('Content-Type: application/json');
+        echo json_encode(['success' => false, 'error' => 'Sesión no iniciada']);
+    } else {
+        header("Location: /index.php");
+    }
+    exit;
 }
-if (!isset($_SESSION['us_sds'])) die("<script>window.top.location.href='/';</script>");
-else {
   if (isset($_POST['a']) && isset($_POST['tb']) && $_POST['a'] && $_POST['tb']) {
     $rta = "";
     eval('$rta='.$_POST['a'].'_'.$_POST['tb'].'();');
     if (is_array($rta)) json_encode($rta);
     else echo $rta;
   }
-}   
 
 // Validar sesión
 if (!isset($_SESSION['us_sds'])) {
