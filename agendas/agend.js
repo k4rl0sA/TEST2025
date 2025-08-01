@@ -69,25 +69,6 @@ async function loadOptions() {
     professionalSelect.disabled = true;
 }
 
-function loadSelectChoices(selectId, data, placeholder) {
-    const select = document.getElementById(selectId);
-    select.innerHTML = '';
-    if (placeholder) {
-        const opt = document.createElement('option');
-        opt.value = '';
-        opt.textContent = placeholder;
-        select.appendChild(opt);
-    }
-    if (Array.isArray(data)) {
-        data.forEach(item => {
-            const opt = document.createElement('option');
-            opt.value = item.value;
-            opt.textContent = item.label;
-            select.appendChild(opt);
-        });
-    }
-}
-
 async function onProfileChange() {
     const profileId = profileSelect.value;
     professionalSelect.innerHTML = '<option value="">-- Seleccione un Profesional --</option>';
