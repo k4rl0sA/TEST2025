@@ -83,12 +83,12 @@ async function onProfileChange() {
             loadSelectChoices('professional', data, '-- Seleccione un Profesional --');
         } else {
             // Si no hay profesionales, deja el select vacío y deshabilitado
-            loadSelectChoices('professional', [], '-- Sin profesionales --');
             professionalSelect.disabled = true;
+            loadSelectChoices('professional', [], '-- Sin profesionales --');
         }
     } else {
-        loadSelectChoices('professional', [], '-- Seleccione un Profesional --');
         professionalSelect.disabled = true;
+        loadSelectChoices('professional', [], '-- Seleccione un Profesional --');
     }
 }
 
