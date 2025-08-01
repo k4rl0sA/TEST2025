@@ -414,10 +414,12 @@ async function fetchJsonWithSessionCheck(url, options) {
     try {
         data = await res.json();
     } catch (e) {
+        console.error('Error parsing JSON response:', e);
         window.location.href = '/index.php';
         return null;
     }
     if (data && data.success === false && data.error) {
+        console.error('Session expired or error:', data.error);
         window.location.href = '/index.php';
         return null;
     }
