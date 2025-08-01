@@ -418,7 +418,8 @@ async function fetchJsonWithSessionCheck(url, options) {
         window.location.href = '/index.php';
         return null;
     }
-    if (data && data.success === false && data.error) {
+    // Solo redirige si es un objeto con success === false
+    if (data && typeof data === 'object' && !Array.isArray(data) && data.success === false && data.error) {
         console.error('Session expired or error:', data.error);
         window.location.href = '/index.php';
         return null;
