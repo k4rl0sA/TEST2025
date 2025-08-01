@@ -324,6 +324,7 @@ function searchPatient() {
 
 function handleFormSubmit(e) {
     e.preventDefault();
+    showSpinner();
 
     const newAppointment = {
         professionalId: parseInt(document.getElementById('slot-professional-id').value),
@@ -352,15 +353,19 @@ function handleFormSubmit(e) {
     })
     .then(res => res.json())
     .then(data => {
+        hideSpinner();
         if (data.success) {
-            alert('Cita programada exitosamente.');
+            showToast('Cita programada exitosamente.', 'success');
             closeModal();
             updateCalendar();
         } else {
-            alert('Error al guardar la cita: ' + (data.error || ''));
+            showToast('Error al guardar la cita: ' + (data.error || ''), 'error');
         }
     })
-    .catch(() => alert('Error de red al guardar la cita.'));
+     .catch(() => {
+        hideSpinner();
+        showToast('Error de red al guardar la cita.', 'error');
+    });
 }
 
 function updateAppointmentStatus() {
@@ -469,4 +474,16 @@ function loadSelectChoices(selectId, options, placeholder = '-- Seleccione --', 
     if (selectedValue) {
         instance.setChoiceByValue(selectedValue);
     }
+}
+
+function showToast(message, type = 'info', timeout = 3500) {
+    const container = document.querySelector('.toast-container');
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.innerHTML = `<span>${message}</span>`;
+    container.appendChild(toast);
+    setTimeout(() => {
+        toast.classList.add('fade');
+        setTimeout(() => toast.remove(), 500);
+    }, timeout);
 }
