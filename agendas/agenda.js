@@ -410,4 +410,22 @@ function getAppointments(professionalId, weekStart, weekEnd) {
         .then(res => res.json());
 }
 
+async function fetchJsonWithSessionCheck(url, options) {
+    const res = await fetch(url, options);
+    let data;
+    try {
+        data = await res.json();
+    } catch (e) {
+        window.location.href = '/index.php';
+        return null;
+    }
+    if (data && data.success === false && data.error) {
+        window.location.href = '/index.php';
+        return null;
+    }
+    return data;
+}
+
+const data = await fetchJsonWithSessionCheck('/agendas/lib.php?a=getProfiles');
+if (!data) return;
 init();
