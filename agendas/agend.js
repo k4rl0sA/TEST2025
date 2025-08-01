@@ -408,7 +408,7 @@ function getAppointments(professionalId, weekStart, weekEnd) {
 }
 
 // --- CONTROL DE SESIÓN Y FETCH SEGURO ---
-async function fetchJsonWithSessionCheck(url, options) {
+/* async function fetchJsonWithSessionCheck(url, options) {
     const res = await fetch(url, options);
     let data;
     try {
@@ -425,4 +425,7 @@ async function fetchJsonWithSessionCheck(url, options) {
         return null;
     }
     return data;
+} */
+
+async function fetchJsonWithSessionCheck(url, options = {}) {
 }
