@@ -45,8 +45,8 @@ FUNCTION lis_planDcui(){
 	$sql="SELECT `idamb` ACCIONES,idamb 'Cod Registro',`fecha`,FN_CATALOGODESC(34,tipo_activi) Tipo,`nombre` Creó,`fecha_create` 'fecha Creó'
 	FROM hog_amb A
 	LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario ";
-	$sql.="WHERE idvivamb='".$id[0];
-	$sql.="' ORDER BY fecha_create";
+	$sql.=" WHERE idvivamb='".$id[0];
+	$sql.="'and  ORDER BY fecha_create";
 	// echo $sql;
 	$datos=datos_mysql($sql);
 	return panel_content($datos["responseResult"],"planDcui-lis",5);
@@ -64,7 +64,7 @@ FUNCTION lis_planDcui(){
    FROM hog_plancuid P
    left join usuarios U ON P.usu_creo=U.id_usuario
    WHERE idviv=$id[0]";
-      $sql.=" ORDER BY fecha_create";
+      $sql.=" AND P.estado='A' ORDER BY fecha_create";
       // echo $sql;
       //$_SESSION['sql_person']=$sql;
         $datos=datos_mysql($sql);
