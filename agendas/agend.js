@@ -414,13 +414,13 @@ async function fetchJsonWithSessionCheck(url, options) {
     try {
         data = await res.json();
     } catch (e) {
-        alert('Error parsing JSON response:', e);
+        // alert('Error parsing JSON response:', e);
         window.location.href = '/index.php';
         return null;
     }
     // Solo redirige si es un objeto con success === false
     if (data && typeof data === 'object' && !Array.isArray(data) && data.success === false && data.error) {
-        alert('Session expired or error:', data.error);
+        // alert('Session expired or error:', data.error);
         window.location.href = '/index.php';
         return null;
     }
