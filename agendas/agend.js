@@ -135,7 +135,6 @@ async function updateCalendar() {
     const lastDay = weekDays[6];
 
     weekRangeEl.textContent = `Semana ${firstDay.toLocaleDateString('es-ES', { month: 'short', day: 'numeric' })} - ${lastDay.toLocaleDateString('es-ES', { month: 'short', day: 'numeric', year: 'numeric' })}`;
-
     // Obtener citas del backend
     const weekStart = firstDay.toISOString().split('T')[0];
     const weekEnd = lastDay.toISOString().split('T')[0];
