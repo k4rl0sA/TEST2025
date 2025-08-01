@@ -71,25 +71,26 @@ async function loadOptions() {
 
 async function onProfileChange() {
     const profileId = profileSelect.value;
-    professionalSelect.innerHTML = '<option value="">-- Seleccione un Profesional --</option>';
+    // Limpia y deshabilita antes de cargar
     professionalSelect.disabled = true;
+    loadSelectChoices('professional', [], '-- Seleccione un Profesional --');
     selectedProfessionalId = null;
     updateCalendar();
+
     if (profileId) {
         const data = await fetchJsonWithSessionCheck(`/agendas/lib.php?a=getProfessionals&profileId=${profileId}`);
         console.log('Profesionales recibidos:', data);
         if (data && data.length > 0) {
-            professionalSelect.disabled = false; // Habilita antes de cargar
+            professionalSelect.disabled = false; // HABILITA ANTES de cargar opciones
             loadSelectChoices('professional', data, '-- Seleccione un Profesional --');
         } else {
-            // Si no hay profesionales, deja el select vacío y deshabilitado
+            // Si no hay profesionales, muestra el placeholder pero deja habilitado
+            professionalSelect.disabled = false;
             loadSelectChoices('professional', [], '-- Sin profesionales --');
-            professionalSelect.disabled = true;
-            
         }
     } else {
-        loadSelectChoices('professional', [], '-- Seleccione un Profesional --');
         professionalSelect.disabled = true;
+        loadSelectChoices('professional', [], '-- Seleccione un Profesional --');
     }
 }
 
