@@ -33,6 +33,7 @@ let selectedProfiles = Array.from(profileSelect.selectedOptions).map(opt => opt.
 
 // --- INICIALIZACIÓN ---
 document.addEventListener('DOMContentLoaded', () => {
+    initDynamicSelect('profile', '/agendas/lib.php?a=getProfiles', '-- Seleccione un Perfil --', updateProfileSelection);
     initDynamicSelect('doc-type', '/agendas/lib.php?a=getDocTypes', '-- Seleccione un Tipo de Documento --');
     // ...otros selects dinámicos aquí si los tienes...
     init();
