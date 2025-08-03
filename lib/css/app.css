@@ -739,6 +739,11 @@
             max-width: 100%;
             box-sizing: border-box;
         }
+        /* Resaltar el item seleccionado en el dropdown*/
+        .choices__list--dropdown .choices__item--selectable.is-highlighted, .choices__list[aria-expanded] .choices__item--selectable.is-highlighted {
+            background-color: #f2f2f2;
+            color: var(--dark);
+        }
         /* Responsive */
         @media (max-width: 992px) {
             .main-layout {
