@@ -37,7 +37,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 function init() {
-    profileSelect.addEventListener('change', onProfileChange);
+    profileSelect.addEventListener('change', () => {
+        cargarProfesionales(profileSelect.value);
+    });
     professionalSelect.addEventListener('change', onProfessionalChange);
     prevWeekBtn.addEventListener('click', () => changeWeek(-1));
     nextWeekBtn.addEventListener('click', () => changeWeek(1));
@@ -54,7 +56,7 @@ function init() {
     updateCalendar();
 }
 
-// --- CARGAR LOS DATOS DE LOS SELECTS ---
+/* // --- CARGAR LOS DATOS DE LOS SELECTS ---
 async function loadOptions() {
     // Perfiles
     let data = await fetchJsonWithSessionCheck('/agendas/lib.php?a=getProfiles');
@@ -68,7 +70,7 @@ async function loadOptions() {
     // Profesionales (vacío al inicio)
     loadSelectChoices('professional', [], '-- Seleccione un Profesional --');
     professionalSelect.disabled = true;
-}
+} */
 
 async function onProfileChange() {
     const profileId = profileSelect.value;
@@ -427,58 +429,17 @@ async function fetchJsonWithSessionCheck(url, options) {
     return data;
 }
 
-
-
-
-/**
- * Carga dinámicamente opciones en un select usando Choices.js
- * @param {string} selectId - ID del select
- * @param {Array} options - Array de objetos {value, label}
- * @param {string} placeholder - Texto para la opción por defecto
- * @param {string|null} selectedValue - Valor a seleccionar automáticamente (si existe)
- */
-function loadSelectChoices(selectId, options, placeholder = '-- Seleccione --', selectedValue = null) {
-    console.log('Cargando opciones en', selectId, options);
+function loadSelectChoicesSafe(selectId, endpoint, placeholder = '-- Seleccione --', selectedValue = null, retries = 5) {
     const select = document.getElementById(selectId);
-    if (!select) return;
-
-    // Destruye Choices anterior si existe
-    if (select.choicesInstance) {
-        select.choicesInstance.destroy();
-        select.choicesInstance = null;
-    } else if (select._choices) {
-        // Para versiones antiguas de Choices.js
-        select._choices.destroy();
-        select._choices = null;
+    if (!select && retries > 0) {
+        setTimeout(() => loadSelectChoicesSafe(selectId, endpoint, placeholder, selectedValue, retries - 1), 100);
+        return;
     }
-
-    // Limpia opciones previas
-    select.innerHTML = '';
-    const placeholderOption = document.createElement('option');
-    placeholderOption.value = '';
-    placeholderOption.textContent = placeholder;
-    select.appendChild(placeholderOption);
-
-    options.forEach(opt => {
-        const option = document.createElement('option');
-        option.value = opt.value;
-        option.textContent = opt.label;
-        select.appendChild(option);
-    });
-
-    // Inicializa Choices.js
-    const instance = new Choices(select, {
-        searchEnabled: true,
-        itemSelectText: '',
-        shouldSort: false,
-        placeholder: true,
-        placeholderValue: placeholder
-    });
-    select.choicesInstance = instance;
-
-    // Selecciona valor si existe
-    if (selectedValue) {
-        instance.setChoiceByValue(selectedValue);
+    if (select) {
+        fetchJsonWithSessionCheck(endpoint)
+            .then(data => {
+                if (data) loadSelectChoices(selectId, data, placeholder, selectedValue);
+            });
     }
 }
 
@@ -492,4 +453,32 @@ function showToast(message, type = 'info', timeout = 3500) {
         toast.classList.add('fade');
         setTimeout(() => toast.remove(), 500);
     }, timeout);
+}
+
+function cargarProfesionales(profileId) {
+    loadSelectChoicesSafe(
+        'professional',
+        `/agendas/lib.php?a=getProfessionals&profileId=${profileId}`,
+        '-- Seleccione un Profesional --'
+    );
+}
+
+function loadSelectChoices(selectId, options, placeholder = '-- Seleccione --', selectedValue = null) {
+    const select = document.getElementById(selectId);
+    if (!select) return;
+    select.innerHTML = '';
+    if (placeholder) {
+        const opt = document.createElement('option');
+        opt.value = '';
+        opt.textContent = placeholder;
+        select.appendChild(opt);
+    }
+    options.forEach(opt => {
+        const option = document.createElement('option');
+        option.value = opt.value;
+        option.textContent = opt.label;
+        if (selectedValue && selectedValue == opt.value) option.selected = true;
+        select.appendChild(option);
+    });
+    // Si usas Choices.js, reinicializa aquí si es necesario
 }
