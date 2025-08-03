@@ -258,7 +258,7 @@
         }
 
         input[disabled] {
-            background: border-box;
+            background: border-box !important;
             cursor: not-allowed;
         }
 
