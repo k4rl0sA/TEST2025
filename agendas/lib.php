@@ -43,7 +43,7 @@ if ($req == 'searchPatient') {
     FROM person P
     LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam 
     LEFT JOIN hog_geo G ON F.idpre = G.idgeo
-    WHERE tipo_doc = '$docType' AND num_doc = '$docNumber' LIMIT 1";
+    WHERE tipo_doc = '$docType' AND idpersona = '$docNumber' LIMIT 1";
     $result = datos_mysql($sql);
     if (!empty($result['responseResult'])) {
         echo json_encode(['success' => true, 'patient' => $result['responseResult'][0]]);
