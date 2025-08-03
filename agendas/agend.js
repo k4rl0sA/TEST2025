@@ -1,9 +1,3 @@
-// --- ESTADO DE LA APLICACIÓN ---
-let currentDate = new Date();
-let selectedProfessionalId = null;
-let appointments = []; // Aquí se guardan las citas de la semana actual
-let selectedProfiles = Array.from(profileSelect.selectedOptions).map(opt => opt.value); // Aquí se guardan los perfiles seleccionados
-
 // --- ELEMENTOS DEL DOM ---
 const profileSelect = document.getElementById('profile');
 const professionalSelect = document.getElementById('professional');
@@ -30,6 +24,12 @@ const statusSection = document.getElementById('appointment-status-section');
 const updateStatusBtn = document.getElementById('update-status-btn');
 const reassignBtn = document.getElementById('reassign-btn');
 const appointmentStatusSelect = document.getElementById('appointment-status');
+
+// --- ESTADO DE LA APLICACIÓN ---
+let currentDate = new Date();
+let selectedProfessionalId = null;
+let appointments = [];
+let selectedProfiles = Array.from(profileSelect.selectedOptions).map(opt => opt.value);
 
 // --- INICIALIZACIÓN ---
 document.addEventListener('DOMContentLoaded', () => {
