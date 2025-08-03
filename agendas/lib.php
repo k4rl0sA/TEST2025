@@ -68,11 +68,15 @@ if ($req == 'saveAppointment') {
         ['type' => 's', 'value' => $_SESSION["us_sds"]],
     ];
     $result = mysql_prepd($sql, $params);
+    $duplicateMsg = 'Ya existe una cita para ese profesional, fecha y cupo.';
+
     var_dump($result);
     if ($result['success']) {
         echo json_encode(['success' => true]);
     } else {
-        echo json_encode(['success' => false, 'error' => $result['error'] ?? 'Error al guardar']);
+         $errorMsg = 'Error al guardar la cita';
+        if (is_array($result) && isset($result['error']) && strpos($result['error'], '1062 Duplicate entry') !== false)  $errorMsg = $duplicateMsg;
+        echo json_encode(['success' => false, 'error' => $errorMsg]);
     }
     exit;
 }
