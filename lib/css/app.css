@@ -285,6 +285,8 @@
 
         .input-group {
             position: relative;
+            display: flex;
+            align-items: center;
         }
 
         .input-group label {
@@ -814,8 +816,76 @@
             }
         }
 
-        /* Accesibilidad */
-        a:focus, button:focus, input:focus, select:focus, textarea:focus {
-            outline: 3px solid rgba(67, 97, 238, 0.5);
-            outline-offset: 2px;
+        /* Agrupa input y botón/icono en una sola línea */
+        .input-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        /* El input ocupa todo el ancho menos el botón */
+        .input-group input[type="number"],
+        .input-group input[type="text"],
+        .input-group input[type="tel"],
+        .input-group input[type="date"] {
+            flex: 1 1 auto;
+            width: 100%;
+            padding-right: 40px; /* espacio para el botón/icono */
+            padding-left: 15px;
+            padding-top: 16px;
+            padding-bottom: 5px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: white;
+            box-sizing: border-box;
+        }
+
+        /* El botón de búsqueda se posiciona a la derecha, encima del input */
+        .input-group .action-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: var(--primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0 6px;
+            z-index: 2;
+            transition: color 0.2s;
+        }
+
+        .input-group .action-btn:hover {
+            color: var(--secondary);
+            background: var(--light-gray);
+            border-radius: 50%;
+        }
+
+        /* Ajusta el label flotante para que no se superponga con el icono */
+        .input-group label {
+            left: 15px;
+            right: 40px;
+            width: auto;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        /* Cuando el input está enfocado */
+        .input-group input:focus {
+            outline: 3px solid rgba(67, 97, 238, 0.3);
+            border-color: var(--primary);
+        }
+
+        /* Responsive para que no se desborde en móviles */
+        @media (max-width: 576px) {
+            .input-group input[type="number"],
+            .input-group input[type="text"],
+            .input-group input[type="tel"],
+            .input-group input[type="date"] {
+                padding-right: 36px;
+                font-size: 0.98rem;
+            }
         }
