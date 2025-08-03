@@ -68,6 +68,7 @@ if ($req == 'saveAppointment') {
         ['type' => 's', 'value' => $_SESSION["us_sds"]],
     ];
     $result = mysql_prepd($sql, $params);
+    var_dump($result);
     if ($result['success']) {
         echo json_encode(['success' => true]);
     } else {
