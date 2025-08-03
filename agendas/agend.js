@@ -31,15 +31,17 @@ const reassignBtn = document.getElementById('reassign-btn');
 const appointmentStatusSelect = document.getElementById('appointment-status');
 
 // --- INICIALIZACIÓN ---
-document.addEventListener('DOMContentLoaded', async () => {
-    await loadOptions();
+document.addEventListener('DOMContentLoaded', () => {
+    // Inicializa selects dinámicos y dependientes
+    initDynamicSelect('profile', '/agendas/lib.php?a=getProfiles', '-- Seleccione un Perfil --', () => {
+        cargarProfesionales(profileSelect.value);
+    });
+    initDynamicSelect('doc-type', '/agendas/lib.php?a=getDocTypes', '-- Seleccione un Tipo de Documento --');
+    // ...otros selects dinámicos aquí si los tienes...
     init();
 });
 
 function init() {
-    profileSelect.addEventListener('change', () => {
-        cargarProfesionales(profileSelect.value);
-    });
     professionalSelect.addEventListener('change', onProfessionalChange);
     prevWeekBtn.addEventListener('click', () => changeWeek(-1));
     nextWeekBtn.addEventListener('click', () => changeWeek(1));
@@ -56,47 +58,58 @@ function init() {
     updateCalendar();
 }
 
- // --- CARGAR LOS DATOS DE LOS SELECTS ---
-async function loadOptions() {
-    // Perfiles
-  /*   let data = await fetchJsonWithSessionCheck('/agendas/lib.php?a=getProfiles');
-    if (!data) return;
-    loadSelectChoices('profile', data, '-- Seleccione un Perfil --');
-    // Tipos de documento
-    data = await fetchJsonWithSessionCheck('/agendas/lib.php?a=getDocTypes');
-    console.log('DocTypes:', data);
-    if (!data) return;
-    loadSelectChoices('doc-type', data, '-- Seleccione un Tipo de Documento --');
-    // Profesionales (vacío al inicio)
-    loadSelectChoices('professional', [], '-- Seleccione un Profesional --');
-    professionalSelect.disabled = true; */
-} 
- 
-async function onProfileChange() {
-    const profileId = profileSelect.value;
-    // Limpia y deshabilita antes de cargar
-    professionalSelect.disabled = true;
-    loadSelectChoices('professional', [], '-- Seleccione un Profesional --');
-    selectedProfessionalId = null;
-    updateCalendar();
-
-    if (profileId) {
-        const data = await fetchJsonWithSessionCheck(`/agendas/lib.php?a=getProfessionals&profileId=${profileId}`);
-        console.log('Profesionales recibidos:', data);
-        if (data && data.length > 0) {
-            professionalSelect.disabled = false; // HABILITA ANTES de cargar opciones
-            loadSelectChoices('professional', data, '-- Seleccione un Profesional --');
-        } else {
-            // Si no hay profesionales, muestra el placeholder pero deja habilitado
-            professionalSelect.disabled = false;
-            loadSelectChoices('professional', [], '-- Sin profesionales --');
-        }
-    } else {
-        professionalSelect.disabled = true;
-        loadSelectChoices('professional', [], '-- Seleccione un Profesional --');
+// --- FUNCIONES DE SELECTS DINÁMICOS Y REUTILIZABLES ---
+function initDynamicSelect(selectId, endpoint, placeholder = '-- Seleccione --', onChange = null) {
+    loadSelectChoicesSafe(selectId, endpoint, placeholder);
+    const select = document.getElementById(selectId);
+    if (select && typeof onChange === 'function') {
+        select.addEventListener('change', onChange);
     }
 }
 
+function cargarProfesionales(profileId) {
+    loadSelectChoicesSafe(
+        'professional',
+        `/agendas/lib.php?a=getProfessionals&profileId=${profileId}`,
+        '-- Seleccione un Profesional --'
+    );
+}
+
+function loadSelectChoicesSafe(selectId, endpoint, placeholder = '-- Seleccione --', selectedValue = null, retries = 5) {
+    const select = document.getElementById(selectId);
+    if (!select && retries > 0) {
+        setTimeout(() => loadSelectChoicesSafe(selectId, endpoint, placeholder, selectedValue, retries - 1), 100);
+        return;
+    }
+    if (select) {
+        fetchJsonWithSessionCheck(endpoint)
+            .then(data => {
+                if (data) loadSelectChoices(selectId, data, placeholder, selectedValue);
+            });
+    }
+}
+
+function loadSelectChoices(selectId, options, placeholder = '-- Seleccione --', selectedValue = null) {
+    const select = document.getElementById(selectId);
+    if (!select) return;
+    select.innerHTML = '';
+    if (placeholder) {
+        const opt = document.createElement('option');
+        opt.value = '';
+        opt.textContent = placeholder;
+        select.appendChild(opt);
+    }
+    options.forEach(opt => {
+        const option = document.createElement('option');
+        option.value = opt.value;
+        option.textContent = opt.label;
+        if (selectedValue && selectedValue == opt.value) option.selected = true;
+        select.appendChild(option);
+    });
+    // Si usas Choices.js, reinicializa aquí si es necesario
+}
+
+// --- LÓGICA DE SELECTS DEPENDIENTES ---
 function onProfessionalChange() {
     selectedProfessionalId = parseInt(professionalSelect.value);
     updateCalendar();
@@ -145,7 +158,7 @@ async function updateCalendar() {
     const weekEnd = lastDay.toISOString().split('T')[0];
     appointments = await getAppointments(selectedProfessionalId, weekStart, weekEnd);
     if (!Array.isArray(appointments)) {
-            appointments = [];
+        appointments = [];
     }
     renderCalendarGrid(weekDays);
 }
@@ -416,33 +429,18 @@ async function fetchJsonWithSessionCheck(url, options) {
     try {
         data = await res.json();
     } catch (e) {
-        // alert('Error parsing JSON response:', e);
         window.location.href = '/index.php';
         return null;
     }
     // Solo redirige si es un objeto con success === false
     if (data && typeof data === 'object' && !Array.isArray(data) && data.success === false && data.error) {
-        // alert('Session expired or error:', data.error);
         window.location.href = '/index.php';
         return null;
     }
     return data;
 }
 
-function loadSelectChoicesSafe(selectId, endpoint, placeholder = '-- Seleccione --', selectedValue = null, retries = 5) {
-    const select = document.getElementById(selectId);
-    if (!select && retries > 0) {
-        setTimeout(() => loadSelectChoicesSafe(selectId, endpoint, placeholder, selectedValue, retries - 1), 100);
-        return;
-    }
-    if (select) {
-        fetchJsonWithSessionCheck(endpoint)
-            .then(data => {
-                if (data) loadSelectChoices(selectId, data, placeholder, selectedValue);
-            });
-    }
-}
-
+// --- UTILIDADES ---
 function showToast(message, type = 'info', timeout = 3500) {
     const container = document.querySelector('.toast-container');
     const toast = document.createElement('div');
@@ -455,30 +453,9 @@ function showToast(message, type = 'info', timeout = 3500) {
     }, timeout);
 }
 
-function cargarProfesionales(profileId) {
-    loadSelectChoicesSafe(
-        'professional',
-        `/agendas/lib.php?a=getProfessionals&profileId=${profileId}`,
-        '-- Seleccione un Profesional --'
-    );
+function showSpinner() {
+    document.getElementById('loading-spinner').classList.remove('hidden');
 }
-
-function loadSelectChoices(selectId, options, placeholder = '-- Seleccione --', selectedValue = null) {
-    const select = document.getElementById(selectId);
-    if (!select) return;
-    select.innerHTML = '';
-    if (placeholder) {
-        const opt = document.createElement('option');
-        opt.value = '';
-        opt.textContent = placeholder;
-        select.appendChild(opt);
-    }
-    options.forEach(opt => {
-        const option = document.createElement('option');
-        option.value = opt.value;
-        option.textContent = opt.label;
-        if (selectedValue && selectedValue == opt.value) option.selected = true;
-        select.appendChild(option);
-    });
-    // Si usas Choices.js, reinicializa aquí si es necesario
+function hideSpinner() {
+    document.getElementById('loading-spinner').classList.add('hidden');
 }
