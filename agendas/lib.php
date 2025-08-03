@@ -68,23 +68,21 @@ if ($req == 'saveAppointment') {
         ['type' => 's', 'value' => $_SESSION["us_sds"]],
     ];
     $result = mysql_prepd($sql, $params);
-   // Manejo de error de duplicado
-   var_dump($result);
-    $duplicateMsg = 'Ya existe una cita para ese profesional, fecha y cupo.';
-    if (is_array($result) && isset($result['success']) && $result['success']) {
-        echo json_encode(['success' => true]);
-    } else {
-        $errorMsg = '';
-        if (is_array($result) && isset($result['error']) && strpos($result['error'], '1062 Duplicate entry') !== false) {
-            $errorMsg = $duplicateMsg;
-        } elseif (is_array($result) && isset($result['error'])) {
-            $errorMsg = $result['error'];
-        } elseif (is_string($result) && strpos($result, '1062 Duplicate entry') !== false) {
-            $errorMsg = $duplicateMsg;
+     $duplicateMsg = 'Ya existe una cita para ese profesional, fecha y cupo.';
+
+    // Analiza el string devuelto por mysql_prepd
+    if (is_string($result)) {
+        if (stripos($result, 'Insertado') !== false) {
+            echo json_encode(['success' => true]);
+        } elseif (strpos($result, '1062 Duplicate entry') !== false) {
+            echo json_encode(['success' => false, 'error' => $duplicateMsg]);
+        } elseif (stripos($result, 'Error') !== false) {
+            echo json_encode(['success' => false, 'error' => $result]);
         } else {
-            $errorMsg = 'Error al guardar';
+            echo json_encode(['success' => false, 'error' => 'Error al guardar']);
         }
-        echo json_encode(['success' => false, 'error' => $errorMsg]);
+    } else {
+        echo json_encode(['success' => false, 'error' => 'Error inesperado']);
     }
     exit;
 }
