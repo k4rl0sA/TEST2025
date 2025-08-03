@@ -231,17 +231,17 @@
         }
 
         .action-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: transparent;
             border: none;
             cursor: pointer;
-            transition: var(--transition);
-            color: var(--gray);
+            background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1));
+            border-top-right-radius: 0.375rem;
+            border-bottom-right-radius: 0.375rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            color: rgb(255 255 255 / var(--tw-text-opacity, 1));
         }
 
         .action-btn:hover {
@@ -284,10 +284,9 @@
         }
 
         .input-group {
-            /* display: flex;
-            align-items: stretch;
-            width: 100%; */
             position: relative;
+            display: flex;
+            height: fit-content;
         }
 
         .input-group label {
