@@ -666,22 +666,23 @@
             width: 100%;
             font-size: 1rem;
             border-radius: var(--border-radius);
-            border: 2px solid var(--primary);
+            border: 1px solid var(--light-gray); /* igual que los inputs */
             background: white;
             min-height: 48px;
             box-shadow: none;
             padding: 0;
-            transition: border-color 0.2s;
+            transition: var(--transition);
         }
 
         .choices__inner {
             border: none !important;
             background: transparent;
             min-height: 48px;
-            padding: 0 15px;
+            padding: 12px 15px; /* igual que los inputs */
             display: flex;
             align-items: center;
             flex-wrap: wrap;
+            font-size: 1rem;
         }
 
         /* Placeholder claro */
@@ -707,21 +708,35 @@
         .choices__list--dropdown, .choices__list[aria-expanded] {
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
-            border: 1.5px solid var(--primary);
+            border: 1px solid var(--light-gray); /* igual que los inputs */
             background: #fff;
         }
 
+        /* Input de búsqueda dentro del select */
         .choices__input {
             font-size: 1rem;
             padding: 8px 0;
         }
-        .choices__inner:focus-within {
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.15);
+
+        /* Hover y focus igual que los inputs */
+        .choices__inner:focus-within,
+        .choices.app-select-single.is-focused,
+        .choices.app-select-multiple.is-focused {
+            outline: 3px solid rgba(67, 97, 238, 0.3);
+            border-color: var(--primary);
         }
+
+        /* Item resaltado en el dropdown */
         .choices__list--dropdown .choices__item--selectable.is-highlighted {
             background: var(--primary-light);
             color: #fff;
+        }
+
+        /* Responsive: que el select nunca se desborde */
+        .choices,
+        .choices__inner {
+            max-width: 100%;
+            box-sizing: border-box;
         }
         /* Responsive */
         @media (max-width: 992px) {
