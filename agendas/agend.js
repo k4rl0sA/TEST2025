@@ -56,7 +56,7 @@ function init() {
     updateCalendar();
 }
 
-/* // --- CARGAR LOS DATOS DE LOS SELECTS ---
+ // --- CARGAR LOS DATOS DE LOS SELECTS ---
 async function loadOptions() {
     // Perfiles
     let data = await fetchJsonWithSessionCheck('/agendas/lib.php?a=getProfiles');
@@ -70,8 +70,8 @@ async function loadOptions() {
     // Profesionales (vacío al inicio)
     loadSelectChoices('professional', [], '-- Seleccione un Profesional --');
     professionalSelect.disabled = true;
-} */
-
+} 
+ 
 async function onProfileChange() {
     const profileId = profileSelect.value;
     // Limpia y deshabilita antes de cargar
