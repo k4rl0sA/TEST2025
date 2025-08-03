@@ -126,7 +126,7 @@ function loadSelectChoices(selectId, options, placeholder = '-- Seleccione --', 
         placeholderValue: placeholder,
         itemSelectText: '',
         classNames: {
-            containerOuter: 'choices',
+            containerOuter: select.multiple ? 'choices app-select-multiple' : 'choices app-select-single',
             input: 'choices__input',
             list: 'choices__list',
             item: 'choices__item',
