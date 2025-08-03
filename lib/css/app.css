@@ -257,6 +257,11 @@
             color: var(--gray);
         }
 
+        input[disabled] {
+            background: border-box;
+            cursor: not-allowed;
+        }
+
         input.has-btn {
             border-radius: var(--border-radius) 0px 0px var(--border-radius) !important;
         }
