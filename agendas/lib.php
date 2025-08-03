@@ -68,18 +68,26 @@ if ($req == 'saveAppointment') {
         ['type' => 's', 'value' => $_SESSION["us_sds"]],
     ];
     $result = mysql_prepd($sql, $params);
+   // Manejo de error de duplicado
     $duplicateMsg = 'Ya existe una cita para ese profesional, fecha y cupo.';
-
-    // var_dump($result);
-    if ($result['success']) {
+    if (is_array($result) && isset($result['success']) && $result['success']) {
         echo json_encode(['success' => true]);
     } else {
-         $errorMsg = 'Error al guardar la cita';
-        if (is_array($result) && isset($result['error']) && strpos($result['error'], '1062 Duplicate entry') !== false)  $errorMsg = $duplicateMsg;
+        $errorMsg = '';
+        if (is_array($result) && isset($result['error']) && strpos($result['error'], '1062 Duplicate entry') !== false) {
+            $errorMsg = $duplicateMsg;
+        } elseif (is_array($result) && isset($result['error'])) {
+            $errorMsg = $result['error'];
+        } elseif (is_string($result) && strpos($result, '1062 Duplicate entry') !== false) {
+            $errorMsg = $duplicateMsg;
+        } else {
+            $errorMsg = 'Error al guardar';
+        }
         echo json_encode(['success' => false, 'error' => $errorMsg]);
     }
     exit;
 }
+
 if ($req == 'getAppointments') {
    $professionalId = intval($_GET['professionalId'] ?? 0);
     $weekStart = $_GET['weekStart'] ?? '';
