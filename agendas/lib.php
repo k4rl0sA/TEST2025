@@ -37,7 +37,9 @@ if ($req == 'getDocTypes') {
 if ($req == 'searchPatient') {
     $docType = $_GET['docType'] ?? '';
     $docNumber = $_GET['docNumber'] ?? '';
-    $sql = "SELECT concat_ws('',nombre1,nombre2,apellido1,apellido2) AS fullName, IFNULL(P.telefono1,F.telefono1,P.telefono2,F.telefono2,F.telefono3)  AS phone,P.direccion AS address 
+    $sql = "SELECT concat_ws('',nombre1,nombre2,apellido1,apellido2) AS fullName, 
+        COALESCE(NULLIF(P.telefono1, ''), NULLIF(F.telefono1, ''), NULLIF(P.telefono2, ''), NULLIF(F.telefono2, ''), NULLIF(F.telefono3, '')) AS phone, 
+        P.direccion AS address 
     FROM person P
     LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam 
     WHERE tipo_doc = '$docType' AND num_doc = '$docNumber' LIMIT 1";
