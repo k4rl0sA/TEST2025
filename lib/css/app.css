@@ -283,7 +283,6 @@
             margin-bottom: 25px;
         }
 
-        /* Agrupa input y botón en una sola línea */
         .input-group {
             display: flex;
             align-items: stretch;
@@ -291,53 +290,6 @@
             position: relative;
         }
 
-        /* Input con botón a la derecha */
-        .input-group input[type="text"],
-        .input-group input[type="number"],
-        .input-group input[type="email"],
-        .input-group input[type="tel"] {
-            flex: 1 1 auto;
-            border: 1px solid var(--light-gray);
-            border-right: none;
-            border-radius: var(--border-radius) 0 0 var(--border-radius);
-            padding: 16px 15px 5px;
-            font-size: 1rem;
-            background: white;
-            transition: var(--transition);
-            outline: none;
-            min-width: 0;
-        }
-
-        .input-group input:focus {
-            border-color: var(--primary);
-            outline: 3px solid rgba(67, 97, 238, 0.3);
-            z-index: 2;
-        }
-
-        /* Botón a la derecha del input */
-        .input-group .action-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--primary);
-            color: #fff;
-            border: 1px solid var(--primary);
-            border-radius: 0 var(--border-radius) var(--border-radius) 0;
-            padding: 0 18px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s;
-            margin-left: -1px;
-        }
-
-        .input-group .action-btn:hover,
-        .input-group .action-btn:focus {
-            background: var(--secondary);
-            color: #fff;
-            outline: none;
-        }
-
-        /* Ajuste para el label flotante */
         .input-group label {
             position: absolute;
             top: 8px;
@@ -345,14 +297,57 @@
             color: var(--gray);
             pointer-events: none;
             transition: var(--transition);
-            z-index: 3;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: 16px 15px 5px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: white;
+        }
+
+        .input-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            outline: 3px solid rgba(67, 97, 238, 0.3);
+            border-color: var(--primary);
         }
 
         .input-group input:focus ~ label,
-        .input-group input:not(:placeholder-shown) ~ label {
+        .input-group input:not(:placeholder-shown) ~ label,
+        .input-group select:focus ~ label,
+        .input-group select:not([value=""]) ~ label,
+        .input-group textarea:focus ~ label,
+        .input-group textarea:not(:placeholder-shown) ~ label {
             top: -1.38rem;
             font-size: 0.8rem;
             color: var(--primary);
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-gray);
         }
 
         /* Toast notifications */
