@@ -33,11 +33,6 @@ let selectedProfiles = Array.from(profileSelect.selectedOptions).map(opt => opt.
 
 // --- INICIALIZACIÓN ---
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicializa selects dinámicos y dependientes
-    /* initDynamicSelect('profile', '/agendas/lib.php?a=getProfiles', '-- Seleccione un Perfil --', () => {
-        const selectedProfiles = Array.from(profileSelect.selectedOptions).map(opt => opt.value);
-        cargarProfesionales(selectedProfiles.join(','));
-    }); */
     initDynamicSelect('doc-type', '/agendas/lib.php?a=getDocTypes', '-- Seleccione un Tipo de Documento --');
     // ...otros selects dinámicos aquí si los tienes...
     init();
@@ -130,10 +125,10 @@ function loadSelectChoices(selectId, options, placeholder = '-- Seleccione --', 
         placeholderValue: placeholder,
         itemSelectText: '',
         classNames: {
-            containerOuter: 'choices app-select',
-            input: 'choices__input app-select-input',
-            list: 'choices__list app-select-list',
-            item: 'choices__item app-select-item',
+            containerOuter: 'choices',
+            input: 'choices__input',
+            list: 'choices__list',
+            item: 'choices__item',
             // Puedes agregar más clases personalizadas si lo deseas
         }
     });
