@@ -37,7 +37,7 @@ if ($req == 'getDocTypes') {
 if ($req == 'searchPatient') {
     $docType = $_GET['docType'] ?? '';
     $docNumber = $_GET['docNumber'] ?? '';
-    $sql = "SELECT nombre AS fullName, telefono AS phone, direccion AS address FROM person WHERE tipo_doc = '$docType' AND num_doc = '$docNumber' LIMIT 1";
+    $sql = "SELECT concat_ws('',nombre1,nombre2,apellido1,apellido2) AS fullName, telefono AS phone, direccion AS address FROM person WHERE tipo_doc = '$docType' AND num_doc = '$docNumber' LIMIT 1";
     $result = datos_mysql($sql);
     if (!empty($result['responseResult'])) {
         echo json_encode(['success' => true, 'patient' => $result['responseResult'][0]]);
