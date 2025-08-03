@@ -34,9 +34,10 @@ const appointmentStatusSelect = document.getElementById('appointment-status');
 // --- INICIALIZACIÓN ---
 document.addEventListener('DOMContentLoaded', () => {
     // Inicializa selects dinámicos y dependientes
-    initDynamicSelect('profile', '/agendas/lib.php?a=getProfiles', '-- Seleccione un Perfil --', () => {
-        cargarProfesionales(profileSelect.value);
-    });
+    /* initDynamicSelect('profile', '/agendas/lib.php?a=getProfiles', '-- Seleccione un Perfil --', () => {
+        const selectedProfiles = Array.from(profileSelect.selectedOptions).map(opt => opt.value);
+        cargarProfesionales(selectedProfiles.join(','));
+    }); */
     initDynamicSelect('doc-type', '/agendas/lib.php?a=getDocTypes', '-- Seleccione un Tipo de Documento --');
     // ...otros selects dinámicos aquí si los tienes...
     init();
@@ -68,10 +69,10 @@ function initDynamicSelect(selectId, endpoint, placeholder = '-- Seleccione --',
     }
 }
 
-function cargarProfesionales(profileId) {
+function cargarProfesionales(profileIds) {
     loadSelectChoicesSafe(
         'professional',
-        `/agendas/lib.php?a=getProfessionals&profileId=${profileId}`,
+        `/agendas/lib.php?a=getProfessionals&profileId=${profileIds}`,
         '-- Seleccione un Profesional --'
     );
 }
@@ -503,6 +504,3 @@ function updateProfileSelection() {
     // Aquí puedes hacer algo con los IDs de los perfiles seleccionados, si es necesario
     console.log('Perfiles seleccionados:', profileIds);
 }
-
-// --- EVENTOS NUEVOS ---
-profileSelect.addEventListener('change', updateProfileSelection);
