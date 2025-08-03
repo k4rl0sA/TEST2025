@@ -284,9 +284,9 @@
         }
 
         .input-group {
-            display: flex;
+            /* display: flex;
             align-items: stretch;
-            width: 100%;
+            width: 100%; */
             position: relative;
         }
 
