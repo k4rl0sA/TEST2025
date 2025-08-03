@@ -258,7 +258,7 @@
         }
 
         input.has-btn {
-            border-radius: var(--border-radius) 0px 0px var(--border-radius);
+            border-radius: var(--border-radius) 0px 0px var(--border-radius) !important;
         }
 
         .action-btn:hover {
