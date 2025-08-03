@@ -257,6 +257,10 @@
             color: var(--gray);
         }
 
+        input.has-btn {
+            border-radius: var(--border-radius) 0px 0px var(--border-radius);
+        }
+
         .action-btn:hover {
             background: var(--light-gray);
             color: var(--dark);
