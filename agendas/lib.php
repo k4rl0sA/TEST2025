@@ -69,6 +69,7 @@ if ($req == 'saveAppointment') {
     ];
     $result = mysql_prepd($sql, $params);
    // Manejo de error de duplicado
+   var_dump($result);
     $duplicateMsg = 'Ya existe una cita para ese profesional, fecha y cupo.';
     if (is_array($result) && isset($result['success']) && $result['success']) {
         echo json_encode(['success' => true]);
