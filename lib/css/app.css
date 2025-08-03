@@ -722,6 +722,10 @@
             background: var(--primary-light);
             color: #fff;
         }
+        .is-focused .choices__item--selectable {
+            background: var(--primary-light);
+            color: #fff;
+        }
         /* Responsive */
         @media (max-width: 992px) {
             .main-layout {
