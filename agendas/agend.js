@@ -260,11 +260,14 @@ function handleCalendarClick(event) {
     const appointmentId = slot.dataset.appointmentId || null;
 
     openModal(date, time, appointmentId);
+    
+
 }
 
 function openModal(date, time, appointmentId = null) {
     form.reset();
     resetModalState();
+    loadSelectChoicesSafe('doc-type', '/agendas/lib.php?a=getDocTypes', '-- Seleccione un Tipo de Documento --');
 
     document.getElementById('slot-date').value = date;
     document.getElementById('slot-time').value = time;
