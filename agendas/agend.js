@@ -62,6 +62,7 @@ async function loadOptions() {
     loadSelectChoices('profile', data, '-- Seleccione un Perfil --');
     // Tipos de documento
     data = await fetchJsonWithSessionCheck('/agendas/lib.php?a=getDocTypes');
+    console.log('DocTypes:', data);
     if (!data) return;
     loadSelectChoices('doc-type', data, '-- Seleccione un Tipo de Documento --');
     // Profesionales (vacío al inicio)
@@ -437,6 +438,7 @@ async function fetchJsonWithSessionCheck(url, options) {
  * @param {string|null} selectedValue - Valor a seleccionar automáticamente (si existe)
  */
 function loadSelectChoices(selectId, options, placeholder = '-- Seleccione --', selectedValue = null) {
+    console.log('Cargando opciones en', selectId, options);
     const select = document.getElementById(selectId);
     if (!select) return;
 
