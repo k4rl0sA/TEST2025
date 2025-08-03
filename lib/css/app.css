@@ -745,6 +745,11 @@
             background-color: var(--primary-light) !important;
             color: var(--dark);
         }
+        .choices__list {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
         /* Responsive */
         @media (max-width: 992px) {
             .main-layout {
