@@ -30,8 +30,8 @@ if ($req == 'getProfessionals') {
     exit;
 }
 if ($req == 'getDocTypes') {
-    $sql = "SELECT idcatadeta AS id, descripcion AS name FROM catadeta WHERE idcatalogo=1 AND estado='A'";
-    getSelectOptions($sql);
+    $sql = "SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo=1 AND estado='A'";
+    getSelectOptions($sql,'value','label');
     exit;
 }
 if ($req == 'searchPatient') {
