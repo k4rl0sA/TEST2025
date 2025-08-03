@@ -59,7 +59,7 @@ function init() {
  // --- CARGAR LOS DATOS DE LOS SELECTS ---
 async function loadOptions() {
     // Perfiles
-    let data = await fetchJsonWithSessionCheck('/agendas/lib.php?a=getProfiles');
+  /*   let data = await fetchJsonWithSessionCheck('/agendas/lib.php?a=getProfiles');
     if (!data) return;
     loadSelectChoices('profile', data, '-- Seleccione un Perfil --');
     // Tipos de documento
@@ -69,7 +69,7 @@ async function loadOptions() {
     loadSelectChoices('doc-type', data, '-- Seleccione un Tipo de Documento --');
     // Profesionales (vacío al inicio)
     loadSelectChoices('professional', [], '-- Seleccione un Profesional --');
-    professionalSelect.disabled = true;
+    professionalSelect.disabled = true; */
 } 
  
 async function onProfileChange() {
