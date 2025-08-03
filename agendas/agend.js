@@ -362,13 +362,18 @@ function searchPatient() {
             if (data.success && data.patient) {
                 document.getElementById('full-name').value = data.patient.fullName;
                 document.getElementById('phone').value = data.patient.phone;
-                document.getElementById('address').value = data.patient.address;                
+                document.getElementById('address').value = data.patient.address;
+                // Guarda los IDs ocultos en el input
+                docNumberInput.dataset.idpeople = data.patient.idpeople;
+                docNumberInput.dataset.idgeo = data.patient.idgeo;
                 showToast('Paciente encontrado.', 'success');
             } else {
                 showToast('Paciente no encontrado. Por favor, complete la información.', 'warning');
                 document.getElementById('full-name').value = '';
                 document.getElementById('phone').value = '';
                 document.getElementById('address').value = '';
+                docNumberInput.dataset.idpeople = '';
+                docNumberInput.dataset.idgeo = '';
                 document.getElementById('full-name').focus();
             }
         })
@@ -379,23 +384,24 @@ function handleFormSubmit(e) {
     e.preventDefault();
     showSpinner();
 
+    // Debes tener estos datos del paciente tras la búsqueda
+    const idpeople = document.getElementById('doc-number').dataset.idpeople || '';
+    const idgeo = document.getElementById('doc-number').dataset.idgeo || '';
+
     const newAppointment = {
-        professionalId: parseInt(document.getElementById('slot-professional-id').value),
-        date: document.getElementById('appointment-date').value,
-        time: document.getElementById('slot-time').value,
-        patient: {
-            docType: document.getElementById('doc-type').value,
-            docNumber: document.getElementById('doc-number').value.trim(),
-            fullName: document.getElementById('full-name').value.trim(),
-            phone: document.getElementById('phone').value.trim(),
-            address: document.getElementById('address').value.trim(),
-        },
-        activity: document.getElementById('activity').value.trim(),
-        notes: document.getElementById('notes').value.trim(),
+        cupo: parseInt(document.getElementById('slot-time').value),
+        profesionalid: parseInt(document.getElementById('slot-professional-id').value),
+        idpeople: parseInt(idpeople), // Debes guardar estos datos al buscar paciente
+        idgeo: parseInt(idgeo),
+        fecha: document.getElementById('appointment-date').value,
+        actividad: document.getElementById('activity').value.trim(),
+        notas: document.getElementById('notes').value.trim()
     };
 
-    if (!newAppointment.patient.fullName || !newAppointment.patient.docNumber) {
-        showToast('El nombre completo y el número de documento son obligatorios.', 'error');
+    // Validación básica
+    if (!newAppointment.idpeople || !newAppointment.idgeo) {
+        showToast('Debe buscar y seleccionar un paciente válido.', 'error');
+        hideSpinner();
         return;
     }
 
@@ -415,7 +421,7 @@ function handleFormSubmit(e) {
             showToast('Error al guardar la cita: ' + (data.error || ''), 'error');
         }
     })
-     .catch(() => {
+    .catch(() => {
         hideSpinner();
         showToast('Error de red al guardar la cita.', 'error');
     });

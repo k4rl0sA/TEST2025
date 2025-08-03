@@ -39,7 +39,7 @@ if ($req == 'searchPatient') {
     $docNumber = $_GET['docNumber'] ?? '';
     $sql = "SELECT concat_ws(' ',nombre1,nombre2,apellido1,apellido2) AS fullName, 
         COALESCE(NULLIF(P.telefono1, ''), NULLIF(F.telefono1, ''), NULLIF(P.telefono2, ''), NULLIF(F.telefono2, ''), NULLIF(F.telefono3, '')) AS phone, 
-        G.direccion AS address 
+        G.direccion AS address,G,idgeo AS idgeo, P.idpeople AS idpeople
     FROM person P
     LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam 
     LEFT JOIN hog_geo G ON F.idpre = G.idgeo
@@ -55,19 +55,17 @@ if ($req == 'searchPatient') {
 if ($req == 'saveAppointment') {
     $input = json_decode(file_get_contents('php://input'), true);
     // Validar y sanitizar $input aquí
-    $sql = "INSERT INTO citas (professionalId, date, time, status, activity, notes, docType, docNumber, fullName, phone, address)
-            VALUES (?, ?, ?, 'Agendado', ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO agendas (cupo, profesionalid, idpeople, idgeo, fecha, actividad, notas, usu_creo, estado)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?,1)";
     $params = [
-        ['type' => 'i', 'value' => $input['professionalId']],
-        ['type' => 's', 'value' => $input['date']],
-        ['type' => 's', 'value' => $input['time']],
-        ['type' => 's', 'value' => $input['activity']],
-        ['type' => 's', 'value' => $input['notes']],
-        ['type' => 's', 'value' => $input['patient']['docType']],
-        ['type' => 's', 'value' => $input['patient']['docNumber']],
-        ['type' => 's', 'value' => $input['patient']['fullName']],
-        ['type' => 's', 'value' => $input['patient']['phone']],
-        ['type' => 's', 'value' => $input['patient']['address']],
+        ['type' => 'i', 'value' => $input['cupo']],
+        ['type' => 'i', 'value' => $input['profesionalid']],
+        ['type' => 'i', 'value' => $input['idpeople']],
+        ['type' => 'i', 'value' => $input['idgeo']],
+        ['type' => 's', 'value' => $input['fecha']],
+        ['type' => 'i', 'value' => $input['actividad']],
+        ['type' => 's', 'value' => $input['notas']],
+        ['type' => 's', 'value' => $_SESSION["us_sds"]],
     ];
     $result = mysql_prepd($sql, $params);
     if ($result['success']) {
@@ -78,50 +76,44 @@ if ($req == 'saveAppointment') {
     exit;
 }
 if ($req == 'getAppointments') {
-    $professionalId = intval($_GET['professionalId'] ?? 0);
+   $professionalId = intval($_GET['professionalId'] ?? 0);
     $weekStart = $_GET['weekStart'] ?? '';
     $weekEnd = $_GET['weekEnd'] ?? '';
-    $sql = "SELECT id, professionalId, fecha, hora, estado, actividad, notas, tipo_doc, documento, nombre, telefono, direccion
-            FROM agenda
-            WHERE professionalId=? AND date BETWEEN ? AND ?";
+    $sql = "SELECT idagenda, cupo, profesionalid, idpeople, idgeo, fecha, actividad, notas, estado
+            FROM agendas
+            WHERE profesionalid=? AND fecha BETWEEN ? AND ?";
     $params = [
         ['type' => 'i', 'value' => $professionalId],
         ['type' => 's', 'value' => $weekStart],
         ['type' => 's', 'value' => $weekEnd],
     ];
     $result = mysql_prepd($sql, $params);
-   $appointments = [];
-if (is_array($result) && isset($result['responseResult']) && is_array($result['responseResult'])) {
-    foreach ($result['responseResult'] as $row) {
-        $appointments[] = [
-            'id' => $row['id'],
-            'professionalId' => $row['professionalId'],
-            'fecha' => $row['fecha'],
-            'hora' => $row['hora'],
-            'estado' => $row['estado'],
-            'actividad' => $row['actividad'],
-            'notas' => $row['notas'],
-            'patient' => [
-                'tipo_doc' => $row['tipo_doc'],
-                'documento' => $row['documento'],
-                'nombre' => $row['nombre'],
-                'telefono' => $row['telefono'],
-                'direccion' => $row['direccion'],
-            ]
-        ];
+    $appointments = [];
+    if (is_array($result) && isset($result['responseResult']) && is_array($result['responseResult'])) {
+        foreach ($result['responseResult'] as $row) {
+            $appointments[] = [
+                'id' => $row['idagenda'],
+                'cupo' => $row['cupo'],
+                'professionalId' => $row['profesionalid'],
+                'idpeople' => $row['idpeople'],
+                'idgeo' => $row['idgeo'],
+                'date' => $row['fecha'],
+                'activity' => $row['actividad'],
+                'notes' => $row['notas'],
+                'status' => $row['estado'],
+            ];
+        }
+        echo json_encode($appointments);
+    } else {
+        echo json_encode(['success' => false, 'error' => $result['error'] ?? 'Error al consultar citas']);
     }
-    echo json_encode($appointments);
-} else {
-    // Devuelve error en formato JSON para el frontend
-    echo json_encode(['success' => false, 'error' => $result['error'] ?? 'Error al consultar citas']);
-}
-exit;
+    exit;
 }
 if ($req == 'updateAppointmentStatus') {
-    $input = json_decode(file_get_contents('php://input'), true);
+   $input = json_decode(file_get_contents('php://input'), true);
     $id = intval($input['id']);
     $status = $input['status'];
-    $sql = "UPDATE citas SET status=? WHERE id=?";
+    $sql = "UPDATE agendas SET estado=? WHERE idagenda=?";
     $params = [
         ['type' => 's', 'value' => $status],
         ['type' => 'i', 'value' => $id]
