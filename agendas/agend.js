@@ -496,7 +496,8 @@ function updateProfileSelection() {
     const selectedOptions = Array.from(profileSelect.selectedOptions);
     selectedProfiles = selectedOptions.map(option => option.value);
     const profileIds = selectedProfiles.join(',');
-
+    // Llama a la función para cargar los profesionales dependientes
+    cargarProfesionales(profileIds);
     // Aquí puedes hacer algo con los IDs de los perfiles seleccionados, si es necesario
     console.log('Perfiles seleccionados:', profileIds);
 }
