@@ -741,7 +741,8 @@
         }
         /* Resaltar el item seleccionado en el dropdown*/
         .choices__list--dropdown .choices__item--selectable.is-highlighted, .choices__list[aria-expanded] .choices__item--selectable.is-highlighted {
-            background-color: #f2f2f2;
+            /* background-color: varcadetblue "important"; */
+            background-color: var(--primary-light) !important;
             color: var(--dark);
         }
         /* Responsive */
