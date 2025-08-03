@@ -372,7 +372,8 @@ function searchPatient() {
                 document.getElementById('full-name').focus();
             }
         })
-        .catch(() => alert('Error al buscar paciente.'));
+        .catch(() => 
+            showToast('Error al buscar paciente.', 'error'));
 }
 
 function handleFormSubmit(e) {
