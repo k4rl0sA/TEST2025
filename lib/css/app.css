@@ -659,7 +659,39 @@
             background: var(--primary);
             border-radius: 4px;
         }
-
+        /* Ajusta el contenedor de Choices*/
+        .choices.app-select {
+            width: 100%;
+            font-size: 1rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--light-gray);
+            background: white;
+            min-height: 48px;
+            box-shadow: none;
+            padding: 0;
+        }
+        .choices__inner {
+            border: none;
+            background: transparent;
+            min-height: 48px;
+            padding: 0 15px;
+        }
+        .choices__list--multiple .choices__item {
+            background: var(--primary);
+            color: #fff;
+            border-radius: 12px;
+            margin: 2px 4px;
+            padding: 2px 10px;
+        }
+        .choices__list--dropdown, .choices__list[aria-expanded] {
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--light-gray);
+        }
+        .choices__input {
+            font-size: 1rem;
+            padding: 8px 0;
+        }
         /* Responsive */
         @media (max-width: 992px) {
             .main-layout {

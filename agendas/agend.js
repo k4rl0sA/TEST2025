@@ -2,6 +2,7 @@
 let currentDate = new Date();
 let selectedProfessionalId = null;
 let appointments = []; // Aquí se guardan las citas de la semana actual
+let selectedProfiles = Array.from(profileSelect.selectedOptions).map(opt => opt.value); // Aquí se guardan los perfiles seleccionados
 
 // --- ELEMENTOS DEL DOM ---
 const profileSelect = document.getElementById('profile');
@@ -89,16 +90,28 @@ function loadSelectChoicesSafe(selectId, endpoint, placeholder = '-- Seleccione 
     }
 }
 
+
 function loadSelectChoices(selectId, options, placeholder = '-- Seleccione --', selectedValue = null) {
     const select = document.getElementById(selectId);
     if (!select) return;
+
+    // Destruye instancia previa de Choices si existe
+    if (select.choicesInstance) {
+        select.choicesInstance.destroy();
+        select.choicesInstance = null;
+    }
+
+    // Limpia opciones previas
     select.innerHTML = '';
-    if (placeholder) {
+
+    // Si es múltiple, no agregues placeholder como opción seleccionable
+    if (!select.multiple && placeholder) {
         const opt = document.createElement('option');
         opt.value = '';
         opt.textContent = placeholder;
         select.appendChild(opt);
     }
+
     options.forEach(opt => {
         const option = document.createElement('option');
         option.value = opt.value;
@@ -106,7 +119,28 @@ function loadSelectChoices(selectId, options, placeholder = '-- Seleccione --', 
         if (selectedValue && selectedValue == opt.value) option.selected = true;
         select.appendChild(option);
     });
-    // Si usas Choices.js, reinicializa aquí si es necesario
+
+    // Inicializa Choices.js
+    select.choicesInstance = new Choices(select, {
+        removeItemButton: select.multiple,
+        searchEnabled: true,
+        shouldSort: false,
+        placeholder: true,
+        placeholderValue: placeholder,
+        itemSelectText: '',
+        classNames: {
+            containerOuter: 'choices app-select',
+            input: 'choices__input app-select-input',
+            list: 'choices__list app-select-list',
+            item: 'choices__item app-select-item',
+            // Puedes agregar más clases personalizadas si lo deseas
+        }
+    });
+
+    // Selecciona valor si existe (para múltiple, acepta array)
+    if (selectedValue) {
+        select.choicesInstance.setChoiceByValue(selectedValue);
+    }
 }
 
 // --- LÓGICA DE SELECTS DEPENDIENTES ---
@@ -459,3 +493,16 @@ function showSpinner() {
 function hideSpinner() {
     document.getElementById('loading-spinner').classList.add('hidden');
 }
+
+// --- CÓDIGO NUEVO ---
+function updateProfileSelection() {
+    const selectedOptions = Array.from(profileSelect.selectedOptions);
+    selectedProfiles = selectedOptions.map(option => option.value);
+    const profileIds = selectedProfiles.join(',');
+
+    // Aquí puedes hacer algo con los IDs de los perfiles seleccionados, si es necesario
+    console.log('Perfiles seleccionados:', profileIds);
+}
+
+// --- EVENTOS NUEVOS ---
+profileSelect.addEventListener('change', updateProfileSelection);
