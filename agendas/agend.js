@@ -352,7 +352,7 @@ function searchPatient() {
     const docNumber = docNumberInput.value.trim();
 
     if (!docNumber) {
-        alert('Por favor, ingrese un número de documento.');
+        showToast('Por favor, ingrese un número de documento.', 'warning');
         return;
     }
 
@@ -362,18 +362,17 @@ function searchPatient() {
             if (data.success && data.patient) {
                 document.getElementById('full-name').value = data.patient.fullName;
                 document.getElementById('phone').value = data.patient.phone;
-                document.getElementById('address').value = data.patient.address;
-                alert('Paciente encontrado.');
+                document.getElementById('address').value = data.patient.address;                
+                showToast('Paciente encontrado.', 'success');
             } else {
-                alert('Paciente no encontrado. Por favor, complete la información.');
+                showToast('Paciente no encontrado. Por favor, complete la información.', 'warning');
                 document.getElementById('full-name').value = '';
                 document.getElementById('phone').value = '';
                 document.getElementById('address').value = '';
                 document.getElementById('full-name').focus();
             }
         })
-        .catch(() => 
-            showToast('Error al buscar paciente.', 'error'));
+        .catch(() => showToast('Error al buscar paciente.', 'error'));
 }
 
 function handleFormSubmit(e) {
@@ -396,7 +395,7 @@ function handleFormSubmit(e) {
     };
 
     if (!newAppointment.patient.fullName || !newAppointment.patient.docNumber) {
-        alert('El nombre completo y el número de documento son obligatorios.');
+        showToast('El nombre completo y el número de documento son obligatorios.', 'error');
         return;
     }
 
@@ -434,20 +433,20 @@ function updateAppointmentStatus() {
     .then(res => res.json())
     .then(data => {
         if (data.success) {
-            alert(`El estado de la cita ha sido actualizado a "${newStatus}".`);
+            showToast(`El estado de la cita ha sido actualizado a "${newStatus}".`, 'success'); 
             if (newStatus !== 'Reasignado') {
                 closeModal();
             }
             updateCalendar();
         } else {
-            alert('Error al actualizar el estado de la cita: ' + (data.error || ''));
+            showToast('Error al actualizar el estado de la cita: ' + (data.error || ''), 'error');
         }
     })
-    .catch(() => alert('Error de red al actualizar la cita.'));
+    .catch(() => showToast('Error de red al actualizar el estado de la cita.', 'error'));
 }
 
 function reassignAppointment() {
-    alert("Funcionalidad de reasignación: Por favor, seleccione un nuevo cupo disponible en el calendario para mover esta cita.");
+        showToast('Funcionalidad de reasignación: Por favor, seleccione un nuevo cupo disponible en el calendario para mover esta cita.', 'info');
     closeModal();
 }
 
