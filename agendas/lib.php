@@ -88,18 +88,13 @@ if ($req == 'saveAppointment') {
 }
 
 if ($req == 'getAppointments') {
-   $professionalId = intval($_GET['professionalId'] ?? 0);
+    $professionalId = intval($_GET['professionalId'] ?? 0);
     $weekStart = $_GET['weekStart'] ?? '';
     $weekEnd = $_GET['weekEnd'] ?? '';
     $sql = "SELECT idagenda, cupo, profesionalid, idpeople, idgeo, fecha, actividad, notas, estado
             FROM agendas
-            WHERE profesionalid=? AND fecha BETWEEN ? AND ?";
-    $params = [
-        ['type' => 'i', 'value' => $professionalId],
-        ['type' => 's', 'value' => $weekStart],
-        ['type' => 's', 'value' => $weekEnd],
-    ];
-    $result = mysql_prepd($sql, $params);
+            WHERE profesionalid=$professionalId AND fecha BETWEEN '$weekStart' AND '$weekEnd'";
+    $result = datos_mysql($sql);
     $appointments = [];
     if (is_array($result) && isset($result['responseResult']) && is_array($result['responseResult'])) {
         foreach ($result['responseResult'] as $row) {
