@@ -488,7 +488,7 @@ function updateProfileSelection() {
 
 
 // --- CONTROL DE SESIÓN Y FETCH SEGURO ---
-async function fetchJsonWithSessionCheck(url, options) {
+/* async function fetchJsonWithSessionCheck(url, options) {
     try {
         const res = await fetch(url, options);
         if (!res.ok) {
@@ -514,7 +514,25 @@ async function fetchJsonWithSessionCheck(url, options) {
         console.error('Error parsing JSON o de red:', e, 'URL:', url);
         return null;
     }
+} */
+
+async function fetchJsonWithSessionCheck(url, options) {
+    const res = await fetch(url, options);
+    let data;
+    try {
+        data = await res.json();
+    } catch (e) {
+        window.location.href = '/index.php';
+        return null;
+    }
+    // Solo redirige si es un objeto con success === false
+    if (data && typeof data === 'object' && !Array.isArray(data) && data.success === false && data.error) {
+        window.location.href = '/index.php';
+        return null;
+    }
+    return data;
 }
+
 // --- UTILIDADES ---
 function showToast(message, type = 'info', timeout = 3500) {
     const container = document.querySelector('.toast-container');
