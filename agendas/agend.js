@@ -397,6 +397,7 @@ function handleFormSubmit(e) {
     const fecha = document.getElementById('appointment-date').value;
     const actividad = parseInt(document.getElementById('activity').value);
     const notas = document.getElementById('notes').value.trim();
+    const direccion = document.getElementById('address').value.trim();
 
     // Validación básica
      if (!idpeople || !idgeo || !cupo || !profesionalid || !fecha) {
