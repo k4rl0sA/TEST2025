@@ -208,10 +208,10 @@ function renderCalendarGrid(weekDays) {
     // Slots (8 per day)
     for (let i = 1; i <= 8; i++) {
         const time = `${i}`;
-        grid.innerHTML += `<div class="font-bold text-center p-2 border-r">${time}</div>`;
+        grid.innerHTML += `<div class="font-bold text-center p-2 border-r">${cupo}</div>`;
         weekDays.forEach(day => {
             const dateStr = day.toISOString().split('T')[0];
-            const appointment = findAppointment(dateStr, time);
+            const appointment = findAppointment(dateStr, cupo);
 
             let cellClass = 'bg-green hover:bg-green cursor-pointer';
             let cellContent = 'Disponible';
@@ -235,7 +235,8 @@ function renderCalendarGrid(weekDays) {
                 appointmentId = appointment.id;
             }
 
-            grid.innerHTML += `<div class="text-center p-2 border-t text-sm ${cellClass} transition duration-200 calendar-slot" data-date="${dateStr}" data-time="${time}" data-appointment-id="${appointmentId}">${cellContent}</div>`;
+            grid.innerHTML += `<div class="text-center p-2 border-t text-sm ${cellClass} transition duration-200 calendar-slot" data-date="${dateStr}" data-cupo="${cupo}" data-appointment-id="${appointmentId}">${cellContent}</div>`;
+
         });
     }
     calendarContainer.appendChild(grid);
@@ -246,7 +247,7 @@ function findAppointment(date,cupo) {
     return appointments.find(a =>
         String(a.professionalId) === String(selectedProfessionalId) &&
         a.date === date &&
-        String(a.cupo) === String(time)
+        String(a.cupo) === String(cupo)
     );
 }
 
@@ -268,7 +269,7 @@ function openModal(date, cupo, appointmentId = null) {
     loadSelectChoicesSafe('doc-type', '/agendas/lib.php?a=getDocTypes', '-- Seleccione un Tipo de Documento --');
 
     document.getElementById('slot-date').value = date;
-    document.getElementById('slot-time').value = time;
+    document.getElementById('slot-time').value = cupo;
     document.getElementById('slot-professional-id').value = selectedProfessionalId;
 
     const appointment = appointmentId ? appointments.find(a => a.id == appointmentId) : null;
@@ -385,23 +386,28 @@ function handleFormSubmit(e) {
     // Debes tener estos datos del paciente tras la búsqueda
     const idpeople = document.getElementById('doc-number').dataset.idpeople || '';
     const idgeo = document.getElementById('doc-number').dataset.idgeo || '';
-
-    const newAppointment = {
-        cupo: parseInt(document.getElementById('slot-time').value),
-        profesionalid: parseInt(document.getElementById('slot-professional-id').value),
-        idpeople: parseInt(idpeople), // Debes guardar estos datos al buscar paciente
-        idgeo: parseInt(idgeo),
-        fecha: document.getElementById('appointment-date').value,
-        actividad: document.getElementById('activity').value.trim(),
-        notas: document.getElementById('notes').value.trim()
-    };
+    const cupo = parseInt(document.getElementById('slot-time').value);
+    const profesionalid = parseInt(document.getElementById('slot-professional-id').value);
+    const fecha = document.getElementById('appointment-date').value;
+    const actividad = parseInt(document.getElementById('activity').value);
+    const notas = document.getElementById('notes').value.trim();
 
     // Validación básica
-    if (!newAppointment.idpeople || !newAppointment.idgeo) {
-        showToast('Debe buscar y seleccionar un paciente válido.', 'error');
+     if (!idpeople || !idgeo || !cupo || !profesionalid || !fecha) {
+        showToast('Todos los campos obligatorios deben estar completos.', 'error');
         hideSpinner();
         return;
     }
+
+    const newAppointment = {
+        cupo,
+        profesionalid,
+        idpeople: parseInt(idpeople),
+        idgeo: parseInt(idgeo),
+        fecha,
+        actividad: isNaN(actividad) ? null : actividad,
+        notas
+    };
 
     fetch('/agendas/lib.php?a=saveAppointment', {
         method: 'POST',
