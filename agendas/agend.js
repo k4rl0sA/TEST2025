@@ -477,7 +477,6 @@ async function fetchJsonWithSessionCheck(url, options) {
     try {
         const res = await fetch(url, options);
         if (!res.ok) {
-            // Error HTTP (404, 500, etc)
             const errorMsg = `Error HTTP ${res.status}: ${res.statusText} al consultar ${url}`;
             showToast(errorMsg, 'error');
             console.error(errorMsg);
@@ -488,6 +487,10 @@ async function fetchJsonWithSessionCheck(url, options) {
         if (data && typeof data === 'object' && !Array.isArray(data) && data.success === false && data.error) {
             showToast(data.error, 'error');
             console.error('Error backend:', data.error);
+            // Redirige solo si el error es de sesión cerrada
+            if ( data.error.toLowerCase().includes('Sesión no iniciada')) {
+                window.location.href = '/index.php';
+            }
             return null;
         }
         return data;
