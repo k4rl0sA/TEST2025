@@ -93,7 +93,7 @@ if ($req == 'getAppointments') {
     $weekEnd = $_GET['weekEnd'] ?? '';
     $sql = "SELECT idagenda, cupo, profesionalid, idpeople, idgeo, fecha, actividad, notas, estado
             FROM agendas
-            WHERE profesionalid=$professionalId AND fecha BETWEEN '$weekStart' AND '$weekEnd'";
+            WHERE profesionalid=$professionalId AND fecha BETWEEN '$weekStart' AND '$weekEnd' ";
     $result = datos_mysql($sql);
     $appointments = [];
     if (is_array($result) && isset($result['responseResult']) && is_array($result['responseResult'])) {

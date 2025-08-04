@@ -241,12 +241,12 @@ function renderCalendarGrid(weekDays) {
     calendarContainer.appendChild(grid);
 }
 
-function findAppointment(date, time) {
+function findAppointment(date,cupo) {
     if (!selectedProfessionalId) return undefined;
     return appointments.find(a =>
         String(a.professionalId) === String(selectedProfessionalId) &&
         a.date === date &&
-        a.time === time
+        String(a.cupo) === String(time)
     );
 }
 
@@ -256,15 +256,13 @@ function handleCalendarClick(event) {
     if (!slot) return;
 
     const date = slot.dataset.date;
-    const time = slot.dataset.time;
+    const cupo = slot.dataset.cupo;
     const appointmentId = slot.dataset.appointmentId || null;
 
-    openModal(date, time, appointmentId);
-    
-
+    openModal(date, cupo, appointmentId);
 }
 
-function openModal(date, time, appointmentId = null) {
+function openModal(date, cupo, appointmentId = null) {
     form.reset();
     resetModalState();
     loadSelectChoicesSafe('doc-type', '/agendas/lib.php?a=getDocTypes', '-- Seleccione un Tipo de Documento --');
