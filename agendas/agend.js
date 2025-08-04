@@ -412,7 +412,8 @@ function handleFormSubmit(e) {
         idgeo: parseInt(idgeo),
         fecha,
         actividad: isNaN(actividad) ? null : actividad,
-        notas
+        notas,
+        direccion
     };
 
     fetch('/agendas/lib.php?a=saveAppointment', {
