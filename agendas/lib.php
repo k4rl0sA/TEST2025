@@ -55,13 +55,14 @@ if ($req == 'searchPatient') {
 if ($req == 'saveAppointment') {
     $input = json_decode(file_get_contents('php://input'), true);
     // Validar y sanitizar $input aquí
-    $sql = "INSERT INTO agendas (cupo, profesionalid, idpeople, idgeo, fecha, actividad, notas, usu_creo, estado)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?,1)";
+    $sql = "INSERT INTO agendas (cupo, profesionalid, idpeople, idgeo,direcccion, fecha, actividad, notas, usu_creo, estado)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,1)";
     $params = [
         ['type' => 'i', 'value' => $input['cupo']],
         ['type' => 'i', 'value' => $input['profesionalid']],
         ['type' => 'i', 'value' => $input['idpeople']],
         ['type' => 'i', 'value' => $input['idgeo']],
+        ['type' => 's', 'value' => $input['address']],
         ['type' => 's', 'value' => $input['fecha']],
         ['type' => 'i', 'value' => $input['actividad']],
         ['type' => 's', 'value' => $input['notas']],
@@ -94,7 +95,7 @@ if ($req == 'getAppointments') {
     $sql = "SELECT A.idagenda, A.cupo, A.profesionalid, A.idpeople, A.idgeo, A.fecha, A.actividad, A.notas, A.estado,
                P.tipo_doc, P.idpersona, P.nombre1, P.nombre2, P.apellido1, P.apellido2, 
                COALESCE(NULLIF(P.telefono1, ''), NULLIF(F.telefono1, ''), NULLIF(P.telefono2, ''), NULLIF(F.telefono2, ''), NULLIF(F.telefono3, '')) AS phone, 
-               G.direccion AS address
+               A.direccion AS address
         FROM agendas A
         LEFT JOIN person P ON A.idpeople = P.idpeople
         LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
