@@ -207,11 +207,11 @@ function renderCalendarGrid(weekDays) {
 
     // Slots (8 per day)
     for (let i = 1; i <= 8; i++) {
-        const time = `${i}`;
-        grid.innerHTML += `<div class="font-bold text-center p-2 border-r">${cupo}</div>`;
-        weekDays.forEach(day => {
-            const dateStr = day.toISOString().split('T')[0];
-            const appointment = findAppointment(dateStr, cupo);
+    const cupo = `${i}`;
+    grid.innerHTML += `<div class="font-bold text-center p-2 border-r">${cupo}</div>`;
+    weekDays.forEach(day => {
+        const dateStr = day.toISOString().split('T')[0];
+        const appointment = findAppointment(dateStr, cupo);
 
             let cellClass = 'bg-green hover:bg-green cursor-pointer';
             let cellContent = 'Disponible';
