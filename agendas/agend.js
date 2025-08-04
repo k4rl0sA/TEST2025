@@ -266,7 +266,7 @@ function handleCalendarClick(event) {
 function openModal(date, cupo, appointmentId = null) {
     form.reset();
     resetModalState();
-    loadSelectChoicesSafe('doc-type', '/agendas/lib.php?a=getDocTypes', '-- Seleccione un Tipo de Documento --');
+    // 
 
     document.getElementById('slot-date').value = date;
     document.getElementById('slot-time').value = cupo;
@@ -275,6 +275,7 @@ function openModal(date, cupo, appointmentId = null) {
     const appointment = appointmentId ? appointments.find(a => a.id == appointmentId) : null;
 
     if (appointment) {
+        loadSelectChoicesSafe('doc-type', '/agendas/lib.php?a=getDocTypes', '-- Seleccione un Tipo de Documento --');
         modalTitle.textContent = 'Detalles de la Cita';
         fillFormWithAppointmentData(appointment);
         setFormReadOnly(true);
@@ -283,6 +284,7 @@ function openModal(date, cupo, appointmentId = null) {
         appointmentStatusSelect.value = appointment.status;
         reassignBtn.classList.toggle('hidden', appointment.status !== 'Reasignado');
     } else {
+        loadSelectChoicesSafe('doc-type','/agendas/lib.php?a=getDocTypes','-- Seleccione un Tipo de Documento --');
         modalTitle.innerHTML = '';
         const icon = document.createElement('i');
         icon.className = 'fa-solid fa-calendar-days';
