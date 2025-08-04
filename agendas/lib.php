@@ -34,6 +34,11 @@ if ($req == 'getDocTypes') {
     getSelectOptions($sql,'value','label');
     exit;
 }
+if ($req == 'getActivity') {
+    $sql = "SELECT idcatadeta AS value, descripcion AS label FROM catadeta WHERE idcatalogo=269 AND estado='A'";
+    getSelectOptions($sql,'value','label');
+    exit;
+}
 if ($req == 'searchPatient') {
     $docType = $_GET['docType'] ?? '';
     $docNumber = $_GET['docNumber'] ?? '';
