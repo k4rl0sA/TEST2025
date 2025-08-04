@@ -484,6 +484,7 @@ async function fetchJsonWithSessionCheck(url, options) {
     }
     // Solo redirige si es un objeto con success === false
     if (data && typeof data === 'object' && !Array.isArray(data) && data.success === false && data.error) {
+        showToast(data.error, 'error');
         window.location.href = '/index.php';
         return null;
     }
