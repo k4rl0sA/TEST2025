@@ -479,6 +479,8 @@ async function fetchJsonWithSessionCheck(url, options) {
     try {
         data = await res.json();
     } catch (e) {
+        showToast('Error al procesar la respuesta del servidor.', 'error');
+        console.error('Error parsing JSON:', e);
         window.location.href = '/index.php';
         return null;
     }
