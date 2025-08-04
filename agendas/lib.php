@@ -7,6 +7,7 @@ if (!isset($_SESSION["us_sds"])) {
         header('Content-Type: application/json');
         echo json_encode(['success' => false, 'error' => 'Sesión no iniciada']);
     } else {
+        echo json_encode(['success' => false, 'error' => 'Sesión no iniciada']);
         // header("Location: /index.php");
     }
     exit;
