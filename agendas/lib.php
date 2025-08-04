@@ -9,7 +9,7 @@ if (!isset($_SESSION["us_sds"])) {
     } else {
         //mosrar mensaje de error de lo que devulve el servidor
         echo "<script>alert('Sesión no iniciada');</script>";
-        header("Location: /index.php");
+        header("Location: /index111.php");
     }
     exit;
 }
