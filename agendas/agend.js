@@ -400,7 +400,7 @@ function handleFormSubmit(e) {
     const direccion = document.getElementById('address').value.trim();
 
     // Validación básica
-     if (!idpeople || !idgeo || !cupo || !profesionalid || !fecha) {
+     if (!idpeople || !idgeo || !cupo || !profesionalid || !fecha || !actividad || !direccion) {
         showToast('Todos los campos obligatorios deben estar completos.', 'error');
         hideSpinner();
         return;
