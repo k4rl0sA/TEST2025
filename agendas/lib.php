@@ -73,6 +73,7 @@ if ($req == 'saveAppointment') {
         ['type' => 's', 'value' => $input['notas']],
         ['type' => 's', 'value' => $_SESSION["us_sds"]],
     ];
+    show_sql($sql, $params);
     $result = mysql_prepd($sql, $params);
      $duplicateMsg = 'Ya existe una cita para ese profesional, fecha y cupo.';
 
