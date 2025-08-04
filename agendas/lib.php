@@ -108,9 +108,14 @@ if ($req == 'getAppointments') {
                 'date' => $row['fecha'],
                 'activity' => $row['actividad'],
                 'notes' => $row['notas'],
-                'status' => $row['estado'],
+                'status' => $row['estado']
+            ],
+            'patient'[]=[
                 'docType' => $row['tipo_doc'] ?? '',
-                'docNumber' => $row['idpersona'] ?? ''
+                'docNumber' => $row['idpersona'] ?? '',
+                'fullName' => $row['nombre1'] . ' ' . $row['nombre2'] . ' ' . $row['apellido1'] . ' ' . $row['apellido2'],
+                'phone' => $row['phone'] ?? '',
+                'address' => $row['address'] ?? ''
             ];
         }
         echo json_encode($appointments);
