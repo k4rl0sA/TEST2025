@@ -93,7 +93,7 @@ if ($req == 'getAppointments') {
     $weekEnd = $_GET['weekEnd'] ?? '';
     $sql = "SELECT A.idagenda, A.cupo, A.profesionalid, A.idpeople, A.idgeo, A.fecha, A.actividad, A.notas, A.estado,P.tipo_doc,P.idpersona
             FROM agendas A
-            LEFT JOIN person P ON 
+            LEFT JOIN person P ON A.idpeople = P.idpeople
             WHERE profesionalid=$professionalId AND fecha BETWEEN '$weekStart' AND '$weekEnd' ";
     $result = datos_mysql($sql);
     $appointments = [];
