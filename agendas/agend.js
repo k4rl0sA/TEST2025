@@ -474,23 +474,28 @@ function getAppointments(professionalId, weekStart, weekEnd) {
 
 // --- CONTROL DE SESIÓN Y FETCH SEGURO ---
 async function fetchJsonWithSessionCheck(url, options) {
-    const res = await fetch(url, options);
-    let data;
     try {
-        data = await res.json();
+        const res = await fetch(url, options);
+        if (!res.ok) {
+            // Error HTTP (404, 500, etc)
+            const errorMsg = `Error HTTP ${res.status}: ${res.statusText} al consultar ${url}`;
+            showToast(errorMsg, 'error');
+            console.error(errorMsg);
+            return null;
+        }
+        let data = await res.json();
+        // Si el backend responde con error
+        if (data && typeof data === 'object' && !Array.isArray(data) && data.success === false && data.error) {
+            showToast(data.error, 'error');
+            console.error('Error backend:', data.error);
+            return null;
+        }
+        return data;
     } catch (e) {
         showToast('Error al procesar la respuesta del servidor.', 'error');
-        console.error('Error parsing JSON:', e);
-        window.location.href = '/index.php';
+        console.error('Error parsing JSON o de red:', e, 'URL:', url);
         return null;
     }
-    // Solo redirige si es un objeto con success === false
-    if (data && typeof data === 'object' && !Array.isArray(data) && data.success === false && data.error) {
-        showToast(data.error, 'error');
-        window.location.href = '/index.php';
-        return null;
-    }
-    return data;
 }
 
 // --- UTILIDADES ---
