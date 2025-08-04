@@ -155,7 +155,7 @@ function changeWeek(direction) {
 function getWeekDays(date) {
     const startOfWeek = new Date(date);
     const day = startOfWeek.getDay();
-    const diff = startOfWeek.getDate() - day + (day === 0 ? -6 : 1);
+    const diff = startOfWeek.getDate() - ((day + 6) % 7);
     startOfWeek.setDate(diff);
 
     const week = [];
