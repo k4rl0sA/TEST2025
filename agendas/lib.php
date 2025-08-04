@@ -39,7 +39,7 @@ if ($req == 'searchPatient') {
     $docNumber = $_GET['docNumber'] ?? '';
     $sql = "SELECT concat_ws(' ',nombre1,nombre2,apellido1,apellido2) AS fullName, 
         COALESCE(NULLIF(P.telefono1, ''), NULLIF(F.telefono1, ''), NULLIF(P.telefono2, ''), NULLIF(F.telefono2, ''), NULLIF(F.telefono3, '')) AS phone, 
-        G.direccion AS address,G.idgeo AS idgeo, P.idpeople AS idpeople
+        G.direccion AS address,G.idgeo AS idgeo, P.idpeople AS idpeople,G.direccion AS address
     FROM person P
     LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam 
     LEFT JOIN hog_geo G ON F.idpre = G.idgeo
