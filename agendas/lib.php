@@ -62,7 +62,7 @@ if ($req == 'saveAppointment') {
         ['type' => 'i', 'value' => $input['profesionalid']],
         ['type' => 'i', 'value' => $input['idpeople']],
         ['type' => 'i', 'value' => $input['idgeo']],
-        ['type' => 's', 'value' => $input['address']],
+        ['type' => 's', 'value' => $input['direccion']],
         ['type' => 's', 'value' => $input['fecha']],
         ['type' => 'i', 'value' => $input['actividad']],
         ['type' => 's', 'value' => $input['notas']],
