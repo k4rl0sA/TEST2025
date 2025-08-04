@@ -481,13 +481,13 @@ async function fetchJsonWithSessionCheck(url, options) {
     } catch (e) {
         showToast('Error al procesar la respuesta del servidor.', 'error');
         console.error('Error parsing JSON:', e);
-        // window.location.href = '/index.php';
+        window.location.href = '/index.php';
         return null;
     }
     // Solo redirige si es un objeto con success === false
     if (data && typeof data === 'object' && !Array.isArray(data) && data.success === false && data.error) {
         showToast(data.error, 'error');
-        // window.location.href = '/index.php';
+        window.location.href = '/index.php';
         return null;
     }
     return data;
