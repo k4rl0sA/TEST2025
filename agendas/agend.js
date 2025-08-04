@@ -17,6 +17,7 @@ const form = document.getElementById('appointment-form');
 const searchPatientBtn = document.getElementById('search-patient');
 const docNumberInput = document.getElementById('doc-number');
 const docTypeInput = document.getElementById('doc-type');
+const activitySelect = document.getElementById('activity');
 
 const patientInfoFields = ['full-name', 'phone', 'address', 'activity', 'appointment-date', 'notes'];
 const submitBtn = document.getElementById('submit-btn');
@@ -35,6 +36,7 @@ let selectedProfiles = Array.from(profileSelect.selectedOptions).map(opt => opt.
 document.addEventListener('DOMContentLoaded', () => {
     initDynamicSelect('profile', '/agendas/lib.php?a=getProfiles', '-- Seleccione un Perfil --', updateProfileSelection);
     initDynamicSelect('doc-type', '/agendas/lib.php?a=getDocTypes', '-- Seleccione un Tipo de Documento --');
+    initDynamicSelect('activity', '/agendas/lib.php?a=getActivity', '-- Seleccione una Actividad --');
     // ...otros selects dinámicos aquí si los tienes...
     init();
 });
@@ -275,7 +277,8 @@ function openModal(date, cupo, appointmentId = null) {
     const appointment = appointmentId ? appointments.find(a => a.id == appointmentId) : null;
 
     if (appointment) {
-        loadSelectChoicesSafe('doc-type', '/agendas/lib.php?a=getDocTypes', '-- Seleccione un Tipo de Documento --');
+        loadSelectChoicesSafe('doc-type', '/agendas/lib.php?a=getDocTypes', '-- Seleccione un Tipo de Documento --', appointment.patient.docType);
+        loadSelectChoicesSafe('activity', '/agendas/lib.php?a=getActivity', '-- Seleccione una Actividad --', appointment.activity);
         modalTitle.textContent = 'Detalles de la Cita';
         fillFormWithAppointmentData(appointment);
         setFormReadOnly(true);
@@ -285,6 +288,7 @@ function openModal(date, cupo, appointmentId = null) {
         reassignBtn.classList.toggle('hidden', appointment.status !== 'Reasignado');
     } else {
         loadSelectChoicesSafe('doc-type','/agendas/lib.php?a=getDocTypes','-- Seleccione un Tipo de Documento --');
+        loadSelectChoicesSafe('activity', '/agendas/lib.php?a=getActivity', '-- Seleccione una Actividad --');
         modalTitle.innerHTML = '';
         const icon = document.createElement('i');
         icon.className = 'fa-solid fa-calendar-days';
