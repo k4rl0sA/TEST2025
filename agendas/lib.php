@@ -7,6 +7,10 @@ if (!isset($_SESSION["us_sds"])) {
         header('Content-Type: application/json');
         echo json_encode(['success' => false, 'error' => 'Sesión no iniciada']);
     } else {
+        // Redirigir a la página de inicio de sesión
+        session_destroy();
+        header("Content-Type: text/html; charset=UTF-8");
+        header("HTTP/1.1 401 Unauthorized");
         header("Location: /index.php");
     }
     exit;
