@@ -109,6 +109,8 @@ if ($req == 'getAppointments') {
                 'activity' => $row['actividad'],
                 'notes' => $row['notas'],
                 'status' => $row['estado'],
+                'docType' => $row['tipo_doc'] ?? '',
+                'docNumber' => $row['idpersona'] ?? ''
             ];
         }
         echo json_encode($appointments);
