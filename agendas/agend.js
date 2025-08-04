@@ -219,15 +219,15 @@ function renderCalendarGrid(weekDays) {
 
             if (appointment) {
                 switch (appointment.status) {
-                    case 'Agendado':
+                    case '1':
                         cellClass = 'bg-red hover:bg-red cursor-pointer';
                         cellContent = 'Ocupado';
                         break;
-                    case 'Realizado':
+                    case '2':
                         cellClass = 'bg-blue hover:bg-blue cursor-pointer';
                         cellContent = 'Realizado';
                         break;
-                    case 'Reasignado':
+                    case '3':
                         cellClass = 'bg-yellow hover:bg-yellow cursor-pointer';
                         cellContent = 'Reasignado';
                         break;
