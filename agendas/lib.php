@@ -67,13 +67,13 @@ if ($req == 'saveAppointment') {
         ['type' => 'i', 'value' => $input['profesionalid']],
         ['type' => 'i', 'value' => $input['idpeople']],
         ['type' => 'i', 'value' => $input['idgeo']],
-        ['type' => 's', 'value' => $input['address']],
+        ['type' => 's', 'value' => $input['direccion']],
         ['type' => 's', 'value' => $input['fecha']],
         ['type' => 'i', 'value' => $input['actividad']],
         ['type' => 's', 'value' => $input['notas']],
         ['type' => 's', 'value' => $_SESSION["us_sds"]],
     ];
-    show_sql($sql, $params);
+    // show_sql($sql, $params);
     $result = mysql_prepd($sql, $params);
      $duplicateMsg = 'Ya existe una cita para ese profesional, fecha y cupo.';
 
