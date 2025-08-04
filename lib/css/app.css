@@ -362,6 +362,11 @@
             display: block;
         }
 
+        .input-error {
+            border: 2px solid #ef4444 !important;
+            background: #fff0f0 !important;
+        }
+
         .form-actions {
             display: flex;
             justify-content: flex-end;

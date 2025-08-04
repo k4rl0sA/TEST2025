@@ -389,19 +389,19 @@ function handleFormSubmit(e) {
     e.preventDefault();
     showSpinner();
 
-    // Debes tener estos datos del paciente tras la búsqueda
-    const idpeople = document.getElementById('doc-number').dataset.idpeople || '';
-    const idgeo = document.getElementById('doc-number').dataset.idgeo || '';
-    const cupo = parseInt(document.getElementById('slot-time').value);
-    const profesionalid = parseInt(document.getElementById('slot-professional-id').value);
-    const fecha = document.getElementById('appointment-date').value;
-    const actividad = parseInt(document.getElementById('activity').value);
-    const notas = document.getElementById('notes').value.trim();
-    const direccion = document.getElementById('address').value.trim();
+     const rules = [
+        { field: 'doc-number', message: 'Debe ingresar un número de documento.', validate: v => !!v },
+        { field: 'doc-type', message: 'Debe seleccionar un Tipo de Documento.', validate: v => !!v && !isNaN(v) },
+        { field: 'full-name', message: 'Debe ingresar el nombre completo.', validate: v => !!v },
+        { field: 'phone', message: 'Debe ingresar un teléfono.', validate: v => !!v },
+        { field: 'address', message: 'Debe ingresar una dirección.', validate: v => !!v },
+        { field: 'activity', message: 'Debe seleccionar una actividad.', validate: v => !!v && !isNaN(v) },
+        { field: 'appointment-date', message: 'Debe seleccionar una fecha para la cita.', validate: v => !!v },
+        { field: 'slot-time', message: 'Cupo inválido.', validate: v => !!v && !isNaN(v) },
+        { field: 'professional', message: 'Debe seleccionar un profesional.', validate: v => !!v && !isNaN(v) }
+    ];
 
-    // Validación básica
-     if (!idpeople || !idgeo || !cupo || !profesionalid || !fecha || !actividad || !direccion) {
-        showToast('Todos los campos obligatorios deben estar completos.', 'error');
+     if (!validateFormFields(rules)) {
         hideSpinner();
         return;
     }
@@ -474,6 +474,19 @@ function getAppointments(professionalId, weekStart, weekEnd) {
         .then(data => Array.isArray(data) ? data : []);
 }
 
+// --- CÓDIGO NUEVO ---
+function updateProfileSelection() {
+    const selectedOptions = Array.from(profileSelect.selectedOptions);
+    selectedProfiles = selectedOptions.map(option => option.value);
+    const profileIds = selectedProfiles.join(',');
+    // Llama a la función para cargar los profesionales dependientes
+    cargarProfesionales(profileIds);
+    // Aquí puedes hacer algo con los IDs de los perfiles seleccionados, si es necesario
+    console.log('Perfiles seleccionados:', profileIds);
+}
+
+
+
 // --- CONTROL DE SESIÓN Y FETCH SEGURO ---
 async function fetchJsonWithSessionCheck(url, options) {
     try {
@@ -502,7 +515,6 @@ async function fetchJsonWithSessionCheck(url, options) {
         return null;
     }
 }
-
 // --- UTILIDADES ---
 function showToast(message, type = 'info', timeout = 3500) {
     const container = document.querySelector('.toast-container');
@@ -515,21 +527,29 @@ function showToast(message, type = 'info', timeout = 3500) {
         setTimeout(() => toast.remove(), 500);
     }, timeout);
 }
-
 function showSpinner() {
     document.getElementById('loading-spinner').classList.remove('hidden');
 }
 function hideSpinner() {
     document.getElementById('loading-spinner').classList.add('hidden');
 }
-
-// --- CÓDIGO NUEVO ---
-function updateProfileSelection() {
-    const selectedOptions = Array.from(profileSelect.selectedOptions);
-    selectedProfiles = selectedOptions.map(option => option.value);
-    const profileIds = selectedProfiles.join(',');
-    // Llama a la función para cargar los profesionales dependientes
-    cargarProfesionales(profileIds);
-    // Aquí puedes hacer algo con los IDs de los perfiles seleccionados, si es necesario
-    console.log('Perfiles seleccionados:', profileIds);
+function validateFormFields(rules) {
+    rules.forEach(rule => {
+        const el = document.getElementById(rule.field);
+        if (el) el.classList.remove('input-error');
+    });
+    for (const rule of rules) {
+        const el = document.getElementById(rule.field);
+        if (!el) continue;
+        const value = (el.type === 'checkbox' || el.type === 'radio') ? el.checked : el.value.trim();
+        if (!rule.validate(value, el)) {
+            showToast(rule.message, 'error');
+            if (el.type !== 'hidden' && el.offsetParent !== null) {
+                el.classList.add('input-error');
+                el.focus();
+            }
+            return false;
+        }
+    }
+    return true;
 }
