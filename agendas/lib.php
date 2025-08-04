@@ -91,10 +91,15 @@ if ($req == 'getAppointments') {
     $professionalId = intval($_GET['professionalId'] ?? 0);
     $weekStart = $_GET['weekStart'] ?? '';
     $weekEnd = $_GET['weekEnd'] ?? '';
-    $sql = "SELECT A.idagenda, A.cupo, A.profesionalid, A.idpeople, A.idgeo, A.fecha, A.actividad, A.notas, A.estado,P.tipo_doc,P.idpersona
-            FROM agendas A
-            LEFT JOIN person P ON A.idpeople = P.idpeople
-            WHERE profesionalid=$professionalId AND fecha BETWEEN '$weekStart' AND '$weekEnd' ";
+    $sql = "SELECT A.idagenda, A.cupo, A.profesionalid, A.idpeople, A.idgeo, A.fecha, A.actividad, A.notas, A.estado,
+               P.tipo_doc, P.idpersona, P.nombre1, P.nombre2, P.apellido1, P.apellido2, 
+               COALESCE(NULLIF(P.telefono1, ''), NULLIF(F.telefono1, ''), NULLIF(P.telefono2, ''), NULLIF(F.telefono2, ''), NULLIF(F.telefono3, '')) AS phone, 
+               G.direccion AS address
+        FROM agendas A
+        LEFT JOIN person P ON A.idpeople = P.idpeople
+        LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
+        LEFT JOIN hog_geo G ON F.idpre = G.idgeo
+        WHERE profesionalid=$professionalId AND fecha BETWEEN '$weekStart' AND '$weekEnd'";
     $result = datos_mysql($sql);
     $appointments = [];
     if (is_array($result) && isset($result['responseResult']) && is_array($result['responseResult'])) {
@@ -108,14 +113,14 @@ if ($req == 'getAppointments') {
                 'date' => $row['fecha'],
                 'activity' => $row['actividad'],
                 'notes' => $row['notas'],
-                'status' => $row['estado']
-            ],
-            'patient'[]=[
-                'docType' => $row['tipo_doc'] ?? '',
-                'docNumber' => $row['idpersona'] ?? '',
-                'fullName' => $row['nombre1'] . ' ' . $row['nombre2'] . ' ' . $row['apellido1'] . ' ' . $row['apellido2'],
-                'phone' => $row['phone'] ?? '',
-                'address' => $row['address'] ?? ''
+                'status' => $row['estado'],
+                'patient' => [
+                    'docType' => $row['tipo_doc'] ?? '',
+                    'docNumber' => $row['idpersona'] ?? '',
+                    'fullName' => trim(($row['nombre1'] ?? '') . ' ' . ($row['nombre2'] ?? '') . ' ' . ($row['apellido1'] ?? '') . ' ' . ($row['apellido2'] ?? '')),
+                    'phone' => $row['phone'] ?? '',
+                    'address' => $row['address'] ?? ''
+                ]
             ];
         }
         echo json_encode($appointments);
