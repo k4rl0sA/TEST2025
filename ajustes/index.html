@@ -169,7 +169,7 @@
                             </div>
                             <div class="form-row">
                                 <div class="input-group">
-                                    <input type="text" id="componente" required maxlength="3">
+                                    <input type="text" id="componente" required placeholder="">
                                     <label for="componente">Componente</label>
                                 </div>
                                 <div class="input-group">
@@ -178,39 +178,54 @@
                                         <option value="S">Sí</option>
                                         <option value="N">No</option>
                                     </select>
-                                    <label for="consultar">Consultar</label>
+                                    <label for="consultar">Consultar</label>    
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="input-group">
-                                    <input id="address" type="address" placeholder=" ">
-                                    <label for="address">Dirección</label>
+                                    <select id="editar" required>
+                                        <option value="">Editar</option>
+                                        <option value="S">Sí</option>
+                                        <option value="N">No</option>
+                                    </select>
+                                    <label for="editar">Editar</label>
                                 </div>
                                 <div class="input-group">
-                                     <select id="activity" placeholder=" ">
+                                    <select id="crear" required>
+                                        <option value="">Crear</option>
+                                        <option value="S">Sí</option>
+                                        <option value="N">No</option>
                                     </select>
+                                    <label for="crear">Crear</label>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="input-group">
-                                    <input id="appointment-date" type="date" required disabled>
-                                    <label for="appointment-date">Fecha de Agenda</label>
+                                    <select id="ajustar" required>
+                                        <option value="">Ajustar</option>
+                                        <option value="S">Sí</option>
+                                        <option value="N">No</option>
+                                    </select>
+                                    <label for="ajustar">Ajustar</label>
                                 </div>
                                 <div class="input-group">
-                                    <textarea id="notes" placeholder=" "></textarea>
-                                    <label for="notes">Notas / Observaciones</label>
+                                    <select id="importar" required>
+                                        <option value="">Importar</option>
+                                        <option value="S">Sí</option>
+                                        <option value="N">No</option>
+                                    </select>
+                                    <label for="importar">Importar</label>
                                 </div>
                             </div>
-                            <div id="appointment-status-section" class="form-row" style="display:none;">
+                            <div class="form-row">
                                 <div class="input-group">
-                                    <select id="appointment-status">
-                                        <option value="Realizado">Realizado</option>
-                                        <option value="Reasignado">Reasignado</option>
+                                    <select id="estado" required>
+                                        <option value="">Estado</option>
+                                        <option value="A">Activo</option>
+                                        <option value="I">Inactivo</option>
                                     </select>
-                                    <label for="appointment-status">Estado de la Cita</label>
+                                    <label for="estado">Estado</label>
                                 </div>
-                                <button type="button" id="update-status-btn" class="btn btn-primary">Actualizar</button>
-                                <button type="button" id="reassign-btn" class="btn btn-outline" style="display:none;">Reasignar Cita</button>
                             </div>
                             <div class="form-actions">
                                 <button type="submit" id="submit-btn" class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>
