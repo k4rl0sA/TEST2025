@@ -350,9 +350,9 @@
         .input-group select:not([value=""]) ~ label,
         .input-group textarea:focus ~ label,
         .input-group textarea:not(:placeholder-shown) ~ label {
-            top: -1.38rem;
-            font-size: 0.8rem;
-            color: var(--primary);
+            top: -1.38rem !important;
+            font-size: 0.8rem !important;
+            color: var(--primary) !important;
         }
 
         .error-message {
