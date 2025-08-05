@@ -304,6 +304,11 @@
         document.getElementById('modal-bg').classList.add('hidden');
         document.getElementById('table-section').classList.remove('hidden');
     };
+
+    document.getElementById('close-win').onclick = function() {
+        document.getElementById('modal-bg').classList.add('hidden');
+        document.getElementById('table-section').classList.remove('hidden');
+    };
     window.editRole = function(id) {
         fetch(`/agendas/lib.php?a=get&id=${id}`)
             .then(res => res.json())
