@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Roles</title>
@@ -7,37 +8,48 @@
     <link rel="stylesheet" href="../lib/css/choices.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="container">
         <header>
             <span class="logo">Administración de Roles</span>
         </header>
         <div class="main-layout">
-            <!-- Zona de filtros -->
-            <div class="filters-card">
-                <h2>Filtros</h2>
+            <!-- Zona de filtros con apariencia moderna -->
+            <div class="filters-card custom-filters">
+                <h2><i class="fa-solid fa-filter"></i>Filtros</h2>
+                <hr>
                 <form id="filter-form" class="form-section">
-                    <div class="form-row">
-                        <div class="input-group">
-                            <input type="text" id="filter-modulo" placeholder=" ">
-                            <label for="filter-modulo">Módulo</label>
-                        </div>
-                        <div class="input-group">
-                            <input type="text" id="filter-perfil" placeholder=" ">
-                            <label for="filter-perfil">Perfil</label>
-                        </div>
-                        <div class="input-group">
-                            <select id="filter-estado">
-                                <option value="">Todos</option>
-                                <option value="A">Activo</option>
-                                <option value="I">Inactivo</option>
-                            </select>
-                            <label for="filter-estado">Estado</label>
-                        </div>
+                    <div class="input-group">
+                        <label for="filter-search">Buscar</label>
+                        <input type="text" id="filter-search" placeholder="Ingrese término...">
+                    </div>
+                    <div class="input-group">
+                        <label for="filter-estado">Estado</label>
+                        <select id="filter-estado">
+                            <option value="">Todos</option>
+                            <option value="A">Activo</option>
+                            <option value="I">Inactivo</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="filter-categoria">Categoría</label>
+                        <select id="filter-categoria">
+                            <option value="">Todas</option>
+                            <!-- Opciones dinámicas si lo deseas -->
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="filter-fecha">Fecha</label>
+                        <input type="date" id="filter-fecha" placeholder="dd/mm/aaaa">
                     </div>
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Buscar</button>
-                        <button type="button" class="btn btn-outline" id="clear-filters">Limpiar</button>
+                        <button type="submit" class="btn btn-primary filter-btn">
+                            <i class="fa fa-search"></i> Aplicar Filtros
+                        </button>
+                        <button type="button" class="btn btn-outline filter-reset" id="clear-filters">
+                            <i class="fa fa-sync"></i>
+                        </button>
                     </div>
                 </form>
             </div>
@@ -197,7 +209,7 @@
             editingId = null;
         }
 
-        document.getElementById('add-btn').onclick = function() {
+        document.getElementById('add-btn').onclick = function () {
             editingId = null;
             document.getElementById('role-form').reset();
             showForm(false);
@@ -205,7 +217,7 @@
 
         document.getElementById('cancel-btn').onclick = hideForm;
 
-        window.editRole = function(id) {
+        window.editRole = function (id) {
             fetch('/agendas/lib.php?a=get&id=' + id)
                 .then(res => res.json())
                 .then(role => {
@@ -224,7 +236,7 @@
                 });
         };
 
-        window.deleteRole = function(id) {
+        window.deleteRole = function (id) {
             if (!confirm('¿Está seguro de eliminar este rol?')) return;
             fetch('/agendas/lib.php?a=delete&id=' + id, { method: 'POST' })
                 .then(res => res.json())
@@ -238,7 +250,7 @@
                 });
         };
 
-        document.getElementById('role-form').addEventListener('submit', function(e) {
+        document.getElementById('role-form').addEventListener('submit', function (e) {
             e.preventDefault();
             const formData = new FormData(this);
             if (editingId) formData.append('id_rol', editingId);
@@ -246,20 +258,20 @@
                 method: 'POST',
                 body: formData
             })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    showToast('Rol guardado correctamente', 'success');
-                    hideForm();
-                    fetchRoles();
-                } else {
-                    showToast(data.error || 'Error al guardar', 'error');
-                }
-            });
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        showToast('Rol guardado correctamente', 'success');
+                        hideForm();
+                        fetchRoles();
+                    } else {
+                        showToast(data.error || 'Error al guardar', 'error');
+                    }
+                });
         });
 
         // Filtros
-        document.getElementById('filter-form').addEventListener('submit', function(e) {
+        document.getElementById('filter-form').addEventListener('submit', function (e) {
             e.preventDefault();
             const filters = {
                 modulo: document.getElementById('filter-modulo').value,
@@ -268,7 +280,7 @@
             };
             fetchRoles(filters);
         });
-        document.getElementById('clear-filters').onclick = function() {
+        document.getElementById('clear-filters').onclick = function () {
             document.getElementById('filter-form').reset();
             fetchRoles();
         };
@@ -276,7 +288,8 @@
         // Inicializar tabla al cargar
         fetchRoles();
     </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <script src="../lib/js/choices.min.js"></script>
 </body>
+
 </html>
