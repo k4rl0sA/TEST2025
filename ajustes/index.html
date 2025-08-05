@@ -354,7 +354,13 @@
     document.getElementById('add-btn').onclick = function() {
         editingId = null;
         document.getElementById('role-form').reset();
-        document.getElementById('form-title').textContent = 'Nuevo Rol';
+        // Cambiar dinámicamente el icono y el título del modal
+        const formTitle = document.getElementById('form-title');
+        formTitle.innerHTML = ''; // Limpiar contenido previo
+        const icon = document.createElement('i');
+        icon.className = 'fa-solid fa-calendar-days';
+        formTitle.appendChild(icon);
+        formTitle.appendChild(document.createTextNode(' Nuevo Rol'));
         document.getElementById('modal-bg').classList.remove('hidden');
     };
     document.getElementById('cancel-btn').onclick = function() {
