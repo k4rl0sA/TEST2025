@@ -3,114 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Roles</title>
-    <link rel="stylesheet" href="../lib/css/app.css">
+    <link rel="stylesheet" href="../libs/app.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
-    <style>
-        body { font-family: 'Inter', Arial, sans-serif; background: #f6f8fb; }
-        .container { max-width: 1200px; margin: 2rem auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px 0 rgba(80,80,160,0.07); padding: 2rem; }
-        .filters-bar { display: flex; align-items: center; gap: 1em; margin-bottom: 1em; }
-        .btn-chip { background: #1a1aff; color: #fff; border-radius: 20px; padding: 0.4em 1.2em; font-weight: 600; display: flex; align-items: center; gap: 0.5em; border: none; cursor: pointer; }
-        .chip-count { background: #fff; color: #1a1aff; border-radius: 50%; padding: 0.1em 0.6em; font-size: 0.95em; margin-left: 0.3em; font-weight: 700; }
-        .chips-list { display: flex; gap: 0.5em; flex-wrap: wrap; }
-        .chip { background: #f4f6fb; color: #222; border-radius: 18px; padding: 0.3em 1em 0.3em 0.8em; font-size: 0.97em; display: flex; align-items: center; gap: 0.5em; border: 1px solid #e5e8ef; }
-        .chip .chip-remove { background: none; border: none; color: #888; font-size: 1em; cursor: pointer; margin-left: 0.2em; }
-        .chip .chip-remove:hover { color: #d00; }
-        .table-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1em; }
-        .table-container { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; background: #fff; }
-        th, td { padding: 0.7em 1em; text-align: left; }
-        th { background: #f4f6fb; cursor: pointer; user-select: none; }
-        tr:nth-child(even) { background: #fafbfc; }
-        .action-btn { background: none; border: none; cursor: pointer; margin: 0 0.2em; font-size: 1.1em; }
-        .action-btn.edit-btn { color: #1a1aff; }
-        .action-btn.delete-btn { color: #d00; }
-        .paginator { display: flex; gap: 0.5em; align-items: center; margin: 1em 0; }
-        .paginator button { border: none; background: #f4f6fb; color: #222; border-radius: 6px; padding: 0.3em 0.8em; cursor: pointer; }
-        .paginator button.active, .paginator button:hover { background: #1a1aff; color: #fff; }
-        .hidden { display: none !important; }
-        /* Modal */
-        .modal-bg { position: fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.18); display:flex; align-items:center; justify-content:center; z-index:1000; }
-        .modal { background:#fff; border-radius:12px; padding:2rem; min-width:340px; max-width:95vw; box-shadow:0 2px 12px 0 rgba(80,80,160,0.13); }
-        .modal h2 { margin-top:0; }
-        .modal .form-row { display: flex; flex-wrap: wrap; gap: 1em; }
-        .modal .input-group { flex: 1 1 140px; display: flex; flex-direction: column; margin-bottom: 1em; }
-        .modal label { font-weight: 500; margin-bottom: 0.3em; }
-        .modal input, .modal select { border: 1.5px solid #e5e5e5; border-radius: 8px; padding: 0.6em 0.9em; font-size: 1em; background: #f7f7fa; }
-        .modal .form-actions { display: flex; gap: 0.7em; margin-top: 1.2em; }
-        .modal .btn-primary { background: #1a1aff; color: #fff; border: none; border-radius: 8px; padding: 0.7em 1.2em; font-size: 1em; font-weight: 600; }
-        .modal .btn-outline { background: #fff; color: #1a1aff; border: 1.5px solid #1a1aff; border-radius: 8px; padding: 0.7em 1.1em; font-size: 1em; }
-        .modal .btn-outline:hover { background: #f3eaff; color: #4d0099; border-color: #4d0099; }
-    </style>
 </head>
 <body>
 <div class="container">
-    <!-- Filtros tipo chips -->
-    <div class="filters-bar">
-        <button class="btn btn-chip" id="toggle-filters-btn">
-            <i class="fa fa-filter"></i> Filtros <span id="active-filters-count" class="chip-count">0</span>
-        </button>
-        <div id="active-filters-chips" class="chips-list"></div>
-    </div>
-    <!-- Panel de filtros -->
-    <div class="filters-card custom-filters hidden" id="filters-panel" style="margin-bottom:1.5em;">
-        <form id="filter-form" class="form-section" style="display:flex;gap:1em;flex-wrap:wrap;">
-            <div class="input-group">
-                <label for="fil-modulo">Módulo</label>
-                <input type="text" id="fil-modulo" placeholder="Módulo">
+    <header>
+        <span class="logo">Administración de Roles</span>
+    </header>
+    <div class="main-layout">
+        <!-- Filtros -->
+        <div class="filters-card">
+            <h2><i class="fa fa-filter"></i> Filtros</h2>
+            <form id="filter-form">
+                <div class="filter-group">
+                    <label for="fil-modulo">Módulo</label>
+                    <input type="text" id="fil-modulo" placeholder="Módulo">
+                </div>
+                <div class="filter-group">
+                    <label for="fil-perfil">Perfil</label>
+                    <input type="text" id="fil-perfil" placeholder="Perfil">
+                </div>
+                <div class="filter-group">
+                    <label for="fil-estado">Estado</label>
+                    <select id="fil-estado">
+                        <option value="">Todos</option>
+                        <option value="A">Activo</option>
+                        <option value="I">Inactivo</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="fil-search">Buscar</label>
+                    <input type="text" id="fil-search" placeholder="Ingrese término...">
+                </div>
+                <div class="filter-actions">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Aplicar Filtros</button>
+                    <button type="button" class="btn btn-outline" id="clear-filters"><i class="fa fa-sync"></i></button>
+                </div>
+            </form>
+        </div>
+        <!-- Tabla -->
+        <div class="content-card">
+            <div class="table-header">
+                <h2>Roles Registrados</h2>
+                <button class="btn btn-add" id="add-btn"><i class="fa fa-plus"></i> Nuevo Rol</button>
             </div>
-            <div class="input-group">
-                <label for="fil-perfil">Perfil</label>
-                <input type="text" id="fil-perfil" placeholder="Perfil">
-            </div>
-            <div class="input-group">
-                <label for="fil-estado">Estado</label>
-                <select id="fil-estado">
-                    <option value="">Todos</option>
-                    <option value="A">Activo</option>
-                    <option value="I">Inactivo</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label for="fil-search">Buscar</label>
-                <input type="text" id="fil-search" placeholder="Ingrese término...">
-            </div>
-            <div class="form-actions" style="align-self:flex-end;">
-                <button type="submit" class="btn btn-primary filter-btn">
-                    <i class="fa fa-search"></i> Aplicar Filtros
+            <div class="filters-bar">
+                <button class="btn btn-chip" id="toggle-filters-btn">
+                    <i class="fa fa-filter"></i> Filtros <span id="active-filters-count" class="chip-count">0</span>
                 </button>
-                <button type="button" class="btn btn-outline filter-reset" id="clear-filters">
-                    <i class="fa fa-sync"></i>
-                </button>
+                <div id="active-filters-chips" class="chips-list"></div>
             </div>
-        </form>
-    </div>
-    <!-- Tabla y header -->
-    <div class="table-header">
-        <h2>Roles Registrados</h2>
-        <button class="btn btn-add" id="add-btn">+ Nuevo Rol</button>
-    </div>
-    <div class="table-container" id="table-section">
-        <table id="roles-table">
-            <thead>
-                <tr>
-                    <th data-sort="id_rol">ID</th>
-                    <th data-sort="modulo">Módulo</th>
-                    <th data-sort="perfil">Perfil</th>
-                    <th data-sort="componente">Componente</th>
-                    <th data-sort="consultar">Consultar</th>
-                    <th data-sort="editar">Editar</th>
-                    <th data-sort="crear">Crear</th>
-                    <th data-sort="ajustar">Ajustar</th>
-                    <th data-sort="importar">Importar</th>
-                    <th data-sort="estado">Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Aquí se cargan los roles -->
-            </tbody>
-        </table>
-        <div class="paginator" id="paginator"></div>
+            <div class="table-container" id="table-section">
+                <table id="roles-table">
+                    <thead>
+                        <tr>
+                            <th data-sort="id_rol">ID</th>
+                            <th data-sort="modulo">Módulo</th>
+                            <th data-sort="perfil">Perfil</th>
+                            <th data-sort="componente">Componente</th>
+                            <th data-sort="consultar">Consultar</th>
+                            <th data-sort="editar">Editar</th>
+                            <th data-sort="crear">Crear</th>
+                            <th data-sort="ajustar">Ajustar</th>
+                            <th data-sort="importar">Importar</th>
+                            <th data-sort="estado">Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí se cargan los roles -->
+                    </tbody>
+                </table>
+                <div class="paginator" id="paginator"></div>
+            </div>
+        </div>
     </div>
     <!-- Modal formulario -->
     <div class="modal-bg hidden" id="modal-bg">
@@ -120,64 +87,64 @@
                 <input type="hidden" id="id_rol">
                 <div class="form-row">
                     <div class="input-group">
+                        <input type="text" id="modulo" required placeholder=" " maxlength="15">
                         <label for="modulo">Módulo</label>
-                        <input type="text" id="modulo" required maxlength="15">
                     </div>
                     <div class="input-group">
+                        <input type="text" id="perfil" required placeholder=" " maxlength="11">
                         <label for="perfil">Perfil</label>
-                        <input type="text" id="perfil" required maxlength="11">
                     </div>
                     <div class="input-group">
+                        <input type="text" id="componente" required placeholder=" " maxlength="3">
                         <label for="componente">Componente</label>
-                        <input type="text" id="componente" required maxlength="3">
                     </div>
                     <div class="input-group">
-                        <label for="consultar">Consultar</label>
                         <select id="consultar" required>
                             <option value="">Consultar</option>
                             <option value="S">Sí</option>
                             <option value="N">No</option>
                         </select>
+                        <label for="consultar">Consultar</label>
                     </div>
                     <div class="input-group">
-                        <label for="editar">Editar</label>
                         <select id="editar" required>
                             <option value="">Editar</option>
                             <option value="S">Sí</option>
                             <option value="N">No</option>
                         </select>
+                        <label for="editar">Editar</label>
                     </div>
                     <div class="input-group">
-                        <label for="crear">Crear</label>
                         <select id="crear" required>
                             <option value="">Crear</option>
                             <option value="S">Sí</option>
                             <option value="N">No</option>
                         </select>
+                        <label for="crear">Crear</label>
                     </div>
                     <div class="input-group">
-                        <label for="ajustar">Ajustar</label>
                         <select id="ajustar" required>
                             <option value="">Ajustar</option>
                             <option value="S">Sí</option>
                             <option value="N">No</option>
                         </select>
+                        <label for="ajustar">Ajustar</label>
                     </div>
                     <div class="input-group">
-                        <label for="importar">Importar</label>
                         <select id="importar" required>
                             <option value="">Importar</option>
                             <option value="S">Sí</option>
                             <option value="N">No</option>
                         </select>
+                        <label for="importar">Importar</label>
                     </div>
                     <div class="input-group">
-                        <label for="estado">Estado</label>
                         <select id="estado" required>
                             <option value="">Estado</option>
                             <option value="A">Activo</option>
                             <option value="I">Inactivo</option>
                         </select>
+                        <label for="estado">Estado</label>
                     </div>
                 </div>
                 <div class="form-actions">
@@ -190,6 +157,7 @@
     <div class="toast-container"></div>
 </div>
 <script src="../lib/js/app.js"></script>
+<!-- Tu JS de SPA aquí -->
 <script>
     // --- Estado SPA ---
     let editingId = null, roles = [], filters = { search:'', modulo:'', perfil:'', estado:'' };
