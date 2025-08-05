@@ -310,7 +310,7 @@
         document.getElementById('table-section').classList.remove('hidden');
     };
     window.editRole = function(id) {
-        fetch(`/agendas/lib.php?a=get&id=${id}`)
+        fetch(`/ajustes/lib.php?a=get&id=${id}`)
             .then(res => res.json())
             .then(role => {
                 editingId = role.id_rol;
@@ -330,7 +330,7 @@
     };
     window.deleteRole = function(id) {
         if (!confirm('¿Está seguro de eliminar este rol?')) return;
-        fetch(`/agendas/lib.php?a=delete&id=${id}`, { method: 'POST' })
+        fetch(`/ajustes/lib.php?a=delete&id=${id}`, { method: 'POST' })
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
@@ -345,7 +345,7 @@
         e.preventDefault();
         const formData = new FormData(this);
         if (editingId) formData.append('id_rol', editingId);
-        fetch(`/agendas/lib.php?a=${editingId ? 'update' : 'create'}`, {
+        fetch(`/ajustes/lib.php?a=${editingId ? 'update' : 'create'}`, {
             method: 'POST',
             body: formData
         })
@@ -370,7 +370,7 @@
             page,
             pageSize
         }).toString();
-        fetch(`/agendas/lib.php?a=list&${params}`)
+        fetch(`/ajustes/lib.php?a=list&${params}`)
             .then(res => res.json())
             .then(data => renderRolesTable(data));
     }
