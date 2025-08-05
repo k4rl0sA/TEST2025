@@ -100,8 +100,7 @@ if ($req == 'getAppointments') {
     $weekEnd = $_GET['weekEnd'] ?? '';
     $sql = "SELECT A.idagenda, A.cupo, A.profesionalid, A.idpeople, A.idgeo, A.fecha, A.actividad, A.notas, A.estado,
                P.tipo_doc, P.idpersona, P.nombre1, P.nombre2, P.apellido1, P.apellido2, 
-               COALESCE(NULLIF(P.telefono1, ''), NULLIF(F.telefono1, ''), NULLIF(P.telefono2, ''), NULLIF(F.telefono2, ''), NULLIF(F.telefono3, '')) AS phone, 
-               A.direccion AS address
+               COALESCE(NULLIF(P.telefono1, ''), NULLIF(F.telefono1, ''), NULLIF(P.telefono2, ''), NULLIF(F.telefono2, ''), NULLIF(F.telefono3, '')) AS phone
         FROM agendas A
         LEFT JOIN person P ON A.idpeople = P.idpeople
         LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
