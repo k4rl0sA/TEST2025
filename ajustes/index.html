@@ -3,44 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Roles</title>
-    <link rel="stylesheet" href="../lib/css/app.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
-    <style>
-        body { font-family: 'Inter', Arial, sans-serif; background: #f6f8fb; }
-        .container { max-width: 1200px; margin: 2rem auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px 0 rgba(80,80,160,0.07); padding: 2rem; }
-        .filters-bar { display: flex; align-items: center; gap: 1em; margin-bottom: 1em; }
-        .btn-chip { background: #1a1aff; color: #fff; border-radius: 20px; padding: 0.4em 1.2em; font-weight: 600; display: flex; align-items: center; gap: 0.5em; border: none; cursor: pointer; }
-        .chip-count { background: #fff; color: #1a1aff; border-radius: 50%; padding: 0.1em 0.6em; font-size: 0.95em; margin-left: 0.3em; font-weight: 700; }
-        .chips-list { display: flex; gap: 0.5em; flex-wrap: wrap; }
-        .chip { background: #f4f6fb; color: #222; border-radius: 18px; padding: 0.3em 1em 0.3em 0.8em; font-size: 0.97em; display: flex; align-items: center; gap: 0.5em; border: 1px solid #e5e8ef; }
-        .chip .chip-remove { background: none; border: none; color: #888; font-size: 1em; cursor: pointer; margin-left: 0.2em; }
-        .chip .chip-remove:hover { color: #d00; }
-        .table-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1em; }
-        .table-container { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; background: #fff; }
-        th, td { padding: 0.7em 1em; text-align: left; }
-        th { background: #f4f6fb; cursor: pointer; user-select: none; }
-        tr:nth-child(even) { background: #fafbfc; }
-        .action-btn { background: none; border: none; cursor: pointer; margin: 0 0.2em; font-size: 1.1em; }
-        .action-btn.edit-btn { color: #1a1aff; }
-        .action-btn.delete-btn { color: #d00; }
-        .paginator { display: flex; gap: 0.5em; align-items: center; margin: 1em 0; }
-        .paginator button { border: none; background: #f4f6fb; color: #222; border-radius: 6px; padding: 0.3em 0.8em; cursor: pointer; }
-        .paginator button.active, .paginator button:hover { background: #1a1aff; color: #fff; }
-        .hidden { display: none !important; }
-        /* Modal */
-        .modal-bg { position: fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.18); display:flex; align-items:center; justify-content:center; z-index:1000; }
-        .modal { background:#fff; border-radius:12px; padding:2rem; min-width:340px; max-width:95vw; box-shadow:0 2px 12px 0 rgba(80,80,160,0.13); }
-        .modal h2 { margin-top:0; }
-        .modal .form-row { display: flex; flex-wrap: wrap; gap: 1em; }
-        .modal .input-group { flex: 1 1 140px; display: flex; flex-direction: column; margin-bottom: 1em; }
-        .modal label { font-weight: 500; margin-bottom: 0.3em; }
-        .modal input, .modal select { border: 1.5px solid #e5e5e5; border-radius: 8px; padding: 0.6em 0.9em; font-size: 1em; background: #f7f7fa; }
-        .modal .form-actions { display: flex; gap: 0.7em; margin-top: 1.2em; }
-        .modal .btn-primary { background: #1a1aff; color: #fff; border: none; border-radius: 8px; padding: 0.7em 1.2em; font-size: 1em; font-weight: 600; }
-        .modal .btn-outline { background: #fff; color: #1a1aff; border: 1.5px solid #1a1aff; border-radius: 8px; padding: 0.7em 1.1em; font-size: 1em; }
-        .modal .btn-outline:hover { background: #f3eaff; color: #4d0099; border-color: #4d0099; }
-    </style>
 </head>
 <body>
 <div class="container">
