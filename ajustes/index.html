@@ -15,7 +15,7 @@
         </header>
         <div class="main-layout">
             <!-- Zona de filtros con apariencia moderna -->
-            <div class="filters-card custom-filters">
+            <div class="filters-card custom-filters" id="filters-panel">
                 <h2><i class="fa-solid fa-filter"></i>Filtros</h2>
                 <form id="filter-form">
                     <div class="filter-group">
@@ -49,6 +49,7 @@
             <div class="content-card" id="table-section">
                 <div class="table-header">
                     <h2>Roles Registrados</h2>
+                    <button class="btn btn-add" id="toggle-filters-btn"><i class="fas fa-filter"></i> Filtros</button>
                     <button class="btn btn-add" id="add-btn">+ Nuevo Rol</button>
                 </div>
                 <div class="table-container">
