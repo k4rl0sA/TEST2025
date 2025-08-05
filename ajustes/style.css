@@ -350,9 +350,9 @@
         .input-group select:not([value=""]) ~ label,
         .input-group textarea:focus ~ label,
         .input-group textarea:not(:placeholder-shown) ~ label {
-            top: -1.38rem !important;
-            font-size: 0.8rem !important;
-            color: var(--primary) !important;
+            top: -1.38rem;
+            font-size: 0.8rem;
+            color: var(--primary);
         }
 
         .error-message {
@@ -852,11 +852,11 @@
 
 
 /* Chips y filtros */
-        .filters-bar { display: flex; align-items: center; gap: 1em; margin-bottom: 1em; }
+/*         .filters-bar { display: flex; align-items: center; gap: 1em; margin-bottom: 1em; }
         .btn-chip { background: #1a1aff; color: #fff; border-radius: 20px; padding: 0.4em 1.2em; font-weight: 600; display: flex; align-items: center; gap: 0.5em; border: none; cursor: pointer; }
         .chip-count { background: #fff; color: #1a1aff; border-radius: 50%; padding: 0.1em 0.6em; font-size: 0.95em; margin-left: 0.3em; font-weight: 700; }
         .chips-list { display: flex; gap: 0.5em; flex-wrap: wrap; }
         .chip { background: #f4f6fb; color: #222; border-radius: 18px; padding: 0.3em 1em 0.3em 0.8em; font-size: 0.97em; display: flex; align-items: center; gap: 0.5em; border: 1px solid #e5e8ef; }
         .chip .chip-remove { background: none; border: none; color: #888; font-size: 1em; cursor: pointer; margin-left: 0.2em; }
-        .chip .chip-remove:hover { color: #d00; }
+        .chip .chip-remove:hover { color: #d00; } */
 
