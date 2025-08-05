@@ -8,105 +8,6 @@
     <link rel="stylesheet" href="../lib/css/choices.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<style>
-    /* Apariencia moderna para filtros */
-.custom-filters {
-    background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 2px 12px 0 rgba(80, 80, 160, 0.07);
-    padding: 1.5rem 1.2rem 1.2rem 1.2rem;
-    min-width: 260px;
-    max-width: 320px;
-    margin-bottom: 2rem;
-}
-.custom-filters h2 {
-    color: #7300ff;
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5em;
-}
-.custom-filters hr {
-    border: none;
-    border-top: 1px solid #eee;
-    margin: 0.5em 0 1em 0;
-}
-.custom-filters .input-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1.1em;
-}
-.custom-filters label {
-    font-size: 0.97em;
-    font-weight: 500;
-    margin-bottom: 0.3em;
-    color: #333;
-}
-.custom-filters input[type="text"],
-.custom-filters input[type="date"],
-.custom-filters select {
-    border: 1.5px solid #e5e5e5;
-    border-radius: 8px;
-    padding: 0.6em 0.9em;
-    font-size: 1em;
-    background: #f7f7fa;
-    transition: border 0.2s;
-    outline: none;
-}
-.custom-filters input[type="text"]:focus,
-.custom-filters input[type="date"]:focus,
-.custom-filters select:focus {
-    border-color: #7300ff;
-    background: #fff;
-}
-.custom-filters select {
-    appearance: none;
-    -webkit-appearance: none;
-    background: #f7f7fa;
-}
-.custom-filters .form-actions {
-    display: flex;
-    gap: 0.7em;
-    margin-top: 1.2em;
-}
-.custom-filters .btn-primary.filter-btn {
-    background: #7300ff;
-    color: #fff;
-    border: none;
-    font-weight: 600;
-    border-radius: 8px;
-    padding: 0.7em 1.2em;
-    font-size: 1em;
-    display: flex;
-    align-items: center;
-    gap: 0.5em;
-    box-shadow: 0 2px 8px 0 rgba(80, 80, 160, 0.07);
-    transition: background 0.2s;
-}
-.custom-filters .btn-primary.filter-btn:hover {
-    background: #4d0099;
-}
-.custom-filters .btn-outline.filter-reset {
-    background: #fff;
-    color: #7300ff;
-    border: 1.5px solid #7300ff;
-    border-radius: 8px;
-    padding: 0.7em 1.1em;
-    font-size: 1em;
-    display: flex;
-    align-items: center;
-    gap: 0.5em;
-    transition: background 0.2s, color 0.2s;
-}
-.custom-filters .btn-outline.filter-reset:hover {
-    background: #f3eaff;
-    color: #4d0099;
-    border-color: #4d0099;
-}
-</style>
-
 <body>
     <div class="container">
         <header>
@@ -116,7 +17,7 @@
             <!-- Zona de filtros con apariencia moderna -->
             <div class="filters-card custom-filters">
                 <h2><i class="fa-solid fa-filter"></i>Filtros</h2>
-                <form id="filter-form" class="form-section">
+                <form id="filter-form">
                     <div class="input-group">
                         <label for="filter-search">Buscar</label>
                         <input type="text" id="filter-search" placeholder="Ingrese término...">
@@ -136,10 +37,25 @@
                             <!-- Opciones dinámicas si lo deseas -->
                         </select>
                     </div>
-                    <div class="input-group">
-                        <label for="filter-fecha">Fecha</label>
-                        <input type="date" id="filter-fecha" placeholder="dd/mm/aaaa">
-                    </div>
+                    
+                     <div class="input-group">
+                            <input type="text" id="filter-modulo" placeholder=" ">
+                            <label for="filter-modulo">Módulo</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="filter-perfil" placeholder=" ">
+                            <label for="filter-perfil">Perfil</label>
+                        </div>
+                        <div class="input-group">
+                            <select id="filter-estado">
+                                <option value="">Todos</option>
+                                <option value="A">Activo</option>
+                                <option value="I">Inactivo</option>
+                            </select>
+                            <label for="filter-estado">Estado</label>
+                        </div>
+
+
                     <div class="form-actions">
                         <button type="submit" class="btn btn-primary filter-btn">
                             <i class="fa fa-search"></i> Aplicar Filtros
