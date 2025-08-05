@@ -8,6 +8,63 @@
     <link rel="stylesheet" href="../lib/css/choices.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+<style>
+    .filters-bar {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin-bottom: 1em;
+}
+.btn-chip {
+    background: #1a1aff;
+    color: #fff;
+    border-radius: 20px;
+    padding: 0.4em 1.2em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
+.chip-count {
+    background: #fff;
+    color: #1a1aff;
+    border-radius: 50%;
+    padding: 0.1em 0.6em;
+    font-size: 0.95em;
+    margin-left: 0.3em;
+    font-weight: 700;
+}
+.chips-list {
+    display: flex;
+    gap: 0.5em;
+    flex-wrap: wrap;
+}
+.chip {
+    background: #f4f6fb;
+    color: #222;
+    border-radius: 18px;
+    padding: 0.3em 1em 0.3em 0.8em;
+    font-size: 0.97em;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    border: 1px solid #e5e8ef;
+}
+.chip .chip-remove {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 1em;
+    cursor: pointer;
+    margin-left: 0.2em;
+}
+.chip .chip-remove:hover {
+    color: #d00;
+}
+</style>
 <body>
     <div class="container">
         <header>
@@ -281,6 +338,100 @@
 
         // Inicializar tabla al cargar
         fetchRoles();
+
+
+
+
+
+//FILTROS
+        const filters = {
+    search: '',
+    modulo: '',
+    perfil: '',
+    estado: ''
+};
+
+function updateActiveFiltersChips() {
+    const chipsList = document.getElementById('active-filters-chips');
+    chipsList.innerHTML = '';
+    let count = 0;
+
+    // Chips por filtro activo
+    if (filters.search) {
+        chipsList.appendChild(createChip('Buscar', filters.search, 'search'));
+        count++;
+    }
+    if (filters.modulo) {
+        chipsList.appendChild(createChip('Módulo', filters.modulo, 'modulo'));
+        count++;
+    }
+    if (filters.perfil) {
+        chipsList.appendChild(createChip('Perfil', filters.perfil, 'perfil'));
+        count++;
+    }
+    if (filters.estado) {
+        let label = filters.estado === 'A' ? 'Activo' : 'Inactivo';
+        chipsList.appendChild(createChip('Estado', label, 'estado'));
+        count++;
+    }
+
+    document.getElementById('active-filters-count').textContent = count;
+}
+
+function createChip(label, value, key) {
+    const chip = document.createElement('span');
+    chip.className = 'chip';
+    chip.innerHTML = `<strong>${label}:</strong> ${value} <button class="chip-remove" title="Quitar filtro" onclick="removeFilter('${key}')">&times;</button>`;
+    return chip;
+}
+
+// Quitar filtro individual
+window.removeFilter = function(key) {
+    filters[key] = '';
+    // Actualiza los campos del formulario de filtros
+    if (key === 'search') document.getElementById('fil-search').value = '';
+    if (key === 'modulo') document.getElementById('fil-modulo').value = '';
+    if (key === 'perfil') document.getElementById('fil-perfil').value = '';
+    if (key === 'estado') document.getElementById('fil-estado').value = '';
+    fetchRoles(filters);
+    updateActiveFiltersChips();
+};
+
+// Mostrar/ocultar panel de filtros
+const filtersPanel = document.getElementById('filters-panel');
+const toggleFiltersBtn = document.getElementById('toggle-filters-btn');
+let filtersVisible = false;
+toggleFiltersBtn.onclick = function() {
+    filtersVisible = !filtersVisible;
+    filtersPanel.classList.toggle('hidden', !filtersVisible);
+};
+
+// Al aplicar filtros
+document.getElementById('filter-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    filters.search = document.getElementById('fil-search').value.trim();
+    filters.modulo = document.getElementById('fil-modulo').value.trim();
+    filters.perfil = document.getElementById('fil-perfil').value.trim();
+    filters.estado = document.getElementById('fil-estado').value;
+    fetchRoles(filters);
+    updateActiveFiltersChips();
+    filtersPanel.classList.add('hidden'); // Oculta filtros tras aplicar
+    filtersVisible = false;
+});
+
+// Limpiar todos los filtros
+document.getElementById('clear-filters').onclick = function() {
+    document.getElementById('filter-form').reset();
+    filters.search = '';
+    filters.modulo = '';
+    filters.perfil = '';
+    filters.estado = '';
+    fetchRoles(filters);
+    updateActiveFiltersChips();
+};
+
+// Inicializa chips al cargar
+updateActiveFiltersChips();
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <script src="../lib/js/choices.min.js"></script>
