@@ -46,6 +46,8 @@ if (isset($_GET['a']) && $_GET['a'] === 'list') {
     $sql = "SELECT * FROM adm_roles $whereSql ORDER BY $sort $dir LIMIT $offset, $pageSize";
     $res = datos_mysql($sql);
 
+    var_dump($sql);
+
     header('Content-Type: application/json');
     echo json_encode([
         'roles' => $res['responseResult'],
