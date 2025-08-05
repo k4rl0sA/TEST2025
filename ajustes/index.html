@@ -90,8 +90,7 @@
                         <input type="text" id="perfil" required maxlength="11">
                     </div>
                     <div class="input-group">
-                        <label for="componente">Componente</label>
-                        <input type="text" id="componente" required maxlength="3">
+                        
                     </div>
                     <div class="input-group">
                         <label for="consultar">Consultar</label>
@@ -170,12 +169,16 @@
                             </div>
                             <div class="form-row">
                                 <div class="input-group">
-                                    <input id="full-name" type="text" required placeholder=" ">
-                                    <label for="full-name">Nombre Completo</label>
+                                    <input type="text" id="componente" required maxlength="3">
+                                    <label for="componente">Componente</label>
                                 </div>
                                 <div class="input-group">
-                                    <input id="phone" type="tel" placeholder=" ">
-                                    <label for="phone">Teléfono</label>
+                                    <select id="consultar" required>
+                                        <option value="">Consultar</option>
+                                        <option value="S">Sí</option>
+                                        <option value="N">No</option>
+                                    </select>
+                                    <label for="consultar">Consultar</label>
                                 </div>
                             </div>
                             <div class="form-row">
