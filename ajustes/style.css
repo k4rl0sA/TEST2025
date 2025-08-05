@@ -851,13 +851,7 @@
 
 
 
-
-
-
-
-
-
-
+/* Chips y filtros */
         .filters-bar { display: flex; align-items: center; gap: 1em; margin-bottom: 1em; }
         .btn-chip { background: #1a1aff; color: #fff; border-radius: 20px; padding: 0.4em 1.2em; font-weight: 600; display: flex; align-items: center; gap: 0.5em; border: none; cursor: pointer; }
         .chip-count { background: #fff; color: #1a1aff; border-radius: 50%; padding: 0.1em 0.6em; font-size: 0.95em; margin-left: 0.3em; font-weight: 700; }
