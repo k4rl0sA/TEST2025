@@ -1,6 +1,16 @@
 <?php
+ini_set('display_errors','1');
 require_once __DIR__ . '/php/app.php';
 
+if (!isset($_SESSION["us_sds"])) {
+    if (isAjax()) {
+        header('Content-Type: application/json');
+        echo json_encode(['success' => false, 'error' => 'Sesión no iniciada']);
+    } else {
+        header("Location: /index.php");
+    }
+    exit;
+}
 // Utilidad para limpiar entradas
 function clean($v) {
     return htmlspecialchars(trim($v), ENT_QUOTES, 'UTF-8');
