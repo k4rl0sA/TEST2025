@@ -3,40 +3,63 @@ ini_set('display_errors','1');
 session_start();
 header('Content-Type: application/json; charset=utf-8');
 
+require_once __DIR__ . '/../lib/php/app.php';
+
+// --- Validar sesión ---
 if (!isset($_SESSION["us_sds"])) {
     echo json_encode(['success' => false, 'error' => 'Sesión expirada', 'redirect' => '/index.php']);
     exit;
 }
-require_once __DIR__ . '/../lib/php/app.php';
 
-// --- Utilidad para respuesta de error segura ---
+// --- Utilidad para respuesta de error segura y log ---
 function error_response($msg, $code = 400) {
     http_response_code($code);
+    log_error($msg);
     echo json_encode(['success' => false, 'error' => $msg]);
     exit;
 }
 
+// --- Utilidad para respuesta de éxito ---
+function success_response($msg = 'Operación exitosa', $extra = []) {
+    echo json_encode(array_merge(['success' => true, 'message' => $msg], $extra));
+    exit;
+}
+
+// --- Limpiar entradas ---
 function clean($v) {
     return htmlspecialchars(trim($v), ENT_QUOTES, 'UTF-8');
 }
 
-$a = isset($_GET['a']) ? $_GET['a'] : (isset($_POST['a']) ? $_POST['a'] : '');
+$a = $_GET['a'] ?? $_POST['a'] ?? '';
 
 switch ($a) {
     case 'list':
         // --- Filtros ---
         $where = [];
-        if (!empty($_GET['modulo'])) $where[] = "modulo LIKE '%" . mysqli_real_escape_string($con, $_GET['modulo']) . "%'";
-        if (!empty($_GET['perfil'])) $where[] = "perfil LIKE '%" . mysqli_real_escape_string($con, $_GET['perfil']) . "%'";
-        if (!empty($_GET['estado'])) $where[] = "estado = '" . mysqli_real_escape_string($con, $_GET['estado']) . "'";
+        $params = [];
+        if (!empty($_GET['modulo'])) {
+            $where[] = "modulo LIKE ?";
+            $params[] = ['type' => 's', 'value' => '%' . $_GET['modulo'] . '%'];
+        }
+        if (!empty($_GET['perfil'])) {
+            $where[] = "perfil LIKE ?";
+            $params[] = ['type' => 's', 'value' => '%' . $_GET['perfil'] . '%'];
+        }
+        if (!empty($_GET['estado'])) {
+            $where[] = "estado = ?";
+            $params[] = ['type' => 's', 'value' => $_GET['estado']];
+        }
         if (!empty($_GET['search'])) {
-            $s = mysqli_real_escape_string($con, $_GET['search']);
-            $where[] = "(modulo LIKE '%$s%' OR perfil LIKE '%$s%' OR componente LIKE '%$s%')";
+            $where[] = "(modulo LIKE ? OR perfil LIKE ? OR componente LIKE ?)";
+            $params[] = ['type' => 's', 'value' => '%' . $_GET['search'] . '%'];
+            $params[] = ['type' => 's', 'value' => '%' . $_GET['search'] . '%'];
+            $params[] = ['type' => 's', 'value' => '%' . $_GET['search'] . '%'];
         }
         $where_sql = $where ? 'WHERE ' . implode(' AND ', $where) : '';
 
         // --- Orden y paginación ---
-        $sort = in_array($_GET['sort'] ?? '', ['id_rol','modulo','perfil','componente','estado']) ? $_GET['sort'] : 'id_rol';
+        $allowedSort = ['id_rol','modulo','perfil','componente','estado'];
+        $sort = in_array($_GET['sort'] ?? '', $allowedSort) ? $_GET['sort'] : 'id_rol';
         $dir = ($_GET['dir'] ?? 'asc') === 'desc' ? 'desc' : 'asc';
         $page = max(1, intval($_GET['page'] ?? 1));
         $pageSize = max(1, min(100, intval($_GET['pageSize'] ?? 10)));
@@ -44,18 +67,18 @@ switch ($a) {
 
         // --- Total ---
         $sql_count = "SELECT COUNT(*) as total FROM adm_roles $where_sql";
-        $res_count = mysqli_query($con, $sql_count);
-        $total = $res_count ? intval(mysqli_fetch_assoc($res_count)['total']) : 0;
+        $arr_count = datos_mysql($sql_count, MYSQLI_ASSOC, false, $params);
+        $total = isset($arr_count['responseResult'][0]['total']) ? intval($arr_count['responseResult'][0]['total']) : 0;
         $totalPages = ceil($total / $pageSize);
 
         // --- Datos ---
-        $sql = "SELECT * FROM adm_roles $where_sql ORDER BY $sort $dir LIMIT $offset, $pageSize";
-        $res = mysqli_query($con, $sql);
-        if (!$res) error_response("Error al consultar: " . mysqli_error($con));
-        $roles = [];
-        while ($row = mysqli_fetch_assoc($res)) {
-            $roles[] = $row;
-        }
+        $sql = "SELECT * FROM adm_roles $where_sql ORDER BY $sort $dir LIMIT ?, ?";
+        $params_limit = $params;
+        $params_limit[] = ['type' => 'i', 'value' => $offset];
+        $params_limit[] = ['type' => 'i', 'value' => $pageSize];
+        $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params_limit);
+        $roles = isset($arr['responseResult']) ? $arr['responseResult'] : [];
+
         echo json_encode([
             'success' => true,
             'roles' => $roles,
@@ -67,15 +90,15 @@ switch ($a) {
     case 'get':
         $id = intval($_GET['id'] ?? 0);
         if (!$id) error_response("ID inválido");
-        $sql = "SELECT * FROM adm_roles WHERE id_rol = $id LIMIT 1";
-        $res = mysqli_query($con, $sql);
-        if (!$res || !mysqli_num_rows($res)) error_response("Rol no encontrado", 404);
-        $role = mysqli_fetch_assoc($res);
-        echo json_encode($role);
+        $sql = "SELECT * FROM adm_roles WHERE id_rol = ?";
+        $params = [['type' => 'i', 'value' => $id]];
+        $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);
+        if (empty($arr['responseResult'])) error_response("Rol no encontrado", 404);
+        echo json_encode($arr['responseResult'][0]);
         break;
 
     case 'create':
-        // Validar campos requeridos
+        check_csrf();
         $fields = ['modulo','perfil','componente','consultar','editar','crear','ajustar','importar','estado'];
         foreach ($fields as $f) {
             if (empty($_POST[$f])) error_response("El campo '$f' es obligatorio");
@@ -91,17 +114,36 @@ switch ($a) {
         $estado = clean($_POST['estado']);
 
         // Validar unicidad
-        $sql_check = "SELECT 1 FROM adm_roles WHERE modulo='$modulo' AND perfil='$perfil' AND componente='$componente'";
-        $res_check = mysqli_query($con, $sql_check);
-        if ($res_check && mysqli_num_rows($res_check)) error_response("Ya existe un rol con esos datos");
+        $sql_check = "SELECT 1 FROM adm_roles WHERE modulo=? AND perfil=? AND componente=?";
+        $params_check = [
+            ['type' => 's', 'value' => $modulo],
+            ['type' => 's', 'value' => $perfil],
+            ['type' => 's', 'value' => $componente]
+        ];
+        $arr_check = datos_mysql($sql_check, MYSQLI_ASSOC, false, $params_check);
+        if (!empty($arr_check['responseResult'])) error_response("Ya existe un rol con esos datos");
 
+        // Insertar
         $sql = "INSERT INTO adm_roles (modulo,perfil,componente,consultar,editar,crear,ajustar,importar,estado)
-                VALUES ('$modulo','$perfil','$componente','$consultar','$editar','$crear','$ajustar','$importar','$estado')";
-        if (!mysqli_query($con, $sql)) error_response("Error al crear: " . mysqli_error($con));
-        echo json_encode(['success' => true]);
+                VALUES (?,?,?,?,?,?,?,?,?)";
+        $params_insert = [
+            ['type' => 's', 'value' => $modulo],
+            ['type' => 's', 'value' => $perfil],
+            ['type' => 's', 'value' => $componente],
+            ['type' => 's', 'value' => $consultar],
+            ['type' => 's', 'value' => $editar],
+            ['type' => 's', 'value' => $crear],
+            ['type' => 's', 'value' => $ajustar],
+            ['type' => 's', 'value' => $importar],
+            ['type' => 's', 'value' => $estado]
+        ];
+        $res = mysql_prepd($sql, $params_insert);
+        if (strpos($res, 'Error') !== false) error_response("Error al crear: $res");
+        success_response('Rol creado correctamente');
         break;
 
     case 'update':
+        check_csrf();
         $id = intval($_POST['id_rol'] ?? 0);
         if (!$id) error_response("ID inválido");
         $fields = ['modulo','perfil','componente','consultar','editar','crear','ajustar','importar','estado'];
@@ -119,27 +161,77 @@ switch ($a) {
         $estado = clean($_POST['estado']);
 
         // Validar unicidad (excepto el actual)
-        $sql_check = "SELECT 1 FROM adm_roles WHERE modulo='$modulo' AND perfil='$perfil' AND componente='$componente' AND id_rol != $id";
-        $res_check = mysqli_query($con, $sql_check);
-        if ($res_check && mysqli_num_rows($res_check)) error_response("Ya existe un rol con esos datos");
+        $sql_check = "SELECT 1 FROM adm_roles WHERE modulo=? AND perfil=? AND componente=? AND id_rol != ?";
+        $params_check = [
+            ['type' => 's', 'value' => $modulo],
+            ['type' => 's', 'value' => $perfil],
+            ['type' => 's', 'value' => $componente],
+            ['type' => 'i', 'value' => $id]
+        ];
+        $arr_check = datos_mysql($sql_check, MYSQLI_ASSOC, false, $params_check);
+        if (!empty($arr_check['responseResult'])) error_response("Ya existe un rol con esos datos");
 
+        // Actualizar
         $sql = "UPDATE adm_roles SET 
-            modulo='$modulo', perfil='$perfil', componente='$componente',
-            consultar='$consultar', editar='$editar', crear='$crear',
-            ajustar='$ajustar', importar='$importar', estado='$estado'
-            WHERE id_rol = $id";
-        if (!mysqli_query($con, $sql)) error_response("Error al actualizar: " . mysqli_error($con));
-        echo json_encode(['success' => true]);
+            modulo=?, perfil=?, componente=?, consultar=?, editar=?, crear=?, ajustar=?, importar=?, estado=?
+            WHERE id_rol = ?";
+        $params_update = [
+            ['type' => 's', 'value' => $modulo],
+            ['type' => 's', 'value' => $perfil],
+            ['type' => 's', 'value' => $componente],
+            ['type' => 's', 'value' => $consultar],
+            ['type' => 's', 'value' => $editar],
+            ['type' => 's', 'value' => $crear],
+            ['type' => 's', 'value' => $ajustar],
+            ['type' => 's', 'value' => $importar],
+            ['type' => 's', 'value' => $estado],
+            ['type' => 'i', 'value' => $id]
+        ];
+        $res = mysql_prepd($sql, $params_update);
+        if (strpos($res, 'Error') !== false) error_response("Error al actualizar: $res");
+        success_response('Rol actualizado correctamente');
         break;
 
-    case 'delete':
-        $id = intval($_GET['id'] ?? $_POST['id'] ?? 0);
+    case 'inactive':
+        check_csrf();
+        $id = intval($_POST['id'] ?? $_GET['id'] ?? 0);
         if (!$id) error_response("ID inválido");
-        $sql = "DELETE FROM adm_roles WHERE id_rol = $id";
-        if (!mysqli_query($con, $sql)) error_response("Error al eliminar: " . mysqli_error($con));
-        echo json_encode(['success' => true]);
-        break;
+        $sql = "UPDATE adm_roles SET estado='I' WHERE id_rol = ?";
+        $params = [['type' => 's', 'value' => 'I'],['type' => 'i', 'value' => $id]];
+        $res = mysql_prepd($sql, $params);
 
     default:
         error_response("Acción no válida", 400);
+
+        /* $sql = "SELECT * FROM adm_roles";
+        $result = datos_mysql($sql); */
+        /* // Obtener un solo rol por ID
+$id = 5;
+$sql = "SELECT * FROM adm_roles WHERE id_rol = ?";
+$params = [['type' => 'i', 'value' => $id]];
+$rol = datos_mysql_row($sql, $params);
+if ($rol) {
+    // $rol es un array asociativo con los campos del registro
+} */
+ /*   case 'delete':
+        check_csrf();
+        $id = intval($_POST['id'] ?? $_GET['id'] ?? 0);
+        if (!$id) error_response("ID inválido");
+        $sql = "DELETE FROM adm_roles WHERE id_rol = ?";
+        $params = [['type' => 'i', 'value' => $id]];
+        $res = mysql_prepd($sql, $params);
+        if (strpos($res, 'Error') !== false) error_response("Error al eliminar: $res");
+        success_response('Rol eliminado correctamente');
+        break; */
+
+        // --- CSRF seguro ---
+/* function check_csrf() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (empty($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+            log_error('CSRF token inválido o ausente');
+            error_response('CSRF token inválido o ausente', 403);
+        }
+    }
+}
+ */
 }

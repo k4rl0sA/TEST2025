@@ -114,14 +114,17 @@ function csv($a,$b,$tot= null){
   return ob_get_clean();
 }
 
-function validCsrfTok() {
-  if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-    log_error($_SESSION["us_sds"].' = Invalid CSRF token');
-  return die("Error: msj['Invalid CSRF token']");
-  // exit;
-  }else{
-    return die("Error: msj['OK']");
-  }
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+function check_csrf() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (empty($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+           log_error($_SESSION["us_sds"].' = Invalid CSRF token');
+            error_response('CSRF token inválido o ausente', 403);
+        }
+    }
 }
 
 function log_error($message) {
@@ -268,98 +271,72 @@ function fechas_app($modu){
   return intval($dias);
 }
 
-function mysql_prepd($sql, $params) {
-  // validCsrfTok();
-  $arr = ['code' => 0, 'message' => '', 'responseResult' => []];
-  $con = $GLOBALS['con'];
-  $con->set_charset('utf8');
-  try {
-      $stmt = $con->prepare($sql);
-      if ($stmt) {
-          $types = '';
-          $values = [];
-          foreach ($params as $param) {
-              $type = $param['type'];
-              if ($type === 's' && $param['value'] === NULL) {
-                  $types .= 's'; // Agregar tipo 's' para NULL
-                  $values[] = NULL; // No limpiar, solo agregar NULL
-              } else {
-                if ($type === 'z') {
-                    $value = $param['value']; // Dejar el valor sin limpiar ni modificar
-                    $types .= 's'; // Tratar 'z' como 's'
-                } else {
-                    $value = ($type === 's') ? strtoupper($param['value']) : $param['value'];
-                    $types .= $type;
+function datos_mysql($sql, $resulttype = MYSQLI_ASSOC, $pdbs = false, $params = []) {
+    $arr = ['code' => 0, 'message' => '', 'responseResult' => []];
+    $con = $GLOBALS['con'];
+    if (!$con) {
+        $arr['code'] = 30;
+        $arr['message'] = 'No hay conexión activa a la base de datos.';
+        log_error($_SESSION["us_sds"] . ' = Connection error');
+        return $arr;
+    }
+    try {
+        $con->set_charset('utf8');
+        if ($params && is_array($params) && count($params) > 0) {
+            // --- Consulta preparada ---
+            $stmt = $con->prepare($sql);
+            if (!$stmt) {
+                log_error($_SESSION["us_sds"] . ' Error preparando: ' . $con->error);
+                throw new mysqli_sql_exception("Error preparando: " . $con->error, $con->errno);
+            }
+            $types = '';
+            $values = [];
+            foreach ($params as $param) {
+                $types .= $param['type'];
+                $values[] = $param['value'];
+            }
+            // bind_param requiere referencias
+            $bind_names[] = $types;
+            for ($i=0; $i<count($values); $i++) {
+                $bind_name = 'bind' . $i;
+                $$bind_name = $values[$i];
+                $bind_names[] = &$$bind_name;
+            }
+            call_user_func_array([$stmt, 'bind_param'], $bind_names);
+
+            if (!$stmt->execute()) {
+                log_error($_SESSION["us_sds"] . ' Error ejecutando: ' . $stmt->error);
+                throw new mysqli_sql_exception("Error ejecutando: " . $stmt->error, $stmt->errno);
+            }
+            $result = $stmt->get_result();
+            if ($result) {
+                while ($r = $result->fetch_array($resulttype)) {
+                    $arr['responseResult'][] = $r;
                 }
-                $values[] = $value; // Agregar el valor limpio
-              }
-          }
-          $num_placeholders = substr_count($sql, '?');
-          $num_params = count($values);
-          if ($num_placeholders !== $num_params) {
-            log_error($_SESSION["us_sds"].'=>'."Error: El número de placeholders (?) no coincide con el número de parámetros.");
-            die("Error: El número de placeholders (?) no coincide con el número de parámetros.");
-          }
-          // var_dump($values); // Para depurar valores y tipos
-          $stmt->bind_param($types, ...$values);
-          if (!$stmt->execute()) {
-              $rs = "Error al ejecutar la consulta: " . $stmt->error . " | SQL: " . $sql;
-              log_error($_SESSION["us_sds"].'=>'."Error al ejecutar la consulta: ". $stmt->error . " | SQL: " . $sql);
-          } else {
-              $sqlType = strtoupper($sql);
-              if (strpos($sqlType, 'DELETE') !== false) {
-                  $op = 'Eliminado';
-              } elseif (strpos($sqlType, 'INSERT') !== false) {
-                  $op = 'Insertado';
-              } elseif (strpos($sqlType, 'UPDATE') !== false) {
-                  $op = 'Actualizado';
-              } else {
-                  $op = 'Operación desconocida';
-              }
-              $affected = $stmt->affected_rows;
-              if ($affected > 0) {
-                  $rs = "Se ha " . $op . ": " . $affected . " registro(s) correctamente.";
-              } else {
-                  $rs = "No se afectaron registros con la operación: " . $op;
-              }
-          }
-          $stmt->close();
-      } else {
-        log_error($_SESSION["us_sds"].'=>'."Error al ejecutar la consulta: ". $con->error . " | SQL: " . $sql);
-          $rs = "Error preparando la consulta: " . $con->error . " | SQL: " . $sql;
-      }
-  } catch (mysqli_sql_exception $e) {
-    log_error($_SESSION["us_sds"].'=> '.$e->getCode() . " = " . $e->getMessage());
-      $rs = "Error = " . $e->getCode() . " " . $e->getMessage();
-  }
-  return $rs;
+                $result->free();
+            } else {
+                // Para sentencias que no retornan resultado (INSERT/UPDATE/DELETE)
+                $arr['responseResult'][] = ['affected_rows' => $stmt->affected_rows];
+            }
+            $stmt->close();
+        } else {
+            // --- Consulta directa (sin parámetros) ---
+            $rs = $con->query($sql);
+            if (!$rs) {
+                log_error($_SESSION["us_sds"] . ' Error en la consulta: ' . $con->error, $con->errno);
+                throw new mysqli_sql_exception("Error en la consulta: " . $con->error, $con->errno);
+            }
+            fetch($con, $rs, $resulttype, $arr);
+        }
+    } catch (mysqli_sql_exception $e) {
+        $arr['code'] = 30;
+        $arr['message'] = 'Error BD';
+        $arr['errors'] = ['code' => $e->getCode(), 'message' => $e->getMessage()];
+        log_error($_SESSION["us_sds"].'=>'.$e->getCode().'='.$e->getMessage());
+    }
+    return $arr;
 }
 
-function datos_mysql($sql,$resulttype = MYSQLI_ASSOC, $pdbs = false){
-  $arr = ['code' => 0, 'message' => '', 'responseResult' => []];
-  $con = $GLOBALS['con'];
-if (!$con) {
-  $arr['code'] = 30;
-  $arr['message'] = 'No hay conexión activa a la base de datos.';
-  log_error($_SESSION["us_sds"] . ' = Connection error');
-  return $arr;
-}
-try {
-  $con->set_charset('utf8');
-  $rs = $con->query($sql);
-  if (!$rs) {
-    log_error($_SESSION["us_sds"] . ' Error en la consulta: ' . $con->error, $con->errno);
-    throw new mysqli_sql_exception("Error en la consulta: " . $con->error, $con->errno);
-  }
-  fetch($con, $rs, $resulttype, $arr);
-} catch (mysqli_sql_exception $e) {
-  echo json_encode(['code' => 30, 'message' => 'Error BD', 'errors' => ['code' => $e->getCode(), 'message' => $e->getMessage()]]);
-  log_error($_SESSION["us_sds"].'=>'.$e->getCode().'='.$e->getMessage());
-}finally {
-  // $GLOBALS['con']->close();
-}
-return $arr;
-}
 function fetch(&$con, &$rs, $resulttype, &$arr) {
 	if ($rs === TRUE) {
 		$arr['responseResult'][] = ['affected_rows' => $con->affected_rows];
@@ -373,6 +350,12 @@ function fetch(&$con, &$rs, $resulttype, &$arr) {
 		$rs->free();
 	}
 	return $arr;
+}
+
+//Función para obtener una sola fila
+function datos_mysql_row($sql, $params = [], $resulttype = MYSQLI_ASSOC) {
+    $arr = datos_mysql($sql, $resulttype, false, $params);
+    return isset($arr['responseResult'][0]) ? $arr['responseResult'][0] : null;
 }
 
 //Function opc
