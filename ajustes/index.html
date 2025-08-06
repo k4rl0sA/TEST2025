@@ -8,6 +8,7 @@
 </head>
 <body>
 <div class="content-card">
+    <div class='load' id='loader' z-index='0'></div>
     <!-- Filtros tipo chips -->
     <div class="filters-bar">
         <button class="btn btn-chip" id="toggle-filters-btn">
@@ -156,19 +157,12 @@
                             </div>
                         </form>
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-    <div class="toast-container"></div>
+     <div class="toast-container">
+        <!-- Las notificaciones se agregarán aquí dinámicamente -->
+        </div>
 </div>
+
+
 <script src="../lib/js/app.js"></script>
 <script>
     // --- Estado SPA ---
@@ -330,39 +324,26 @@
     };
     window.deleteRole = function(id) {
         if (!confirm('¿Está seguro de eliminar este rol?')) return;
-        fetch(`/ajustes/lib.php?a=delete&id=${id}`, { method: 'POST' })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    showToast('Rol eliminado', 'success');
-                    fetchRoles();
-                } else {
-                    showToast(data.error || 'Error al eliminar', 'error');
-                }
-            });
+            fetchWithLoader(`/ajustes/lib.php?a=delete&id=${id}`, { method: 'POST' }, 
+            () => fetchRoles()
+        );
     };
     document.getElementById('role-form').addEventListener('submit', function(e) {
         e.preventDefault();
         const formData = new FormData(this);
         if (editingId) formData.append('id_rol', editingId);
-        fetch(`/ajustes/lib.php?a=${editingId ? 'update' : 'create'}`, {
+        fetchWithLoader(`/ajustes/lib.php?a=${editingId ? 'update' : 'create'}`, {
             method: 'POST',
             body: formData
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                showToast('Rol guardado correctamente', 'success');
-                document.getElementById('modal-bg').classList.add('hidden');
-                fetchRoles();
-            } else {
-                showToast(data.error || 'Error al guardar', 'error');
-            }
+        }, () => {
+            document.getElementById('modal-bg').classList.add('hidden');
+            fetchRoles();
         });
     });
 
     // --- Fetch roles con filtros, paginador y orden ---
     function fetchRoles() {
+        showLoader();
         const params = new URLSearchParams({
             ...filters,
             sort: sortField,
@@ -372,7 +353,11 @@
         }).toString();
         fetch(`/ajustes/lib.php?a=list&${params}`)
             .then(res => res.json())
-            .then(data => renderRolesTable(data));
+            .then(data => {
+                hideLoader();
+                renderRolesTable(data);
+            })
+            .catch(() => hideLoader());
     }
 
     // Inicializar

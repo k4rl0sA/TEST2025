@@ -849,7 +849,20 @@
             outline-offset: 2px;
         }
 
-
+/* Loader barra superior */
+.load {
+    position: fixed;
+    top: 0; left: 0;
+    width: 0;
+    height: 4px;
+    background: var(--primary);
+    z-index: 9999;
+    transition: width 0.3s cubic-bezier(.4,0,.2,1);
+    box-shadow: 0 2px 8px rgba(67,97,238,0.15);
+}
+.load.active {
+    width: 100vw;
+}
 
 
 /* Chips y filtros */
@@ -862,3 +875,4 @@
         .chip .chip-remove:hover { color: #d00; }
         /* form.filter-section {display:flex;gap:1em;flex-wrap:wrap;} */
         .filter-section{display: flex; align-items: center; gap: 1em;} 
+
