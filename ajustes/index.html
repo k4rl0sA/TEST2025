@@ -324,15 +324,34 @@
     }
 }
     // --- Ordenar por columna ---
+    function updateSortIcons() {
     document.querySelectorAll('#roles-table th[data-sort]').forEach(th => {
-        th.onclick = function() {
-            const field = th.getAttribute('data-sort');
-            if (sortField === field) sortDir = (sortDir === 'asc') ? 'desc' : 'asc';
-            else { sortField = field; sortDir = 'asc'; }
-            page = 1;
-            fetchRoles();
-        };
+        const field = th.getAttribute('data-sort');
+        const iconSpan = th.querySelector('.sort-icon');
+        if (!iconSpan) return;
+        if (sortField === field) {
+            th.classList.add('sorted');
+            iconSpan.innerHTML = sortDir === 'asc'
+                ? '<i class="fa fa-arrow-up"></i>'
+                : '<i class="fa fa-arrow-down"></i>';
+        } else {
+            th.classList.remove('sorted');
+            iconSpan.innerHTML = '<i class="fa fa-sort"></i>';
+        }
     });
+}
+
+// Llama a updateSortIcons() después de ordenar
+document.querySelectorAll('#roles-table th[data-sort]').forEach(th => {
+    th.onclick = function() {
+        const field = th.getAttribute('data-sort');
+        if (sortField === field) sortDir = (sortDir === 'asc') ? 'desc' : 'asc';
+        else { sortField = field; sortDir = 'asc'; }
+        page = 1;
+        fetchRoles();
+        updateSortIcons();
+    };
+});
 
     // --- CRUD SPA ---
     document.getElementById('add-btn').onclick = function() {
