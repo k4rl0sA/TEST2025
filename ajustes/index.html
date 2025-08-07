@@ -250,9 +250,15 @@
                 <td>${role.ajustar}</td>
                 <td>${role.importar}</td>
                 <td>${role.estado}</td>
-                <td>
-                    <button class="action-btn edit-btn" onclick="editRole(${role.id_rol})"><i class="fa fa-edit"></i></button>
-                    <button class="action-btn delete-btn" onclick="deleteRole(${role.id_rol})"><i class="fa fa-trash"></i></button>
+                <td style="position:relative;">
+                    <button class="action-menu-btn" onclick="toggleActionMenu(event, ${role.id_rol})">
+                        <i class="fa fa-ellipsis-v"></i>
+                    </button>
+                    <div class="action-menu" id="action-menu-${role.id_rol}">
+                        <button onclick="editRole(${role.id_rol})"><i class="fa fa-edit"></i> Editar</button>
+                        <button onclick="deleteRole(${role.id_rol})"><i class="fa fa-trash"></i> Eliminar</button>
+                        <!-- Puedes agregar más acciones aquí -->
+                    </div>
                 </td>
             `;
             tbody.appendChild(tr);
@@ -417,6 +423,21 @@
     fetchRoles();
     updateActiveFiltersChips();
 
+</script>
+<script>
+function toggleActionMenu(e, id) {
+    e.stopPropagation();
+    // Oculta otros menús abiertos
+    document.querySelectorAll('.action-menu.show').forEach(menu => menu.classList.remove('show'));
+    // Muestra el menú de este registro
+    const menu = document.getElementById(`action-menu-${id}`);
+    if (menu) menu.classList.toggle('show');
+}
+
+// Oculta el menú contextual al hacer clic fuera
+document.addEventListener('click', () => {
+    document.querySelectorAll('.action-menu.show').forEach(menu => menu.classList.remove('show'));
+});
 </script>
 </body>
 </html>
