@@ -373,7 +373,9 @@
                 document.getElementById('importar').value = role.importar;
                 document.getElementById('estado').value = role.estado;
                 document.getElementById('form-title').textContent = 'Editar Rol';
+                document.getElementById('table-section').classList.add('hidden');
                 document.getElementById('modal-bg').classList.remove('hidden');
+                
             });
     };
     window.deleteRole = function(id) {
