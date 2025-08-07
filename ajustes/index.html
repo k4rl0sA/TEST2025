@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Roles</title>
-    <link rel="stylesheet" href="../lib/css/app.css?v=7">
+    <link rel="stylesheet" href="../lib/css/app.css?v=8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
     <script>window.CSRF_TOKEN = "<?php echo $_SESSION['csrf_token']; ?>";</script>
 </head>
@@ -164,7 +164,7 @@
 </div>
 
 
-<script src="../lib/js/app.js?v=2"></script>
+<script src="../lib/js/app.js?v=3"></script>
 <script>
     // --- Estado SPA ---
     let editingId = null, roles = [], filters = { search:'', modulo:'', perfil:'', estado:'' };
@@ -260,16 +260,62 @@
         renderPaginator();
     }
     function renderPaginator() {
-        const pag = document.getElementById('paginator');
-        pag.innerHTML = '';
-        for (let i = 1; i <= totalPages; i++) {
-            const btn = document.createElement('button');
-            btn.textContent = i;
-            btn.className = (i === page) ? 'active' : '';
-            btn.onclick = () => { page = i; fetchRoles(); };
-            pag.appendChild(btn);
-        }
+    const pag = document.getElementById('paginator');
+    pag.innerHTML = '';
+
+    const maxButtons = 5;
+    let start = Math.max(1, page - Math.floor(maxButtons / 2));
+    let end = start + maxButtons - 1;
+    if (end > totalPages) {
+        end = totalPages;
+        start = Math.max(1, end - maxButtons + 1);
     }
+
+    // Botón "Primero"
+    if (page > 1) {
+        const firstBtn = document.createElement('button');
+        firstBtn.innerHTML = '<i class="fa fa-angle-double-left"></i>';
+        firstBtn.title = "Primera página";
+        firstBtn.onclick = () => { page = 1; fetchRoles(); };
+        pag.appendChild(firstBtn);
+    }
+
+    // Botón "Anterior"
+    if (page > 1) {
+        const prevBtn = document.createElement('button');
+        prevBtn.innerHTML = '<i class="fa fa-angle-left"></i>';
+        prevBtn.title = "Anterior";
+        prevBtn.onclick = () => { page = page - 1; fetchRoles(); };
+        pag.appendChild(prevBtn);
+    }
+
+    // Botones de página
+    for (let i = start; i <= end; i++) {
+        const btn = document.createElement('button');
+        btn.textContent = i;
+        btn.className = (i === page) ? 'active' : '';
+        btn.onclick = () => { page = i; fetchRoles(); };
+        pag.appendChild(btn);
+    }
+
+    // Botón "Siguiente"
+    if (page < totalPages) {
+        const nextBtn = document.createElement('button');
+        nextBtn.innerHTML = '<i class="fa fa-angle-right"></i>';
+        nextBtn.title = "Siguiente";
+        nextBtn.onclick = () => { page = page + 1; fetchRoles(); };
+        pag.appendChild(nextBtn);
+    }
+
+    // Botón "Último"
+    if (page < totalPages) {
+        const lastBtn = document.createElement('button');
+        lastBtn.innerHTML = '<i class="fa fa-angle-double-right"></i>';
+        lastBtn.title = "Última página";
+        lastBtn.onclick = () => { page = totalPages; fetchRoles(); };
+        pag.appendChild(lastBtn);
+    }
+}
     // --- Ordenar por columna ---
     document.querySelectorAll('#roles-table th[data-sort]').forEach(th => {
         th.onclick = function() {

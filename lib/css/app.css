@@ -877,6 +877,7 @@
         .filter-section{display: flex; align-items: center; gap: 1em;} 
 
 /* Modern paginator styles */
+/* Modern paginator styles */
 .paginator { display: flex; gap: 0.3em; align-items: center; justify-content: center; margin: 1em 0; }
 .paginator button { background: #f4f6fb; color: #222; border: none; border-radius: 6px; padding: 0.4em 0.9em; font-size: 1em; cursor: pointer; transition: background 0.2s, color 0.2s; }
 .paginator button.active, .paginator button:hover { background: var(--primary, #1a1aff); color: #fff; font-weight: bold; }
