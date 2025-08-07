@@ -240,6 +240,16 @@
         roles.forEach(role => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
+            <td style="position:relative;">
+                    <button class="action-menu-btn" onclick="toggleActionMenu(event, ${role.id_rol})">
+                        <i class="fa fa-ellipsis-v"></i>
+                    </button>
+                    <div class="action-menu" id="action-menu-${role.id_rol}">
+                        <button onclick="editRole(${role.id_rol})"><i class="fa fa-edit"></i> Editar</button>
+                        <button onclick="deleteRole(${role.id_rol})"><i class="fa fa-trash"></i> Eliminar</button>
+                        <!-- Puedes agregar más acciones aquí -->
+                    </div>
+                </td>
                 <td>${role.id_rol}</td>
                 <td>${role.modulo}</td>
                 <td>${role.perfil}</td>
@@ -250,16 +260,6 @@
                 <td>${role.ajustar}</td>
                 <td>${role.importar}</td>
                 <td>${role.estado}</td>
-                <td style="position:relative;">
-                    <button class="action-menu-btn" onclick="toggleActionMenu(event, ${role.id_rol})">
-                        <i class="fa fa-ellipsis-v"></i>
-                    </button>
-                    <div class="action-menu" id="action-menu-${role.id_rol}">
-                        <button onclick="editRole(${role.id_rol})"><i class="fa fa-edit"></i> Editar</button>
-                        <button onclick="deleteRole(${role.id_rol})"><i class="fa fa-trash"></i> Eliminar</button>
-                        <!-- Puedes agregar más acciones aquí -->
-                    </div>
-                </td>
             `;
             tbody.appendChild(tr);
         });
