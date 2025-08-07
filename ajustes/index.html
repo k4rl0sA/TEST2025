@@ -331,9 +331,11 @@
         if (!iconSpan) return;
         if (sortField === field) {
             th.classList.add('sorted');
-            iconSpan.innerHTML = sortDir === 'asc'
-                ? '<i class="fa fa-arrow-up"></i>'
-                : '<i class="fa fa-arrow-down"></i>';
+            // Remueve y vuelve a agregar el icono para reiniciar la animación
+            iconSpan.innerHTML = '';
+            const icon = document.createElement('i');
+            icon.className = sortDir === 'asc' ? 'fa fa-arrow-up' : 'fa fa-arrow-down';
+            iconSpan.appendChild(icon);
         } else {
             th.classList.remove('sorted');
             iconSpan.innerHTML = '<i class="fa fa-sort"></i>';
@@ -445,8 +447,37 @@ document.querySelectorAll('#roles-table th[data-sort]').forEach(th => {
     fetchRoles();
     updateActiveFiltersChips();
 
-</script>
-<script>
+    function validateFormFields(rules) {
+    rules.forEach(rule => {
+        const el = document.getElementById(rule.field);
+        if (el) {
+            el.classList.remove('input-error');
+            // Elimina mensaje de error anterior
+            const msg = el.parentNode.querySelector('.error-message');
+            if (msg) msg.remove();
+        }
+    });
+    for (const rule of rules) {
+        const el = document.getElementById(rule.field);
+        if (!el) continue;
+        const value = (el.type === 'checkbox' || el.type === 'radio') ? el.checked : el.value.trim();
+        if (!rule.validate(value, el)) {
+            showToast(rule.message, 'error');
+            if (el.type !== 'hidden' && el.offsetParent !== null) {
+                el.classList.add('input-error');
+                el.focus();
+                // Muestra mensaje de error debajo del input
+                let errorMsg = document.createElement('span');
+                errorMsg.className = 'error-message';
+                errorMsg.textContent = rule.message;
+                el.parentNode.appendChild(errorMsg);
+            }
+            return false;
+        }
+    }
+    return true;
+}
+
 function toggleActionMenu(e, id) {
     e.stopPropagation();
     // Oculta otros menús abiertos
