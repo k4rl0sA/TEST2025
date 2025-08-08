@@ -1191,6 +1191,7 @@ th.sorted .sort-icon i {
     font-size: 1.3em;
     background: var(--primary);
     box-shadow: 0 2px 8px rgba(67,97,238,0.12);
+    position: relative;
   }
   .btn-chip .chip-count {
     display: none !important;
