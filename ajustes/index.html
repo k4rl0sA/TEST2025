@@ -204,13 +204,13 @@
     };
 
     // --- Mostrar/ocultar filtros ---
- /*    const filtersPanel = document.getElementById('filters-panel');
+    const filtersPanel = document.getElementById('filters-panel');
     const toggleFiltersBtn = document.getElementById('toggle-filters-btn');
     let filtersVisible = false;
     toggleFiltersBtn.onclick = function() {
         filtersVisible = !filtersVisible;
         filtersPanel.classList.toggle('hidden', !filtersVisible);
-    }; */
+    };
 
     // --- Filtros funcionalidad ---
     document.getElementById('filter-form').addEventListener('submit', function(e) {
@@ -266,7 +266,32 @@
             tbody.appendChild(tr);
         });
         renderPaginator();
+        if(window.innerWidth <= 600) {
+        if(!document.getElementById('mobile-action-btn')) {
+            const btn = document.createElement('button');
+            btn.className = 'action-menu-btn';
+            btn.id = 'mobile-action-btn';
+            btn.innerHTML = '<i class="fa fa-ellipsis-v"></i>';
+            btn.onclick = function(e) {
+                e.stopPropagation();
+                document.getElementById('mobile-action-menu').classList.toggle('show');
+            };
+            document.body.appendChild(btn);
+
+            const menu = document.createElement('div');
+            menu.className = 'action-menu';
+            menu.id = 'mobile-action-menu';
+            menu.innerHTML = `
+                <button onclick="editRoleMobile()"><i class="fa fa-edit"></i> Editar</button>
+                <button onclick="deleteRoleMobile()"><i class="fa fa-trash"></i> Eliminar</button>
+            `;
+            document.body.appendChild(menu);
+        }
+        // Oculta los botones de acción en cada fila
+        document.querySelectorAll('.action-menu-btn').forEach(el => el.style.display = 'none');
+        }
     }
+
     function renderPaginator() {
     const pag = document.getElementById('paginator');
     pag.innerHTML = '';

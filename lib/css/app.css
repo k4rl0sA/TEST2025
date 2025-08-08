@@ -1027,6 +1027,40 @@ th.sorted .sort-icon i {
     animation: sortIconBounce 0.4s;
 }
 @media (max-width: 600px) {
+  .action-menu-btn {
+    position: fixed !important;
+    bottom: 80px;
+    right: 20px;
+    z-index: 101;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    font-size: 1.5em;
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(67,97,238,0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .action-menu {
+    position: fixed !important;
+    bottom: 140px;
+    right: 20px;
+    left: auto;
+    min-width: 180px;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(67,97,238,0.18);
+    z-index: 102;
+    display: none;
+    flex-direction: column;
+    background: #fff;
+    padding: 10px 0;
+    border: 1px solid #e5e8ef;
+  }
+  .action-menu.show {
+    display: flex;
+  }
     .filters-bar {
         flex-direction: column;
         align-items: stretch;
@@ -1044,9 +1078,7 @@ th.sorted .sort-icon i {
         width: 100%;
         justify-content: center;
     }
-}
-@media (max-width: 600px) {
-    .table-container table, .table-container thead, .table-container tbody, .table-container th, .table-container td, .table-container tr {
+     .table-container table, .table-container thead, .table-container tbody, .table-container th, .table-container td, .table-container tr {
         display: block;
         width: 100%;
     }
@@ -1077,25 +1109,27 @@ th.sorted .sort-icon i {
     .action-menu-btn {
         margin-bottom: 8px;
     }
-}
-@media (max-width: 600px) {
     .btn-add {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 99;
-        width: 56px;
-        height: 56px;
-        border-radius: 50%;
-        font-size: 1.3em;
-        padding: 0;
-        box-shadow: 0 4px 16px rgba(67,97,238,0.18);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      font-size: 1.5em;
+      padding: 0;
+      box-shadow: 0 4px 16px rgba(67,97,238,0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--success);
+      color: #fff;
+      border: none;
     }
-}
-@media (max-width: 600px) {
+    .btn-add span {
+      display: none;
+    }
     body {
         background: #f5f7fa;
         padding-bottom: 80px;
@@ -1105,16 +1139,12 @@ th.sorted .sort-icon i {
         box-shadow: none;
         border-radius: 0;
     }
-}
-@media (max-width: 600px) {
   .table-container td {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 90vw;
   }
-}
-@media (max-width: 600px) {
   .content-card, .table-container, .table-container table {
     width: 100vw !important;
     max-width: 100vw !important;
@@ -1122,5 +1152,43 @@ th.sorted .sort-icon i {
     border-radius: 0 !important;
     box-shadow: none !important;
     padding: 0 !important;
+  }
+  .filters-bar {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5em;
+    margin-bottom: 0.5em;
+    padding: 0.5em 0.5em 0 0.5em;
+  }
+  .btn-chip {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    padding: 0;
+    justify-content: center;
+    font-size: 1.3em;
+    background: var(--primary);
+    box-shadow: 0 2px 8px rgba(67,97,238,0.12);
+  }
+  .btn-chip span,
+  .btn-chip .chip-count {
+    display: none;
+  }
+  .form-section {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: #fff;
+    border-radius: 0 0 18px 18px;
+    box-shadow: 0 8px 24px rgba(67,97,238,0.12);
+    padding: 18px 10px;
+    margin-bottom: 0;
+    animation: fadeInMenu 0.18s ease;
+  }
+  .form-section.hidden {
+    display: none !important;
   }
 }
