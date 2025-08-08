@@ -236,10 +236,11 @@
 
         .action-menu {
             position: absolute;
-            top: 42px;
-            right: 0;
+            /* ajustar con rem */
+            top: 3.5rem;
+            right: 2.8rem;
             background: #fff;
-            border-radius: 10px;
+            border-radius: var(--border-radius);
             box-shadow: 0 8px 24px rgba(67,97,238,0.12);
             min-width: 140px;
             z-index: 10;
