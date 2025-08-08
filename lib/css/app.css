@@ -1114,3 +1114,13 @@ th.sorted .sort-icon i {
     max-width: 90vw;
   }
 }
+@media (max-width: 600px) {
+  .content-card, .table-container, .table-container table {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+}
