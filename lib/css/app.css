@@ -1192,4 +1192,31 @@ th.sorted .sort-icon i {
   .form-section.hidden {
     display: none !important;
   }
+  .filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7em;
+    width: 100%;
+  }
+  .input-group {
+    width: 100%;
+  }
+  .input-group input,
+  .input-group select {
+    width: 100%;
+    font-size: 1em;
+    padding: 12px 10px;
+  }
+  .filter-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 0.7em;
+    justify-content: flex-end;
+    margin-top: 0.5em;
+  }
+    .form-actions {
+        flex-direction: column;
+        gap: 0.7em;
+    }
 }
