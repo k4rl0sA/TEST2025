@@ -1214,6 +1214,7 @@ th.sorted .sort-icon i {
     min-height: 22px;
     text-align: center;
     line-height: 22px;
+    z-index: 2;
   }
   .btn-chip.has-filters .chip-count {
     display: inline-block !important;
