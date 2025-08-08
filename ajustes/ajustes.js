@@ -92,6 +92,8 @@ function renderRolesTable(data) {
         tbody.appendChild(tr);
     });
     renderPaginator();
+    updateSortIcons();
+    enableMobileRowActions();
 }
 
 function renderPaginator() {
@@ -256,4 +258,18 @@ function fetchRoles() {
 // Inicializar
 fetchRoles();
 updateActiveFiltersChips();
+
+    // Solo en móvil: mostrar botón de acciones al hacer doble clic en la fila
+    function enableMobileRowActions() {
+        if (window.innerWidth > 600) return; // Solo móvil
+        document.querySelectorAll('#roles-table tbody tr').forEach(tr => {
+            tr.addEventListener('dblclick', function() {
+                document.querySelectorAll('#roles-table tbody tr').forEach(row => row.classList.remove('tr-show-actions'));
+                tr.classList.add('tr-show-actions');
+            });
+            document.body.addEventListener('click', function(e) {
+                if (!tr.contains(e.target)) tr.classList.remove('tr-show-actions');
+            });
+        });
+    }
 });
