@@ -177,6 +177,7 @@
     // --- Filtros tipo chips ---
     function updateActiveFiltersChips() {
         const chipsList = document.getElementById('active-filters-chips');
+        if (!chipsList) return;
         chipsList.innerHTML = '';
         let count = 0;
         if (filters.search) { chipsList.appendChild(createChip('Buscar', filters.search, 'search')); count++; }
@@ -186,7 +187,11 @@
             let label = filters.estado === 'A' ? 'Activo' : 'Inactivo';
             chipsList.appendChild(createChip('Estado', label, 'estado')); count++;
         }
-        document.getElementById('active-filters-count').textContent = count;
+        const countSpan = document.getElementById('active-filters-count');
+        if (countSpan) {
+            countSpan.textContent = count;
+            updateFiltersCount(count);
+        }
     }
     function createChip(label, value, key) {
         const chip = document.createElement('span');
