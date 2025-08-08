@@ -14,7 +14,9 @@
     <!-- Filtros tipo chips -->
     <div class="filters-bar">
         <button class="btn btn-chip" id="toggle-filters-btn">
-            <i class="fa fa-filter"></i> <span>Filtros</span> <span id="active-filters-count" class="chip-count">0</span>
+            <i class="fa fa-filter"></i>
+            <span>Filtros</span>
+            <span id="active-filters-count" class="chip-count">0</span>
         </button>
         <div id="active-filters-chips" class="chips-list"></div>
     </div>
@@ -520,6 +522,19 @@ document.addEventListener('click', () => {
 window.addEventListener('scroll', () => {
   document.querySelectorAll('.action-menu.show').forEach(menu => menu.classList.remove('show'));
 });
+function updateFiltersCount(count) {
+    const btn = document.getElementById('toggle-filters-btn');
+    const span = document.getElementById('active-filters-count');
+    span.textContent = count;
+    if (count > 0) {
+        btn.classList.add('has-filters');
+        span.classList.add('animated');
+        setTimeout(() => span.classList.remove('animated'), 400);
+    } else {
+        btn.classList.remove('has-filters');
+        span.classList.remove('animated');
+    }
+}
 </script>
 </body>
 </html>
