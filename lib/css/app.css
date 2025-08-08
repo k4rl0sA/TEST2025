@@ -1106,3 +1106,11 @@ th.sorted .sort-icon i {
         border-radius: 0;
     }
 }
+@media (max-width: 600px) {
+  .table-container td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90vw;
+  }
+}

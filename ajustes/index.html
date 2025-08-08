@@ -491,6 +491,9 @@ function toggleActionMenu(e, id) {
 document.addEventListener('click', () => {
     document.querySelectorAll('.action-menu.show').forEach(menu => menu.classList.remove('show'));
 });
+window.addEventListener('scroll', () => {
+  document.querySelectorAll('.action-menu.show').forEach(menu => menu.classList.remove('show'));
+});
 </script>
 </body>
 </html>
