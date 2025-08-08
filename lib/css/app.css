@@ -1199,6 +1199,9 @@ th.sorted .sort-icon i {
   .btn-chip.has-filters .chip-count {
     display: inline-block !important;
   }
+  .btn-chip .chip-text {
+    display: none !important;
+  }
   .form-section {
     position: fixed;
     top: 60px;
