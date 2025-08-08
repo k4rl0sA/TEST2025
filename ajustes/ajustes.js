@@ -1,4 +1,5 @@
 // --- Estado SPA ---
+document.addEventListener('DOMContentLoaded', function() {
 let editingId = null, roles = [], filters = { search:'', modulo:'', perfil:'', estado:'' };
 let sortField = 'id_rol', sortDir = 'asc', page = 1, pageSize = 10, totalPages = 1;
 
@@ -264,3 +265,4 @@ function fetchRoles() {
 // Inicializar
 fetchRoles();
 updateActiveFiltersChips();
+});
