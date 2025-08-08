@@ -39,15 +39,6 @@ window.removeFilter = function(key) {
     updateActiveFiltersChips();
 };
 
-// --- Mostrar/ocultar filtros ---
-const filtersPanel = document.getElementById('filters-panel');
-const toggleFiltersBtn = document.getElementById('toggle-filters-btn');
-let filtersVisible = false;
-toggleFiltersBtn.onclick = function() {
-    filtersVisible = !filtersVisible;
-    filtersPanel.classList.toggle('hidden', !filtersVisible);
-};
-
 // --- Filtros funcionalidad ---
 document.getElementById('filter-form').addEventListener('submit', function(e) {
     e.preventDefault();
