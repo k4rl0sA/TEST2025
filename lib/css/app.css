@@ -1094,6 +1094,9 @@ th.sorted .sort-icon i {
         flex-direction: column;
         align-items: stretch;
         gap: 0.5em;
+        justify-content: flex-end;
+        margin-bottom: 0.5em;
+        padding: 0.5em 0.5em 0 0.5em;
     }
     .chips-list {
         gap: 0.2em;
@@ -1178,14 +1181,7 @@ th.sorted .sort-icon i {
     box-shadow: none !important;
     padding: 0 !important;
   }
-  .filters-bar {
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 0.5em;
-    margin-bottom: 0.5em;
-    padding: 0.5em 0.5em 0 0.5em;
-  }
+
   .btn-chip {
     width: 44px;
     height: 44px;
@@ -1195,9 +1191,6 @@ th.sorted .sort-icon i {
     font-size: 1.3em;
     background: var(--primary);
     box-shadow: 0 2px 8px rgba(67,97,238,0.12);
-  }
-  .btn-chip span {
-    display: none !important;
   }
   .btn-chip .chip-count {
     display: none !important;
