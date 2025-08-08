@@ -1188,6 +1188,8 @@ th.sorted .sort-icon i {
     margin-bottom: 0;
     animation: fadeInMenu 0.18s ease;
     max-width: 100vw;
+    min-width: 0;
+    box-sizing: border-box;
   }
   .form-section.hidden {
     display: none !important;
@@ -1195,24 +1197,27 @@ th.sorted .sort-icon i {
   .filter-section {
     display: flex;
     flex-direction: column;
-    gap: 0.7em;
+    gap: 1em;
     width: 100%;
   }
   .input-group {
-    width: 100%;
+     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
   }
   .input-group input,
   .input-group select {
     width: 100%;
     font-size: 1em;
     padding: 12px 10px;
+    box-sizing: border-box;
   }
   .filter-actions {
     width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 0.7em;
-    justify-content: flex-end;
     margin-top: 0.5em;
   }
     .form-actions {
