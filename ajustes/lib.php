@@ -95,7 +95,7 @@ switch ($a) {
         $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);
         if (empty($arr['responseResult'])) error_response("Rol no encontrado", 404);
         echo json_encode([
-            'sucess'=>true,
+            'success'=>true,
             'datos' => $arr['responseResult'][0]]);
         break;
 
