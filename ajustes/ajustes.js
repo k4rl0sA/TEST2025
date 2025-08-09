@@ -194,9 +194,7 @@ document.getElementById('close-win').onclick = function() {
     document.getElementById('table-section').classList.remove('hidden');
 };
 window.editRole = function(id) {
-    fetch(`/ajustes/lib.php?a=get&id=${id}`)
-        .then(res => res.json())
-        .then(role => {
+    fetchWithLoader(`/ajustes/lib.php?a=get&id=${id}`, {}, function(role) {
             editingId = role.id_rol;
             document.getElementById('id_rol').value = role.id_rol;
             document.getElementById('modulo').value = role.modulo;
@@ -246,13 +244,9 @@ function fetchRoles() {
         page,
         pageSize
     }).toString();
-    fetch(`/ajustes/lib.php?a=list&${params}`)
-        .then(res => res.json())
-        .then(data => {
-            hideLoader();
-            renderRolesTable(data);
-        })
-        .catch(() => hideLoader());
+    fetchWithLoader(`/ajustes/lib.php?a=list&${params}`, {}, function(data) {
+        renderRolesTable(data);
+    });
 }
 
 // Inicializar
