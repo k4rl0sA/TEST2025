@@ -94,7 +94,9 @@ switch ($a) {
         $params = [['type' => 'i', 'value' => $id]];
         $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);
         if (empty($arr['responseResult'])) error_response("Rol no encontrado", 404);
-        echo json_encode($arr['responseResult'][0]);
+        echo json_encode([
+            'sucess'=>true,
+            'datos' => $arr['responseResult'][0]]);
         break;
 
     case 'create':

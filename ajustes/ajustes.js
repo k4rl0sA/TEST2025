@@ -194,18 +194,19 @@ document.getElementById('close-win').onclick = function() {
     document.getElementById('table-section').classList.remove('hidden');
 };
 window.editRole = function(id) {
-    fetchWithLoader(`/ajustes/lib.php?a=get&id=${id}`, {}, function(role) {
-            editingId = role.id_rol;
-            document.getElementById('id_rol').value = role.id_rol;
-            document.getElementById('modulo').value = role.modulo;
-            document.getElementById('perfil').value = role.perfil;
-            document.getElementById('componente').value = role.componente;
-            document.getElementById('consultar').value = role.consultar;
-            document.getElementById('editar').value = role.editar;
-            document.getElementById('crear').value = role.crear;
-            document.getElementById('ajustar').value = role.ajustar;
-            document.getElementById('importar').value = role.importar;
-            document.getElementById('estado').value = role.estado;
+    fetchWithLoader(`/ajustes/lib.php?a=get&id=${id}`, {}, function(data) {
+            const datos= data.datos;
+            editingId = datos.id_rol;
+            document.getElementById('id_rol').value = datos.id_rol;
+            document.getElementById('modulo').value = datos.modulo;
+            document.getElementById('perfil').value = datos.perfil;
+            document.getElementById('componente').value = datos.componente;
+            document.getElementById('consultar').value = datos.consultar;
+            document.getElementById('editar').value = datos.editar;
+            document.getElementById('crear').value = datos.crear;
+            document.getElementById('ajustar').value = datos.ajustar;
+            document.getElementById('importar').value = datos.importar;
+            document.getElementById('estado').value = datos.estado;
             document.getElementById('form-title').textContent = 'Editar Rol';
             document.getElementById('table-section').classList.add('hidden');
             document.getElementById('modal-bg').classList.remove('hidden');
