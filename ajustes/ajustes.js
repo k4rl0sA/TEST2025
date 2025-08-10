@@ -82,7 +82,7 @@ function renderRolesTable(data) {
                         <span class="icon"><i class="fa fa-trash"></i></span>   
                         <span class="label">Editar</span>
                     </button>
-                    <button class="menu-item delete-btn" onclick="deleteRole(${role.id_rol})">
+                    <button class="menu-item edit-btn" onclick="deleteRole(${role.id_rol})">
                         <i class="fa fa-home"></i>
                         <span class="label">Caracterizar</span>
                     </button>
