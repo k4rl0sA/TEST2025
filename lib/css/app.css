@@ -99,10 +99,12 @@ header { display: flex; justify-content: space-between; align-items: center; pad
     align-items: center;
     justify-content: center;
     color: #5a6b82;
-    transition: transform 0.3s;
+    /* transition: transform 0.3s; */
+    transition: transform 0.3s cubic-bezier(.4,0,.2,1);
 }
-.menu-item:hover .icon {
+.menu-item:hover i {
     transform: translateX(3px);
+    transform: translateX(6px) scale(1.15) rotate(-8deg);
 }
 .menu-item .label {
     flex: 1;
@@ -110,27 +112,27 @@ header { display: flex; justify-content: space-between; align-items: center; pad
 .menu-item.edit-btn {
     color: var(--primary);
 }
-.menu-item.edit-btn .icon {
+.menu-item.edit-btn i {
     color: var(--primary);
 }
 .menu-item.edit-btn:hover {
     background: var(--primary-light);
     color: #fff;
 }
-.menu-item.edit-btn:hover .icon {
+.menu-item.edit-btn:hover i {
     color: #fff;
 }
 .menu-item.delete-btn {
     color: var(--error);
 }
-.menu-item.delete-btn .icon {
+.menu-item.delete-btn i {
     color: var(--error);
 }
 .menu-item.delete-btn:hover {
     background: var(--error);
     color: #fff;
 }
-.menu-item.delete-btn:hover .icon {
+.menu-item.delete-btn:hover i {
     color: #fff;
 }
 /* Ripple effect */
