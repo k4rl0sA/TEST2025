@@ -323,8 +323,8 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
    .menu-item {
         flex: 1 1 0;
         margin: 0 8px;
-        min-width: 70px;
-        max-width: 110px;
+        min-width: 46px;
+        max-width: 76px;
         background: var(--primary-light);
         color: #fff;
         border-radius: 12px;
