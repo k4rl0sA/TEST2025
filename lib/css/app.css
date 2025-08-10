@@ -260,7 +260,7 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
     .tr-show-actions .action-menu-btn { display: flex !important; }
     .action-menu-btn {
         position: fixed !important;
-        bottom: 80px;
+        bottom: 68px;
         right: 20px;
         z-index: 101;
         width: 56px;
