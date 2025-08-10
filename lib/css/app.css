@@ -91,7 +91,7 @@ header { display: flex; justify-content: space-between; align-items: center; pad
     gap: 0.7em;
     font-size: 1em;
 }
-.menu-item .icon {
+.menu-item .fa {
     width: 24px;
     height: 24px;
     margin-right: 10px;
@@ -102,8 +102,8 @@ header { display: flex; justify-content: space-between; align-items: center; pad
     /* transition: transform 0.3s; */
     transition: transform 0.3s cubic-bezier(.4,0,.2,1);
 }
-.menu-item:hover i {
-    transform: translateX(3px);
+.menu-item:hover .fa {
+    /* transform: translateX(3px); */
     transform: translateX(6px) scale(1.15) rotate(-8deg);
 }
 .menu-item .label {
@@ -112,27 +112,27 @@ header { display: flex; justify-content: space-between; align-items: center; pad
 .menu-item.edit-btn {
     color: var(--primary);
 }
-.menu-item.edit-btn i {
+.menu-item.edit-btn .fa {
     color: var(--primary);
 }
 .menu-item.edit-btn:hover {
     background: var(--primary-light);
     color: #fff;
 }
-.menu-item.edit-btn:hover i {
+.menu-item.edit-btn:hover .fa {
     color: #fff;
 }
 .menu-item.delete-btn {
     color: var(--error);
 }
-.menu-item.delete-btn i {
+.menu-item.delete-btn .fa {
     color: var(--error);
 }
 .menu-item.delete-btn:hover {
     background: var(--error);
     color: #fff;
 }
-.menu-item.delete-btn:hover i {
+.menu-item.delete-btn:hover .fa {
     color: #fff;
 }
 /* Ripple effect */
