@@ -74,8 +74,14 @@ function renderRolesTable(data) {
                     <i class="fa fa-ellipsis-v"></i>
                 </button>
                 <div class="action-menu" id="action-menu-${role.id_rol}">
-                    <button class="menu-item edit-btn" onclick="editRole(${role.id_rol})"><i class="fa fa-edit"></i> Editar</button>
-                    <button class="menu-item delete-btn" onclick="deleteRole(${role.id_rol})"><i class="fa fa-trash"></i> Eliminar</button>
+                    <button class="menu-item edit-btn" onclick="editRole(${role.id_rol})">
+                        <i class="fa fa-edit"></i>
+                        <span class="label">Editar</span>
+                    </button>
+                    <button class="menu-item delete-btn" onclick="deleteRole(${role.id_rol})">
+                        <i class="fa fa-trash"></i>
+                        <span class="label">Eliminar</span>
+                    </button>
                 </div>
             </td>
             <td data-label="ID">${role.id_rol}</td>
