@@ -292,6 +292,7 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
         border: 1px solid #e5e8ef;
         margin: 0;
         animation: scaleInMenu 0.18s ease;
+        height: 75px;
     }
     .action-menu.show { display: flex; }
      .menu-item .fa {
@@ -337,6 +338,7 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
         border: none;
         transition: background 0.18s, color 0.18s;
         box-shadow: 0 2px 8px rgba(67,97,238,0.07);
+        max-height: 60px;
     }
     .filters-bar {
         flex-direction: column;
@@ -385,7 +387,7 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
     }
     .btn-add {
         position: fixed;
-        bottom: 20px;
+        bottom: 75px;
         right: 20px;
         z-index: 100;
         width: 56px;
