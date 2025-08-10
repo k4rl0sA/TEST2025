@@ -28,36 +28,29 @@ header { display: flex; justify-content: space-between; align-items: center; pad
 .table-container th { background: #f1f3f9; font-weight: 600; color: #444; position: sticky; top: 0; z-index: 2; }
 .table-container tbody tr:hover { background: rgba(67,97,238,0.07); transition: background 0.2s; }
 
-
-
 @keyframes scaleInMenu { from { opacity: 0; transform: scale(0.95);} to { opacity: 1; transform: scale(1);} }
-/* .action-menu.show { display: flex; }
-.action-menu { position: absolute; top: 3.5rem; right: 2.8rem; background: #fff; border-radius: var(--border-radius); box-shadow: 0 8px 24px rgba(67,97,238,0.12); min-width: 140px; z-index: 10; display: none; flex-direction: column; padding: 8px 0; border: 1px solid #e5e8ef; animation: scaleInMenu 0.18s ease; }
-
-.action-menu button { background: none; border: none; color: #444; padding: 10px 18px; text-align: left; font-size: 1em; cursor: pointer; transition: background 0.18s, color 0.18s; display: flex; align-items: center; gap: 0.7em; }
-.action-menu button i { color: var(--primary); font-size: 1.1em; transition: color 0.18s; }
-.action-menu button:hover i { color: var(--success); }
-.action-menu button:hover { background: var(--primary-light, #eaf0ff); color: var(--primary, #4361ee); }
-.action-menu button.edit-btn {
-    color: var(--primary);
-    font-weight: 600;
-    transition: background 0.18s, color 0.18s;
+.action-menu-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3em;
+    border: none;
+    box-shadow: 0 2px 8px rgba(67,97,238,0.12);
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    position: relative;
 }
-
-.action-menu button.edit-btn:hover {
+.action-menu-btn:hover,
+.action-menu-btn:focus {
     background: var(--primary-light);
-    color: #fff;
+    box-shadow: 0 4px 16px rgba(67,97,238,0.18);
+    outline: none;
 }
-
-.action-menu button.delete-btn {
-    color: var(--error);
-    font-weight: 600;
-    transition: background 0.18s, color 0.18s;
-}
-.action-menu button.delete-btn:hover {
-    background: var(--error);
-    color: #fff;
-}*/
 .action-menu {
     background: #fff;
     border-radius: 12px;
