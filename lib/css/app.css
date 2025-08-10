@@ -101,6 +101,10 @@ header { display: flex; justify-content: space-between; align-items: center; pad
     /* transform: translateX(3px); */
     transform: translateX(6px) scale(1.15) rotate(-8deg);
 }
+.menu-item:hover, .menu-item:focus {
+        filter: brightness(0.93);
+        outline: none;
+}
 .menu-item .label {
     flex: 1;
 }
@@ -285,33 +289,50 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
         z-index: 102;
         display: none;
         flex-direction: row;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
         background: #fff;
-        padding: 12px 0;
+        padding: 18px 0 18px 0;
         border: 1px solid #e5e8ef;
         margin: 0;
         animation: scaleInMenu 0.18s ease;
-        height: 75px;
+        overflow-x: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary) #e5e8ef;
     }
     .action-menu.show { display: flex; }
-     .menu-item .fa {
-        font-size: 1.5em;
-        margin-bottom: 6px;
+     .action-menu::-webkit-scrollbar {
+        height: 7px;
+        background: #e5e8ef;
+    }
+    .action-menu::-webkit-scrollbar-thumb {
+        background: var(--primary);
+        border-radius: 4px;
+    }
+    .menu-item .fa, .menu-item .icon {
+        font-size: 1.7em;
+        margin-bottom: 0;
         color: #fff;
+        transition: transform 0.2s;
     }
     .menu-item.edit-btn {
-        background: var(--primary);
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
     }
     .menu-item.delete-btn {
-        background: var(--error);
+        background: linear-gradient(135deg, var(--error), #ff6b6b);
+    }
+     .menu-item.edit-btn .fa, .menu-item.edit-btn .icon {
+        color: #fff;
+    }
+    .menu-item.delete-btn .fa, .menu-item.delete-btn .icon {
+        color: #fff;
     }
     .menu-item.edit-btn:hover,
     .menu-item.delete-btn:hover {
         filter: brightness(0.92);
     }
     .menu-item .label {
-        font-size: 0.95em;
+        font-size: 0.97em;
         color: #fff;
         margin: 0;
         padding: 0;
@@ -319,26 +340,35 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        font-weight: 500;
+        letter-spacing: 0.01em;
     }
    .menu-item {
-        flex: 1 1 0;
-        margin: 0 8px;
-        min-width: 46px;
-        max-width: 76px;
+        flex: 0 0 90px;
+        margin: 0 12px;
+        min-width: 90px;
+        max-width: 110px;
         background: var(--primary-light);
         color: #fff;
-        border-radius: 12px;
-        padding: 14px 0 8px 0;
+        border-radius: 16px;
+        padding: 18px 0 10px 0;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        font-size: 1em;
-        font-weight: 500;
+        font-size: 1.08em;
+        font-weight: 600;
         border: none;
-        transition: background 0.18s, color 0.18s;
+        transition: background 0.18s, color 0.18s, box-shadow 0.18s;
         box-shadow: 0 2px 8px rgba(67,97,238,0.07);
-        max-height: 60px;
+        max-height: 70px;
+        cursor: pointer;
+        gap: 7px;
+        position: relative;
+    }
+    .menu-item:active {
+        box-shadow: 0 4px 16px rgba(67,97,238,0.18);
+        filter: brightness(0.96);
     }
     .filters-bar {
         flex-direction: column;
