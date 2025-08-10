@@ -276,10 +276,10 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
         position: fixed !important;
         bottom: 140px;
         right: 20px;
-        left: auto;
+        left: unset !important;
         min-width: 180px;
         max-width: 90vw;
-        border-radius: 14px;
+        border-radius: 18px;
         box-shadow: 0 8px 24px rgba(67,97,238,0.18);
         z-index: 102;
         display: none;
@@ -287,6 +287,8 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
         background: #fff;
         padding: 10px 0;
         border: 1px solid #e5e8ef;
+        margin-left: 20px;
+        margin-right: 20px;
     }
     .action-menu.show { display: flex; }
     .menu-item {
