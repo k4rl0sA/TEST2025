@@ -265,16 +265,21 @@ fetchRoles();
 updateActiveFiltersChips();
 
     // Solo en móvil: mostrar botón de acciones al hacer doble clic en la fila
-    function enableMobileRowActions() {
-        if (window.innerWidth > 600) return; // Solo móvil
-        document.querySelectorAll('#roles-table tbody tr').forEach(tr => {
-            tr.addEventListener('dblclick', function() {
-                document.querySelectorAll('#roles-table tbody tr').forEach(row => row.classList.remove('tr-show-actions'));
-                tr.classList.add('tr-show-actions');
-            });
-            document.body.addEventListener('click', function(e) {
-                if (!tr.contains(e.target)) tr.classList.remove('tr-show-actions');
-            });
+   function enableMobileRowActions() {
+    if (window.innerWidth > 600) return; // Solo móvil
+    document.querySelectorAll('#roles-table tbody tr').forEach(tr => {
+        // Obtén el id del registro desde el botón de acciones
+        const btn = tr.querySelector('.action-menu-btn');
+        if (!btn) return;
+        const id = btn.getAttribute('onclick').match(/\((\d+)\)/)[1];
+        tr.addEventListener('click', function(e) {
+            e.stopPropagation();
+            // Cierra otros menús abiertos
+            document.querySelectorAll('.action-menu.show').forEach(menu => menu.classList.remove('show'));
+            // Abre el menú contextual de este registro
+            const menu = document.getElementById(`action-menu-${id}`);
+            if (menu) menu.classList.add('show');
         });
+    });
     }
 });
