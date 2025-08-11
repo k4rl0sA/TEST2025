@@ -201,6 +201,7 @@ switch ($a) {
         $sql = "UPDATE adm_roles SET estado='I' WHERE id_rol = ?";
         $params = [['type' => 's', 'value' => 'I'],['type' => 'i', 'value' => $id]];
         $res = mysql_prepd($sql, $params);
+        break;
     
     case 'opciones':
         $catalogos = ['estado'    => 11,'rta' => 170];
