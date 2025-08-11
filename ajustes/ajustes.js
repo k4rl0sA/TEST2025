@@ -279,15 +279,18 @@ loadAllRoleSelects();
         });
     }
 
-    function loadAllRoleSelects(selected = {}) {
-        fetchWithLoader('/ajustes/lib.php?a=opciones', {}, function(data) {
-            if (data.estado) loadSelectChoicesSafe('fil-estado', data.estado, '-- Estado --', 'A');
-            if (data.rta) loadSelectChoicesSafe('consultar', data.rta, '-- Consultar --', 1);
-            if (data.rta) loadSelectChoicesSafe('editar', data.rta, '-- Editar --', 1);
-            if (data.rta) loadSelectChoicesSafe('crear', data.rta, '-- Crear --', 1);
-            if (data.rta) loadSelectChoicesSafe('ajustar', data.rta, '-- Ajustar --', 1);
-            if (data.rta) loadSelectChoicesSafe('importar', data.rta, '-- Importar --', 1);
-        });
-    }
+function loadAllRoleSelects(selected = {}) {
+    fetchWithLoader('/ajustes/lib.php?a=opciones', {}, function(data) {
+        if (data.opciones && data.opciones.estado)
+            loadSelectChoicesSafe('fil-estado', data.opciones.estado, '-- Estado --', 'A');
+        if (data.opciones && data.opciones.rta) {
+            loadSelectChoicesSafe('consultar', data.opciones.rta, '-- Consultar --', 1);
+            loadSelectChoicesSafe('editar', data.opciones.rta, '-- Editar --', 1);
+            loadSelectChoicesSafe('crear', data.opciones.rta, '-- Crear --', 1);
+            loadSelectChoicesSafe('ajustar', data.opciones.rta, '-- Ajustar --', 1);
+            loadSelectChoicesSafe('importar', data.opciones.rta, '-- Importar --', 1);
+        }
+    });
+}
 
 });
