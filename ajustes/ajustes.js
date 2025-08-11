@@ -263,6 +263,7 @@ function fetchRoles() {
 // Inicializar
 fetchRoles();
 updateActiveFiltersChips();
+loadAllRoleSelects();
 
     // Solo en móvil: mostrar botón de acciones al hacer doble clic en la fila
     function enableMobileRowActions() {
@@ -277,4 +278,16 @@ updateActiveFiltersChips();
             });
         });
     }
+
+    function loadAllRoleSelects(selected = {}) {
+        fetchWithLoader('/ajustes/lib.php?a=opciones', {}, function(data) {
+            if (data.estado) loadSelectChoicesSafe('fil-estado', data.estado, '-- Estado --', selected.estado);
+            if (data.rta) loadSelectChoicesSafe('consultar', data.rta, '-- Consultar --', selected.rta);
+            if (data.rta) loadSelectChoicesSafe('editar', data.rta, '-- Editar --', selected.rta);
+            if (data.rta) loadSelectChoicesSafe('crear', data.rta, '-- Crear --', selected.rta);
+            if (data.rta) loadSelectChoicesSafe('ajustar', data.rta, '-- Ajustar --', selected.rta);
+            if (data.rta) loadSelectChoicesSafe('importar', data.rta, '-- Importar --', selected.rta);
+        });
+    }
+
 });

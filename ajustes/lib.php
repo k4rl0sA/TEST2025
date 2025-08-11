@@ -201,6 +201,21 @@ switch ($a) {
         $sql = "UPDATE adm_roles SET estado='I' WHERE id_rol = ?";
         $params = [['type' => 's', 'value' => 'I'],['type' => 'i', 'value' => $id]];
         $res = mysql_prepd($sql, $params);
+    
+    case 'opciones':
+        $catalogos = [
+        'estado'    => 170, 
+        'rta' => 11
+    ];
+        $opciones = [];
+    foreach ($catalogos as $campo => $idcat) {
+        $sql = "SELECT idcatadeta AS value, descripcion AS label FROM catadeta WHERE idcatalogo=? AND estado='A' ORDER BY 1";
+        $params = [['type' => 'i', 'value' => $idcat]];
+        $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);
+        $opciones[$campo] = isset($arr['responseResult']) ? $arr['responseResult'] : [];
+    }
+    echo json_encode($opciones);
+        break;
 
     default:
         error_response("Acción no válida", 400);
