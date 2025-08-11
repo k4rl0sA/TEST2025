@@ -204,8 +204,8 @@ switch ($a) {
     
     case 'opciones':
         $catalogos = [
-        'estado'    => 170, 
-        'rta' => 11
+        'estado'    => 11, 
+        'rta' => 170
     ];
         $opciones = [];
     foreach ($catalogos as $campo => $idcat) {
