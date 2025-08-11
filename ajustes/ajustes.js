@@ -281,12 +281,12 @@ loadAllRoleSelects();
 
     function loadAllRoleSelects(selected = {}) {
         fetchWithLoader('/ajustes/lib.php?a=opciones', {}, function(data) {
-            if (data.estado) loadSelectChoicesSafe('fil-estado', data.estado, '-- Estado --', selected.estado);
-            if (data.rta) loadSelectChoicesSafe('consultar', data.rta, '-- Consultar --', selected.rta);
-            if (data.rta) loadSelectChoicesSafe('editar', data.rta, '-- Editar --', selected.rta);
-            if (data.rta) loadSelectChoicesSafe('crear', data.rta, '-- Crear --', selected.rta);
-            if (data.rta) loadSelectChoicesSafe('ajustar', data.rta, '-- Ajustar --', selected.rta);
-            if (data.rta) loadSelectChoicesSafe('importar', data.rta, '-- Importar --', selected.rta);
+            if (data.estado) loadSelectChoicesSafe('fil-estado', data.estado, '-- Estado --', 'A');
+            if (data.rta) loadSelectChoicesSafe('consultar', data.rta, '-- Consultar --', 1);
+            if (data.rta) loadSelectChoicesSafe('editar', data.rta, '-- Editar --', 1);
+            if (data.rta) loadSelectChoicesSafe('crear', data.rta, '-- Crear --', 1);
+            if (data.rta) loadSelectChoicesSafe('ajustar', data.rta, '-- Ajustar --', 1);
+            if (data.rta) loadSelectChoicesSafe('importar', data.rta, '-- Importar --', 1);
         });
     }
 
