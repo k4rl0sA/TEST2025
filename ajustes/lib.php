@@ -203,10 +203,7 @@ switch ($a) {
         $res = mysql_prepd($sql, $params);
     
     case 'opciones':
-        $catalogos = [
-        'estado'    => 11, 
-        'rta' => 170
-    ];
+        $catalogos = ['estado'    => 11,'rta' => 170];
         $opciones = [];
     foreach ($catalogos as $campo => $idcat) {
         $sql = "SELECT idcatadeta AS value, descripcion AS label FROM catadeta WHERE idcatalogo=? AND estado='A' ORDER BY 1";
@@ -216,7 +213,8 @@ switch ($a) {
     }
     echo json_encode([
         'success'=> true,
-        'opciones' => $opciones]);
+        'opciones' => $opciones
+    ]);
         break;
 
     default:
