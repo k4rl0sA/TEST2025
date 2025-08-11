@@ -214,9 +214,9 @@ switch ($a) {
         $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);
         $opciones[$campo] = isset($arr['responseResult']) ? $arr['responseResult'] : [];
     }
-    echo json_encode(
+    echo json_encode([
         'success'=> true,
-        'opciones' => $opciones);
+        'opciones' => $opciones]);
         break;
 
     default:
