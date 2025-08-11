@@ -192,15 +192,15 @@ document.getElementById('add-btn').onclick = function() {
     icon.className = 'fa-solid fa-calendar-days';
     formTitle.appendChild(icon);
     formTitle.appendChild(document.createTextNode(' Nuevo Rol'));
-    document.getElementById('modal-bg').classList.remove('hidden');
+    document.getElementById('form-ajustes').classList.remove('hidden');
     document.getElementById('table-section').classList.add('hidden');
 };
 document.getElementById('cancel-btn').onclick = function() {
-    document.getElementById('modal-bg').classList.add('hidden');
+    document.getElementById('form-ajustes').classList.add('hidden');
     document.getElementById('table-section').classList.remove('hidden');
 };
 document.getElementById('close-win').onclick = function() {
-    document.getElementById('modal-bg').classList.add('hidden');
+    document.getElementById('form-ajustes').classList.add('hidden');
     document.getElementById('table-section').classList.remove('hidden');
 };
 window.editRole = function(id) {
@@ -219,7 +219,7 @@ window.editRole = function(id) {
             document.getElementById('estado').value = datos.estado;
             document.getElementById('form-title').textContent = 'Editar Rol';
             document.getElementById('table-section').classList.add('hidden');
-            document.getElementById('modal-bg').classList.remove('hidden');
+            document.getElementById('form-ajustes').classList.remove('hidden');
         });
 };
 window.deleteRole = function(id) {
@@ -240,7 +240,7 @@ document.getElementById('role-form').addEventListener('submit', function(e) {
         method: 'POST',
         body: formData
     }, () => {
-        document.getElementById('modal-bg').classList.add('hidden');
+        document.getElementById('form-ajustes').classList.add('hidden');
         fetchRoles();
     });
 });
