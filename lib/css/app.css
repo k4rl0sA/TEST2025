@@ -315,6 +315,10 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
     font-size: 0.8rem;
     color: var(--primary);
 }
+.input-group .choices__item {
+    padding: 10px !important;
+    box-sizing: border-box;
+}
 /*Fin styles chocices*/
 /*styles moviles*/
 @media (max-width: 600px) {
