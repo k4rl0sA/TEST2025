@@ -290,11 +290,11 @@ function loadAllRoleSelects(selected = {}) {
         if (data.opciones && data.opciones.estado)
             loadSelectChoices('fil-estado', data.opciones.estado, '-- Estado --', selected.estado || 'A');
         if (data.opciones && data.opciones.rta) {
-            loadSelectChoices('consultar', data.opciones.rta, '-- Consultar --', 1);
-            loadSelectChoices('editar', data.opciones.rta, '-- Editar --', 1);
-            loadSelectChoices('crear', data.opciones.rta, '-- Crear --', 1);
-            loadSelectChoices('ajustar', data.opciones.rta, '-- Ajustar --', 1);
-            loadSelectChoices('importar', data.opciones.rta, '-- Importar --', 1);
+            loadSelectChoices('consultar', data.opciones.rta, '-- Consultar --', selected.consultar ?? '1');
+            loadSelectChoices('editar', data.opciones.rta, '-- Editar --', selected.editar ?? '1');
+            loadSelectChoices('crear', data.opciones.rta, '-- Crear --', selected.crear ?? '1');
+            loadSelectChoices('ajustar', data.opciones.rta, '-- Ajustar --', selected.ajustar ?? '1');
+            loadSelectChoices('importar', data.opciones.rta, '-- Importar --', selected.importar ?? '1');
         }
     });
 }
