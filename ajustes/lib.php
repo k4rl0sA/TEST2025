@@ -94,9 +94,20 @@ switch ($a) {
         $params = [['type' => 'i', 'value' => $id]];
         $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);
         if (empty($arr['responseResult'])) error_response("Rol no encontrado", 404);
-        echo json_encode([
-            'success'=>true,
-            'datos' => $arr['responseResult'][0]]);
+        $datos = $arr['responseResult'][0];
+         // Mapear texto a id para los campos rta
+        $rta_map = ['SI' => '1', 'NO' => '2'];
+        foreach (['consultar','editar','crear','ajustar','importar'] as $campo) {
+        if (isset($datos[$campo])) {
+            $datos[$campo] = $rta_map[$datos[$campo]] ?? $datos[$campo];
+        }
+    }
+    // Si estado también es texto, mapea aquí
+
+    echo json_encode([
+        'success'=>true,
+        'datos' => $datos
+    ]);
         break;
 
     case 'create':
