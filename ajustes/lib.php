@@ -95,14 +95,47 @@ switch ($a) {
         $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);
         if (empty($arr['responseResult'])) error_response("Rol no encontrado", 404);
         $datos = $arr['responseResult'][0];
-         // Mapear texto a id para los campos rta
-        $rta_map = ['SI' => '1', 'NO' => '2'];
+         // Mapear texto a id para los campos rta si/no
+      /*   $rta_map = ['SI' => '1', 'NO' => '2'];
         foreach (['consultar','editar','crear','ajustar','importar'] as $campo) {
         if (isset($datos[$campo])) {
             $datos[$campo] = $rta_map[$datos[$campo]] ?? $datos[$campo];
         }
+    } */
+   
+    // Obtener catálogo rta (SI/NO)
+    $sql_cat = "SELECT idcatadeta AS value, descripcion AS label FROM catadeta WHERE idcatalogo=170 AND estado='A'";
+    $cat_arr = datos_mysql($sql_cat, MYSQLI_ASSOC, false, []);
+    $rta_map = [];
+    if (!empty($cat_arr['responseResult'])) {
+        foreach ($cat_arr['responseResult'] as $item) {
+            $rta_map[$item['label']] = $item['value'];
+            $rta_map[$item['value']] = $item['value'];
+        }
     }
-    // Si estado también es texto, mapea aquí
+
+    // Normalizar campos rta
+    foreach (['consultar','editar','crear','ajustar','importar'] as $campo) {
+        if (isset($datos[$campo])) {
+            $val = $datos[$campo];
+            $datos[$campo] = $rta_map[$val] ?? $val;
+        }
+    }
+
+    // Normalizar estado si aplica (ejemplo para estado)
+    $sql_est = "SELECT idcatadeta AS value, descripcion AS label FROM catadeta WHERE idcatalogo=11 AND estado='A'";
+    $est_arr = datos_mysql($sql_est, MYSQLI_ASSOC, false, []);
+    $est_map = [];
+    if (!empty($est_arr['responseResult'])) {
+        foreach ($est_arr['responseResult'] as $item) {
+            $est_map[$item['label']] = $item['value'];
+            $est_map[$item['value']] = $item['value'];
+        }
+    }
+    if (isset($datos['estado'])) {
+        $val = $datos['estado'];
+        $datos['estado'] = $est_map[$val] ?? $val;
+    }
 
     echo json_encode([
         'success'=>true,
