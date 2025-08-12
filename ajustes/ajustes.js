@@ -295,6 +295,7 @@ function loadAllRoleSelects(selected = {}) {
             loadSelectChoices('crear', data.opciones.rta, '-- Crear --', selected.crear ?? '1');
             loadSelectChoices('ajustar', data.opciones.rta, '-- Ajustar --', selected.ajustar ?? '1');
             loadSelectChoices('importar', data.opciones.rta, '-- Importar --', selected.importar ?? '1');
+            loadSelectChoices('estado', data.opciones.estado, '-- Estado --', selected.estado || 'A');
         }
     });
 }
