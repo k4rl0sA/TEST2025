@@ -102,7 +102,7 @@ switch ($a) {
             $datos[$campo] = $rta_map[$datos[$campo]] ?? $datos[$campo];
         }
     } */
-   
+
     // Obtener catálogo rta (SI/NO)
     $sql_cat = "SELECT idcatadeta AS value, descripcion AS label FROM catadeta WHERE idcatalogo=170 AND estado='A'";
     $cat_arr = datos_mysql($sql_cat, MYSQLI_ASSOC, false, []);
@@ -248,7 +248,7 @@ switch ($a) {
         break;
     
     case 'opciones':
-        $catalogos = ['estado'    => 11,'rta' => 170];
+        $catalogos = ['estado'    => 110,'rta' => 170];
         $opciones = [];
     foreach ($catalogos as $campo => $idcat) {
         $sql = "SELECT idcatadeta AS value, descripcion AS label FROM catadeta WHERE idcatalogo=? AND estado='A' ORDER BY 1";
