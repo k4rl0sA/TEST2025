@@ -160,6 +160,28 @@ header { display: flex; justify-content: space-between; align-items: center; pad
 .input-group input:focus, .input-group select:focus, .input-group textarea:focus { outline: 3px solid rgba(67,97,238,0.3); border-color: var(--primary); }
 .input-group input:focus ~ label, .input-group input:not(:placeholder-shown) ~ label, .input-group select:focus ~ label, .input-group select:not([value=""]) ~ label, .input-group textarea:focus ~ label, .input-group textarea:not(:placeholder-shown) ~ label { top: -1.38rem; font-size: 0.8rem; color: var(--primary); }
 
+.input-group .choices__inner:focus-within ~ label,
+.input-group .choices__inner:not(:empty) ~ label,
+.input-group .choices__list--single:not(:empty) ~ label {
+    top: -1.38rem;
+    font-size: 0.8rem;
+    color: var(--primary);
+}
+.input-group .choices__inner:focus-within ~ label,
+.input-group .choices__inner:not(:empty) ~ label,
+.input-group .choices__list--single:not(:empty) ~ label,
+.input-group select:focus ~ label,
+.input-group select:not([value=""]) ~ label {
+    top: -1.38rem;
+    font-size: 0.8rem;
+    color: var(--primary);
+}
+.input-group.has-value label {
+    top: -1.38rem;
+    font-size: 0.8rem;
+    color: var(--primary);
+}
+
 
 /* Placeholder styles */
 .error-message { color: var(--danger, #e63946); font-size: 0.95em; margin-top: 4px; margin-left: 2px; display: block; animation: fadeInError 0.3s; }
@@ -532,21 +554,4 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
 
 
 
-.input-group .choices__inner:focus-within ~ label,
-.input-group .choices__inner:not(:empty) ~ label,
-.input-group .choices__list--single:not(:empty) ~ label {
-    top: -1.38rem;
-    font-size: 0.8rem;
-    color: var(--primary);
-}
 
-
-.input-group .choices__inner:focus-within ~ label,
-.input-group .choices__inner:not(:empty) ~ label,
-.input-group .choices__list--single:not(:empty) ~ label,
-.input-group select:focus ~ label,
-.input-group select:not([value=""]) ~ label {
-    top: -1.38rem;
-    font-size: 0.8rem;
-    color: var(--primary);
-}
