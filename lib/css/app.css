@@ -317,7 +317,7 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
 }
 .input-group .choices__item {
     /* padding: 0 14px; */
-    box-sizing: border-box;
+    box-sizing: border-box !important;
 }
 
 /*Fin styles chocices*/
