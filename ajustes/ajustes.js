@@ -13,7 +13,8 @@ function updateActiveFiltersChips() {
     if (filters.modulo) { chipsList.appendChild(createChip('Módulo', filters.modulo, 'modulo')); count++; }
     if (filters.perfil) { chipsList.appendChild(createChip('Perfil', filters.perfil, 'perfil')); count++; }
     if (filters.estado) {
-        let label = filters.estado === 'A' ? 'Activo' : 'Inactivo';
+            loadAllRoleSelects();
+        // let label = filters.estado === 'A' ? 'Activo' : 'Inactivo';
         chipsList.appendChild(createChip('Estado', label, 'estado')); count++;
     }
     const countSpan = document.getElementById('active-filters-count');
