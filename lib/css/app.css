@@ -162,7 +162,9 @@ header { display: flex; justify-content: space-between; align-items: center; pad
 
 .input-group .choices__inner:focus-within ~ label,
 .input-group .choices__inner:not(:empty) ~ label,
-.input-group .choices__list--single:not(:empty) ~ label {
+.input-group .choices__list--single:not(:empty) ~ label,
+.input-group select:focus ~ label,
+.input-group select:not([value=""]) ~ label {
     top: -1.38rem;
     font-size: 0.8rem;
     color: var(--primary);
