@@ -183,9 +183,11 @@ document.querySelectorAll('#roles-table th[data-sort]').forEach(th => {
 });
 
 // --- CRUD SPA ---
+// FUNCION DE CREAR
 document.getElementById('add-btn').onclick = function() {
     editingId = null;
     document.getElementById('role-form').reset();
+    loadAllRoleSelects();
     const formTitle = document.getElementById('form-title');
     formTitle.innerHTML = '';
     const icon = document.createElement('i');
@@ -203,25 +205,30 @@ document.getElementById('close-win').onclick = function() {
     document.getElementById('form-ajustes').classList.add('hidden');
     document.getElementById('table-section').classList.remove('hidden');
 };
+//FUNCION DE EDITAR
 window.editRole = function(id) {
+    document.getElementById('role-form').reset();
     fetchWithLoader(`/ajustes/lib.php?a=get&id=${id}`, {}, function(data) {
             const datos= data.datos;
             editingId = datos.id_rol;
+            loadAllRoleSelects({
+                consultar: datos.consultar,
+                editar: datos.editar,
+                crear: datos.crear,
+                ajustar: datos.ajustar,
+                importar: datos.importar,
+                estado: datos.estado
+            });
             document.getElementById('id_rol').value = datos.id_rol;
             document.getElementById('modulo').value = datos.modulo;
             document.getElementById('perfil').value = datos.perfil;
             document.getElementById('componente').value = datos.componente;
-            document.getElementById('consultar').value = datos.consultar;
-            document.getElementById('editar').value = datos.editar;
-            document.getElementById('crear').value = datos.crear;
-            document.getElementById('ajustar').value = datos.ajustar;
-            document.getElementById('importar').value = datos.importar;
-            document.getElementById('estado').value = datos.estado;
             document.getElementById('form-title').textContent = 'Editar Rol';
             document.getElementById('table-section').classList.add('hidden');
             document.getElementById('form-ajustes').classList.remove('hidden');
         });
 };
+// FUNCION DE ELIMINAR
 window.deleteRole = function(id) {
     if (!confirm('¿Está seguro de eliminar este rol?')) return;
     const formData = new FormData();
@@ -244,7 +251,6 @@ document.getElementById('role-form').addEventListener('submit', function(e) {
         fetchRoles();
     });
 });
-
 // --- Fetch roles con filtros, paginador y orden ---
 function fetchRoles() {
     showLoader();
