@@ -59,6 +59,7 @@ document.getElementById('clear-filters').onclick = function() {
     page = 1;
     fetchRoles();
     updateActiveFiltersChips();
+    loadAllRoleSelects();
 };
 
 // --- Tabla, paginador y ordenamiento ---
