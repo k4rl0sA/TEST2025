@@ -158,8 +158,9 @@ header { display: flex; justify-content: space-between; align-items: center; pad
 .input-group textarea { min-height: 120px; resize: vertical; }
 .input-group input:focus, .input-group select:focus, .input-group textarea:focus { outline: 3px solid rgba(67,97,238,0.3); border-color: var(--primary); }
 .input-group input:focus ~ label, .input-group input:not(:placeholder-shown) ~ label, .input-group select:focus ~ label, .input-group select:not([value=""]) ~ label, .input-group textarea:focus ~ label, .input-group textarea:not(:placeholder-shown) ~ label { top: -1.38rem; font-size: 0.8rem; color: var(--primary); }
-.input-group select:focus ~ label,.input-group select:not([value=""]) ~ label {top: -1.38rem;font-size: 0.8rem;color: var(--primary);}
+/* .input-group select:focus ~ label,.input-group select:not([value=""]) ~ label {top: -1.38rem;font-size: 0.8rem;color: var(--primary);} */
 
+.input-group .choices__inner:focus-within ~ label,.input-group select:not([value=""]) ~ label {top: -1.38rem;font-size: 0.8rem;color: var(--primary);}
 .error-message { color: var(--danger, #e63946); font-size: 0.95em; margin-top: 4px; margin-left: 2px; display: block; animation: fadeInError 0.3s; }
 @keyframes fadeInError { from { opacity: 0; transform: translateY(-5px);} to { opacity: 1; transform: translateY(0);} }
 .input-error { border-color: var(--danger, #e63946); background: #fff6f6; }
