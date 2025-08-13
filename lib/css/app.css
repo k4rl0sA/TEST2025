@@ -263,7 +263,7 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
 .btn-chip .chip-count.animated { animation: badgeBounce 0.4s; }
 
 /*Styles para Choices selects*/
-.input-group .choices,
+/* .input-group .choices,
 .input-group .choices__inner {
     width: 100%;
     font-size: 1rem;
@@ -274,7 +274,7 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
     box-shadow: none;
     padding: 0;
     transition: var(--transition);
-}
+} 
 .input-group .choices__inner {
     min-height: 48px;
     padding: 16px 15px 5px;
@@ -288,7 +288,7 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
 }
 .input-group .choices__list--single {
     padding: 0;
-}
+}*/
 .input-group .choices__placeholder {
     color: #b0b0b0;
     opacity: 1;
