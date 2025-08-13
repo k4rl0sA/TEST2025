@@ -339,6 +339,10 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
     box-sizing: border-box !important;
 }
 
+choices__list--dropdown .choices__item--selectable, .choices__list[aria-expanded] .choices__item--selectable{
+    padding: auto !important;
+}
+
 /*Fin styles chocices*/
 /*styles moviles*/
 @media (max-width: 600px) {
