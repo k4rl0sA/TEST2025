@@ -303,7 +303,7 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
 }
 .input-group .choices__item {
     display: block;
-    padding: 10px 16px;
+    /* padding: 10px 16px; */
     font-size: 1rem;
     white-space: nowrap;
     overflow: hidden;
