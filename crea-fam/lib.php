@@ -443,7 +443,7 @@ function lista_persons(){ //revisar
 		// echo $sql;
 		// $_SESSION['sql_person']=$sql;
 			$datos=datos_mysql($sql);
-		return panel_content($datos["responseResult"],"datos-lis",15);
+		return panel_content($datos["responseResult"],"datos-lis",15, array('R', 'Fecha Nacimiento'));
 }
 
 function focus_person(){
