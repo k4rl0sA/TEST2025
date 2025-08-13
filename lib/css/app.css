@@ -326,7 +326,7 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
     text-overflow: ellipsis;
     box-sizing: border-box !important;
     vertical-align: middle;
-} */
+} 
 .input-group .choices__list--dropdown .choices__item {
     width: 100%;
     display: block;
@@ -337,7 +337,7 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
     overflow: hidden;
     text-overflow: ellipsis;
     box-sizing: border-box !important;
-}
+}*/
 /*Fin styles chocices*/
 /*styles moviles*/
 @media (max-width: 600px) {
