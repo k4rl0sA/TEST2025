@@ -13,10 +13,13 @@ function updateActiveFiltersChips() {
     if (filters.modulo) { chipsList.appendChild(createChip('Módulo', filters.modulo, 'modulo')); count++; }
     if (filters.perfil) { chipsList.appendChild(createChip('Perfil', filters.perfil, 'perfil')); count++; }
     if (filters.estado) {
-            loadAllRoleSelects();
-        // let label = filters.estado === 'A' ? 'Activo' : 'Inactivo';
-        chipsList.appendChild(createChip('Estado', label, 'estado')); count++;
+    let label = filters.estado;
+    if (window.estadoOptions && Array.isArray(window.estadoOptions)) {
+        const found = window.estadoOptions.find(opt => opt.value == filters.estado);
+        if (found) label = found.label;
     }
+    chipsList.appendChild(createChip('Estado', label, 'estado')); count++;
+}
     const countSpan = document.getElementById('active-filters-count');
     if (countSpan) {
         countSpan.textContent = count;
