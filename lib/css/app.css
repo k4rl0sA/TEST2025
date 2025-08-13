@@ -316,7 +316,6 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
     color: var(--primary);
 }
 .input-group .choices__item {
-    /* padding: 0 14px; */
     box-sizing: border-box !important;
 }
 
