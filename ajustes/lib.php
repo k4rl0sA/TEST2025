@@ -256,7 +256,6 @@ switch ($a) {
         $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);
         $opciones[$campo] = isset($arr['responseResult']) ? $arr['responseResult'] : [];
     }
-    $per=datos_mysql("SELECT  perfil  FROM usuarios WHERE id_usuario ='{$_SESSION['us_sds']}'");
     $perfiles= datos_mysql("SELECT perfil as value, perfil as label FROM adm_roles WHERE perfil !='{$per['responseResult'][0]['perfil']}' GROUP BY perfil ORDER BY 1");
     $opciones['perfil'] = isset($perfiles['responseResult']) ? $perfiles['responseResult'] : [];
     echo json_encode([
