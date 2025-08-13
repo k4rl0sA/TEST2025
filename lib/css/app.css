@@ -315,8 +315,27 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
     font-size: 0.8rem;
     color: var(--primary);
 }
+/* Estilos universales para items de Choices.js */
 .input-group .choices__item {
-    /* padding: 0 14px; */
+    display: inline-block;
+    min-width: 80px;
+    padding: 8px 14px;
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-sizing: border-box !important;
+    vertical-align: middle;
+}
+.input-group .choices__list--dropdown .choices__item {
+    width: 100%;
+    display: block;
+    min-width: 120px;
+    padding: 10px 16px;
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     box-sizing: border-box !important;
 }
 
