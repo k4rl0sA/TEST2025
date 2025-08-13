@@ -436,7 +436,7 @@ function cmp_person(){
 function lista_persons(){ //revisar
 	// var_dump($_POST);
 	$id=divide($_POST['id']);
-		$sql="SELECT concat_ws('_',idpeople,$id[0]) ACCIONES,idpeople 'Cod Persona',concat_ws(' ',nombre1,nombre2,apellido1,apellido2) 'Usuario',FN_CATALOGODESC(18,eapb) EAPB, fecha_create Fecha_Creado,fecha_nacimiento 'Fecha Nacimiento'
+		$sql="SELECT concat_ws('_',idpeople,$id[0]) ACCIONES,idpeople 'Cod Persona',concat_ws(' ',nombre1,nombre2,apellido1,apellido2) 'Nombre Usuario',FN_CATALOGODESC(18,eapb) EAPB, fecha_create Fecha_Creado,fecha_nacimiento 'Fecha Nacimiento'
 		FROM `person` 
 			WHERE vivipersona='".$id[0]."'";
 		$sql.=" ORDER BY fecha_create";
