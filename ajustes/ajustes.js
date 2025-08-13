@@ -295,6 +295,9 @@ function loadAllRoleSelects(selected = {}) {
         if (data.opciones && data.opciones.estado)
             window.estadoOptions = data.opciones.estado;
             loadSelectChoices('fil-estado', data.opciones.estado, '-- Estado --', selected.estado || 'A');
+        if (data.opciones && data.opciones.perfil)
+            window.perfilOptions = data.opciones.perfil;
+            loadSelectChoices('fil-perfil', data.opciones.perfil, '-- Perfil --', selected.perfil || '');
         if (data.opciones && data.opciones.rta) {
             loadSelectChoices('consultar', data.opciones.rta, '-- Consultar --', selected.consultar ?? '1');
             loadSelectChoices('editar', data.opciones.rta, '-- Editar --', selected.editar ?? '1');
