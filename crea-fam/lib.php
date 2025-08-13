@@ -944,7 +944,7 @@ function formato_dato($a,$b,$c,$d){
 	}
 	if ($a=='datos-lis' && $b=='acciones'){
 		$rta="<nav class='menu right'>";
-		$rta.="<li class='icono menubtn' id='menuToggle_".$c['ACCIONES']."'></li><div id='menuContainer_".$c['ACCIONES']."'></div>";
+		/* $rta.="<li class='icono menubtn' id='menuToggle_".$c['ACCIONES']."'></li><div id='menuContainer_".$c['ACCIONES']."'></div>"; */
 		
 		
 		//mostrar('person','pro',event,'','lib.php',7,'person');Color('datos-lis');setTimeout(enabAfil,1000,'regimen','eaf');setTimeout(enabEtni,1000,'etnia','ocu','idi');setTimeout(enabLoca,1000,'reside_localidad','lochi');setTimeout(EditOcup,1000,'ocupacion','true');setTimeout(hideCuida,1000,'cuidador','cUi')
