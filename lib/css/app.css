@@ -296,7 +296,7 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
     border-radius: var(--border-radius);
     border: 1px solid var(--light-gray);
     background: white;
-    min-height: 48px;
+    /* min-height: 48px; */
     box-shadow: none;
     padding: 0;
     transition: var(--transition);
