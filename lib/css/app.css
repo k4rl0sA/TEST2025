@@ -263,6 +263,32 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
 .btn-chip .chip-count.animated { animation: badgeBounce 0.4s; }
 
 /*Styles para Choices selects*/
+.input-group .choices,
+.input-group .choices__inner {
+    width: 100%;
+    font-size: 1rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--light-gray);
+    background: white;
+    min-height: 48px;
+    box-shadow: none;
+    padding: 0;
+    transition: var(--transition);
+}
+.input-group .choices__inner {
+    min-height: 48px;
+    padding: 16px 15px 5px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    border-radius: 7px !important;
+}
+.input-group .choices__list--single {
+    padding: 0;
+}
 .input-group .choices__placeholder {
     color: #b0b0b0;
     opacity: 1;
@@ -288,53 +314,12 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
     top: -1.38rem;
     font-size: 0.8rem;
     color: var(--primary);
-} 
-/* .input-group .choices,
-.input-group .choices__inner {
-    width: 100%;
-    font-size: 1rem;
-    border-radius: var(--border-radius);
-    border: 1px solid var(--light-gray);
-    background: white;
-    /* min-height: 48px;
-    box-shadow: none;
-    padding: 0;
-    transition: var(--transition);
 }
 .input-group .choices__item {
-    display: block;
-    padding: 0px 10px;
-    font-size: 1rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    /* padding: 0 14px; */
     box-sizing: border-box !important;
 }
-.choices__list--dropdown, 
-.choices__list[aria-expanded] {
-    z-index: 9999 !important;
-    position: absolute !important;
-}
-.input-group .choices__list--multiple .choices__item {
-    background: var(--primary);
-    color: #fff;
-    border-radius: 16px;
-    margin: 2px 4px;
-    padding: 4px 14px;
-    font-size: 0.98rem;
-    font-weight: 500;
-    border: none;
-    display: inline-block;
-    white-space: nowrap;
-}
-.input-group .choices__list--dropdown .choices__item {
-    padding: 10px 16px;
-    font-size: 1rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    box-sizing: border-box !important;
-} */
+
 /*Fin styles chocices*/
 /*styles moviles*/
 @media (max-width: 600px) {
@@ -605,9 +590,3 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
     }
     .form-actions { flex-direction: column; gap: 0.7em; }
 }
-
-
-
-
-
-
