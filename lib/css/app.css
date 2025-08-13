@@ -289,14 +289,14 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
     font-size: 0.8rem;
     color: var(--primary);
 } 
-.input-group .choices,
+/* .input-group .choices,
 .input-group .choices__inner {
     width: 100%;
     font-size: 1rem;
     border-radius: var(--border-radius);
     border: 1px solid var(--light-gray);
     background: white;
-    /* min-height: 48px; */
+    /* min-height: 48px;
     box-shadow: none;
     padding: 0;
     transition: var(--transition);
@@ -334,7 +334,7 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
     overflow: hidden;
     text-overflow: ellipsis;
     box-sizing: border-box !important;
-}
+} */
 /*Fin styles chocices*/
 /*styles moviles*/
 @media (max-width: 600px) {
