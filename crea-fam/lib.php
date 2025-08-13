@@ -436,9 +436,7 @@ function cmp_person(){
 function lista_persons(){ //revisar
 	// var_dump($_POST);
 	$id=divide($_POST['id']);
-		$sql="SELECT concat_ws('_',idpeople,$id[0]) ACCIONES,idpeople 'Cod Persona',idpersona 'Identificación',tipo_doc 'Tipo de Documento',
-		concat_ws(' ',nombre1,nombre2,apellido1,apellido2) 'Nombre',fecha_nacimiento 'Fecha Nacimiento',
-		FN_CATALOGODESC(21,sexo) 'Sexo'
+		$sql="SELECT concat_ws('_',idpeople,$id[0]) ACCIONES,idpeople 'Cod Persona',concat_ws(' ',nombre1,nombre2,apellido1,apellido2) 'Nombre',FN_CATALOGODESC(18,eapb) EAPB, fecha_create Fecha_Creado 
 		FROM `person` 
 			WHERE vivipersona='".$id[0]."'";
 		$sql.=" ORDER BY fecha_create";
@@ -947,12 +945,12 @@ function formato_dato($a,$b,$c,$d){
 	if ($a=='datos-lis' && $b=='acciones'){
 		$rta="<nav class='menu right'>";
 		$rta.="<li class='icono menubtn' id='menuToggle_".$c['ACCIONES']."'></li><div id='menuContainer_".$c['ACCIONES']."'></div>";
-		$rta.="<li title='Editar Usuario' Onclick=\"mostrar('person','pro',event,'','lib.php',7,'person');Color('datos-lis');\"><i class='fa-solid fa-pen-to-square ico' id='".$c['ACCIONES']."'></i> </li>";//setTimeout(enabEapb,700,'regimen','rgm');setTimeout(getData,600,'person',event,this,['idpersona','tipo_doc','fecha_nacimiento','sexo']);
-		//mostrar('person','pro',event,'','lib.php',7,'person');Color('datos-lis');setTimeout(enabAfil,1000,'regimen','eaf');setTimeout(enabEtni,1000,'etnia','ocu','idi');setTimeout(enabLoca,1000,'reside_localidad','lochi');setTimeout(EditOcup,1000,'ocupacion','true');setTimeout(hideCuida,1000,'cuidador','cUi')
 		
-	
+		
+		//mostrar('person','pro',event,'','lib.php',7,'person');Color('datos-lis');setTimeout(enabAfil,1000,'regimen','eaf');setTimeout(enabEtni,1000,'etnia','ocu','idi');setTimeout(enabLoca,1000,'reside_localidad','lochi');setTimeout(EditOcup,1000,'ocupacion','true');setTimeout(hideCuida,1000,'cuidador','cUi')
 		$rta.="<li title='Validar Usuario' Onclick=\"mostrar('validPerson','pro',event,'','../soporte/valperson.php',7,'person');Color('datos-lis');\"><i class='fas fa-user-check ico' id='".$c['ACCIONES']."'></i> </li>";
 		if(validUser($c['ACCIONES'])){
+			$rta.="<li title='Editar Usuario' Onclick=\"mostrar('person','pro',event,'','lib.php',7,'person');Color('datos-lis');\"><i class='fa-solid fa-pen-to-square ico' id='".$c['ACCIONES']."'></i> </li>";//setTimeout(enabEapb,700,'regimen','rgm');setTimeout(getData,600,'person',event,this,['idpersona','tipo_doc','fecha_nacimiento','sexo']);
 			$rta .= acceso('signos') ? "<li title='Signos' onclick=\"mostrar('signos','pro',event,'','signos.php',7,'signos');Color('datos-lis');\"><i class='fa-solid fa-stethoscope ico' id='{$c['ACCIONES']}'></i></li>" : "";
 			$rta .= acceso('alertas') ? "<li title='Alertas' onclick=\"mostrar('alertas','pro',event,'','alertas.php',7,'alertas');Color('datos-lis');\"><i class='fa-solid fa-person-circle-exclamation ico' id='{$c['ACCIONES']}'></i></li>" : "";
 			
