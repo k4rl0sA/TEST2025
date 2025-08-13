@@ -290,6 +290,7 @@ loadAllRoleSelects();
 function loadAllRoleSelects(selected = {}) {
     fetchWithLoader('/ajustes/lib.php?a=opciones', {}, function(data) {
         if (data.opciones && data.opciones.estado)
+            window.estadoOptions = data.opciones.estado;
             loadSelectChoices('fil-estado', data.opciones.estado, '-- Estado --', selected.estado || 'A');
         if (data.opciones && data.opciones.rta) {
             loadSelectChoices('consultar', data.opciones.rta, '-- Consultar --', selected.consultar ?? '1');
