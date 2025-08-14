@@ -136,7 +136,7 @@ function get_persona(){
 		(SELECT L FROM tabla_zscore WHERE indicador = '$ind' AND sexo = '$sex[0]' AND edad_dias = $id[3])) - 1) / 
 		((SELECT L FROM tabla_zscore WHERE indicador = '$ind' AND sexo = '$sex[0]' AND edad_dias = $id[3]) *
 	 (SELECT S FROM tabla_zscore WHERE indicador = '$ind' AND sexo = '$sex[0]' AND edad_dias = $id[3])) as rta ";
-	echo $sql;
+	// echo $sql;
 	 $info=datos_mysql($sql);
 		 if (!$info['responseResult']) {
 			return '';
