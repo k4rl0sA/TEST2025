@@ -164,6 +164,7 @@ function grabar(tb='',ev){
   'tamrqc':'../rqc/lib.php',
   'tamsrq':'../srq/lib.php',
   'validPerson':'../soporte/valperson.php',
+  'medicamentosctrl':'../servicios/medicamentos.php',
   'traslados': '../soporte/trasladloc.php',
   'trasladint': '../soporte/interloc.php'
  	};

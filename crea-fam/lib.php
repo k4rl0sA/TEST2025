@@ -917,6 +917,19 @@ function validUser($id) {
 }
 
 
+function medicamAtenci($id) {
+    $id = divide($id);
+    $sql = "SELECT COUNT(*) AS total FROM eac_atencion WHERE id_people='".$id[0]."' AND medicamentos = '1'";
+    $info = datos_mysql($sql);
+	// var_dump($sql);
+	if(isset($info['responseResult'][0]['total']) && intval($info['responseResult'][0]['total']) > 0) {
+		return true;
+	} else {
+		return false;
+	}
+	return ;
+}
+
 function formato_dato($a,$b,$c,$d){
  $b=strtolower($b);
  $rta=$c[$d];
@@ -986,6 +999,11 @@ function formato_dato($a,$b,$c,$d){
 		
 			$rta .= acceso('admision') ? "<li title='Solicitar Admisión' onclick=\"mostrar('admision','pro',event,'','admision.php',7,'admision');Color('datos-lis');\"><i class='fa-solid fa-tty ico' id='{$c['ACCIONES']}'></i></li>" : "";
 			$rta .= acceso('atencion') ? "<li title='Crear Atención' onclick=\"mostrar('atencion','pro',event,'','atencion.php',7,'atencion');Color('datos-lis')\"><i class='fa-solid fa-user-doctor ico' id='{$c['ACCIONES']}'></i></li>" : "";
+			
+			if (medicamAtenci($c['ACCIONES'])) {
+				$rta .= acceso('medicamentosctrl') ? "<li title='Entrega Medicamentos' onclick=\"mostrar('medicamentosctrl','pro',event,'','../servicios/medicamentos.php',7,'Control Medicamentos');Color('datos-lis')\"><i class='fa-solid fa-user-doctor ico' id='{$c['ACCIONES']}'></i></li>" : "";
+			}
+
 			$rta .= acceso('vspeve') ? "<li class='icono admsi1' title='Validar Evento' id='{$c['ACCIONES']}' onclick=\"mostrar('vspeve','pro',event,'','vspeve.php',7,'vspeve');Color('datos-lis');\"></li>" : "";
 			$rta.=eventAsign($c['ACCIONES']);
 			$rta .= acceso('relevo') ? "<li title='Relevo' onclick=\"mostrar('relevo','pro',event,'','../relevo/lib.php',7,'relevo');Color('datos-lis');\"><i class=' fa-solid fa-person-cane ico' id='{$c['ACCIONES']}'></i></li>":"";
