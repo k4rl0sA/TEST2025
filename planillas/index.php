@@ -54,23 +54,24 @@ $usu=divide($rta["responseResult"][0]['usu']);
 	<div class="campo"><div>Estado Planilla</div>
 		<select class="captura" id="festado_planilla" name="festado_planilla" OnChange="actualizar();">
 			<option value="">Todos</option>
-			<option value="PE">Pendiente</option>
-			<option value="AC">Activo</option>
-			<option value="AR">Archivado</option>
-			<option value="EL">Eliminado</option>
+			<option value="P">Pendiente</option>
+			<option value="A">Activo</option>
+			<option value="G">Archivado</option>
 		</select>
 	</div>
 </div>
 <div class='col-8 panel' id='<?php echo $mod; ?>'>
-      <div class='titulo' > PLANILLAS
+      <div class='titulo'> PLANILLAS
 		<nav class='menu left' >
 			<li class='icono listado' title='Ver Listado' onclick="desplegar(mod+'-lis');" ></li>
 			<li class='icono actualizar'    title='Actualizar'      Onclick="actualizar();">
 			<li class='icono filtros'    title='Filtros'      Onclick="showFil(mod);">
+            <li class='icono crear'       title='Crear Planilla'    Onclick="mostrar(mod,'pro');"></li>
 		</nav>
 		<nav class='menu right' >
 			<li class='icono ayuda'      title='Necesitas Ayuda'            Onclick=" window.open('https://drive.google.com/drive/folders/1JGd31V_12mh8-l2HkXKcKVlfhxYEkXpA', '_blank');"></li>
             <li class='icono cancelar'      title='Salir'            Onclick="location.href='../main/'"></li>
+
         </nav>               
       </div>
       <div>
