@@ -142,6 +142,14 @@ function get_persona(){
 }
 
 
+function opc_tipodoc($id=''){
+  return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 1",$id);
+}
+function opc_sexo($id=''){
+  return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=21 and estado='A' ORDER BY 1",$id);
+}
+
+
 // Funciones para opciones de select
 function opc_numero_entrega($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=88 AND estado='A' ORDER BY 1",$id);
