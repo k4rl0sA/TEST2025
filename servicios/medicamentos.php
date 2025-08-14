@@ -106,16 +106,16 @@ function cmp_medicamentctrl(){
     // Datos de medicamentos
     $o='medicamentos';
     $c[]=new cmp($o,'e',null,'CONTROL DE MEDICAMENTOS',$w);
-    $c[]=new cmp('cantidad_prescrita','n',10,$e,$w.' '.$o,'Cantidad Prescrita','cantidad_prescrita',null,'',true,true,'','col-2');
+    $c[]=new cmp('cantidad_prescrita','nu',10,$e,$w.' '.$o,'Cantidad Prescrita','cantidad_prescrita',null,'',true,true,'','col-2');
     $c[]=new cmp('fecha_entrega','d',10,$e,$w.' '.$o,'Fecha de Entrega','fecha_entrega',null,'',true,true,'','col-2',"validDate(this,$days,0);");
     $c[]=new cmp('numero_entrega','s',2,$e,$w.' '.$o,'Número de Entrega','numero_entrega',null,'',true,true,'','col-2');
-    $c[]=new cmp('cantidad_entregada','n',10,$e,$w.' '.$o,'Cantidad Entregada','cantidad_entregada',null,'',true,true,'','col-2');
+    $c[]=new cmp('cantidad_entregada','nu',10,$e,$w.' '.$o,'Cantidad Entregada','cantidad_entregada',null,'',true,true,'','col-2');
     $c[]=new cmp('tipo_medicamento','s',2,$e,$w.' '.$o,'Tipo Medicamento','tipo_medicamento',null,'',true,true,'','col-2');
     $c[]=new cmp('medicamento','s',2,$e,$w.' '.$o,'Medicamento','medicamento',null,'',true,true,'','col-2');
     $c[]=new cmp('requiere_aprobacion','s',2,$e,$w.' '.$o,'Requiere Aprobación','requiere_aprobacion',null,'',true,true,'','col-2');
-    $c[]=new cmp('cantidadXaprobar','n',10,$e,$w.' '.$o,'Cantidad por Aprobar','cantidadXaprobar',null,'',true,true,'','col-2');
+    $c[]=new cmp('cantidadXaprobar','nu',10,$e,$w.' '.$o,'Cantidad por Aprobar','cantidadXaprobar',null,'',true,true,'','col-2');
     $c[]=new cmp('estado_entrega','s',2,$e,$w.' '.$o,'Estado Entrega','estado_entrega',null,'',true,true,'','col-2');
-    $c[]=new cmp('observaciones','t',255,$e,$w.' '.$o,'Observaciones','observaciones',null,'',true,true,'','col-12');
+    $c[]=new cmp('observaciones','a',255,$e,$w.' '.$o,'Observaciones','observaciones',null,'',true,true,'','col-12');
     
     for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
     return $rta;
