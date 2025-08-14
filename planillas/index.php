@@ -50,7 +50,14 @@ $usu=divide($rta["responseResult"][0]['usu']);
 <div class="col-2 menu-filtro" id='<?php echo $mod; ?>-fil'>
 	<div class="campo"><div>ID Persona</div><input class="captura" size=6 id="fidpeople" name="fidpeople" OnChange="actualizar();"></div>
 	<div class="campo"><div>Código Familia</div><input class="captura" size=6 id="fcod_fam" name="fcod_fam" OnChange="actualizar();"></div>
-	<div class="campo"><div>Tipo Documento</div><input class="captura" size=3 id="ftipo" name="ftipo" OnChange="actualizar();"></div>
+    <div class="campo"><div>Tipo Planilla</div>
+		<select class="captura" id="ftipo" name="ftipo" OnChange="actualizar();">
+			<option value="">Todos</option>
+			<option value="1">Abordaje</option>
+			<option value="2">Plan de Cuidado Familiar</option>
+			<option value="3">Atenciones</option>
+		</select>
+	</div>
 	<div class="campo"><div>Estado Planilla</div>
 		<select class="captura" id="festado_planilla" name="festado_planilla" OnChange="actualizar();">
 			<option value="">Todos</option>
