@@ -1,0 +1,257 @@
+<?php
+require_once "../libs/gestion.php";
+ini_set('display_errors','1');
+if ($_POST['a']!='opc') $perf=perfil($_POST['tb']);
+if (!isset($_SESSION['us_sds'])) die("<script>window.top.location.href='/';</script>");
+else {
+  $rta="";
+  switch ($_POST['a']){
+  case 'csv': 
+    header_csv ($_REQUEST['tb'].'.csv');
+    $rs=array('','');    
+    echo csv($rs,'');
+    die;
+    break;
+  default:
+    eval('$rta='.$_POST['a'].'_'.$_POST['tb'].'();');
+    if (is_array($rta)) json_encode($rta);
+    else echo $rta;
+  }   
+}
+
+function focus_medicamentctrl(){
+  return 'medicamentctrl';
+}
+ 
+function men_medicamentctrl(){
+  $rta=cap_menus('medicamentctrl','pro');
+  return $rta;
+}
+
+function cap_menus($a,$b='cap',$con='con') {
+  $rta = "";
+  $acc=rol($a);
+  if ($a=='medicamentctrl' && isset($acc['crear']) && $acc['crear']=='SI') {  
+   $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
+  }
+  $rta .= "<li class='icono $a actualizar'  title='Actualizar'      Onclick=\"act_lista('$a',this);\"></li>";  
+  return $rta;
+}
+
+function lis_medicamentctrl(){
+    $id=divide($_POST['id']);
+
+    $total="SELECT COUNT(*) AS total FROM (
+      SELECT id_medic 'Cod Registro', idpeople, 
+             CONCAT(cantidad_prescrita, ' unidades') as cantidad_prescrita,
+             fecha_entrega,
+             FN_CATALOGODESC(88, numero_entrega) as numero_entrega,
+             CONCAT(cantidad_entregada, ' unidades') as cantidad_entregada,
+             FN_CATALOGODESC(89, tipo_medicamento) as tipo_medicamento,
+             FN_CATALOGODESC(90, medicamento) as medicamento,
+             FN_CATALOGODESC(91, estado_entrega) as estado_entrega
+      FROM medicamentos_ctrl 
+      WHERE idpeople='{$id[0]}' AND estado='A'
+    ) AS Subquery";
+    
+    $info=datos_mysql($total);
+    $total=$info['responseResult'][0]['total']; 
+    $regxPag=5;
+    $pag=(isset($_POST['pag-medicamentctrl']))? ($_POST['pag-medicamentctrl']-1)* $regxPag:0;
+
+    $sql="SELECT id_medic 'Cod Registro', idpeople, 
+                 CONCAT(cantidad_prescrita, ' unidades') as cantidad_prescrita,
+                 fecha_entrega,
+                 FN_CATALOGODESC(88, numero_entrega) as numero_entrega,
+                 CONCAT(cantidad_entregada, ' unidades') as cantidad_entregada,
+                 FN_CATALOGODESC(89, tipo_medicamento) as tipo_medicamento,
+                 FN_CATALOGODESC(90, medicamento) as medicamento,
+                 FN_CATALOGODESC(91, estado_entrega) as estado_entrega
+          FROM medicamentos_ctrl 
+          WHERE idpeople='{$id[0]}' AND estado='A'";
+    $sql.=" ORDER BY fecha_entrega DESC LIMIT $pag, $regxPag";
+    
+    $datos=datos_mysql($sql);
+    return create_table($total,$datos["responseResult"],"medicamentctrl",$regxPag,'medicamentctrl.php');
+}
+
+function cmp_medicamentctrl(){
+    $rta="<div class='encabezado medid'>CONTROL DE ENTREGAS DE MEDICAMENTOS</div>
+    <div class='contenido' id='medicamentctrl-lis'>".lis_medicamentctrl()."</div></div>";
+    
+    $t=['id_medic'=>'','idpersona'=>'','nombre'=>'','tipodoc'=>'','fechanacimiento'=>'','edad'=>'','sexo'=>'',
+        'cantidad_prescrita'=>'','fecha_entrega'=>'','numero_entrega'=>'','cantidad_entregada'=>'',
+        'tipo_medicamento'=>'','medicamento'=>'','requiere_aprobacion'=>'','cantidadXaprobar'=>'',
+        'estado_entrega'=>'','observaciones'=>''];
+    
+    $d=get_persona();
+    if ($d==""){$d=$t;}
+    $e="";
+    $w='medicamentctrl';
+    $o='datos';
+    $key='med';
+    $edad='AÑOS= '.$d['anos'].' MESES= '.$d['meses'].' DIAS= '.$d['dias'];
+    $days=fechas_app('med');
+    
+    // Datos de identificación
+    $c[]=new cmp($o,'e',null,'DATOS DE IDENTIFICACIÓN',$w);
+    $c[]=new cmp('id','h',15,$_POST['id'],$w.' '.$o,'','',null,'####',false,false);
+    $c[]=new cmp('idpersona','n','20',$d['idpersona'],$w.' '.$o.' '.$key,'N° Identificación','idpersona',null,'',false,false,'','col-3');
+    $c[]=new cmp('tipodoc','s','3',$d['tipodoc'],$w.' '.$o.' '.$key,'Tipo Identificación','tipodoc',null,'',false,false,'','col-3');
+    $c[]=new cmp('nombre','t','50',$d['nombre'],$w.' '.$o,'nombres','nombre',null,'',false,false,'','col-4');
+    $c[]=new cmp('sexo','s','3',$d['sexo'],$w.' '.$o,'Sexo','sexo',null,'',true,false,'','col-2');
+    $c[]=new cmp('fechanacimiento','d',10,$d['fechanacimiento'],$w.' '.$o,'fecha nacimiento','fechanacimiento',null,'',true,false,'','col-3');
+    $c[]=new cmp('edad','t',30,$edad,$w.' '.$o,'edad en Años','edad',null,'',true,false,'','col-3');
+    
+    // Datos de medicamentos
+    $o='medicamentos';
+    $c[]=new cmp($o,'e',null,'CONTROL DE MEDICAMENTOS',$w);
+    $c[]=new cmp('cantidad_prescrita','n',10,$e,$w.' '.$o,'Cantidad Prescrita','cantidad_prescrita',null,'',true,true,'','col-2');
+    $c[]=new cmp('fecha_entrega','d',10,$e,$w.' '.$o,'Fecha de Entrega','fecha_entrega',null,'',true,true,'','col-2',"validDate(this,$days,0);");
+    $c[]=new cmp('numero_entrega','s',2,$e,$w.' '.$o,'Número de Entrega','numero_entrega',null,'',true,true,'','col-2');
+    $c[]=new cmp('cantidad_entregada','n',10,$e,$w.' '.$o,'Cantidad Entregada','cantidad_entregada',null,'',true,true,'','col-2');
+    $c[]=new cmp('tipo_medicamento','s',2,$e,$w.' '.$o,'Tipo Medicamento','tipo_medicamento',null,'',true,true,'','col-2');
+    $c[]=new cmp('medicamento','s',2,$e,$w.' '.$o,'Medicamento','medicamento',null,'',true,true,'','col-2');
+    $c[]=new cmp('requiere_aprobacion','s',2,$e,$w.' '.$o,'Requiere Aprobación','requiere_aprobacion',null,'',true,true,'','col-2');
+    $c[]=new cmp('cantidadXaprobar','n',10,$e,$w.' '.$o,'Cantidad por Aprobar','cantidadXaprobar',null,'',true,true,'','col-2');
+    $c[]=new cmp('estado_entrega','s',2,$e,$w.' '.$o,'Estado Entrega','estado_entrega',null,'',true,true,'','col-2');
+    $c[]=new cmp('observaciones','t',255,$e,$w.' '.$o,'Observaciones','observaciones',null,'',true,true,'','col-12');
+    
+    for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
+    return $rta;
+}
+
+// Funciones para opciones de select
+function opc_numero_entrega($id=''){
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=88 AND estado='A' ORDER BY 1",$id);
+}
+
+function opc_tipo_medicamento($id=''){
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=89 AND estado='A' ORDER BY 1",$id);
+}
+
+function opc_medicamento($id=''){
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=90 AND estado='A' ORDER BY 1",$id);
+}
+
+function opc_requiere_aprobacion($id=''){
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=92 AND estado='A' ORDER BY 1",$id);
+}
+
+function opc_estado_entrega($id=''){
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=91 AND estado='A' ORDER BY 1",$id);
+}
+
+function gra_medicamentctrl(){
+    // Validación de campos obligatorios
+    $required = [
+        'cantidad_prescrita', 'fecha_entrega', 'numero_entrega',
+        'tipo_medicamento', 'medicamento', 'estado_entrega'
+    ];
+    
+    foreach ($required as $field) {
+        if (empty($_POST[$field])) {
+            return ['error' => 'El campo '.$field.' es obligatorio.'];
+        }
+    }
+    
+    // Validar formato de fecha (YYYY-MM-DD)
+    if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $_POST['fecha_entrega'])) {
+        return ['error' => 'El formato de la fecha es inválido.'];
+    }
+    
+    // Validar valores numéricos
+    if (!is_numeric($_POST['cantidad_prescrita']) || $_POST['cantidad_prescrita'] <= 0) {
+        return ['error' => 'La cantidad prescrita debe ser un número positivo.'];
+    }
+    
+    if (!empty($_POST['cantidad_entregada']) && 
+        (!is_numeric($_POST['cantidad_entregada']) || $_POST['cantidad_entregada'] < 0)) {
+        return ['error' => 'La cantidad entregada debe ser un número positivo.'];
+    }
+    
+    $id = divide($_POST['id']);
+    if (count($id) == 1) {
+        // Actualización
+        $sql = "UPDATE medicamentos_ctrl SET 
+                cantidad_prescrita=?, fecha_entrega=?, numero_entrega=?, 
+                cantidad_entregada=?, tipo_medicamento=?, medicamento=?, 
+                requiere_aprobacion=?, cantidadXaprobar=?, estado_entrega=?, 
+                observaciones=?, usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
+                WHERE id_medic=?";
+        $params = [
+            ['type' => 'i', 'value' => intval($_POST['cantidad_prescrita'])],
+            ['type' => 's', 'value' => trim($_POST['fecha_entrega'])],
+            ['type' => 's', 'value' => trim($_POST['numero_entrega'])],
+            ['type' => 'i', 'value' => intval($_POST['cantidad_entregada'] ?? 0)],
+            ['type' => 's', 'value' => trim($_POST['tipo_medicamento'])],
+            ['type' => 's', 'value' => trim($_POST['medicamento'])],
+            ['type' => 's', 'value' => trim($_POST['requiere_aprobacion'] ?? '')],
+            ['type' => 'i', 'value' => intval($_POST['cantidadXaprobar'] ?? 0)],
+            ['type' => 's', 'value' => trim($_POST['estado_entrega'])],
+            ['type' => 's', 'value' => trim($_POST['observaciones'] ?? '')],
+            ['type' => 's', 'value' => $_SESSION['us_sds']],
+            ['type' => 'i', 'value' => intval($id[0])]
+        ];
+    } else if (count($id) == 2) {
+        // Inserción
+        $sql = "INSERT INTO medicamentos_ctrl VALUES (
+                ?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),?,?,?)";
+        $params = [
+            ['type' => 'i', 'value' => null], // id_medic auto-increment
+            ['type' => 's', 'value' => $id[0]], // idpeople
+            ['type' => 'i', 'value' => intval($_POST['cantidad_prescrita'])],
+            ['type' => 's', 'value' => trim($_POST['fecha_entrega'])],
+            ['type' => 's', 'value' => trim($_POST['numero_entrega'])],
+            ['type' => 'i', 'value' => intval($_POST['cantidad_entregada'] ?? 0)],
+            ['type' => 's', 'value' => trim($_POST['tipo_medicamento'])],
+            ['type' => 's', 'value' => trim($_POST['medicamento'])],
+            ['type' => 's', 'value' => trim($_POST['requiere_aprobacion'] ?? '')],
+            ['type' => 'i', 'value' => intval($_POST['cantidadXaprobar'] ?? 0)],
+            ['type' => 's', 'value' => trim($_POST['estado_entrega'])],
+            ['type' => 's', 'value' => trim($_POST['observaciones'] ?? '')],
+            ['type' => 's', 'value' => $_SESSION['us_sds']], // usu_create
+            ['type' => 's', 'value' => null], // usu_update
+            ['type' => 's', 'value' => null], // fecha_update
+            ['type' => 's', 'value' => 'A'] // estado
+        ];
+    } else {
+        return ['error' => 'ID inválido.'];
+    }
+    
+    $rta = mysql_prepd($sql, $params);
+    return $rta;
+}
+
+function get_medicamentctrl(){
+    if($_REQUEST['id']==''){
+        return "";
+    } else {
+        $id=divide($_REQUEST['id']);
+        $sql="SELECT id_medic, idpeople, cantidad_prescrita, fecha_entrega, 
+                     numero_entrega, cantidad_entregada, tipo_medicamento, 
+                     medicamento, requiere_aprobacion, cantidadXaprobar, 
+                     estado_entrega, observaciones
+              FROM medicamentos_ctrl 
+              WHERE id_medic='{$id[0]}'";
+        $info=datos_mysql($sql);
+        return json_encode($info['responseResult'][0]);
+    } 
+}
+
+function formato_dato($a,$b,$c,$d){
+    $b=strtolower($b);
+    $rta=$c[$d];
+    
+    if ($a=='medicamentctrl-lis' && $b=='acciones'){
+        $rta="<nav class='menu right'>";    
+        $rta.="<li class='icono editar' title='Editar' id='".$c['Cod Registro']."' Onclick=\"setTimeout(getData,500,'medicamentctrl',event,this,['cantidad_prescrita','fecha_entrega','numero_entrega','cantidad_entregada','tipo_medicamento','medicamento','requiere_aprobacion','cantidadXaprobar','estado_entrega','observaciones'],'medicamentctrl.php');\"></li>";
+        $rta.="</nav>";
+    }
+    return $rta;
+}
+
+function bgcolor($a,$c,$f='c'){
+    $rta="";
+    return $rta;
+}
