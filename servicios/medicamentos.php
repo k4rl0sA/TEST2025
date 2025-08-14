@@ -121,6 +121,27 @@ function cmp_medicamentctrl(){
     return $rta;
 }
 
+function get_persona(){
+  if($_REQUEST['id']==''){
+    return "";
+  }else{
+    $id=divide($_REQUEST['id']);
+    $sql="SELECT P.idpeople,P.idpersona idpersona,P.tipo_doc tipodoc,CONCAT_WS(' ',nombre1,nombre2,apellido1,apellido2) nombre,P.fecha_nacimiento fechanacimiento,
+		P.sexo sexo,
+    TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) AS anos,
+    TIMESTAMPDIFF(MONTH, fecha_nacimiento, CURDATE())-(TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) * 12) AS meses,
+    DATEDIFF(CURDATE(),DATE_ADD(fecha_nacimiento, INTERVAL TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) YEAR)) % 30 AS dias
+		FROM person P
+		left join vspeve E ON P.idpeople = E.idpeople
+    WHERE P.idpeople='{$id[0]}'"; 
+    // echo $sql;
+    // print_r($_REQUEST);
+    $info=datos_mysql($sql);
+    return $info['responseResult'][0];
+  }
+}
+
+
 // Funciones para opciones de select
 function opc_numero_entrega($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=88 AND estado='A' ORDER BY 1",$id);
