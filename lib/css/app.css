@@ -277,7 +277,7 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
 }
 .input-group .choices__inner {
     min-height: 48px;
-    padding: 16px 15px 5px;
+    padding: 7px 15px 5px;
     background: transparent;
     border: none;
     box-shadow: none;
