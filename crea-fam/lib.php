@@ -961,7 +961,9 @@ function formato_dato($a,$b,$c,$d){
 		
 		
 		//mostrar('person','pro',event,'','lib.php',7,'person');Color('datos-lis');setTimeout(enabAfil,1000,'regimen','eaf');setTimeout(enabEtni,1000,'etnia','ocu','idi');setTimeout(enabLoca,1000,'reside_localidad','lochi');setTimeout(EditOcup,1000,'ocupacion','true');setTimeout(hideCuida,1000,'cuidador','cUi')
+		if(!validUser($c['ACCIONES'])){
 		$rta.="<li title='Validar Usuario' Onclick=\"mostrar('validPerson','pro',event,'','../soporte/valperson.php',7,'person');Color('datos-lis');\"><i class='fas fa-user-check ico' id='".$c['ACCIONES']."'></i> </li>";
+		}
 		if(validUser($c['ACCIONES'])){
 			$rta.="<li title='Editar Usuario' Onclick=\"mostrar('person','pro',event,'','lib.php',7,'person');Color('datos-lis');\"><i class='fa-solid fa-pen-to-square ico' id='".$c['ACCIONES']."'></i> </li>";//setTimeout(enabEapb,700,'regimen','rgm');setTimeout(getData,600,'person',event,this,['idpersona','tipo_doc','fecha_nacimiento','sexo']);
 			$rta .= acceso('signos') ? "<li title='Signos' onclick=\"mostrar('signos','pro',event,'','signos.php',7,'signos');Color('datos-lis');\"><i class='fa-solid fa-stethoscope ico' id='{$c['ACCIONES']}'></i></li>" : "";
