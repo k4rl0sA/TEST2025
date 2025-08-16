@@ -183,13 +183,10 @@ switch ($a) {
             ['type' => 's', 'value' => $importar],
             ['type' => 's', 'value' => $estado]
         ];
-        $res = mysql_prepd($sql, $params_insert);
-        var_dump($res);
-        // Verificar errores
-        if (strpos($res, 'Error') !== false) error_response("Error al crear: $res");
-        // Si es un ID, significa que se creó correctamente
-        if (!is_numeric($res)) error_response("Error al crear el rol: $res");
-        if (strpos($res, 'Error') !== false) error_response("Error al crear: $res");
+        $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params_insert);
+        if (!isset($arr['responseResult'][0]['affected_rows']) || $arr['responseResult'][0]['affected_rows'] < 1) {
+            error_response("Error al crear el rol");
+        }
         success_response('Rol creado correctamente');
         break;
 
