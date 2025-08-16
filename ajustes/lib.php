@@ -153,8 +153,9 @@ switch ($a) {
         $modulo    = clean($_POST['modulo']);
         $perfil    = clean($_POST['perfil']);
         $componente= clean($_POST['componente']);
+        $estado= clean($_POST['estado']);
         // Campos tipo SI/NO
-        foreach (['consultar','editar','crear','ajustar','importar','estado'] as $campo) {
+        foreach (['consultar','editar','crear','ajustar','importar'] as $campo) {
             $$campo = clean((isset($_POST[$campo]) && $_POST[$campo] == 1) ? 'SI' : 'NO');
         }
 
