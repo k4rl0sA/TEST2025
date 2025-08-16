@@ -63,9 +63,9 @@ header { display: flex; justify-content: space-between; align-items: center; pad
     border: 1px solid #e5e8ef;
     display: none;
     flex-direction: column;
-    position: absolute;
+    position: absolute !important;
     top: 3.5rem;
-    z-index: 10;
+    z-index: 9999 !important;
     animation: scaleInMenu 0.18s ease;
 }
 .action-menu.show { display: flex; }
