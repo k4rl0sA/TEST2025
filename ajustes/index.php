@@ -103,52 +103,52 @@ if (empty($_SESSION['csrf_token'])) {
             <input type="hidden" id="id_rol">
             <div class="form-row">
                 <div class="input-group">
-                    <input type="text" id="modulo" required maxlength="15" placeholder="">
+                    <input type="text" id="modulo" name="modulo" required maxlength="15" placeholder="">
                     <label for="modulo">Módulo</label>
                 </div>
                 <div class="input-group">
-                    <input type="text" id="perfil" required maxlength="11" placeholder="">
+                    <input type="text" id="perfil" name="perfil" required maxlength="11" placeholder="">
                     <label for="perfil">Perfil</label>
                 </div>
             </div>
             <div class="form-row">
                 <div class="input-group">
-                    <input type="text" id="componente" required placeholder="">
+                    <input type="text" id="componente" name="componente" required placeholder="">
                     <label for="componente">Componente</label>
                 </div>
                 <div class="input-group">
-                    <select id="consultar" required>
+                    <select id="consultar" name="consultar" required>
                     </select>
                     <label for="consultar">Consultar</label>    
                 </div>
             </div>
             <div class="form-row">
                 <div class="input-group">
-                    <select id="editar" required>
+                    <select id="editar" name="editar" required>
                     </select>
                     <label for="editar">Editar</label>
                 </div>
                 <div class="input-group">
-                    <select id="crear" required>
+                    <select id="crear" name="crear" required>
                     </select>
                     <label for="crear">Crear</label>
                 </div>
             </div>
             <div class="form-row">
                 <div class="input-group">
-                    <select id="ajustar" required>
+                    <select id="ajustar" name="ajustar" required>
                     </select>
                     <label for="ajustar">Ajustar</label>
                 </div>
                 <div class="input-group">
-                    <select id="importar" required>
+                    <select id="importar" name="importar" required>
                     </select>
                     <label for="importar">Importar</label>
                 </div>
             </div>
             <div class="form-row">
                 <div class="input-group">
-                    <select id="estado" required>
+                    <select id="estado" name="estado" required>
                     </select>
                     <label for="estado">Estado</label>
                 </div>
