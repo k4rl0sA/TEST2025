@@ -147,17 +147,16 @@ switch ($a) {
         check_csrf();
         $fields = ['modulo','perfil','componente','consultar','editar','crear','ajustar','importar','estado'];
         foreach ($fields as $f) {
-            if (empty($_POST[$f])) error_response("El campo '$f' es obligatorio");
+            if (!isset($_POST[$f]) || $_POST[$f] === '') error_response("El campo '$f' es obligatorio");
         }
-        $modulo = clean($_POST['modulo']);
-        $perfil = clean($_POST['perfil']);
-        $componente = clean($_POST['componente']);
-        $consultar = clean($_POST['consultar']);
-        $editar = clean($_POST['editar']);
-        $crear = clean($_POST['crear']);
-        $ajustar = clean($_POST['ajustar']);
-        $importar = clean($_POST['importar']);
-        $estado = clean($_POST['estado']);
+
+        $modulo    = clean($_POST['modulo']);
+        $perfil    = clean($_POST['perfil']);
+        $componente= clean($_POST['componente']);
+        // Campos tipo SI/NO
+        foreach (['consultar','editar','crear','ajustar','importar','estado'] as $campo) {
+            $$campo = clean((isset($_POST[$campo]) && $_POST[$campo] == 1) ? 'SI' : 'NO');
+        }
 
         // Validar unicidad
         $sql_check = "SELECT 1 FROM adm_roles WHERE modulo=? AND perfil=? AND componente=?";
