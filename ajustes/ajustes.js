@@ -256,6 +256,9 @@ document.getElementById('role-form').addEventListener('submit', function(e) {
         body: formData
     }, () => {
         document.getElementById('form-ajustes').classList.add('hidden');
+        document.getElementById('table-section').classList.remove('hidden');
+        document.getElementById('role-form').reset();
+        editingId = null;
         fetchRoles();
     });
 });
