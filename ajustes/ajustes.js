@@ -248,6 +248,9 @@ document.getElementById('role-form').addEventListener('submit', function(e) {
     const formData = new FormData(this);
     if (editingId) formData.append('id_rol', editingId);
     formData.append('csrf_token', window.CSRF_TOKEN);
+    for (const [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
     fetchWithLoader(`/ajustes/lib.php?a=${editingId ? 'update' : 'create'}`, {
         method: 'POST',
         body: formData
