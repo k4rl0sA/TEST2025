@@ -184,6 +184,11 @@ switch ($a) {
             ['type' => 's', 'value' => $estado]
         ];
         $res = mysql_prepd($sql, $params_insert);
+        var_dump($res);
+        // Verificar errores
+        if (strpos($res, 'Error') !== false) error_response("Error al crear: $res");
+        // Si es un ID, significa que se creó correctamente
+        if (!is_numeric($res)) error_response("Error al crear el rol: $res");
         if (strpos($res, 'Error') !== false) error_response("Error al crear: $res");
         success_response('Rol creado correctamente');
         break;
