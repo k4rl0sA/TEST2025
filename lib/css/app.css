@@ -54,8 +54,8 @@ header { display: flex; justify-content: space-between; align-items: center; pad
 .action-menu {
     position: fixed !important;
     z-index: 9999 !important;
-    min-width: 170px;
-    max-width: 90vw;
+    min-width: 30vw;
+    max-width: 34vw;
     box-shadow: 0 4px 16px rgba(67,97,238,0.18);
     background: #fff;
     border-radius: 12px;
