@@ -20,8 +20,8 @@ if (empty($_SESSION['csrf_token'])) {
     <link rel="stylesheet" href="../lib/css/choices.min.css?v=1">
     <script src="../lib/js/choices.min.js"></script>
     <script>window.CSRF_TOKEN = "<?php echo $_SESSION['csrf_token']; ?>";</script>
-    <script src="../lib/js/app.js?v=37" defer></script>
-    <script src="ajustes.js?v=37"></script>
+    <script src="../lib/js/app.js?v=38" defer></script>
+    <script src="ajustes.js?v=38"></script>
 </head>
 <body>
 <div class="content-card">
