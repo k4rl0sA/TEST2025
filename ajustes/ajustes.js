@@ -245,6 +245,17 @@ window.deleteRole = function(id) {
 };
 document.getElementById('role-form').addEventListener('submit', function(e) {
     e.preventDefault();
+    const modulo = document.getElementById('modulo').value.trim();
+    const perfil = document.getElementById('perfil').value.trim();
+    const componente = document.getElementById('componente').value.trim();
+    if (!modulo || !perfil || !componente) {
+        showToast('Por favor, complete todos los campos obligatorios.');
+        //focus on the first empty field
+        if (!modulo) document.getElementById('modulo').focus();
+        else if (!perfil) document.getElementById('perfil').focus();
+        else if (!componente) document.getElementById('componente').focus();    
+        return;
+    }
     const formData = new FormData(this);
     if (editingId) formData.append('id_rol', editingId);
     formData.append('csrf_token', window.CSRF_TOKEN);
