@@ -52,23 +52,25 @@ header { display: flex; justify-content: space-between; align-items: center; pad
     outline: none;
 }
 .action-menu {
-    right: 20px;
-    left: auto;
+    position: fixed !important;
+    z-index: 9999 !important;
     min-width: 170px;
     max-width: 90vw;
+    box-shadow: 0 4px 16px rgba(67,97,238,0.18);
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(67,97,238,0.10);
+    display: none;
+/* 
+    right: 20px;
+    left: auto;
     padding: 8px 0;
     border: 1px solid #e5e8ef;
-    display: none;
     flex-direction: column;
-    position: fixed !important;
-    top: 80px;
-    z-index: 9999 !important;
+    top: 80px; 
+    */
     animation: scaleInMenu 0.18s ease;
 }
-.action-menu.show { display: flex; }
+.action-menu.show { display: block; }
 .menu-item {
     position: relative;
     display: flex;
