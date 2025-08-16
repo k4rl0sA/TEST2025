@@ -25,7 +25,9 @@ function lis_planillas(){
     $total=$info['responseResult'][0]['total'];
     $regxPag=4;
     $pag=(isset($_POST['pag-planillas']))? ($_POST['pag-planillas']-1)* $regxPag:0;
-    $sql="SELECT CONCAT_WS('_',P.idplanilla,P.idpeople) ACCIONES, P.idplanilla 'ID', P.idpeople 'ID Persona', P.cod_fam 'Código Familia', P.tipo 'Tipo', P.estado_planilla 'Estado', P.fecha_crea 'Fecha Creación', P.usu_crea 'Creó' FROM `planillas` P WHERE estado_planilla!='G' ";
+    $sql="SELECT CONCAT_WS('_',P.id_planilla,P.idpeople) ACCIONES, P.id_planilla 'ID', P.idpeople 'ID Persona', P.cod_fam 'Código Familia', P.tipo 'Tipo', P.estado_planilla 'Estado', P.fecha_crea 'Fecha Creación', P.usu_crea 'Creó' 
+    FROM `planillas` P 
+    WHERE estado_planilla!='G' ";
     $sql.=whe_planillas();
     $sql.=" ORDER BY P.fecha_crea DESC";
     $sql.=' LIMIT '.$pag.','.$regxPag;
