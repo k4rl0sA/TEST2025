@@ -74,21 +74,20 @@ header { display: flex; justify-content: space-between; align-items: center; pad
 }
 .action-menu.show { display: block; }
 .menu-item {
-    position: relative;
     display: flex;
     align-items: center;
-    padding: 12px 18px;
+    gap: 14px;
+    padding: 12px 22px;
     color: #3b4d61;
+    font-size: 1.08em;
     font-weight: 500;
-    cursor: pointer;
     background: none;
     border: none;
     width: 100%;
     text-align: left;
-    transition: background 0.2s, color 0.2s;
-    overflow: hidden;
-    gap: 0.7em;
-    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s;
+    border-radius: 8px;
 }
 .menu-item .fa {
     width: 24px;
@@ -106,8 +105,12 @@ header { display: flex; justify-content: space-between; align-items: center; pad
     transform: translateX(6px) scale(1.15) rotate(-8deg);
 }
 .menu-item:hover, .menu-item:focus {
-        filter: brightness(0.93);
-        outline: none;
+    background: #f4f6fb;
+    color: var(--primary);
+    outline: none;
+}
+.menu-item:hover .fa, .menu-item:hover .icon {
+    color: var(--primary);
 }
 .menu-item .label {
     flex: 1;
@@ -131,12 +134,18 @@ header { display: flex; justify-content: space-between; align-items: center; pad
 .menu-item.delete-btn .fa {
     color: var(--error);
 }
+.menu-item.delete-btn .fa, .menu-item.delete-btn .icon {
+    color: var(--error);
+}
 .menu-item.delete-btn:hover {
-    background: var(--error);
-    color: #fff;
+    background: #ffeaea;
+    color: #d00;
 }
 .menu-item.delete-btn:hover .fa {
     color: #fff;
+}
+.menu-item.delete-btn:hover .fa, .menu-item.delete-btn:hover .icon {
+    color: #d00;
 }
 /* Ripple effect */
 .menu-item .ripple {
@@ -380,9 +389,14 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
         border-radius: 4px;
     }
     .menu-item .fa, .menu-item .icon {
-        font-size: 1.7em;
-        margin-bottom: 0;
-        color: #fff;
+        font-size: 1.25em;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #5a6b82;
+        transition: color 0.18s;
         transition: transform 0.2s;
     }
     .menu-item.edit-btn {
@@ -440,6 +454,9 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
     .menu-item:active {
         box-shadow: 0 4px 16px rgba(67,97,238,0.18);
         filter: brightness(0.96);
+    }
+    .menu-item:not(:last-child) {
+        margin-bottom: 2px;
     }
     .filters-bar {
         flex-direction: column;

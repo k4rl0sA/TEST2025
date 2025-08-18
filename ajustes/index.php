@@ -15,13 +15,13 @@ if (empty($_SESSION['csrf_token'])) {
     <meta name="keywords" content="roles, gestión, administración, permisos, sistema, filtros, seguridad">
     <meta name="author" content="Carlos Eduardo Acevedo Arevalo">
     <link rel="canonical" href="https://tusitio.com/ajustes/index.html">
-    <link rel="stylesheet" href="../lib/css/app.css?v=1.6">
+    <link rel="stylesheet" href="../lib/css/app.css?v=1.7">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
     <link rel="stylesheet" href="../lib/css/choices.min.css?v=1">
     <script src="../lib/js/choices.min.js"></script>
     <script>window.CSRF_TOKEN = "<?php echo $_SESSION['csrf_token']; ?>";</script>
-    <script src="../lib/js/app.js?v=41" defer></script>
-    <script src="ajustes.js?v=41"></script>
+    <script src="../lib/js/app.js?v=1.7" defer></script>
+    <script src="ajustes.js?v=1.7"></script>
 </head>
 <body>
 <div class="content-card">
@@ -153,7 +153,7 @@ if (empty($_SESSION['csrf_token'])) {
                     <label for="estado">Estado</label>
                 </div>
             </div>
-            <div class="form-actions">
+                <div class="form-actions">
                 <button type="submit" id="submit-btn" class="btn btn-primary" title="Guardar rol"><i class="fas fa-save"></i>Guardar</button>
                 <button type="button" id="cancel-btn" class="btn btn-outline" title="Cancelar"><i class="fas fa-times"></i>Cancelar</button>
             </div>
