@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dulcería - Tu Tienda de Dulces</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary-red: #ff2d2d;
+            --primary-yellow: #ffd700;
+            --dark-bg: #1a1a1a;
+            --gradient: linear-gradient(135deg, #ff2d2d 0%, #ffd700 100%);
+        }
+
+        .gradient-bg {
+            background: var(--gradient);
+        }
+
+        .bounce-in {
+            animation: bounceIn 0.6s ease-out;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 45, 45, 0.3);
+        }
+        .card-hover:hover .product-img-zoom {
+            transform: scale(1.12);
+        }
+
+        .product-img-zoom {
+            transition: transform 0.4s cubic-bezier(.25,.8,.25,1);
+        }
+
+        .btn-glow {
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        .btn-glow:hover {
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            transform: scale(1.05);
+        }
+
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25d366;
+            color: white;
+            border-radius: 50px;
+            padding: 15px;
+            font-size: 24px;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .cart-badge {
+            background: var(--primary-red);
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .slider-container {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            max-width: 100vw;
+            height: 24rem;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.77,0,0.175,1);
+            height: 100%;
+            will-change: transform;
+        }
+
+        .slider-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: stretch;
+        }
+
+        .category-filter {
+            border: ridge;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .category-filter:hover {
+            color: #ff2d2d;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 45, 45, 0.4);
+        }
+
+        .category-filter.active {
+            background: linear-gradient(45deg, #ff2d2d, #ffd700);
+            color: white;
+        }
+s
+        .sticky {
+            position: sticky;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            animation: bounceIn 0.5s ease-out;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            z-index: 1002;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <i class="fas fa-check-circle mr-2"></i>
+        <span id="notificationText">Producto agregado al carrito</span>
+    </div>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/1234567890" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold text-shadow bounce-in">
+                    <i class="fas fa-cookie-bite mr-2"></i>SweetStore
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#inicio" class="hover:text-yellow-300 transition duration-300 font-semibold">Inicio</a>
+                    <a href="#nosotros" class="hover:text-yellow-300 transition duration-300 font-semibold">Nosotros</a>
+                    <a href="#catalogo" class="hover:text-yellow-300 transition duration-300 font-semibold">Productos</a>
+                    <a href="#contacto" class="hover:text-yellow-300 transition duration-300 font-semibold">Contacto</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <button onclick="toggleCart()" class="bg-white text-red-600 px-4 py-2 rounded-full font-semibold hover:bg-yellow-300 transition duration-300">
+                            <i class="fas fa-shopping-cart mr-1"></i>Carrito
+                            <span id="cartCount" class="cart-badge">0</span>
+                        </button>
+                    </div>
+                    <button class="md:hidden text-white" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-2">
+                <a href="#inicio" class="block py-2 hover:text-yellow-300 transition duration-300">Inicio</a>
+                <a href="#nosotros" class="block py-2 hover:text-yellow-300 transition duration-300">Nosotros</a>
+                <a href="#catalogo" class="block py-2 hover:text-yellow-300 transition duration-300">Productos</a>
+                <a href="#contacto" class="block py-2 hover:text-yellow-300 transition duration-300">Contacto</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Slider -->
+    <section id="inicio" class="slider-container relative h-96 md:h-[32rem]">
+        <div class="slider-track" id="sliderTrack">
+            <div class="slider-slide bg-gradient-to-r from-pink-400 to-yellow-300">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <img src="https://placehold.co/1200x400?text=Dulces+y+Snacks" alt="Dulces y snacks variados" class="w-full h-full object-cover opacity-30">
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="text-center text-white p-8 fade-in">
+                        <h1 class="text-4xl md:text-6xl font-bold mb-4 text-shadow">¡Dulces y Snacks para Todos!</h1>
+                        <p class="text-xl md:text-2xl mb-8">Ofertas en galletas, chocolates, dulces y gaseosas</p>
+                        <button onclick="scrollToSection('catalogo')" class="bg-yellow-500 text-black px-8 py-4 rounded-full text-lg font-bold btn-glow hover:bg-yellow-400 transition duration-300">
+                            <i class="fas fa-shopping-bag mr-2"></i>Comprar Ahora
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-slide bg-gradient-to-l from-yellow-300 to-pink-400">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <img src="https://placehold.co/1200x400?text=Galletas+y+Chocolates" alt="Galletas y chocolates" class="w-full h-full object-cover opacity-30">
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="text-center text-white p-8 fade-in">
+                        <h1 class="text-4xl md:text-6xl font-bold mb-4 text-shadow">Galletas y Chocolates</h1>
+                        <p class="text-xl md:text-2xl mb-8">Variedad y sabor para compartir</p>
+                        <button onclick="filterByCategory('galleteria')" class="bg-pink-500 text-white px-8 py-4 rounded-full text-lg font-bold btn-glow hover:bg-pink-400 transition duration-300">
+                            <i class="fas fa-cookie-bite mr-2"></i>Ver Galletas
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-slide bg-gradient-to-r from-yellow-400 to-red-300">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <img src="https://placehold.co/1200x400?text=Gaseosas+y+Bebidas" alt="Gaseosas y bebidas" class="w-full h-full object-cover opacity-30">
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="text-center text-white p-8 fade-in">
+                        <h1 class="text-4xl md:text-6xl font-bold mb-4 text-shadow">Gaseosas y Bebidas</h1>
+                        <p class="text-xl md:text-2xl mb-8">Refresca tu día con nuestras opciones</p>
+                        <button onclick="filterByCategory('gaseosas')" class="bg-yellow-500 text-red-600 px-8 py-4 rounded-full text-lg font-bold btn-glow hover:bg-yellow-400 transition duration-300">
+                            <i class="fas fa-glass-martini-alt mr-2"></i>Ver Gaseosas
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+            <button onclick="currentSlide(1)" class="w-3 h-3 bg-white rounded-full opacity-50 hover:opacity-100 transition duration-300"></button>
+            <button onclick="currentSlide(2)" class="w-3 h-3 bg-white rounded-full opacity-50 hover:opacity-100 transition duration-300"></button>
+            <button onclick="currentSlide(3)" class="w-3 h-3 bg-white rounded-full opacity-50 hover:opacity-100 transition duration-300"></button>
+        </div>
+        <button onclick="nextSlide()" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 text-white p-2 rounded-full hover:bg-opacity-40 transition duration-300">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <button onclick="prevSlide()" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 text-white p-2 rounded-full hover:bg-opacity-40 transition duration-300">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+    </section>
+    <!-- Testimonios -->
+    <section id="testimonios" class="py-16" style="background: linear-gradient(90deg, #ffe9e9 0%, #ffffe0 100%);">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-10 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-bg bg-clip-text text-transparent">Testimonios</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl shadow-lg p-8 text-center flex flex-col items-center">
+                    <div class="mb-4">
+                        <span class="flex gap-1 justify-center">
+                            <i class="fas fa-star" style="color:#ffd700"></i>
+                            <i class="fas fa-star" style="color:#ffd700"></i>
+                            <i class="fas fa-star" style="color:#ffd700"></i>
+                            <i class="fas fa-star" style="color:#ffd700"></i>
+                            <i class="fas fa-star" style="color:#ffd700"></i>
+                        </span>
+                    </div>
+                    <p class="text-gray-700 italic mb-6">"Excelente variedad de productos y muy buena calidad. Los precios son muy competitivos."</p>
+                    <span class="font-bold text-gray-900">María González</span>
+                </div>
+                <div class="bg-white rounded-2xl shadow-lg p-8 text-center flex flex-col items-center">
+                    <div class="mb-4">
+                        <span class="flex gap-1 justify-center">
+                            <i class="fas fa-star" style="color:#ffd700"></i>
+                            <i class="fas fa-star" style="color:#ffd700"></i>
+                            <i class="fas fa-star" style="color:#ffd700"></i>
+                            <i class="fas fa-star" style="color:#ffd700"></i>
+                            <i class="fas fa-star" style="color:#ffd700"></i>
+                        </span>
+                    </div>
+                    <p class="text-gray-700 italic mb-6">"El servicio es increíble, siempre encuentro lo que busco y la atención es muy buena."</p>
+                    <span class="font-bold text-gray-900">Carlos Rodríguez</span>
+                </div>
+                <div class="bg-white rounded-2xl shadow-lg p-8 text-center flex flex-col items-center">
+                    <div class="mb-4">
+                        <span class="flex gap-1 justify-center">
+                            <i class="fas fa-star" style="color:#ffd700"></i>
+                            <i class="fas fa-star" style="color:#ffd700"></i>
+                            <i class="fas fa-star" style="color:#ffd700"></i>
+                            <i class="fas fa-star" style="color:#ffd700"></i>
+                            <i class="fas fa-star" style="color:#ffd700"></i>
+                        </span>
+                    </div>
+                    <p class="text-gray-700 italic mb-6">"Los productos llegan en perfecto estado y muy rápido. Totalmente recomendado."</p>
+                    <span class="font-bold text-gray-900">Ana Martínez</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="nosotros" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-bg bg-clip-text text-transparent">Sobre Nosotros</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">Somos una empresa distribuidora especializada en dulces, galletas, chocolates y bebidas. Con más de 10 años de experiencia, nos dedicamos a traerte los mejores productos al mejor precio, garantizando siempre la calidad y frescura que mereces.
+                    Apasionados por los dulces, snacks y bebidas, llevando alegría y sabor a cada cliente.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-8 bg-gradient-to-br from-red-50 to-yellow-50 rounded-2xl card-hover slide-up">
+                    <div class="w-20 h-20 gradient-bg rounded-full flex items-center justify-center mx-auto mb-6 float">
+                        <i class="fas fa-bullseye text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Misión</h3>
+                    <p class="text-gray-600">Proporcionar tecnología de vanguardia accesible para todos, mejorando la vida cotidiana con productos innovadores y servicio excepcional.</p>
+                </div>
+                <div class="text-center p-8 bg-gradient-to-br from-yellow-50 to-red-50 rounded-2xl card-hover slide-up">
+                    <div class="w-20 h-20 gradient-bg rounded-full flex items-center justify-center mx-auto mb-6 float">
+                        <i class="fas fa-eye text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Visión</h3>
+                    <p class="text-gray-600">Ser la tienda de tecnología más confiable y preferida, reconocida por nuestra innovación, calidad y compromiso con la satisfacción del cliente.</p>
+                </div>
+                <div class="text-center p-8 bg-gradient-to-br from-red-50 to-yellow-50 rounded-2xl card-hover slide-up">
+                    <div class="w-20 h-20 gradient-bg rounded-full flex items-center justify-center mx-auto mb-6 float">
+                        <i class="fas fa-heart text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Valores</h3>
+                    <p class="text-gray-600">Integridad, innovación, calidad y compromiso con nuestros clientes son los pilares fundamentales de nuestro negocio.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section id="catalogo" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-bg bg-clip-text text-transparent">Catálogo de Productos</h2>
+                <p class="text-xl text-gray-600">Encuentra los mejores dulces, galletas, chocolates y bebidas</p>
+            </div>
+
+            <!-- Search and Filters -->
+            <div class="mb-8 flex flex-col md:flex-row gap-4 justify-center items-center">
+                <div class="relative flex flex-col md:flex-row gap-2">
+                    <div class="relative">
+                        <input type="text" id="searchInput" placeholder="Buscar por nombre..." class="pl-10 pr-4 py-3 rounded-full border-2 border-gray-300 focus:border-red-500 focus:outline-none w-full md:w-80" oninput="applyFilters()">
+                        <i class="fas fa-search absolute left-3 top-4 text-gray-400"></i>
+                    </div>
+                    <div class="flex gap-2 items-center mt-2 md:mt-0">
+                        <div class="flex flex-col items-center w-full">
+                            <label class="text-sm font-semibold text-gray-700 mb-1">Filtrar por precio</label>
+                            <div class="flex items-center gap-2 w-full">
+                                <span id="minPriceLabel" class="text-xs text-gray-600">$0</span>
+                                <input type="range" id="minPrice" min="0" max="30000" step="100" value="0" class="w-32 accent-yellow-500" oninput="updatePriceLabels(); applyFilters()">
+                                <span class="mx-1">-</span>
+                                <span id="maxPriceLabel" class="text-xs text-gray-600">$30.000</span>
+                                <input type="range" id="maxPrice" min="0" max="30000" step="100" value="30000" class="w-32 accent-yellow-500" oninput="updatePriceLabels(); applyFilters()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-2 justify-center">
+                    <button onclick="filterByCategory('all')" class="category-filter active px-6 py-2 rounded-full flex items-center gap-2" data-category="all">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-store" aria-hidden="true"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"></path><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"></path><path d="M2 7h20"></path><path d="M22 7v3a2 2 0 0 1-2 2a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7"></path></svg>
+                        Todos
+                    </button>
+                    <button onclick="filterByCategory('galleteria')" class="category-filter px-6 py-2 rounded-full flex items-center gap-2" data-category="galleteria">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cookie" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M17.5 6.5c.5.5.5 1.5-.5 2.5s-2 1-2.5.5"></path><path d="M9 9h.01"></path><path d="M7 12h.01"></path><path d="M15 13h.01"></path><path d="M12 17h.01"></path></svg>
+                        Galletería
+                    </button>
+                    <button onclick="filterByCategory('chocolateria')" class="category-filter px-6 py-2 rounded-full flex items-center gap-2" data-category="chocolateria">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0l-.5.5-.5-.5a5.5 5.5 0 0 0-7.8 7.8l.5.5L12 21.3l7.3-7.3.5-.5a5.5 5.5 0 0 0 0-7.8z"></path></svg>
+                        Chocolatería
+                    </button>
+                    <button onclick="filterByCategory('dulceria')" class="category-filter px-6 py-2 rounded-full flex items-center gap-2" data-category="dulceria">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-candy" aria-hidden="true"><path d="M7.1 7.1c-2.8 2.8-2.8 7.3 0 10.1s7.3 2.8 10.1 0 2.8-7.3 0-10.1-7.3-2.8-10.1 0z"></path><path d="M17.8 6.2c.4-1.1 1.3-2 2.4-2.4"></path><path d="M6.2 6.2C5.1 5.8 4.2 4.9 3.8 3.8"></path><path d="M17.8 17.8c1.1.4 2 1.3 2.4 2.4"></path><path d="M6.2 17.8c-.4 1.1-1.3 2-2.4 2.4"></path></svg>
+                        Dulcería
+                    </button>
+                    <button onclick="filterByCategory('gaseosas')" class="category-filter px-6 py-2 rounded-full flex items-center gap-2" data-category="gaseosas">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wine" aria-hidden="true"><path d="M8 22h8"></path><path d="M7 10h10"></path><path d="M12 15v7"></path><path d="M19 3H5v7a7 7 0 0 0 14 0V3z"></path></svg>
+                        Gaseosas
+                    </button>
+                    <button onclick="filterByCategory('snacks')" class="category-filter px-6 py-2 rounded-full flex items-center gap-2" data-category="snacks">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-box" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.29 7 12 12 20.71 7"></polyline><line x1="12" y1="22" x2="12" y2="12"></line></svg>
+                        Snacks
+                    </button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="productsGrid" class="product-grid">
+                <!-- Products will be loaded here -->
+            </div>
+            <div id="pagination" class="flex justify-center items-center mt-8 gap-2"></div>
+            <div class="flex justify-center items-center mt-4 gap-2">
+                <label for="productsPerPageSelect" class="font-semibold text-gray-700">Productos por página:</label>
+                <select id="productsPerPageSelect" class="px-3 py-1 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-20 gradient-bg text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-shadow">Contáctanos</h2>
+                <p class="text-xl">Estamos aquí para ayudarte</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12">
+                
+                    <div class="slide-up">
+                        <h3 class="text-2xl font-bold mb-6">Nuestra Ubicación</h3>
+                        <div class="mb-6 rounded-2xl overflow-hidden shadow-lg">
+                            <iframe src="https://www.google.com/maps?hl=es&q=Distribuidora+Los+Paisas+Calle+12,+Bogotá&output=embed" width="100%" height="300" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt text-yellow-300 text-xl mr-4"></i>
+                            <span>Distribuidora Los Paisas, Calle 12, Bogotá</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone text-yellow-300 text-xl mr-4"></i>
+                            <span>+57 311 585 2782</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-clock text-yellow-300 text-xl mr-4"></i>
+                            <span>Lun - Vie: 9:00 AM - 8:00 PM</span>
+                        </div>
+                         <div class="flex items-center">
+                            <i class="fas fa-envelope text-yellow-300 text-xl mr-4"></i>
+                            <span>info@techstore.com</span>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="slide-up">
+                        <h3 class="text-2xl font-bold mb-6">Envíanos un Mensaje</h3>
+                        <form id="contactForm" class="space-y-4">
+                            <input type="text" id="contactName" placeholder="Tu Nombre" class="w-full p-3 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-yellow-300" required>
+                            <input type="email" id="contactEmail" placeholder="Tu Email" class="w-full p-3 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-yellow-300" required>
+                            <textarea id="contactMessage" placeholder="Tu Mensaje" rows="4" class="w-full p-3 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-yellow-300" required></textarea>
+                            <button type="submit" class="bg-yellow-500 text-black px-8 py-3 rounded-lg font-bold btn-glow hover:bg-yellow-400 transition duration-300 w-full">
+                                <i class="fas fa-paper-plane mr-2"></i>Enviar Mensaje
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold gradient-bg bg-clip-text text-transparent">Carrito de Compras</h3>
+                <button onclick="closeCart()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div id="cartItems" class="mb-6">
+                <!-- Cart items will be displayed here -->
+            </div>
+            <div class="border-t pt-4">
+                <div class="flex justify-between items-center text-xl font-bold mb-4">
+                    <span>Total:</span>
+                    <span id="cartTotal" class="gradient-bg bg-clip-text text-transparent">$0.00</span>
+                </div>
+                <button onclick="showCheckoutForm()" class="w-full gradient-bg text-white py-3 rounded-lg font-bold btn-glow">
+                    <i class="fas fa-credit-card mr-2"></i>Proceder al Pago
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content max-w-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="productModalTitle" class="text-2xl font-bold gradient-bg bg-clip-text text-transparent"></h3>
+                <button onclick="closeProductModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div id="productModalContent">
+                <!-- Product details will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Form Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold gradient-bg bg-clip-text text-transparent">Información de Compra</h3>
+                <button onclick="closeCheckout()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form id="checkoutForm" class="space-y-4">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <input type="text" placeholder="Nombre completo" class="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                    <input type="email" placeholder="Email" class="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                </div>
+                <input type="tel" placeholder="Teléfono" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                <textarea placeholder="Dirección de envío" rows="3" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" required></textarea>
+                <div class="border-t pt-4">
+                    <div class="flex justify-between items-center text-xl font-bold mb-4">
+                        <span>Total a pagar:</span>
+                        <span id="checkoutTotal" class="gradient-bg bg-clip-text text-transparent">$0.00</span>
+                    </div>
+                    <button type="submit" class="w-full gradient-bg text-white py-3 rounded-lg font-bold btn-glow">
+                        <i class="fas fa-shopping-bag mr-2"></i>Solicitar Cotización
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 gradient-bg bg-clip-text text-transparent">TechStore</h3>
+                    <p class="text-gray-400">Tu tienda de confianza para los mejores productos tecnológicos.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Enlaces Rápidos</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#inicio" class="hover:text-yellow-300 transition duration-300">Inicio</a></li>
+                        <li><a href="#nosotros" class="hover:text-yellow-300 transition duration-300">Nosotros</a></li>
+                        <li><a href="#catalogo" class="hover:text-yellow-300 transition duration-300">Catálogo</a></li>
+                        <li><a href="#contacto" class="hover:text-yellow-300 transition duration-300">Contacto</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Categorías</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-yellow-300 transition duration-300">Smartphones</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition duration-300">Laptops</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition duration-300">Gaming</a></li>
+                        <li><a href="#" class="hover:text-yellow-300 transition duration-300">Accesorios</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Síguenos</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-yellow-300 transition duration-300"><i class="fab fa-facebook text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-yellow-300 transition duration-300"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-yellow-300 transition duration-300"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-yellow-300 transition duration-300"><i class="fab fa-youtube text-xl"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>© 2024 TechStore. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function updatePriceLabels() {
+            const min = document.getElementById('minPrice').value;
+            const max = document.getElementById('maxPrice').value;
+            document.getElementById('minPriceLabel').textContent = `$${parseInt(min).toLocaleString('es-CO')}`;
+            document.getElementById('maxPriceLabel').textContent = `$${parseInt(max).toLocaleString('es-CO')}`;
+        }
+        document.addEventListener('DOMContentLoaded', updatePriceLabels);
+        // Global variables
+        let currentSlideIndex = 0;
+        let cart = [];
+        let currentFilter = 'all';
+        let products = [
+            {
+                id: 200,
+                name: "Galletas Oreo",
+                price: 12500,
+                category: "galleteria",
+                image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400",
+                alt: "Galletas Oreo clásicas",
+                description: "Galletas de chocolate rellenas de crema.",
+                features: ["Chocolate", "Crema", "Paquete"],
+                stock: 100,
+                rating: 4.5,
+                isNew: true,
+                isOnSale: true
+            },
+            {
+                id: 201,
+                name: "Galletas Chokis",
+                price: 1200,
+                category: "galleteria",
+                image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400",
+                alt: "Galletas Chokis tradicionales",
+                description: "Galletas clásicas ideales para café o leche.",
+                features: ["Tradicional", "Paquete"],
+                stock: 234,
+                rating: 3.9,
+                isNew: false,
+                isOnSale: false
+            },
+            {
+                id: 202,
+                name: "Chocolate Carlos V",
+                price: 1200,
+                category: "chocolateria",
+                image: "https://images.unsplash.com/photo-1511381939415-e44015466834?w=400",
+                alt: "Chocolate Carlos V barra",
+                description: "Barra de chocolate Carlos V, clásico mexicano.",
+                features: ["Chocolate", "Barra", "Carlos V"],
+                stock: 197,
+                rating: 4.2,
+                isNew: false,
+                isOnSale: true
+            },
+            {
+                id: 203,
+                name: "Chocolate Hershey's",
+                price: 1500,
+                category: "chocolateria",
+                image: "https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=400",
+                alt: "Chocolate Hershey's barra",
+                description: "Barra de chocolate con leche Hershey's.",
+                features: ["Chocolate", "Leche", "Barra"],
+                stock: 173,
+                rating: 4.4,
+                isNew: true,
+                isOnSale: false
+            },
+            {
+                id: 204,
+                name: "M&M's",
+                price: 1800,
+                category: "dulceria",
+                image: "https://images.unsplash.com/photo-1632689462345-c202ee1427c8?w=400",
+                alt: "M&M's de chocolate",
+                description: "Chocolate con cobertura de caramelo.",
+                features: ["Chocolate", "Caramelo", "Snack"],
+                stock: 200,
+                rating: 4.9,
+                isNew: true,
+                isOnSale: true
+            },
+            {
+                id: 205,
+                name: "Paleta Payaso",
+                price: 1500,
+                category: "dulceria",
+                image: "https://images.unsplash.com/photo-1560081223-734e568800b7?w=400",
+                alt: "Paleta Payaso tradicional mexicana",
+                description: "Paleta de malvavisco con caramelo y chocolate.",
+                features: ["Malvavisco", "Chocolate", "Caramelo"],
+                stock: 157,
+                rating: 4.6,
+                isNew: false,
+                isOnSale: false
+            },
+            {
+                id: 206,
+                name: "Gomitas enchiladas",
+                price: 2000,
+                category: "dulceria",
+                image: "https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=400",
+                alt: "Gomitas enchiladas mexicanas",
+                description: "Gomitas de sabores con chile en polvo.",
+                features: ["Gomitas", "Chile", "Sabores surtidos"],
+                stock: 192,
+                rating: 5.0,
+                isNew: true,
+                isOnSale: true
+            },
+            {
+                id: 207,
+                name: "Chicles Trident",
+                price: 1000,
+                category: "dulceria",
+                image: "https://images.unsplash.com/photo-1686270647432-3345e41343f1?w=400",
+                alt: "Chicles Trident sabor menta",
+                description: "Chicles sin azúcar con sabor a menta.",
+                features: ["Chicle", "Menta", "Sin azúcar"],
+                stock: 250,
+                rating: 4.8,
+                isNew: false,
+                isOnSale: false
+            },
+            {
+                id: 208,
+                name: "Coca-Cola 600ml",
+                price: 1800,
+                category: "gaseosas",
+                image: "https://images.unsplash.com/photo-1624552184280-9e9631bbeee9?w=400",
+                alt: "Botella de Coca-Cola 600ml",
+                description: "Refresco Coca-Cola en botella de 600ml.",
+                features: ["Refresco", "600ml", "Botella"],
+                stock: 180,
+                rating: 4.1,
+                isNew: true,
+                isOnSale: false
+            },
+            {
+                id: 209,
+                name: "Pepsi 600ml",
+                price: 1700,
+                category: "gaseosas",
+                image: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=400",
+                alt: "Botella de Pepsi 600ml",
+                description: "Refresco Pepsi en botella de 600ml.",
+                features: ["Refresco", "600ml", "Botella"],
+                stock: 120,
+                rating: 4.7,
+                isNew: false,
+                isOnSale: true
+            },
+            {
+                id: 210,
+                name: "Fanta 600ml",
+                price: 1600,
+                category: "gaseosas",
+                image: "https://images.unsplash.com/photo-1624517452488-04869289c4ca?w=400",
+                alt: "Botella de Fanta 600ml",
+                description: "Refresco Fanta en botella de 600ml.",
+                features: ["Refresco", "600ml", "Botella"],
+                stock: 150,
+                rating: 4.5,
+                isNew: false,
+                isOnSale: false
+            },
+            {
+                id: 211,
+                name: "Sprite 600ml",
+                price: 1600,
+                category: "gaseosas",
+                image: "https://images.unsplash.com/photo-1680404005217-a441afdefe83?w=400",
+                alt: "Botella de Sprite 600ml",
+                description: "Refresco Sprite en botella de 600ml.",
+                features: ["Refresco", "600ml", "Botella"],
+                stock: 150,
+                rating: 4.5,
+                isNew: false,
+                isOnSale: false
+            },
+            {
+                id: 212,
+                name: "7UP 600ml",
+                price: 1600,
+                category: "gaseosas",
+                image: "https://images.unsplash.com/photo-1622766815178-641bef2b4630?w=400",
+                alt: "Botella de 7UP 600ml",
+                description: "Refresco 7UP en botella de 600ml.",
+                features: ["Refresco", "600ml", "Botella"],
+                stock: 150,
+                rating: 4.5,
+                isNew: false,
+                isOnSale: false
+            },
+            {
+                id: 213,
+                name: "Cerveza 355ml",
+                price: 1800,
+                category: "cervezas",
+                image: "https://placehold.co/400x300?text=Cerveza",
+                alt: "Botella de Cerveza 355ml",
+                description: "Cerveza en botella de 355ml.",
+                features: ["Cerveza", "355ml", "Botella"],
+                stock: 100,
+                rating: 4.0,
+                isNew: false,
+                isOnSale: false
+            },
+            {
+                id: 214,
+                name: "Cerveza 355ml",
+                price: 1800,
+                category: "cervezas",
+                image: "https://placehold.co/400x300?text=Cerveza",
+                alt: "Botella de Cerveza 355ml",
+                description: "Cerveza en botella de 355ml.",
+                features: ["Cerveza", "355ml", "Botella"],
+                stock: 100,
+                rating: 4.0,
+                isNew: false,
+                isOnSale: false
+            },
+            {
+                id: 215,
+                name: "Doritos ",
+                price: 1800,
+                category: "snacks",
+                image: "https://images.unsplash.com/photo-1600952841320-db92ec4047ca?w=400",
+                alt: "Paquete de Doritos",
+                description: "Paquete de Doritos.",
+                features: ["Snack", "Salado", "Crujiente"],
+                stock: 100,
+                rating: 4.0,
+                isNew: false,
+                isOnSale: false
+            },
+            {
+                id: 216,
+                name: "Cheetos",
+                price: 1800,
+                category: "snacks",
+                image: "https://images.unsplash.com/photo-1581533940608-d2973792f542?w=400",
+                alt: "Paquete de Cheetos",
+                description: "Paquete de Cheetos.",
+                features: ["Snack", "Salado", "Crujiente"],
+                stock: 100,
+                rating: 4.0,
+                isNew: false,
+                isOnSale: false
+            },
+            {
+                id: 217,
+                name: "Papas Fritas",
+                price: 1800,
+                category: "snacks",
+                image: "https://images.unsplash.com/photo-1528751014936-863e6e7a319c?w=400",
+                alt: "Paquete de Papas Fritas",
+                description: "Paquete de Papas Fritas.",
+                features: ["Snack", "Salado", "Crujiente"],
+                stock: 100,
+                rating: 4.0,
+                isNew: false,
+                isOnSale: false
+            },
+            {
+                id: 218,
+                name: "chesstris",
+                price: 1800,
+                category: "snacks",
+                image: "https://mundodulces17.com/wp-content/uploads/2022/04/cheese-tris-familiar-80g.jpg",
+                alt: "Paquete de chesstris",
+                description: "Paquete de chesstris.",
+                features: ["Snack", "Salado", "Crujiente"],
+                stock: 100,
+                rating: 4.0,
+                isNew: false,
+                isOnSale: false
+            }
+        ];
+
+        // Slider functionality
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % 3;
+            updateSlider();
+        }
+
+        function prevSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + 3) % 3;
+            updateSlider();
+        }
+
+        function currentSlide(n) {
+            currentSlideIndex = n - 1;
+            updateSlider();
+        }
+
+        function updateSlider() {
+            const track = document.getElementById('sliderTrack');
+            track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+            
+            // Update indicators
+            const indicators = document.querySelectorAll('.absolute.bottom-4 button');
+            indicators.forEach((indicator, index) => {
+                indicator.style.opacity = index === currentSlideIndex ? '1' : '0.5';
+            });
+        }
+
+        // Auto slide
+        setInterval(nextSlide, 5000);
+
+        // Product functionality
+        let currentPage = 1;
+    let productsPerPage = 10;
+        let lastFilteredProducts = products;
+
+        function renderProducts(productsToRender = products) {
+            lastFilteredProducts = productsToRender;
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+            const start = (currentPage - 1) * productsPerPage;
+            const end = start + productsPerPage;
+            const paginatedProducts = productsToRender.slice(start, end);
+            const formatCOP = price => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(price);
+            paginatedProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'bg-white rounded-2xl shadow-lg card-hover overflow-hidden fade-in';
+                productCard.innerHTML = `
+                    <div class="relative overflow-hidden">
+                        <img src="${product.image}" alt="${product.alt}" class="w-full h-52 object-cover product-img-zoom">
+                        ${product.isNew ? `<div class='absolute top-4 left-4'><span class='bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow flex items-center'><i class='fas fa-star mr-1'></i>Nuevo</span></div>` : ''}
+                        ${product.isOnSale ? `<div class='absolute top-4 right-4'><span class='bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow flex items-center'><i class='fas fa-fire mr-1'></i>Oferta</span></div>` : ''}
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">${product.name}</h3>
+                        <p class="text-gray-600 mb-4">${product.description}</p>
+                        <div class="flex flex-wrap gap-2 mb-2">
+                            <span class="bg-yellow-400 text-black px-2 py-1 rounded text-xs font-semibold flex items-center"><i class="fas fa-star mr-1"></i> ${product.rating} / 5</span>
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-semibold flex items-center"><i class="fas fa-box mr-1"></i> Stock: ${product.stock}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold flex items-center">
+                                <span style="color:#ff2d2d;" class="mr-1">$</span>
+                                <span style="color:#ff2d2d;">${formatCOP(product.price).replace('$', '').replace('COP', '').trim()}</span>
+                            </span>
+                            <div class="space-x-2">
+                                <button onclick="showProductDetail(${product.id})" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition duration-300">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button onclick="addToCart(${product.id})" class="gradient-bg text-white px-4 py-2 rounded-lg btn-glow hover:scale-105 transition duration-300">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(productCard);
+            });
+            renderPagination(productsToRender.length);
+        }
+
+        function renderPagination(totalProducts) {
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+            const totalPages = Math.ceil(totalProducts / productsPerPage);
+        document.getElementById('productsPerPageSelect').addEventListener('change', function(e) {
+            productsPerPage = parseInt(e.target.value);
+            currentPage = 1;
+            renderProducts(lastFilteredProducts);
+        });
+            if (totalPages <= 1) return;
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.textContent = i;
+                btn.className = `px-3 py-1 rounded-full font-bold ${i === currentPage ? 'bg-yellow-500 text-black' : 'bg-gray-200 text-gray-700'} hover:bg-yellow-400 transition`;
+                btn.onclick = function() {
+                    currentPage = i;
+                    renderProducts(lastFilteredProducts);
+                };
+                pagination.appendChild(btn);
+            }
+        }
+
+        function filterByCategory(category) {
+            currentFilter = category;
+            const filteredProducts = category === 'all' ? products : products.filter(p => p.category === category);
+            renderProducts(filteredProducts);
+            
+            // Update active filter button
+            document.querySelectorAll('.category-filter').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.category === category) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        function searchProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            let filteredProducts = currentFilter === 'all' ? products : products.filter(p => p.category === currentFilter);
+            
+            if (searchTerm) {
+                filteredProducts = filteredProducts.filter(p => 
+                    p.name.toLowerCase().includes(searchTerm) || 
+                    p.description.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            renderProducts(filteredProducts);
+        }
+
+        // Cart functionality
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            
+            updateCartUI();
+            showNotification('Producto agregado al carrito');
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+            renderCartItems();
+        }
+
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCartUI();
+                    renderCartItems();
+                }
+            }
+        }
+
+        function updateCartUI() {
+            const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            document.getElementById('cartCount').textContent = cartCount;
+            const formatCOP = price => new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(price);
+            document.getElementById('cartTotal').textContent = formatCOP(cartTotal);
+            document.getElementById('checkoutTotal').textContent = formatCOP(cartTotal);
+        }
+
+        function renderCartItems() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="text-gray-500 text-center py-8">Tu carrito está vacío</p>';
+                return;
+            }
+            
+            cartItemsContainer.innerHTML = cart.map(item => `
+                <div class="flex items-center justify-between py-4 border-b">
+                    <div class="flex items-center space-x-4">
+                        <img src="${item.image}" alt="${item.alt}" class="w-16 h-16 object-cover rounded-lg">
+                        <div>
+                            <h4 class="font-semibold">${item.name}</h4>
+                            <p class="text-gray-600 flex items-center">
+                                <span style="color:#ff2d2d;" class="mr-1">$</span>
+                                <span>${new Intl.NumberFormat('es-CO').format(item.price)}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="updateQuantity(${item.id}, -1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300">-</button>
+                        <span class="px-3 py-1 bg-gray-100 rounded">${item.quantity}</span>
+                        <button onclick="updateQuantity(${item.id}, 1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300">+</button>
+                        <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700 ml-2">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Modal functionality
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.toggle('show');
+            if (modal.classList.contains('show')) {
+                renderCartItems();
+            }
+        }
+
+        function closeCart() {
+            document.getElementById('cartModal').classList.remove('show');
+        }
+
+        function showProductDetail(productId) {
+            const product = products.find(p => p.id === productId);
+            const modal = document.getElementById('productModal');
+            
+            document.getElementById('productModalTitle').textContent = product.name;
+            document.getElementById('productModalContent').innerHTML = `
+                <div class="grid md:grid-cols-2 gap-6">
+                    <img src="${product.image}" alt="${product.alt}" class="w-full h-64 object-cover rounded-lg">
+                    <div>
+                        <p class="text-gray-600 mb-4">${product.description}</p>
+                        <h4 class="font-semibold mb-2">Características:</h4>
+                        <ul class="list-disc list-inside space-y-1 mb-4">
+                            ${product.features.map(feature => `<li>${feature}</li>`).join('')}
+                        </ul>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold gradient-bg bg-clip-text text-transparent">$${product.price}</span>
+                            <button onclick="addToCart(${product.id}); closeProductModal();" class="gradient-bg text-white px-6 py-2 rounded-lg btn-glow">
+                                <i class="fas fa-cart-plus mr-2"></i>Agregar al carrito
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('show');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('show');
+        }
+
+        function showCheckoutForm() {
+            closeCart();
+            document.getElementById('checkoutModal').classList.add('show');
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkoutModal').classList.remove('show');
+        }
+
+        // Utility functions
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            document.getElementById('notificationText').textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', searchProducts);
+
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showNotification('Mensaje enviado correctamente');
+            this.reset();
+        });
+
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formatCOP = price => `$ ${new Intl.NumberFormat('es-CO').format(price)}`;
+            let message = '¡Hola! Me interesa hacer un pedido:%0A%0A';
+            cart.forEach((item, idx) => {
+                message += `${idx + 1}. ${item.name}%0A   Cantidad: ${item.quantity}%0A   Precio unitario: ${formatCOP(item.price)}%0A   Subtotal: ${formatCOP(item.price * item.quantity)}%0A%0A`;
+            });
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            message += `TOTAL: ${formatCOP(total)}%0A`;
+            message += `Total de productos: ${cart.reduce((sum, item) => sum + item.quantity, 0)}%0A%0A`;
+            message += 'Por favor, confirma disponibilidad y método de envío. ¡Gracias!';
+            const whatsappURL = `https://wa.me/+573115852782?text=${message}`;
+            window.open(whatsappURL, '_blank');
+            
+            cart = [];
+            updateCartUI();
+            closeCheckout();
+            showNotification('Cotización enviada por WhatsApp');
+        });
+
+        // Click outside modal to close
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('show');
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProducts();
+            updateCartUI();
+            
+            // Add scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.fade-in, .slide-up').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(50px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+        function applyFilters() {
+            const searchValue = document.getElementById('searchInput').value.toLowerCase();
+            const minPrice = parseFloat(document.getElementById('minPrice').value) || 0;
+            const maxPrice = parseFloat(document.getElementById('maxPrice').value) || Infinity;
+            let filtered = products.filter(product => {
+                const matchesName = product.name.toLowerCase().includes(searchValue);
+                const matchesPrice = product.price >= minPrice && product.price <= maxPrice;
+                // Filtrar por categoría si está activa
+                const matchesCategory = currentFilter === 'all' ? true : product.category === currentFilter;
+                return matchesName && matchesPrice && matchesCategory;
+            });
+            currentPage = 1;
+            renderProducts(filtered);
+        }
+        </script>
+</body>
+</html>
+

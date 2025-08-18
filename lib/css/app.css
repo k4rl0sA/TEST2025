@@ -54,12 +54,14 @@ header { display: flex; justify-content: space-between; align-items: center; pad
 .action-menu {
     position: fixed !important;
     z-index: 9999 !important;
-    min-width: 30vw;
-    max-width: 34vw;
-    box-shadow: 0 4px 16px rgba(67,97,238,0.18);
+    min-width: 220px;
+    max-width: 90vw;
     background: #fff;
-    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(67,97,238,0.13);
     display: none;
+    border: 1px solid #e5e8ef;
+    border-radius: 12px;
+    animation: scaleInMenu 0.18s ease;
 /* 
     right: 20px;
     left: auto;
@@ -68,7 +70,7 @@ header { display: flex; justify-content: space-between; align-items: center; pad
     flex-direction: column;
     top: 80px; 
     */
-    animation: scaleInMenu 0.18s ease;
+    
 }
 .action-menu.show { display: block; }
 .menu-item {
