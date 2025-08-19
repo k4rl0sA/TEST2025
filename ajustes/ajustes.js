@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </button>
                         <button class="menu-item delete-btn" onclick="deleteRole(${role.id_rol})">
                             <i class="fa fa-trash"></i>
-                            <span class="label">Eliminar</span>
+                            <span class="label">Inactivar</span>
                         </button>
                         <button class="menu-item" onclick="caracterizarRole(${role.id_rol})">
                             <i class="fa fa-home"></i>
