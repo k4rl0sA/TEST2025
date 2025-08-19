@@ -468,4 +468,26 @@ $riesgos = [
         "description" => "Factores personales como discapacidad, enfermedades crónicas o condiciones especiales."
     ]
 ];
+if (!empty($document)) {
+    $usu_create = isset($_SESSION['us_sds']) ? $_SESSION['us_sds'] : 'anon';
+    $sqlInsert = "INSERT INTO riskfam_eval (
+        idpersona, socioeconomico, estrato, ingreso, estructura_familiar, apgar, vulnerabilidad_social, puntaje_vulnerabilidad, acceso_salud, puntaje_regimen_salud, entorno_habitacional, puntaje_entorno, usu_create, estado
+    ) VALUES (
+        '" . addslashes($document) . "',
+        '" . floatval($socioEcono) . "',
+        '" . addslashes($estrato) . "',
+        '" . addslashes($ingreso) . "',
+        '" . floatval($estruFamil) . "',
+        '" . addslashes($apgar) . "',
+        '" . floatval($vulnSocial) . "',
+        '" . intval($puntajeTotal) . "',
+        '" . floatval($accesoSaludPorcentaje) . "',
+        '" . intval($puntajeRegimenSalud) . "',
+        '" . floatval($EH_Valor) . "',
+        '" . intval($entornoHab['Puntaje_EH_Bruto'] ?? 0) . "',
+        '" . addslashes($usu_create) . "',
+        'A'
+    )";
+    datos_mysql($sqlInsert);
+}
 echo json_encode(array_merge($datos, ["riskFactors" => $riesgos]));
