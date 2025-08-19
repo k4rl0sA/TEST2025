@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'active-filters-count',
             removeFilterCallback
         );
-        document.getElementById('filtersPanel').classList.add('hidden');
+        document.getElementById('filters-panel').classList.add('hidden');
     });
 
     // Limpiar filtros
