@@ -472,22 +472,23 @@ if (!empty($document)) {
     $usu_create = isset($_SESSION['us_sds']) ? $_SESSION['us_sds'] : 'anon';
     $sqlInsert = "INSERT INTO riskfam_eval (
         idpersona, socioeconomico, estrato, ingreso, estructura_familiar, apgar, vulnerabilidad_social, puntaje_vulnerabilidad, acceso_salud, puntaje_regimen_salud, entorno_habitacional, puntaje_entorno, usu_create, estado
-    ) VALUES (
-        '" . addslashes($document) . "',
-        '" . floatval($socioEcono) . "',
-        '" . addslashes($estrato) . "',
-        '" . addslashes($ingreso) . "',
-        '" . floatval($estruFamil) . "',
-        '" . addslashes($apgar) . "',
-        '" . floatval($vulnSocial) . "',
-        '" . intval($puntajeTotal) . "',
-        '" . floatval($accesoSaludPorcentaje) . "',
-        '" . intval($puntajeRegimenSalud) . "',
-        '" . floatval($EH_Valor) . "',
-        '" . intval($entornoHab['Puntaje_EH_Bruto'] ?? 0) . "',
-        '" . addslashes($usu_create) . "',
-        'A'
-    )";
-    datos_mysql($sqlInsert);
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $params = [
+        ['type' => 's', 'value' => $document],
+        ['type' => 'd', 'value' => $socioEcono],
+        ['type' => 's', 'value' => $estrato],
+        ['type' => 's', 'value' => $ingreso],
+        ['type' => 'd', 'value' => $estruFamil],
+        ['type' => 's', 'value' => $apgar],
+        ['type' => 'd', 'value' => $vulnSocial],
+        ['type' => 'i', 'value' => $puntajeTotal],
+        ['type' => 'd', 'value' => $accesoSaludPorcentaje],
+        ['type' => 'i', 'value' => $puntajeRegimenSalud],
+        ['type' => 'd', 'value' => $EH_Valor],
+        ['type' => 'i', 'value' => $entornoHab['Puntaje_EH_Bruto'] ?? 0],
+        ['type' => 's', 'value' => $usu_create],
+        ['type' => 's', 'value' => 'A']
+    ];
+    mysql_prepd($sqlInsert, $params);
 }
 echo json_encode(array_merge($datos, ["riskFactors" => $riesgos]));
