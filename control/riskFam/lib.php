@@ -475,16 +475,16 @@ if (!empty($document)) {
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $params = [
         ['type' => 's', 'value' => $document],
-        ['type' => 'd', 'value' => $socioEcono],
+        ['type' => 's', 'value' => $socioEcono],
         ['type' => 's', 'value' => $estrato],
         ['type' => 's', 'value' => $ingreso],
-        ['type' => 'd', 'value' => $estruFamil],
+        ['type' => 's', 'value' => $estruFamil],
         ['type' => 's', 'value' => $apgar],
-        ['type' => 'd', 'value' => $vulnSocial],
+        ['type' => 's', 'value' => $vulnSocial],
         ['type' => 'i', 'value' => $puntajeTotal],
-        ['type' => 'd', 'value' => $accesoSaludPorcentaje],
+        ['type' => 's', 'value' => $accesoSaludPorcentaje],
         ['type' => 'i', 'value' => $puntajeRegimenSalud],
-        ['type' => 'd', 'value' => $EH_Valor],
+        ['type' => 's', 'value' => $EH_Valor],
         ['type' => 'i', 'value' => $entornoHab['Puntaje_EH_Bruto'] ?? 0],
         ['type' => 's', 'value' => $usu_create],
         ['type' => 's', 'value' => 'A']
