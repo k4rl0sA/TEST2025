@@ -235,8 +235,10 @@ switch ($a) {
             ['type' => 's', 'value' => $estado],
             ['type' => 'i', 'value' => $id]
         ];
-        $res = mysql_prepd($sql, $params_update);
-        if (strpos($res, 'Error') !== false) error_response("Error al actualizar: $res");
+        $res = datos_mysql($sql, MYSQLI_ASSOC, false, $params_update);
+        if (!isset($res['responseResult'][0]['affected_rows']) || $res['responseResult'][0]['affected_rows'] < 1) {
+            error_response("Error al actualizar el rol");
+        }
         success_response('Rol actualizado correctamente');
         break;
 
