@@ -39,7 +39,7 @@ function lis_adm(){
 }
 
 function lis_admision(){
-	$info=datos_mysql("SELECT COUNT(*) total FROM `adm_facturacion` A LEFT JOIN person P ON A.idpeople=P.idpeople left JOIN usuarios U ON A.usu_creo = U.id_usuario WHERE U.subred IN (select subred from usuarios where id_usuario='{$_SESSION['us_sds']}')  AND soli_admis='SI' ".whe_admision());
+	$info=datos_mysql("SELECT COUNT(*) total FROM `adm_facturacion` A LEFT JOIN person P ON A.idpeople=P.idpeople left JOIN usuarios U ON A.usu_creo = U.id_usuario WHERE U.subred IN (select subred from usuarios where id_usuario='{$_SESSION['us_sds']}')   AND componente=(select componente from usuarios where id_usuario='{$_SESSION['us_sds']}') AND soli_admis='SI' ".whe_admision());
 	$total=$info['responseResult'][0]['total'];
 	$regxPag=4;
 	
@@ -49,7 +49,7 @@ function lis_admision(){
 	FROM `adm_facturacion` A 
 	LEFT JOIN person P ON A.idpeople=P.idpeople
 	left JOIN usuarios U ON A.usu_creo = U.id_usuario
-	WHERE U.subred IN (select subred from usuarios where id_usuario='{$_SESSION['us_sds']}')  AND soli_admis='SI' ";
+	WHERE U.subred IN (select subred from usuarios where id_usuario='{$_SESSION['us_sds']}') AND componente=(select componente from usuarios where id_usuario='{$_SESSION['us_sds']}') AND soli_admis='SI' ";
 	$sql.=whe_admision();
 	$sql.=" ORDER BY A.fecha_create";
 	$sql.=' LIMIT '.$pag.','.$regxPag;
