@@ -270,7 +270,7 @@ if (empty($_SESSION['csrf_token'])) {
                 </div>
                 <div class="form-group">
                     <label for="projectTeam">Responsable</label>
-                    <select id="projectTeam" class="form-control">
+                    <select id="projectTeam" class="form-control" required>
                         <option value="">-- Seleccione un responsable --</option>
                     </select>
                 </div>
