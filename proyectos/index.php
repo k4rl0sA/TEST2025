@@ -421,7 +421,6 @@ function openModal(modo = 'crear', id = null) {
 function limpiarModal() {
     document.getElementById('projectName').value = '';
     document.getElementById('projectDescription').value = '';
-    document.getElementById('projectTeam').value = '';
     document.getElementById('projectStatus').value = 'analisis';
     document.getElementById('projectDeadline').value = '';
 }
