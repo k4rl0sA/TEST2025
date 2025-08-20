@@ -530,14 +530,14 @@
       `;
     }
 
-    if (key === 'socialVulnerability' && (factor.puntajeVulnerabilidad || factor.regimen)) {
+    if (key === 'socialVulnerability' && (factor.puntajeVulnerabilidad || factor.poblacionDif)) {
       const puntajeText = factor.puntajeVulnerabilidad ? `Puntaje de vulnerabilidad: ${factor.puntajeVulnerabilidad}` : '';
-      const regimenText = factor.regimen ? `Régimen: ${factor.regimen}` : '';
+      const poblDifText = factor.poblacionDif ? `poblacion Diferencial: ${factor.poblacionDif}` : '';
       additionalInfo = `
         <div class="risk-factor-tooltip">
           <div class="tooltip-content">
             ${puntajeText}<br>
-            ${regimenText}
+            ${poblDifText}
           </div>
         </div>
       `;
