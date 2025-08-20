@@ -93,7 +93,7 @@ switch ($a) {
         if (!$id) error_response("ID inválido");
         $sql = "SELECT p.*, u.nombre AS responsable 
                 FROM proyectos p 
-                LEFT JOIN usuarios_proy u ON p.responsable_id = u.id 
+                LEFT JOIN usuarios u ON p.responsable_id = u.id 
                 WHERE p.id = ?";
         $params = [['type'=>'i','value'=>$id]];
         $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);
@@ -168,7 +168,7 @@ switch ($a) {
         if (!$proyecto_id) error_response("ID de proyecto inválido");
         $sql = "SELECT t.*, u.nombre AS responsable 
                 FROM tareas t 
-                LEFT JOIN usuarios_proy u ON t.responsable_id = u.id 
+                LEFT JOIN usuarios u ON t.responsable_id = u.id 
                 WHERE t.proyecto_id = ? AND t.estado='A'
                 ORDER BY t.fase, t.fecha_inicio_estimada";
         $params = [['type'=>'i','value'=>$proyecto_id]];
@@ -268,7 +268,7 @@ switch ($a) {
         if (!$tarea_id) error_response("ID de tarea inválido");
         $sql = "SELECT c.*, u.nombre AS usuario 
                 FROM comentarios_tareas c 
-                LEFT JOIN usuarios_proy u ON c.usuario_id = u.id 
+                LEFT JOIN usuarios u ON c.usuario_id = u.id_usuario
                 WHERE c.tarea_id = ? AND c.estado='A'
                 ORDER BY c.fecha_create ASC";
         $params = [['type'=>'i','value'=>$tarea_id]];
@@ -338,7 +338,7 @@ switch ($a) {
         if (!$tarea_id) error_response("ID de tarea inválido");
         $sql = "SELECT h.*, u.nombre AS usuario 
                 FROM historial_cambios h 
-                LEFT JOIN usuarios_proy u ON h.usuario_id = u.id 
+                LEFT JOIN usuarios u ON h.usuario_id = u.id_usuario
                 WHERE h.tarea_id = ? AND h.estado='A'
                 ORDER BY h.fecha_cambio DESC";
         $params = [['type'=>'i','value'=>$tarea_id]];
