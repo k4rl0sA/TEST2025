@@ -21,7 +21,7 @@ if (empty($_SESSION['csrf_token'])) {
     <script src="../lib/js/choices.min.js"></script>
     <script>window.CSRF_TOKEN = "<?php echo $_SESSION['csrf_token']; ?>";</script>
     <script src="../lib/js/app.js" defer></script>
-    <script src="ajustes.js"></script>
+    <script src="ajustes.js?v=1.1.1"></script>
 </head>
 <body>
     <div class="toast-container">
