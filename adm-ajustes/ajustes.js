@@ -34,19 +34,19 @@ document.addEventListener('DOMContentLoaded', function() {
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td style="position:relative;">
-                    <button class="action-menu-btn" onclick="toggleActionMenu(event, ${role.token})">
+                    <button class="action-menu-btn" onclick="toggleActionMenu(event, '${role.token}')">
                         <i class="fa fa-ellipsis-v"></i>
                     </button>
                     <div class="action-menu" id="action-menu-${role.token}">
-                        <button class="menu-item edit-btn" onclick="editRole(${role.token})">
+                        <button class="menu-item edit-btn" onclick="editRole('${role.token}')">
                             <i class="fa fa-edit"></i>
                             <span class="label">Editar</span>
                         </button>
-                        <button class="menu-item delete-btn" onclick="deleteRole(${role.token})">
+                        <button class="menu-item delete-btn" onclick="deleteRole('${role.token}')">
                             <i class="fa fa-trash"></i>
                             <span class="label">Inactivar</span>
                         </button>
-                        <button class="menu-item" onclick="caracterizarRole(${role.token})">
+                        <button class="menu-item" onclick="caracterizarRole('${role.token}')">
                             <i class="fa fa-home"></i>
                             <span class="label">Caracterizar</span>
                         </button>

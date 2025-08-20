@@ -72,7 +72,7 @@ switch ($a) {
         $totalPages = ceil($total / $pageSize);
 
         // --- Datos ---
-        $sql = "SELECT * FROM adm_roles $where_sql ORDER BY $sort $dir LIMIT ?, ?";
+        $sql = "SELECT modulo,perfil,componente,consultar,editar,crear,ajustar,importar,estado FROM adm_roles $where_sql ORDER BY $sort $dir LIMIT ?, ?";
         $params_limit = $params;
         $params_limit[] = ['type' => 'i', 'value' => $offset];
         $params_limit[] = ['type' => 'i', 'value' => $pageSize];
