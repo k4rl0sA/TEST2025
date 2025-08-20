@@ -128,6 +128,32 @@ function check_csrf() {
     }
 }
 
+//HASHEAR MIS IDS 
+function myhash($a){
+    $hash = md5($a . $_SESSION['us_sds'] . 'D2AC5E5211884EA15F1E950D1445C5E8');
+    return $hash;
+}
+
+function IdHash($hash, $accion = '') {
+    $key = $accion ? $hash . '_' . $accion : $hash;
+    if (isset($_SESSION['hash'][$hash])) {
+        return $_SESSION['hash'][$hash];
+    }
+    if (isset($_SESSION['hash'][$key])) {
+        return $_SESSION['hash'][$key];
+    }
+    return null;
+}
+function limpiar_hashes($max = 500) {
+    if (!isset($_SESSION['hash']) || !is_array($_SESSION['hash'])) return;
+    // Si hay más de $max hashes, elimina los más antiguos
+    if (count($_SESSION['hash']) > $max) {
+        // Mantén solo los últimos $max elementos
+        $_SESSION['hash'] = array_slice($_SESSION['hash'], -$max, $max, true);
+    }
+}   
+//FIN HASHEAR MIS IDS 
+
 function log_error($message) {
     $timestamp = date('Y-m-d H:i:s');
     $marca = date('Y-m-d H:i:s');

@@ -1,0 +1,131 @@
+<?php
+ini_set('display_errors','1');
+session_start();
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Menú</title>
+    <link rel="stylesheet" href="../lib/css/app.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <script>window.CSRF_TOKEN = "<?php echo $_SESSION['csrf_token']; ?>";</script>
+    <script src="../lib/js/app.js" defer></script>
+    <script src="menu.js"></script>
+</head>
+<body>
+<div class="content-card">
+    <div class="filters-bar">
+        <button class="btn btn-chip" id="toggle-filters-btn">
+            <i class="fa fa-filter"></i>
+            <span class="chip-text">Filtros</span>
+            <span id="active-filters-count" class="chip-count">0</span>
+        </button>
+        <div id="active-filters-chips" class="chips-list"></div>
+    </div>
+    <div class="form-section hidden" id="filters-panel">
+        <form id="filter-form">
+            <div class="input-group">
+                <input type="text" id="fil-link" placeholder="">
+                <label for="fil-link">Link</label>
+            </div>
+            <div class="input-group">
+                <input type="text" id="fil-tipo" placeholder="">
+                <label for="fil-tipo">Tipo</label>
+            </div>
+            <div class="input-group">
+                <select id="fil-estado">
+                    <option value="">Todos</option>
+                    <option value="A">Activo</option>
+                    <option value="I">Inactivo</option>
+                </select>
+                <label for="fil-estado">Estado</label>
+            </div>
+            <div class="filter-actions">
+                <button type="submit" class="btn btn-primary filter-btn"><i class="fa fa-search"></i> Aplicar Filtros</button>
+                <button type="button" class="btn btn-outline filter-reset" id="clear-filters"><i class="fa fa-sync"></i></button>
+            </div>
+        </form>
+    </div>
+    <div class="table-header">
+        <h2>Menú Registrado</h2>
+        <button class="btn btn-add" id="add-btn"><i class="fa fa-plus"></i> Nuevo Menú</button>
+    </div>
+    <div class="table-container" id="table-section">
+        <table id="menu-table">
+            <thead>
+                <tr>
+                    <th>Acciones</th>
+                    <th data-sort="id">ID</th>
+                    <th data-sort="link">Link</th>
+                    <th data-sort="icono">Icono</th>
+                    <th data-sort="tipo">Tipo</th>
+                    <th data-sort="enlace">Enlace</th>
+                    <th data-sort="menu">Menu</th>
+                    <th data-sort="contenedor">Contenedor</th>
+                    <th data-sort="estado">Estado</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div class="paginator" id="paginator"></div>
+    </div>
+    <div id="form-menu" class="form-section modal-content hidden">
+        <div class="table-header">
+            <h3 id="form-title"><i class="fas fa-edit"></i> Menú</h3>
+            <button id="close-win" class="btn btn-outline"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <form id="menu-form">
+            <input type="hidden" id="id">
+            <div class="form-row">
+                <div class="input-group">
+                    <input type="text" id="link" name="link" required maxlength="30">
+                    <label for="link">Link</label>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="icono" name="icono" maxlength="50">
+                    <label for="icono">Icono</label>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="input-group">
+                    <input type="text" id="tipo" name="tipo" required maxlength="3">
+                    <label for="tipo">Tipo</label>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="enlace" name="enlace" required maxlength="50">
+                    <label for="enlace">Enlace</label>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="input-group">
+                    <input type="text" id="menu" name="menu" required maxlength="2">
+                    <label for="menu">Menu</label>
+                </div>
+                <div class="input-group">
+                    <select id="contenedor" name="contenedor" required>
+                        <option value="SI">SI</option>
+                        <option value="NO">NO</option>
+                    </select>
+                    <label for="contenedor">Contenedor</label>
+                </div>
+                <div class="input-group">
+                    <select id="estado" name="estado" required>
+                        <option value="A">Activo</option>
+                        <option value="I">Inactivo</option>
+                    </select>
+                    <label for="estado">Estado</label>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" id="submit-btn" class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>
+                <button type="button" id="cancel-btn" class="btn btn-outline"><i class="fas fa-times"></i>Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
