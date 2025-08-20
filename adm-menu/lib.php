@@ -152,6 +152,7 @@ switch ($a) {
             'success'=> true,
             'opciones' => $opciones
         ]);
+        exit;
 
     default:
         error_response('Acción no válida', 400);
