@@ -40,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         </button>
                     </div>
                 </td>
-                <td>${menu.id}</td>
                 <td>${menu.link}</td>
                 <td>${menu.icono}</td>
                 <td>${menu.tipo}</td>
