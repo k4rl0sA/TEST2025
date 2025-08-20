@@ -106,7 +106,7 @@ switch ($a) {
     case 'get_proyecto':
         $id = intval($_GET['id'] ?? 0);
         if (!$id) error_response("ID inválido");
-        $sql = "SELECT p.*, u.nombre AS responsable 
+        $sql = "SELECT p.*, p.responsable_id AS responsable 
                 FROM proyectos p 
                 LEFT JOIN usuarios u ON p.responsable_id = u.id_usuario
                 WHERE p.id = ?";
