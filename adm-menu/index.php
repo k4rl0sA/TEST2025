@@ -12,11 +12,11 @@ if (empty($_SESSION['csrf_token'])) {
     <title>Gestión de Menú</title>
     <link rel="stylesheet" href="../lib/css/app.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
-    <link rel="stylesheet" href="../lib/css/choices.min.css?v=1">
+    <link rel="stylesheet" href="../lib/css/choices.min.css?v=2">
     <script src="../lib/js/choices.min.js"></script>
     <script>window.CSRF_TOKEN = "<?php echo $_SESSION['csrf_token']; ?>";</script>
-    <script src="../lib/js/app.js" defer></script>
-    <script src="menu.js"></script>
+    <script src="../lib/js/app.js?v=2" defer></script>
+    <script src="menu.js?v=2"></script>
 </head>
 <body>
     <div class="toast-container">
