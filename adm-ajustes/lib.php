@@ -78,13 +78,13 @@ switch ($a) {
         $params_limit[] = ['type' => 'i', 'value' => $pageSize];
         $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params_limit);
         $roles = isset($arr['responseResult']) ? $arr['responseResult'] : [];
-        /* foreach ($roles as &$role) {
+        foreach ($roles as &$role) {
             $token = myhash($role['id_rol']);
             $_SESSION['hash'][$token] = $role['id_rol'];
             $role['token'] = $token;
             unset($role['id_rol']); // Opcional: oculta el id real
         }
-        limpiar_hashes(500); */
+        limpiar_hashes(500);
         echo json_encode([
             'success' => true,
             'roles' => $roles,
