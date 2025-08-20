@@ -269,11 +269,12 @@ if (empty($_SESSION['csrf_token'])) {
                 <div class="form-group">
                     <label for="projectStatus">Estado</label>
                     <select id="projectStatus" class="form-control">
-                        <option value="planning">Planificación</option>
-                        <option value="analysis">Análisis</option>
-                        <option value="development">Desarrollo</option>
-                        <option value="testing">Pruebas</option>
-                        <option value="completed">Completado</option>
+                        <option value="planificacion">Planificación</option>
+                        <option value="analisis">Análisis</option>
+                        <option value="desarrollo">Desarrollo</option>
+                        <option value="pruebas">Pruebas</option>
+                        <option value="implementacion">Implementación</option>
+                        <option value="completado">Completado</option>
                     </select>
                 </div>
                 
