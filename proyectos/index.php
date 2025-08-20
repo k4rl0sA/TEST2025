@@ -836,30 +836,123 @@
             });
         }
 
-        // Eliminar proyecto
-        function eliminarProyecto(id) {
-            if (!confirm('¿Eliminar este proyecto?')) return;
-            fetch(API, {
-                method: 'POST',
-                body: new URLSearchParams({a: 'eliminar_proyecto', id})
-            })
+        let modoModal = 'crear'; // 'crear', 'ver', 'editar'
+let proyectoActualId = null;
+
+// Abrir modal para crear, ver o editar
+function openModal(modo = 'crear', id = null) {
+    modoModal = modo;
+    proyectoActualId = id;
+    limpiarModal();
+
+    if (modo === 'crear') {
+        document.querySelector('.modal-header h3').textContent = 'Nuevo Proyecto';
+        document.querySelector('.modal-footer .btn.btn-primary').textContent = 'Crear Proyecto';
+        habilitarCamposModal(true);
+        document.querySelector('.modal-footer .btn.btn-primary').onclick = crearProyecto;
+        document.getElementById('projectModal').style.display = 'flex';
+    } else if (modo === 'ver' || modo === 'editar') {
+        fetch(`lib.php?a=get_proyecto&id=${id}`)
             .then(r => r.json())
             .then(data => {
                 if (data.success) {
-                    cargarProyectos();
+                    llenarModal(data.proyecto);
+                    document.querySelector('.modal-header h3').textContent = (modo === 'ver') ? 'Ver Proyecto' : 'Editar Proyecto';
+                    document.querySelector('.modal-footer .btn.btn-primary').textContent = (modo === 'ver') ? 'Cerrar' : 'Guardar Cambios';
+                    habilitarCamposModal(modo === 'editar');
+                    document.querySelector('.modal-footer .btn.btn-primary').onclick = (modo === 'ver') ? closeModal : actualizarProyecto;
+                    document.getElementById('projectModal').style.display = 'flex';
                 } else {
-                    alert(data.error || 'Error al eliminar');
+                    alert(data.error || 'No se pudo cargar el proyecto');
                 }
             });
-        }
+    }
+}
 
-        // Opcional: ver y editar proyecto (puedes implementar modales similares)
-        function verProyecto(id) {
-            alert('Funcionalidad de ver proyecto no implementada');
+function limpiarModal() {
+    document.getElementById('projectName').value = '';
+    document.getElementById('projectDescription').value = '';
+    document.getElementById('projectTeam').value = '';
+    document.getElementById('projectStatus').value = 'planning';
+    document.getElementById('projectDeadline').value = '';
+}
+
+function llenarModal(proy) {
+    document.getElementById('projectName').value = proy.nombre || '';
+    document.getElementById('projectDescription').value = proy.descripcion || '';
+    document.getElementById('projectTeam').value = proy.responsable_id || '';
+    document.getElementById('projectStatus').value = proy.estado || 'planning';
+    document.getElementById('projectDeadline').value = proy.fecha_fin_estimada || '';
+}
+
+function habilitarCamposModal(habilitar) {
+    document.getElementById('projectName').disabled = !habilitar;
+    document.getElementById('projectDescription').disabled = !habilitar;
+    document.getElementById('projectTeam').disabled = !habilitar;
+    document.getElementById('projectStatus').disabled = !habilitar;
+    document.getElementById('projectDeadline').disabled = !habilitar;
+}
+
+// Sobrescribe funciones de botones de acciones
+function verProyecto(id) {
+    openModal('ver', id);
+}
+function editarProyecto(id) {
+    openModal('editar', id);
+}
+
+// Actualizar proyecto
+function actualizarProyecto() {
+    const nombre = document.getElementById('projectName').value;
+    const descripcion = document.getElementById('projectDescription').value;
+    const responsable_id = document.getElementById('projectTeam').value;
+    const estado = document.getElementById('projectStatus').value;
+    const fecha_fin_estimada = document.getElementById('projectDeadline').value;
+    if (!nombre) return alert('El nombre es obligatorio');
+    fetch('lib.php', {
+        method: 'POST',
+        body: new URLSearchParams({
+            a: 'actualizar_proyecto',
+            id: proyectoActualId,
+            nombre,
+            descripcion,
+            responsable_id,
+            estado,
+            fecha_fin_estimada
+        })
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            closeModal();
+            cargarProyectos();
+        } else {
+            alert(data.error || 'Error al actualizar proyecto');
         }
-        function editarProyecto(id) {
-            alert('Funcionalidad de editar proyecto no implementada');
+    });
+}
+
+// Eliminar proyecto
+function eliminarProyecto(id) {
+    if (!confirm('¿Eliminar este proyecto?')) return;
+    fetch(API, {
+        method: 'POST',
+        body: new URLSearchParams({a: 'eliminar_proyecto', id})
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            cargarProyectos();
+        } else {
+            alert(data.error || 'Error al eliminar');
         }
+    });
+}
+
+// Cerrar modal
+function closeModal() {
+    document.getElementById('projectModal').style.display = 'none';
+}
     </script>
 </body>
 </html>
