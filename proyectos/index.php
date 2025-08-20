@@ -746,28 +746,120 @@
     </div>
     
     <script>
-        // Funciones para abrir y cerrar el modal
-        function openModal() {
-            document.getElementById('projectModal').style.display = 'flex';
-        }
-        
-        function closeModal() {
-            document.getElementById('projectModal').style.display = 'none';
-        }
-        
-        // Cerrar modal al hacer clic fuera del contenido
-        window.onclick = function(event) {
-            const modal = document.getElementById('projectModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        };
-        
-        // Simular carga de proyectos
+        const API = 'lib.php';
+
+        // Cargar proyectos al iniciar
         document.addEventListener('DOMContentLoaded', function() {
-            // Aquí iría la lógica para cargar proyectos desde una API o base de datos
-            console.log('Sistema de gestión de proyectos cargado');
+            cargarProyectos();
         });
+
+        // Buscar proyectos
+        document.querySelector('.search-box button').onclick = function() {
+            cargarProyectos(document.querySelector('.search-box input').value);
+        };
+
+        function cargarProyectos(search = '') {
+            fetch(`${API}?a=list_proyectos&search=${encodeURIComponent(search)}`)
+                .then(r => r.json())
+                .then(data => {
+                    if (data.success) {
+                        renderProyectos(data.proyectos);
+                    } else {
+                        alert(data.error || 'Error al cargar proyectos');
+                    }
+                });
+        }
+
+        function renderProyectos(proyectos) {
+            const tbody = document.querySelector('.projects-table tbody');
+            tbody.innerHTML = '';
+            proyectos.forEach(proy => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>
+                        <div class="project-name">${proy.nombre}</div>
+                        <div class="project-details">Responsable: ${proy.responsable || '-'}</div>
+                    </td>
+                    <td><span class="status status-${proy.estado}">${proy.estado}</span></td>
+                    <td>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: ${proy.progreso}%; background: #74b9ff;"></div>
+                        </div>
+                        <div>${proy.progreso}%</div>
+                    </td>
+                    <td>${proy.fecha_fin_estimada || '-'}</td>
+                    <td class="actions-cell">
+                        <button class="action-btn" onclick="verProyecto(${proy.id})"><i class="fas fa-eye"></i></button>
+                        <button class="action-btn" onclick="editarProyecto(${proy.id})"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn" onclick="eliminarProyecto(${proy.id})"><i class="fas fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Modal: Crear proyecto
+        document.querySelector('.btn.btn-primary').onclick = function() {
+            openModal();
+        };
+
+        document.querySelector('.modal-footer .btn.btn-primary').onclick = function() {
+            crearProyecto();
+        };
+
+        function crearProyecto() {
+            const nombre = document.getElementById('projectName').value;
+            const descripcion = document.getElementById('projectDescription').value;
+            const responsable_id = document.getElementById('projectTeam').value;
+            const estado = document.getElementById('projectStatus').value;
+            const fecha_fin_estimada = document.getElementById('projectDeadline').value;
+            if (!nombre) return alert('El nombre es obligatorio');
+            fetch(API, {
+                method: 'POST',
+                body: new URLSearchParams({
+                    a: 'crear_proyecto',
+                    nombre,
+                    descripcion,
+                    responsable_id,
+                    estado,
+                    fecha_fin_estimada
+                })
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    closeModal();
+                    cargarProyectos();
+                } else {
+                    alert(data.error || 'Error al crear proyecto');
+                }
+            });
+        }
+
+        // Eliminar proyecto
+        function eliminarProyecto(id) {
+            if (!confirm('¿Eliminar este proyecto?')) return;
+            fetch(API, {
+                method: 'POST',
+                body: new URLSearchParams({a: 'eliminar_proyecto', id})
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    cargarProyectos();
+                } else {
+                    alert(data.error || 'Error al eliminar');
+                }
+            });
+        }
+
+        // Opcional: ver y editar proyecto (puedes implementar modales similares)
+        function verProyecto(id) {
+            alert('Funcionalidad de ver proyecto no implementada');
+        }
+        function editarProyecto(id) {
+            alert('Funcionalidad de editar proyecto no implementada');
+        }
     </script>
 </body>
 </html>
