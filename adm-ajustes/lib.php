@@ -198,6 +198,15 @@ switch ($a) {
         foreach ($fields as $f) {
             if (empty($_POST[$f])) error_response("El campo '$f' es obligatorio");
         }
+        //asignar si o no a las acciones
+        foreach (['consultar','editar','crear','ajustar','importar'] as $campo) {
+            if (isset($_POST[$campo]) && $_POST[$campo] == 1) {
+                $_POST[$campo] = 'SI';
+            } else {
+                $_POST[$campo] = 'NO';
+            }
+        }
+        // Limpiar y asignar valores
         $modulo = clean($_POST['modulo']);
         $perfil = clean($_POST['perfil']);
         $componente = clean($_POST['componente']);
