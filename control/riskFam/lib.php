@@ -64,7 +64,6 @@ $apgar = $res2['responseResult'][0]['Descripcion'];
 
 //Riesgo Vulnerabilidad Social
 $sql3="SELECT P.idpeople,  -- Puntaje por seguridad alimentaria
-    
         (CASE WHEN C.seg_pre1 = 'SI' THEN 5 ELSE 0 END) +
         (CASE WHEN C.seg_pre2 = 'SI' THEN 5 ELSE 0 END) +
         (CASE WHEN C.seg_pre3 = 'SI' THEN 5 ELSE 0 END) +
@@ -73,8 +72,7 @@ $sql3="SELECT P.idpeople,  -- Puntaje por seguridad alimentaria
         (CASE WHEN C.seg_pre6 = 'SI' THEN 5 ELSE 0 END) +
         (CASE WHEN C.seg_pre7 = 'SI' THEN 5 ELSE 0 END) +
         (CASE WHEN C.seg_pre8 = 'SI' THEN 5 ELSE 0 END)
-    ) AS puntaje_seguridad_alimentaria,
-    -- Puntaje por población diferencial
+    ) AS puntaje_seguridad_alimentaria, -- Puntaje por población diferencial
     CASE P.pobladifer
         WHEN 1 THEN 5
         WHEN 2 THEN 5
@@ -85,8 +83,7 @@ $sql3="SELECT P.idpeople,  -- Puntaje por seguridad alimentaria
         WHEN 11 THEN 4
         WHEN 13 THEN 5
         ELSE 0
-    END AS puntaje_pobladifer,
-    -- Puntaje por inclusión por oficio
+    END AS puntaje_pobladifer,-- Puntaje por inclusión por oficio
     CASE P.incluofici
         WHEN 1 THEN 5
         WHEN 3 THEN 4
@@ -96,8 +93,7 @@ $sql3="SELECT P.idpeople,  -- Puntaje por seguridad alimentaria
         WHEN 7 THEN 4
         WHEN 8 THEN 5
         ELSE 0
-    END AS puntaje_incluofici,
-    -- Total de los tres factores
+    END AS puntaje_incluofici,-- Total de los tres factores
     (
         (CASE WHEN C.seg_pre1 = 'SI' THEN 5 ELSE 0 END) +
         (CASE WHEN C.seg_pre2 = 'SI' THEN 5 ELSE 0 END) +
@@ -128,8 +124,7 @@ $sql3="SELECT P.idpeople,  -- Puntaje por seguridad alimentaria
         WHEN 7 THEN 4
         WHEN 8 THEN 5
         ELSE 0
-    END AS puntaje_total_vulnerabilidad_social,
-    -- Porcentaje del total sobre 50
+    END AS puntaje_total_vulnerabilidad_social,-- Porcentaje del total sobre 50
     ROUND((
         (
             (CASE WHEN C.seg_pre1 = 'SI' THEN 5 ELSE 0 END) +
@@ -392,7 +387,7 @@ $entornoHab = $res5['responseResult'][0];
 
 //Riesgo Características Demográficas
 $sql6="SELECT 
-  P.id_persona,
+  P.idpersona,
   -- Descripciones
   FN_CATALOGODESC(19,P.genero) AS Genero,
   CASE P.genero
