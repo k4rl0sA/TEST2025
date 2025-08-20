@@ -1220,15 +1220,14 @@ s
         document.getElementById('checkoutForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const formatCOP = price => `$ ${new Intl.NumberFormat('es-CO').format(price)}`;
+            const nombre = document.querySelector('#checkoutForm input[type="text"]').value;
+            const email = document.querySelector('#checkoutForm input[type="email"]').value;
+            const telefono = document.querySelector('#checkoutForm input[type="tel"]').value;
+            const direccion = document.querySelector('#checkoutForm textarea').value;
+            const info = `Nombre: ${nombre}%0AEmail: ${email}%0ATeléfono: ${telefono}%0ADirección: ${direccion}`;
             let message = '¡Hola! Me interesa hacer un pedido:%0A%0A';
             message += 'Información de contacto:%0A';
-            message += `Nombre: ${item}%0A`;
-            /* message+=item => {
-                message += `Nombre: ${this[0].value}%0A`;
-                message += `Email: ${this[1].value}%0A`;
-                message += `Teléfono: ${this[2].value}%0A`;
-                message += `Dirección: ${this[3].value}%0A%0A`;
-            }; */
+
             cart.forEach((item, idx) => {
                 message += `${idx + 1}. ${item.name}%0A   Cantidad: ${item.quantity}%0A   Precio unitario: ${formatCOP(item.price)}%0A   Subtotal: ${formatCOP(item.price * item.quantity)}%0A%0A`;
             });
