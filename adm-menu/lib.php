@@ -73,12 +73,31 @@ switch ($a) {
         exit;
 
     case 'get':
-        $id = intval($_GET['id'] ?? 0);
-        if (!$id) error_response('ID inválido');
+        $token = $_GET['token'] ?? '';
+        $id = IdHash($token);
+        if (!$id) error_response("ID inválido");
         $sql = "SELECT * FROM adm_menu WHERE id = ?";
         $arr = datos_mysql($sql, MYSQLI_ASSOC, false, [['type'=>'i','value'=>$id]]);
-        if (empty($arr['responseResult'][0])) error_response('Menú no encontrado');
-        echo json_encode(['success'=>true, 'datos'=>$arr['responseResult'][0]]);
+
+        $sql_est = "SELECT idcatadeta AS value, descripcion AS label FROM catadeta WHERE idcatalogo=11 AND estado='A'";
+    $est_arr = datos_mysql($sql_est, MYSQLI_ASSOC, false, []);
+    $est_map = [];
+    if (!empty($est_arr['responseResult'])) {
+        foreach ($est_arr['responseResult'] as $item) {
+            $est_map[$item['label']] = $item['value'];
+            $est_map[$item['value']] = $item['value'];
+        }
+    }
+    if (isset($datos['estado'])) {
+        $val = $datos['estado'];
+        $datos['estado'] = $est_map[$val] ?? $val;
+    }
+        if (empty($arr['responseResult'])) error_response("Menú no encontrado");
+        $datos = $arr['responseResult'][0];
+        $datos['token'] = IdHash($datos['id']);
+        unset($datos['id']);
+        echo json_encode(['success' => true, 'menu' => $datos]);    
+        
         exit;
 
     case 'create':
