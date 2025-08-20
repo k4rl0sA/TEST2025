@@ -73,11 +73,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function loadAllRoleSelects(selected = {}) {
+        fetchWithLoader(path+'lib.php?a=opciones', {}, function(data) {
+            if (data.opciones && data.opciones.estado) {
+                window.estadoOptions = data.opciones.estado;
+                loadSelectChoices('fil-estado', data.opciones.estado, '-- Estado --', selected.estado || 'A');
+            }
+        });
+    }
+
     function initMenu() {
         fetchMenus();
         updateActiveFiltersChips(
             filters,
-            {},
+            {estado: window.estadoOptions},
             'active-filters-chips',
             'active-filters-count',
             removeFilterCallback
@@ -93,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fetchMenus();
         updateActiveFiltersChips(
             filters,
-            {},
+            {estado: window.estadoOptions},
             'active-filters-chips',
             'active-filters-count',
             removeFilterCallback
@@ -107,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
             fetchMenus();
             updateActiveFiltersChips(
                 filters,
-                {},
+                {estado: window.estadoOptions},
                 'active-filters-chips',
                 'active-filters-count',
                 removeFilterCallback
@@ -143,11 +152,14 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('table-section').classList.remove('hidden');
     };
 
-    window.editMenu = function(id) {
+    window.editMenu = function(token) {
         document.getElementById('menu-form').reset();
-        fetchWithLoader(path+`lib.php?a=get&id=${id}`, {}, function(data) {
+        fetchWithLoader(path+`lib.php?a=get&token=${token}`, {}, function(data) {
             const datos = data.datos;
-            editingId = datos.id;
+            editingId = token;
+              loadAllRoleSelects({
+                estado: datos.estado
+            });
             document.getElementById('id').value = datos.id;
             document.getElementById('link').value = datos.link;
             document.getElementById('icono').value = datos.icono;
@@ -162,11 +174,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
 
-    window.deleteMenu = function(id) {
+    window.deleteMenu = function(token) {
         if (!confirm('¿Está seguro de eliminar este menú?')) return;
         const formData = new FormData();
         formData.append('csrf_token', window.CSRF_TOKEN);
-        fetchWithLoader(path+`lib.php?a=delete&id=${id}`, {
+        formData.append('token', token);
+        fetchWithLoader(path+`lib.php?a=delete`, {
             method: 'POST',
             body: formData
         }, () => fetchMenus());
