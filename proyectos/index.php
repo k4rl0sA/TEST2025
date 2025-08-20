@@ -125,6 +125,7 @@ if (empty($_SESSION['csrf_token'])) {
                         <tr>
                             <th>Nombre del Proyecto</th>
                             <th>Estado</th>
+                            <th>Prioridad</th>
                             <th>Progreso</th>
                             <th>Fecha Límite</th>
                             <th>Acciones</th>
