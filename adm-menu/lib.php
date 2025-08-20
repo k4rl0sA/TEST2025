@@ -148,8 +148,6 @@ switch ($a) {
             $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);
             $opciones[$campo] = isset($arr['responseResult']) ? $arr['responseResult'] : [];
         }
-        $perfiles= datos_mysql("SELECT perfil as value, perfil as label FROM adm_roles GROUP BY perfil ORDER BY 1");
-        $opciones['perfil'] = isset($perfiles['responseResult']) ? $perfiles['responseResult'] : [];
         echo json_encode([
             'success'=> true,
             'opciones' => $opciones
