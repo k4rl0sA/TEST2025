@@ -181,7 +181,7 @@ header { display: flex; justify-content: space-between; align-items: center; pad
 @keyframes fadeInError { from { opacity: 0; transform: translateY(-5px);} to { opacity: 1; transform: translateY(0);} }
 .input-error { border-color: var(--danger, #e63946); background: #fff6f6; }
 .form-actions { display: flex; justify-content: flex-end; gap: 15px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--light-gray); }
-.toast-container { position: fixed; bottom: 30px; right: 30px; z-index: 1000; display: flex; flex-direction: column; gap: 15px; }
+.toast-container { position: fixed; top: 30px; right: 30px; z-index: 1000; display: flex; flex-direction: column; gap: 15px; }
 .toast { padding: 18px 25px; border-radius: var(--border-radius); box-shadow: var(--shadow-hover); display: flex; align-items: center; gap: 15px; color: white; animation: slideIn 0.3s ease-out; transform: translateX(0); min-width: 300px; }
 @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
 .toast i { font-size: 1.5rem; }
