@@ -487,7 +487,10 @@ LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
 LEFT JOIN hog_geo G ON F.idpre = G.idgeo 
  WHERE P.idpersona = '$document' AND P.tipo_doc = '$tipo' LIMIT 1;";
 $res6 = datos_mysql($sql6);
-$puntajeDemo = $res5['responseResult'][0]['CD_Valor_0_100'];
+$puntajeDemo = $res6['responseResult'][0]['CD_Valor_0_100'];
+$genero=$res6['responseResult'][0]['Genero'];
+$nacionalidad = $res6['responseResult'][0]['Nacionalidad'];
+$etnia = $res6['responseResult'][0]['Etnia'];
 
 // Generar factores de riesgo aleatorios
 $riesgos = [
@@ -552,9 +555,9 @@ $riesgos = [
     "demographics" => [
         "name" => "Características Demográficas",
         "value" => $puntajeDemo,
-        "Genero" => $res6['responseResult'][0]['Genero'],
-        "Nacionalidad" => $res6['responseResult'][0]['Nacionalidad'],
-        "Etnia" => $res6['responseResult'][0]['Etnia'],
+        "Genero" => $genero ,
+        "Nacionalidad" => $nacionalidad,
+        "Etnia" => $etnia,
         "weight" => 0.04,
         "description" => "Incluye edad, género y otras variables que influyen en la exposición al riesgo."
     ],
