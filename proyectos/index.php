@@ -253,28 +253,19 @@ if (empty($_SESSION['csrf_token'])) {
                     <label for="projectDescription">Descripción</label>
                     <textarea id="projectDescription" class="form-control" rows="3" placeholder="Descripción del proyecto"></textarea>
                 </div>
-                
-                <div class="form-group">
-                    <label for="projectTeam">Equipo</label>
-                    <select id="projectTeam" class="form-control">
-                        <option value="">Seleccione un equipo</option>
-                        <option value="1">Desarrollo Web</option>
-                        <option value="2">Móvil</option>
-                        <option value="3">Frontend</option>
-                        <option value="4">Backend</option>
-                        <option value="5">Base de Datos</option>
-                    </select>
-                </div>
-                
+               
                 <div class="form-group">
                     <label for="projectStatus">Estado</label>
                     <select id="projectStatus" class="form-control">
-                        <option value="planificacion">Planificación</option>
                         <option value="analisis">Análisis</option>
                         <option value="desarrollo">Desarrollo</option>
                         <option value="pruebas">Pruebas</option>
+                        <option value="aprobacion">Aprobación Técnica</option>
+                        <option value="manual">Manual o Video</option>
+                        <option value="pruebasSub">Pruebas Subred</option>
+                        <option value="socializacion">Socialización</option>
                         <option value="implementacion">Implementación</option>
-                        <option value="completado">Completado</option>
+                        <option value="notifica">Notificación</option>
                     </select>
                 </div>
                 
@@ -430,7 +421,7 @@ function limpiarModal() {
     document.getElementById('projectName').value = '';
     document.getElementById('projectDescription').value = '';
     document.getElementById('projectTeam').value = '';
-    document.getElementById('projectStatus').value = 'planning';
+    document.getElementById('projectStatus').value = 'analisis';
     document.getElementById('projectDeadline').value = '';
 }
 
@@ -438,7 +429,7 @@ function llenarModal(proy) {
     document.getElementById('projectName').value = proy.nombre || '';
     document.getElementById('projectDescription').value = proy.descripcion || '';
     document.getElementById('projectTeam').value = proy.responsable_id || '';
-    document.getElementById('projectStatus').value = proy.estado || 'planning';
+    document.getElementById('projectStatus').value = proy.estado || 'analisis';
     document.getElementById('projectDeadline').value = proy.fecha_fin_estimada || '';
 }
 
