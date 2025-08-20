@@ -93,7 +93,7 @@ switch ($a) {
         if (!$id) error_response("ID inválido");
         $sql = "SELECT p.*, u.nombre AS responsable 
                 FROM proyectos p 
-                LEFT JOIN usuarios u ON p.responsable_id = u.id 
+                LEFT JOIN usuarios u ON p.responsable_id = u.id_usuario
                 WHERE p.id = ?";
         $params = [['type'=>'i','value'=>$id]];
         $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);
