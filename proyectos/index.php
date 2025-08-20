@@ -274,6 +274,16 @@ if (empty($_SESSION['csrf_token'])) {
                         <option value="">-- Seleccione un responsable --</option>
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="priority">Prioridad</label>
+                    <select id="priority" class="form-control">
+                        <option value="baja">Baja</option>
+                        <option value="media" selected>Media</option>
+                        <option value="alta">Alta</option>
+                        <option value="urgente">Urgente</option>
+                    </select>
+                </div>
                 
                 <div class="form-group">
                     <label for="projectDeadline">Fecha Límite</label>

@@ -73,7 +73,7 @@ switch ($a) {
     case 'crear_proyecto':
         $nombre = clean($_POST['nombre'] ?? '');
         $descripcion = clean($_POST['descripcion'] ?? '');
-        $fecha_inicio = $_POST['fecha_inicio'] ?? date('Y-m-d');
+        $fecha_inicio =date('Y-m-d');
         $fecha_fin_estimada = $_POST['fecha_fin_estimada'] ?? null;
         $estado = $_POST['estado'] ?? 'planificacion';
         $prioridad = $_POST['prioridad'] ?? 'media';
