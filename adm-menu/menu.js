@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function loadAllRoleSelects(selected = {}) {
+    function loadAllMenuSelects(selected = {}) {
         fetchWithLoader(path+'lib.php?a=opciones', {}, function(data) {
             if (data.opciones && data.opciones.estado) {
                 window.estadoOptions = data.opciones.estado;
@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'active-filters-count',
             removeFilterCallback
         );
+        loadAllMenuSelects();
     }
 
     document.getElementById('filter-form').addEventListener('submit', function(e) {
@@ -121,6 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 'active-filters-count',
                 removeFilterCallback
             );
+            loadAllMenuSelects();
         });
     };
 
@@ -138,6 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('add-btn').onclick = function() {
         editingId = null;
         document.getElementById('menu-form').reset();
+        loadAllMenuSelects();
         document.getElementById('form-title').textContent = 'Nuevo Menú';
         document.getElementById('form-menu').classList.remove('hidden');
         document.getElementById('table-section').classList.add('hidden');
@@ -157,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fetchWithLoader(path+`lib.php?a=get&token=${token}`, {}, function(data) {
             const datos = data.datos;
             editingId = token;
-              loadAllRoleSelects({
+              loadAllMenuSelects({
                 estado: datos.estado
             });
             document.getElementById('id').value = datos.id;
