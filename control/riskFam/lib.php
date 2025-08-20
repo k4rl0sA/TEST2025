@@ -552,6 +552,9 @@ $riesgos = [
     "demographics" => [
         "name" => "Características Demográficas",
         "value" => $puntajeDemo,
+        "Genero" => $res6['responseResult'][0]['Genero'],
+        "Nacionalidad" => $res6['responseResult'][0]['Nacionalidad'],
+        "Etnia" => $res6['responseResult'][0]['Etnia'],
         "weight" => 0.04,
         "description" => "Incluye edad, género y otras variables que influyen en la exposición al riesgo."
     ],
