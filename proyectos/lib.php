@@ -3,7 +3,7 @@ ini_set('display_errors','1');
 session_start();
 header('Content-Type: application/json; charset=utf-8');
 
-require_once __DIR__ . '../lib/php/app.php';
+require_once __DIR__ . '/../lib/php/app.php';
 
 // --- Validar sesión (ajusta según tu lógica de login) ---
 if (!isset($_SESSION["us_sds"])) {
