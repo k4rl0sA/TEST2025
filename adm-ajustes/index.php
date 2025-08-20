@@ -79,7 +79,7 @@ if (empty($_SESSION['csrf_token'])) {
             <thead>
                 <tr>
                     <th>Acciones</th>
-                    <th data-sort="id_rol">ID</th>
+                    <!-- <th data-sort="id_rol">ID</th> NO MOSTRAR EL ID-->
                     <th data-sort="modulo">Módulo</th>
                     <th data-sort="perfil">Perfil</th>
                     <th data-sort="componente">Componente</th>
