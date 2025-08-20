@@ -74,13 +74,13 @@ $sql3="SELECT
     CASE P.pobladifer   WHEN 1 THEN 5 WHEN 2 THEN 5 WHEN 3 THEN 5 WHEN 4 THEN 4
       WHEN 5 THEN 5 WHEN 10 THEN 3 WHEN 11 THEN 4 WHEN 13 THEN 5    ELSE 0 END +
     CASE P.incluofici  WHEN 1 THEN 5 WHEN 3 THEN 4 WHEN 4 THEN 3 WHEN 5 THEN 5  WHEN 6 THEN 3 WHEN 7 THEN 4 WHEN 8 THEN 5   ELSE 0 END
-  ) AS VS_Puntaje_Bruto, -- Porcentaje escala 0 a 100 (máximo 50)
+  ) AS puntaje_total_vulnerabilidad_social, -- Porcentaje escala 0 a 100 (máximo 50)
   ROUND(((CASE WHEN C.seg_pre1 = 'SI' THEN 5 ELSE 0 END +  CASE WHEN C.seg_pre2 = 'SI' THEN 5 ELSE 0 END +  CASE WHEN C.seg_pre3 = 'SI' THEN 5 ELSE 0 END +  CASE WHEN C.seg_pre4 = 'SI' THEN 5 ELSE 0 END +  CASE WHEN C.seg_pre5 = 'SI' THEN 5 ELSE 0 END +  CASE WHEN C.seg_pre6 = 'SI' THEN 5 ELSE 0 END +  CASE WHEN C.seg_pre7 = 'SI' THEN 5 ELSE 0 END +  CASE WHEN C.seg_pre8 = 'SI' THEN 5 ELSE 0 END +
       CASE P.pobladifer    WHEN 1 THEN 5 WHEN 2 THEN 5 WHEN 3 THEN 5 WHEN 4 THEN 4
       WHEN 5 THEN 5 WHEN 10 THEN 3 WHEN 11 THEN 4 WHEN 13 THEN 5  ELSE 0 END +
       CASE P.incluofici   WHEN 1 THEN 5 WHEN 3 THEN 4 WHEN 4 THEN 3 WHEN 5 THEN 5
         WHEN 6 THEN 3 WHEN 7 THEN 4 WHEN 8 THEN 5 ELSE 0 END
-    ) * 100.0 / 50), 2) AS VS_Valor_0_100
+    ) * 100.0 / 50), 2) AS vulnerabilidad_social_porcentaje
 FROM person P
 LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
 LEFT JOIN hog_carac C ON F.id_fam = C.idfam
