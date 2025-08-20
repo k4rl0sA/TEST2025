@@ -12,22 +12,28 @@ if (empty($_SESSION['csrf_token'])) {
     <title>Gestión de Menú</title>
     <link rel="stylesheet" href="../lib/css/app.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <link rel="stylesheet" href="../lib/css/choices.min.css?v=1">
+    <script src="../lib/js/choices.min.js"></script>
     <script>window.CSRF_TOKEN = "<?php echo $_SESSION['csrf_token']; ?>";</script>
     <script src="../lib/js/app.js" defer></script>
     <script src="menu.js"></script>
 </head>
 <body>
+    <div class="toast-container">
+        <!-- Las notificaciones se agregarán aquí dinámicamente -->
+    </div>
 <div class="content-card">
+    <div class='load' id='loader' z-index='0'></div>
     <div class="filters-bar">
-        <button class="btn btn-chip" id="toggle-filters-btn">
+        <button class="btn btn-chip" id="toggle-filters-btn" title="Mostrar/ocultar filtros">
             <i class="fa fa-filter"></i>
             <span class="chip-text">Filtros</span>
             <span id="active-filters-count" class="chip-count">0</span>
         </button>
         <div id="active-filters-chips" class="chips-list"></div>
     </div>
-    <div class="form-section hidden" id="filters-panel">
-        <form id="filter-form">
+    <div class="form-section hidden" id="filters-panel" style="margin-bottom:1.5em;">
+        <form id="filter-form" class="filter-section">
             <div class="input-group">
                 <input type="text" id="fil-link" placeholder="">
                 <label for="fil-link">Link</label>
@@ -37,29 +43,30 @@ if (empty($_SESSION['csrf_token'])) {
                 <label for="fil-tipo">Tipo</label>
             </div>
             <div class="input-group">
-                <select id="fil-estado">
-                    <option value="">Todos</option>
-                    <option value="A">Activo</option>
-                    <option value="I">Inactivo</option>
+                <select id="fil-estado" multiple>
                 </select>
                 <label for="fil-estado">Estado</label>
             </div>
+            <div class="input-group">
+                <input type="text" id="fil-search" placeholder="">
+                <label for="fil-search">Buscar</label>
+            </div>
             <div class="filter-actions">
-                <button type="submit" class="btn btn-primary filter-btn"><i class="fa fa-search"></i> Aplicar Filtros</button>
-                <button type="button" class="btn btn-outline filter-reset" id="clear-filters"><i class="fa fa-sync"></i></button>
+                <button type="submit" class="btn btn-primary filter-btn" title="Aplicar filtros"><i class="fa fa-search"></i> Aplicar Filtros</button>
+                <button type="button" class="btn btn-outline filter-reset" id="clear-filters" title="Limpiar filtros"><i class="fa fa-sync"></i></button>
             </div>
         </form>
     </div>
     <div class="table-header">
         <h2>Menú Registrado</h2>
-        <button class="btn btn-add" id="add-btn"><i class="fa fa-plus"></i> Nuevo Menú</button>
+        <button class="btn btn-add" id="add-btn" title="Agregar nuevo rol"><i class="fa fa-plus"></i><span> Nuevo Menú</span></button>
     </div>
     <div class="table-container" id="table-section">
         <table id="menu-table">
             <thead>
                 <tr>
                     <th>Acciones</th>
-                    <th data-sort="id">ID</th>
+                    <!-- <th data-sort="id">ID</th> -->
                     <th data-sort="link">Link</th>
                     <th data-sort="icono">Icono</th>
                     <th data-sort="tipo">Tipo</th>
@@ -76,7 +83,7 @@ if (empty($_SESSION['csrf_token'])) {
     <div id="form-menu" class="form-section modal-content hidden">
         <div class="table-header">
             <h3 id="form-title"><i class="fas fa-edit"></i> Menú</h3>
-            <button id="close-win" class="btn btn-outline"><i class="fa-solid fa-xmark"></i></button>
+            <button id="close-win" class="btn btn-outline" title="Cerrar ventana"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <form id="menu-form">
             <input type="hidden" id="id">
@@ -107,15 +114,11 @@ if (empty($_SESSION['csrf_token'])) {
                 </div>
                 <div class="input-group">
                     <select id="contenedor" name="contenedor" required>
-                        <option value="SI">SI</option>
-                        <option value="NO">NO</option>
                     </select>
                     <label for="contenedor">Contenedor</label>
                 </div>
                 <div class="input-group">
                     <select id="estado" name="estado" required>
-                        <option value="A">Activo</option>
-                        <option value="I">Inactivo</option>
                     </select>
                     <label for="estado">Estado</label>
                 </div>
