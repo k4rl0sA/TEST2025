@@ -374,7 +374,8 @@ $riesgos = [
         "value" => $vulnSocial,
         "weight" => 0.05,
         "puntajeTotal" => $puntajeTotal,
-
+        "poblacion Diferencial" => $poblacionDif,
+        "inclusion por Oficio" => $inclusionOficio,
         "description" => "Considera factores como la violencia, el desplazamiento y la exclusión social."
     ],
     "accessToHealth" => [
