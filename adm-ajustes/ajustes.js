@@ -1,3 +1,4 @@
+const path = '/adm-ajustes/';
 // --- SPA de Ajustes de Roles ---
 document.addEventListener('DOMContentLoaded', function() {
     // Variables de estado globales
@@ -85,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
             page,
             pageSize
         }).toString();
-        fetchWithLoader(`/ajustes/lib.php?a=list&${params}`, {}, function(data) {
+        fetchWithLoader(path + `lib.php?a=list&${params}`, {}, function(data) {
             renderRolesTable(data);
         });
     }
@@ -94,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
      * Carga las opciones de los selects dinámicos (Choices.js)
      */
     function loadAllRoleSelects(selected = {}) {
-        fetchWithLoader('/ajustes/lib.php?a=opciones', {}, function(data) {
+        fetchWithLoader(path+'lib.php?a=opciones', {}, function(data) {
             if (data.opciones && data.opciones.estado) {
                 window.estadoOptions = data.opciones.estado;
                 loadSelectChoices('fil-estado', data.opciones.estado, '-- Estado --', selected.estado || 'A');
