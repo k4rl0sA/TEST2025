@@ -24,6 +24,9 @@ if (empty($_SESSION['csrf_token'])) {
     <script src="ajustes.js?v=4.0"></script>
 </head>
 <body>
+    <div class="toast-container">
+        <!-- Las notificaciones se agregarán aquí dinámicamente -->
+    </div>
 <div class="content-card">
     <div class='load' id='loader' z-index='0'></div>
     <!-- Filtros tipo chips -->
@@ -158,9 +161,6 @@ if (empty($_SESSION['csrf_token'])) {
                 <button type="button" id="cancel-btn" class="btn btn-outline" title="Cancelar"><i class="fas fa-times"></i>Cancelar</button>
             </div>
         </form>
-    </div>
-    <div class="toast-container">
-        <!-- Las notificaciones se agregarán aquí dinámicamente -->
     </div>
 </div>
 </body>
