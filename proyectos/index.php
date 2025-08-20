@@ -392,6 +392,7 @@ function openModal(modo = 'crear', id = null) {
     modoModal = modo;
     proyectoActualId = id;
     limpiarModal();
+     cargarResponsables();
 
     if (modo === 'crear') {
         document.querySelector('.modal-header h3').textContent = 'Nuevo Proyecto';
@@ -423,6 +424,20 @@ function limpiarModal() {
     document.getElementById('projectTeam').value = '';
     document.getElementById('projectStatus').value = 'analisis';
     document.getElementById('projectDeadline').value = '';
+}
+
+function cargarResponsables() {
+    fetch('lib.php?a=list_responsables')
+        .then(r => r.json())
+        .then(data => {
+            const select = document.getElementById('projectTeam');
+            select.innerHTML = '<option value="">Seleccione...</option>';
+            if (data.success) {
+                data.usuarios.forEach(u => {
+                    select.innerHTML += `<option value="${u.id}">${u.nombre} (${u.rol})</option>`;
+                });
+            }
+        });
 }
 
 function llenarModal(proy) {
