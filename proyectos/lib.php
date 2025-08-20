@@ -27,6 +27,21 @@ function clean($v) {
 
 $a = $_GET['a'] ?? $_POST['a'] ?? '';
 
+function progreso_por_estado($estado) {
+    $map = [
+        'analisis'        => 10,
+        'desarrollo'      => 40,
+        'pruebas'         => 70,
+        'aprobacion'      => 80,
+        'manual'          => 85,
+        'pruebasSub'      => 90,
+        'socializacion'   => 95,
+        'implementacion'  => 98,
+        'notifica'        => 100
+    ];
+    return $map[$estado] ?? 0;
+}
+
 switch ($a) {
     // --- Listar proyectos (dashboard) ---
     case 'list_proyectos':
@@ -62,7 +77,7 @@ switch ($a) {
         $fecha_fin_estimada = $_POST['fecha_fin_estimada'] ?? null;
         $estado = $_POST['estado'] ?? 'planificacion';
         $prioridad = $_POST['prioridad'] ?? 'media';
-        $progreso = intval($_POST['progreso'] ?? 0);
+        $progreso = progreso_por_estado($estado);
         $presupuesto = floatval($_POST['presupuesto'] ?? 0);
         $responsable_id = intval($_POST['responsable_id'] ?? 0);
         $cliente = clean($_POST['cliente'] ?? '');
@@ -112,7 +127,7 @@ switch ($a) {
         $fecha_fin_real = $_POST['fecha_fin_real'] ?? null;
         $estado = $_POST['estado'] ?? 'planificacion';
         $prioridad = $_POST['prioridad'] ?? 'media';
-        $progreso = intval($_POST['progreso'] ?? 0);
+        $progreso = progreso_por_estado($estado);
         $presupuesto = floatval($_POST['presupuesto'] ?? 0);
         $responsable_id = intval($_POST['responsable_id'] ?? 0);
         $cliente = clean($_POST['cliente'] ?? '');
