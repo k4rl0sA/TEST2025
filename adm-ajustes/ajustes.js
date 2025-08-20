@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </button>
                     </div>
                 </td>
-                <td data-label="ID">${role.token}</td>
+                
                 <td data-label="Modulo">${role.modulo}</td>
                 <td data-label="Perfil">${role.perfil}</td>
                 <td data-label="Componente">${role.componente}</td>
@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td data-label="Importar">${role.importar}</td>
                 <td data-label="Estado">${role.estado}</td>
             `;
+            /* <td data-label="ID">${role.token}</td>//NO MOSTRAR ID  */
             tbody.appendChild(tr);
         });
         // Paginador y ordenamiento
