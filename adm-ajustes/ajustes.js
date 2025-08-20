@@ -34,25 +34,25 @@ document.addEventListener('DOMContentLoaded', function() {
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td style="position:relative;">
-                    <button class="action-menu-btn" onclick="toggleActionMenu(event, ${role.id_rol})">
+                    <button class="action-menu-btn" onclick="toggleActionMenu(event, ${role.token})">
                         <i class="fa fa-ellipsis-v"></i>
                     </button>
-                    <div class="action-menu" id="action-menu-${role.id_rol}">
-                        <button class="menu-item edit-btn" onclick="editRole(${role.id_rol})">
+                    <div class="action-menu" id="action-menu-${role.token}">
+                        <button class="menu-item edit-btn" onclick="editRole(${role.token})">
                             <i class="fa fa-edit"></i>
                             <span class="label">Editar</span>
                         </button>
-                        <button class="menu-item delete-btn" onclick="deleteRole(${role.id_rol})">
+                        <button class="menu-item delete-btn" onclick="deleteRole(${role.token})">
                             <i class="fa fa-trash"></i>
                             <span class="label">Inactivar</span>
                         </button>
-                        <button class="menu-item" onclick="caracterizarRole(${role.id_rol})">
+                        <button class="menu-item" onclick="caracterizarRole(${role.token})">
                             <i class="fa fa-home"></i>
                             <span class="label">Caracterizar</span>
                         </button>
                     </div>
                 </td>
-                <td data-label="ID">${role.id_rol}</td>
+                <td data-label="ID">${role.token}</td>
                 <td data-label="Modulo">${role.modulo}</td>
                 <td data-label="Perfil">${role.perfil}</td>
                 <td data-label="Componente">${role.componente}</td>
@@ -205,11 +205,11 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Editar rol
-    window.editRole = function(id) {
+    window.editRole = function(token) {
         document.getElementById('role-form').reset();
-        fetchWithLoader(path+`lib.php?a=get&id=${id}`, {}, function(data) {
+        fetchWithLoader(path+`lib.php?a=get&token=${token}`, {}, function(data) {
             const datos = data.datos;
-            editingId = datos.id_rol;
+            editingId = token;
             loadAllRoleSelects({
                 consultar: datos.consultar,
                 editar: datos.editar,
@@ -229,11 +229,12 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Eliminar rol
-    window.deleteRole = function(id) {
+    window.deleteRole = function(token) {
         if (!confirm('¿Está seguro de eliminar este rol?')) return;
         const formData = new FormData();
         formData.append('csrf_token', window.CSRF_TOKEN);
-        fetchWithLoader(path+`lib.php?a=delete&id=${id}`, {
+        formData.append('token', token);
+        fetchWithLoader(path+`lib.php?a=delete`, {
             method: 'POST',
             body: formData
         }, () => fetchRoles());
@@ -248,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('role-form').addEventListener('submit', function(e) {
         e.preventDefault();
         const formData = new FormData(this);
-        if (editingId) formData.append('id_rol', editingId);
+        if (editingId) formData.append('token', editingId);
         formData.append('csrf_token', window.CSRF_TOKEN);
         fetchWithLoader(path+`lib.php?a=${editingId ? 'update' : 'create'}`, {
             method: 'POST',
