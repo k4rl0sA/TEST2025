@@ -63,108 +63,30 @@ $estruFamil = $res2['responseResult'][0]['EF_porcentaje'];
 $apgar = $res2['responseResult'][0]['Descripcion'];
 
 //Riesgo Vulnerabilidad Social
-$sql3="SELECT P.idpeople,  -- Puntaje por seguridad alimentaria
-        (CASE WHEN C.seg_pre1 = 'SI' THEN 5 ELSE 0 END) +
-        (CASE WHEN C.seg_pre2 = 'SI' THEN 5 ELSE 0 END) +
-        (CASE WHEN C.seg_pre3 = 'SI' THEN 5 ELSE 0 END) +
-        (CASE WHEN C.seg_pre4 = 'SI' THEN 5 ELSE 0 END) +
-        (CASE WHEN C.seg_pre5 = 'SI' THEN 5 ELSE 0 END) +
-        (CASE WHEN C.seg_pre6 = 'SI' THEN 5 ELSE 0 END) +
-        (CASE WHEN C.seg_pre7 = 'SI' THEN 5 ELSE 0 END) +
-        (CASE WHEN C.seg_pre8 = 'SI' THEN 5 ELSE 0 END)
-    ) AS puntaje_seguridad_alimentaria, -- Puntaje por población diferencial
-    CASE P.pobladifer
-        WHEN 1 THEN 5
-        WHEN 2 THEN 5
-        WHEN 3 THEN 5
-        WHEN 4 THEN 4
-        WHEN 5 THEN 5
-        WHEN 10 THEN 3
-        WHEN 11 THEN 4
-        WHEN 13 THEN 5
-        ELSE 0
-    END AS puntaje_pobladifer,-- Puntaje por inclusión por oficio
-    CASE P.incluofici
-        WHEN 1 THEN 5
-        WHEN 3 THEN 4
-        WHEN 4 THEN 3
-        WHEN 5 THEN 5
-        WHEN 6 THEN 3
-        WHEN 7 THEN 4
-        WHEN 8 THEN 5
-        ELSE 0
-    END AS puntaje_incluofici,-- Total de los tres factores
-    (
-        (CASE WHEN C.seg_pre1 = 'SI' THEN 5 ELSE 0 END) +
-        (CASE WHEN C.seg_pre2 = 'SI' THEN 5 ELSE 0 END) +
-        (CASE WHEN C.seg_pre3 = 'SI' THEN 5 ELSE 0 END) +
-        (CASE WHEN C.seg_pre4 = 'SI' THEN 5 ELSE 0 END) +
-        (CASE WHEN C.seg_pre5 = 'SI' THEN 5 ELSE 0 END) +
-        (CASE WHEN C.seg_pre6 = 'SI' THEN 5 ELSE 0 END) +
-        (CASE WHEN C.seg_pre7 = 'SI' THEN 5 ELSE 0 END) +
-        (CASE WHEN C.seg_pre8 = 'SI' THEN 5 ELSE 0 END)
-    ) +
-    CASE P.pobladifer
-        WHEN 1 THEN 5
-        WHEN 2 THEN 5
-        WHEN 3 THEN 5
-        WHEN 4 THEN 4
-        WHEN 5 THEN 5
-        WHEN 10 THEN 3
-        WHEN 11 THEN 4
-        WHEN 13 THEN 5
-        ELSE 0
-    END +
-    CASE P.incluofici
-        WHEN 1 THEN 5
-        WHEN 3 THEN 4
-        WHEN 4 THEN 3
-        WHEN 5 THEN 5
-        WHEN 6 THEN 3
-        WHEN 7 THEN 4
-        WHEN 8 THEN 5
-        ELSE 0
-    END AS puntaje_total_vulnerabilidad_social,-- Porcentaje del total sobre 50
-    ROUND((
-        (
-            (CASE WHEN C.seg_pre1 = 'SI' THEN 5 ELSE 0 END) +
-            (CASE WHEN C.seg_pre2 = 'SI' THEN 5 ELSE 0 END) +
-            (CASE WHEN C.seg_pre3 = 'SI' THEN 5 ELSE 0 END) +
-            (CASE WHEN C.seg_pre4 = 'SI' THEN 5 ELSE 0 END) +
-            (CASE WHEN C.seg_pre5 = 'SI' THEN 5 ELSE 0 END) +
-            (CASE WHEN C.seg_pre6 = 'SI' THEN 5 ELSE 0 END) +
-            (CASE WHEN C.seg_pre7 = 'SI' THEN 5 ELSE 0 END) +
-            (CASE WHEN C.seg_pre8 = 'SI' THEN 5 ELSE 0 END)
-        ) +
-        CASE P.pobladifer
-            WHEN 1 THEN 5
-            WHEN 2 THEN 5
-            WHEN 3 THEN 5
-            WHEN 4 THEN 4
-            WHEN 5 THEN 5
-            WHEN 10 THEN 3
-            WHEN 11 THEN 4
-            WHEN 13 THEN 5
-            ELSE 0
-        END +
-        CASE P.incluofici
-            WHEN 1 THEN 5
-            WHEN 3 THEN 4
-            WHEN 4 THEN 3
-            WHEN 5 THEN 5
-            WHEN 6 THEN 3
-            WHEN 7 THEN 4
-            WHEN 8 THEN 5
-            ELSE 0
-        END
-    ) * 100 / 50, 2) AS vulnerabilidad_social_porcentaje
+$sql3="SELECT  
+  P.idpeople,-- Seguridad alimentaria (cada ítem por separado)
+  CASE WHEN C.seg_pre1 = 'SI' THEN 5 ELSE 0 END AS seg_pre1_puntaje,CASE WHEN C.seg_pre2 = 'SI' THEN 5 ELSE 0 END AS seg_pre2_puntaje,CASE WHEN C.seg_pre3 = 'SI' THEN 5 ELSE 0 END AS seg_pre3_puntaje, CASE WHEN C.seg_pre4 = 'SI' THEN 5 ELSE 0 END AS seg_pre4_puntaje,  CASE WHEN C.seg_pre5 = 'SI' THEN 5 ELSE 0 END AS seg_pre5_puntaje,  CASE WHEN C.seg_pre6 = 'SI' THEN 5 ELSE 0 END AS seg_pre6_puntaje,  CASE WHEN C.seg_pre7 = 'SI' THEN 5 ELSE 0 END AS seg_pre7_puntaje,  CASE WHEN C.seg_pre8 = 'SI' THEN 5 ELSE 0 END AS seg_pre8_puntaje, -- Puntaje por población diferencial
+  CASE P.pobladifer   WHEN 1 THEN 5 WHEN 2 THEN 5 WHEN 3 THEN 5 WHEN 4 THEN 4 
+    WHEN 5 THEN 5 WHEN 10 THEN 3 WHEN 11 THEN 4 WHEN 13 THEN 5   ELSE 0 END AS puntaje_pobladifer,  -- Puntaje por inclusión por oficio
+  CASE P.incluofici WHEN 1 THEN 5 WHEN 3 THEN 4 WHEN 4 THEN 3 WHEN 5 THEN 5
+    WHEN 6 THEN 3 WHEN 7 THEN 4 WHEN 8 THEN 5  ELSE 0 END AS puntaje_incluofici, -- Puntaje bruto total vulnerabilidad social
+  (CASE WHEN C.seg_pre1 = 'SI' THEN 5 ELSE 0 END +   CASE WHEN C.seg_pre2 = 'SI' THEN 5 ELSE 0 END +   CASE WHEN C.seg_pre3 = 'SI' THEN 5 ELSE 0 END +   CASE WHEN C.seg_pre4 = 'SI' THEN 5 ELSE 0 END +   CASE WHEN C.seg_pre5 = 'SI' THEN 5 ELSE 0 END +   CASE WHEN C.seg_pre6 = 'SI' THEN 5 ELSE 0 END +   CASE WHEN C.seg_pre7 = 'SI' THEN 5 ELSE 0 END +   CASE WHEN C.seg_pre8 = 'SI' THEN 5 ELSE 0 END +
+    CASE P.pobladifer   WHEN 1 THEN 5 WHEN 2 THEN 5 WHEN 3 THEN 5 WHEN 4 THEN 4
+      WHEN 5 THEN 5 WHEN 10 THEN 3 WHEN 11 THEN 4 WHEN 13 THEN 5    ELSE 0 END +
+    CASE P.incluofici  WHEN 1 THEN 5 WHEN 3 THEN 4 WHEN 4 THEN 3 WHEN 5 THEN 5  WHEN 6 THEN 3 WHEN 7 THEN 4 WHEN 8 THEN 5   ELSE 0 END
+  ) AS VS_Puntaje_Bruto, -- Porcentaje escala 0 a 100 (máximo 50)
+  ROUND(((CASE WHEN C.seg_pre1 = 'SI' THEN 5 ELSE 0 END +  CASE WHEN C.seg_pre2 = 'SI' THEN 5 ELSE 0 END +  CASE WHEN C.seg_pre3 = 'SI' THEN 5 ELSE 0 END +  CASE WHEN C.seg_pre4 = 'SI' THEN 5 ELSE 0 END +  CASE WHEN C.seg_pre5 = 'SI' THEN 5 ELSE 0 END +  CASE WHEN C.seg_pre6 = 'SI' THEN 5 ELSE 0 END +  CASE WHEN C.seg_pre7 = 'SI' THEN 5 ELSE 0 END +  CASE WHEN C.seg_pre8 = 'SI' THEN 5 ELSE 0 END +
+      CASE P.pobladifer    WHEN 1 THEN 5 WHEN 2 THEN 5 WHEN 3 THEN 5 WHEN 4 THEN 4
+      WHEN 5 THEN 5 WHEN 10 THEN 3 WHEN 11 THEN 4 WHEN 13 THEN 5  ELSE 0 END +
+      CASE P.incluofici   WHEN 1 THEN 5 WHEN 3 THEN 4 WHEN 4 THEN 3 WHEN 5 THEN 5
+        WHEN 6 THEN 3 WHEN 7 THEN 4 WHEN 8 THEN 5 ELSE 0 END
+    ) * 100.0 / 50), 2) AS VS_Valor_0_100
 FROM person P
 LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
 LEFT JOIN hog_carac C ON F.id_fam = C.idfam
-WHERE C.fecha = (
-    SELECT MAX(C2.fecha)
-    FROM hog_carac C2
-    WHERE C2.idfam = C.idfam
+WHERE C.fecha = (  SELECT MAX(C2.fecha)
+  FROM hog_carac C2
+  WHERE C2.idfam = C.idfam
 ) AND P.idpersona = '$document' AND P.tipo_doc = '$tipo' LIMIT 1";
 $res3 = datos_mysql($sql3);
 $vulnSocial = $res3['responseResult'][0]['vulnerabilidad_social_porcentaje'];
