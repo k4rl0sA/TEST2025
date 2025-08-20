@@ -131,7 +131,7 @@ if (empty($_SESSION['csrf_token'])) {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                     <!--   <tr>
                             <td>
                                 <div class="project-name">Sistema de Facturación</div>
                                 <div class="project-details">Equipo: Desarrollo Web</div>
@@ -229,7 +229,7 @@ if (empty($_SESSION['csrf_token'])) {
                                 <button class="action-btn"><i class="fas fa-edit"></i></button>
                                 <button class="action-btn"><i class="fas fa-trash"></i></button>
                             </td>
-                        </tr>
+                        </tr>-->
                     </tbody>
                 </table>
             </div>

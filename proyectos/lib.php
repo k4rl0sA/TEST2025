@@ -122,7 +122,6 @@ switch ($a) {
         if (!$id) error_response("ID inválido");
         $nombre = clean($_POST['nombre'] ?? '');
         $descripcion = clean($_POST['descripcion'] ?? '');
-        $fecha_inicio = $_POST['fecha_inicio'] ?? null;
         $fecha_fin_estimada = $_POST['fecha_fin_estimada'] ?? null;
         $fecha_fin_real = $_POST['fecha_fin_real'] ?? null;
         $estado = $_POST['estado'] ?? 'planificacion';
@@ -133,12 +132,11 @@ switch ($a) {
         $cliente = clean($_POST['cliente'] ?? '');
         if (!$nombre) error_response("El nombre del proyecto es obligatorio");
         $sql = "UPDATE proyectos SET 
-            nombre=?, descripcion=?, fecha_inicio=?, fecha_fin_estimada=?, fecha_fin_real=?, estado=?, prioridad=?, progreso=?, presupuesto=?, responsable_id=?, cliente=?
+            nombre=?, descripcion=?, fecha_fin_estimada=?, fecha_fin_real=?, estado=?, prioridad=?, progreso=?, presupuesto=?, responsable_id=?, cliente=?
             WHERE id=?";
         $params = [
             ['type'=>'s','value'=>$nombre],
             ['type'=>'s','value'=>$descripcion],
-            ['type'=>'s','value'=>$fecha_inicio],
             ['type'=>'s','value'=>$fecha_fin_estimada],
             ['type'=>'s','value'=>$fecha_fin_real],
             ['type'=>'s','value'=>$estado],
