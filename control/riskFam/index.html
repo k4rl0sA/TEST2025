@@ -535,6 +535,7 @@
     if (key === 'socialVulnerability' && (factor.puntajeVulnerabilidad || factor.poblacionDif)) {
       const puntajeText = factor.puntajeVulnerabilidad ? `Puntaje de vulnerabilidad: ${factor.puntajeVulnerabilidad}` : '';
       const poblDifText = factor.poblacionDif ? `poblacion Diferencial: ${factor.poblacionDif}` : '';
+      const inclusionOficioText = factor.inclusionOficio ? `Inclusion de oficio: ${factor.inclusionOficio}` : '';
       additionalInfo = `
         <div class="risk-factor-tooltip">
           <div class="tooltip-content">
