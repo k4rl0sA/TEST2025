@@ -13,9 +13,6 @@ if (empty($_SESSION['csrf_token'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <link rel="stylesheet" href="style.css">
     <script>window.CSRF_TOKEN = "<?php echo $_SESSION['csrf_token']; ?>";</script>
-    <style>
-       
-    </style>
 </head>
 <body>
     <div class="container">
