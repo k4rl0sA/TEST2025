@@ -365,6 +365,9 @@ if (empty($_SESSION['csrf_token'])) {
     if (!nombre) return alert('El nombre es obligatorio');
     fetch(API, {
         method: 'POST',
+          headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+        },
         body: new URLSearchParams({
             a: 'crear_proyecto',
             nombre,
