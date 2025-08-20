@@ -1221,7 +1221,7 @@ s
             e.preventDefault();
             const formatCOP = price => `$ ${new Intl.NumberFormat('es-CO').format(price)}`;
             let message = '¡Hola! Me interesa hacer un pedido:%0A%0A';
-            message=item => {
+            message+=item => {
                 message += `Nombre: ${this[0].value}%0A`;
                 message += `Email: ${this[1].value}%0A`;
                 message += `Teléfono: ${this[2].value}%0A`;
