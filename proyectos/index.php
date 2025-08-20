@@ -334,7 +334,7 @@ if (empty($_SESSION['csrf_token'])) {
                         <div class="project-details">Responsable: ${proy.responsable || '-'}</div>
                     </td>
                     <td><span class="status status-${proy.estado}">${proy.estado}</span></td>
-                    <td><span class="priority priority-${proy.prioridad}">${proy.prioridad}</span></td>
+                    <td><span class="status status-development priority priority-${proy.prioridad}">${proy.prioridad}</span></td>
                     <td>
                         <div class="progress-bar">
                             <div class="progress" style="width: ${proy.progreso}%; background: #74b9ff;"></div>
