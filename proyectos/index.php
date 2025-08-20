@@ -268,6 +268,12 @@ if (empty($_SESSION['csrf_token'])) {
                         <option value="notifica">Notificación</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="projectTeam">Responsable</label>
+                    <select id="projectTeam" class="form-control">
+                        <option value="">-- Seleccione un responsable --</option>
+                    </select>
+                </div>
                 
                 <div class="form-group">
                     <label for="projectDeadline">Fecha Límite</label>
@@ -421,7 +427,7 @@ function openModal(modo = 'crear', id = null) {
 function limpiarModal() {
     document.getElementById('projectName').value = '';
     document.getElementById('projectDescription').value = '';
-    document.getElementById('projectStatus').value = 'analisis';
+                document.getElementById('projectStatus').value = 'analisis';
     document.getElementById('projectDeadline').value = '';
 }
 

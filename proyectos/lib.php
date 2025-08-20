@@ -156,7 +156,7 @@ switch ($a) {
 
     // --- Listar responsables (usuarios) ---
     case 'list_responsables':
-        $sql = "SELECT id, nombre, rol FROM usuarios_proy WHERE estado='A' ORDER BY nombre";
+        $sql = "SELECT id_usuario,nombre FROM usuarios WHERE estado='A' and perfil='ADM' ORDER BY nombre";
         $arr = datos_mysql($sql, MYSQLI_ASSOC, false, []);
         $usuarios = isset($arr['responseResult']) ? $arr['responseResult'] : [];
         echo json_encode(['success' => true, 'usuarios' => $usuarios]);
