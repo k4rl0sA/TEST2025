@@ -1221,12 +1221,14 @@ s
             e.preventDefault();
             const formatCOP = price => `$ ${new Intl.NumberFormat('es-CO').format(price)}`;
             let message = '¡Hola! Me interesa hacer un pedido:%0A%0A';
-            message+=item => {
+            message += 'Información de contacto:%0A';
+            message += `Nombre: ${item}%0A`;
+            /* message+=item => {
                 message += `Nombre: ${this[0].value}%0A`;
                 message += `Email: ${this[1].value}%0A`;
                 message += `Teléfono: ${this[2].value}%0A`;
                 message += `Dirección: ${this[3].value}%0A%0A`;
-            };
+            }; */
             cart.forEach((item, idx) => {
                 message += `${idx + 1}. ${item.name}%0A   Cantidad: ${item.quantity}%0A   Precio unitario: ${formatCOP(item.price)}%0A   Subtotal: ${formatCOP(item.price * item.quantity)}%0A%0A`;
             });
