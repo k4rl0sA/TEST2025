@@ -494,7 +494,7 @@ $riesgos = [
     "socioeconomic" => [
         "name" => "Status Socioeconómico",
         "value" => $socioEcono,
-        "weight" => 0.18,
+        "weight" => 0.08,
         "estrato" => $estrato,
         "ingreso" => $ingreso,
         "description" => "Impacta directamente el acceso a bienes y servicios esenciales."
@@ -502,7 +502,7 @@ $riesgos = [
     "familyStructure" => [
         "name" => "Estructura Familiar",
         "value" => $estruFamil,
-        "weight" => 0.20,
+        "weight" => 0.11,
         // "puntaje" => $puntaje,
         "apgar" => $apgar,
         "description" => "Influye en el apoyo social, la funcionalidad y la estabilidad del hogar."
@@ -510,7 +510,7 @@ $riesgos = [
     "socialVulnerability" => [
         "name" => "Vulnerabilidad Social",
         "value" => $vulnSocial,
-        "weight" => 0.12,
+        "weight" => 0.05,
         "puntajeTotal" => $puntajeTotal,
 
         "description" => "Considera factores como la violencia, el desplazamiento y la exclusión social."
@@ -518,7 +518,7 @@ $riesgos = [
     "accessToHealth" => [
         "name" => "Acceso a Servicios de Salud",
         "value" => $accesoSaludPorcentaje,
-        "weight" => 0.10,
+        "weight" => 0.07,
         "puntajeRegimen" => $puntajeRegimenSalud,
         "description" => "Clave para la prevención y el cuidado de enfermedades."
     ],
@@ -546,19 +546,19 @@ $riesgos = [
         "Adquiere medicamentos con fórmula médica" => $facamb7,
         "Almacena químicos de forma segura" => $facamb8,
         "Manejo adecuado de residuos sólidos" => $facamb9,
-        "weight" => 0.10,
+        "weight" => 0.07,
         "description" => "Evalúa las condiciones de la vivienda y su impacto en la salud."
     ],
     "demographics" => [
         "name" => "Características Demográficas",
         "value" => $puntajeDemo,
-        "weight" => 0.30,
+        "weight" => 0.04,
         "description" => "Incluye edad, género y otras variables que influyen en la exposición al riesgo."
     ],
     "individualConditions" => [
         "name" => "Condiciones Individuales",
         "value" => rand(50, 100),
-        "weight" => 0.20,
+        "weight" => 0.58,
         "description" => "Factores personales como discapacidad, enfermedades crónicas o condiciones especiales."
     ]
 ];
