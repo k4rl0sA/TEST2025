@@ -1227,7 +1227,6 @@ s
             const info = `Nombre: ${nombre}%0AEmail: ${email}%0ATeléfono: ${telefono}%0ADirección: ${direccion}`;
             let message = '¡Hola! Me interesa hacer un pedido:%0A%0A';
             message += 'Información de contacto:%0A';
-
             cart.forEach((item, idx) => {
                 message += `${idx + 1}. ${item.name}%0A   Cantidad: ${item.quantity}%0A   Precio unitario: ${formatCOP(item.price)}%0A   Subtotal: ${formatCOP(item.price * item.quantity)}%0A%0A`;
             });
