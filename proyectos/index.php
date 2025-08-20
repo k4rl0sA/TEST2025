@@ -351,34 +351,46 @@ if (empty($_SESSION['csrf_token'])) {
             crearProyecto();
         };
 
-        function crearProyecto() {
-            const nombre = document.getElementById('projectName').value;
-            const descripcion = document.getElementById('projectDescription').value;
-            const responsable_id = document.getElementById('projectTeam').value;
-            const estado = document.getElementById('projectStatus').value;
-            const fecha_fin_estimada = document.getElementById('projectDeadline').value;
-            if (!nombre) return alert('El nombre es obligatorio');
-            fetch(API, {
-                method: 'POST',
-                body: new URLSearchParams({
-                    a: 'crear_proyecto',
-                    nombre,
-                    descripcion,
-                    responsable_id,
-                    estado,
-                    fecha_fin_estimada
-                })
-            })
-            .then(r => r.json())
-            .then(data => {
-                if (data.success) {
-                    closeModal();
-                    cargarProyectos();
-                } else {
-                    alert(data.error || 'Error al crear proyecto');
-                }
-            });
+    function crearProyecto() {
+    const nombre = document.getElementById('projectName').value;
+    const descripcion = document.getElementById('projectDescription').value;
+    const responsable_id = document.getElementById('projectTeam').value;
+    const estado = document.getElementById('projectStatus').value;
+    const fecha_fin_estimada = document.getElementById('projectDeadline').value;
+    // Campos adicionales
+    const fecha_inicio = ''; // O puedes agregar un campo en el formulario
+    const prioridad = 'media';
+    const progreso = 0;
+    const presupuesto = 0;
+    const cliente = '';
+
+    if (!nombre) return alert('El nombre es obligatorio');
+    fetch(API, {
+        method: 'POST',
+        body: new URLSearchParams({
+            a: 'crear_proyecto',
+            nombre,
+            descripcion,
+            responsable_id,
+            estado,
+            fecha_fin_estimada,
+            fecha_inicio,
+            prioridad,
+            progreso,
+            presupuesto,
+            cliente
+        })
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            closeModal();
+            cargarProyectos();
+        } else {
+            alert(data.error || 'Error al crear proyecto');
         }
+    });
+}
 
         let modoModal = 'crear'; // 'crear', 'ver', 'editar'
 let proyectoActualId = null;
