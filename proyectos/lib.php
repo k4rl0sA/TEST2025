@@ -181,7 +181,7 @@ switch ($a) {
         if (!$proyecto_id) error_response("ID de proyecto inválido");
         $sql = "SELECT t.*, u.nombre AS responsable 
                 FROM tareas t 
-                LEFT JOIN usuarios u ON t.responsable_id = u.id 
+                LEFT JOIN usuarios u ON t.responsable_id = u.id_usuario
                 WHERE t.proyecto_id = ? AND t.estado='A'
                 ORDER BY t.fase, t.fecha_inicio_estimada";
         $params = [['type'=>'i','value'=>$proyecto_id]];

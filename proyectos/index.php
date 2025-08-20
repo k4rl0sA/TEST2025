@@ -442,7 +442,7 @@ function cargarResponsables() {
             select.innerHTML = '<option value="">Seleccione...</option>';
             if (data.success) {
                 data.usuarios.forEach(u => {
-                    select.innerHTML += `<option value="${u.id}">${u.nombre}</option>`;
+                    select.innerHTML += `<option value="${u.id_usuario}">${u.nombre}</option>`;
                 });
             }
         });
