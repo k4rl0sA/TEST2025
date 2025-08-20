@@ -48,7 +48,7 @@ switch ($a) {
                 FROM proyectos p 
                 LEFT JOIN usuarios u ON p.responsable_id = u.id_usuario 
                 $where_sql 
-                ORDER BY p.fecha_creacion DESC";
+                ORDER BY p.fecha_creacion DESC";    
         $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);
         $proyectos = isset($arr['responseResult']) ? $arr['responseResult'] : [];
         echo json_encode(['success' => true, 'proyectos' => $proyectos]);
