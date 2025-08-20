@@ -78,26 +78,8 @@ switch ($a) {
         if (!$id) error_response("ID inválido");
         $sql = "SELECT * FROM adm_menu WHERE id = ?";
         $arr = datos_mysql($sql, MYSQLI_ASSOC, false, [['type'=>'i','value'=>$id]]);
-
-        $sql_est = "SELECT idcatadeta AS value, descripcion AS label FROM catadeta WHERE idcatalogo=11 AND estado='A'";
-    $est_arr = datos_mysql($sql_est, MYSQLI_ASSOC, false, []);
-    $est_map = [];
-    if (!empty($est_arr['responseResult'])) {
-        foreach ($est_arr['responseResult'] as $item) {
-            $est_map[$item['label']] = $item['value'];
-            $est_map[$item['value']] = $item['value'];
-        }
-    }
-    if (isset($datos['estado'])) {
-        $val = $datos['estado'];
-        $datos['estado'] = $est_map[$val] ?? $val;
-    }
-        if (empty($arr['responseResult'])) error_response("Menú no encontrado");
-        $datos = $arr['responseResult'][0];
-        $datos['token'] = IdHash($datos['id']);
-        unset($datos['id']);
-        echo json_encode(['success' => true, 'menu' => $datos]);    
-        
+        if (empty($arr['responseResult'][0])) error_response('Menú no encontrado', 404);
+        echo json_encode(['success'=>true, 'datos'=>$arr['responseResult'][0]]);
         exit;
 
     case 'create':
@@ -157,6 +139,21 @@ switch ($a) {
         }
         success_response('Menú eliminado correctamente');
         exit;
+    case 'opciones':
+        $catalogos = ['estado'    => 11,'rta' => 170];
+        $opciones = [];
+        foreach ($catalogos as $campo => $idcat) {
+            $sql = "SELECT idcatadeta AS value, descripcion AS label FROM catadeta WHERE idcatalogo=? AND estado='A' ORDER BY 1";
+            $params = [['type' => 'i', 'value' => $idcat]];
+            $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);
+            $opciones[$campo] = isset($arr['responseResult']) ? $arr['responseResult'] : [];
+        }
+        $perfiles= datos_mysql("SELECT perfil as value, perfil as label FROM adm_roles GROUP BY perfil ORDER BY 1");
+        $opciones['perfil'] = isset($perfiles['responseResult']) ? $perfiles['responseResult'] : [];
+        echo json_encode([
+            'success'=> true,
+            'opciones' => $opciones
+        ]);
 
     default:
         error_response('Acción no válida', 400);
