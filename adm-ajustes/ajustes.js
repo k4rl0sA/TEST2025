@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Editar rol
     window.editRole = function(id) {
         document.getElementById('role-form').reset();
-        fetchWithLoader(`/ajustes/lib.php?a=get&id=${id}`, {}, function(data) {
+        fetchWithLoader(path+`lib.php?a=get&id=${id}`, {}, function(data) {
             const datos = data.datos;
             editingId = datos.id_rol;
             loadAllRoleSelects({
@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!confirm('¿Está seguro de eliminar este rol?')) return;
         const formData = new FormData();
         formData.append('csrf_token', window.CSRF_TOKEN);
-        fetchWithLoader(`/ajustes/lib.php?a=delete&id=${id}`, {
+        fetchWithLoader(path+`lib.php?a=delete&id=${id}`, {
             method: 'POST',
             body: formData
         }, () => fetchRoles());
@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(this);
         if (editingId) formData.append('id_rol', editingId);
         formData.append('csrf_token', window.CSRF_TOKEN);
-        fetchWithLoader(`/ajustes/lib.php?a=${editingId ? 'update' : 'create'}`, {
+        fetchWithLoader(path+`lib.php?a=${editingId ? 'update' : 'create'}`, {
             method: 'POST',
             body: formData
         }, () => {
