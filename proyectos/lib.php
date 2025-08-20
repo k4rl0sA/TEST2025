@@ -46,7 +46,7 @@ switch ($a) {
         $where_sql = $where ? 'WHERE ' . implode(' AND ', $where) : '';
         $sql = "SELECT p.*, u.nombre AS responsable 
                 FROM proyectos p 
-                LEFT JOIN usuarios_proy u ON p.responsable_id = u.id 
+                LEFT JOIN usuarios u ON p.responsable_id = u.id_usuario 
                 $where_sql 
                 ORDER BY p.fecha_creacion DESC";
         $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);
