@@ -466,6 +466,11 @@ function llenarModal(proy) {
     document.getElementById('projectTeam').value = proy.responsable_id || '';
     document.getElementById('projectStatus').value = proy.estado || 'analisis';
     document.getElementById('projectDeadline').value = proy.fecha_fin_estimada || '';
+    document.getElementById('priority').value = proy.prioridad || 'media';
+
+      cargarResponsables().then(() => {
+        document.getElementById('projectTeam').value = proy.responsable_id || '';
+    });
 }
 
 function habilitarCamposModal(habilitar) {
