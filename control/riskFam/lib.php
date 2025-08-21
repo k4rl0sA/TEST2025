@@ -344,12 +344,12 @@ $riesgos = [
     "demographics" => [
         "name" => "Características Demográficas",
         "value" => $puntajeDemo,
-        "Genero" => $genero ,
-        "Nacionalidad" => $nacionalidad,
-        "Etnia" => $etnia,
+        "genero" => $genero ,
+        "nacionalidad" => $nacionalidad,
+        "etnia" => $etnia,
         "weight" => 0.04,
         "description" => "Incluye edad, género y otras variables que influyen en la exposición al riesgo."
-    ],
+    ], 
     "individualConditions" => [
         "name" => "Condiciones Individuales",
         "value" => rand(50, 100),
