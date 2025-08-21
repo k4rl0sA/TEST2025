@@ -128,7 +128,7 @@ switch ($a) {
         $fecha_fin_estimada = $_POST['fecha_fin_estimada'] ?? null;
         $fecha_fin_real = $_POST['fecha_fin_real'] ?? null;
         $estado = $_POST['estado'] ?? 'planificacion';
-        $prioridad = $_POST['prioridad'] ?? 'media';
+        $prioridad = $_POST['prioridad'] ?? 'no recibo';
         $progreso = progreso_por_estado($estado);
         $presupuesto = floatval($_POST['presupuesto'] ?? 0);
         $responsable_id = intval($_POST['responsable_id'] ?? 0);
