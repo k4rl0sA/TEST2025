@@ -10,6 +10,7 @@ if (!isset($_SESSION["us_sds"])) {
     echo json_encode(['success' => false, 'error' => 'Sesión expirada', 'redirect' => '/index.php']);
     exit;
 }
+// --- Validar permisos ---
 
 // --- Utilidad para respuesta de error segura y log ---
 function error_response($msg, $code = 400) {

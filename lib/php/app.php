@@ -207,7 +207,7 @@ function validNum($num,$ncar=[],$nlit=[]){
 
 function rol($a){ //a=modulo, b=perfil c=componente
 	$rta=array();
-	$sql="SELECT perfil,componente,crear,editar,consultar,ajustar,importar FROM adm_roles WHERE modulo = '".$a."' and perfil = FN_PERFIL('".$_SESSION['us_sds']."') AND componente=FN_COMPONENTE('".$_SESSION['us_sds']."') AND estado = 'A'";
+	$sql="SELECT perfil,componente,crear,editar,consultar,ajustar,importar FROM adm_roles WHERE modulo = '".$a."' and perfil= (SELECT perfil FROM usuarios where id_usuario= '".$_SESSION['us_sds']."') AND componente=(SELECT componente FROM usuarios where id_usuario= '".$_SESSION['us_sds']."') AND estado = 'A'";
 	$data=datos_mysql($sql);
   //print_r($data);
 	if ($data && isset($data['responseResult'][0])) {
