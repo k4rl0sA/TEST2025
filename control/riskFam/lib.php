@@ -258,94 +258,17 @@ $facamb9 = $res5['responseResult'][0]['Manejo adecuado de residuos sólidos'];
 $entornoHab = $res5['responseResult'][0];
 
 //Riesgo Características Demográficas
-$sql6="SELECT 
-  P.idpersona,
-  -- Descripciones
+$sql6="SELECT P.idpersona,-- Descripciones
   FN_CATALOGODESC(19,P.genero) AS Genero,
-  CASE P.genero
-    WHEN 1 THEN 2  -- FEMENINO
-    WHEN 2 THEN 1  -- MASCULINO
-    WHEN 3 THEN 3  -- NO BINARIO
-    WHEN 4 THEN 3  -- MUJER TRANSGÉNERO
-    WHEN 5 THEN 3  -- HOMBRE TRANSGÉNERO
-    ELSE NULL
-  END AS Puntaje_Genero,
   P.nacionalidad AS Nacionalidad,
-  CASE UPPER(P.nacionalidad)
-    WHEN 'COL' THEN 1
-    WHEN 'OTR' THEN 2
-    WHEN 'VEN' THEN 3
-    ELSE NULL
-  END AS Puntaje_Nacionalidad,
   FN_CATALOGODESC(16,P.etnia) AS Etnia,
-  CASE P.etnia
-    WHEN 1 THEN 1  -- NINGUNA
-    WHEN 2 THEN 3  -- INDÍGENA
-    WHEN 3 THEN 3  -- AFRODESCENDIENTE
-    WHEN 4 THEN 3  -- GITANO
-    WHEN 5 THEN 3  -- RAIZAL
-    WHEN 6 THEN 3  -- PALENQUERO
-    ELSE NULL
-  END AS Puntaje_Etnia,
-  FN_CATALOGODESC(14,P.discapacidad) AS Tipo_Discapacidad,
-  CASE P.discapacidad
-    WHEN 1 THEN 3
-    WHEN 2 THEN 3
-    WHEN 3 THEN 3
-    WHEN 4 THEN 4
-    WHEN 5 THEN 4
-    WHEN 6 THEN 5
-    WHEN 7 THEN 5
-    WHEN 8 THEN 2
-    WHEN 9 THEN 1
-    ELSE NULL
-  END AS Puntaje_Discapacidad,
-
+  CASE P.genero WHEN 1 THEN 2 WHEN 2 THEN 1 WHEN 3 THEN 3  WHEN 4 THEN 3  WHEN 5 THEN 3 ELSE NULL END AS Puntaje_Genero,
+  CASE UPPER(P.nacionalidad)  WHEN 'COL' THEN 1  WHEN 'OTR' THEN 2  WHEN 'VEN' THEN 3  ELSE NULL  END AS Puntaje_Nacionalidad,
+  CASE P.etnia WHEN 1 THEN 1 WHEN 2 THEN 3 WHEN 3 THEN 3 WHEN 4 THEN 3 WHEN 5 THEN 3 WHEN 6 THEN 3 ELSE NULL END AS Puntaje_Etnia,
   -- Puntaje total bruto CD
-  (
-    CASE P.genero
-      WHEN 1 THEN 2 WHEN 2 THEN 1 WHEN 3 THEN 3
-      WHEN 4 THEN 3 WHEN 5 THEN 3 ELSE 0 END
-  +
-    CASE UPPER(P.nacionalidad)
-      WHEN 'COL' THEN 1
-      WHEN 'OTR' THEN 2
-      WHEN 'VEN' THEN 3 ELSE 0 END
-  +
-    CASE P.etnia
-      WHEN 1 THEN 1 WHEN 2 THEN 3 WHEN 3 THEN 3
-      WHEN 4 THEN 3 WHEN 5 THEN 3 WHEN 6 THEN 3 ELSE 0 END
-  +
-    CASE P.discapacidad
-      WHEN 1 THEN 3 WHEN 2 THEN 3 WHEN 3 THEN 3
-      WHEN 4 THEN 4 WHEN 5 THEN 4 WHEN 6 THEN 5
-      WHEN 7 THEN 5 WHEN 8 THEN 2 WHEN 9 THEN 1 ELSE 0 END
-  ) AS Puntaje_CD_Bruto,
+  (CASE P.genero WHEN 1 THEN 2 WHEN 2 THEN 1 WHEN 3 THEN 3 WHEN 4 THEN 3 WHEN 5 THEN 3 ELSE 0 END + CASE UPPER(P.nacionalidad) WHEN 'COL' THEN 1 WHEN 'OTR' THEN 2 WHEN 'VEN' THEN 3 ELSE 0 END + CASE P.etnia WHEN 1 THEN 1 WHEN 2 THEN 3 WHEN 3 THEN 3 WHEN 4 THEN 3 WHEN 5 THEN 3 WHEN 6 THEN 3 ELSE 0 END) AS Puntaje_CD_Bruto,
   -- Escalado CD a 0–100
-  ROUND(
-    (
-      (
-        CASE P.genero
-          WHEN 1 THEN 2 WHEN 2 THEN 1 WHEN 3 THEN 3
-          WHEN 4 THEN 3 WHEN 5 THEN 3 ELSE 0 END
-      +
-        CASE UPPER(P.nacionalidad)
-          WHEN 'COL' THEN 1
-          WHEN 'OTR' THEN 2
-          WHEN 'VEN' THEN 3 ELSE 0 END
-      +
-        CASE P.etnia
-          WHEN 1 THEN 1 WHEN 2 THEN 3 WHEN 3 THEN 3
-          WHEN 4 THEN 3 WHEN 5 THEN 3 WHEN 6 THEN 3 ELSE 0 END
-      +
-        CASE P.discapacidad
-          WHEN 1 THEN 3 WHEN 2 THEN 3 WHEN 3 THEN 3
-          WHEN 4 THEN 4 WHEN 5 THEN 4 WHEN 6 THEN 5
-          WHEN 7 THEN 5 WHEN 8 THEN 2 WHEN 9 THEN 1 ELSE 0 END
-      ) - 3
-    ) * 100.0 / (9 - 3), 2
-  ) AS CD_Valor_0_100
-
+  ROUND(((CASE P.genero  WHEN 1 THEN 2 WHEN 2 THEN 1 WHEN 3 THEN 3 WHEN 4 THEN 3 WHEN 5 THEN 3 ELSE 0 END + CASE UPPER(P.nacionalidad) WHEN 'COL' THEN 1 WHEN 'OTR' THEN 2 WHEN 'VEN' THEN 3 ELSE 0 END + CASE P.etnia WHEN 1 THEN 1 WHEN 2 THEN 3 WHEN 3 THEN 3 WHEN 4 THEN 3 WHEN 5 THEN 3 WHEN 6 THEN 3 ELSE 0 END) - 3) * 100.0 / (9 - 3), 2 ) AS CD_Valor_0_100
 FROM `person` P
 LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
 LEFT JOIN hog_geo G ON F.idpre = G.idgeo 
