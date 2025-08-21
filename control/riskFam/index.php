@@ -226,7 +226,7 @@ session_start();
         weight: 0.05,
         puntajeVulnerabilidad: 0,
         regimen: 0,
-        poblacionDif: 0,
+        poblacionDiferencial: 0,
         inclusionOficio: 0,
         description: "Considera factores como la violencia, el desplazamiento y la exclusión social."
       },
@@ -419,7 +419,7 @@ session_start();
       if (key === 'socialVulnerability') {
         factors[key].puntajeVulnerabilidad = riskFactors[key].puntajeVulnerabilidad || 0;
         factors[key].regimen = riskFactors[key].regimen || 0;
-        factors[key].poblacionDif = riskFactors[key].poblacionDif || 0;
+        factors[key].poblacionDiferencial = riskFactors[key].poblacionDiferencial || 0;
         factors[key].inclusionOficio = riskFactors[key].inclusionOficio || 0;
       }
       // Actualizar puntaje de acceso a salud y régimen si existen
