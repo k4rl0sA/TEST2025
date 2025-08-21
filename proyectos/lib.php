@@ -97,9 +97,8 @@ switch ($a) {
             ['type'=>'i','value'=>$responsable_id],
             ['type'=>'s','value'=>$cliente]
         ];
-        $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);
         // return show_sql($sql, $params);
-         $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params_insert);
+         $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);
         if (!isset($arr['responseResult'][0]['affected_rows']) || $arr['responseResult'][0]['affected_rows'] < 1) {
             error_response("Error al crear el Proyecto");
         }
