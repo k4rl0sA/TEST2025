@@ -451,6 +451,9 @@ session_start();
       }
       if (key === 'demographics') {
             factors[key].puntaje = riskFactors[key].puntaje || 0;
+            factors[key].genero = riskFactors[key].genero || '';
+            factors[key].etnia = riskFactors[key].etnia || '';
+            factors[key].nacionalidad = riskFactors[key].nacionalidad || '';
           }
       if (key === 'individualConditions') {
         factors[key].puntaje = riskFactors[key].puntaje || 0;
@@ -608,6 +611,22 @@ session_start();
               ${traficoText}<br>
               ${viasText}
             </div>
+          </div>
+        </div>
+      `;
+    }
+    if (key === 'demographics' && (factor.puntaje || factor.genero || factor.etnia || factor.nacionalidad)) {
+      const puntajeText = factor.puntaje ? `Puntaje: ${factor.puntaje}` : '';
+      const generoText = factor.genero ? `Género: ${factor.genero}` : '';
+      const etniaText = factor.etnia ? `Etnia: ${factor.etnia}` : '';
+      const nacionalidadText = factor.nacionalidad ? `Nacionalidad: ${factor.nacionalidad}` : '';
+      additionalInfo = `
+        <div class="risk-factor-tooltip">
+          <div class="tooltip-content">
+            ${puntajeText}<br>
+            ${generoText}<br>
+            ${etniaText}<br>
+            ${nacionalidadText}
           </div>
         </div>
       `;
