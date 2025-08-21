@@ -82,9 +82,10 @@ $inclusionOficio = $res3['responseResult'][0]['InclusionOficio'];
 
 //Riesgo Acceso a Servicios de Salud
 $sql4="SELECT P.idpeople,-- Puntaje según el régimen
-    CASE P.regimen WHEN 1 THEN 4    WHEN 2 THEN 2   WHEN 3 THEN 1 WHEN 4 THEN 5 WHEN 5 THEN 6 ELSE 0 END AS puntaje_regimen_salud,  -- Porcentaje sobre 6 puntos
-    ROUND( CASE P.regimen  WHEN 1 THEN 4 WHEN 2 THEN 2 WHEN 3 THEN 1 WHEN 4 THEN 5 WHEN 5 THEN 6 ELSE 0  END * 100 / 6, 2) AS acceso_salud_porcentaje, -- Ponderación al 10%
-    ROUND(CASE P.regimen  WHEN 1 THEN 4  WHEN 2 THEN 2 WHEN 3 THEN 1 WHEN 4 THEN 5  WHEN 5 THEN 6 ELSE 0  END * 10 / 6, 8) AS acceso_salud_ponderado
+FN_CATALOGODESC(17,P.regimen) AS regimen,
+    CASE P.regimen WHEN 1 THEN 4 WHEN 2 THEN 2 WHEN 3 THEN 1 WHEN 4 THEN 5 WHEN 5 THEN 6 ELSE 0 END AS puntaje_regimen_salud,  -- Porcentaje sobre 6 puntos
+    ROUND( CASE P.regimen  WHEN 1 THEN 4 WHEN 2 THEN 2 WHEN 3 THEN 1 WHEN 4 THEN 5 WHEN 5 THEN 6 ELSE 0 END * 100 / 6, 2) AS acceso_salud_porcentaje, -- Ponderación al 10%
+    ROUND(CASE P.regimen  WHEN 1 THEN 4  WHEN 2 THEN 2 WHEN 3 THEN 1 WHEN 4 THEN 5 WHEN 5 THEN 6 ELSE 0 END * 10 / 6, 8) AS acceso_salud_ponderado
 FROM person P LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo LEFT JOIN hog_carac C ON F.id_fam = C.idfam
 WHERE C.fecha = (SELECT MAX(C2.fecha) FROM hog_carac C2 WHERE C2.idfam = C.idfam) AND 
 P.idpersona = '$document' AND P.tipo_doc = '$tipo' LIMIT 1";
