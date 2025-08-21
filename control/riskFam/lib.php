@@ -96,6 +96,7 @@ if ($res4['code'] !== 0 || empty($res4['responseResult'])) {
 }
 $accesoSaludPorcentaje = $res4['responseResult'][0]['acceso_salud_porcentaje'];
 $puntajeRegimenSalud = $res4['responseResult'][0]['puntaje_regimen_salud'];
+$regimen= $res4['responseResult'][0]['regimen'];
 
 //Riesgo Entorno Habitacional
 $sql5="SELECT P.idpersona,  -- Zona y su puntaje
@@ -387,6 +388,7 @@ $riesgos = [
         "value" => $accesoSaludPorcentaje,
         "weight" => 0.07,
         "puntajeRegimen" => $puntajeRegimenSalud,
+        "regimen" => $regimen,
         "description" => "Clave para la prevención y el cuidado de enfermedades."
     ],
     "livingEnvironment" => [

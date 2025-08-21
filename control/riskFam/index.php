@@ -225,7 +225,6 @@ session_start();
         value: "N/A",
         weight: 0.05,
         puntajeVulnerabilidad: 0,
-        regimen: 0,
         poblacionDiferencial: 0,
         inclusionOficio: 0,
         description: "Considera factores como la violencia, el desplazamiento y la exclusión social."
@@ -234,6 +233,8 @@ session_start();
         name: "Acceso a Servicios de Salud",
         value: "N/A",
         weight: 0.07,
+        regimen: 0,
+        puntajeAcceso: 0,
         description: "Clave para la prevención y el cuidado de enfermedades."
       },
       livingEnvironment: {
@@ -418,7 +419,6 @@ session_start();
       // Actualizar puntaje de vulnerabilidad y régimen si existen
       if (key === 'socialVulnerability') {
         factors[key].puntajeVulnerabilidad = riskFactors[key].puntajeVulnerabilidad || 0;
-        factors[key].regimen = riskFactors[key].regimen || 0;
         factors[key].poblacionDiferencial = riskFactors[key].poblacionDiferencial || 0;
         factors[key].inclusionOficio = riskFactors[key].inclusionOficio || 0;
       }
