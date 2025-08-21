@@ -633,7 +633,7 @@ session_start();
             </div>
             <div>
               <span class="risk-factor-value">${factor.value}%</span>
-              <span class="risk-factor-weight">(${(factor.weight * 100).toFixed(1)}%)</span>
+              <span class="risk-factor-weight">(${(factor.weight * 100).toFixed(0)}%)</span>
             </div>
           </div>
           <div class="risk-factor-bar">
