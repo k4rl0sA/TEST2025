@@ -540,7 +540,7 @@ session_start();
       `;
     }
 
-    if (key === 'socialVulnerability' && (factor.puntajeVulnerabilidad || factor.poblacionDif)) {
+    if (key === 'socialVulnerability' && ( factor.poblacionDif)) {
       const puntajeText = factor.puntajeVulnerabilidad ? `Puntaje de vulnerabilidad: ${factor.puntajeVulnerabilidad}` : '';
       const poblDifText = factor.poblacionDif ? `Población Diferencial: ${factor.poblacionDif}` : '';
       const inclusionOficioText = factor.inclusionOficio ? `Inclusión de Oficio: ${factor.inclusionOficio}` : '';
