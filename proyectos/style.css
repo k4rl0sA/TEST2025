@@ -312,22 +312,22 @@
             font-weight: 600;
         }
         
-        .status-planning {
+        .priority-urgente  {
             background: #ffeaa7;
             color: #d35400;
         }
         
-        .status-analysis {
+        .priority-media {
             background: #81ecec;
             color: #00cec9;
         }
         
-        .status-development {
+        .priority-baja {
             background: #74b9ff;
             color: #0984e3;
         }
         
-        .status-testing {
+        .priority-alta {
             background: #a29bfe;
             color: #6c5ce7;
         }
