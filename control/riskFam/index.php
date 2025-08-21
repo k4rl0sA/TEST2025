@@ -540,9 +540,9 @@ session_start();
       `;
     }
 
-    if (key === 'socialVulnerability' && ( factor.poblacionDif)) {
+    if (key === 'socialVulnerability' && ( factor.poblacionDiferencial || factor.puntajeVulnerabilidad || factor.inclusionOficio)) {
       const puntajeText = factor.puntajeVulnerabilidad ? `Puntaje de vulnerabilidad: ${factor.puntajeVulnerabilidad}` : '';
-      const poblDifText = factor.poblacionDif ? `Población Diferencial: ${factor.poblacionDif}` : '';
+      const poblDifText = factor.poblacionDiferencial ? `Población Diferencial: ${factor.poblacionDiferencial}` : '';
       const inclusionOficioText = factor.inclusionOficio ? `Inclusión de Oficio: ${factor.inclusionOficio}` : '';
       additionalInfo = `
         <div class="risk-factor-tooltip">
