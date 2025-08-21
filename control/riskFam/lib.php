@@ -5,6 +5,11 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 // Cargar config y funciones necesarias
 require_once __DIR__ . '/../../libs/gestion.php';
+
+if (!isset($_SESSION["us_sds"])) {
+    echo json_encode(['success' => false, 'error' => 'Sesión expirada', 'redirect' => '/index.php']);
+    exit;
+}
 // Obtener el documento desde la URL
 $document = isset($_GET['document']) ? trim($_GET['document']) : null;
 $tipo = isset($_GET['tipo']) ? trim($_GET['tipo']) : null;
@@ -12,6 +17,7 @@ if (empty($document) || empty($tipo)) {
     echo json_encode(["error" => "Documento o tipo no proporcionado."]);
     exit;
 }
+
 // Consultar datos personales desde la tabla person
 $sql = "SELECT concat_ws(' ',P.nombre1,P.nombre2,P.apellido1,P.apellido2) AS nombre,idpersona AS document,FN_CATALOGODESC(21,sexo) AS sex,FN_CATALOGODESC(19,genero) AS gender,  FN_CATALOGODESC(30,nacionalidad) AS nationality,fecha_nacimiento AS birthDate,TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) AS age, CASE WHEN TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) BETWEEN 0 AND 5 THEN 'PRIMERA INFANCIA'  WHEN TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) BETWEEN 6 AND 11 THEN 'INFANCIA'        WHEN TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) BETWEEN 12 AND 17 THEN 'ADOLESCENCIA'  WHEN TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) BETWEEN 18 AND 28 THEN 'JUVENTUD' WHEN TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) BETWEEN 29 AND 59 THEN 'ADULTEZ' WHEN TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) >= 60 THEN 'VEJEZ' ELSE '' END AS lifestage, CONCAT_WS('-',G.localidad, FN_CATALOGODESC(2,G.localidad)) AS location,  G.upz,  G.direccion AS address,	NULLIF(TRIM(BOTH ' -' FROM CONCAT_WS(' - ',NULLIF(P.telefono1 COLLATE utf8mb4_unicode_ci, ''),NULLIF(P.telefono2 COLLATE utf8mb4_unicode_ci, ''),NULLIF(F.telefono1 COLLATE utf8mb4_unicode_ci, ''),NULLIF(F.telefono2 COLLATE utf8mb4_unicode_ci, ''))),'') AS phone 
 FROM person P
