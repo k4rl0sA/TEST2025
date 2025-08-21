@@ -447,7 +447,7 @@ function limpiarModal() {
 }
 
 function cargarResponsables() {
-    fetch('lib.php?a=list_responsables')
+    return fetch('lib.php?a=list_responsables')
         .then(r => r.json())
         .then(data => {
             const select = document.getElementById('projectTeam');
@@ -468,8 +468,8 @@ function llenarModal(proy) {
     document.getElementById('priority').value = proy.prioridad || 'media';
 
       cargarResponsables().then(() => {
-        document.getElementById('projectTeam').value = proy.responsable_id || '';
-    });
+    document.getElementById('projectTeam').value = proy.responsable_id || '';
+});
 }
 
 function habilitarCamposModal(habilitar) {
