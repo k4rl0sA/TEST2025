@@ -548,7 +548,7 @@ session_start();
         <div class="risk-factor-tooltip">
           <div class="tooltip-content">
             ${puntajeText}<br>
-            ${poblDifText}
+            ${poblDifText}<br>
             ${inclusionOficioText}
           </div>
         </div>
