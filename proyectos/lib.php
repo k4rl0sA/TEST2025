@@ -98,6 +98,7 @@ switch ($a) {
             ['type'=>'s','value'=>$cliente]
         ];
         $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);
+        var_dump($arr);
         if (!isset($arr['responseResult'][0]['insert_id'])) error_response("Error al crear el proyecto");
         success_response('Proyecto creado correctamente', ['id' => $arr['responseResult'][0]['insert_id']]);
         break;
