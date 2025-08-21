@@ -495,6 +495,8 @@ function actualizarProyecto() {
     const responsable_id = document.getElementById('projectTeam').value;
     const estado = document.getElementById('projectStatus').value;
     const fecha_fin_estimada = document.getElementById('projectDeadline').value;
+    const prioridad = document.getElementById('priority').value;
+
     if (!nombre) return alert('El nombre es obligatorio');
     fetch('lib.php', {
         method: 'POST',
@@ -505,7 +507,8 @@ function actualizarProyecto() {
             descripcion,
             responsable_id,
             estado,
-            fecha_fin_estimada
+            fecha_fin_estimada,
+            prioridad
         })
     })
     .then(r => r.json())
