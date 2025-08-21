@@ -211,6 +211,7 @@ session_start();
         weight: 0.08,
         estrato: 0,
         ingreso: 0,
+        
         description: "Impacta directamente el acceso a bienes y servicios esenciales."
       },
       familyStructure: {
