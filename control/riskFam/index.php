@@ -211,7 +211,7 @@ session_start();
         weight: 0.08,
         estrato: 0,
         ingreso: 0,
-        
+
         description: "Impacta directamente el acceso a bienes y servicios esenciales."
       },
       familyStructure: {
@@ -346,6 +346,15 @@ session_start();
         updateChart();
 
       } catch (error) {
+        if(error.message.includes('NetworkError')) {
+          showToastError(`Error: No se pudo conectar al servidor. Por favor, intente más tarde.`);
+        } else if (error.message.includes('HTTP')) {
+          showToastError(`Error: ${error.message}`);
+        } else if(error.message.includes('<!DOCTYPE')){
+          window.location.href = '../../index.php';
+        }else {
+          showToastError(`Error: Ocurrió un error inesperado. ${error.message}`);
+        }
         showToastError(`Error: ${error.message}`);
       } finally {
         // Restaurar estado normal del botón
