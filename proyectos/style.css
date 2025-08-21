@@ -312,7 +312,7 @@
             font-weight: 600;
         }
         
-        .priority-urgente  {
+        .priority-alta  {
             background: #ffeaa7;
             color: #d35400;
         }
@@ -327,9 +327,9 @@
             color: #0984e3;
         }
         
-        .priority-alta {
-            background: #a29bfe;
-            color: #6c5ce7;
+        .priority-urgente {
+            background: #ff9900;
+            color: #0c0c0c;
         }
         
         .status-completed {
