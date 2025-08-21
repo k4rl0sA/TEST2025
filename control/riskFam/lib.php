@@ -87,8 +87,8 @@ FN_CATALOGODESC(17,P.regimen) AS regimen,
     ROUND( CASE P.regimen  WHEN 1 THEN 4 WHEN 2 THEN 2 WHEN 3 THEN 1 WHEN 4 THEN 5 WHEN 5 THEN 6 ELSE 0 END * 100 / 6, 2) AS acceso_salud_porcentaje, -- Ponderación al 10%
     ROUND(CASE P.regimen  WHEN 1 THEN 4  WHEN 2 THEN 2 WHEN 3 THEN 1 WHEN 4 THEN 5 WHEN 5 THEN 6 ELSE 0 END * 10 / 6, 8) AS acceso_salud_ponderado
 FROM person P LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo LEFT JOIN hog_carac C ON F.id_fam = C.idfam
-WHERE C.fecha = (SELECT MAX(C2.fecha) FROM hog_carac C2 WHERE C2.idfam = C.idfam) AND 
-P.idpersona = '$document' AND P.tipo_doc = '$tipo' LIMIT 1";
+WHERE C.fecha = (SELECT MAX(C2.fecha) FROM hog_carac C2 WHERE C2.idfam = C.idfam) 
+AND P.idpersona = '$document' AND P.tipo_doc = '$tipo' LIMIT 1";
 $res4 = datos_mysql($sql4);
 if ($res4['code'] !== 0 || empty($res4['responseResult'])) {
     echo json_encode(["error" => "Datos de acceso a servicios de salud no encontrados", "document" => $document]);
