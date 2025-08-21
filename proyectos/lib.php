@@ -99,7 +99,7 @@ switch ($a) {
         ];
         $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);
         // return show_sql($sql, $params);
-        if (!isset($arr['responseResult'][0]['insert_id'])) error_response("Error al crear el proyecto");
+        if (!isset($arr['responseResult'][0]['insert_id'])) error_response("Error al crear el proyecto: " . mysqli_error($GLOBALS['con']));
         success_response('Proyecto creado correctamente', ['id' => $arr['responseResult'][0]['insert_id']]);
         break;
 
