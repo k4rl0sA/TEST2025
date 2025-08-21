@@ -540,8 +540,8 @@ session_start();
       `;
     }
 
-    if (key === 'socialVulnerability' && ( factor.poblacionDiferencial || factor.puntajeVulnerabilidad || factor.inclusionOficio)) {
-      const puntajeText = factor.puntajeVulnerabilidad ? `Puntaje de vulnerabilidad: ${factor.puntajeVulnerabilidad}` : '';
+    if (key === 'socialVulnerability' && ( factor.puntajeTotal || factor.poblacionDiferencial || factor.inclusionOficio)) {
+      const puntajeText = factor.puntajeTotal ? `Puntaje de vulnerabilidad: ${factor.puntajeTotal}` : '';
       const poblDifText = factor.poblacionDiferencial ? `Población Diferencial: ${factor.poblacionDiferencial}` : '';
       const inclusionOficioText = factor.inclusionOficio ? `Inclusión de Oficio: ${factor.inclusionOficio}` : '';
       additionalInfo = `
