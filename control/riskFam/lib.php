@@ -268,7 +268,6 @@ $sql6="SELECT
     WHEN 5 THEN 3  -- HOMBRE TRANSGÉNERO
     ELSE NULL
   END AS Puntaje_Genero,
-
   P.nacionalidad AS Nacionalidad,
   CASE UPPER(P.nacionalidad)
     WHEN 'COL' THEN 1
@@ -276,7 +275,6 @@ $sql6="SELECT
     WHEN 'VEN' THEN 3
     ELSE NULL
   END AS Puntaje_Nacionalidad,
-
   FN_CATALOGODESC(16,P.etnia) AS Etnia,
   CASE P.etnia
     WHEN 1 THEN 1  -- NINGUNA
@@ -287,7 +285,6 @@ $sql6="SELECT
     WHEN 6 THEN 3  -- PALENQUERO
     ELSE NULL
   END AS Puntaje_Etnia,
-
   FN_CATALOGODESC(14,P.discapacidad) AS Tipo_Discapacidad,
   CASE P.discapacidad
     WHEN 1 THEN 3

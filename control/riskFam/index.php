@@ -208,7 +208,7 @@ session_start();
       socioeconomic: {
         name: "Nivel Socioeconómico",
         value: "N/A",
-        weight: 0.18,
+        weight: 0.08,
         estrato: 0,
         ingreso: 0,
         description: "Impacta directamente el acceso a bienes y servicios esenciales."
@@ -216,14 +216,14 @@ session_start();
       familyStructure: {
         name: "Estructura Familiar",
         value: "N/A",
-        weight: 0.20,
+        weight: 0.11,
         apgar:0,
         description: "Influye en el apoyo social, la funcionalidad y la estabilidad del hogar."
       },
       socialVulnerability: {
         name: "Vulnerabilidad Social",
         value: "N/A",
-        weight: 0.12,
+        weight: 0.05,
         puntajeVulnerabilidad: 0,
         regimen: 0,
         poblacionDif: 0,
@@ -233,7 +233,7 @@ session_start();
       accessToHealth: {
         name: "Acceso a Servicios de Salud",
         value: "N/A",
-        weight: 0.10,
+        weight: 0.07,
         description: "Clave para la prevención y el cuidado de enfermedades."
       },
       livingEnvironment: {
@@ -245,13 +245,13 @@ session_start();
       demographics: {
         name: "Características Demográficas",
         value: "N/A",
-        weight: 0.30,
+        weight: 0.04,
         description: "Incluye edad, género y otras variables que influyen en la exposición al riesgo."
       },
       individualConditions: {
         name: "Condiciones Individuales",
         value: "N/A",
-        weight: 0.15,
+        weight: 0.58,
         description: "Considera factores de salud y bienestar del individuo."
       }
     };
@@ -542,13 +542,14 @@ session_start();
 
     if (key === 'socialVulnerability' && (factor.puntajeVulnerabilidad || factor.poblacionDif)) {
       const puntajeText = factor.puntajeVulnerabilidad ? `Puntaje de vulnerabilidad: ${factor.puntajeVulnerabilidad}` : '';
-      const poblDifText = factor.poblacionDif ? `poblacion Diferencial: ${factor.poblacionDif}` : '';
-      const inclusionOficioText = factor.inclusionOficio ? `Inclusion de oficio: ${factor.inclusionOficio}` : '';
+      const poblDifText = factor.poblacionDif ? `Población Diferencial: ${factor.poblacionDif}` : '';
+      const inclusionOficioText = factor.inclusionOficio ? `Inclusión de Oficio: ${factor.inclusionOficio}` : '';
       additionalInfo = `
         <div class="risk-factor-tooltip">
           <div class="tooltip-content">
             ${puntajeText}<br>
             ${poblDifText}
+            ${inclusionOficioText}
           </div>
         </div>
       `;
