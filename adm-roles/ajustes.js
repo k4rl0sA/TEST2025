@@ -28,7 +28,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderRolesTable(data) {
         roles = data.roles || [];
         totalPages = data.totalPages || 1;
-           document.getElementById('total-roles').textContent = `Total: ${data.totalRows || 0}`;
+        document.getElementById('total-roles').textContent = `Total: ${data.totalRows || 0}`;
+        showRangeInfo(page, pageSize, data.totalRows || 0);
         const tbody = document.querySelector('#roles-table tbody');
         tbody.innerHTML = '';
         roles.forEach(role => {
@@ -297,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const checked = this.checked;
         document.querySelectorAll('#roles-table .select-role').forEach(cb => cb.checked = checked);
     };
-    
+
     // Acción masiva: Activar
     document.getElementById('bulk-activate').onclick = function() {
         const tokens = getSelectedTokens('#roles-table');
@@ -305,7 +306,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!confirm(`¿Activar ${tokens.length} roles seleccionados?`)) return;
         bulkAction('activate', tokens);
     };
-    
+
     // Acción masiva: Inactivar
     document.getElementById('bulk-inactivate').onclick = function() {
         const tokens = getSelectedTokens('#roles-table');
@@ -313,7 +314,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!confirm(`¿Inactivar ${tokens.length} roles seleccionados?`)) return;
         bulkAction('inactivate', tokens);
     };
-    
+
     // Acción masiva: Eliminar
     document.getElementById('bulk-delete').onclick = function() {
         const tokens = getSelectedTokens('#roles-table');
@@ -321,7 +322,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!confirm(`¿Eliminar ${tokens.length} roles seleccionados? Esta acción no se puede deshacer.`)) return;
         bulkAction('delete', tokens);
     };
-    
+
     // Función para enviar la acción masiva al backend
     function bulkAction(action, tokens) {
         const formData = new FormData();
