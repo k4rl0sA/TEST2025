@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         roles.forEach(role => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
+                <td><input type="checkbox" class="select-role" value="${role.token}"></td>
                 <td style="position:relative;">
                     <button class="action-menu-btn" onclick="toggleActionMenu(event, '${role.token}')">
                         <i class="fa fa-ellipsis-v"></i>
@@ -290,4 +291,46 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         showHelpModal(helpContent);
     };
+
+    // Seleccionar/deseleccionar todos
+    document.getElementById('select-all-roles').onclick = function() {
+        const checked = this.checked;
+        document.querySelectorAll('#roles-table .select-role').forEach(cb => cb.checked = checked);
+    };
+    
+    // Acción masiva: Activar
+    document.getElementById('bulk-activate').onclick = function() {
+        const tokens = getSelectedTokens('#roles-table');
+        if (tokens.length === 0) return showToast('Seleccione al menos un rol.', 'warning');
+        if (!confirm(`¿Activar ${tokens.length} roles seleccionados?`)) return;
+        bulkAction('activate', tokens);
+    };
+    
+    // Acción masiva: Inactivar
+    document.getElementById('bulk-inactivate').onclick = function() {
+        const tokens = getSelectedTokens('#roles-table');
+        if (tokens.length === 0) return showToast('Seleccione al menos un rol.', 'warning');
+        if (!confirm(`¿Inactivar ${tokens.length} roles seleccionados?`)) return;
+        bulkAction('inactivate', tokens);
+    };
+    
+    // Acción masiva: Eliminar
+    document.getElementById('bulk-delete').onclick = function() {
+        const tokens = getSelectedTokens('#roles-table');
+        if (tokens.length === 0) return showToast('Seleccione al menos un rol.', 'warning');
+        if (!confirm(`¿Eliminar ${tokens.length} roles seleccionados? Esta acción no se puede deshacer.`)) return;
+        bulkAction('delete', tokens);
+    };
+    
+    // Función para enviar la acción masiva al backend
+    function bulkAction(action, tokens) {
+        const formData = new FormData();
+        formData.append('csrf_token', window.CSRF_TOKEN);
+        formData.append('action', action);
+        formData.append('tokens', JSON.stringify(tokens));
+        fetchWithLoader(path + 'lib.php?a=bulk', {
+            method: 'POST',
+            body: formData
+        }, () => fetchRoles());
+    }
 });

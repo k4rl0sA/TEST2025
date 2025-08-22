@@ -290,6 +290,34 @@ switch ($a) {
         'opciones' => $opciones
     ]);
         break;
+    case 'bulk':
+       check_csrf();
+       $action = $_POST['action'] ?? '';
+       $tokens = json_decode($_POST['tokens'] ?? '[]', true);
+       if (!is_array($tokens) || !$action) error_response('Datos inválidos');
+       $ids = [];
+       foreach ($tokens as $token) {
+           $id = IdHash($token);
+           if ($id) $ids[] = intval($id);
+       }
+       if (!$ids) error_response('No hay IDs válidos');
+       $ids_sql = implode(',', $ids);
+       switch ($action) {
+           case 'activate':
+               $sql = "UPDATE adm_roles SET estado='A' WHERE id_rol IN ($ids_sql)";
+               break;
+           case 'inactivate':
+               $sql = "UPDATE adm_roles SET estado='I' WHERE id_rol IN ($ids_sql)";
+               break;
+           case 'delete':
+               $sql = "DELETE FROM adm_roles WHERE id_rol IN ($ids_sql)";
+               break;
+           default:
+               error_response('Acción masiva no válida');
+       }
+       $arr = datos_mysql($sql, MYSQLI_ASSOC, false);
+       success_response('Acción masiva realizada correctamente');
+    break;
 
     default:
         error_response("Acción no válida", 400);

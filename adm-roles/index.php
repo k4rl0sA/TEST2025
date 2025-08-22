@@ -93,6 +93,7 @@ if (!isset($_SESSION["us_sds"])) {
         <table id="roles-table">
             <thead>
                 <tr>
+                    <th><input type="checkbox" id="select-all-roles"></th>
                     <th>Acciones</th>
                     <!-- <th data-sort="id_rol">ID</th> NO MOSTRAR EL ID-->
                     <th data-sort="modulo">Módulo</th>
