@@ -13,7 +13,7 @@ if (!isset($_SESSION["us_sds"])) {
 
 
 // --- Validar permisos ---
-if (!acceso('ajustes')) { // Cambia 'ajustes' por el módulo
+if (!acceso('roles')) { // Cambia 'ajustes' por el módulo
     error_response('No tienes permisos para acceder a este módulo', 403);
 }
 
