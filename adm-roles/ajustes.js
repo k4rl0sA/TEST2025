@@ -1,4 +1,4 @@
-const path = '/adm-ajustes/';
+const path = '/adm-roles/';
 // --- SPA de Ajustes de Roles ---
 document.addEventListener('DOMContentLoaded', function() {
     // Variables de estado globales
