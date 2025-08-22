@@ -361,12 +361,20 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('toggle-columns-btn').onclick = function() {
         document.getElementById('columns-panel').classList.toggle('hidden');
     };
-    // Ocultar panel al hacer clic fuera
+    // 
     document.querySelectorAll('.col-toggle').forEach(cb => {
         cb.onchange = function() {
             toggleColumn(cb.dataset.col, cb.checked);
         };
     });
+    //ocultar columnas por defecto
+    const defaultHiddenCols = ['col-consultar', 'col-editar', 'col-crear', 'col-ajustar', 'col-importar'];
+    defaultHiddenCols.forEach(col => {
+        const checkbox = document.querySelector(`.col-toggle[data-col="${col}"]`);
+        if (checkbox) {
+            checkbox.checked = false;
+            toggleColumn(col, false);
+        }});
 
 
 });
