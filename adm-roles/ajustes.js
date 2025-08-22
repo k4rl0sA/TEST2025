@@ -277,11 +277,6 @@ document.addEventListener('DOMContentLoaded', function() {
             { field: 'componente', validate: v => /^[A-Z]+$/.test(v), message: 'El campo Módulo contiene caracteres inválidos.' },
             { field: 'perfil', validate: v => /^[A-Z]+$/.test(v), message: 'El campo Módulo contiene caracteres inválidos.' }
         ];
-        // Validación antes de enviar
-        if (!validateFormFields(rules)) {
-            showToast('Por favor, complete todos los campos obligatorios.', 'warning');
-            return;
-        }
         const formData = new FormData(this);
         if (editingId) formData.append('token', editingId);
         formData.append('csrf_token', window.CSRF_TOKEN);
