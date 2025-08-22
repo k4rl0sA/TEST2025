@@ -86,22 +86,23 @@ if (!isset($_SESSION["us_sds"])) {
         <button class="btn btn-outline" id="bulk-activate"><i class="fa fa-check"></i> Activar</button>
         <button class="btn btn-outline" id="bulk-inactivate"><i class="fa fa-ban"></i> Inactivar</button>
         <button class="btn btn-outline" id="bulk-delete"><i class="fa fa-trash"></i> Eliminar</button>
-    </div>
-    <!-- Boton para personalizar columnas -->
-    <div class="column-settings">
-        <button class="btn btn-outline" id="toggle-columns-btn"><i class="fa fa-table"></i> Personalizar columnas</button>
-        <div id="columns-panel" class="columns-panel hidden">
-            <label><input type="checkbox" class="col-toggle" data-col="modulo" checked> Módulo</label>
-            <label><input type="checkbox" class="col-toggle" data-col="perfil" checked> Perfil</label>
-            <label><input type="checkbox" class="col-toggle" data-col="componente" checked> Componente</label>
-            <label><input type="checkbox" class="col-toggle" data-col="consultar" checked> Consultar</label>
-            <label><input type="checkbox" class="col-toggle" data-col="editar" checked> Editar</label>
-            <label><input type="checkbox" class="col-toggle" data-col="crear" checked> Crear</label>
-            <label><input type="checkbox" class="col-toggle" data-col="ajustar" checked> Ajustar</label>
-            <label><input type="checkbox" class="col-toggle" data-col="importar" checked> Importar</label>
-            <label><input type="checkbox" class="col-toggle" data-col="estado" checked> Estado</label>
+        <!-- Boton para personalizar columnas -->
+        <div class="column-settings">
+            <button class="btn btn-outline" id="toggle-columns-btn"><i class="fa fa-table"></i> Personalizar columnas</button>
+            <div id="columns-panel" class="columns-panel hidden">
+                <label><input type="checkbox" class="col-toggle" data-col="modulo" checked> Módulo</label>
+                <label><input type="checkbox" class="col-toggle" data-col="perfil" checked> Perfil</label>
+                <label><input type="checkbox" class="col-toggle" data-col="componente" checked> Componente</label>
+                <label><input type="checkbox" class="col-toggle" data-col="consultar" checked> Consultar</label>
+                <label><input type="checkbox" class="col-toggle" data-col="editar" checked> Editar</label>
+                <label><input type="checkbox" class="col-toggle" data-col="crear" checked> Crear</label>
+                <label><input type="checkbox" class="col-toggle" data-col="ajustar" checked> Ajustar</label>
+                <label><input type="checkbox" class="col-toggle" data-col="importar" checked> Importar</label>
+                <label><input type="checkbox" class="col-toggle" data-col="estado" checked> Estado</label>
+            </div>
         </div>
     </div>
+    
     <!-- Modal de Ayuda -->
     <div id="help-modal" class="modal-content hidden">
         <div class="modal-header">
