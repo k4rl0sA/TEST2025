@@ -259,6 +259,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // Guardar (crear/editar) rol
     document.getElementById('role-form').addEventListener('submit', function(e) {
         e.preventDefault();
+         // Define las reglas de validación
+        const rules = [
+            { field: 'modulo', validate: v => !!v, message: 'El campo Módulo es obligatorio.' },
+            { field: 'perfil', validate: v => !!v, message: 'El campo Perfil es obligatorio.' },
+            { field: 'componente', validate: v => !!v, message: 'El campo Componente es obligatorio.' },
+            { field: 'consultar', validate: v => !!v, message: 'El campo Consultar es obligatorio.' },
+            { field: 'editar', validate: v => !!v, message: 'El campo Editar es obligatorio.' },
+            { field: 'crear', validate: v => !!v, message: 'El campo Crear es obligatorio.' },
+            { field: 'ajustar', validate: v => !!v, message: 'El campo Ajustar es obligatorio.' },
+            { field: 'importar', validate: v => !!v, message: 'El campo Importar es obligatorio.' },
+            { field: 'estado', validate: v => !!v, message: 'El campo Estado es obligatorio.' },
+            { field: 'perfil', validate: v => v.length <= 11, message: 'El campo Perfil no debe exceder 11 caracteres.' },
+            { field: 'componente', validate: v => v.length <= 3, message: 'El campo Componente no debe exceder 3 caracteres.' },
+            { field: 'modulo', validate: v => v.length <= 15, message: 'El campo Módulo no debe exceder 15 caracteres.' },
+            { field: 'modulo', validate: v => /^[a-zA-Z0-9 _-]+$/.test(v), message: 'El campo Módulo contiene caracteres inválidos.' },
+        ];
+        // Validación antes de enviar
+        if (!validateFormFields(rules)) {
+            showToast('Por favor, complete todos los campos obligatorios.', 'warning');
+            return;
+        }
         const formData = new FormData(this);
         if (editingId) formData.append('token', editingId);
         formData.append('csrf_token', window.CSRF_TOKEN);
