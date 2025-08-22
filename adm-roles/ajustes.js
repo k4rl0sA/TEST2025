@@ -274,6 +274,8 @@ document.addEventListener('DOMContentLoaded', function() {
             { field: 'componente', validate: v => v.length <= 3, message: 'El campo Componente no debe exceder 3 caracteres.' },
             { field: 'modulo', validate: v => v.length <= 15, message: 'El campo Módulo no debe exceder 15 caracteres.' },
             { field: 'modulo', validate: v => /^[a-zA-Z0-9 _-]+$/.test(v), message: 'El campo Módulo contiene caracteres inválidos.' },
+            { field: 'componente', validate: v => /^[A-Z]+$/.test(v), message: 'El campo Módulo contiene caracteres inválidos.' },
+            { field: 'perfil', validate: v => /^[A-Z]+$/.test(v), message: 'El campo Módulo contiene caracteres inválidos.' }
         ];
         // Validación antes de enviar
         if (!validateFormFields(rules)) {
