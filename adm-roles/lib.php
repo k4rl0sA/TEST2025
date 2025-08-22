@@ -93,7 +93,7 @@ switch ($a) {
             'success' => true,
             'roles' => $roles,
             'total' => $total,
-            'totalRows' => $totalRows,
+            'totalRows' => $total,
             'totalPages' => $totalPages
         ]);
         break;
