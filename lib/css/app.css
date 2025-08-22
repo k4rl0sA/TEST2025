@@ -173,7 +173,90 @@ header { display: flex; justify-content: space-between; align-items: center; pad
 .input-group input:focus, .input-group select:focus, .input-group textarea:focus { outline: 3px solid rgba(67,97,238,0.3); border-color: var(--primary); }
 .input-group input:focus ~ label, .input-group input:not(:placeholder-shown) ~ label, .input-group select:focus ~ label, .input-group select:not([value=""]) ~ label, .input-group textarea:focus ~ label, .input-group textarea:not(:placeholder-shown) ~ label { top: -1.38rem; font-size: 0.8rem; color: var(--primary); }
 
+/* Botón de ayuda */
+.btn-help {
+    background: var(--info);
+    color: #fff;
+    border-radius: 50%;
+    padding: 0.5em 0.7em;
+    font-size: 1.3em;
+    margin-left: 10px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(33,150,243,0.12);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-help:hover,
+.btn-help:focus {
+    background: var(--primary-light);
+    box-shadow: var(--shadow-hover);
+    outline: none;
+}
 
+/*Numero de registros*/
+.total-count {
+    font-size: 1.05em;
+    color: var(--primary);
+    font-weight: 600;
+    margin-left: 18px;
+    background: #f1f3f9;
+    border-radius: 12px;
+    padding: 4px 12px;
+    box-shadow: 0 1px 4px rgba(67,97,238,0.07);
+    display: inline-block;
+}
+
+/* Modal de ayuda */
+#help-modal.modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 320px;
+    max-width: 90vw;
+    background: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-hover);
+    z-index: 2000;
+    padding: 0;
+    display: none;
+}
+#help-modal:not(.hidden) {
+    display: block;
+}
+#help-modal .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px 10px 24px;
+    border-bottom: 1px solid var(--light-gray);
+}
+#help-modal .modal-header h3 {
+    font-size: 1.2rem;
+    color: var(--info);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+#help-modal .modal-body {
+    padding: 18px 24px 24px 24px;
+    font-size: 1.05em;
+    color: var(--dark);
+}
+#close-help {
+    background: none;
+    border: none;
+    color: var(--gray);
+    font-size: 1.3em;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+#close-help:hover {
+    color: var(--error);
+}
 
 
 /* Placeholder styles */
@@ -609,4 +692,14 @@ th.sorted .sort-icon i { animation: sortIconBounce 0.4s; }
         margin-top: 0.5em;
     }
     .form-actions { flex-direction: column; gap: 0.7em; }
+
+    #help-modal.modal-content {
+        min-width: 90vw;
+        max-width: 98vw;
+        padding: 0;
+    }
+    #help-modal .modal-header,
+    #help-modal .modal-body {
+        padding: 12px 10px;
+    }
 }

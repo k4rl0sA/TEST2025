@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderRolesTable(data) {
         roles = data.roles || [];
         totalPages = data.totalPages || 1;
+           document.getElementById('total-roles').textContent = `Total: ${data.totalRows || 0}`;
         const tbody = document.querySelector('#roles-table tbody');
         tbody.innerHTML = '';
         roles.forEach(role => {
@@ -270,4 +271,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Inicializar módulo
     initAjustes();
+
+    // Ayuda contextual
+    document.getElementById('help-btn').onclick = function() {
+        const helpContent = `
+            <h4>Gestión de Roles</h4>
+            <p>En esta sección puede gestionar los roles del sistema, incluyendo creación, edición, eliminación y asignación de permisos.</p>
+            <ul>
+            <li><strong>Crear Rol:</strong> Haga clic en "Nuevo Rol" para agregar un nuevo rol con permisos específicos.</li>
+            <li><strong>Editar Rol:</strong> Use el menú de acciones (ícono de tres puntos) junto a cada rol para editar sus detalles.</li>
+            <li><strong>Eliminar Rol:</strong> Desde el mismo menú de acciones, puede inactivar un rol existente.</li>
+            <li><strong>Filtros y Búsqueda:</strong> Utilice los filtros en la parte superior para buscar roles por módulo, perfil o estado.</li>
+            <li><strong>Paginación y Ordenamiento:</strong> Navegue entre páginas de roles y ordene la tabla haciendo clic en los encabezados de columna.</li>
+            </ul>
+            <p>Para más información, consulte el <a href="https://ejemplo.com/manual-roles" target="_blank">manual del usuario</a> 
+            o vea el <a href="https://ejemplo.com/video-roles" target="_blank">video tutorial</a>,o contacte al administrador del sistema.
+            </p>
+        `;
+        showHelpModal(helpContent);
+    };
 });
