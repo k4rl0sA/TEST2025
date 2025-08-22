@@ -10,8 +10,6 @@ if (!isset($_SESSION["us_sds"])) {
     echo json_encode(['success' => false, 'error' => 'Sesión expirada', 'redirect' => '/index.php']);
     exit;
 }
-
-
 // --- Validar permisos ---
 if (!acceso('roles')) { // Cambia 'ajustes' por el módulo
     error_response('No tienes permisos para acceder a este módulo', 403);
