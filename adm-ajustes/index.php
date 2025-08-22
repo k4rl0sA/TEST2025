@@ -4,6 +4,10 @@ session_start();
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
+if (!isset($_SESSION["us_sds"])) {
+    header("Location: /index.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
