@@ -88,6 +88,10 @@ document.addEventListener('DOMContentLoaded', function() {
             pageSize
         }).toString();
         fetchWithLoader(path + `lib.php?a=list&${params}`, {}, function(data) {
+            if (data.redirect) {
+                window.location.href = data.redirect;
+            return;
+            }
             renderRolesTable(data);
         });
     }
