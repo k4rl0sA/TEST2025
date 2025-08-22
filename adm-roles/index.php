@@ -19,13 +19,13 @@ if (!isset($_SESSION["us_sds"])) {
     <meta name="keywords" content="roles, gestión, administración, permisos, sistema, filtros, seguridad">
     <meta name="author" content="Carlos Eduardo Acevedo Arevalo">
     <link rel="canonical" href="https://tusitio.com/adm-ajustes/index.html">
-    <link rel="stylesheet" href="../lib/css/app.css?v=6">
+    <link rel="stylesheet" href="../lib/css/app.css?v=7">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
-    <link rel="stylesheet" href="../lib/css/choices.min.css?v=6">
+    <link rel="stylesheet" href="../lib/css/choices.min.css?v=7">
     <script src="../lib/js/choices.min.js"></script>
     <script>window.CSRF_TOKEN = "<?php echo $_SESSION['csrf_token']; ?>";</script>
-    <script src="../lib/js/app.js?v=6" defer></script>
-    <script src="ajustes.js?v=6"></script>
+    <script src="../lib/js/app.js?v=7" defer></script>
+    <script src="ajustes.js?v=7"></script>
 </head>
 <body>
     <div class="toast-container">
@@ -97,21 +97,37 @@ if (!isset($_SESSION["us_sds"])) {
     </div>
     <!-- Tabla de roles -->
     <div class="table-container" id="table-section">
+    <!-- Boton para personalizar columnas -->
+     <div class="column-settings">
+        <button class="btn btn-outline" id="toggle-columns-btn"><i class="fa fa-table"></i> Personalizar columnas</button>
+        <div id="columns-panel" class="columns-panel hidden">
+            <label><input type="checkbox" class="col-toggle" data-col="modulo" checked> Módulo</label>
+            <label><input type="checkbox" class="col-toggle" data-col="perfil" checked> Perfil</label>
+            <label><input type="checkbox" class="col-toggle" data-col="componente" checked> Componente</label>
+            <label><input type="checkbox" class="col-toggle" data-col="consultar" checked> Consultar</label>
+            <label><input type="checkbox" class="col-toggle" data-col="editar" checked> Editar</label>
+            <label><input type="checkbox" class="col-toggle" data-col="crear" checked> Crear</label>
+            <label><input type="checkbox" class="col-toggle" data-col="ajustar" checked> Ajustar</label>
+            <label><input type="checkbox" class="col-toggle" data-col="importar" checked> Importar</label>
+            <label><input type="checkbox" class="col-toggle" data-col="estado" checked> Estado</label>
+        </div>
+    </div>
+
         <table id="roles-table">
             <thead>
                 <tr>
                     <th><input type="checkbox" id="select-all-roles"></th>
                     <th>Acciones</th>
                     <!-- <th data-sort="id_rol">ID</th> NO MOSTRAR EL ID-->
-                    <th data-sort="modulo">Módulo</th>
-                    <th data-sort="perfil">Perfil</th>
-                    <th data-sort="componente">Componente</th>
-                    <th data-sort="consultar">Consultar</th>
-                    <th data-sort="editar">Editar</th>
-                    <th data-sort="crear">Crear</th>
-                    <th data-sort="ajustar">Ajustar</th>
-                    <th data-sort="importar">Importar</th>
-                    <th data-sort="estado">Estado</th>
+                    <th class="col-modulo" data-sort="modulo">Módulo</th>
+                    <th class="col-perfil" data-sort="perfil">Perfil</th>
+                    <th class="col-componente" data-sort="componente">Componente</th>
+                    <th class="col-consultar" data-sort="consultar">Consultar</th>
+                    <th class="col-editar" data-sort="editar">Editar</th>
+                    <th class="col-crear" data-sort="crear">Crear</th>
+                    <th class="col-ajustar" data-sort="ajustar">Ajustar</th>
+                    <th class="col-importar" data-sort="importar">Importar</th>
+                    <th class="col-estado" data-sort="estado">Estado</th>
                 </tr>
             </thead>
             <tbody>

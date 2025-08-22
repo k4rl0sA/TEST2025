@@ -56,15 +56,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </td>
                 
-                <td data-label="Modulo">${role.modulo}</td>
-                <td data-label="Perfil">${role.perfil}</td>
-                <td data-label="Componente">${role.componente}</td>
-                <td data-label="Consultar">${role.consultar}</td>
-                <td data-label="Editar">${role.editar}</td>
-                <td data-label="Crear">${role.crear}</td>
-                <td data-label="Ajustar">${role.ajustar}</td>
-                <td data-label="Importar">${role.importar}</td>
-                <td data-label="Estado">${role.estado}</td>
+                <td class="col-modulo" data-label="Modulo">${role.modulo}</td>
+                <td class="col-perfil" data-label="Perfil">${role.perfil}</td>
+                <td class="col-componente" data-label="Componente">${role.componente}</td>
+                <td class="col-consultar" data-label="Consultar">${role.consultar}</td>
+                <td class="col-editar" data-label="Editar">${role.editar}</td>
+                <td class="col-crear" data-label="Crear">${role.crear}</td>
+                <td class="col-ajustar" data-label="Ajustar">${role.ajustar}</td>
+                <td class="col-importar" data-label="Importar">${role.importar}</td>
+                <td class="col-estado" data-label="Estado">${role.estado}</td>
             `;
             /* <td data-label="ID">${role.token}</td>//NO MOSTRAR ID  */
             tbody.appendChild(tr);
@@ -357,4 +357,16 @@ document.addEventListener('DOMContentLoaded', function() {
             showToast(data.message || 'Acción masiva completada.', data.status || 'success');
             fetchRoles()});
     }
+    // Mostrar/ocultar columnas
+    document.getElementById('toggle-columns-btn').onclick = function() {
+        document.getElementById('columns-panel').classList.toggle('hidden');
+    };
+    // Ocultar panel al hacer clic fuera
+    document.querySelectorAll('.col-toggle').forEach(cb => {
+        cb.onchange = function() {
+            toggleColumn(cb.dataset.col, cb.checked);
+        };
+    });
+
+
 });
