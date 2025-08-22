@@ -238,7 +238,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Eliminar rol
     window.deleteRole = function(token) {
-        if (!confirm('¿Está seguro de eliminar este rol?')) return;
+        if (!confirm('¿Eliminar este rol?')) {
+            showToast('Acción cancelada por el usuario.', 'info');
+            return;
+        }
         const formData = new FormData();
         formData.append('csrf_token', window.CSRF_TOKEN);
         formData.append('token', token);
@@ -332,6 +335,8 @@ document.addEventListener('DOMContentLoaded', function() {
         fetchWithLoader(path + 'lib.php?a=bulk', {
             method: 'POST',
             body: formData
-        }, () => fetchRoles());
+        }, (data) => {
+            showToast(data.message || 'Acción masiva completada.', data.status || 'success');
+            fetchRoles()});
     }
 });
