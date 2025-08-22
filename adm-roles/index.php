@@ -80,6 +80,12 @@ if (!isset($_SESSION["us_sds"])) {
         <button class="btn btn-add" id="add-btn" title="Agregar nuevo rol"><i class="fa fa-plus"></i><span> Nuevo Rol</span></button>
         <button class="btn btn-help" id="help-btn" title="Ayuda"><i class="fa fa-question-circle"></i></button>
     </div>
+    <!-- Acciones masivas -->
+    <div class="bulk-actions">
+        <button class="btn btn-outline" id="bulk-activate"><i class="fa fa-check"></i> Activar</button>
+        <button class="btn btn-outline" id="bulk-inactivate"><i class="fa fa-ban"></i> Inactivar</button>
+        <button class="btn btn-outline" id="bulk-delete"><i class="fa fa-trash"></i> Eliminar</button>
+    </div>
     <!-- Modal de Ayuda -->
     <div id="help-modal" class="modal-content hidden">
         <div class="modal-header">
