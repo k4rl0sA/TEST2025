@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(this);
         if (editingId) formData.append('token', editingId);
         formData.append('csrf_token', window.CSRF_TOKEN);
-        fetchWithLoader(path+`lib.php?a=${editingId ? 'update' : 'create'}`, {
+        fetchWithLoader(path+`lib.php?a=${editingId ? 'update' : 'create'}`, {  
             method: 'POST',
             body: formData
         }, () => {
