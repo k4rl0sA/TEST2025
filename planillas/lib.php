@@ -25,7 +25,7 @@ function lis_planillas(){
     $total = $info['responseResult'][0]['total'] ?? 0;
     $regxPag = 10;
     $pag = (isset($_POST['pag-planillas'])) ? ($_POST['pag-planillas']-1)* $regxPag : 0;
-    $sql = "SELECT CONCAT_WS('_',P.id_planilla,P.idpeople) ACCIONES, P.id_planilla 'ID', P.idpeople 'ID Persona', P.cod_fam 'Código Familia', P.tipo 'Tipo', P.evento 'Evento', P.seguimiento 'Seguimiento', P.formato_direccion 'Formato Dirección', P.estado_planilla 'Estado', P.carpeta 'Carpeta', P.caja 'Caja', P.fecha_max 'Fecha Máxima', P.fecha_formato 'Fecha Formato', P.pcf 'PCF', P.comp 'Compromisos', P.apgar 'Apgar', P.signos 'Signos', P.alerta 'Alerta', P.fecha_create 'Fecha Creación', P.usu_create 'Creó', P.usu_update 'Modificó', P.fecha_update 'Fecha Modificación' FROM `planillas` P WHERE estado='A' ";
+    $sql = "SELECT CONCAT_WS('_',P.id_planilla,P.idpeople) ACCIONES, P.id_planilla 'ID', P.idpeople 'ID Persona', P.cod_fam 'Código Familia', P.tipo 'Tipo', P.evento 'Evento', P.seguimiento 'Seguimiento', P.colaborador 'Colaborador', P.estado_planilla 'Estado', P.carpeta 'Carpeta', P.caja 'Caja', P.fecha_max 'Fecha Máxima', P.fecha_formato 'Fecha Formato', P.fecha_create 'Fecha Creación', P.usu_create 'Creó', P.usu_update 'Modificó', P.fecha_update 'Fecha Modificación' FROM `planillas` P WHERE estado='A' ";
     $sql .= whe_planillas();
     $sql .= " ORDER BY P.fecha_create DESC";
     $sql .= ' LIMIT '.$pag.','.$regxPag;
@@ -115,14 +115,14 @@ function gra_planillas(){
     $id = divide($_POST['id_planilla']);
     $isNew = empty($id[0]);
     if ($isNew) {
-        $sql = "INSERT INTO planillas (idpeople, cod_fam, tipo, evento, seguimiento, formato_direccion, estado_planilla, carpeta, caja, fecha_max, fecha_formato, usu_create, fecha_create, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), 'A')";
+        $sql = "INSERT INTO planillas (idpeople, cod_fam, tipo, evento, seguimiento, colaborador, estado_planilla, carpeta, caja, fecha_max, fecha_formato, usu_create, fecha_create, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), 'A')";
         $params = [
             ['type' => 'i', 'value' => $_POST['idpeople']],
             ['type' => 'i', 'value' => $_POST['cod_fam']],
             ['type' => 's', 'value' => $_POST['tipo']],
             ['type' => 's', 'value' => $_POST['evento']],
             ['type' => 's', 'value' => $_POST['seguimiento']],
-            ['type' => 's', 'value' => $_POST['formato_direccion']],
+            ['type' => 'i', 'value' => $_POST['colaborador']],
             ['type' => 's', 'value' => $_POST['estado_planilla']],
             ['type' => 's', 'value' => $_POST['carpeta']],
             ['type' => 's', 'value' => $_POST['caja']],
@@ -131,14 +131,14 @@ function gra_planillas(){
             ['type' => 's', 'value' => $_SESSION['us_sds']],
         ];
     } else {
-        $sql = "UPDATE planillas SET idpeople=?, cod_fam=?, tipo=?, evento=?, seguimiento=?, formato_direccion=?, estado_planilla=?, carpeta=?, caja=?, fecha_max=?, fecha_formato=?, usu_update=?, fecha_update=NOW() WHERE id_planilla=?";
+        $sql = "UPDATE planillas SET idpeople=?, cod_fam=?, tipo=?, evento=?, seguimiento=?, colaborador=?, estado_planilla=?, carpeta=?, caja=?, fecha_max=?, fecha_formato=?, usu_update=?, fecha_update=NOW() WHERE id_planilla=?";
         $params = [
             ['type' => 'i', 'value' => $_POST['idpeople']],
             ['type' => 'i', 'value' => $_POST['cod_fam']],
             ['type' => 's', 'value' => $_POST['tipo']],
             ['type' => 's', 'value' => $_POST['evento']],
             ['type' => 's', 'value' => $_POST['seguimiento']],
-            ['type' => 's', 'value' => $_POST['formato_direccion']],
+            ['type' => 'i', 'value' => $_POST['colaborador']],
             ['type' => 's', 'value' => $_POST['estado_planilla']],
             ['type' => 's', 'value' => $_POST['carpeta']],
             ['type' => 's', 'value' => $_POST['caja']],
