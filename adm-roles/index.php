@@ -79,17 +79,7 @@ if (!isset($_SESSION["us_sds"])) {
         <span id="range-info" class="range-info"></span>
          <span id="total-roles" class="total-count"></span>
         <button class="btn btn-add" id="add-btn" title="Agregar nuevo rol"><i class="fa fa-plus"></i><span> Nuevo Rol</span></button>
-        <button class="btn btn-help" id="help-btn" title="Ayuda"><i class="fa fa-question-circle"></i></button>
-    </div>
-    <!-- Acciones masivas -->
-    <div class="bulk-actions-bar" id="bulk-actions-bar">
-        <span id="bulk-count" class="bulk-count">0 seleccionados</span>
-        <button class="bulk-btn" id="bulk-activate"><i class="fa fa-check"></i> Activar</button>
-        <button class="bulk-btn" id="bulk-inactivate"><i class="fa fa-ban"></i> Inactivar</button>
-        <button class="bulk-btn" id="bulk-delete"><i class="fa fa-trash"></i> Eliminar</button>
-        <button class="bulk-btn bulk-close" id="bulk-close" title="Cerrar"><i class="fa fa-times"></i></button>
-    </div>
-     <!-- Boton para personalizar columnas -->
+        <!-- Boton para personalizar columnas -->
         <div class="column-settings">
             <button class="btn btn-outline" id="toggle-columns-btn"><i class="fa fa-table"></i> Personalizar columnas</button>
             <div id="columns-panel" class="columns-panel hidden">
@@ -104,6 +94,16 @@ if (!isset($_SESSION["us_sds"])) {
                 <label><input type="checkbox" class="col-toggle" data-col="estado" checked> Estado</label>
             </div>
         </div>
+        <button class="btn btn-help" id="help-btn" title="Ayuda"><i class="fa fa-question-circle"></i></button>
+    </div>
+    <!-- Acciones masivas -->
+    <div class="bulk-actions-bar" id="bulk-actions-bar">
+        <span id="bulk-count" class="bulk-count">0 items</span>
+        <button class="bulk-btn" id="bulk-activate"><i class="fa fa-check"></i> Activar</button>
+        <button class="bulk-btn" id="bulk-inactivate"><i class="fa fa-ban"></i> Inactivar</button>
+        <button class="bulk-btn" id="bulk-delete"><i class="fa fa-trash"></i> Eliminar</button>
+        <button class="bulk-btn bulk-close" id="bulk-close" title="Cerrar"><i class="fa fa-times"></i></button>
+    </div>
     <!-- Modal de Ayuda -->
     <div id="help-modal" class="modal-content hidden">
         <div class="modal-header">
