@@ -116,14 +116,15 @@ function cmp_planillas(){
 
 // Opciones para selects si tienes catálogos
 function opc_tipo_planilla($id=''){
-    // Reemplaza 1 por el idcatalogo real de tipo planilla
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=1 and estado='A' ORDER BY 1",$id);
 }
 function opc_estado_planilla($id=''){
-    // Reemplaza 2 por el idcatalogo real de estado planilla
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=2 and estado='A' ORDER BY 1",$id);
 }
 
+function opc_tipo_doc($id=''){
+	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 1",$id);
+}
 // Grabar/actualizar planilla
 function gra_planillas(){
     $id = divide($_POST['id_planilla']);
