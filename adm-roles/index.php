@@ -19,13 +19,13 @@ if (!isset($_SESSION["us_sds"])) {
     <meta name="keywords" content="roles, gestión, administración, permisos, sistema, filtros, seguridad">
     <meta name="author" content="Carlos Eduardo Acevedo Arevalo">
     <link rel="canonical" href="https://tusitio.com/adm-ajustes/index.html">
-    <link rel="stylesheet" href="../lib/css/app.css?v=23">
+    <link rel="stylesheet" href="../lib/css/app.css?v=24">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
-    <link rel="stylesheet" href="../lib/css/choices.min.css?v=23">
+    <link rel="stylesheet" href="../lib/css/choices.min.css?v=24">
     <script src="../lib/js/choices.min.js"></script>
     <script>window.CSRF_TOKEN = "<?php echo $_SESSION['csrf_token']; ?>";</script>
-    <script src="../lib/js/app.js?v=23" defer></script>
-    <script src="ajustes.js?v=23"></script>
+    <script src="../lib/js/app.js?v=24" defer></script>
+    <script src="ajustes.js?v=24"></script>
 </head>
 <body>
     <div class="toast-container">
@@ -120,15 +120,15 @@ if (!isset($_SESSION["us_sds"])) {
                     <th><input type="checkbox" id="select-all-roles"></th>
                     <th>Acciones</th>
                     <!-- <th data-sort="id_rol">ID</th> NO MOSTRAR EL ID-->
-                    <th class="col-modulo" data-sort="modulo">Módulo</th>
-                    <th class="col-perfil" data-sort="perfil">Perfil</th>
-                    <th class="col-componente" data-sort="componente">Componente</th>
-                    <th class="col-consultar" data-sort="consultar">Consultar</th>
-                    <th class="col-editar" data-sort="editar">Editar</th>
-                    <th class="col-crear" data-sort="crear">Crear</th>
-                    <th class="col-ajustar" data-sort="ajustar">Ajustar</th>
-                    <th class="col-importar" data-sort="importar">Importar</th>
-                    <th class="col-estado" data-sort="estado">Estado</th>
+                    <th class="col-modulo sortable" data-sort="modulo">Módulo<span class="sort-icon"></span></th>
+                    <th class="col-perfil sortable" data-sort="perfil">Perfil<span class="sort-icon"></span></th>
+                    <th class="col-componente sortable" data-sort="componente">Componente<span class="sort-icon"></span></th>
+                    <th class="col-consultar sortable" data-sort="consultar">Consultar<span class="sort-icon"></span></th>
+                    <th class="col-editar sortable" data-sort="editar">Editar<span class="sort-icon"></span></th>
+                    <th class="col-crear sortable" data-sort="crear">Crear<span class="sort-icon"></span></th>
+                    <th class="col-ajustar sortable" data-sort="ajustar">Ajustar<span class="sort-icon"></span></th>
+                    <th class="col-importar sortable" data-sort="importar">Importar<span class="sort-icon"></span></th>
+                    <th class="col-estado sortable" data-sort="estado">Estado<span class="sort-icon"></span></th>
                 </tr>
             </thead>
             <tbody>
