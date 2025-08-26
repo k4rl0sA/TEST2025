@@ -85,8 +85,22 @@ function cmp_planillas(){
         if ($info['responseResult']) $data = $info['responseResult'][0];
     }
     $c[] = new cmp('id_planilla','h',15,$data['id_planilla'] ?? '', 'planillas', 'ID Planilla');
-    $c[] = new cmp('idpeople','t',10,$data['idpeople'] ?? '', 'planillas', 'ID Persona','','','',true,true,'','col-4');
-    $c[] = new cmp('cod_fam','t',10,$data['cod_fam'] ?? '', 'planillas', 'Código Familia','','','',true,true,'','col-4');
+
+    // Nuevo: tipo_doc y documento
+    $tipo_doc = $data['tipo_doc'] ?? ($_POST['tipo_doc'] ?? '');
+    $documento = $data['documento'] ?? ($_POST['documento'] ?? '');
+    $nombre_completo = '';
+    if ($tipo_doc && $documento) {
+        $sql_person = "SELECT CONCAT_WS(' ', nombre1, nombre2, apellido1, apellido2) AS nombre_completo FROM person WHERE tipo_doc='".cleanTx($tipo_doc)."' AND idpersona='".cleanTx($documento)."' LIMIT 1";
+        $info_person = datos_mysql($sql_person);
+        if (!empty($info_person['responseResult'][0]['nombre_completo'])) {
+            $nombre_completo = $info_person['responseResult'][0]['nombre_completo'];
+        }
+    }
+    $c[] = new cmp('tipo_doc','s',3,$tipo_doc, 'planillas', 'Tipo Documento', 'tipo_doc','','',true,true,'','col-4');
+    $c[] = new cmp('documento','t',18,$documento, 'planillas', 'Documento','','','',true,true,'','col-4');
+    $c[] = new cmp('nombre_completo','t',50,$nombre_completo, 'planillas', 'Nombre Completo','','','',false,false,'','col-8');
+
     $c[] = new cmp('tipo','s',3,$data['tipo'] ?? '', 'planillas', 'Tipo Planilla', 'tipo_planilla','','',true,true,'','col-4');
     $c[] = new cmp('evento','t',3,$data['evento'] ?? '', 'planillas', 'Evento','','','',true,true,'','col-4');
     $c[] = new cmp('seguimiento','t',3,$data['seguimiento'] ?? '', 'planillas', 'Seguimiento','','','',true,true,'','col-4');
