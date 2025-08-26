@@ -330,6 +330,14 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleColumn(col, false);
         }
     });
+    // En ajustes.js (roles)
+    loadColumnPreferences('roles');
+    document.querySelectorAll('#columns-panel-roles .col-toggle').forEach(cb => {
+        cb.onchange = function() {
+            toggleColumn(cb.dataset.col, cb.checked);
+            saveColumnPreferences('roles');
+        };
+    });
     // Guardar selección de columnas en localStorage
     document.querySelectorAll('.col-toggle').forEach(cb => {
         cb.onchange = function() {

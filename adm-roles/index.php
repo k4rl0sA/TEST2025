@@ -19,13 +19,13 @@ if (!isset($_SESSION["us_sds"])) {
     <meta name="keywords" content="roles, gestión, administración, permisos, sistema, filtros, seguridad">
     <meta name="author" content="Carlos Eduardo Acevedo Arevalo">
     <link rel="canonical" href="https://tusitio.com/adm-ajustes/index.html">
-    <link rel="stylesheet" href="../lib/css/app.css?v=21">
+    <link rel="stylesheet" href="../lib/css/app.css?v=22">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
-    <link rel="stylesheet" href="../lib/css/choices.min.css?v=21">
+    <link rel="stylesheet" href="../lib/css/choices.min.css?v=22">
     <script src="../lib/js/choices.min.js"></script>
     <script>window.CSRF_TOKEN = "<?php echo $_SESSION['csrf_token']; ?>";</script>
-    <script src="../lib/js/app.js?v=21" defer></script>
-    <script src="ajustes.js?v=21"></script>
+    <script src="../lib/js/app.js?v=22" defer></script>
+    <script src="ajustes.js?v=22"></script>
 </head>
 <body>
     <div class="toast-container">
@@ -81,8 +81,8 @@ if (!isset($_SESSION["us_sds"])) {
         <button class="btn btn-add" id="add-btn" title="Agregar nuevo rol"><i class="fa fa-plus"></i><span> Nuevo Rol</span></button>
         <!-- Boton para personalizar columnas -->
         <div class="column-settings">
-            <button class="btn btn-outline" id="toggle-columns-btn" title='Personalizar columnas'><i class="fa fa-table"></i></button>
-            <div id="columns-panel" class="columns-panel hidden">
+            <button class="btn btn-outline" id="toggle-columns-btn-roles" title='Personalizar columnas'><i class="fa fa-table"></i></button>
+            <div id="columns-panel-roles" class="columns-panel hidden">
                 <label><input type="checkbox" class="col-toggle" data-col="modulo" checked> Módulo</label>
                 <label><input type="checkbox" class="col-toggle" data-col="perfil" checked> Perfil</label>
                 <label><input type="checkbox" class="col-toggle" data-col="componente" checked> Componente</label>
