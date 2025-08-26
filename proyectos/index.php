@@ -457,6 +457,7 @@ function cargarResponsables() {
                     select.innerHTML += `<option value="${u.id_usuario}">${u.nombre}</option>`;
                 });
             }
+         asignarResponsablePorEstado();
         });
 }
 
@@ -475,9 +476,10 @@ function llenarModal(proy) {
 function habilitarCamposModal(habilitar) {
     document.getElementById('projectName').disabled = !habilitar;
     document.getElementById('projectDescription').disabled = !habilitar;
-    document.getElementById('projectTeam').disabled = !habilitar;
+    document.getElementById('projectTeam').disabled = true;
     document.getElementById('projectStatus').disabled = !habilitar;
     document.getElementById('projectDeadline').disabled = !habilitar;
+    document.getElementById('priority').disabled = !habilitar;
 }
 
 // Sobrescribe funciones de botones de acciones
@@ -543,6 +545,35 @@ function eliminarProyecto(id) {
 function closeModal() {
     document.getElementById('projectModal').style.display = 'none';
 }
+
+// Mapeo de estado a nombre de responsable
+const responsablesPorEstado = {
+    analisis: "EDISON FERNANDO MATEUS VASQUEZ",
+    desarrollo: "CARLOS EDUARDO ACEVEDO",
+    pruebas: "Oscar Arley Currea Jiménez",
+    aprobacion: "SINDY SANCHEZ",
+    manual: "JEISSON CURREA JIMENEZ",
+    pruebasSub: "JEISSON CURREA JIMENEZ",
+    socializacion: "EDISON FERNANDO MATEUS VASQUEZ",
+    implementacion: "CARLOS EDUARDO ACEVEDO",
+    notifica: "SINDY SANCHEZ"
+};
+function asignarResponsablePorEstado() {
+    const estado = document.getElementById('projectStatus').value;
+    const nombreResponsable = responsablesPorEstado[estado];
+    const select = document.getElementById('projectTeam');
+    if (!nombreResponsable) return;
+
+    // Busca la opción cuyo texto coincide con el nombre del responsable
+    for (let option of select.options) {
+        if (option.text.trim().toUpperCase() === nombreResponsable.trim().toUpperCase()) {
+            select.value = option.value;
+            break;
+        }
+    }
+}
+// Cuando cambia el estado, asigna el responsable correspondiente
+document.getElementById('projectStatus').addEventListener('change', asignarResponsablePorEstado);
     </script>
 </body>
 </html>
