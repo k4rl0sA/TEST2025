@@ -344,19 +344,6 @@ document.addEventListener('DOMContentLoaded', function() {
         bulkAction('delete', tokens);
     };
 
-    // Función para enviar la acción masiva al backend
-    function bulkAction(action, tokens) {
-        const formData = new FormData();
-        formData.append('csrf_token', window.CSRF_TOKEN);
-        formData.append('action', action);
-        formData.append('tokens', JSON.stringify(tokens));
-        fetchWithLoader(path + 'lib.php?a=bulk', {
-            method: 'POST',
-            body: formData
-        }, (data) => {
-            showToast(data.message || 'Acción masiva completada.', data.status || 'success');
-            fetchRoles()});
-    }
     // Mostrar/ocultar columnas
     document.getElementById('toggle-columns-btn').onclick = function() {
         document.getElementById('columns-panel').classList.toggle('hidden');
@@ -383,18 +370,6 @@ document.addEventListener('DOMContentLoaded', function() {
         bulkAction(path + 'lib.php?a=bulk', 'activate', tokens, () => fetchRoles());
     };
 
-    function updateBulkActionsBar() {
-    const selected = getSelectedTokens('#roles-table');
-    const bar = document.getElementById('bulk-actions-bar');
-    const count = document.getElementById('bulk-count');
-    if (selected.length > 0) {
-        bar.classList.remove('hidden');
-        count.textContent = `${selected.length} seleccionados`;
-    } else {
-        bar.classList.add('hidden');
-        count.textContent = '0 seleccionados';
-    }
-}
 document.querySelectorAll('#roles-table .select-role').forEach(cb => {
     cb.onchange = updateBulkActionsBar;
 });
