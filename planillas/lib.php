@@ -25,7 +25,7 @@ function lis_planillas(){
     $total = $info['responseResult'][0]['total'] ?? 0;
     $regxPag = 10;
     $pag = (isset($_POST['pag-planillas'])) ? ($_POST['pag-planillas']-1)* $regxPag : 0;
-    $sql = "SELECT CONCAT_WS('_',P.id_planilla,P.idpeople) ACCIONES, P.id_planilla 'ID', P.idpeople 'ID Persona', P.cod_fam 'Código Familia', P.tipo 'Tipo', P.evento 'Evento', P.seguimiento 'Seguimiento', P.formato_direccion 'Formato Dirección', P.estado_planilla 'Estado', P.carpeta 'Carpeta', P.caja 'Caja', P.fecha_max 'Fecha Máxima', P.fecha_formato 'Fecha Formato', P.fecha_create 'Fecha Creación', P.usu_create 'Creó' FROM `planillas` P WHERE estado='A' ";
+    $sql = "SELECT CONCAT_WS('_',P.id_planilla,P.idpeople) ACCIONES, P.id_planilla 'ID', P.idpeople 'ID Persona', P.cod_fam 'Código Familia', P.tipo 'Tipo', P.evento 'Evento', P.seguimiento 'Seguimiento', P.formato_direccion 'Formato Dirección', P.estado_planilla 'Estado', P.carpeta 'Carpeta', P.caja 'Caja', P.fecha_max 'Fecha Máxima', P.fecha_formato 'Fecha Formato', P.pcf 'PCF', P.comp 'Compromisos', P.apgar 'Apgar', P.signos 'Signos', P.alerta 'Alerta', P.fecha_create 'Fecha Creación', P.usu_create 'Creó', P.usu_update 'Modificó', P.fecha_update 'Fecha Modificación' FROM `planillas` P WHERE estado='A' ";
     $sql .= whe_planillas();
     $sql .= " ORDER BY P.fecha_create DESC";
     $sql .= ' LIMIT '.$pag.','.$regxPag;
@@ -85,19 +85,17 @@ function cmp_planillas(){
         if ($info['responseResult']) $data = $info['responseResult'][0];
     }
     $c[] = new cmp('id_planilla','h',15,$data['id_planilla'] ?? '', 'planillas', 'ID Planilla');
-    $c[] = new cmp('idpeople','t',10,$data['idpeople'] ?? '', 'planillas', 'ID Persona');
-    $c[] = new cmp('cod_fam','t',10,$data['cod_fam'] ?? '', 'planillas', 'Código Familia');
-    $c[] = new cmp('tipo','s',3,$data['tipo'] ?? '', 'planillas', 'Tipo Planilla', 'tipo_planilla');
-    $c[] = new cmp('evento','t',3,$data['evento'] ?? '', 'planillas', 'Evento');
-    $c[] = new cmp('seguimiento','t',3,$data['seguimiento'] ?? '', 'planillas', 'Seguimiento');
-    $c[] = new cmp('formato_direccion','t',50,$data['formato_direccion'] ?? '', 'planillas', 'Formato Dirección');
-    $c[] = new cmp('estado_planilla','s',3,$data['estado_planilla'] ?? '', 'planillas', 'Estado Planilla', 'estado_planilla');
-    $c[] = new cmp('carpeta','t',50,$data['carpeta'] ?? '', 'planillas', 'Carpeta');
-    $c[] = new cmp('caja','t',50,$data['caja'] ?? '', 'planillas', 'Caja');
-    $c[] = new cmp('fecha_max','t',10,$data['fecha_max'] ?? '', 'planillas', 'Fecha Máxima');
-    $c[] = new cmp('fecha_formato','t',10,$data['fecha_formato'] ?? '', 'planillas', 'Fecha Formato');
-    $c[] = new cmp('fecha_create','t',20,$data['fecha_create'] ?? '', 'planillas', 'Fecha Creación', '', '', false, false);
-    $c[] = new cmp('usu_create','t',20,$data['usu_create'] ?? '', 'planillas', 'Creó', '', '', false, false);
+    $c[] = new cmp('idpeople','t',10,$data['idpeople'] ?? '', 'planillas', 'ID Persona','','','',true,true,'','col-4');
+    $c[] = new cmp('cod_fam','t',10,$data['cod_fam'] ?? '', 'planillas', 'Código Familia','','','',true,true,'','col-4');
+    $c[] = new cmp('tipo','s',3,$data['tipo'] ?? '', 'planillas', 'Tipo Planilla', 'tipo_planilla','','',true,true,'','col-4');
+    $c[] = new cmp('evento','t',3,$data['evento'] ?? '', 'planillas', 'Evento','','','',true,true,'','col-4');
+    $c[] = new cmp('seguimiento','t',3,$data['seguimiento'] ?? '', 'planillas', 'Seguimiento','','','',true,true,'','col-4');
+    $c[] = new cmp('colaborador','t',18,$data['colaborador'] ?? '', 'planillas', 'Colaborador','','','',true,true,'','col-4');
+    $c[] = new cmp('estado_planilla','s',3,$data['estado_planilla'] ?? '', 'planillas', 'Estado Planilla', 'estado_planilla','','',true,true,'','col-4');
+    $c[] = new cmp('carpeta','t',50,$data['carpeta'] ?? '', 'planillas', 'Carpeta','','','',true,true,'','col-6');
+    $c[] = new cmp('caja','t',50,$data['caja'] ?? '', 'planillas', 'Caja','','','',true,true,'','col-6');
+    $c[] = new cmp('fecha_max','t',10,$data['fecha_max'] ?? '', 'planillas', 'Fecha Máxima','','','',true,true,'','col-6');
+    $c[] = new cmp('fecha_formato','t',10,$data['fecha_formato'] ?? '', 'planillas', 'Fecha Formato','','','',true,true,'','col-6');
     foreach ($c as $cmp) $rta .= $cmp->put();
     return $rta;
 }
