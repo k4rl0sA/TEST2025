@@ -82,11 +82,14 @@ if (!isset($_SESSION["us_sds"])) {
         <button class="btn btn-help" id="help-btn" title="Ayuda"><i class="fa fa-question-circle"></i></button>
     </div>
     <!-- Acciones masivas -->
-    <div class="bulk-actions">
-        <button class="btn btn-outline" id="bulk-activate"><i class="fa fa-check"></i> Activar</button>
-        <button class="btn btn-outline" id="bulk-inactivate"><i class="fa fa-ban"></i> Inactivar</button>
-        <button class="btn btn-outline" id="bulk-delete"><i class="fa fa-trash"></i> Eliminar</button>
-        <!-- Boton para personalizar columnas -->
+    <div class="bulk-actions-bar" id="bulk-actions-bar">
+        <span id="bulk-count" class="bulk-count">0 seleccionados</span>
+        <button class="bulk-btn" id="bulk-activate"><i class="fa fa-check"></i> Activar</button>
+        <button class="bulk-btn" id="bulk-inactivate"><i class="fa fa-ban"></i> Inactivar</button>
+        <button class="bulk-btn" id="bulk-delete"><i class="fa fa-trash"></i> Eliminar</button>
+        <button class="bulk-btn bulk-close" id="bulk-close" title="Cerrar"><i class="fa fa-times"></i></button>
+    </div>
+     <!-- Boton para personalizar columnas -->
         <div class="column-settings">
             <button class="btn btn-outline" id="toggle-columns-btn"><i class="fa fa-table"></i> Personalizar columnas</button>
             <div id="columns-panel" class="columns-panel hidden">
@@ -101,8 +104,6 @@ if (!isset($_SESSION["us_sds"])) {
                 <label><input type="checkbox" class="col-toggle" data-col="estado" checked> Estado</label>
             </div>
         </div>
-    </div>
-    
     <!-- Modal de Ayuda -->
     <div id="help-modal" class="modal-content hidden">
         <div class="modal-header">

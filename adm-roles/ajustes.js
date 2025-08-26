@@ -376,5 +376,16 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleColumn(col, false);
         }});
 
+    document.getElementById('bulk-activate').onclick = function() {
+        const tokens = getSelectedTokens('#roles-table');
+        if (tokens.length === 0) return showToast('Seleccione al menos un rol.', 'warning');
+        if (!confirm(`¿Activar ${tokens.length} roles seleccionados?`)) return;
+        bulkAction(path + 'lib.php?a=bulk', 'activate', tokens, () => fetchRoles());
+    };
 
+
+
+
+
+    
 });
