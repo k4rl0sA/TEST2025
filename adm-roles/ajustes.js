@@ -321,6 +321,12 @@ document.addEventListener('DOMContentLoaded', function() {
         updateBulkActionsBar('#roles-table','bulk-actions-bar','bulk-count');
     };
 
+    // Mostrar/ocultar columnas
+    document.getElementById('toggle-columns-btn').onclick = function(e) {
+        e.stopPropagation(); // Evita que el click se propague y lo cierre inmediatamente
+        const panel = document.getElementById('columns-panel');
+        if (panel) panel.classList.toggle('hidden');
+    };
     // Ocultar columnas por defecto
     const defaultHiddenCols = ['col-consultar', 'col-editar', 'col-crear', 'col-ajustar', 'col-importar'];
     defaultHiddenCols.forEach(col => {
