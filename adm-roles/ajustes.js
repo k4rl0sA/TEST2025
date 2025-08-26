@@ -21,12 +21,12 @@ document.addEventListener('DOMContentLoaded', function() {
             removeFilterCallback
         );
     }
-    
+
     // --- Renderizado y lógica principal ---
     function renderRolesTable(data) {
         roles = data.roles || [];
         totalPages = data.totalPages || 1;
-        document.getElementById('total-roles').textContent = `Total: ${data.totalRows || 0}`;
+        // document.getElementById('total-roles').textContent = `Total: ${data.totalRows || 0}`;
         showRangeInfo(page, pageSize, data.totalRows || 0);
         const tbody = document.querySelector('#roles-table tbody');
         tbody.innerHTML = '';
