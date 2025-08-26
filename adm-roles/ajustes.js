@@ -329,15 +329,6 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // -- Preferencias de columnas -- 
-    // Ocultar columnas por defecto
-    const defaultHiddenCols = ['col-consultar', 'col-editar', 'col-crear', 'col-ajustar', 'col-importar'];
-    defaultHiddenCols.forEach(col => {
-        const checkbox = document.querySelector(`.col-toggle[data-col="${col}"]`);
-        if (checkbox) {
-            checkbox.checked = false;
-            toggleColumn(col, false);
-        }
-    });
     // Cargar preferencias de columnas
     loadColumnPreferences('roles');
     document.querySelectorAll('#columns-panel-roles .col-toggle').forEach(cb => {
@@ -347,5 +338,5 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     });
 
-    
+
 });
