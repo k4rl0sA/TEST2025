@@ -133,9 +133,10 @@ switch ($a) {
         $presupuesto = floatval($_POST['presupuesto'] ?? 0);
         $responsable_id = intval($_POST['responsable_id'] ?? 0);
         $cliente = clean($_POST['cliente'] ?? '');
+        $archivo = clean($_POST['archivo_url'] ?? '');
         if (!$nombre) error_response("El nombre del proyecto es obligatorio");
         $sql = "UPDATE proyectos SET 
-            nombre=?, descripcion=?, fecha_fin_estimada=?, fecha_fin_real=?, estado=?, prioridad=?, progreso=?, presupuesto=?, responsable_id=?, cliente=?
+            nombre=?, descripcion=?, fecha_fin_estimada=?, fecha_fin_real=?, estado=?, prioridad=?, progreso=?, presupuesto=?, responsable_id=?, cliente=?,archivo=? 
             WHERE id=?";
         $params = [
             ['type'=>'s','value'=>$nombre],
@@ -148,6 +149,7 @@ switch ($a) {
             ['type'=>'d','value'=>$presupuesto],
             ['type'=>'i','value'=>$responsable_id],
             ['type'=>'s','value'=>$cliente],
+            ['type'=>'s','value'=>$archivo],
             ['type'=>'i','value'=>$id]
         ];
         $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);

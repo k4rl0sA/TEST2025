@@ -290,6 +290,12 @@ if (empty($_SESSION['csrf_token'])) {
                     <label for="projectDeadline">Fecha Límite</label>
                     <input type="date" id="projectDeadline" class="form-control">
                 </div>
+                <div class="form-group" id="fileGroup" style="display:none;">
+                    <label for="projectFile">Archivo para Desarrollo (máx 2MB, PDF/JPG/PNG)</label>
+                    <input type="file" id="projectFile" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+                    <div id="fileStatus" style="font-size:12px;color:#888;"></div>
+                </div>
+                <input type="hidden" id="cloudinaryUrl">
             </div>
             <div class="modal-footer">
                 <button class="btn" onclick="closeModal()">Cancelar</button>
@@ -314,7 +320,7 @@ if (empty($_SESSION['csrf_token'])) {
         function cargarProyectos(search = '') {
             fetch(`${API}?a=list_proyectos&search=${encodeURIComponent(search)}`)
                 .then(r => r.json())
-                .then(data => {
+                .then data => {
                     if (data.success) {
                         renderProyectos(data.proyectos);
                     } else {
@@ -375,6 +381,10 @@ if (empty($_SESSION['csrf_token'])) {
     const cliente = '';
 
     if (!nombre) return alert('El nombre es obligatorio');
+    if (document.getElementById('projectStatus').value === 'desarrollo') {
+    if (archivoSubiendo) return alert('Espera a que termine la carga del archivo.');
+    if (!document.getElementById('cloudinaryUrl').value) return alert('Debes subir un archivo para Desarrollo.');
+}
     fetch(API, {
         method: 'POST',
           headers: {
@@ -500,6 +510,10 @@ function actualizarProyecto() {
     const prioridad = document.getElementById('priority').value;
 
     if (!nombre) return alert('El nombre es obligatorio');
+    if (document.getElementById('projectStatus').value === 'desarrollo') {
+    if (archivoSubiendo) return alert('Espera a que termine la carga del archivo.');
+    if (!document.getElementById('cloudinaryUrl').value) return alert('Debes subir un archivo para Desarrollo.');
+}
     fetch('lib.php', {
         method: 'POST',
         body: new URLSearchParams({
@@ -510,7 +524,8 @@ function actualizarProyecto() {
             responsable_id,
             estado,
             fecha_fin_estimada,
-            prioridad
+            prioridad,
+            archivo_url: document.getElementById('cloudinaryUrl').value
         })
     })
     .then(r => r.json())
@@ -574,6 +589,56 @@ function asignarResponsablePorEstado() {
 }
 // Cuando cambia el estado, asigna el responsable correspondiente
 document.getElementById('projectStatus').addEventListener('change', asignarResponsablePorEstado);
+// Mostrar campo de archivo solo si es desarrollo
+document.getElementById('fileGroup').style.display = (estado === 'desarrollo') ? '' : 'none';
+
+
+
+
+
+
+let archivoSubiendo = false;
+
+document.getElementById('projectFile').addEventListener('change', function() {
+    const file = this.files[0];
+    const status = document.getElementById('fileStatus');
+    const btnGuardar = document.querySelector('.modal-footer .btn.btn-primary');
+    status.textContent = '';
+    document.getElementById('cloudinaryUrl').value = '';
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+        status.textContent = 'El archivo supera los 2MB.';
+        this.value = '';
+        return;
+    }
+    archivoSubiendo = true;
+    btnGuardar.disabled = true;
+    status.textContent = 'Subiendo archivo...';
+
+    // Cloudinary config
+    const url = 'https://api.cloudinary.com/v1_1/<TU_CLOUD_NAME>/upload';
+    const preset = '<TU_UPLOAD_PRESET>';
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', preset);
+
+    fetch(url, { method: 'POST', body: formData })
+        .then(r => r.json())
+        .then(data => {
+            if (data.secure_url) {
+                document.getElementById('cloudinaryUrl').value = data.secure_url;
+                status.textContent = 'Archivo subido correctamente.';
+            } else {
+                status.textContent = 'Error al subir archivo.';
+            }
+        })
+        .catch(() => status.textContent = 'Error al subir archivo.')
+        .finally(() => {
+            archivoSubiendo = false;
+            btnGuardar.disabled = false;
+        });
+});
     </script>
 </body>
 </html>
