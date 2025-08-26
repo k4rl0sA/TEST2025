@@ -326,7 +326,7 @@ if (empty($_SESSION['csrf_token'])) {
                     } else {
                         alert(data.error || 'Error al cargar proyectos');
                     }
-                });
+                };
         }
 
         function renderProyectos(proyectos) {
