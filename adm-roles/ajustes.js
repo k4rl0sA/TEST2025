@@ -22,11 +22,10 @@ document.addEventListener('DOMContentLoaded', function() {
         );
     }
 
-    // --- Renderizado y lógica principal ---
+    // Renderizar tabla de roles
     function renderRolesTable(data) {
         roles = data.roles || [];
         totalPages = data.totalPages || 1;
-        // document.getElementById('total-roles').textContent = `Total: ${data.totalRows || 0}`;
         showRangeInfo(page, pageSize, data.totalRows || 0);
         const tbody = document.querySelector('#roles-table tbody');
         tbody.innerHTML = '';
@@ -76,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateBulkActionsBar('#roles-table','bulk-actions-bar','bulk-count');
     }
 
+    // Obtener y renderizar roles con filtros, orden y paginación
     function fetchRoles() {
         showLoader();
         const params = new URLSearchParams({
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
             renderRolesTable(data);
         });
     }
-
+    // Cargar opciones para selects
     function loadAllRoleSelects(selected = {}) {
         fetchWithLoader(path+'lib.php?a=opciones', {}, function(data) {
             if (data.opciones && data.opciones.estado) {
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-
+    // Inicializar módulo
     function initAjustes() {
         fetchRoles();
         updateActiveFiltersChips(
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
         loadAllRoleSelects();
     }
 
-    // --- Filtros tipo chips ---
+    //Filtros y orden
     document.getElementById('filter-form').addEventListener('submit', function(e) {
         e.preventDefault();
         filters.search = document.getElementById('fil-search').value.trim();
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
         );
         document.getElementById('filters-panel').classList.add('hidden');
     });
-
+    // Abrir/cerrar panel de filtros
     document.getElementById('clear-filters').onclick = function() {
         clearFilters(filters, 'filter-form', () => {
             page = 1;
@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
             loadAllRoleSelects();
         });
     };
-
+    // Ordenar al hacer clic en encabezados
     document.querySelectorAll('#roles-table th[data-sort]').forEach(th => {
         th.onclick = function() {
             const field = th.getAttribute('data-sort');
@@ -172,7 +172,8 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     });
 
-    // --- CRUD SPA ---
+    // --Botones de formulario--
+    // Nuevo rol
     document.getElementById('add-btn').onclick = function() {
         editingId = null;
         document.getElementById('role-form').reset();
@@ -186,16 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('form-ajustes').classList.remove('hidden');
         document.getElementById('table-section').classList.add('hidden');
     };
-
-    document.getElementById('cancel-btn').onclick = function() {
-        document.getElementById('form-ajustes').classList.add('hidden');
-        document.getElementById('table-section').classList.remove('hidden');
-    };
-    document.getElementById('close-win').onclick = function() {
-        document.getElementById('form-ajustes').classList.add('hidden');
-        document.getElementById('table-section').classList.remove('hidden');
-    };
-
+    // Editar rol
     window.editRole = function(token) {
         document.getElementById('role-form').reset();
         fetchWithLoader(path+`lib.php?a=get&token=${token}`, {}, function(data) {
@@ -218,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('form-ajustes').classList.remove('hidden');
         });
     };
-
+    // Eliminar rol
     window.deleteRole = function(token) {
         if (!confirm('¿Eliminar este rol?')) {
             showToast('Acción cancelada por el usuario.', 'info');
@@ -232,11 +224,21 @@ document.addEventListener('DOMContentLoaded', function() {
             body: formData
         }, () => fetchRoles());
     };
-
+    // Cancelar y cerrar formulario
+    document.getElementById('cancel-btn').onclick = function() {
+        document.getElementById('form-ajustes').classList.add('hidden');
+        document.getElementById('table-section').classList.remove('hidden');
+    };
+    // Cerrar formulario (ícono)
+    document.getElementById('close-win').onclick = function() {
+        document.getElementById('form-ajustes').classList.add('hidden');
+        document.getElementById('table-section').classList.remove('hidden');
+    };
+    // boton Acciones - Caracterizar
     window.caracterizarRole = function(id) {
         showToast('Funcionalidad de caracterizar pendiente de implementar.', 'info');
     };
-
+    //  valida campos y Guardar (crear/editar)
     document.getElementById('role-form').addEventListener('submit', function(e) {
         e.preventDefault();
         const rules = [
@@ -256,6 +258,7 @@ document.addEventListener('DOMContentLoaded', function() {
             { field: 'componente', validate: v => /^[A-Z]+$/.test(v), message: 'El campo Componente contiene caracteres inválidos.' },
             { field: 'perfil', validate: v => /^[A-Z]+$/.test(v), message: 'El campo Perfil contiene caracteres inválidos.' }
         ];
+        // Validar campos
         if (!validateFormFields(rules)) {
             showToast('Por favor, complete todos los campos obligatorios.', 'warning');
             return;
@@ -274,10 +277,8 @@ document.addEventListener('DOMContentLoaded', function() {
             fetchRoles();
         });
     });
-
     // Inicializar módulo
     initAjustes();
-
     // Ayuda contextual
     document.getElementById('help-btn').onclick = function() {
         const helpContent = `
@@ -299,30 +300,35 @@ document.addEventListener('DOMContentLoaded', function() {
         showHelpModal(helpContent);
     };
 
-    // Acciones masivas
+    //-- Botones Acciones masivas --
+    // Activar
     document.getElementById('bulk-activate').onclick = function() {
         const tokens = getSelectedTokens('#roles-table');
         if (tokens.length === 0) return showToast('Seleccione al menos un rol.', 'warning');
         if (!confirm(`¿Activar ${tokens.length} roles seleccionados?`)) return;
         bulkAction(path + 'lib.php?a=bulk', 'activate', tokens, () => fetchRoles());
     };
+    // Inactivar
     document.getElementById('bulk-inactivate').onclick = function() {
         const tokens = getSelectedTokens('#roles-table');
         if (tokens.length === 0) return showToast('Seleccione al menos un rol.', 'warning');
         if (!confirm(`¿Inactivar ${tokens.length} roles seleccionados?`)) return;
         bulkAction(path + 'lib.php?a=bulk', 'inactivate', tokens, () => fetchRoles());
     };
+    // Eliminar
     document.getElementById('bulk-delete').onclick = function() {
         const tokens = getSelectedTokens('#roles-table');
         if (tokens.length === 0) return showToast('Seleccione al menos un rol.', 'warning');
         if (!confirm(`¿Eliminar ${tokens.length} roles seleccionados? Esta acción no se puede deshacer.`)) return;
         bulkAction(path + 'lib.php?a=bulk', 'delete', tokens, () => fetchRoles());
     };
+    // Cerrar selección masiva
     document.getElementById('bulk-close').onclick = function() {
         document.querySelectorAll('#roles-table .select-role').forEach(cb => cb.checked = false);
         updateBulkActionsBar('#roles-table','bulk-actions-bar','bulk-count');
     };
 
+    // -- Preferencias de columnas -- 
     // Ocultar columnas por defecto
     const defaultHiddenCols = ['col-consultar', 'col-editar', 'col-crear', 'col-ajustar', 'col-importar'];
     defaultHiddenCols.forEach(col => {
@@ -332,7 +338,7 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleColumn(col, false);
         }
     });
-    // En ajustes.js (roles)
+    // Cargar preferencias de columnas
     loadColumnPreferences('roles');
     document.querySelectorAll('#columns-panel-roles .col-toggle').forEach(cb => {
         cb.onchange = function() {
@@ -342,5 +348,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     
-
 });
