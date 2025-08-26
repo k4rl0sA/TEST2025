@@ -320,13 +320,13 @@ if (empty($_SESSION['csrf_token'])) {
         function cargarProyectos(search = '') {
             fetch(`${API}?a=list_proyectos&search=${encodeURIComponent(search)}`)
                 .then(r => r.json())
-                .then data => {
+                .then(data => {
                     if (data.success) {
                         renderProyectos(data.proyectos);
                     } else {
                         alert(data.error || 'Error al cargar proyectos');
                     }
-                };
+                });
         }
 
         function renderProyectos(proyectos) {
