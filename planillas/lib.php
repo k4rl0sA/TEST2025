@@ -97,9 +97,30 @@ function cmp_planillas(){
             $nombre_completo = $info_person['responseResult'][0]['nombre_completo'];
         }
     }
+    // Primer ingreso
     $c[] = new cmp('tipo_doc','s',3,$tipo_doc, 'planillas', 'Tipo Documento', 'tipo_doc','','',true,true,'','col-4');
     $c[] = new cmp('documento','t',18,$documento, 'planillas', 'Documento','','','',true,true,'','col-4');
+    // Segundo ingreso para validación
+    $c[] = new cmp('tipo_doc2','s',3,$tipo_doc, 'planillas', 'Repita Tipo Documento', 'tipo_doc','','',true,true,'','col-4');
+    $c[] = new cmp('documento2','t',18,$documento, 'planillas', 'Repita Documento','','','',true,true,'','col-4');
     $c[] = new cmp('nombre_completo','t',50,$nombre_completo, 'planillas', 'Nombre Completo','','','',false,false,'','col-8');
+
+    // Validación JS para comparar los campos
+    $rta .= "<script>
+        function validarDocumento() {
+            var tipo1 = document.getElementById('tipo_doc').value;
+            var tipo2 = document.getElementById('tipo_doc2').value;
+            var doc1 = document.getElementById('documento').value;
+            var doc2 = document.getElementById('documento2').value;
+            if (tipo1 !== tipo2 || doc1 !== doc2) {
+                alert('El tipo y número de documento no coinciden. Por favor verifique.');
+                return false;
+            }
+            return true;
+        }
+        document.getElementById('tipo_doc2').onblur = validarDocumento;
+        document.getElementById('documento2').onblur = validarDocumento;
+    </script>";
 
     $c[] = new cmp('tipo','s',3,$data['tipo'] ?? '', 'planillas', 'Tipo Planilla', 'tipo_planilla','','',true,true,'','col-4');
     $c[] = new cmp('evento','t',3,$data['evento'] ?? '', 'planillas', 'Evento','','','',true,true,'','col-4');
