@@ -330,4 +330,20 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleColumn(col, false);
         }
     });
+    // Guardar selección de columnas en localStorage
+    document.querySelectorAll('.col-toggle').forEach(cb => {
+        cb.onchange = function() {
+            toggleColumn(cb.dataset.col, cb.checked);
+            saveColumnPreferences();
+        };
+    });
+    // Función para guardar preferencias
+    function saveColumnPreferences() {
+        const prefs = {};
+        document.querySelectorAll('.col-toggle').forEach(cb => {
+            prefs[cb.dataset.col] = cb.checked;
+        });
+        localStorage.setItem('roles_column_prefs', JSON.stringify(prefs));
+    }
+
 });
