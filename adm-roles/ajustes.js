@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Inicializar selección masiva y barra cada vez que se renderiza la tabla
         initBulkSelection('#roles-table', 'select-all-roles', () => updateBulkActionsBar('#roles-table','bulk-actions-bar','bulk-count'));
         updateBulkActionsBar('#roles-table','bulk-actions-bar','bulk-count');
+        loadColumnPreferences('roles');
     }
 
     // Obtener y renderizar roles con filtros, orden y paginación
