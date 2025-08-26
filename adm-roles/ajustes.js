@@ -383,8 +383,26 @@ document.addEventListener('DOMContentLoaded', function() {
         bulkAction(path + 'lib.php?a=bulk', 'activate', tokens, () => fetchRoles());
     };
 
-
-
+    function updateBulkActionsBar() {
+    const selected = getSelectedTokens('#roles-table');
+    const bar = document.getElementById('bulk-actions-bar');
+    const count = document.getElementById('bulk-count');
+    if (selected.length > 0) {
+        bar.classList.remove('hidden');
+        count.textContent = `${selected.length} seleccionados`;
+    } else {
+        bar.classList.add('hidden');
+        count.textContent = '0 seleccionados';
+    }
+}
+document.querySelectorAll('#roles-table .select-role').forEach(cb => {
+    cb.onchange = updateBulkActionsBar;
+});
+document.getElementById('select-all-roles').onchange = updateBulkActionsBar;
+document.getElementById('bulk-close').onclick = function() {
+    document.querySelectorAll('#roles-table .select-role').forEach(cb => cb.checked = false);
+    updateBulkActionsBar();
+};
 
 
     
