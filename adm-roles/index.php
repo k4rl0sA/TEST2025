@@ -77,7 +77,7 @@ if (!isset($_SESSION["us_sds"])) {
     <div class="table-header">
         <h2>Roles Registrados</h2>
         <span id="range-info" class="range-info"></span>
-         <!-- <span id="total-roles" class="total-count"></span> -->
+         <span id="total-roles" class="total-count"></span>
         <button class="btn btn-add" id="add-btn" title="Agregar nuevo rol"><i class="fa fa-plus"></i><span> Nuevo Rol</span></button>
         <!-- Boton para personalizar columnas -->
         <div class="column-settings">
