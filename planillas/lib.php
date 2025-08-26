@@ -75,64 +75,45 @@ function cap_menus($a,$b='cap',$con='con') {
 
 // Componente principal para mostrar datos de una planilla
 function cmp_planillas(){
-    $rta = "<div class='encabezado planillas'>FORMULARIO PLANILLA</div>";
+    $rta = "";
     $c = [];
+    $w='planillas';
+	$o='infplan';
+    $t=['nombre_completo'=>]
     $id = isset($_POST['id']) ? divide($_POST['id']) : ['',''];
-    $data = [];
-    if ($_POST['id'] ?? '') {
-        $sql = "SELECT * FROM planillas WHERE id_planilla='".intval($id[0])."'";
-        $info = datos_mysql($sql);
-        if ($info['responseResult']) $data = $info['responseResult'][0];
-    }
-    $c[] = new cmp('id_planilla','h',15,$data['id_planilla'] ?? '', 'planillas', 'ID Planilla');
-
-    // Nuevo: tipo_doc y documento
-    $tipo_doc = $data['tipo_doc'] ?? ($_POST['tipo_doc'] ?? '');
-    $documento = $data['documento'] ?? ($_POST['documento'] ?? '');
-    $nombre_completo = '';
-    if ($tipo_doc && $documento) {
-        $sql_person = "SELECT CONCAT_WS(' ', nombre1, nombre2, apellido1, apellido2) AS nombre_completo FROM person WHERE tipo_doc='".cleanTx($tipo_doc)."' AND idpersona='".cleanTx($documento)."' LIMIT 1";
-        $info_person = datos_mysql($sql_person);
-        if (!empty($info_person['responseResult'][0]['nombre_completo'])) {
-            $nombre_completo = $info_person['responseResult'][0]['nombre_completo'];
-        }
-    }
-    // Primer ingreso
-    $c[] = new cmp('tipo_doc','s',3,$tipo_doc, 'planillas', 'Tipo Documento', 'tipo_doc','','',true,true,'','col-4');
-    $c[] = new cmp('documento','t',18,$documento, 'planillas', 'Documento','','','',true,true,'','col-4');
-    // Segundo ingreso para validación
-    $c[] = new cmp('tipo_doc2','s',3,$tipo_doc, 'planillas', 'Repita Tipo Documento', 'tipo_doc','','',true,true,'','col-4');
-    $c[] = new cmp('documento2','t',18,$documento, 'planillas', 'Repita Documento','','','',true,true,'','col-4');
-    $c[] = new cmp('nombre_completo','t',50,$nombre_completo, 'planillas', 'Nombre Completo','','','',false,false,'','col-8');
-
-    // Validación JS para comparar los campos
-    $rta .= "<script>
-        function validarDocumento() {
-            var tipo1 = document.getElementById('tipo_doc').value;
-            var tipo2 = document.getElementById('tipo_doc2').value;
-            var doc1 = document.getElementById('documento').value;
-            var doc2 = document.getElementById('documento2').value;
-            if (tipo1 !== tipo2 || doc1 !== doc2) {
-                alert('El tipo y número de documento no coinciden. Por favor verifique.');
-                return false;
-            }
-            return true;
-        }
-        document.getElementById('tipo_doc2').onblur = validarDocumento;
-        document.getElementById('documento2').onblur = validarDocumento;
-    </script>";
-
-    $c[] = new cmp('tipo','s',3,$data['tipo'] ?? '', 'planillas', 'Tipo Planilla', 'tipo_planilla','','',true,true,'','col-4');
-    $c[] = new cmp('evento','t',3,$data['evento'] ?? '', 'planillas', 'Evento','','','',true,true,'','col-4');
-    $c[] = new cmp('seguimiento','t',3,$data['seguimiento'] ?? '', 'planillas', 'Seguimiento','','','',true,true,'','col-4');
-    $c[] = new cmp('colaborador','t',18,$data['colaborador'] ?? '', 'planillas', 'Colaborador','','','',true,true,'','col-4');
-    $c[] = new cmp('estado_planilla','s',3,$data['estado_planilla'] ?? '', 'planillas', 'Estado Planilla', 'estado_planilla','','',true,true,'','col-4');
-    $c[] = new cmp('carpeta','t',50,$data['carpeta'] ?? '', 'planillas', 'Carpeta','','','',true,true,'','col-6');
-    $c[] = new cmp('caja','t',50,$data['caja'] ?? '', 'planillas', 'Caja','','','',true,true,'','col-6');
-    $c[] = new cmp('fecha_max','t',10,$data['fecha_max'] ?? '', 'planillas', 'Fecha Máxima','','','',true,true,'','col-6');
-    $c[] = new cmp('fecha_formato','t',10,$data['fecha_formato'] ?? '', 'planillas', 'Fecha Formato','','','',true,true,'','col-6');
+    $d = get_planilla();
+	if ($d==""){$d=$t;}
+    $c[]=new cmp($o,'e',null,'INFORMACIÓN GENERAL',$w);
+    $c[]=new cmp('idp','h',15,$id,$w.' '.$o,'id','id',null,'####',false,false);
+    $c[]=new cmp('idpersona','nu','9999999999999999',$d['idpersona'],$w.' '.$key.' '.$o,'Identificación <a href="https://www.adres.gov.co/consulte-su-eps" target="_blank">     Abrir ADRES</a>','idpersona',null,null,true,$edit,'','col-4');
+	$c[]=new cmp('tipo_doc','s','3',$d['tipo_doc'],$w.' '.$key.' '.$o,'Tipo documento','tipo_doc',null,null,true,$edit,'','col-4',"getDatForm('pEr','personOld',['infgen'],this);");
+    $c[] = new cmp('nombre_completo','t',50,$d['nombre_completo'], 'planillas', 'Nombre Completo','','','',false,false,'','col-8');
+    $c[] = new cmp('tipo','s',3,$d['tipo'] ?? '', 'planillas', 'Tipo Planilla', 'tipo_planilla','','',true,true,'','col-4');
+    $c[] = new cmp('evento','t',3,$d['evento'] ?? '', 'planillas', 'Evento','','','',true,true,'','col-4');
+    $c[] = new cmp('seguimiento','t',3,$d['seguimiento'] ?? '', 'planillas', 'Seguimiento','','','',true,true,'','col-4');
+    $c[] = new cmp('colaborador','t',18,$d['colaborador'] ?? '', 'planillas', 'Colaborador','','','',true,true,'','col-4');
+    $c[] = new cmp('estado_planilla','s',3,$d['estado_planilla'] ?? '', 'planillas', 'Estado Planilla', 'estado_planilla','','',true,true,'','col-4');
+    $c[] = new cmp('carpeta','t',50,$d['carpeta'] ?? '', 'planillas', 'Carpeta','','','',true,true,'','col-6');
+    $c[] = new cmp('caja','t',50,$d['caja'] ?? '', 'planillas', 'Caja','','','',true,true,'','col-6');
+    $c[] = new cmp('fecha_formato','t',10,$d['fecha_formato'] ?? '', 'planillas', 'Fecha Formato','','','',true,true,'','col-6');
     foreach ($c as $cmp) $rta .= $cmp->put();
     return $rta;
+}
+
+function get_personOld(){
+	// print_r($_REQUEST);
+	$id=divide($_POST['id']);
+	if (!$info['responseResult']) {
+		$sql="SELECT CONCAT_WS(' ',nombre1,nombre2,apellido1,apellido2),idpeople,vivipersona
+		FROM `person` 
+   	WHERE idpersona ='".$id[0]."' AND tipo_doc='".$id[1]."'";
+	$info=datos_mysql($sql);
+	if (!$info['responseResult']) {
+        return $rta="Error: El usuario con este número de documento NO se encuentra registrado.";
+	}
+	}else{
+		return json_encode($info['responseResult'][0]);
+	}
 }
 
 // Opciones para selects si tienes catálogos
