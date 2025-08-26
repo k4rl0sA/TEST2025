@@ -325,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const tokens = getSelectedTokens('#roles-table');
         if (tokens.length === 0) return showToast('Seleccione al menos un rol.', 'warning');
         if (!confirm(`¿Activar ${tokens.length} roles seleccionados?`)) return;
-        bulkAction('activate', tokens);
+        bulkAction(path + 'lib.php?a=bulk', 'activate', tokens, () => fetchRoles());
     };
 
     // Acción masiva: Inactivar
@@ -333,7 +333,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const tokens = getSelectedTokens('#roles-table');
         if (tokens.length === 0) return showToast('Seleccione al menos un rol.', 'warning');
         if (!confirm(`¿Inactivar ${tokens.length} roles seleccionados?`)) return;
-        bulkAction('inactivate', tokens);
+        bulkAction(path + 'lib.php?a=bulk', 'inactivate', tokens, () => fetchRoles());
     };
 
     // Acción masiva: Eliminar
@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const tokens = getSelectedTokens('#roles-table');
         if (tokens.length === 0) return showToast('Seleccione al menos un rol.', 'warning');
         if (!confirm(`¿Eliminar ${tokens.length} roles seleccionados? Esta acción no se puede deshacer.`)) return;
-        bulkAction('delete', tokens);
+        bulkAction(path + 'lib.php?a=bulk', 'delete', tokens, () => fetchRoles());
     };
 
     // Mostrar/ocultar columnas
@@ -378,6 +378,8 @@ document.getElementById('bulk-close').onclick = function() {
     document.querySelectorAll('#roles-table .select-role').forEach(cb => cb.checked = false);
     updateBulkActionsBar();
 };
+
+initBulkSelection('#roles-table', 'select-all-roles', () => updateBulkActionsBar());
 
 
     
