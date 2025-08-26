@@ -7,6 +7,21 @@ document.addEventListener('DOMContentLoaded', function() {
     let filters = { search:'', modulo:'', perfil:'', estado:'' };
     let sortField = 'id_rol', sortDir = 'asc', page = 1, pageSize = 10, totalPages = 1;
 
+     /**
+     * Callback para quitar un filtro tipo chip
+     */
+    function removeFilterCallback(key) {
+        filters[key] = '';
+        fetchRoles();
+        updateActiveFiltersChips(
+            filters,
+            { estado: window.estadoOptions, perfil: window.perfilOptions },
+            'active-filters-chips',
+            'active-filters-count',
+            removeFilterCallback
+        );
+    }
+    
     // --- Renderizado y lógica principal ---
     function renderRolesTable(data) {
         roles = data.roles || [];
