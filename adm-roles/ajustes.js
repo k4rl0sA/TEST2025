@@ -289,6 +289,8 @@ document.addEventListener('DOMContentLoaded', function() {
             <li><strong>Eliminar Rol:</strong> Desde el mismo menú de acciones, puede inactivar un rol existente.</li>
             <li><strong>Filtros y Búsqueda:</strong> Utilice los filtros en la parte superior para buscar roles por módulo, perfil o estado.</li>
             <li><strong>Paginación y Ordenamiento:</strong> Navegue entre páginas de roles y ordene la tabla haciendo clic en los encabezados de columna.</li>
+            <li><strong>Acciones Masivas:</strong> Seleccione múltiples roles usando las casillas de verificación y aplique acciones masivas como activar, inactivar o eliminar.</li>
+            <li><strong>Preferencias de Visualización:</strong> Personalice las columnas visibles en la tabla desde el panel de columnas.</li>
             </ul>
             <p>Para más información, consulte el <a href="https://ejemplo.com/manual-roles" target="_blank">manual del usuario</a> 
             o vea el <a href="https://ejemplo.com/video-roles" target="_blank">video tutorial</a>,o contacte al administrador del sistema.
