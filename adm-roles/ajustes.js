@@ -363,24 +363,13 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleColumn(col, false);
         }});
 
-    document.getElementById('bulk-activate').onclick = function() {
-        const tokens = getSelectedTokens('#roles-table');
-        if (tokens.length === 0) return showToast('Seleccione al menos un rol.', 'warning');
-        if (!confirm(`¿Activar ${tokens.length} roles seleccionados?`)) return;
-        bulkAction(path + 'lib.php?a=bulk', 'activate', tokens, () => fetchRoles());
-    };
-
-document.querySelectorAll('#roles-table .select-role').forEach(cb => {
-    cb.onchange = updateBulkActionsBar;
-});
-document.getElementById('select-all-roles').onchange = updateBulkActionsBar;
+// Inicializar selección masiva
+initBulkSelection('#roles-table', 'select-all-roles', () => updateBulkActionsBar());
+// Botón cerrar barra de acciones masivas
 document.getElementById('bulk-close').onclick = function() {
     document.querySelectorAll('#roles-table .select-role').forEach(cb => cb.checked = false);
-    updateBulkActionsBar();
+    updateBulkActionsBar('#roles-table','bulk-actions-bar','bulk-count');
 };
-
-initBulkSelection('#roles-table', 'select-all-roles', () => updateBulkActionsBar());
-
 
     
 });
