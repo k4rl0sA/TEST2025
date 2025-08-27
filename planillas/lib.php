@@ -113,8 +113,9 @@ function get_planilla(){
     $info = datos_mysql($sql);
     if (!$info['responseResult']) {
         return $info['responseResult'][0]    
+    }else{
+      return [];
     }
-  return [];
 }
 
 function get_personOld(){
