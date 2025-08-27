@@ -626,12 +626,16 @@ document.getElementById('projectFile').addEventListener('change', function() {
             } else {
                 status.textContent = 'Error al subir archivo.';
             }
-        })
-        .catch(() => status.textContent = 'Error al subir archivo.')
-        .finally(() => {
-            archivoSubiendo = false;
-            btnGuardar.disabled = false;
-        });
+            actualizarEstadoBotonGuardar();
+})
+.catch(() => {
+    status.textContent = 'Error al subir archivo.';
+    actualizarEstadoBotonGuardar();
+})
+.finally(() => {
+    archivoSubiendo = false;
+    actualizarEstadoBotonGuardar();
+});
 });
 
 // Actualiza el estado del botón Guardar según el estado y la subida de archivos
@@ -646,18 +650,7 @@ function actualizarEstadoBotonGuardar() {
         btnGuardar.disabled = false;
     }
 }
-// Escucha cambios en el estado para actualizar el botón
-function actualizarEstadoBotonGuardar() {
-    const estado = document.getElementById('projectStatus').value;
-    const btnGuardar = document.querySelector('.modal-footer .btn.btn-primary');
-    const archivoUrl = document.getElementById('cloudinaryUrl').value;
-    if (estado === 'desarrollo' || estado === 'pruebas') {
-        // Solo habilita si el archivo está subido y no está subiendo
-        btnGuardar.disabled = archivoSubiendo || !archivoUrl;
-    } else {
-        btnGuardar.disabled = false;
-    }
-}
+
     </script>
 </body>
 </html>
