@@ -620,7 +620,7 @@ document.getElementById('projectFile').addEventListener('change', function() {
 
     // Cloudinary config
     const url = 'https://api.cloudinary.com/v1_1/dxfcy3nam/upload';
-    const preset = 'gtaps';
+    const preset = 'gtapps';
 
     const formData = new FormData();
     formData.append('file', file);
