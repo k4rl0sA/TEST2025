@@ -304,21 +304,21 @@ document.addEventListener('DOMContentLoaded', function() {
     //-- Botones Acciones masivas --
     // Activar
     document.getElementById('bulk-activate').onclick = function() {
-        const tokens = getSelectedTokens('#roles-table');
+        const tokens = getSelectedTokens('#roles-table', '.select-role');
         if (tokens.length === 0) return showToast('Seleccione al menos un rol.', 'warning');
         if (!confirm(`¿Activar ${tokens.length} roles seleccionados?`)) return;
         bulkAction(path + 'lib.php?a=bulk', 'activate', tokens, () => fetchRoles());
     };
     // Inactivar
     document.getElementById('bulk-inactivate').onclick = function() {
-        const tokens = getSelectedTokens('#roles-table');
+        const tokens = getSelectedTokens('#roles-table', '.select-role');
         if (tokens.length === 0) return showToast('Seleccione al menos un rol.', 'warning');
         if (!confirm(`¿Inactivar ${tokens.length} roles seleccionados?`)) return;
         bulkAction(path + 'lib.php?a=bulk', 'inactivate', tokens, () => fetchRoles());
     };
     // Eliminar
     document.getElementById('bulk-delete').onclick = function() {
-        const tokens = getSelectedTokens('#roles-table');
+        const tokens = getSelectedTokens('#roles-table', '.select-role');
         if (tokens.length === 0) return showToast('Seleccione al menos un rol.', 'warning');
         if (!confirm(`¿Eliminar ${tokens.length} roles seleccionados? Esta acción no se puede deshacer.`)) return;
         bulkAction(path + 'lib.php?a=bulk', 'delete', tokens, () => fetchRoles());
