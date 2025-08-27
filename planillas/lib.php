@@ -93,7 +93,7 @@ function cmp_planillas(){
     $c[]= new cmp('idpersona','nu','9999999999999999',$d['idpersona']??'',$w.' '.$key.' '.$o,'Identificación <a href="https://www.adres.gov.co/consulte-su-eps" target="_blank">     Abrir ADRES</a>','idpersona',null,null,true,$edit,'','col-2');
 	$c[]= new cmp('tipo_doc','s','3',$d['tipo_doc']??'',$w.' '.$key.' '.$o,'Tipo documento','tipo_doc',null,null,true,$edit,'','col-3',"getDatForm('pEr','personOld',['infgen'],this);");
     $c[]= new cmp('nombre_completo','t',50,$d['nombre_completo']?? '',$w.' '.$o, 'Nombre Completo','','','',false,false,'','col-5');
-    $c[]= new cmp('perfil','s',3,$d['perfil'],$w.' '.$o,'Perfil','perfil',null,'',true,true,'','col-2',"changeSelect('perfil','colaborador');");//  ,"enabDepeValu('perfil','uSR');
+    $c[]= new cmp('perfil','s',3,'',$w.' '.$o,'Perfil','perfil',null,'',true,true,'','col-2',"changeSelect('perfil','colaborador');");//  ,"enabDepeValu('perfil','uSR');
     $c[]= new cmp('colaborador','s',20,$d['colaborador'] ?? '',$w.' uSR '.$o, 'Colaborador','','','',false,true,'','col-5');
     $c[]= new cmp('estado_planilla','s',3,$d['estado_planilla'] ?? '',$w.' '.$o, 'Estado Planilla', 'estado_planilla','','',true,true,'','col-4');
     $c[]= new cmp('carpeta','t',50,$d['carpeta'] ?? '',$w.' '.$o, 'Carpeta','','','',true,true,'','col-6');
@@ -137,6 +137,14 @@ function opc_tipo_planilla($id=''){
 }
 function opc_estado_planilla($id=''){
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=2 and estado='A' ORDER BY 1",$id);
+}
+function opc_perfil($id=''){
+    if (adm()=='ADM') {
+        return opc_sql("SELECT idcatadeta, descripcion FROM `catadeta` WHERE idcatalogo = 218 AND estado = 'A'",$id);
+    } else {
+		$comp = '1,2';
+        return opc_sql("SELECT idcatadeta, descripcion FROM `catadeta` WHERE idcatalogo = 218 AND estado = 'A' AND valor in($comp)",$id);
+    }
 }
 function opc_perfilcolaborador($id=''){
     if($_REQUEST['id']!=''){	
