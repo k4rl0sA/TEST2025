@@ -620,11 +620,10 @@ document.getElementById('projectFile').addEventListener('change', function() {
     formData.append('upload_preset', preset);
 
     // Construir el nombre: "Nombre del Proyecto - N. Estado"
-    const nombreProyecto = document.getElementById('projectName').value.trim();
+   const nombreProyecto = document.getElementById('projectName').value.trim();
     const estado = document.getElementById('projectStatus');
     const estadoTexto = estado.options[estado.selectedIndex].text.trim();
-    const nombreArchivo = `${nombreProyecto} - ${estadoTexto}`.replace(/[\/\\?%*:|"<>]/g, '-'); // Evita caracteres no válidos
-
+    const nombreArchivo = `${nombreProyecto} - ${estadoTexto}`.replace(/[\/\\?%*:|"<>]/g, '-');
     formData.append('public_id', nombreArchivo);
 
     fetch(url, { method: 'POST', body: formData })
