@@ -114,7 +114,7 @@ function get_planilla() {
             WHERE P.id_planilla = ? AND P.estado = 'A'";
     $params = [['type' => 'i', 'value' => cleanTx($id[0])]];
     $info = datos_mysql($sql, $params);
-    return $info['responseResult'][0] ?? [];
+    return $info['responseResult'][0] ?? '';
 }
 
 function get_personOld(){
