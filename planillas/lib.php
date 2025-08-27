@@ -99,6 +99,17 @@ function cmp_planillas(){
     return $rta;
 }
 
+function get_planilla(){
+    $id = divide($_POST['id'] ?? '');
+    if (empty($id[0])) return [];
+    $sql = "SELECT P.*, CONCAT_WS(' ',pe.nombre1,pe.nombre2,pe.apellido1,pe.apellido2) nombre_completo, pe.tipo_doc, pe.idpersona
+            FROM planillas P
+            JOIN person pe ON P.idpeople = pe.idpeople
+            WHERE P.id_planilla = '".cleanTx($id[0])."' AND P.estado='A'";
+    $info = datos_mysql($sql);
+    return $info['responseResult'][0] ?? [];
+}
+
 function get_personOld(){
 	// print_r($_REQUEST);
 	$id=divide($_POST['id']);
