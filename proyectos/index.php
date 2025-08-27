@@ -123,6 +123,7 @@ if (empty($_SESSION['csrf_token'])) {
                 <table class="projects-table">
                     <thead>
                         <tr>
+                            <th>Id</th>
                             <th>Nombre del Proyecto</th>
                             <th>Estado</th>
                             <th>Prioridad</th>
@@ -132,105 +133,7 @@ if (empty($_SESSION['csrf_token'])) {
                         </tr>
                     </thead>
                     <tbody>
-                     <!--   <tr>
-                            <td>
-                                <div class="project-name">Sistema de Facturación</div>
-                                <div class="project-details">Equipo: Desarrollo Web</div>
-                            </td>
-                            <td><span class="status status-development">Desarrollo</span></td>
-                            <td>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 65%; background: #74b9ff;"></div>
-                                </div>
-                                <div>65%</div>
-                            </td>
-                            <td>15 Sep 2023</td>
-                            <td class="actions-cell">
-                                <button class="action-btn"><i class="fas fa-eye"></i></button>
-                                <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                <button class="action-btn"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td>
-                                <div class="project-name">App Móvil</div>
-                                <div class="project-details">Equipo: Móvil</div>
-                            </td>
-                            <td><span class="status status-analysis">Análisis</span></td>
-                            <td>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 30%; background: #81ecec;"></div>
-                                </div>
-                                <div>30%</div>
-                            </td>
-                            <td>30 Oct 2023</td>
-                            <td class="actions-cell">
-                                <button class="action-btn"><i class="fas fa-eye"></i></button>
-                                <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                <button class="action-btn"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td>
-                                <div class="project-name">Portal Cliente</div>
-                                <div class="project-details">Equipo: Frontend</div>
-                            </td>
-                            <td><span class="status status-testing">Pruebas</span></td>
-                            <td>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 80%; background: #a29bfe;"></div>
-                                </div>
-                                <div>80%</div>
-                            </td>
-                            <td>22 Ago 2023</td>
-                            <td class="actions-cell">
-                                <button class="action-btn"><i class="fas fa-eye"></i></button>
-                                <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                <button class="action-btn"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td>
-                                <div class="project-name">API Servicios</div>
-                                <div class="project-details">Equipo: Backend</div>
-                            </td>
-                            <td><span class="status status-completed">Completado</span></td>
-                            <td>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 100%; background: #55efc4;"></div>
-                                </div>
-                                <div>100%</div>
-                            </td>
-                            <td>05 Jul 2023</td>
-                            <td class="actions-cell">
-                                <button class="action-btn"><i class="fas fa-eye"></i></button>
-                                <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                <button class="action-btn"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td>
-                                <div class="project-name">Migración BD</div>
-                                <div class="project-details">Equipo: Base de Datos</div>
-                            </td>
-                            <td><span class="status status-planning">Planificación</span></td>
-                            <td>
-                                <div class="progress-bar">
-                                    <div class="progress" style="width: 15%; background: #ffeaa7;"></div>
-                                </div>
-                                <div>15%</div>
-                            </td>
-                            <td>15 Nov 2023</td>
-                            <td class="actions-cell">
-                                <button class="action-btn"><i class="fas fa-eye"></i></button>
-                                <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                <button class="action-btn"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>-->
+                   
                     </tbody>
                 </table>
             </div>
