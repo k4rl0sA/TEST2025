@@ -393,6 +393,7 @@ function habilitarCamposModal(habilitar) {
     document.getElementById('projectDeadline').disabled = !habilitar;
     document.getElementById('priority').disabled = !habilitar;
     document.getElementById('projectFile').disabled = !habilitar;
+    document.getElementById('projectFile').style.display = habilitar ? '' : 'none';
 }
 
 // Sobrescribe funciones de botones de acciones
