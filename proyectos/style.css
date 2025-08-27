@@ -165,6 +165,8 @@
         
         button[disabled] {
             cursor: no-drop;
+            background: #899697;
+            color: #101010;
         }
         .btn-primary {
             background: var(--primary);
