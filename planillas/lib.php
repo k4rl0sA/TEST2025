@@ -118,8 +118,7 @@ function get_planilla() {
 			return '';
 		}
 	return $info['responseResult'][0];
-	} 
-}
+} 
 
 function get_personOld(){
 	// print_r($_REQUEST);
