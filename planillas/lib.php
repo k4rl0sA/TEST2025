@@ -113,7 +113,7 @@ function get_planilla() {
     $params = [['type' => 'i', 'value' => cleanTx($id[0])]];
     $info = datos_mysql($sql, $params);
     return $info['responseResult'][0] ?? []; */
-    return '';
+    return [];
 }
 
 function get_personOld(){
