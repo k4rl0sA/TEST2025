@@ -80,6 +80,7 @@ function cmp_planillas(){
     $w='planillas';
 	$o='infplan';
     $id = isset($_POST['id']) ? divide($_POST['id']) : ['',''];
+    $edit = (empty($id[0])) ? true : (isset($_POST['edit']) && $_POST['edit']=='true');
     $d = get_planilla();
     $key='Planillas';
     $c[]=new cmp($o,'e',null,'INFORMACIÓN GENERAL',$w);
