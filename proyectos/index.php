@@ -589,8 +589,10 @@ function asignarResponsablePorEstado() {
     document.getElementById('fileGroup').style.display = (estado === 'desarrollo' || estado === 'pruebas' ) ? '' : 'none';
 }
 // Cuando cambia el estado, asigna el responsable correspondiente
-document.getElementById('projectStatus').addEventListener('change', asignarResponsablePorEstado);
-
+document.getElementById('projectStatus').addEventListener('change', function() {
+    asignarResponsablePorEstado();
+    actualizarEstadoBotonGuardar();
+});
 
 // Manejo de subida de archivos a Cloudinary
 let archivoSubiendo = false;
