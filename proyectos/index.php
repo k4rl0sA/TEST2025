@@ -593,13 +593,6 @@ function asignarResponsablePorEstado() {
 document.getElementById('projectStatus').addEventListener('change', asignarResponsablePorEstado);
 
 
-
-
-
-
-
-
-
 let archivoSubiendo = false;
 
 document.getElementById('projectFile').addEventListener('change', function() {
