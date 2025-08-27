@@ -590,7 +590,7 @@ function asignarResponsablePorEstado() {
 // Cuando cambia el estado, asigna el responsable correspondiente
 document.getElementById('projectStatus').addEventListener('change', asignarResponsablePorEstado);
 // Mostrar campo de archivo solo si es desarrollo
-document.getElementById('fileGroup').style.display = (estado === 'desarrollo') ? '' : 'none';
+
 
 
 
