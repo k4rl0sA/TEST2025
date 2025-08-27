@@ -292,7 +292,7 @@ if (empty($_SESSION['csrf_token'])) {
                 </div>
                 <div class="form-group" id="fileGroup" style="display:none;">
                     <label for="projectFile">Archivo para Desarrollo (máx 2MB, PDF/JPG/PNG)</label>
-                    <input type="file" id="projectFile" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+                    <input type="file" id="projectFile" class="form-control" accept=".pdf,.jpg,.jpeg,.png,.xlsx,.docx">
                     <div id="fileStatus" style="font-size:12px;color:#888;"></div>
                 </div>
                 <input type="hidden" id="cloudinaryUrl">
