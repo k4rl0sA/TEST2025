@@ -488,7 +488,7 @@ function asignarResponsablePorEstado() {
         }
     }
     // Mostrar campo de archivo solo si es desarrollo
-    document.getElementById('fileGroup').style.display = (estado === 'desarrollo' || estado === 'pruebas' || estado === 'pruebasSub' ) ? '' : 'none';
+    document.getElementById('fileGroup').style.display = (estado === 'desarrollo' || estado === 'aprobacion' || estado === 'socializacion' ) ? '' : 'none';
 }
 // Cuando cambia el estado, asigna el responsable correspondiente
 document.getElementById('projectStatus').addEventListener('change', function() {
@@ -566,7 +566,7 @@ function actualizarEstadoBotonGuardar() {
     const estado = document.getElementById('projectStatus').value;
     const btnGuardar = document.querySelector('.modal-footer .btn.btn-primary');
     const archivoUrl = document.getElementById('cloudinaryUrl').value;
-    if (estado === 'desarrollo' || estado === 'pruebas' || estado === 'pruebasSub') {
+    if (estado === 'desarrollo' || estado === 'aprobacion' || estado === 'socializacion') {
         // Solo habilita si el archivo está subido y no está subiendo
         btnGuardar.disabled = archivoSubiendo || !archivoUrl;
     } else {
