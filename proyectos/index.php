@@ -578,7 +578,6 @@ function asignarResponsablePorEstado() {
     const nombreResponsable = responsablesPorEstado[estado];
     const select = document.getElementById('projectTeam');
     if (!nombreResponsable) return;
-
     // Busca la opción cuyo texto coincide con el nombre del responsable
     for (let option of select.options) {
         if (option.text.trim().toUpperCase() === nombreResponsable.trim().toUpperCase()) {
@@ -593,8 +592,8 @@ function asignarResponsablePorEstado() {
 document.getElementById('projectStatus').addEventListener('change', asignarResponsablePorEstado);
 
 
+// Manejo de subida de archivos a Cloudinary
 let archivoSubiendo = false;
-
 document.getElementById('projectFile').addEventListener('change', function() {
     const file = this.files[0];
     const status = document.getElementById('fileStatus');
@@ -610,15 +609,12 @@ document.getElementById('projectFile').addEventListener('change', function() {
     archivoSubiendo = true;
     btnGuardar.disabled = true;
     status.textContent = 'Subiendo archivo...';
-
     // Cloudinary config
     const url = 'https://api.cloudinary.com/v1_1/dxfcy3nam/upload';
     const preset = 'gtapps';
-
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', preset);
-
     fetch(url, { method: 'POST', body: formData })
         .then(r => r.json())
         .then(data => {
@@ -635,6 +631,19 @@ document.getElementById('projectFile').addEventListener('change', function() {
             btnGuardar.disabled = false;
         });
 });
+
+// Actualiza el estado del botón Guardar según el estado y la subida de archivos
+function actualizarEstadoBotonGuardar() {
+    const estado = document.getElementById('projectStatus').value;
+    const btnGuardar = document.querySelector('.modal-footer .btn.btn-primary');
+    const archivoUrl = document.getElementById('cloudinaryUrl').value;
+    if (estado === 'desarrollo' || estado === 'pruebas') {
+        // Solo habilita si el archivo está subido y no está subiendo
+        btnGuardar.disabled = archivoSubiendo || !archivoUrl;
+    } else {
+        btnGuardar.disabled = false;
+    }
+}
     </script>
 </body>
 </html>
