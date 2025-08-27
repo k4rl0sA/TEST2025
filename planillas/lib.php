@@ -111,7 +111,10 @@ function get_planilla(){
             JOIN person pe ON P.idpeople = pe.idpeople
             WHERE P.id_planilla = '".cleanTx($id[0])."' AND P.estado='A'";
     $info = datos_mysql($sql);
-    return $info['responseResult'][0] ?? '';
+    if (!$info['responseResult']) {
+        return $info['responseResult'][0]    
+    }
+  return [];
 }
 
 function get_personOld(){
