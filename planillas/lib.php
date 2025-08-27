@@ -131,6 +131,12 @@ function get_personOld(){
 	}
 }
 
+    function adm(){
+        $info = datos_mysql("SELECT perfil FROM usuarios WHERE id_usuario='{$_SESSION['us_sds']}'");
+        $adm = $info['responseResult'][0]['perfil'];
+        return $adm;
+    }
+
 // Opciones para selects si tienes catálogos
 function opc_tipo_planilla($id=''){
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=1 and estado='A' ORDER BY 1",$id);
