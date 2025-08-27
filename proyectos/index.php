@@ -611,12 +611,22 @@ document.getElementById('projectFile').addEventListener('change', function() {
     archivoSubiendo = true;
     btnGuardar.disabled = true;
     status.textContent = 'Subiendo archivo...';
+
     // Cloudinary config
     const url = 'https://api.cloudinary.com/v1_1/dxfcy3nam/upload';
     const preset = 'gtapps';
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', preset);
+
+    // Construir el nombre: "Nombre del Proyecto - N. Estado"
+    const nombreProyecto = document.getElementById('projectName').value.trim();
+    const estado = document.getElementById('projectStatus');
+    const estadoTexto = estado.options[estado.selectedIndex].text.trim();
+    const nombreArchivo = `${nombreProyecto} - ${estadoTexto}`.replace(/[\/\\?%*:|"<>]/g, '-'); // Evita caracteres no válidos
+
+    formData.append('public_id', nombreArchivo);
+
     fetch(url, { method: 'POST', body: formData })
         .then(r => r.json())
         .then(data => {
@@ -627,15 +637,15 @@ document.getElementById('projectFile').addEventListener('change', function() {
                 status.textContent = 'Error al subir archivo.';
             }
             actualizarEstadoBotonGuardar();
-})
-.catch(() => {
-    status.textContent = 'Error al subir archivo.';
-    actualizarEstadoBotonGuardar();
-})
-.finally(() => {
-    archivoSubiendo = false;
-    actualizarEstadoBotonGuardar();
-});
+        })
+        .catch(() => {
+            status.textContent = 'Error al subir archivo.';
+            actualizarEstadoBotonGuardar();
+        })
+        .finally(() => {
+            archivoSubiendo = false;
+            actualizarEstadoBotonGuardar();
+        });
 });
 
 // Actualiza el estado del botón Guardar según el estado y la subida de archivos
