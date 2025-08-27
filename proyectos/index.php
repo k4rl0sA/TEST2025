@@ -333,6 +333,7 @@ function openModal(modo = 'crear', id = null) {
         habilitarCamposModal(true);
         document.querySelector('.modal-footer .btn.btn-primary').onclick = crearProyecto;
         document.getElementById('projectModal').style.display = 'flex';
+        document.getElementById('fileGroup').style.display = 'none'; // Oculta por defecto
     } else if (modo === 'ver' || modo === 'editar') {
         fetch(`lib.php?a=get_proyecto&id=${id}`)
             .then(r => r.json())
@@ -344,6 +345,13 @@ function openModal(modo = 'crear', id = null) {
                     habilitarCamposModal(modo === 'editar');
                     document.querySelector('.modal-footer .btn.btn-primary').onclick = (modo === 'ver') ? closeModal : actualizarProyecto;
                     document.getElementById('projectModal').style.display = 'flex';
+
+                    // OCULTAR CAMPO DE ARCHIVO EN MODO VER
+                    if (modo === 'ver') {
+                        document.getElementById('fileGroup').style.display = 'none';
+                    } else {
+                        asignarResponsablePorEstado(); // Esto mostrará el campo si corresponde
+                    }
                 } else {
                     alert(data.error || 'No se pudo cargar el proyecto');
                 }
@@ -360,7 +368,7 @@ function limpiarModal() {
 
 function cargarResponsables() {
     return fetch('lib.php?a=list_responsables')
-        .then(r => r.json())
+        .then r => r.json())
         .then(data => {
             const select = document.getElementById('projectTeam');
             select.innerHTML = '<option value="">Seleccione...</option>';
