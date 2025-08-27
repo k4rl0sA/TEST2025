@@ -392,6 +392,7 @@ function habilitarCamposModal(habilitar) {
     document.getElementById('projectStatus').disabled = !habilitar;
     document.getElementById('projectDeadline').disabled = !habilitar;
     document.getElementById('priority').disabled = !habilitar;
+    document.getElementById('projectFile').disabled = !habilitar;
 }
 
 // Sobrescribe funciones de botones de acciones
