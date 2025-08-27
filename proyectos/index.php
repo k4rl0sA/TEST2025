@@ -644,6 +644,18 @@ function actualizarEstadoBotonGuardar() {
         btnGuardar.disabled = false;
     }
 }
+// Escucha cambios en el estado para actualizar el botón
+function actualizarEstadoBotonGuardar() {
+    const estado = document.getElementById('projectStatus').value;
+    const btnGuardar = document.querySelector('.modal-footer .btn.btn-primary');
+    const archivoUrl = document.getElementById('cloudinaryUrl').value;
+    if (estado === 'desarrollo' || estado === 'pruebas') {
+        // Solo habilita si el archivo está subido y no está subiendo
+        btnGuardar.disabled = archivoSubiendo || !archivoUrl;
+    } else {
+        btnGuardar.disabled = false;
+    }
+}
     </script>
 </body>
 </html>
