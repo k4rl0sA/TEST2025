@@ -566,7 +566,7 @@ function actualizarEstadoBotonGuardar() {
     const estado = document.getElementById('projectStatus').value;
     const btnGuardar = document.querySelector('.modal-footer .btn.btn-primary');
     const archivoUrl = document.getElementById('cloudinaryUrl').value;
-    if (estado === 'desarrollo' || estado === 'pruebas') {
+    if (estado === 'desarrollo' || estado === 'pruebas' || estado === 'pruebasSub') {
         // Solo habilita si el archivo está subido y no está subiendo
         btnGuardar.disabled = archivoSubiendo || !archivoUrl;
     } else {
