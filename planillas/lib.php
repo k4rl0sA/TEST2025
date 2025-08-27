@@ -111,8 +111,7 @@ function get_planilla() {
     $sql = "SELECT P.*, CONCAT_WS(' ',pe.nombre1,pe.nombre2,pe.apellido1,pe.apellido2) AS nombre_completo, pe.tipo_doc, pe.idpersona, P.fecha_formato
             FROM planillas P
             INNER JOIN person pe ON P.idpeople = pe.idpeople
-            WHERE P.id_planilla = ? AND P.estado = 'A'";
-    $params = [['type' => 'i', 'value' => cleanTx($id[0])]];
+            WHERE P.id_planilla = $id[0] AND P.estado = 'A'";
     $info = datos_mysql($sql, $params);
     return $info['responseResult'][0] ?? '';
 }
