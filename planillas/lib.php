@@ -83,10 +83,12 @@ function cmp_planillas(){
     $edit = (empty($id[0])) ? true : (isset($_POST['edit']) && $_POST['edit']=='true');
     $d = get_planilla();
     $key='Planillas';
+    $days=fechas_app('vivienda');
     $c[]=new cmp($o,'e',null,'INFORMACIÓN GENERAL',$w);
     $c[]=new cmp('idp','h',15,$id,$w.' '.$o,'id','id',null,'####',false,false);
     $c[]=new cmp('idpersona','nu','9999999999999999',$d['idpersona']??'',$w.' '.$key.' '.$o,'Identificación <a href="https://www.adres.gov.co/consulte-su-eps" target="_blank">     Abrir ADRES</a>','idpersona',null,null,true,$edit,'','col-2');
 	$c[]=new cmp('tipo_doc','s','3',$d['tipo_doc']??'',$w.' '.$key.' '.$o,'Tipo documento','tipo_doc',null,null,true,$edit,'','col-3',"getDatForm('pEr','personOld',['infgen'],this);");
+    $c[]=new cmp('fecha_nacimiento','d','',$d['fecha_nacimiento'],$w.' '.$o,'Fecha de nacimiento','fecha_nacimiento',null,null,true,$edit,'','col-2',"validDate(this,$days,0);");
     $c[] = new cmp('nombre_completo','t',50,$d['nombre_completo']?? '',$w.' '.$o, 'Nombre Completo','','','',false,false,'','col-5');
     $c[] = new cmp('tipo','s',3,$d['tipo'] ?? '',$w.' '.$o, 'Tipo Planilla', 'tipo_planilla','','',true,true,'','col-4');
     $c[] = new cmp('evento','t',3,$d['evento'] ?? '',$w.' '.$o, 'Evento','','','',true,true,'','col-4');
