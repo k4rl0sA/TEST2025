@@ -608,6 +608,22 @@ document.getElementById('projectFile').addEventListener('change', function() {
         this.value = '';
         return;
     }
+
+    // Validar nombre del archivo
+    const nombreProyecto = document.getElementById('projectName').value.trim();
+    const estado = document.getElementById('projectStatus');
+    const estadoTexto = estado.options[estado.selectedIndex].text.trim();
+    const nombreEsperado = `${nombreProyecto} - ${estadoTexto}`.replace(/[\/\\?%*:|"<>]/g, '-').toLowerCase();
+
+    // Obtener nombre del archivo sin extensión
+    const nombreArchivoSinExt = file.name.replace(/\.[^/.]+$/, "").trim().toLowerCase();
+
+    if (nombreArchivoSinExt !== nombreEsperado) {
+        status.textContent = `El nombre del archivo debe ser exactamente: "${nombreEsperado}"`;
+        this.value = '';
+        return;
+    }
+
     archivoSubiendo = true;
     btnGuardar.disabled = true;
     status.textContent = 'Subiendo archivo...';
@@ -619,12 +635,8 @@ document.getElementById('projectFile').addEventListener('change', function() {
     formData.append('file', file);
     formData.append('upload_preset', preset);
 
-    // Construir el nombre: "Nombre del Proyecto - N. Estado"
-   const nombreProyecto = document.getElementById('projectName').value.trim();
-    const estado = document.getElementById('projectStatus');
-    const estadoTexto = estado.options[estado.selectedIndex].text.trim();
-    const nombreArchivo = `${nombreProyecto} - ${estadoTexto}`.replace(/[\/\\?%*:|"<>]/g, '-');
-    formData.append('public_id', nombreArchivo);
+    // Usar el nombre esperado como public_id
+    formData.append('public_id', nombreEsperado);
 
     fetch(url, { method: 'POST', body: formData })
         .then(r => r.json())
