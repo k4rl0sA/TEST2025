@@ -123,7 +123,6 @@ if (empty($_SESSION['csrf_token'])) {
                 <table class="projects-table">
                     <thead>
                         <tr>
-                            <th>Id</th>
                             <th>Nombre del Proyecto</th>
                             <th>Estado</th>
                             <th>Prioridad</th>
@@ -239,8 +238,7 @@ if (empty($_SESSION['csrf_token'])) {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>
-                        <div class="project-id">${proy.id}</div>
-                        <div class="project-name">${proy.nombre}</div>
+                        <div class="project-name">${proy.id}'-'${proy.nombre}</div>
                         <div class="project-details">Responsable: ${proy.responsable || '-'}</div>
                     </td>
                     <td><span class="status status-${proy.estado}">${proy.estado}</span></td>
