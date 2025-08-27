@@ -487,11 +487,11 @@ li.icono.desplegar-panel{margin-top:-25px;margin-right: -95%;}
   }
   
   .datatable-container .datatable tbody tr .A::after{
-	  content: 'ACtivo';
+	  content: 'Activo';
 	  color:var(--dt-status-A-color);
   }
   .datatable-container .datatable tbody tr .I::after{
-	content: 'INactivo';
+	content: 'Inactivo';
 	color:var(--dt-status-I-color);
   }
   .datatable-container .datatable tbody tr .P::after{

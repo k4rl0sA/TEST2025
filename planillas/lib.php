@@ -82,23 +82,25 @@ function cmp_planillas(){
     $id = isset($_POST['id']) ? divide($_POST['id']) : ['',''];
     $edit = (empty($id[0])) ? true : (isset($_POST['edit']) && $_POST['edit']=='true');
     $d = get_planilla();
+    $t=['tipo'=>'','evento'=>'','seguimiento'=>'','idpersona'=>'','tipo_doc'=>'','nombre_completo'=>'','perfil'=>'','colaborador'=>'','estado_planilla'=>'','carpeta'=>'','caja'=>'','fecha_formato'=>''];
+    if ($d==""){$d=$t;}
     $key='Planillas';
     $days=fechas_app('vivienda');
     $c[]= new cmp($o,'e',null,'INFORMACIÓN GENERAL',$w);
     $c[]= new cmp('idp','h',15,$id,$w.' '.$o,'id','id',null,'####',false,false);
-    $c[]= new cmp('tipo','s',3,$d['tipo'] ?? '',$w.' '.$o, 'Tipo Planilla', 'tipo_planilla','','',true,true,'','col-4');
-    $c[]= new cmp('evento','t',3,$d['evento'] ?? '',$w.' '.$o, 'Evento','','','',true,true,'','col-4');
-    $c[]= new cmp('seguimiento','t',3,$d['seguimiento'] ?? '',$w.' '.$o, 'Seguimiento','','','',true,true,'','col-4');
+    $c[]= new cmp('tipo','s',3,$d['tipo'] ,$w.' '.$o, 'Tipo Planilla', 'tipo_planilla','','',true,true,'','col-4');
+    $c[]= new cmp('evento','t',3,$d['evento'] ,$w.' '.$o, 'Evento','','','',true,true,'','col-4');
+    $c[]= new cmp('seguimiento','t',3,$d['seguimiento'] ,$w.' '.$o, 'Seguimiento','','','',true,true,'','col-4');
     $c[]= new cmp('fecha_formato','d','',$d['fecha_formato']??'',$w.' '.$o,'Fecha del Formato','fecha_formato',null,null,true,$edit,'','col-2',"validDate(this,$days,0);");
     $c[]= new cmp('idpersona','nu','9999999999999999',$d['idpersona']??'',$w.' '.$key.' '.$o,'Identificación <a href="https://www.adres.gov.co/consulte-su-eps" target="_blank">     Abrir ADRES</a>','idpersona',null,null,true,$edit,'','col-2');
-	$c[]= new cmp('tipo_doc','s','3',$d['tipo_doc']??'',$w.' '.$key.' '.$o,'Tipo documento','tipo_doc',null,null,true,$edit,'','col-3',"getDatForm('pEr','personOld',['infgen'],this);");
-    $c[]= new cmp('nombre_completo','t',50,$d['nombre_completo']?? '',$w.' '.$o, 'Nombre Completo','','','',false,false,'','col-5');
+	$c[]= new cmp('tipo_doc','s','3',$d['tipo_doc'],$w.' '.$key.' '.$o,'Tipo documento','tipo_doc',null,null,true,$edit,'','col-3',"getDatForm('pEr','personOld',['infgen'],this);");
+    $c[]= new cmp('nombre_completo','t',50,$d['nombre_completo'],$w.' '.$o, 'Nombre Completo','','','',false,false,'','col-5');
     $c[]= new cmp('perfil','s',3,'',$w.' '.$o,'Perfil','perfil',null,'',true,true,'','col-2',"changeSelect('perfil','colaborador');");//  ,"enabDepeValu('perfil','uSR');
-    $c[]= new cmp('colaborador','s',20,$d['colaborador'] ?? '',$w.' uSR '.$o, 'Colaborador','colaborador','','',false,true,'','col-5');
-    $c[]= new cmp('estado_planilla','s',3,$d['estado_planilla'] ?? '',$w.' '.$o, 'Estado Planilla', 'estado_planilla','','',true,true,'','col-4');
-    $c[]= new cmp('carpeta','t',50,$d['carpeta'] ?? '',$w.' '.$o, 'Carpeta','','','',true,true,'','col-6');
-    $c[]= new cmp('caja','t',50,$d['caja'] ?? '',$w.' '.$o, 'Caja','','','',true,true,'','col-6');
-    $c[]= new cmp('fecha_formato','t',10,$d['fecha_formato'] ?? '',$w.' '.$o, 'Fecha Formato','','','',true,true,'','col-6');
+    $c[]= new cmp('colaborador','s',20,$d['colaborador'] ,$w.' uSR '.$o, 'Colaborador','colaborador','','',false,true,'','col-5');
+    $c[]= new cmp('estado_planilla','s',3,$d['estado_planilla'] ,$w.' '.$o, 'Estado Planilla', 'estado_planilla','','',true,true,'','col-4');
+    $c[]= new cmp('carpeta','t',50,$d['carpeta'] ,$w.' '.$o, 'Carpeta','','','',true,true,'','col-6');
+    $c[]= new cmp('caja','t',50,$d['caja'] ,$w.' '.$o, 'Caja','','','',true,true,'','col-6');
+    $c[]= new cmp('fecha_formato','t',10,$d['fecha_formato'] ,$w.' '.$o, 'Fecha Formato','','','',true,true,'','col-6');
     foreach ($c as $cmp) $rta .= $cmp->put();
     return $rta;
 }
