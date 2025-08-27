@@ -152,6 +152,9 @@ function opc_perfil($id=''){
         return opc_sql("SELECT idcatadeta, descripcion FROM `catadeta` WHERE idcatalogo = 218 AND estado = 'A' AND valor in($comp)",$id);
     }
 }
+function opc_colaborador($id=''){
+	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=216 and estado='A' ORDER BY 1",$id);
+}
 function opc_perfilcolaborador($id=''){
     if($_REQUEST['id']!=''){	
         if(adm()=='ADM'){	
