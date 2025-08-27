@@ -163,6 +163,9 @@
             transition: all 0.3s;
         }
         
+        button[disabled] {
+            cursor: no-drop;
+        }
         .btn-primary {
             background: var(--primary);
             color: white;
