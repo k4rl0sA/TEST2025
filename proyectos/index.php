@@ -334,27 +334,21 @@ function openModal(modo = 'crear', id = null) {
         document.querySelector('.modal-footer .btn.btn-primary').onclick = crearProyecto;
         document.getElementById('projectModal').style.display = 'flex';
     } else if (modo === 'ver' || modo === 'editar') {
-    fetch(`lib.php?a=get_proyecto&id=${id}`)
-        .then(r => r.json())
-        .then(data => {
-            if (data.success) {
-                llenarModal(data.proyecto);
-                document.querySelector('.modal-header h3').textContent = (modo === 'ver') ? 'Ver Proyecto' : 'Editar Proyecto';
-                document.querySelector('.modal-footer .btn.btn-primary').textContent = (modo === 'ver') ? 'Cerrar' : 'Guardar Cambios';
-                habilitarCamposModal(modo === 'editar');
-                document.querySelector('.modal-footer .btn.btn-primary').onclick = (modo === 'ver') ? closeModal : actualizarProyecto;
-                document.getElementById('projectModal').style.display = 'flex';
-
-                // OCULTAR CAMPO DE ARCHIVO EN MODO VER
-                if (modo === 'ver') {
-                    document.getElementById('fileGroup').style.display = 'none';
+        fetch(`lib.php?a=get_proyecto&id=${id}`)
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    llenarModal(data.proyecto);
+                    document.querySelector('.modal-header h3').textContent = (modo === 'ver') ? 'Ver Proyecto' : 'Editar Proyecto';
+                    document.querySelector('.modal-footer .btn.btn-primary').textContent = (modo === 'ver') ? 'Cerrar' : 'Guardar Cambios';
+                    habilitarCamposModal(modo === 'editar');
+                    document.querySelector('.modal-footer .btn.btn-primary').onclick = (modo === 'ver') ? closeModal : actualizarProyecto;
+                    document.getElementById('projectModal').style.display = 'flex';
                 } else {
-                    asignarResponsablePorEstado(); // Esto mostrará el campo si corresponde
+                    alert(data.error || 'No se pudo cargar el proyecto');
                 }
-            } else {
-                alert(data.error || 'No se pudo cargar el proyecto');
-            }
-        });
+            });
+    }
 }
 
 function limpiarModal() {
