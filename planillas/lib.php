@@ -114,7 +114,11 @@ function get_planilla() {
             INNER JOIN person pe ON P.idpeople = pe.idpeople
             WHERE P.id_planilla = $id[0] AND P.estado = 'A'";
     $info = datos_mysql($sql, $params);
-    return $info['responseResult'][0] ?? '';
+    if (!$info['responseResult']) {
+			return '';
+		}
+	return $info['responseResult'][0];
+	} 
 }
 
 function get_personOld(){
