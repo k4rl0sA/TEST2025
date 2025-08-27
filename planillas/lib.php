@@ -88,11 +88,12 @@ function cmp_planillas(){
     $c[]=new cmp('idp','h',15,$id,$w.' '.$o,'id','id',null,'####',false,false);
     $c[]=new cmp('idpersona','nu','9999999999999999',$d['idpersona']??'',$w.' '.$key.' '.$o,'Identificación <a href="https://www.adres.gov.co/consulte-su-eps" target="_blank">     Abrir ADRES</a>','idpersona',null,null,true,$edit,'','col-2');
 	$c[]=new cmp('tipo_doc','s','3',$d['tipo_doc']??'',$w.' '.$key.' '.$o,'Tipo documento','tipo_doc',null,null,true,$edit,'','col-3',"getDatForm('pEr','personOld',['infgen'],this);");
-    $c[]=new cmp('fecha_formato','d','',$d['fecha_formato']??'',$w.' '.$o,'Fecha del Formato','fecha_formato',null,null,true,$edit,'','col-2',"validDate(this,$days,0);");
+    
     $c[] = new cmp('nombre_completo','t',50,$d['nombre_completo']?? '',$w.' '.$o, 'Nombre Completo','','','',false,false,'','col-5');
     $c[] = new cmp('tipo','s',3,$d['tipo'] ?? '',$w.' '.$o, 'Tipo Planilla', 'tipo_planilla','','',true,true,'','col-4');
     $c[] = new cmp('evento','t',3,$d['evento'] ?? '',$w.' '.$o, 'Evento','','','',true,true,'','col-4');
     $c[] = new cmp('seguimiento','t',3,$d['seguimiento'] ?? '',$w.' '.$o, 'Seguimiento','','','',true,true,'','col-4');
+    $c[]=new cmp('fecha_formato','d','',$d['fecha_formato']??'',$w.' '.$o,'Fecha del Formato','fecha_formato',null,null,true,$edit,'','col-2',"validDate(this,$days,0);");
     $c[] = new cmp('colaborador','t',18,$d['colaborador'] ?? '',$w.' '.$o, 'Colaborador','','','',true,true,'','col-4');
     $c[] = new cmp('estado_planilla','s',3,$d['estado_planilla'] ?? '',$w.' '.$o, 'Estado Planilla', 'estado_planilla','','',true,true,'','col-4');
     $c[] = new cmp('carpeta','t',50,$d['carpeta'] ?? '',$w.' '.$o, 'Carpeta','','','',true,true,'','col-6');
