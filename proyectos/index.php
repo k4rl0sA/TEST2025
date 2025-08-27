@@ -336,6 +336,7 @@ if (empty($_SESSION['csrf_token'])) {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>
+                        <div class="project-id">${proy.id}</div>
                         <div class="project-name">${proy.nombre}</div>
                         <div class="project-details">Responsable: ${proy.responsable || '-'}</div>
                     </td>
