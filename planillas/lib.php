@@ -104,7 +104,7 @@ function cmp_planillas(){
 }
 
 function get_planilla() {
-    $id = divide($_POST['id'] ?? '');
+   /*  $id = divide($_POST['id'] ?? '');
     if (empty($id[0])) return [];
     $sql = "SELECT P.*, CONCAT_WS(' ',pe.nombre1,pe.nombre2,pe.apellido1,pe.apellido2) AS nombre_completo, pe.tipo_doc, pe.idpersona, P.fecha_formato
             FROM planillas P
@@ -112,7 +112,8 @@ function get_planilla() {
             WHERE P.id_planilla = ? AND P.estado = 'A'";
     $params = [['type' => 'i', 'value' => cleanTx($id[0])]];
     $info = datos_mysql($sql, $params);
-    return $info['responseResult'][0] ?? [];
+    return $info['responseResult'][0] ?? []; */
+    return '';
 }
 
 function get_personOld(){
