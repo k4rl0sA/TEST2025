@@ -619,8 +619,8 @@ document.getElementById('projectFile').addEventListener('change', function() {
     status.textContent = 'Subiendo archivo...';
 
     // Cloudinary config
-    const url = 'https://api.cloudinary.com/v1_1/<TU_CLOUD_NAME>/upload';
-    const preset = '<TU_UPLOAD_PRESET>';
+    const url = 'https://api.cloudinary.com/v1_1/dxfcy3nam/upload';
+    const preset = 'gtaps';
 
     const formData = new FormData();
     formData.append('file', file);
