@@ -93,7 +93,7 @@ function cmp_planillas(){
     $c[]= new cmp('seguimiento','nu',3,$d['seguimiento'] ,$w.' '.$o, 'Seguimiento','','','',true,false,'','col-2');
     $c[]= new cmp('idpersona','nu','9999999999999999',$d['idpersona']??'',$w.' '.$key.' '.$o,'Identificación <a href="https://www.adres.gov.co/consulte-su-eps" target="_blank">     Abrir ADRES</a>','idpersona',null,null,true,$edit,'','col-2');
 	$c[]= new cmp('tipo_doc','s','3',$d['tipo_doc'],$w.' '.$key.' '.$o,'Tipo documento','tipo_doc',null,null,true,$edit,'','col-3',"getDatForm('pEr','personOld',['IPe'],this);");
-    $c[]= new cmp('nombre_completo','t',50,'',$w.' IPe '.$o, 'Nombre Completo','','','',false,false,'','col-5');
+    $c[]= new cmp('nombre','t',50,'',$w.' IPe '.$o, 'Nombre Completo','','','',false,false,'','col-5');
     $c[]= new cmp('perfil','s',3,'',$w.' '.$o,'Perfil','perfil',null,'',true,true,'','col-15',"changeSelect('perfil','colaborador');");//  ,"enabDepeValu('perfil','uSR');
     $c[]= new cmp('colaborador','s',20,$d['colaborador'] ,$w.' uSR '.$o, 'Colaborador','colaborador','','',false,true,'','col-35');
     $c[]= new cmp('estado_planilla','s',3,$d['estado_planilla'] ,$w.' '.$o, 'Estado Planilla', 'estado_planilla','','',true,true,'','col-2');
