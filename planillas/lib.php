@@ -108,7 +108,7 @@ function cmp_planillas(){
 
 function get_planilla() {
     $id = divide($_POST['id'] ?? '');
-    if (empty($id[0])) return [];
+    if (empty($id[0])) return "";
     $sql = "SELECT P.*, CONCAT_WS(' ',pe.nombre1,pe.nombre2,pe.apellido1,pe.apellido2) AS nombre_completo, pe.tipo_doc, pe.idpersona, P.fecha_formato
             FROM planillas P
             INNER JOIN person pe ON P.idpeople = pe.idpeople
