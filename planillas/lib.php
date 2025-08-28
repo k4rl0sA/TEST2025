@@ -79,7 +79,6 @@ function cmp_planillas(){
     $c = [];
     $w='planillas';
 	$o='infplan';
-    // $id = isset($_POST['id']) ? divide($_POST['id']) : ['',''];
     $edit = (empty($id[0])) ? true : (isset($_POST['edit']) && $_POST['edit']=='true');
     $d = get_planilla();
     $t=['tipo'=>'','evento'=>'','seguimiento'=>'','idpersona'=>'','tipo_doc'=>'','nombre_completo'=>'','perfil'=>'','colaborador'=>'','estado_planilla'=>'','carpeta'=>'','caja'=>'','fecha_formato'=>''];
