@@ -38,10 +38,16 @@ $comy = array(
       'u' => 'u470700275_08',
       'p' => 'z9#KqH!YK2VEyJpT',
       'bd' => 'saludencasa_pru'
+  ],
+  'gtaps.42web.io' => [
+      's' => 'srv1723.hstgr.io',
+      'u' => 'u470700275_17',
+      'p' => 'z9#KqH!YK2VEyJpT',
+      'bd' => 'u470700275_17'
   ]
 );
 // var_dump($dominio);
-$allowed_domains = ['pruebagtaps.site', 'gitapps.site'];
+$allowed_domains = ['pruebagtaps.site', 'gitapps.site','gtaps.42web.io'];
 if (in_array($dominio, $allowed_domains)) {
   $dbConfig = $comy[$dominio];
 }else{
