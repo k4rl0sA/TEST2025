@@ -127,7 +127,7 @@ function get_personOld(){
 	if (!$info['responseResult']) {
         return json_encode (new stdClass);
 	}else{
-		return json_encode($info['responseResult'][0]);
+		return $info['responseResult'][0];
 	}
 }
 
