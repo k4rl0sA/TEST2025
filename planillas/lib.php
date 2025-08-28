@@ -82,7 +82,6 @@ function cmp_planillas(){
     $edit = (empty($id[0])) ? true : (isset($_POST['edit']) && $_POST['edit']=='true');
     $d = get_planilla();
     $t=['tipo'=>'','evento'=>'','seguimiento'=>'','idpersona'=>'','tipo_doc'=>'','nombre_completo'=>'','perfil'=>'','colaborador'=>'','estado_planilla'=>'','carpeta'=>'','caja'=>'','fecha_formato'=>''];
-    var_dump($d);//string(0) ""
     if ($d==""){$d=$t;}
     $key='Planillas';
     $days=fechas_app('vivienda');
