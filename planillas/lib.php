@@ -159,7 +159,7 @@ function opc_colaborador($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=216 and estado='A' ORDER BY 1",$id);
 }
 function opc_evento($id=''){
-    return opc_sql("SELECT `idcatadeta`,concat_ws(' - ',idcatadeta,descripcion) FROM `catadeta` WHERE idcatalogo=87 and estado='A' ORDER BY 1",$id);
+    return opc_sql("SELECT `idcatadeta`,concat_ws(' - ',idcatadeta,descripcion) FROM `catadeta` WHERE idcatalogo=87 and estado='A' ORDER BY CAST(idcatadeta AS UNSIGNED)",$id);
 }
 function opc_perfilcolaborador($id=''){
     if($_REQUEST['id']!=''){	
