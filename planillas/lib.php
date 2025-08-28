@@ -97,8 +97,8 @@ function cmp_planillas(){
     $c[]= new cmp('perfil','s',3,'',$w.' '.$o,'Perfil','perfil',null,'',true,true,'','col-15',"changeSelect('perfil','colaborador');");//  ,"enabDepeValu('perfil','uSR');
     $c[]= new cmp('colaborador','s',20,$d['colaborador'] ,$w.' uSR '.$o, 'Colaborador','colaborador','','',false,true,'','col-35');
     $c[]= new cmp('estado_planilla','s',3,$d['estado_planilla'] ,$w.' '.$o, 'Estado Planilla', 'estado_planilla','','',true,true,'','col-2');
-    $c[]= new cmp('carpeta','t',50,$d['carpeta'] ,$w.' '.$o, 'Carpeta','','','',true,true,'','col-15');
-    $c[]= new cmp('caja','t',50,$d['caja'] ,$w.' '.$o, 'Caja','','','',true,true,'','col-15');
+    $c[]= new cmp('carpeta','nu',50,$d['carpeta'] ,$w.' '.$o, 'Carpeta','','','',true,true,'','col-15');
+    $c[]= new cmp('caja','nu',50,$d['caja'] ,$w.' '.$o, 'Caja','','','',true,true,'','col-15');
     foreach ($c as $cmp) $rta .= $cmp->put();
     return $rta;
 }
