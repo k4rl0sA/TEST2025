@@ -126,7 +126,6 @@ function get_personOld(){
 	$info=datos_mysql($sql);
 	if (!$info['responseResult']) {
         return $rta="Error: El usuario con este número de documento NO se encuentra registrado.";
-	}
 	}else{
 		return json_encode($info['responseResult'][0]);
 	}
