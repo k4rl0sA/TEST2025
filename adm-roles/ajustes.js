@@ -71,8 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
         updateSortIcons('#roles-table', sortField, sortDir);
         enableMobileRowActions('#roles-table', '.action-menu-btn');
         // Inicializar selección masiva y barra cada vez que se renderiza la tabla
-        initBulkSelection('#roles-table', 'select-all-roles', '.select-role', () => updateBulkActionsBar('#roles-table','bulk-actions-bar','bulk-count'));
-        updateBulkActionsBar('#roles-table','bulk-actions-bar','bulk-count');
+        initBulkSelection('#roles-table', 'select-all-roles', '.select-role', () => updateBulkActionsBar('#roles-table','select-role','bulk-actions-bar','bulk-count'));
+        updateBulkActionsBar('#roles-table','select-role','bulk-actions-bar','bulk-count');
         loadColumnPreferences('roles');
     }
 

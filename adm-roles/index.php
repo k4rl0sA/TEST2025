@@ -19,13 +19,13 @@ if (!isset($_SESSION["us_sds"])) {
     <meta name="keywords" content="roles, gestión, administración, permisos, sistema, filtros, seguridad">
     <meta name="author" content="Carlos Eduardo Acevedo Arevalo">
     <link rel="canonical" href="https://tusitio.com/adm-ajustes/index.html">
-    <link rel="stylesheet" href="../lib/css/app.css?v=28">
+    <link rel="stylesheet" href="../lib/css/app.css?v=29">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
-    <link rel="stylesheet" href="../lib/css/choices.min.css?v=28">
+    <link rel="stylesheet" href="../lib/css/choices.min.css?v=29">
     <script src="../lib/js/choices.min.js"></script>
     <script>window.CSRF_TOKEN = "<?php echo $_SESSION['csrf_token']; ?>";</script>
-    <script src="../lib/js/app.js?v=28" defer></script>
-    <script src="ajustes.js?v=28"></script>
+    <script src="../lib/js/app.js?v=29" defer></script>
+    <script src="ajustes.js?v=29"></script>
 </head>
 <body>
     <div class="toast-container">
