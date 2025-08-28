@@ -120,7 +120,8 @@ function get_planilla() {
 function get_personOld(){
 	// print_r($_REQUEST);
 	$id=divide($_POST['id']);
-		$sql="SELECT CONCAT_WS(' ',nombre1,nombre2,apellido1,apellido2) as nombre,idpeople,vivipersona
+    //,idpeople,vivipersona
+		$sql="SELECT CONCAT_WS(' ',nombre1,nombre2,apellido1,apellido2) as nombre
 		FROM `person` 
    	WHERE idpersona ='".$id[0]."' AND tipo_doc='".$id[1]."'";
 	$info=datos_mysql($sql);
