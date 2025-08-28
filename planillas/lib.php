@@ -142,7 +142,7 @@ function get_personOld(){
 
 // Opciones para selects si tienes catálogos
 function opc_tipo_planilla($id=''){
-    return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=1 and estado='A' ORDER BY 1",$id);
+    return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=285 and estado='A' ORDER BY 1",$id);
 }
 function opc_estado_planilla($id=''){
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=2 and estado='A' ORDER BY 1",$id);
