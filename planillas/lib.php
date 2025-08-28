@@ -88,8 +88,8 @@ function cmp_planillas(){
     $c[]= new cmp($o,'e',null,'INFORMACIÓN GENERAL',$w);
     $c[]= new cmp('idp','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
     $c[]= new cmp('tipo','s',3,$d['tipo'] ,$w.' '.$o, 'Tipo Planilla', 'tipo_planilla','','',true,true,'','col-2');
-    $c[]= new cmp('evento','t',3,$d['evento'] ,$w.' '.$o, 'Evento','','','',true,true,'','col-4');
-    $c[]= new cmp('seguimiento','t',3,$d['seguimiento'] ,$w.' '.$o, 'Seguimiento','','','',true,true,'','col-4');
+    $c[]= new cmp('evento','s',3,$d['evento'] ,$w.' '.$o, 'Evento','evento','','',true,true,'','col-4');
+    $c[]= new cmp('seguimiento','nu',3,$d['seguimiento'] ,$w.' '.$o, 'Seguimiento','','','',true,true,'','col-4');
     $c[]= new cmp('fecha_formato','d','',$d['fecha_formato']??'',$w.' '.$o,'Fecha del Formato','fecha_formato',null,null,true,$edit,'','col-2',"validDate(this,$days,0);");
     $c[]= new cmp('idpersona','nu','9999999999999999',$d['idpersona']??'',$w.' '.$key.' '.$o,'Identificación <a href="https://www.adres.gov.co/consulte-su-eps" target="_blank">     Abrir ADRES</a>','idpersona',null,null,true,$edit,'','col-2');
 	$c[]= new cmp('tipo_doc','s','3',$d['tipo_doc'],$w.' '.$key.' '.$o,'Tipo documento','tipo_doc',null,null,true,$edit,'','col-3',"getDatForm('pEr','personOld',['infgen'],this);");
@@ -157,6 +157,9 @@ function opc_perfil($id=''){
 }
 function opc_colaborador($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=216 and estado='A' ORDER BY 1",$id);
+}
+function opc_evento($id=''){
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 and estado='A' ORDER BY 1",$id);
 }
 function opc_perfilcolaborador($id=''){
     if($_REQUEST['id']!=''){	
