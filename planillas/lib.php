@@ -125,7 +125,7 @@ function get_personOld(){
    	WHERE idpersona ='".$id[0]."' AND tipo_doc='".$id[1]."'";
 	$info=datos_mysql($sql);
 	if (!$info['responseResult']) {
-        return $rta="Error: El usuario con este número de documento NO se encuentra registrado.";
+        return json_encode (new stdClass);
 	}else{
 		return json_encode($info['responseResult'][0]);
 	}
