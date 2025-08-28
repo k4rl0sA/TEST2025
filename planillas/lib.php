@@ -88,7 +88,7 @@ function cmp_planillas(){
     $key='Planillas';
     $days=fechas_app('vivienda');
     $c[]= new cmp($o,'e',null,'INFORMACIÓN GENERAL',$w);
-    $c[]= new cmp('idp','h',15,$id,$w.' '.$o,'id','id',null,'####',false,false);
+    $c[]= new cmp('idp','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
     $c[]= new cmp('tipo','s',3,$d['tipo'] ,$w.' '.$o, 'Tipo Planilla', 'tipo_planilla','','',true,true,'','col-4');
     $c[]= new cmp('evento','t',3,$d['evento'] ,$w.' '.$o, 'Evento','','','',true,true,'','col-4');
     $c[]= new cmp('seguimiento','t',3,$d['seguimiento'] ,$w.' '.$o, 'Seguimiento','','','',true,true,'','col-4');
