@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cerrar selección masiva
     document.getElementById('bulk-close').onclick = function() {
         document.querySelectorAll('#roles-table .select-role').forEach(cb => cb.checked = false);
-        updateBulkActionsBar('#roles-table','bulk-actions-bar','bulk-count');
+        updateBulkActionsBar('#roles-table','.select-role','bulk-actions-bar','bulk-count');
     };
 
     // -- Preferencias de columnas -- 
