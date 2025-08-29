@@ -104,8 +104,8 @@ function cmp_planillas(){
     $c[]= new cmp('caja','nu',50,$d['caja'] ,$w.' '.$o, 'Caja','','','',true,true,'','col-15');
     <?php
 // ...existing code...
-
-$rta .= "
+    foreach ($c as $cmp) $rta .= $cmp->put();
+    $rta .= "
 <div class='panel-resumen' style='margin-bottom:20px;'>
   <div style='float:left; width:50%; border:1px solid #ccc; padding:10px;'>
     <b>Familiar</b>
@@ -139,7 +139,6 @@ $rta .= "
   <div style='clear:both;'></div>
 </div>
 ";
-    foreach ($c as $cmp) $rta .= $cmp->put();
     return $rta;
 }
 
