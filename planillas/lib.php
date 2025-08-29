@@ -99,45 +99,25 @@ function cmp_planillas(){
     $c[]= new cmp('evento','s',3,$d['evento'] ,$w.' '.$o, 'Evento','evento','','',true,false,'','col-4');
     $c[]= new cmp('seguimiento','nu',3,$d['seguimiento'] ,$w.' '.$o, 'Seguimiento','','','',true,false,'','col-2');
     $c[]= new cmp('perfil','s',3,'',$w.' '.$o,'Perfil','perfil',null,'',true,true,'','col-15',"changeSelect('perfil','colaborador');");//  ,"enabDepeValu('perfil','uSR');
-    $c[]= new cmp('colaborador','s',20,$d['colaborador'] ,$w.' uSR '.$o, 'Colaborador','colaborador','','',false,true,'','col-35');
+    $c[]= new cmp('colaborador','s',20,$d['colaborador'] ,$w.' uSR '.$o, 'Colaborador','colaborador','','',false,true,'','col-35',"cargarResumenFamiliar();");//  ,"enabDepeValu('perfil','uSR');
     $c[]= new cmp('estado_planilla','s',3,$d['estado_planilla'] ,$w.' '.$o, 'Estado Planilla', 'estado_planilla','','',true,true,'','col-2');
     $c[]= new cmp('carpeta','nu',50,$d['carpeta'] ,$w.' '.$o, 'Carpeta','','','',true,true,'','col-15');
     $c[]= new cmp('caja','nu',50,$d['caja'] ,$w.' '.$o, 'Caja','','','',true,true,'','col-15');
     
     foreach ($c as $cmp) $rta .= $cmp->put();
 
-$idfam = 1; 
-$fecha = '2024-10-08';
-$usuario = 80811594; // El usuario actual
-$rta .= "<div style='float:left; width:50%; border:1px solid #ccc; padding:10px;'>" . resumen_familiar($idfam, $fecha, $usuario) . "</div>";
-$rta .="
-  <div style='float:right; width:45%; border:1px solid #ccc; padding:10px;'>
-    <b>Individuo</b>
-    <table style='width:100%; border-collapse:collapse;'>
-      <tr>
-        <th>Id_People</th>
-        <th>Alertas</th>
-        <th>Signos</th>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td style='color:green;'>✔</td>
-        <td style='color:red;'>✘</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td style='color:red;'>✔</td>
-        <td style='color:green;'>✔</td>
-      </tr>
-    </table>
-  </div>
-  <div style='clear:both;'></div>
-</div>
-";
+    $rta .= "<div id='valida-family'></div>";
     return $rta;
 }
 
-function resumen_familiar($idfam, $fecha, $usuario) {
+function validar_family(){
+    $id_planilla = intval($_POST['id_planilla']);
+    $info = datos_mysql("SELECT P.cod_fam AS idfam, P.fecha_formato, P.colaborador FROM planillas P WHERE P.id_planilla = $id_planilla");
+    $row = $info['responseResult'][0];
+    $idfam = $row['idfam'];
+    $fecha = $row['fecha_formato'];
+    $usuario = $row['colaborador'];
+
     $items = [
         'Caracterización' => "SELECT CASE WHEN EXISTS (
             SELECT 1 FROM hog_carac C WHERE C.idfam = $idfam AND C.fecha = '$fecha' AND C.usu_create = $usuario
@@ -155,15 +135,14 @@ function resumen_familiar($idfam, $fecha, $usuario) {
             )
         ) THEN 'Completado' ELSE 'Validar' END AS Estado"
     ];
-    $rta = "<table style='width:100%; border-collapse:collapse;'><tr><th>Validación</th><th>Estado</th></tr>";
+    $result = [];
     foreach ($items as $nombre => $sql) {
         $info = datos_mysql($sql);
         $estado = $info['responseResult'][0]['Estado'] ?? 'Validar';
-        $icono = $estado == 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
-        $rta .= "<tr><td>$nombre</td><td>$icono</td></tr>";
+        $result[] = ['nombre' => $nombre, 'estado' => $estado];
     }
-    $rta .= "</table>";
-    return $rta;
+    echo json_encode($result);
+    die;
 }
 
 function get_planilla() {
