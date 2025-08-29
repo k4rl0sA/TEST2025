@@ -147,12 +147,12 @@ function cmp_planillas(){
 
 FUNCTION lis_family(){
 	var_dump($_POST['id']);
-	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['id_acompsic']) ? divide($_POST['id_acompsic']) : null);
+/* 	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['id_acompsic']) ? divide($_POST['id_acompsic']) : null);
   $info=datos_mysql("SELECT COUNT(*) total FROM vsp_acompsic A LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
   WHERE A.estado = 'A' AND A.idpeople='".$id[0]."'");  // CAMBIO 
 	$total=$info['responseResult'][0]['total'];
 	$regxPag=4;
-  $pag=(isset($_POST['pag-family']))? ($_POST['pag-family']-1)* $regxPag:0;
+  $pag=(isset($_POST['pag-family']))? ($_POST['pag-family']-1)* $regxPag:0; */
 
   // CAMBIO P.tipo_doc,P.idpersona
 	$sql="SELECT CASE WHEN EXISTS (
@@ -160,12 +160,14 @@ FUNCTION lis_family(){
         WHERE C.idfam = 2554 AND C.fecha = '2025-08-02' AND C.usu_create = 1072496106 AND C.estado = 'A'
     ) THEN '✔' ELSE '✘' END AS Caracterización";
 	
-    $sql.=" WHERE A.estado = 'A' AND A.idpeople='".$id[0]; // CAMBIO  AGREGAR ESTA LINEA 
+    /* $sql.=" WHERE A.estado = 'A' AND A.idpeople='".$id[0]; // CAMBIO  AGREGAR ESTA LINEA 
 	$sql.="' ORDER BY A.fecha_create"; // CAMBIO  AGREGAR ESTA LINEA
-	$sql.=' LIMIT '.$pag.','.$regxPag;
+	$sql.=' LIMIT '.$pag.','.$regxPag; */
 	// echo $sql;
+    $regxPag=4;
+    $total=1;
 	$datos=datos_mysql($sql);
-	return create_table($total,$datos["responseResult"],"family",$regxPag,'../lib.php');
+	return create_table($total,$datos["responseResult"],"family",$regxPag,'lib.php');
    }
 
 function get_planilla() {
