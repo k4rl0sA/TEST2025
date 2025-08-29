@@ -122,7 +122,7 @@ function get_personOld(){
 	// print_r($_REQUEST);
 	$id=divide($_POST['id']);
     //,idpeople,vivipersona
-		$sql="SELECT CONCAT_WS(' ',nombre1,nombre2,apellido1,apellido2) as nombre
+		$sql="SELECT idpeople,CONCAT_WS(' ',nombre1,nombre2,apellido1,apellido2) as nombre
 		FROM `person` 
    	WHERE idpersona ='".$id[0]."' AND tipo_doc='".$id[1]."'";
 	$info=datos_mysql($sql);
