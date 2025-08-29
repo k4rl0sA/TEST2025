@@ -288,6 +288,19 @@ function gra_planillas(){
     return mysql_prepd($sql, $params);
 }
 
+function formato_dato($a,$b,$c,$d){
+ $b=strtolower($b);
+ $rta=$c[$d];
+// $rta=iconv('UTF-8','ISO-8859-1',$rta);
+// var_dump($a);
+// var_dump($rta);
+	if ($a=='family' && $b=='acciones'){//a mnombre del modulo
+		
+	}
+ return $rta;
+}
+
+
 function bgcolor($a,$c,$f='c'){
  $rta="";
  return $rta;
