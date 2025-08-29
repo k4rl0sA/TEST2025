@@ -106,8 +106,7 @@ function cmp_planillas(){
     foreach ($c as $cmp) $rta .= $cmp->put();
     $rta.="
 	<div style='float:right; width:45%; border:1px solid #ccc; padding:10px;' id='family-lis'>".lis_family()."</div>";
-$rta.="
-	<div style='float:right; width:45%; border:1px solid #ccc; padding:10px;' id='family-lis'>".lis_indivi()."</div>";
+// $rta.="	<div style='float:right; width:45%; border:1px solid #ccc; padding:10px;' id='indivi-lis'>".lis_indivi()."</div>";
 
 
   /*    $rta .= "<div class='panel-resumen' style='margin-bottom:20px;'>
@@ -149,7 +148,7 @@ $rta .="
     return $rta;
 }
 
-function lis_indivi($data_arr) {
+/* function lis_indivi($data_arr) {
     $rta = "<table class='tablesorter' cellspacing=0 style='width:100%;text-align:center;'>";
     $rta .= "<thead><tr>
                 <th>Id_People</th>
@@ -173,7 +172,7 @@ function lis_indivi($data_arr) {
     $rta .= "</tbody></table>";
     return $rta;
 }
-
+ */
 FUNCTION lis_family(){
 	var_dump($_POST['id']);
 /* 	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['id_acompsic']) ? divide($_POST['id_acompsic']) : null);
