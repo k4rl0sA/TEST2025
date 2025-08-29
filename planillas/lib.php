@@ -104,8 +104,11 @@ function cmp_planillas(){
     $c[]= new cmp('caja','nu',50,$d['caja'] ,$w.' '.$o, 'Caja','','','',true,true,'','col-15');
     
     foreach ($c as $cmp) $rta .= $cmp->put();
-    $rta.="<div class='encabezado'>TABLA SEGUIMIENTOS</div>
-	<div style='float:right; width:45%; border:1px solid #ccc; padding:10px;' id='family-lis'>".lis_family()."</div></div>";
+    $rta.="
+	<div style='float:right; width:45%; border:1px solid #ccc; padding:10px;' id='family-lis'>".lis_family()."</div>";
+$rta.="
+	<div style='float:right; width:45%; border:1px solid #ccc; padding:10px;' id='family-lis'>".lis_indivi()."</div>";
+
 
   /*    $rta .= "<div class='panel-resumen' style='margin-bottom:20px;'>
   <div style='float:left; width:50%; border:1px solid #ccc; padding:10px;'>
@@ -143,6 +146,31 @@ $rta .="
   <div style='clear:both;'></div>
 </div>
 ";
+    return $rta;
+}
+
+function lis_indivi($data_arr) {
+    $rta = "<table class='tablesorter' cellspacing=0 style='width:100%;text-align:center;'>";
+    $rta .= "<thead><tr>
+                <th>Id_People</th>
+                <th>Alertas</th>
+                <th>Signos</th>
+            </tr></thead>";
+    $rta .= "<tbody>";
+    foreach ($data_arr as $row) {
+        $rta .= "<tr>";
+        $rta .= "<td>{$row['Id_People']}</td>";
+        // Alertas: check si completado, equis si pendiente
+        $rta .= "<td style='font-size:1.5em;'>" . 
+            ($row['Alertas'] == 'SI' ? "<span style='color:green;'>&#10003;</span>" : "<span style='color:red;'>&#10007;</span>") . 
+            "</td>";
+        // Signos: check si completado, equis si pendiente
+        $rta .= "<td style='font-size:1.5em;'>" . 
+            ($row['Signos'] == 'SI' ? "<span style='color:green;'>&#10003;</span>" : "<span style='color:red;'>&#10007;</span>") . 
+            "</td>";
+        $rta .= "</tr>";
+    }
+    $rta .= "</tbody></table>";
     return $rta;
 }
 
