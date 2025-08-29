@@ -143,18 +143,34 @@ function family_planillas(){
 }
 
 function indivi_planillas(){
-    $id=divide($_POST['id']);
-    $info = datos_mysql("SELECT P.idpeople idpeople FROM person P WHERE P.idpersona = $id[0] AND P.tipo_doc = '$id[1]'");
+    $id = divide($_POST['id']); // Espera: idpersona_tipo_doc_fecha_usuario
+    // Obtener idfam desde la persona
+    $info = datos_mysql("SELECT P.idpeople idpeople, P.vivipersona idfam FROM person P WHERE P.idpersona = $id[0] AND P.tipo_doc = '$id[1]'");
     $row = $info['responseResult'][0];
-    $idp=$row['idpeople'];
-    $items = [ ];
-    // var_dump($items);
+    $idfam = $row['idfam'];
+    $fecha = $id[2];
+    $usuario = $id[3];
+
+    $sql = "SELECT 
+        P.idpeople,
+        CASE WHEN A.id_alert IS NOT NULL THEN 'Completado' ELSE 'Validar' END AS estado_alerta,
+        CASE WHEN S.id_signos IS NOT NULL THEN 'Completado' ELSE 'Validar' END AS estado_signos
+    FROM person P
+    LEFT JOIN hog_alert A ON P.idpeople = A.idpeople AND A.fecha = '$fecha' AND A.usu_creo = $usuario
+    LEFT JOIN hog_signos S ON P.idpeople = S.idpeople AND S.fecha_toma = '$fecha' AND S.usu_create = $usuario
+    WHERE P.vivipersona = $idfam";
+
+    $info = datos_mysql($sql);
     $result = [];
-    foreach ($items as $nombre => $sql) {
-        $info = datos_mysql($sql);
-        $estado = $info['responseResult'][0]['Estado'] ?? 'Validar';
-        $result[] = ['nombre' => $nombre, 'estado' => $estado];
-    }   
+    foreach ($info['responseResult'] as $row) {
+        $result[] = [
+            'idpeople' => $row['idpeople'],
+            'estado_alerta' => $row['estado_alerta'],
+            'estado_signos' => $row['estado_signos']
+        ];
+    }
+    echo json_encode($result);
+    die;
 }
 
 
