@@ -156,7 +156,7 @@ FUNCTION lis_family(){
   $pag=(isset($_POST['pag-family']))? ($_POST['pag-family']-1)* $regxPag:0; */
 
   // CAMBIO P.tipo_doc,P.idpersona
-	$sql="SELECT CASE WHEN EXISTS (
+	$sql="SELECT 'CARACTERIZACIÓN',CASE WHEN EXISTS (
         SELECT 1 FROM hog_carac C
         WHERE C.idfam = 1 AND C.fecha = '2024-10-08' AND C.usu_create = 80811594 AND C.estado = 'A'
     ) THEN '✔' ELSE '✘' END AS Familiar";
