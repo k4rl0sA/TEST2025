@@ -104,8 +104,14 @@ function cmp_planillas(){
     $c[]= new cmp('caja','nu',50,$d['caja'] ,$w.' '.$o, 'Caja','','','',true,true,'','col-15');
     
     foreach ($c as $cmp) $rta .= $cmp->put();
-    $rta.="
-	<div style='float:right; width:45%; border:1px solid #ccc; padding:10px;' id='family-lis'>".lis_family()."</div>";
+
+$idfam = 1; 
+$fecha = '2024-10-08';
+$usuario = 80811594; // El usuario actual
+$rta .= "<div style='float:left; width:50%; border:1px solid #ccc; padding:10px;'>" . resumen_familiar($idfam, $fecha, $usuario) . "</div>";
+
+
+
 // $rta.="	<div style='float:right; width:45%; border:1px solid #ccc; padding:10px;' id='indivi-lis'>".lis_indivi()."</div>";
 
 
