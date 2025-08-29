@@ -37,7 +37,7 @@ function grabar(tb='',ev){
 async function cargarResumenFamiliar() {
 	const doc= document.getElementById('idpersona').value;
 	const tip = document.getElementById('tipo_doc').value;
-  const data = await getJSON('validar','family',doc+'_'+tip,'lib.php');
+  const data = await getJSON('family',mod,doc+'_'+tip,'lib.php');
   if (!data) return;
   let html = "<table style='width:100%; border-collapse:collapse;'><tr><th>Validación</th><th>Estado</th></tr>";
   data.forEach(row => {

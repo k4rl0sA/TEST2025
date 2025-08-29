@@ -110,7 +110,7 @@ function cmp_planillas(){
     return $rta;
 }
 
-function validar_family(){
+function family_planillas(){
     $id_planilla = intval($_POST['id_planilla']);
     $info = datos_mysql("SELECT P.cod_fam AS idfam, P.fecha_formato, P.colaborador FROM planillas P WHERE P.id_planilla = $id_planilla");
     $row = $info['responseResult'][0];
