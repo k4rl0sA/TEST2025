@@ -92,6 +92,7 @@ function cmp_planillas(){
 	$c[]= new cmp('tipo_doc','s','3',$d['tipo_doc'],$w.' '.$key.' '.$o,'Tipo documento','tipo_doc',null,null,true,$edit,'','col-3',"getDatKey('pEr','personOld','infplan',['idpersona','tipo_doc'],'lib.php');");//getData('pEr','personOld',['infplan']);
     // $c[]= new cmp('idpeop','t',18,'',$w.' IPe '.$o, 'Código Persona','','','',true,true);
     $c[]= new cmp('nombre','t',50,'',$w.' IPe '.$o, 'Nombre Completo','','','',false,false,'','col-5');
+    
     $o='infubi';
     $c[]= new cmp('fecha_formato','d','',$d['fecha_formato'],$w.' '.$o,'Fecha del Formato','fecha_formato',null,null,true,$edit,'','col-2',"validDate(this,$days,0);");
     $c[]= new cmp('tipo','s',3,$d['tipo'] ,$w.' '.$o, 'Tipo Planilla', 'tipo_planilla','','',true,true,'','col-2');
@@ -125,7 +126,7 @@ $rta .="
       </tr>
       <tr>
         <td>2</td>
-        <td style='color:red;'>✘</td>
+        <td style='color:red;'></td>
         <td style='color:green;'>✔</td>
       </tr>
     </table>
@@ -158,7 +159,7 @@ function resumen_familiar($idfam, $fecha, $usuario) {
     foreach ($items as $nombre => $sql) {
         $info = datos_mysql($sql);
         $estado = $info['responseResult'][0]['Estado'] ?? 'Validar';
-        $icono = $estado == 'Completado' ? "<span style='color:green;'>&#10003;</span>" : "<span style='color:red;'>&#10007;</span>";
+        $icono = $estado == 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
         $rta .= "<tr><td>$nombre</td><td>$icono</td></tr>";
     }
     $rta .= "</table>";
