@@ -172,7 +172,7 @@ $rta .="
     $rta .= "</tbody></table>";
     return $rta;
 }
- */
+ 
 FUNCTION lis_family(){
 	var_dump($_POST['id']);
 /* 	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['id_acompsic']) ? divide($_POST['id_acompsic']) : null);
@@ -180,7 +180,7 @@ FUNCTION lis_family(){
   WHERE A.estado = 'A' AND A.idpeople='".$id[0]."'");  // CAMBIO 
 	$total=$info['responseResult'][0]['total'];
 	$regxPag=4;
-  $pag=(isset($_POST['pag-family']))? ($_POST['pag-family']-1)* $regxPag:0; */
+  $pag=(isset($_POST['pag-family']))? ($_POST['pag-family']-1)* $regxPag:0; 
 
   // CAMBIO P.tipo_doc,P.idpersona
 	$sql="SELECT 'CARACTERIZACIÓN',CASE WHEN EXISTS (
@@ -188,15 +188,44 @@ FUNCTION lis_family(){
         WHERE C.idfam = 1 AND C.fecha = '2024-10-08' AND C.usu_create = 80811594 AND C.estado = 'A'
     ) THEN '✔' ELSE '✘' END AS Familiar";
 	
-    /* $sql.=" WHERE A.estado = 'A' AND A.idpeople='".$id[0]; // CAMBIO  AGREGAR ESTA LINEA 
+     $sql.=" WHERE A.estado = 'A' AND A.idpeople='".$id[0]; // CAMBIO  AGREGAR ESTA LINEA 
 	$sql.="' ORDER BY A.fecha_create"; // CAMBIO  AGREGAR ESTA LINEA
-	$sql.=' LIMIT '.$pag.','.$regxPag; */
+	$sql.=' LIMIT '.$pag.','.$regxPag; 
 	// echo $sql;
     $regxPag=4;
     $total=1;
 	$datos=datos_mysql($sql);
 	return create_table($total,$datos["responseResult"],"family",$regxPag,'lib.php');
    }
+*/
+   function resumen_familiar($idfam, $fecha, $usuario) {
+    $items = [
+        'Caracterización' => "SELECT CASE WHEN EXISTS (
+            SELECT 1 FROM hog_carac C WHERE C.idfam = $idfam AND C.fecha = '$fecha' AND C.usu_create = $usuario
+        ) THEN 'Completado' ELSE 'Validar' END AS Estado",
+        'Plan de Cuidado Familiar' => "SELECT CASE WHEN EXISTS (
+            SELECT 1 FROM hog_plancuid C WHERE C.idviv = $idfam AND C.fecha = '$fecha' AND C.usu_creo = $usuario
+        ) THEN 'Completado' ELSE 'Validar' END AS Estado",
+        'Compromisos Concertados' => "SELECT CASE WHEN EXISTS (
+            SELECT 1 FROM hog_planconc C WHERE C.idviv = $idfam AND C.fecha = '$fecha' AND C.usu_creo = $usuario
+        ) THEN 'Completado' ELSE 'Validar' END AS Estado",
+        'Tamizaje Apgar' => "SELECT CASE WHEN EXISTS (
+            SELECT 1 FROM hog_carac C WHERE C.idfam = $idfam AND C.fecha = '$fecha' AND C.usu_create = $usuario
+            AND EXISTS (
+                SELECT 1 FROM hog_tam_apgar A INNER JOIN person P ON A.idpeople = P.idpeople WHERE P.vivipersona = C.idfam
+            )
+        ) THEN 'Completado' ELSE 'Validar' END AS Estado"
+    ];
+    $rta = "<table style='width:100%; border-collapse:collapse;'><tr><th>Validación</th><th>Estado</th></tr>";
+    foreach ($items as $nombre => $sql) {
+        $info = datos_mysql($sql);
+        $estado = $info['responseResult'][0]['Estado'] ?? 'Validar';
+        $icono = $estado == 'Completado' ? "<span style='color:green;'>&#10003;</span>" : "<span style='color:red;'>&#10007;</span>";
+        $rta .= "<tr><td>$nombre</td><td>$icono $estado</td></tr>";
+    }
+    $rta .= "</table>";
+    return $rta;
+}
 
 function get_planilla() {
     $id = divide($_POST['id'] ?? '');
