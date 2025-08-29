@@ -157,7 +157,7 @@ FUNCTION lis_family(){
   // CAMBIO P.tipo_doc,P.idpersona
 	$sql="SELECT CASE WHEN EXISTS (
         SELECT 1 FROM hog_carac C
-        WHERE C.idfam = 2554 AND C.fecha = '2025-08-02' AND C.usu_create = 1072496106 AND C.estado = 'A'
+        WHERE C.idfam = 2554 AND C.fecha = '2025-08-02' AND C.usu_create = 123456789 AND C.estado = 'A'
     ) THEN '✔' ELSE '✘' END AS Caracterización";
 	
     /* $sql.=" WHERE A.estado = 'A' AND A.idpeople='".$id[0]; // CAMBIO  AGREGAR ESTA LINEA 
