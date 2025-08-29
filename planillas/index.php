@@ -37,15 +37,19 @@ function grabar(tb='',ev){
 async function cargarResumenFamiliar() {
 	const doc= document.getElementById('idpersona').value;
 	const tip = document.getElementById('tipo_doc').value;
-  const data = await getJSON('family',mod,doc+'_'+tip,'lib.php');
-  if (!data) return;
-  let html = "<table style='width:100%; border-collapse:collapse;'><tr><th>Validación</th><th>Estado</th></tr>";
-  data.forEach(row => {
-    let icono = row.estado === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
-    html += `<tr><td>${row.nombre}</td><td>${icono} ${row.estado}</td></tr>`;
-  });
-  html += "</table>";
-  document.getElementById('valida-family').innerHTML = html;
+	const fec = document.getElementById('fecha_formato').value;
+	const col = document.getElementById('colaborador').value;
+	if (doc === '' || tip === ''|| fecha === '' || col === '') {	
+  		const data = await getJSON('family',mod,doc+'_'+tip+'_'+fec+'_'+col,'lib.php');
+  		if (!data) return;
+  		let html = "<table style='width:100%; border-collapse:collapse;'><tr><th>Validación</th><th>Estado</th></tr>";
+  		data.forEach(row => {
+  		  let icono = row.estado === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
+  		  html += `<tr><td>${row.nombre}</td><td>${icono} ${row.estado}</td></tr>`;
+  		});
+  		html += "</table>";
+  		document.getElementById('valida-family').innerHTML = html;
+	}
 }
 
 </script>

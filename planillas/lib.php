@@ -111,25 +111,24 @@ function cmp_planillas(){
 }
 
 function family_planillas(){
-    $id_planilla = intval($_POST['id_planilla']);
-    $info = datos_mysql("SELECT P.cod_fam AS idfam, P.fecha_formato, P.colaborador FROM planillas P WHERE P.id_planilla = $id_planilla");
+    $id=divide($_POST['id']);
+    $info = datos_mysql("SELECT P.idpeople idpeople, P.vivipersona idfam FROM person P WHERE P.idpersona = $id[0] AND P.tipo_doc = '$id[1]'");
     $row = $info['responseResult'][0];
+    $idp=$row['idpeople'];
     $idfam = $row['idfam'];
-    $fecha = $row['fecha_formato'];
-    $usuario = $row['colaborador'];
 
     $items = [
         'Caracterización' => "SELECT CASE WHEN EXISTS (
-            SELECT 1 FROM hog_carac C WHERE C.idfam = $idfam AND C.fecha = '$fecha' AND C.usu_create = $usuario
+            SELECT 1 FROM hog_carac C WHERE C.idfam = $idfam AND C.fecha = '$id[2]' AND C.usu_create = $id[3]
         ) THEN 'Completado' ELSE 'Validar' END AS Estado",
         'Plan de Cuidado Familiar' => "SELECT CASE WHEN EXISTS (
-            SELECT 1 FROM hog_plancuid C WHERE C.idviv = $idfam AND C.fecha = '$fecha' AND C.usu_creo = $usuario
+            SELECT 1 FROM hog_plancuid C WHERE C.idviv = $idfam AND C.fecha = '$id[2]' AND C.usu_creo = $id[3]
         ) THEN 'Completado' ELSE 'Validar' END AS Estado",
         'Compromisos Concertados' => "SELECT CASE WHEN EXISTS (
-            SELECT 1 FROM hog_planconc C WHERE C.idviv = $idfam AND C.fecha = '$fecha' AND C.usu_creo = $usuario
+            SELECT 1 FROM hog_planconc C WHERE C.idviv = $idfam AND C.fecha = '$id[2]' AND C.usu_creo = $id[3]
         ) THEN 'Completado' ELSE 'Validar' END AS Estado",
         'Tamizaje Apgar' => "SELECT CASE WHEN EXISTS (
-            SELECT 1 FROM hog_carac C WHERE C.idfam = $idfam AND C.fecha = '$fecha' AND C.usu_create = $usuario
+            SELECT 1 FROM hog_carac C WHERE C.idfam = $idfam AND C.fecha = '$id[2]' AND C.usu_create = $id[3]
             AND EXISTS (
                 SELECT 1 FROM hog_tam_apgar A INNER JOIN person P ON A.idpeople = P.idpeople WHERE P.vivipersona = C.idfam
             )
