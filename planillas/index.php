@@ -42,7 +42,7 @@ async function cargarResumenFamiliar() {
 	if (doc != '' || tip != ''|| fec != '' || col != '') {	
   		const data = await getJSON('family',mod,doc+'_'+tip+'_'+fec+'_'+col,'lib.php');
   		if (!data) return;
-  		let html = "<table style='width:100%; border-collapse:collapse;'><tr><th>Validación</th><th>Estado</th></tr>";
+  		let html = "<table style='width:50%; border-collapse:collapse;'><tr><th>Validación</th><th>Estado</th></tr>";
   		data.forEach(row => {
   		  let icono = row.estado === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
   		  html += `<tr><td>${row.nombre}</td><td>${icono}</td></tr>`;
@@ -60,7 +60,7 @@ async function cargarResumenIndivi() {
     if (doc && tip && fec && col) {
         const data = await getJSON('indivi', 'planillas', doc + '_' + tip + '_' + fec + '_' + col, 'lib.php');
         if (!data) return;
-        let html = "<table style='width:100%; border-collapse:collapse;'><tr><th>ID Persona</th><th>Alertas</th><th>Signos</th></tr>";
+        let html = "<table style='width:50%; border-collapse:collapse;'><tr><th>ID Persona</th><th>Alertas</th><th>Signos</th></tr>";
         data.forEach(row => {
             let icono_alerta = row.estado_alerta === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
             let icono_signos = row.estado_signos === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
