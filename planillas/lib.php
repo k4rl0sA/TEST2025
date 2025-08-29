@@ -104,6 +104,39 @@ function cmp_planillas(){
     $c[]= new cmp('caja','nu',50,$d['caja'] ,$w.' '.$o, 'Caja','','','',true,true,'','col-15');
     
     foreach ($c as $cmp) $rta .= $cmp->put();
+    $rta .= "<div class='panel-resumen' style='margin-bottom:20px;'>
+  <div style='float:left; width:50%; border:1px solid #ccc; padding:10px;'>
+    <b>Familiar</b>
+    <ul style='list-style:none; padding-left:0;'>
+      <li>Caracterización <span style='color:green;'>✔ Completado</span></li>
+      <li>PCF <span style='color:green;'>✔ Completado</span></li>
+      <li>Compromisos <span style='color:red;'>✘ Pendiente</span></li>
+      <li>Tamizaje Apgar <span style='color:red;'>✘ Pendiente</span></li>
+    </ul>
+  </div>
+  <div style='float:right; width:45%; border:1px solid #ccc; padding:10px;'>
+    <b>Individuo</b>
+    <table style='width:100%; border-collapse:collapse;'>
+      <tr>
+        <th>Id_People</th>
+        <th>Alertas</th>
+        <th>Signos</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td style='color:green;'>✔</td>
+        <td style='color:red;'>✘</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td style='color:red;'>✘</td>
+        <td style='color:green;'>✔</td>
+      </tr>
+    </table>
+  </div>
+  <div style='clear:both;'></div>
+</div>
+";
     return $rta;
 }
 
