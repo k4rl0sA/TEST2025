@@ -109,24 +109,6 @@ $idfam = 1;
 $fecha = '2024-10-08';
 $usuario = 80811594; // El usuario actual
 $rta .= "<div style='float:left; width:50%; border:1px solid #ccc; padding:10px;'>" . resumen_familiar($idfam, $fecha, $usuario) . "</div>";
-
-
-
-// $rta.="	<div style='float:right; width:45%; border:1px solid #ccc; padding:10px;' id='indivi-lis'>".lis_indivi()."</div>";
-
-
-  /*    $rta .= "<div class='panel-resumen' style='margin-bottom:20px;'>
-  <div style='float:left; width:50%; border:1px solid #ccc; padding:10px;'>
-    <b>Familiar</b>
-    <ul style='list-style:none; padding-left:0;'>
-      <li>Caracterización <span style='color:green;'>✔ Completado</span></li>
-      <li>PCF <span style='color:green;'>✔ Completado</span></li>
-      <li>Compromisos <span style='color:red;'>✘ Pendiente</span></li>
-      <li>Tamizaje Apgar <span style='color:red;'>✘ Pendiente</span></li>
-    </ul>
-  </div>"; */
-
-
 $rta .="
   <div style='float:right; width:45%; border:1px solid #ccc; padding:10px;'>
     <b>Individuo</b>
@@ -154,57 +136,7 @@ $rta .="
     return $rta;
 }
 
-/* function lis_indivi($data_arr) {
-    $rta = "<table class='tablesorter' cellspacing=0 style='width:100%;text-align:center;'>";
-    $rta .= "<thead><tr>
-                <th>Id_People</th>
-                <th>Alertas</th>
-                <th>Signos</th>
-            </tr></thead>";
-    $rta .= "<tbody>";
-    foreach ($data_arr as $row) {
-        $rta .= "<tr>";
-        $rta .= "<td>{$row['Id_People']}</td>";
-        // Alertas: check si completado, equis si pendiente
-        $rta .= "<td style='font-size:1.5em;'>" . 
-            ($row['Alertas'] == 'SI' ? "<span style='color:green;'>&#10003;</span>" : "<span style='color:red;'>&#10007;</span>") . 
-            "</td>";
-        // Signos: check si completado, equis si pendiente
-        $rta .= "<td style='font-size:1.5em;'>" . 
-            ($row['Signos'] == 'SI' ? "<span style='color:green;'>&#10003;</span>" : "<span style='color:red;'>&#10007;</span>") . 
-            "</td>";
-        $rta .= "</tr>";
-    }
-    $rta .= "</tbody></table>";
-    return $rta;
-}
- 
-FUNCTION lis_family(){
-	var_dump($_POST['id']);
-/* 	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['id_acompsic']) ? divide($_POST['id_acompsic']) : null);
-  $info=datos_mysql("SELECT COUNT(*) total FROM vsp_acompsic A LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
-  WHERE A.estado = 'A' AND A.idpeople='".$id[0]."'");  // CAMBIO 
-	$total=$info['responseResult'][0]['total'];
-	$regxPag=4;
-  $pag=(isset($_POST['pag-family']))? ($_POST['pag-family']-1)* $regxPag:0; 
-
-  // CAMBIO P.tipo_doc,P.idpersona
-	$sql="SELECT 'CARACTERIZACIÓN',CASE WHEN EXISTS (
-        SELECT 1 FROM hog_carac C
-        WHERE C.idfam = 1 AND C.fecha = '2024-10-08' AND C.usu_create = 80811594 AND C.estado = 'A'
-    ) THEN '✔' ELSE '✘' END AS Familiar";
-	
-     $sql.=" WHERE A.estado = 'A' AND A.idpeople='".$id[0]; // CAMBIO  AGREGAR ESTA LINEA 
-	$sql.="' ORDER BY A.fecha_create"; // CAMBIO  AGREGAR ESTA LINEA
-	$sql.=' LIMIT '.$pag.','.$regxPag; 
-	// echo $sql;
-    $regxPag=4;
-    $total=1;
-	$datos=datos_mysql($sql);
-	return create_table($total,$datos["responseResult"],"family",$regxPag,'lib.php');
-   }
-*/
-   function resumen_familiar($idfam, $fecha, $usuario) {
+function resumen_familiar($idfam, $fecha, $usuario) {
     $items = [
         'Caracterización' => "SELECT CASE WHEN EXISTS (
             SELECT 1 FROM hog_carac C WHERE C.idfam = $idfam AND C.fecha = '$fecha' AND C.usu_create = $usuario
