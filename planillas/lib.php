@@ -103,10 +103,9 @@ function cmp_planillas(){
     $c[]= new cmp('estado_planilla','s',3,$d['estado_planilla'] ,$w.' '.$o, 'Estado Planilla', 'estado_planilla','','',true,true,'','col-2');
     $c[]= new cmp('carpeta','nu',50,$d['carpeta'] ,$w.' '.$o, 'Carpeta','','','',true,true,'','col-15');
     $c[]= new cmp('caja','nu',50,$d['caja'] ,$w.' '.$o, 'Caja','','','',true,true,'','col-15');
-    
     foreach ($c as $cmp) $rta .= $cmp->put();
-
     $rta .= "<div id='valida-family'></div>";
+    $rta .= "<div id='valida-indivi'></div>";
     return $rta;
 }
 
@@ -116,9 +115,7 @@ function family_planillas(){
     $row = $info['responseResult'][0];
     $idp=$row['idpeople'];
     $idfam = $row['idfam'];
-
-    $items = [
-        'Caracterización' => "SELECT CASE WHEN EXISTS (
+    $items = ['Caracterización' => "SELECT CASE WHEN EXISTS (
             SELECT 1 FROM hog_carac C WHERE C.idfam = $idfam AND C.fecha = '$id[2]' AND C.usu_create = $id[3]
         ) THEN 'Completado' ELSE 'Validar' END AS Estado",
         'Plan de Cuidado Familiar' => "SELECT CASE WHEN EXISTS (
@@ -144,6 +141,23 @@ function family_planillas(){
     echo json_encode($result);
     die;
 }
+
+function indivi_planillas(){
+    $id=divide($_POST['id']);
+    $info = datos_mysql("SELECT P.idpeople idpeople FROM person P WHERE P.idpersona = $id[0] AND P.tipo_doc = '$id[1]'");
+    $row = $info['responseResult'][0];
+    $idp=$row['idpeople'];
+    $items = [ ];
+    // var_dump($items);
+    $result = [];
+    foreach ($items as $nombre => $sql) {
+        $info = datos_mysql($sql);
+        $estado = $info['responseResult'][0]['Estado'] ?? 'Validar';
+        $result[] = ['nombre' => $nombre, 'estado' => $estado];
+    }   
+}
+
+
 
 function get_planilla() {
     $id = divide($_POST['id'] ?? '');
