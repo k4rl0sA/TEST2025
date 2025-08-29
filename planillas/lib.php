@@ -126,7 +126,7 @@ $rta .="
       </tr>
       <tr>
         <td>2</td>
-        <td style='color:red;'></td>
+        <td style='color:red;'>✔</td>
         <td style='color:green;'>✔</td>
       </tr>
     </table>
