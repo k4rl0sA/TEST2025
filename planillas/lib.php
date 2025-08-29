@@ -159,7 +159,7 @@ function resumen_familiar($idfam, $fecha, $usuario) {
         $info = datos_mysql($sql);
         $estado = $info['responseResult'][0]['Estado'] ?? 'Validar';
         $icono = $estado == 'Completado' ? "<span style='color:green;'>&#10003;</span>" : "<span style='color:red;'>&#10007;</span>";
-        $rta .= "<tr><td>$nombre</td><td>$icono $estado</td></tr>";
+        $rta .= "<tr><td>$nombre</td><td>$icono</td></tr>";
     }
     $rta .= "</table>";
     return $rta;
