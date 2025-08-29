@@ -88,7 +88,7 @@ function cmp_planillas(){
     $c[]= new cmp($o,'e',null,'INFORMACIÓN GENERAL',$w);
     $c[]= new cmp('idp','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
     $c[]= new cmp('idpersona','nu','9999999999999999',$d['idpersona'],$w.' '.$key.' '.$o,'Identificación <a href="https://www.adres.gov.co/consulte-su-eps" target="_blank">     Abrir ADRES</a>','idpersona',null,null,true,$edit,'','col-2');
-	$c[]= new cmp('tipo_doc','s','3',$d['tipo_doc'],$w.' '.$key.' '.$o,'Tipo documento','tipo_doc',null,null,true,$edit,'','col-3',"getDatForm('pEr','personOld',['infplan']);");
+	$c[]= new cmp('tipo_doc','s','3',$d['tipo_doc'],$w.' '.$key.' '.$o,'Tipo documento','tipo_doc',null,null,true,$edit,'','col-3',"getDatKey('pEr','personOld','infplan',['tipo_doc'],'lib.php');");//getData('pEr','personOld',['infplan']);
     // $c[]= new cmp('idpeop','t',18,'',$w.' IPe '.$o, 'Código Persona','','','',true,true);
     $c[]= new cmp('nombre','t',50,'',$w.' IPe '.$o, 'Nombre Completo','','','',false,false,'','col-5');
     $o='infubi';
