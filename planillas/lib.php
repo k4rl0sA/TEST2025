@@ -104,6 +104,9 @@ function cmp_planillas(){
     $c[]= new cmp('caja','nu',50,$d['caja'] ,$w.' '.$o, 'Caja','','','',true,true,'','col-15');
     
     foreach ($c as $cmp) $rta .= $cmp->put();
+    $rta.="<div class='encabezado'>TABLA SEGUIMIENTOS</div>
+	<div style='float:right; width:45%; border:1px solid #ccc; padding:10px;' id='family-lis'>".lis_family()."</div></div>";
+
     $rta .= "<div class='panel-resumen' style='margin-bottom:20px;'>
   <div style='float:left; width:50%; border:1px solid #ccc; padding:10px;'>
     <b>Familiar</b>
@@ -114,6 +117,8 @@ function cmp_planillas(){
       <li>Tamizaje Apgar <span style='color:red;'>✘ Pendiente</span></li>
     </ul>
   </div>
+
+
   <div style='float:right; width:45%; border:1px solid #ccc; padding:10px;'>
     <b>Individuo</b>
     <table style='width:100%; border-collapse:collapse;'>
@@ -139,6 +144,30 @@ function cmp_planillas(){
 ";
     return $rta;
 }
+
+FUNCTION lis_family(){
+	// var_dump($_POST['id']);
+	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['id_acompsic']) ? divide($_POST['id_acompsic']) : null);
+  $info=datos_mysql("SELECT COUNT(*) total FROM vsp_acompsic A LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
+  WHERE A.estado = 'A' AND A.idpeople='".$id[0]."'");  // CAMBIO 
+	$total=$info['responseResult'][0]['total'];
+	$regxPag=4;
+  $pag=(isset($_POST['pag-family']))? ($_POST['pag-family']-1)* $regxPag:0;
+
+  // CAMBIO P.tipo_doc,P.idpersona
+	$sql="SELECT `id_acompsic` ACCIONES,id_acompsic 'Cod Registro',
+  P.tipo_doc,P.idpersona,fecha_seg Fecha,numsegui Seguimiento,FN_CATALOGODESC(87,evento) EVENTO,FN_CATALOGODESC(73,estado_s) estado,cierre_caso Cierra, 
+fecha_cierre 'Fecha de Cierre',nombre Creó 
+FROM vsp_acompsic A
+	LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
+  LEFT JOIN   person P ON A.idpeople=P.idpeople";// CAMBIO AGREGAR ESTA LINEA
+	$sql.=" WHERE A.estado = 'A' AND A.idpeople='".$id[0]; // CAMBIO  AGREGAR ESTA LINEA 
+	$sql.="' ORDER BY A.fecha_create"; // CAMBIO  AGREGAR ESTA LINEA
+	$sql.=' LIMIT '.$pag.','.$regxPag;
+	// echo $sql;
+	$datos=datos_mysql($sql);
+	return create_table($total,$datos["responseResult"],"family",$regxPag,'../lib.php');
+   }
 
 function get_planilla() {
     $id = divide($_POST['id'] ?? '');
