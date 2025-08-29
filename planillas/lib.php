@@ -107,7 +107,7 @@ function cmp_planillas(){
     $rta.="<div class='encabezado'>TABLA SEGUIMIENTOS</div>
 	<div style='float:right; width:45%; border:1px solid #ccc; padding:10px;' id='family-lis'>".lis_family()."</div></div>";
 
-    /* $rta .= "<div class='panel-resumen' style='margin-bottom:20px;'>
+  /*    $rta .= "<div class='panel-resumen' style='margin-bottom:20px;'>
   <div style='float:left; width:50%; border:1px solid #ccc; padding:10px;'>
     <b>Familiar</b>
     <ul style='list-style:none; padding-left:0;'>
@@ -116,9 +116,10 @@ function cmp_planillas(){
       <li>Compromisos <span style='color:red;'>✘ Pendiente</span></li>
       <li>Tamizaje Apgar <span style='color:red;'>✘ Pendiente</span></li>
     </ul>
-  </div>
+  </div>"; */
 
 
+$rta .="
   <div style='float:right; width:45%; border:1px solid #ccc; padding:10px;'>
     <b>Individuo</b>
     <table style='width:100%; border-collapse:collapse;'>
