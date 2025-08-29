@@ -105,7 +105,7 @@ function cmp_planillas(){
     <?php
 // ...existing code...
     foreach ($c as $cmp) $rta .= $cmp->put();
-    $rta .= "
+    /* $rta .= "
 <div class='panel-resumen' style='margin-bottom:20px;'>
   <div style='float:left; width:50%; border:1px solid #ccc; padding:10px;'>
     <b>Familiar</b>
@@ -138,7 +138,7 @@ function cmp_planillas(){
   </div>
   <div style='clear:both;'></div>
 </div>
-";
+"; */
     return $rta;
 }
 
