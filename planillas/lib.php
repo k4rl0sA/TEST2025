@@ -134,6 +134,7 @@ function family_planillas(){
             )
         ) THEN 'Completado' ELSE 'Validar' END AS Estado"
     ];
+    var_dump($items);
     $result = [];
     foreach ($items as $nombre => $sql) {
         $info = datos_mysql($sql);
