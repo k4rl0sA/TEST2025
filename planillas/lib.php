@@ -104,9 +104,9 @@ function cmp_planillas(){
     $c[]= new cmp('carpeta','nu',50,$d['carpeta'] ,$w.' '.$o, 'Carpeta','','','',true,true,'','col-15');
     $c[]= new cmp('caja','nu',50,$d['caja'] ,$w.' '.$o, 'Caja','','','',true,true,'','col-15');
     foreach ($c as $cmp) $rta .= $cmp->put();
-    $rta .= "<div class='padre col-10'>
-        <div id='valida-family'></div>
-        <div id='valida-indivi'></div>
+    $rta .= "<div class='padre col-10' style='display: flex; gap: 10px;'>
+        <div id='valida-family' style='flex: 1;'></div>
+        <div id='valida-indivi' style='flex: 1;'></div>
     </div>";
     return $rta;
 }
