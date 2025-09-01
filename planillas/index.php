@@ -43,10 +43,10 @@ async function cargarResumenFamiliar() {
 	if (doc != '' || tip != ''|| fec != '' || col != '') {	
   		const data = await getJSON('family',mod,doc+'_'+tip+'_'+fec+'_'+col,'lib.php');
   		if (!data) return;
-  		let html = "<table style='width:100%; border-collapse:collapse;'><tr><th>Validación</th><th>Estado</th></tr>";
+  		let html = "<table style='width:100%; border-collapse:collapse;'><tr><th>Validación</th><th>Estado</th><th>Fecha</th></tr>";
   		data.forEach(row => {
   		  let icono = row.estado === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
-  		  html += `<tr><td>${row.nombre} ${row.fecha_ultima}</td><td>${icono} ${row.fecha_ultima}</td></tr>`;
+  		  html += `<tr><td>${row.nombre} ${row.fecha_ultima}</td><td>${icono} </td><td>${row.fecha_ultima}</td></tr>`;
   		});
   		html += "</table>";
   		document.getElementById('valida-family').innerHTML = html;
