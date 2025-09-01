@@ -95,7 +95,7 @@ function cmp_planillas(){
     
     $o='infubi';
     $c[]= new cmp('fecha_formato','d','',$d['fecha_formato'],$w.' '.$o,'Fecha del Formato','fecha_formato',null,null,true,$edit,'','col-2',"validDate(this,$days,0);");
-    $c[]= new cmp('tipo','s',3,$d['tipo'] ,$w.' '.$o, 'Tipo Planilla', 'tipo_planilla','','',true,true,'','col-2');
+    $c[]= new cmp('tipo','s',3,$d['tipo'] ,$w.' '.$o, 'Tipo Planilla', 'tipo_planilla','','',true,true,'','col-2',"typeSheet();");
     $c[]= new cmp('evento','s',3,$d['evento'] ,$w.' Pcf '.$o, 'Evento','evento','','',true,false,'','col-4');
     $c[]= new cmp('seguimiento','nu',3,$d['seguimiento'] ,$w.' Pcf '.$o, 'Seguimiento','','','',true,false,'','col-2');
     $c[]= new cmp('perfil','s',3,'',$w.' '.$o,'Perfil','perfil',null,'',true,true,'','col-15',"changeSelect('perfil','colaborador');");//  ,"enabDepeValu('perfil','uSR');
