@@ -99,7 +99,7 @@ function cmp_planillas(){
     $c[]= new cmp('evento','s',3,$d['evento'] ,$w.' Pcf '.$o, 'Evento','evento','','',true,false,'','col-4');
     $c[]= new cmp('seguimiento','nu',50,$d['seguimiento'] ,$w.' Pcf '.$o, 'Seguimiento','','','',true,false,'','col-2','',[],false,'lib.php',1);
     $c[]= new cmp('perfil','s',3,'',$w.' '.$o,'Perfil','perfil',null,'',true,true,'','col-15',"changeSelect('perfil','colaborador');");//  ,"enabDepeValu('perfil','uSR');
-    $c[]= new cmp('colaborador','s',20,$d['colaborador'] ,$w.' uSR '.$o, 'Colaborador','colaborador','','',false,true,'','col-35',"cargarResumenIndivi();");//  ,"enabDepeValu('perfil','uSR');cargarResumenFamiliar();
+    $c[]= new cmp('colaborador','s',20,$d['colaborador'] ,$w.' uSR '.$o, 'Colaborador','colaborador','','',false,true,'','col-35',"cargarResumenFamiliar();cargarResumenIndivi();");//  ,"enabDepeValu('perfil','uSR');
     $c[]= new cmp('estado_planilla','s',3,$d['estado_planilla'] ,$w.' '.$o, 'Estado Planilla', 'estado_planilla','','',true,true,'','col-2');
     $c[]= new cmp('carpeta','nu',50,$d['carpeta'] ,$w.' '.$o, 'Carpeta','','','',true,true,'','col-15');
     $c[]= new cmp('caja','nu',50,$d['caja'] ,$w.' '.$o, 'Caja','','','',true,true,'','col-15');
