@@ -1482,7 +1482,7 @@ function EntState(a, b, c, d, e) {
 }
 function typeSheet(){
 	const conditions = [
-		{ id: 'tipo', value: '1', compare: true }
+		{ id: 'tipo', value: '2', compare: true }
 	];
-	EnabDepeDynamic(['datiden'], conditions);
+	EnabDepeDynamic(['Pcf'], conditions);
 }
