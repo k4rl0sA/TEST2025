@@ -131,7 +131,7 @@ function family_planillas(){
         'Tamizaje Apgar' => "SELECT CASE WHEN EXISTS (SELECT 1 FROM hog_carac C WHERE C.idfam = $idfam AND C.fecha = '$id[2]' AND C.usu_create = $id[3] AND C.estado = 'A' AND EXISTS (SELECT 1 FROM hog_tam_apgar A INNER JOIN person P ON A.idpeople = P.idpeople WHERE P.vivipersona = C.idfam AND C.fecha = A.fecha_toma AND C.usu_create = A.usu_creo)) THEN 'Completado'  ELSE 'Validar' END AS Estado,
         (SELECT MAX(A.fecha_toma) FROM hog_tam_apgar A INNER JOIN person P ON A.idpeople = P.idpeople WHERE P.vivipersona = $idfam AND A.fecha_toma >= (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') ELSE DATE_FORMAT(CURDATE(), '%Y-%m-01') END) AND A.fecha_toma < ( CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(CURDATE(), '%Y-%m-01') ELSE DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') END)) AS fecha_ultima;"
     ];
-    var_dump($items);
+    // var_dump($items);
     $result = [];
     foreach ($items as $nombre => $sql) {
         $info = datos_mysql($sql);
