@@ -135,8 +135,7 @@ function family_planillas(){
             AND EXISTS (
                 SELECT 1 FROM hog_tam_apgar A INNER JOIN person P ON A.idpeople = P.idpeople WHERE P.vivipersona = C.idfam
             )
-        ) THEN 'Completado' ELSE 'Validar' END AS Estado,
-        (SELECT MAX(A2.fecha) FROM hog_tam_apgar A2 INNER JOIN person P2 ON A2.idpeople = P2.idpeople WHERE P2.vivipersona = $idfam AND A2.usu_create = $id[3]) AS fecha_ultima;"
+        ) THEN 'Completado' ELSE 'Validar' END AS Estado"
     ];
     // var_dump($items);
     $result = [];
