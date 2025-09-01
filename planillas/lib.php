@@ -172,7 +172,7 @@ function indivi_planillas(){
     FROM person P LEFT JOIN hog_alert A ON P.idpeople = A.idpeople AND A.fecha = '$id[2]' AND A.usu_creo = $id[3] AND A.estado = 'A'
     LEFT JOIN hog_signos S ON P.idpeople = S.idpeople AND S.fecha_toma = '$id[2]' AND S.usu_create = $id[3] AND S.estado = 'A'
     LEFT JOIN hog_alert Aw ON P.idpeople = Aw.idpeople AND Aw.usu_creo = $id[3] AND Aw.estado = 'A' AND Aw.fecha BETWEEN (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_SUB(DATE_SUB(CURDATE(), INTERVAL DAY(CURDATE()) - 1 DAY), INTERVAL 1 MONTH) ELSE DATE_SUB(CURDATE(), INTERVAL DAY(CURDATE()) - 1 DAY) END) AND (CASE WHEN DAY(CURDATE()) <= 5 THEN LAST_DAY(DATE_SUB(CURDATE(), INTERVAL 1 MONTH)) ELSE LAST_DAY(CURDATE()) END) 
-    LEFT JOIN hog_signos Sw ON P.idpeople = Sw.idpeople AND Sw.usu_create = $id[3] Sw.estado = 'A' AND Sw.fecha_toma BETWEEN (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_SUB(DATE_SUB(CURDATE(), INTERVAL DAY(CURDATE()) - 1 DAY), INTERVAL 1 MONTH) ELSE DATE_SUB(CURDATE(), INTERVAL DAY(CURDATE()) - 1 DAY) END) AND (CASE WHEN DAY(CURDATE()) <= 5 THEN LAST_DAY(DATE_SUB(CURDATE(), INTERVAL 1 MONTH)) ELSE LAST_DAY(CURDATE()) END) 
+    LEFT JOIN hog_signos Sw ON P.idpeople = Sw.idpeople AND Sw.usu_create = $id[3] AND Sw.estado = 'A' AND Sw.fecha_toma BETWEEN (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_SUB(DATE_SUB(CURDATE(), INTERVAL DAY(CURDATE()) - 1 DAY), INTERVAL 1 MONTH) ELSE DATE_SUB(CURDATE(), INTERVAL DAY(CURDATE()) - 1 DAY) END) AND (CASE WHEN DAY(CURDATE()) <= 5 THEN LAST_DAY(DATE_SUB(CURDATE(), INTERVAL 1 MONTH)) ELSE LAST_DAY(CURDATE()) END) 
     WHERE P.vivipersona = $idfam GROUP BY P.idpeople;";
 
     // var_dump($sql);
