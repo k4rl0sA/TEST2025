@@ -69,7 +69,7 @@ function cap_menus($a,$b='cap',$con='con') {
   if ($a=='planillas'  && isset($acc['crear']) && $acc['crear']=='SI'){  
     $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
     $rta .= "<li class='icono $a actualizar'  title='Actualizar'      Onclick=\"act_lista('$a',this);\"></li>";
-    $rta .= "<li class='icono $a ajustar'  title='Actualizar'      Onclick=\"act_lista('$a',this);\"></li>";
+    $rta .= "<li class='icono $a crear'  title='Actualizar'      Onclick=\"ocultar('$a','pro');mostrar('$a','pro');\"></li>";//mostrar(mod,'pro');
   }
   return $rta;
 }
