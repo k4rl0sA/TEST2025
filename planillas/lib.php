@@ -119,7 +119,7 @@ function family_planillas(){
     $idfam = $row['idfam'];
     $items = ['Caracterización' => "SELECT CASE WHEN EXISTS (
             SELECT 1 FROM hog_carac C WHERE C.idfam = $idfam AND C.fecha = '$id[2]' AND C.usu_create = $id[3]
-        ) THEN 'Completado' ELSE 'Validar' END AS Estado",
+        ) THEN 'Completado' ELSE 'Validar' END AS Estado,(SELECT MAX(C2.fecha) FROM hog_carac C2 WHERE C2.idfam = $idfam AND C2.usu_create = $id[3]) AS fecha_ultima;",
         'Plan de Cuidado Familiar' => "SELECT CASE WHEN EXISTS (
             SELECT 1 FROM hog_plancuid C WHERE C.idviv = $idfam AND C.fecha = '$id[2]' AND C.usu_creo = $id[3]
         ) THEN 'Completado' ELSE 'Validar' END AS Estado",
@@ -138,6 +138,11 @@ function family_planillas(){
     foreach ($items as $nombre => $sql) {
         $info = datos_mysql($sql);
         $estado = $info['responseResult'][0]['Estado'] ?? 'Validar';
+        $fecha_ultima = isset($info['responseResult'][0]['fecha_ultima']) ? $info['responseResult'][0]['fecha_ultima'] : '';
+        // Si es Validar y hay fecha_ultima, mostrarla junto al icono
+        if ($estado == 'Validar' && $fecha_ultima != '' && $nombre == 'Caracterización') {
+            $estado = 'Validar ' . $fecha_ultima;
+        }
         $result[] = ['nombre' => $nombre, 'estado' => $estado];
     }
     echo json_encode($result);
