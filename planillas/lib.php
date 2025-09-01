@@ -117,21 +117,26 @@ function family_planillas(){
     $row = $info['responseResult'][0];
     $idp=$row['idpeople'];
     $idfam = $row['idfam'];
-    $items = ['Caracterización' => "SELECT CASE WHEN EXISTS (
+    $items = [
+        'Caracterización' => "SELECT CASE WHEN EXISTS (
             SELECT 1 FROM hog_carac C WHERE C.idfam = $idfam AND C.fecha = '$id[2]' AND C.usu_create = $id[3]
-        ) THEN 'Completado' ELSE 'Validar' END AS Estado,(SELECT MAX(C2.fecha) FROM hog_carac C2 WHERE C2.idfam = $idfam AND C2.usu_create = $id[3]) AS fecha_ultima;",
+        ) THEN 'Completado' ELSE 'Validar' END AS Estado,
+        (SELECT MAX(C2.fecha) FROM hog_carac C2 WHERE C2.idfam = $idfam AND C2.usu_create = $id[3]) AS fecha_ultima;",
         'Plan de Cuidado Familiar' => "SELECT CASE WHEN EXISTS (
             SELECT 1 FROM hog_plancuid C WHERE C.idviv = $idfam AND C.fecha = '$id[2]' AND C.usu_creo = $id[3]
-        ) THEN 'Completado' ELSE 'Validar' END AS Estado",
+        ) THEN 'Completado' ELSE 'Validar' END AS Estado,
+        (SELECT MAX(C2.fecha) FROM hog_plancuid C2 WHERE C2.idviv = $idfam AND C2.usu_creo = $id[3]) AS fecha_ultima;",
         'Compromisos Concertados' => "SELECT CASE WHEN EXISTS (
             SELECT 1 FROM hog_planconc C WHERE C.idviv = $idfam AND C.fecha = '$id[2]' AND C.usu_creo = $id[3]
-        ) THEN 'Completado' ELSE 'Validar' END AS Estado",
+        ) THEN 'Completado' ELSE 'Validar' END AS Estado,
+        (SELECT MAX(C2.fecha) FROM hog_planconc C2 WHERE C2.idviv = $idfam AND C2.usu_creo = $id[3]) AS fecha_ultima;",
         'Tamizaje Apgar' => "SELECT CASE WHEN EXISTS (
             SELECT 1 FROM hog_carac C WHERE C.idfam = $idfam AND C.fecha = '$id[2]' AND C.usu_create = $id[3]
             AND EXISTS (
                 SELECT 1 FROM hog_tam_apgar A INNER JOIN person P ON A.idpeople = P.idpeople WHERE P.vivipersona = C.idfam
             )
-        ) THEN 'Completado' ELSE 'Validar' END AS Estado"
+        ) THEN 'Completado' ELSE 'Validar' END AS Estado,
+        (SELECT MAX(A2.fecha) FROM hog_tam_apgar A2 INNER JOIN person P2 ON A2.idpeople = P2.idpeople WHERE P2.vivipersona = $idfam AND A2.usu_create = $id[3]) AS fecha_ultima;"
     ];
     // var_dump($items);
     $result = [];
