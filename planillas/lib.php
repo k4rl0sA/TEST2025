@@ -152,23 +152,24 @@ function indivi_planillas(){
     $row = $info['responseResult'][0];
     $idfam = $row['idfam'];
     $fecha = $id[2];
-    $usuario = $id[3];
 
-    $sql = "SELECT 
+/*     $sql = "SELECT 
         P.idpeople,
         CASE WHEN A.id_alert IS NOT NULL THEN 'Completado' ELSE 'Validar' END AS estado_alerta,
         CASE WHEN S.id_signos IS NOT NULL THEN 'Completado' ELSE 'Validar' END AS estado_signos
     FROM person P
     LEFT JOIN hog_alert A ON P.idpeople = A.idpeople AND A.fecha = '$fecha' AND A.usu_creo = $usuario
     LEFT JOIN hog_signos S ON P.idpeople = S.idpeople AND S.fecha_toma = '$fecha' AND S.usu_create = $usuario
-    WHERE P.vivipersona = $idfam";
+    WHERE P.vivipersona = $idfam"; */
 
+    $sql="SELECT P.idpeople,MAX(A.fecha) AS fecha_alerta_ultima, CASE WHEN MAX(A.fecha) IS NOT NULL THEN 'Completado' ELSE 'Validar' END AS estado_alerta, MAX(S.fecha_toma) AS fecha_signos_ultima, CASE WHEN MAX(S.fecha_toma) IS NOT NULL THEN 'Completado' ELSE 'Validar' END AS estado_signos FROM person P LEFT JOIN hog_alert A  ON P.idpeople = A.idpeople AND A.usu_creo = $id[3]    AND A.fecha >= ( CASE  WHEN DAY(CURDATE()) <= 5  THEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') ELSE DATE_FORMAT(CURDATE(), '%Y-%m-01') END ) AND A.fecha < (CASE WHEN DAY(CURDATE()) <= 5  THEN DATE_FORMAT(CURDATE(), '%Y-%m-01') ELSE DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') END ) LEFT JOIN hog_signos S  ON P.idpeople = S.idpeople AND S.usu_create = $id[3] AND S.fecha_toma >= ( CASE  WHEN DAY(CURDATE()) <= 5  THEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') ELSE DATE_FORMAT(CURDATE(), '%Y-%m-01') END ) AND S.fecha_toma < ( CASE  WHEN DAY(CURDATE()) <= 5  THEN DATE_FORMAT(CURDATE(), '%Y-%m-01') ELSE DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') END ) WHERE P.vivipersona = $idfam GROUP BY P.idpeople;";
     $info = datos_mysql($sql);
     $result = [];
     foreach ($info['responseResult'] as $row) {
         $result[] = [
             'idpeople' => $row['idpeople'],
             'estado_alerta' => $row['estado_alerta'],
+            'fecha_ultima' => $row['fecha_alerta_ultima'] ?? $row['fecha_signos_ultima'] ?? '',
             'estado_signos' => $row['estado_signos']
         ];
     }
