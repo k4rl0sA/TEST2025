@@ -160,12 +160,12 @@ function indivi_planillas(){
     LEFT JOIN hog_alert A ON P.idpeople = A.idpeople AND A.fecha = '$fecha' AND A.usu_creo = $usuario
     LEFT JOIN hog_signos S ON P.idpeople = S.idpeople AND S.fecha_toma = '$fecha' AND S.usu_create = $usuario
     WHERE P.vivipersona = $idfam"; */
-
     $sql = "SELECT P.idpeople, CASE WHEN MAX(A.id_alert) IS NOT NULL OR MAX(Aw.fecha) IS NOT NULL THEN 'Completado' ELSE 'Validar' END AS estado_alerta,
-     CASE WHEN MAX(Aw.fecha) IS NULL THEN MAX(A.fecha) WHEN MAX(A.fecha) IS NULL THEN MAX(Aw.fecha) WHEN MAX(Aw.fecha) >= MAX(A.fecha) THEN MAX(Aw.fecha) ELSE MAX(A.fecha) END AS fecha_alerta_ultima,
-    CASE WHEN MAX(S.id_signos) IS NOT NULL OR MAX(Sw.fecha_toma) IS NOT NULL THEN 'Completado' ELSE 'Validar' END AS estado_signos,
-    CASE WHEN MAX(Sw.fecha_toma) IS NULL THEN MAX(S.fecha_toma) WHEN MAX(S.fecha_toma) IS NULL THEN MAX(Sw.fecha_toma) WHEN MAX(Sw.fecha_toma) >= MAX(S.fecha_toma) THEN MAX(Sw.fecha_toma) ELSE MAX(S.fecha_toma) END AS fecha_signos_ultima
-    FROM person P LEFT JOIN hog_alert A ON P.idpeople = A.idpeople AND A.fecha = '$id[2]' AND A.usu_creo = $id[3] LEFT JOIN hog_signos S ON P.idpeople = S.idpeople AND S.fecha_toma = '$id[2]' AND S.usu_create = $id[3] LEFT JOIN hog_alert Aw ON P.idpeople = Aw.idpeople AND Aw.usu_creo = $id[3] AND Aw.fecha >= (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') ELSE DATE_FORMAT(CURDATE(), '%Y-%m-01') END) AND Aw.fecha < (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(CURDATE(), '%Y-%m-01') ELSE DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') END) LEFT JOIN hog_signos Sw ON P.idpeople = Sw.idpeople AND Sw.usu_create = $id[3] AND Sw.fecha_toma >= (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') ELSE DATE_FORMAT(CURDATE(), '%Y-%m-01') END) AND Sw.fecha_toma < (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(CURDATE(), '%Y-%m-01') ELSE DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') END) WHERE P.vivipersona = $idfam GROUP BY P.idpeople";
+     COALESCE(MAX(A.fecha), MAX(Aw.fecha)) AS fecha_alerta_ultima, 
+     CASE WHEN MAX(S.id_signos) IS NOT NULL OR MAX(Sw.fecha_toma) IS NOT NULL THEN 'Completado' ELSE 'Validar' END AS estado_signos, 
+     COALESCE(MAX(S.fecha_toma), MAX(Sw.fecha_toma)) AS fecha_signos_ultima
+     FROM person P LEFT JOIN hog_alert A ON P.idpeople = A.idpeople AND A.fecha = $id[2] AND A.usu_creo = $id[3] LEFT JOIN hog_signos S ON P.idpeople = S.idpeople AND S.fecha_toma = $id[2] AND S.usu_create = $id[3] LEFT JOIN hog_alert Aw ON P.idpeople = Aw.idpeople AND Aw.usu_creo = $id[3] AND Aw.fecha >= (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') ELSE DATE_FORMAT(CURDATE(), '%Y-%m-01') END) AND Aw.fecha < (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(CURDATE(), '%Y-%m-01') ELSE DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') END) LEFT JOIN hog_signos Sw ON P.idpeople = Sw.idpeople AND Sw.usu_create = $id[3] AND Sw.fecha_toma >= (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') ELSE DATE_FORMAT(CURDATE(), '%Y-%m-01') END) AND Sw.fecha_toma < (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(CURDATE(), '%Y-%m-01') ELSE DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') END) WHERE P.vivipersona = $idfam GROUP BY P.idpeople;";
+
     // var_dump($sql);
     $info = datos_mysql($sql);
     $result = [];
