@@ -1480,3 +1480,9 @@ function EntState(a, b, c, d, e) {
     });
     enaFie(document.getElementById('condi_diag'), a.value !== '1');
 }
+function typeSheet(){
+	const conditions = [
+		{ id: 'tipo', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['datiden'], conditions);
+}
