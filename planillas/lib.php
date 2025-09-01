@@ -166,7 +166,7 @@ function indivi_planillas(){
      COALESCE(MAX(S.fecha_toma), MAX(Sw.fecha_toma)) AS fecha_signos_ultima
      FROM person P LEFT JOIN hog_alert A ON P.idpeople = A.idpeople AND A.fecha = '$id[2]' AND A.usu_creo = $id[3] LEFT JOIN hog_signos S ON P.idpeople = S.idpeople AND S.fecha_toma = '$id[2]' AND S.usu_create = $id[3] LEFT JOIN hog_alert Aw ON P.idpeople = Aw.idpeople AND Aw.usu_creo = $id[3] AND Aw.fecha >= (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') ELSE DATE_FORMAT(CURDATE(), '%Y-%m-01') END) AND Aw.fecha < (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(CURDATE(), '%Y-%m-01') ELSE DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') END) LEFT JOIN hog_signos Sw ON P.idpeople = Sw.idpeople AND Sw.usu_create = $id[3] AND Sw.fecha_toma >= (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') ELSE DATE_FORMAT(CURDATE(), '%Y-%m-01') END) AND Sw.fecha_toma < (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(CURDATE(), '%Y-%m-01') ELSE DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') END) WHERE P.vivipersona = $idfam GROUP BY P.idpeople;";
 
-    var_dump($sql);
+    // var_dump($sql);
     $info = datos_mysql($sql);
     $result = [];
     foreach ($info['responseResult'] as $row) {
