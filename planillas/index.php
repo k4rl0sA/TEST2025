@@ -65,7 +65,7 @@ async function cargarResumenIndivi() {
         data.forEach(row => {
             let icono_alerta = row.estado_alerta === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
             let icono_signos = row.estado_signos === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
-            html += `<tr><td>${row.idpeople}</td><td>${icono_alerta}</td><td>${row.fecha_ultima}</td><td>${icono_signos}</td><td>${row.fecha_ultima}</td></tr>`;
+            html += `<tr><td>${row.idpeople}</td><td>${icono_alerta}</td><td>${row.fecha_alerta}</td><td>${icono_signos}</td><td>${row.fecha_signos}</td></tr>`;
         });
         html += "</table>";
         document.getElementById('valida-indivi').innerHTML = html;

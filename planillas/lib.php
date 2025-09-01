@@ -173,7 +173,8 @@ function indivi_planillas(){
         $result[] = [
             'idpeople' => $row['idpeople'],
             'estado_alerta' => $row['estado_alerta'],
-            'fecha_ultima' => $row['fecha_alerta_ultima'] ?? $row['fecha_signos_ultima'] ?? '',
+            'fecha_alerta' => $row['fecha_alerta_ultima'] ?? '',
+            'fecha_signos' => $row['fecha_signos_ultima'] ?? '',
             'estado_signos' => $row['estado_signos']
         ];
     }
