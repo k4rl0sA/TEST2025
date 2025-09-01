@@ -139,9 +139,9 @@ function family_planillas(){
         $info = datos_mysql($sql);
         $estado = $info['responseResult'][0]['Estado'] ?? 'Validar';
         $fecha_ultima = isset($info['responseResult'][0]['fecha_ultima']) ? $info['responseResult'][0]['fecha_ultima'] : '';
-        // Si es Validar y hay fecha_ultima, mostrarla junto al icono
-        if ($estado == 'Validar' && $fecha_ultima != '' && $nombre == 'Caracterización') {
-            $estado = 'Validar ' . $fecha_ultima;
+        // Mostrar siempre la fecha_ultima si existe
+        if ($fecha_ultima != '') {
+            $estado .= ' ' . $fecha_ultima;
         }
         $result[] = ['nombre' => $nombre, 'estado' => $estado];
     }
