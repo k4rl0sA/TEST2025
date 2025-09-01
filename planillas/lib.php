@@ -140,10 +140,7 @@ function family_planillas(){
         $estado = $info['responseResult'][0]['Estado'] ?? 'Validar';
         $fecha_ultima = isset($info['responseResult'][0]['fecha_ultima']) ? $info['responseResult'][0]['fecha_ultima'] : '';
         // Mostrar siempre la fecha_ultima si existe
-        if ($fecha_ultima != '') {
-            $estado .= ' ' . $fecha_ultima;
-        }
-        $result[] = ['nombre' => $nombre, 'estado' => $estado];
+        $result[] = ['nombre' => $nombre, 'estado' => $estado,'fecha_ultima'=>$fecha_ultima];
     }
     echo json_encode($result);
     die;
