@@ -690,13 +690,14 @@ class cmp { //ntwplcsdxhvuf
   public $vc;//14Validaciones personalizadas
   public $sd;//15Select dependientes
   public $so;//16Validaciones personalizadas otro evento
-  function __construct($n='dato',$t='t',$s=10,$d='',$w='div',$l='',$c='',$x='rgxtxt',$h='..',$v=true,$u=true,$tt='',$ww='col-10',$vc=false,array $sd=array(''),$so=false,$path='lib.php') {
+  function __construct($n='dato',$t='t',$s=10,$d='',$w='div',$l='',$c='',$x='rgxtxt',$h='..',$v=true,$u=true,$tt='',$ww='col-10',$vc=false,array $sd=array(''),$so=false,$path='lib.php',$min=null) {
     $this->n=$n; 
     $this->t=$t; 
     $this->w=$w;  
     $this->l=($l==''?$n:$l); 
     $this->c=$c;  
-    $this->s=$s;  
+    $this->s=$s;  // max
+    $this->min=$min; // min opcional
     $this->d=$d;  
     $this->x=($x==null?($t=='n'?'rgxdfnum':'rgxtxt'):$x);  
     $this->h=$h;  
@@ -974,7 +975,8 @@ function input_num($a){
   $name = saniti($a->n);$label = ($a->l);$value = is_numeric($a->d) ? $a->d : '';$title = saniti($a->tt);$x = saniti($a->x);
   $a->w = $a->w ?? '';
   $a->ww = $a->ww ?? '';
-  $a->s = is_numeric($a->s) ? $a->s : ''; // Validar valor máximo
+  $a->s = is_numeric($a->s) ? $a->s : ''; // max
+  $a->min = isset($a->min) && is_numeric($a->min) ? $a->min : '';
   $a->v = $a->v ?? false;
   $a->u = $a->u ?? true;
   $a->t = $a->t ?? '';
@@ -983,7 +985,8 @@ function input_num($a){
   $rta = "<div class='campo " . saniti($a->w) . " " . saniti($a->ww) . " borde1 oscuro'>";
   $rta .= "<div>{$label}</div>";
   $rta .= "<input type='number' id='{$name}' name='{$name}'";
-  if ($a->s !== '')$rta .= " max='" . saniti($a->s) . "'";
+  if ($a->s !== '') $rta .= " max='" . saniti($a->s) . "'";
+  if ($a->min !== '') $rta .= " min='" . saniti($a->min) . "'";
   $rta .= " class='" . saniti($a->w) . " " . ($a->v ? 'valido' : '') . " " . ($a->u ? 'captura' : 'bloqueo') . " " . ($a->t == 't' ? '' : 'txt-right') . "'";
   $rta .= " title='{$title}'";
   $rta .= " oninput=\"this.value = this.value.replace(/[eE]/g, '')\"";
