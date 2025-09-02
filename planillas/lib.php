@@ -265,7 +265,7 @@ function gra_planillas(){
         $idpeople=$info['responseResult'][0]['idpeople'];
     }
 
-    $sql2 = "SELECT P.idpeople, CASE WHEN MAX(A.id_alert) IS NOT NULL THEN 'Completado' ELSE 'Validar' END AS estado_alerta, 
+   /*  $sql2 = "SELECT P.idpeople, CASE WHEN MAX(A.id_alert) IS NOT NULL THEN 'Completado' ELSE 'Validar' END AS estado_alerta, 
     COALESCE(MAX(A.fecha), MAX(Aw.fecha)) AS fecha_alerta_ultima, 
     CASE WHEN MAX(S.id_signos) IS NOT NULL THEN 'Completado' ELSE 'Validar' END AS estado_signos, 
     COALESCE(MAX(S.fecha_toma), MAX(Sw.fecha_toma)) AS fecha_signos_ultima 
@@ -280,7 +280,7 @@ function gra_planillas(){
         $fecha_alerta=$info['responseResult'][0]['fecha_alerta_ultima'];
         $estado_signos=$info['responseResult'][0]['estado_signos'];
         $fecha_signos=$info['responseResult'][0]['fecha_signos_ultima'];
-    }
+    } */
      
 
 
@@ -288,7 +288,7 @@ function gra_planillas(){
     $isNew = empty($id[0]);
     if ($isNew) {
         $sql = "INSERT INTO planillas (idpeople,cod_fam,tipo,evento,seguimiento,fecha_formato,colaborador,estado_planilla,carpeta,caja,caracterizacion,pcf,comp,apgar,usu_create,fecha_create,estado) 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR), 'A')";
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? DATE_SUB(NOW(),INTERVAL 5 HOUR), 'A')";
         
         $params = [
             ['type' => 'i', 'value' => $idpeople],
