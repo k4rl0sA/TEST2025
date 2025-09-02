@@ -333,6 +333,12 @@ function openModal(modo = 'crear', id = null) {
         habilitarCamposModal(true);
         document.querySelector('.modal-footer .btn.btn-primary').onclick = crearProyecto;
         document.getElementById('projectModal').style.display = 'flex';
+
+        //predeterminar estado y ocultar campo archivo
+        document.getElementById('projectStatus').value = 'analisis';
+        document.getElementById('projectStatus').disabled = true;
+        document.getElementById('fileGroup').style.display = 'none';
+
     } else if (modo === 'ver' || modo === 'editar') {
         fetch(`lib.php?a=get_proyecto&id=${id}`)
             .then(r => r.json())
