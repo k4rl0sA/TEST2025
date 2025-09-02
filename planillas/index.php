@@ -61,7 +61,7 @@ async function cargarResumenIndivi() {
     if (doc && tip && fec && col) {
         const data = await getJSON('indivi', 'planillas', doc + '_' + tip + '_' + fec + '_' + col, 'lib.php');
         if (!data) return;
-        let html = "<table style='width:100%; border-collapse:collapse;'><tr><th>Cod Persona</th><th>Alertas</th><th>Fecha</th><th>Ajuste</th><th>Signos</th><th>Fecha</th><th>Ajuste</th></tr>";
+        let html = "<table style='width:100%; border-collapse:collapse;'><tr><th>Cod Persona</th><th>Alertas</th><th>Fecha</th><th>Fecha</th><th>Signos</th><th>Fecha</th></tr>";
         data.forEach(row => {
             let icono_alerta = row.estado_alerta === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
             let icono_signos = row.estado_signos === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
