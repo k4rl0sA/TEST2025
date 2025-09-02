@@ -151,20 +151,6 @@ function indivi_planillas(){
     $row = $info['responseResult'][0];
     $idfam = $row['idfam'];
 
-/*     $sql = "SELECT 
-        P.idpeople,
-        CASE WHEN A.id_alert IS NOT NULL THEN 'Completado' ELSE 'Validar' END AS estado_alerta,
-        CASE WHEN S.id_signos IS NOT NULL THEN 'Completado' ELSE 'Validar' END AS estado_signos
-    FROM person P
-    LEFT JOIN hog_alert A ON P.idpeople = A.idpeople AND A.fecha = '$fecha' AND A.usu_creo = $usuario
-    LEFT JOIN hog_signos S ON P.idpeople = S.idpeople AND S.fecha_toma = '$fecha' AND S.usu_create = $usuario
-    WHERE P.vivipersona = $idfam"; */
-/*     $sql = "SELECT P.idpeople, CASE WHEN MAX(A.id_alert) IS NOT NULL OR MAX(Aw.fecha) IS NOT NULL THEN 'Completado' ELSE 'Validar' END AS estado_alerta,
-     COALESCE(MAX(A.fecha), MAX(Aw.fecha)) AS fecha_alerta_ultima, 
-     CASE WHEN MAX(S.id_signos) IS NOT NULL OR MAX(Sw.fecha_toma) IS NOT NULL THEN 'Completado' ELSE 'Validar' END AS estado_signos, 
-     COALESCE(MAX(S.fecha_toma), MAX(Sw.fecha_toma)) AS fecha_signos_ultima
-     FROM person P LEFT JOIN hog_alert A ON P.idpeople = A.idpeople AND A.fecha = '$id[2]' AND A.usu_creo = $id[3] LEFT JOIN hog_signos S ON P.idpeople = S.idpeople AND S.fecha_toma = '$id[2]' AND S.usu_create = $id[3] LEFT JOIN hog_alert Aw ON P.idpeople = Aw.idpeople AND Aw.usu_creo = $id[3] AND Aw.fecha >= (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') ELSE DATE_FORMAT(CURDATE(), '%Y-%m-01') END) AND Aw.fecha < (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(CURDATE(), '%Y-%m-01') ELSE DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') END) LEFT JOIN hog_signos Sw ON P.idpeople = Sw.idpeople AND Sw.usu_create = $id[3] AND Sw.fecha_toma >= (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') ELSE DATE_FORMAT(CURDATE(), '%Y-%m-01') END) AND Sw.fecha_toma < (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(CURDATE(), '%Y-%m-01') ELSE DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') END) WHERE P.vivipersona = $idfam GROUP BY P.idpeople;"; */
-
     $sql = "SELECT P.idpeople, CASE WHEN MAX(A.id_alert) IS NOT NULL THEN 'Completado' ELSE 'Validar' END AS estado_alerta, 
     COALESCE(MAX(A.fecha), MAX(Aw.fecha)) AS fecha_alerta_ultima, 
     CASE WHEN MAX(S.id_signos) IS NOT NULL THEN 'Completado' ELSE 'Validar' END AS estado_signos, 
@@ -270,26 +256,59 @@ function opc_tipo_doc($id=''){
 }
 // Grabar/actualizar planilla
 function gra_planillas(){
+    $sql1="SELECT idpeople,vivipersona
+		FROM `person` 
+   	WHERE idpersona ='".$_POST['idpeople']."' AND tipo_doc='".$_POST['tipo']."' AND estado='A'";
+	$info=datos_mysql($sql1);
+    if ($info['responseResult']) {
+        $codfam=$info['responseResult'][0]['vivipersona'];
+        $idpeople=$info['responseResult'][0]['idpeople'];
+    }
+
+    $sql2 = "SELECT P.idpeople, CASE WHEN MAX(A.id_alert) IS NOT NULL THEN 'Completado' ELSE 'Validar' END AS estado_alerta, 
+    COALESCE(MAX(A.fecha), MAX(Aw.fecha)) AS fecha_alerta_ultima, 
+    CASE WHEN MAX(S.id_signos) IS NOT NULL THEN 'Completado' ELSE 'Validar' END AS estado_signos, 
+    COALESCE(MAX(S.fecha_toma), MAX(Sw.fecha_toma)) AS fecha_signos_ultima 
+    FROM person P LEFT JOIN hog_alert A ON P.idpeople = A.idpeople AND A.fecha = '$_POST['fecha_formato']' AND A.usu_creo = $id[3] AND A.estado = 'A'
+    LEFT JOIN hog_signos S ON P.idpeople = S.idpeople AND S.fecha_toma = '$_POST['fecha_formato']' AND S.usu_create = $id[3] AND S.estado = 'A'
+    LEFT JOIN hog_alert Aw ON P.idpeople = Aw.idpeople AND Aw.usu_creo = $id[3] AND Aw.estado = 'A' AND Aw.fecha BETWEEN (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_SUB(DATE_SUB(CURDATE(), INTERVAL DAY(CURDATE()) - 1 DAY), INTERVAL 1 MONTH) ELSE DATE_SUB(CURDATE(), INTERVAL DAY(CURDATE()) - 1 DAY) END) AND (CASE WHEN DAY(CURDATE()) <= 5 THEN LAST_DAY(DATE_SUB(CURDATE(), INTERVAL 1 MONTH)) ELSE LAST_DAY(CURDATE()) END) 
+    LEFT JOIN hog_signos Sw ON P.idpeople = Sw.idpeople AND Sw.usu_create = $id[3] AND Sw.estado = 'A' AND Sw.fecha_toma BETWEEN (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_SUB(DATE_SUB(CURDATE(), INTERVAL DAY(CURDATE()) - 1 DAY), INTERVAL 1 MONTH) ELSE DATE_SUB(CURDATE(), INTERVAL DAY(CURDATE()) - 1 DAY) END) AND (CASE WHEN DAY(CURDATE()) <= 5 THEN LAST_DAY(DATE_SUB(CURDATE(), INTERVAL 1 MONTH)) ELSE LAST_DAY(CURDATE()) END) 
+    WHERE P.vivipersona = $idfam GROUP BY P.idpeople;";
+    $info=datos_mysql($sql2);
+    if ($info['responseResult']) {
+        $estado_alerta=$info['responseResult'][0]['estado_alerta'];
+        $fecha_alerta=$info['responseResult'][0]['fecha_alerta_ultima'];
+        $estado_signos=$info['responseResult'][0]['estado_signos'];
+        $fecha_signos=$info['responseResult'][0]['fecha_signos_ultima'];
+    }
+     
+
+
     $id = divide($_POST['id_planilla']);
     $isNew = empty($id[0]);
     if ($isNew) {
-        $sql = "INSERT INTO planillas (idpeople, cod_fam, tipo, evento, seguimiento, colaborador, estado_planilla, carpeta, caja, fecha_max, fecha_formato, usu_create, fecha_create, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), 'A')";
+        $sql = "INSERT INTO planillas (idpeople,cod_fam,tipo,evento,seguimiento,fecha_formato,colaborador,estado_planilla,carpeta,caja,caracterizacion,pcf,comp,apgar,usu_create,fecha_create,estado) 
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR), 'A')";
+        
         $params = [
-            ['type' => 'i', 'value' => $_POST['idpeople']],
-            ['type' => 'i', 'value' => $_POST['cod_fam']],
-            ['type' => 's', 'value' => $_POST['tipo']],
-            ['type' => 's', 'value' => $_POST['evento']],
-            ['type' => 's', 'value' => $_POST['seguimiento']],
+            ['type' => 'i', 'value' => $idpeople],
+            ['type' => 'i', 'value' => $codfam],
+            ['type' => 'i', 'value' => $_POST['tipo']],
+            ['type' => 'i', 'value' => $_POST['evento']],
+            ['type' => 'i', 'value' => $_POST['seguimiento']],
+            ['type' => 's', 'value' => $_POST['fecha_formato']],
             ['type' => 'i', 'value' => $_POST['colaborador']],
-            ['type' => 's', 'value' => $_POST['estado_planilla']],
+            ['type' => 'i', 'value' => $_POST['estado_planilla']],
             ['type' => 's', 'value' => $_POST['carpeta']],
             ['type' => 's', 'value' => $_POST['caja']],
-            ['type' => 's', 'value' => $_POST['fecha_max']],
-            ['type' => 's', 'value' => $_POST['fecha_formato']],
+            ['type' => 's', 'value' => $_POST['caracterizacion']],
+            ['type' => 's', 'value' => $_POST['pcf']],
+            ['type' => 's', 'value' => $_POST['comp']],
+            ['type' => 's', 'value' => $_POST['apgar']],
             ['type' => 's', 'value' => $_SESSION['us_sds']],
         ];
     } else {
-        $sql = "UPDATE planillas SET idpeople=?, cod_fam=?, tipo=?, evento=?, seguimiento=?, colaborador=?, estado_planilla=?, carpeta=?, caja=?, fecha_max=?, fecha_formato=?, usu_update=?, fecha_update=NOW() WHERE id_planilla=?";
+        $sql = "UPDATE planillas SET idpeople=?, cod_fam=?, tipo=?, evento=?, seguimiento=?, colaborador=?, estado_planilla=?, carpeta=?, caja=?, caracterizacion=?, fecha_formato=?, usu_update=?, fecha_update=NOW() WHERE id_planilla=?";
         $params = [
             ['type' => 'i', 'value' => $_POST['idpeople']],
             ['type' => 'i', 'value' => $_POST['cod_fam']],
@@ -300,7 +319,7 @@ function gra_planillas(){
             ['type' => 's', 'value' => $_POST['estado_planilla']],
             ['type' => 's', 'value' => $_POST['carpeta']],
             ['type' => 's', 'value' => $_POST['caja']],
-            ['type' => 's', 'value' => $_POST['fecha_max']],
+            ['type' => 's', 'value' => $_POST['caracterizacion']],
             ['type' => 's', 'value' => $_POST['fecha_formato']],
             ['type' => 's', 'value' => $_SESSION['us_sds']],
             ['type' => 'i', 'value' => $id[0]],
