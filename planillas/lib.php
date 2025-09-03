@@ -121,6 +121,7 @@ function family_planillas(){
         'Caracterización' => "SELECT CASE WHEN EXISTS (
             SELECT 1 FROM hog_carac C WHERE C.idfam = $idfam AND C.fecha = '$id[2]' AND C.usu_create = $id[3] AND C.estado = 'A'
         ) THEN 'Completado' ELSE 'Validar' END AS Estado,
+          C2.id_viv AS id
         ( SELECT MAX(C2.fecha) FROM hog_carac C2 WHERE C2.idfam = $idfam AND C2.usu_create = $id[3] AND C2.estado = 'A' AND C2.fecha >= (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') ELSE DATE_FORMAT(CURDATE(), '%Y-%m-01') END) AND C2.fecha < (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(CURDATE(), '%Y-%m-01') ELSE DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') END)) AS fecha_ultima;",
         'Plan de Cuidado Familiar' => "SELECT CASE WHEN EXISTS (
             SELECT 1 FROM hog_plancuid C WHERE C.idviv = $idfam AND C.fecha = '$id[2]' AND C.usu_creo = $id[3] AND C.estado = 'A'
@@ -136,9 +137,10 @@ function family_planillas(){
     foreach ($items as $nombre => $sql) {
         $info = datos_mysql($sql);
         $estado = $info['responseResult'][0]['Estado'] ?? 'Validar';
+        $idcara=$info['responseResult'][0]['id'] ?? '';
         $fecha_ultima = isset($info['responseResult'][0]['fecha_ultima']) ? $info['responseResult'][0]['fecha_ultima'] : '';
         // Mostrar siempre la fecha_ultima si existe
-        $result[] = ['nombre' => $nombre, 'estado' => $estado,'fecha_ultima'=>$fecha_ultima,'id'=>$idp];
+        $result[] = ['nombre' => $nombre, 'estado' => $estado,'fecha_ultima'=>$fecha_ultima,'id'=>$idcara];
     }
     echo json_encode($result);
     die;
