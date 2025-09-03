@@ -67,8 +67,8 @@ async function cargarResumenIndivi() {
         data.forEach(row => {
             let icono_alerta = row.estado_alerta === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
             let icono_signos = row.estado_signos === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
-			let idAlerta = (row.fecha_alerta && row.estado_alerta === 'Validar') ? `<i class='fa-solid fa-screwdriver-wrench icon' style='cursor:pointer;color:mediumblue;text-shadow: 3px 3px 1px rgb(255 210 0);font-size:18px;' title='Ajustar' id='${row.idalert || ''}' onclick=\"mostrarCmp('${row.idalert || ''}','Ajustar Alerta')\"></i>` : '';// && 
-			let idSignos = (row.fecha_signos && row.estado_signos === 'Validar') ? `<i class='fa-solid fa-screwdriver-wrench icon' style='cursor:pointer;color:mediumblue;text-shadow: 3px 3px 1px rgb(255 210 0);font-size:18px;' title='Ajustar' id='${row.idsig || ''}' onclick=\"mostrarCmp('${row.idsig || ''}','Ajustar Signos')\"></i>` : '';// &&
+			let idAlerta = (row.fecha_alerta && row.estado_alerta === 'Validar') ? `<i class='fa-solid fa-screwdriver-wrench icon' style='cursor:pointer;color:mediumblue;text-shadow: 3px 3px 1px rgb(255 210 0);font-size:18px;' title='Ajustar' id='${row.idalert || ''}' onclick=\"mostrar('${row.idalert || ''}','Ajustar Alerta')\"></i>` : '';// && 
+			let idSignos = (row.fecha_signos && row.estado_signos === 'Validar') ? `<i class='fa-solid fa-screwdriver-wrench icon' style='cursor:pointer;color:mediumblue;text-shadow: 3px 3px 1px rgb(255 210 0);font-size:18px;' title='Ajustar' id='${row.idsig || ''}' onclick=\"mostrar('${row.idsig || ''}','Ajustar Signos')\"></i>` : '';// &&
             html += `<tr><td>${row.idpeople}</td><td>${icono_alerta}</td><td>${row.fecha_alerta}</td><td>${idAlerta}</td><td>${icono_signos}</td><td>${row.fecha_signos}</td><td>${idSignos}</td></tr>`;
         });
         html += "</table>";
