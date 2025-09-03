@@ -24,7 +24,7 @@ function cmp_fechas(){
     $rta = "";
     $w = 'fechas';
     $o = 'fechajusto';
-    $t = ['documento'=>'','tipo'=>''];
+    $t = ['documento'=>'','tipo'=>'','fecha_actual'=>'','fecha_ajuste'=>''];
     $c[] = new cmp($o,'e',null,'TRASLADO INTERLOCAL / ENTRE SUBREDES',$w);
     //incluir campos idpeople
     $c[]=new cmp('idfech','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
