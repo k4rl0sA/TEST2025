@@ -47,8 +47,8 @@ async function cargarResumenFamiliar() {
   		let html = "<table style='width:100%; border-collapse:collapse;'><tr><th>Validación</th><th>Estado</th><th>Fecha</th><th>Ajustar</th></tr>";
   		data.forEach(row => {
   		  let icono = row.estado === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
-		  let iconoAjustar = (row.fecha_ultima && row.estado === 'Validar') ? `<i class='fa-solid fa-screwdriver-wrench icon' style='cursor:pointer;color:mediumblue;text-shadow: 3px 3px 1px rgb(255 210 0);font-size:18px;' title='Ajustar' id='${row.id || ''}' onclick=\"mostrarCmp('${row.id || ''}','${row.nombre}')\"></i>` : '';// && 
-		  html += `<tr><td>${row.nombre}</td><td>${icono}</td><td>${row.fecha_ultima || ''}</td><td style='text-align:center;'>${iconoAjustar}</td></tr>`;
+		  let ajustar = (row.fecha_ultima && row.estado === 'Validar') ? `<i class='fa-solid fa-screwdriver-wrench icon' style='cursor:pointer;color:mediumblue;text-shadow: 3px 3px 1px rgb(255 210 0);font-size:18px;' title='Ajustar' id='${row.id || ''}' onclick=\"mostrarCmp('${row.id || ''}','${row.nombre}')\"></i>` : '';// && 
+		  html += `<tr><td>${row.nombre}</td><td>${icono}</td><td>${row.fecha_ultima || ''}</td><td style='text-align:center;'>${ajustar}</td></tr>`;
   		});
   		html += "</table>";
   		document.getElementById('valida-family').innerHTML = html;
@@ -67,7 +67,9 @@ async function cargarResumenIndivi() {
         data.forEach(row => {
             let icono_alerta = row.estado_alerta === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
             let icono_signos = row.estado_signos === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
-            html += `<tr><td>${row.idpeople}</td><td>${icono_alerta}</td><td>${row.fecha_alerta}</td><td>${row.idalert}</td><td>${icono_signos}</td><td>${row.fecha_signos}</td><td>${row.idsig}</td></tr>`;
+			let idAlerta = (row.fecha_alerta && row.estado_alerta === 'Validar') ? `<i class='fa-solid fa-screwdriver-wrench icon' style='cursor:pointer;color:mediumblue;text-shadow: 3px 3px 1px rgb(255 210 0);font-size:18px;' title='Ajustar' id='${row.idalert || ''}' onclick=\"mostrarCmp('${row.idalert || ''}','Ajustar Alerta')\"></i>` : '';// && 
+			let idSignos = (row.fecha_signos && row.estado_signos === 'Validar') ? `<i class='fa-solid fa-screwdriver-wrench icon' style='cursor:pointer;color:mediumblue;text-shadow: 3px 3px 1px rgb(255 210 0);font-size:18px;' title='Ajustar' id='${row.idsig || ''}' onclick=\"mostrarCmp('${row.idsig || ''}','Ajustar Signos')\"></i>` : '';// &&
+            html += `<tr><td>${row.idpeople}</td><td>${icono_alerta}</td><td>${row.fecha_alerta}</td><td>${idAlerta}</td><td>${icono_signos}</td><td>${row.fecha_signos}</td><td>${idSignos}</td></tr>`;
         });
         html += "</table>";
         document.getElementById('valida-indivi').innerHTML = html;
