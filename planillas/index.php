@@ -47,7 +47,7 @@ async function cargarResumenFamiliar() {
   		let html = "<table style='width:100%; border-collapse:collapse;'><tr><th>Validación</th><th>Estado</th><th>Fecha</th><th>Ajustar</th></tr>";
   		data.forEach(row => {
   		  let icono = row.estado === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
-			html += `<tr><td>${row.nombre}</td><td>${icono} </td><td>${row.fecha_ultima}</td><td><i class='fa-solid fa-screwdriver-wrench' style='cursor:pointer;' title='Ajustar' id='${row.id}' onclick="mostrar('homes1','fix',event,'','lib.php',0,'homes1');"></i></td></tr>`;
+			html += `<tr><td>${row.nombre}</td><td>${icono} </td><td>${row.fecha_ultima}</td><td><i class='fa-solid fa-screwdriver-wrench' style='cursor:pointer;color: mediumblue;text-shadow: 3px 3px 1px rgb(255 210 0);' title='Ajustar' id='${row.id}' onclick="mostrar('homes1','fix',event,'','lib.php',0,'homes1');"></i></td></tr>`;
   		});
   		html += "</table>";
   		document.getElementById('valida-family').innerHTML = html;
