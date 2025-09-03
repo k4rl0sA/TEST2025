@@ -109,8 +109,8 @@ function gra_fechas() {
 }
 
 // Si necesitas opciones para selects, puedes agregar funciones opc_fechas(), etc.
-function opc_tiposolicitud($id=''){
-	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 1",1);
+function opc_tiposolicitud($id='CC'){
+	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 1",$id);
 }
 
 function formato_dato($a,$b,$c,$d){
