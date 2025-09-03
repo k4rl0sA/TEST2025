@@ -61,11 +61,11 @@ async function cargarResumenIndivi() {
     if (doc && tip && fec && col) {
         const data = await getJSON('indivi', 'planillas', doc + '_' + tip + '_' + fec + '_' + col, 'lib.php');
         if (!data) return;
-        let html = "<table style='width:100%; border-collapse:collapse;'><tr><th>Cod Persona</th><th>Alertas</th><th>Fecha</th><th>Signos</th><th>Fecha</th></tr>";
+        let html = "<table style='width:100%; border-collapse:collapse;'><tr><th>Cod Persona</th><th>Alertas</th><th>Fecha</th><th>Ajustar</th><th>Signos</th><th>Fecha</th><th>Ajustar</th></tr>";
         data.forEach(row => {
             let icono_alerta = row.estado_alerta === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
             let icono_signos = row.estado_signos === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
-            html += `<tr><td>${row.idpeople}</td><td>${icono_alerta}</td><td>${row.fecha_alerta}</td><td>${icono_signos}</td><td>${row.fecha_signos}</td></tr>`;
+            html += `<tr><td>${row.idpeople}</td><td>${icono_alerta}</td><td>${row.fecha_alerta}</td><td>${row.idalert}</td><td>${icono_signos}</td><td>${row.fecha_signos}</td><td>${row.idsig}</td></tr>`;
         });
         html += "</table>";
         document.getElementById('valida-indivi').innerHTML = html;
