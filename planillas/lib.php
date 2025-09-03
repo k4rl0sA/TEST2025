@@ -265,51 +265,16 @@ function gra_planillas(){
         $idpeople=$info['responseResult'][0]['idpeople'];
     }
 
-    $sql2 = "SELECT 
-  CASE 
-    WHEN EXISTS (
-        SELECT 1 
-        FROM hog_carac C
-        WHERE C.idfam = $codfam 
-          AND C.fecha = '$id[2]' 
-          AND C.usu_create = $id[3]
-    ) 
-    THEN 0
-    ELSE 1
-  END AS Estado,
-  C2.id_viv,
-  C2.fecha AS fecha_ultima
+    $sql2 = "SELECT CASE WHEN EXISTS (SELECT 1 FROM hog_carac C WHERE C.idfam = $codfam AND C.fecha = '$id[2]' AND C.usu_create = $id[3]) THEN 0 ELSE 1 END AS Estado,
+      C2.id_viv,C2.fecha AS fecha_ultima
 FROM hog_carac C2
-JOIN (
-    SELECT MAX(fecha) AS max_fecha
-    FROM hog_carac
-    WHERE idfam = $codfam
-      AND usu_create = $id[3]
-      AND fecha >= (
-          CASE 
-            WHEN DAY(CURDATE()) <= 5 
-            THEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01')
-            ELSE DATE_FORMAT(CURDATE(), '%Y-%m-01')
-          END
-      )
-      AND fecha < (
-          CASE 
-            WHEN DAY(CURDATE()) <= 5 
-            THEN DATE_FORMAT(CURDATE(), '%Y-%m-01')
-            ELSE DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01')
-          END
-      )
-) F ON C2.fecha = F.max_fecha
-WHERE C2.idfam = $codfam
-  AND C2.usu_create = $id[3]
-LIMIT 1;";
+JOIN (SELECT MAX(fecha) AS max_fecha FROM hog_carac WHERE idfam = $codfam AND usu_create = $id[3]AND fecha >= (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') ELSE DATE_FORMAT(CURDATE(), '%Y-%m-01') END) AND fecha < (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(CURDATE(), '%Y-%m-01') ELSE DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') END) F ON C2.fecha = F.max_fecha
+WHERE C2.idfam = $codfam AND C2.usu_create = $id[3] LIMIT 1;";
     $info=datos_mysql($sql2);
     if ($info['responseResult']) {
-        $estado_alerta=$info['responseResult'][0]['estado_alerta'];
-        $fecha_alerta=$info['responseResult'][0]['fecha_alerta_ultima'];
-        $estado_signos=$info['responseResult'][0]['estado_signos'];
-        $fecha_signos=$info['responseResult'][0]['fecha_signos_ultima'];
-    }
+        $idcara=$info['responseResult'][0]['id_viv'];
+        $estado_carac=$info['responseResult'][0]['Estado'];
+   }
      
 
 
