@@ -47,8 +47,8 @@ async function cargarResumenFamiliar() {
   		let html = "<table style='width:100%; border-collapse:collapse;'><tr><th>Validación</th><th>Estado</th><th>Fecha</th><th>Ajustar</th></tr>";
   		data.forEach(row => {
   		  let icono = row.estado === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
-		  let id= (row.estado === 'Validar' && row.fecha_ultima !== '')?`<i class='fa-solid fa-screwdriver-wrench icon' style='cursor:pointer;color:mediumblue;text-shadow: 3px 3px 1px rgb(255 210 0);' title='Ajustar' id='${row.id}' onclick="mostrar('homes1','fix',event,'','lib.php',0,'homes1');"></i>`:'';	
-		  		html += `<tr><td>${row.nombre}</td><td>${icono} </td><td>${row.fecha_ultima}</td>${id}<td></td></tr>`;
+					let iconoAjustar = `<i class='fa-solid fa-screwdriver-wrench icon' style='cursor:pointer;color:mediumblue;text-shadow: 3px 3px 1px rgb(255 210 0);font-size:18px;' title='Ajustar' id='${row.id || ''}' onclick="mostrarCmp('${row.id || ''}','${row.nombre}')"></i>`;
+					html += `<tr><td>${row.nombre}</td><td>${icono}</td><td>${row.fecha_ultima || ''}</td><td style='text-align:center;'>${iconoAjustar}</td></tr>`;
   		});
   		html += "</table>";
   		document.getElementById('valida-family').innerHTML = html;
