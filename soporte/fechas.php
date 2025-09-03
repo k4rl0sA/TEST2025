@@ -27,6 +27,7 @@ function cmp_fechas(){
     $t = ['documento'=>'','tipo'=>'','fecha_actual'=>'','fecha_ajuste'=>''];
     $c[] = new cmp($o,'e',null,'AJUSTES SOPORTE',$w);
     //incluir campos idpeople
+    var_dump($_POST);
     $c[]=new cmp('idfech','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
     $c[]=new cmp('tipo','s','2',$t['tipo'],$w.' '.$o,'Tipo de solicitud','tiposolicitud',null,'####',true,true,'','col-3');
     $c[]=new  cmp('fecha_actual','d',2,$t['fecha_actual'],$w.' '.$o,'Fecha Actual','',null,null,true,true,'','col-35');
