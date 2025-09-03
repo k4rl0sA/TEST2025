@@ -1,5 +1,4 @@
 <?php
-// filepath: vscode-vfs://github/k4rl0sA/TEST2025/crea-fam/trasladint.php
 ini_set('display_errors','1');
 require_once "../libs/gestion.php";
 if ($_POST['a']!='opc') $perf=perfil($_POST['tb']);
@@ -21,9 +20,9 @@ else {
 }
 
 // Componente del formulario
-function cmp_trasladint(){
+function cmp_fechas(){
     $rta = "";
-    $w = 'trasladint';
+    $w = 'fechas';
     $o = 'inftrasint';
     $t = ['documento'=>'','tipo'=>''];
     $c[] = new cmp($o,'e',null,'TRASLADO INTERLOCAL / ENTRE SUBREDES',$w);
@@ -36,26 +35,26 @@ function cmp_trasladint(){
 }
 
 // Enfocar el formulario
-function focus_trasladint(){
-    return 'trasladint';
+function focus_fechas(){
+    return 'fechas';
 }
 
 // Menú de acciones
-function men_trasladint(){
-    $rta = cap_menus('trasladint','pro');
+function men_fechas(){
+    $rta = cap_menus('fechas','pro');
     return $rta;
 }
 
 function cap_menus($a,$b='cap',$con='con') {
     $rta = "";
     $acc = rol($a);
-    if ($a=='trasladint' && isset($acc['crear']) && $acc['crear']=='SI') {  
+    if ($a=='fechas' && isset($acc['crear']) && $acc['crear']=='SI') {  
         $rta .= "<li class='icono $a grabar' title='Grabar' OnClick=\"grabar('$a',this);\"></li>";
     }
     return $rta;
 }
 // Guardar traslado interlocalidad/subred
-function gra_trasladint() {
+function gra_fechas() {
     $id = divide($_POST['idfam']);
     $doc = $_POST['docum'];
     $tipo = $_POST['tip_doc'];
@@ -108,7 +107,7 @@ function gra_trasladint() {
     return $rta;
 }
 
-// Si necesitas opciones para selects, puedes agregar funciones opc_trasladint(), etc.
+// Si necesitas opciones para selects, puedes agregar funciones opc_fechas(), etc.
 function opc_tipo($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 1",$id);
 }
