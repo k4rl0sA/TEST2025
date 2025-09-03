@@ -23,13 +23,14 @@ else {
 function cmp_fechas(){
     $rta = "";
     $w = 'fechas';
-    $o = 'inftrasint';
+    $o = 'fechajusto';
     $t = ['documento'=>'','tipo'=>''];
     $c[] = new cmp($o,'e',null,'TRASLADO INTERLOCAL / ENTRE SUBREDES',$w);
     //incluir campos idpeople
-    $c[]=new cmp('idfam','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
-    $c[]=new cmp('docum','nu','99999999999',$t['documento'],$w.' '.$o,'Número de Documento','documento',null,'####',true,true,'','col-4');
-    $c[]=new  cmp('tip_doc','s',2,$t['tipo'],$w.' '.$o,'Tipo de Documento','tipo',null,null,true,true,'','col-4');
+    $c[]=new cmp('idfech','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
+    $c[]=new cmp('tipo','s','2',$t['tipo'],$w.' '.$o,'Tipo de solicitud','tiposolicitud',null,'####',true,true,'','col-3');
+    $c[]=new  cmp('fecha_actual','d',2,$t['fecha_actual'],$w.' '.$o,'Fecha Actual','',null,null,true,true,'','col-35');
+    $c[]=new  cmp('fecha_ajuste','d',2,$t['fecha_ajuste'],$w.' '.$o,'Fecha Correcta','',null,null,true,true,'','col-35');
     for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
     return $rta;
 }
