@@ -472,8 +472,6 @@ session_start();
         factors[key].cronico = riskFactors[key].cronico || '';
         factors[key]["Cronico Sin Control"] = riskFactors[key].cro_sinctrl || '';
         factors[key]["Menor De 5 Años"] = riskFactors[key].menor5 || '';
-
-        
       }
         /*// Actualizar puntaje de entorno habitacional si existe
           // Actualizar puntaje demográfico si existe
