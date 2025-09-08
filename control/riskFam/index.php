@@ -668,7 +668,6 @@ session_start();
         </div>
       `;
     }
-
         const factorElement = document.createElement('div');
         factorElement.className = 'risk-factor';
         factorElement.innerHTML = `
