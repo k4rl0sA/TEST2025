@@ -467,6 +467,9 @@ session_start();
           }
       if (key === 'individualConditions') {
         factors[key].puntaje = riskFactors[key].puntaje || 0;
+        factors[key].gestante = riskFactors[key].gestante || '';
+        factors[key].ges_sinctrl = riskFactors[key].ges_sinctrl || '';
+        
       }
         /*// Actualizar puntaje de entorno habitacional si existe
           // Actualizar puntaje demográfico si existe

@@ -378,12 +378,12 @@ $riesgos = [
         "name" => "Condiciones Individuales",
         "value" => $puntajeCondIndi,
         "gestante" => $gestante,
-        "ges_sinctrl" => $ges_sinctrl,
+        "Gestante Sin Control" => $ges_sinctrl,
         "cronico" => $cronico,
-        "cro_sinctrl" => $cro_sinctrl,
-        "menor5" => $menor5,
+        "Cronico Sin Control" => $cro_sinctrl,
+        "Menor De 5 Años" => $menor5,
         "weight" => 0.58,
-        "description" => "Factores personales como discapacidad, enfermedades crónicas o condiciones especiales."
+        "description" => "Factores personales como enfermedades crónicas o condiciones especiales."
     ]
 ];
 if (!empty($document)) {
