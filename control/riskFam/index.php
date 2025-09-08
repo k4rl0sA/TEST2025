@@ -646,7 +646,7 @@ session_start();
         </div>
       `;
     }
-    if (key === 'individualConditions' && (factor.puntaje )) {
+    if (key === 'individualConditions' ) {//&& (factor.puntaje )
       const puntajeText = factor.puntaje ? `Puntaje: ${factor.puntaje}` : '';
       const gestanteText = factor.gestante ? `Gestante: ${factor.gestante}` : '';
       const gestanteSinCtrlText = factor["Gestante Sin Control"] ? `Gestante Sin Control: ${factor["Gestante Sin Control"]}` : '';
