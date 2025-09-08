@@ -279,6 +279,30 @@ $genero=$res6['responseResult'][0]['Genero'];
 $nacionalidad = $res6['responseResult'][0]['Nacionalidad'];
 $etnia = $res6['responseResult'][0]['Etnia'];
 
+//Condiciones Individuales
+$sql7="SELECT P.vivipersona,P.idpeople,P.fecha_nacimiento,A.gestante,A.ges_sinctrl, A.cronico,A.cro_sinctrl, TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, CURDATE()) AS Edad_Anios,
+  CASE WHEN A.gestante = 1 THEN 5 ELSE 0 END AS Puntaje_Gestante,CASE WHEN A.ges_sinctrl = 1 THEN 5 ELSE 0 END AS Puntaje_SinControl,(CASE WHEN A.gestante = 1 THEN 5 ELSE 0 END + CASE WHEN A.ges_sinctrl = 1 THEN 5 ELSE 0 END) AS Puntaje_Gestacion_Bruto,
+  ROUND(((CASE WHEN A.gestante = 1 THEN 5 ELSE 0 END + CASE WHEN A.ges_sinctrl = 1 THEN 5 ELSE 0 END) * 100.0 / 10), 2) AS Gestacion_Valor_0_100,
+  CASE WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, CURDATE()) < 5 THEN 5 ELSE 0 END AS Puntaje_Menor5,
+  ROUND(CASE WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, CURDATE()) < 5 THEN 5 ELSE 0 END * 100.0 / 5, 2) AS Menor5_Valor_0_100,
+  CASE WHEN A.cronico = 1 THEN 5 ELSE 0 END AS Puntaje_Cronico,
+  CASE WHEN A.cro_sinctrl = 1 THEN 5 ELSE 0 END AS Puntaje_Cronico_SinControl,
+  (CASE WHEN A.cronico = 1 THEN 5 ELSE 0 END + CASE WHEN A.cro_sinctrl = 1 THEN 5 ELSE 0 END) AS Puntaje_Cronico_Bruto,
+  ROUND(((CASE WHEN A.cronico = 1 THEN 5 ELSE 0 END + CASE WHEN A.cro_sinctrl = 1 THEN 5 ELSE 0 END) * 100.0 / 10), 2) AS Cronico_Valor_0_100,
+  ((CASE WHEN A.gestante = 1 THEN 5 ELSE 0 END) + (CASE WHEN A.ges_sinctrl = 1 THEN 5 ELSE 0 END) +(CASE WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, CURDATE()) < 5 THEN 5 ELSE 0 END) + (CASE WHEN A.cronico = 1 THEN 5 ELSE 0 END) + (CASE WHEN A.cro_sinctrl = 1 THEN 5 ELSE 0 END)) AS Puntaje_Total_Bruto,
+  ROUND((((CASE WHEN A.gestante = 1 THEN 5 ELSE 0 END) + (CASE WHEN A.ges_sinctrl = 1 THEN 5 ELSE 0 END) +  (CASE WHEN TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, CURDATE()) < 5 THEN 5 ELSE 0 END) + (CASE WHEN A.cronico = 1 THEN 5 ELSE 0 END) + (CASE WHEN A.cro_sinctrl = 1 THEN 5 ELSE 0 END)) * 100.0 / 25), 2) AS Puntaje_Total_0_100
+FROM `person` P
+LEFT JOIN hog_alert A ON P.idpeople = A.idpeople
+WHERE P.idpersona = '$document' AND P.tipo_doc = '$tipo' LIMIT 1;";
+$res7 = datos_mysql($sql7);
+$puntajeCondIndi = $res7['responseResult'][0]['Puntaje_Total_0_100'];
+$gestante = $res7['responseResult'][0]['gestante']===1 ? 'SI' : 'NO';
+$ges_sinctrl = $res7['responseResult'][0]['ges_sinctrl']===1 ? 'SI' : 'NO';
+$cronico = $res7['responseResult'][0]['cronico']===1 ? 'SI' : 'NO';
+$cro_sinctrl = $res7['responseResult'][0]['cro_sinctrl']===1 ? 'SI' : 'NO';
+$menor5 = $res7['responseResult'][0]['Edad_Anios'] < 5 ? 'SI' : 'NO';
+
+
 // Generar factores de riesgo aleatorios
 $riesgos = [
     "socioeconomic" => [
@@ -352,7 +376,12 @@ $riesgos = [
     ], 
     "individualConditions" => [
         "name" => "Condiciones Individuales",
-        "value" => rand(50, 100),
+        "value" => $puntajeCondIndi,
+        "gestante" => $gestante,
+        "ges_sinctrl" => $ges_sinctrl,
+        "cronico" => $cronico,
+        "cro_sinctrl" => $cro_sinctrl,
+        "menor5" => $menor5,
         "weight" => 0.58,
         "description" => "Factores personales como discapacidad, enfermedades crónicas o condiciones especiales."
     ]
