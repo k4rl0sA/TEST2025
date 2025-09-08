@@ -467,11 +467,10 @@ session_start();
       if (key === 'individualConditions') {
         factors[key].puntaje = riskFactors[key].puntaje || 0;
         factors[key].gestante = riskFactors[key].gestante || '';
-        factors[key]["Gestante Sin Control"]= riskFactors[key].ges_sinctrl || '';
+        factors[key]["Gestante Sin Control"]= riskFactors[key]["Gestante Sin Control"] || '';
         factors[key].cronico = riskFactors[key].cronico || '';
-        factors[key]["Cronico Sin Control"] = riskFactors[key].cro_sinctrl || '';
-        factors[key]["Menor De 5 Años"] = riskFactors[key].menor5 || '';
-        console.log('individualConditions:', factors[key]); // Verifica el valor aquí
+        factors[key]["Cronico Sin Control"] = riskFactors[key]["Cronico Sin Control"] || '';
+        factors[key]["Menor De 5 Años"] = riskFactors[key]["Menor De 5 Años"] || '';
       }
         /*// Actualizar puntaje de entorno habitacional si existe
           // Actualizar puntaje demográfico si existe
