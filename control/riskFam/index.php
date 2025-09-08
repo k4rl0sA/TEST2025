@@ -646,8 +646,8 @@ session_start();
         </div>
       `;
     }
-    if (key === 'individualConditions' ) {//&& (factor.puntaje )
-      const puntajeText = factor.puntaje ? `Puntaje: ${factor.puntaje}` : '';
+    if (key === 'individualConditions' && (factor.value )) {
+      const puntajeText = factor.value ? `Puntaje: ${factor.value}` : '';
       const gestanteText = factor.gestante ? `Gestante: ${factor.gestante}` : '';
       const gestanteSinCtrlText = factor["Gestante Sin Control"] ? `Gestante Sin Control: ${factor["Gestante Sin Control"]}` : '';
       const cronicoText = factor.cronico ? `Crónico: ${factor.cronico}` : '';
