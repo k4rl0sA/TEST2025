@@ -211,7 +211,6 @@ session_start();
         weight: 0.08,
         estrato: 0,
         ingreso: 0,
-
         description: "Impacta directamente el acceso a bienes y servicios esenciales."
       },
       familyStructure: {
@@ -472,10 +471,11 @@ session_start();
         factors[key].cronico = riskFactors[key].cronico || '';
         factors[key]["Cronico Sin Control"] = riskFactors[key].cro_sinctrl || '';
         factors[key]["Menor De 5 Años"] = riskFactors[key].menor5 || '';
+        console.log('individualConditions:', factors[key]); // Verifica el valor aquí
       }
         /*// Actualizar puntaje de entorno habitacional si existe
           // Actualizar puntaje demográfico si existe
-          */      
+          */     
         } else {
           // Si no hay datos, mantener el valor original
           factors[key].value = factors[key].value || 0;
