@@ -465,7 +465,6 @@ session_start();
             factors[key].nacionalidad = riskFactors[key].nacionalidad || '';
           }
       if (key === 'individualConditions') {
-        factors[key].puntaje = riskFactors[key].puntaje || 0;
         factors[key].gestante = riskFactors[key].gestante || '';
         factors[key]["Gestante Sin Control"]= riskFactors[key]["Gestante Sin Control"] || '';
         factors[key].cronico = riskFactors[key].cronico || '';
