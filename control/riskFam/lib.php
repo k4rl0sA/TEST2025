@@ -274,7 +274,7 @@ LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
 LEFT JOIN hog_geo G ON F.idpre = G.idgeo 
  WHERE P.idpersona = '$document' AND P.tipo_doc = '$tipo' LIMIT 1;";
 $res6 = datos_mysql($sql6);
-$puntajeDemo = $res6['responseResult'][0]['CD_Valor_0_100'];
+$puntaje = $res6['responseResult'][0]['CD_Valor_0_100'];
 $genero=$res6['responseResult'][0]['Genero'];
 $nacionalidad = $res6['responseResult'][0]['Nacionalidad'];
 $etnia = $res6['responseResult'][0]['Etnia'];
@@ -295,7 +295,7 @@ FROM `person` P
 LEFT JOIN hog_alert A ON P.idpeople = A.idpeople
 WHERE P.idpersona = '$document' AND P.tipo_doc = '$tipo' LIMIT 1;";
 $res7 = datos_mysql($sql7);
-$puntajeCondIndi = $res7['responseResult'][0]['Puntaje_Total_0_100'];
+$puntaje = $res7['responseResult'][0]['Puntaje_Total_0_100'];
 $gestante = $res7['responseResult'][0]['gestante']===1 ? 'SI' : 'NO';
 $ges_sinctrl = $res7['responseResult'][0]['ges_sinctrl']===1 ? 'SI' : 'NO';
 $cronico = $res7['responseResult'][0]['cronico']===1 ? 'SI' : 'NO';
@@ -367,7 +367,7 @@ $riesgos = [
     ],
     "demographics" => [
         "name" => "Características Demográficas",
-        "value" => $puntajeDemo,
+        "value" => $puntaje,
         "genero" => $genero ,
         "nacionalidad" => $nacionalidad,
         "etnia" => $etnia,
@@ -376,7 +376,7 @@ $riesgos = [
     ], 
     "individualConditions" => [
         "name" => "Condiciones Individuales",
-        "value" => $puntajeCondIndi,
+        "value" => $puntaje,
         "gestante" => $gestante,
         "Gestante Sin Control" => $ges_sinctrl,
         "cronico" => $cronico,

@@ -472,7 +472,7 @@ session_start();
         factors[key].cronico = riskFactors[key].cronico || '';
         factors[key].["Cronico Sin Control"] = riskFactors[key].cro_sinctrl || '';
         factors[key].["Menor De 5 Años"] = riskFactors[key].menor5 || '';
-        
+
         
       }
         /*// Actualizar puntaje de entorno habitacional si existe
@@ -650,10 +650,20 @@ session_start();
     }
     if (key === 'individualConditions' && (factor.puntaje )) {
       const puntajeText = factor.puntaje ? `Puntaje: ${factor.puntaje}` : '';
+      const gestanteText = factor.gestante ? `Gestante: ${factor.gestante}` : '';
+      const gestanteSinCtrlText = factor["Gestante Sin Control"] ? `Gestante Sin Control: ${factor["Gestante Sin Control"]}` : '';
+      const cronicoText = factor.cronico ? `Crónico: ${factor.cronico}` : '';
+      const cronicoSinCtrlText = factor["Cronico Sin Control"] ? `Crónico Sin Control: ${factor["Cronico Sin Control"]}` : '';
+      const menor5Text = factor["Menor De 5 Años"] ? `Menor De 5 Años: ${factor["Menor De 5 Años"]}` : '';
       additionalInfo = `
         <div class="risk-factor-tooltip">
           <div class="tooltip-content">
             ${puntajeText}<br>
+            ${gestanteText}<br>
+            ${gestanteSinCtrlText}<br>
+            ${cronicoText}<br>
+            ${cronicoSinCtrlText}<br>
+            ${menor5Text}
           </div>
         </div>
       `;
