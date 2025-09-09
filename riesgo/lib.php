@@ -43,6 +43,23 @@ function require_csrf() {
 $a = $_GET['a'] ?? $_POST['a'] ?? '';
 
 switch ($a) {
+    // Endpoint para generar JWT (solo ejemplo, deberías validar usuario/clave)
+    case 'login_jwt':
+        require_method('POST');
+        // Aquí deberías validar usuario/clave reales
+        $usuario = $_POST['usuario'] ?? '';
+        $perfil = $_POST['perfil'] ?? 'API';
+        if (!$usuario) error_response('Usuario requerido', 400);
+        $jwt_secret = isset($_ENV['JWT_SECRET']) ? $_ENV['JWT_SECRET'] : 'CAMBIAESTESECRETO';
+        $payload = [
+            'usuario' => $usuario,
+            'perfil' => $perfil,
+            'iat' => time(),
+            'exp' => time() + 3600 // 1 hora
+        ];
+        $token = jwt_encode($payload, $jwt_secret);
+        echo json_encode(['success'=>true, 'token'=>$token, 'expira'=>$payload['exp']]);
+        exit;
     // Endpoint público para monitoreo/healthcheck
     case 'health':
         require_method('GET');
