@@ -263,14 +263,38 @@ function perfil($a){
 }
 
 function acceso($a){
-  // Si no hay sesión, permite acceso (API pública)
-  if (!isset($_SESSION['us_sds'])) return true;
-  $acc = rol($a);
-  if (!empty($acc['perfil'])){
-    return true;
-  }else{
+  // Si hay sesión, usa permisos de sesión
+  if (isset($_SESSION['us_sds'])) {
+    $acc = rol($a);
+    if (!empty($acc['perfil'])){
+      return true;
+    } else {
+      return;
+    }
+  }
+  // Si no hay sesión, buscar JWT en Authorization
+  $jwt = null;
+  if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
+    $authHeader = $_SERVER['HTTP_AUTHORIZATION'];
+    if (stripos($authHeader, 'Bearer ') === 0) {
+      $jwt = trim(substr($authHeader, 7));
+    }
+  }
+  if ($jwt) {
+    // Validar JWT (solo estructura básica, para producción usar librería como firebase/php-jwt)
+    $parts = explode('.', $jwt);
+    if (count($parts) === 3) {
+      $payload = json_decode(base64_decode(strtr($parts[1], '-_', '+/')), true);
+      if (is_array($payload) && isset($payload['perfil'])) {
+        // Puedes agregar más validaciones aquí (exp, iss, etc)
+        return true;
+      }
+    }
+    // JWT inválido
     return;
   }
+  // Si no hay sesión ni JWT válido, denegar
+  return;
 }
 
 function show_sql($sql, $params) {
