@@ -475,7 +475,7 @@ function closeModal() {
 const responsablesPorEstado = {
     analisis: "EDISON FERNANDO MATEUS VASQUEZ",
     desarrollo: "CARLOS EDUARDO ACEVEDO",
-    pruebas: "Oscar Arley Currea Jiménez",
+    pruebas: "OSCAR ARLEY CURREA JIMENEZ",
     aprobacion: "SINDY SANCHEZ",
     manual: "JEISSON CURREA JIMENEZ",
     pruebasSub: "JEISSON CURREA JIMENEZ",
