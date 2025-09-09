@@ -312,6 +312,7 @@ if (empty($_SESSION['csrf_token'])) {
             closeModal();
             cargarProyectos();
              notificarResponsable(
+                document.getElementById('projectName').value,
             document.getElementById('projectStatus').value,
             document.getElementById('priority').value,
             document.getElementById('projectDeadline').value
@@ -449,6 +450,7 @@ function actualizarProyecto() {
             closeModal();
             cargarProyectos();
              notificarResponsable(
+                document.getElementById('projectName').value,
             document.getElementById('projectStatus').value,
             document.getElementById('priority').value,
             document.getElementById('projectDeadline').value
@@ -509,11 +511,11 @@ function asignarResponsablePorEstado() {
     document.getElementById('fileGroup').style.display = (estado === 'desarrollo' || estado === 'aprobacion' || estado === 'socializacion' ) ? '' : 'none';
 }
 
-function notificarResponsable(estado, prioridad, fechaLimite) {
+function notificarResponsable(proyecto,estado, prioridad, fechaLimite) {
     const responsable = responsablesPorEstado[estado];
     if (!responsable || !responsable.telefono) return;
     const mensaje = encodeURIComponent(
-        `Se le ha asignado la siguiente tarea:\nEstado: ${estado}\nPrioridad: ${prioridad}\nFecha límite: ${fechaLimite}`
+        `Se le ha asignado en ${proyecto} la siguiente tarea:\nEstado: ${estado}\nPrioridad: ${prioridad}\nFecha límite: ${fechaLimite}`
     );
     // Abre WhatsApp Web con el mensaje
     window.open(`https://wa.me/${responsable.telefono}?text=${mensaje}`, '_blank');
