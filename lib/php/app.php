@@ -47,13 +47,12 @@ if (!$db_user || !$db_pass || !$db_name) {
 $con = mysqli_connect($db_host, $db_user, $db_pass, $db_name, $db_port);
 
 
-// --- CORS seguro para APIs públicas ---
+// --- Validación de dominio permitido para todas las peticiones ---
+$allowed_domains = array_map('strtolower', array_map('trim', explode(',', $_ENV['ALLOWED_DOMAINS'] ?? 'localhost')));
 if (isset($_SERVER['HTTP_ORIGIN'])) {
-  $allowed_domains = array_map('strtolower', array_map('trim', explode(',', $_ENV['ALLOWED_DOMAINS'] ?? 'localhost')));
   $origin = $_SERVER['HTTP_ORIGIN'];
   $parsed = parse_url($origin);
   $origin_host = strtolower($parsed['host'] ?? '');
-  // Solo permitir si el host coincide exactamente con uno de los dominios listados
   $permitido = in_array($origin_host, $allowed_domains, true);
   if ($permitido) {
     header('Access-Control-Allow-Origin: ' . $origin);
@@ -65,6 +64,14 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
       exit;
     }
   } else {
+    http_response_code(403);
+    echo json_encode(['success'=>false, 'error'=>'Dominio no permitido']);
+    exit;
+  }
+} else if (isset($_SERVER['HTTP_HOST'])) {
+  $host = strtolower($_SERVER['HTTP_HOST']);
+  $permitido = in_array($host, $allowed_domains, true);
+  if (!$permitido) {
     http_response_code(403);
     echo json_encode(['success'=>false, 'error'=>'Dominio no permitido']);
     exit;
