@@ -515,7 +515,7 @@ function notificarResponsable(proyecto,estado, prioridad, fechaLimite) {
     const responsable = responsablesPorEstado[estado];
     if (!responsable || !responsable.telefono) return;
     const mensaje = encodeURIComponent(
-        `Se le ha asignado en "${proyecto.toUpperCase()}" la siguiente tarea:\nEstado: ${estado}\nPrioridad: ${prioridad}\nFecha límite: ${fechaLimite}`
+        `Se le ha asignado en "${proyecto.toUpperCase()}" la siguiente tarea:\nEstado: ${estado}\nPrioridad: ${prioridad}\nFecha límite: ${fechaLimite}\nhttps://pruebagtaps.site/proyectos/ `
     );
     // Abre WhatsApp Web con el mensaje
     window.open(`https://wa.me/${responsable.telefono}?text=${mensaje}`, '_blank');
