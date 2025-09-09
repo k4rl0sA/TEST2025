@@ -207,7 +207,8 @@ if (empty($_SESSION['csrf_token'])) {
     </div>
     
     <script>
-        const API = 'lib.php';
+    // Usar URL absoluta para forzar envío de Origin
+    const API = 'https://pruebagtaps.site/proyectos/lib.php';
 
         // Cargar proyectos al iniciar
         document.addEventListener('DOMContentLoaded', function() {
