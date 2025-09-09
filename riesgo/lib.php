@@ -17,9 +17,14 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
         header('Access-Control-Allow-Credentials: true');
         header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
         header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
-    }
-    if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-        http_response_code(204);
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            http_response_code(204);
+            exit;
+        }
+    } else {
+        // Origen no permitido
+        http_response_code(403);
+        echo json_encode(['success'=>false, 'error'=>'CORS: Dominio no permitido']);
         exit;
     }
 }
