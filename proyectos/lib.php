@@ -4,31 +4,14 @@ ini_set('display_errors','1');
 session_start();
 header('Content-Type: application/json; charset=utf-8');
 
-/* // --- Validación de dominio/origin estricta (heredada de app.php) ---
-if (!isset($_SERVER['HTTP_ORIGIN'])) {
-    http_response_code(403);
-    echo json_encode(['success'=>false, 'error'=>'Dominio no permitido (Origin requerido)']);
-    exit;
-}
-// Validar dominio permitido
-$allowed_domains = array_map('strtolower', array_map('trim', explode(',', $_ENV['ALLOWED_DOMAINS'] ?? 'localhost')));
-$origin = $_SERVER['HTTP_ORIGIN'];
-$parsed = parse_url($origin);
-$origin_host = strtolower($parsed['host'] ?? '');
-if (!in_array($origin_host, $allowed_domains, true)) {
-    http_response_code(403);
-    echo json_encode(['success'=>false, 'error'=>'Dominio no permitido']);
-    exit;
-} */
-
 require_once __DIR__ . '/../lib/php/app.php';
 
-// --- Validar sesión (ajusta según tu lógica de login) ---
+/* // --- Validar sesión (ajusta según tu lógica de login) ---
 if (!isset($_SESSION["us_sds"])) {
     echo json_encode(['success' => false, 'error' => 'Sesión expirada', 'redirect' => '/index.php']);
     exit;
 }
-
+ */
 // --- Utilidades ---
 function error_response($msg, $code = 400) {
     http_response_code($code);
