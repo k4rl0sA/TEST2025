@@ -268,7 +268,7 @@ function acceso($a){
     }
   }
   if ($jwt) {
-    $jwt_secret = isset($_ENV['JWT_SECRET']) ? $_ENV['JWT_SECRET'] : 'CAMBIAESTESECRETO';
+    $jwt_secret = isset($_ENV['JWT_SECRET']) ? $_ENV['JWT_SECRET'] : $_ENV['JWT_SECRET_default'];
     $payload = jwt_decode($jwt, $jwt_secret);
     if ($payload && isset($payload['perfil'])) {
       // Puedes agregar más validaciones aquí (exp, iss, etc)
