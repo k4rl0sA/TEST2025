@@ -61,7 +61,7 @@ $comy = array(
   ]
 );
 // var_dump($dominio);
-$allowed_domains = ['pruebagtaps.site', 'gitapps.site','gtaps.42web.io'];
+$allowed_domains = ['pruebagtap.site', 'gitapps.site','gtaps.42web.io'];
 if (in_array($dominio, $allowed_domains)) {
   $dbConfig = $comy[$dominio];
 }else{
