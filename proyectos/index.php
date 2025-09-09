@@ -311,6 +311,11 @@ if (empty($_SESSION['csrf_token'])) {
         if (data.success) {
             closeModal();
             cargarProyectos();
+             notificarResponsable(
+            document.getElementById('projectStatus').value,
+            document.getElementById('priority').value,
+            document.getElementById('projectDeadline').value
+        );
         } else {
             alert(data.error || 'Error al crear proyecto');
         }
@@ -443,6 +448,11 @@ function actualizarProyecto() {
         if (data.success) {
             closeModal();
             cargarProyectos();
+             notificarResponsable(
+            document.getElementById('projectStatus').value,
+            document.getElementById('priority').value,
+            document.getElementById('projectDeadline').value
+        );
         } else {
             alert(data.error || 'Error al actualizar proyecto');
         }
@@ -473,16 +483,16 @@ function closeModal() {
 
 // Mapeo de estado a nombre de responsable
 const responsablesPorEstado = {
-    analisis: "EDISON FERNANDO MATEUS VASQUEZ",
-    desarrollo: "CARLOS EDUARDO ACEVEDO",
-    pruebas: "OSCAR ARLEY CURREA JIMENEZ",
-    aprobacion: "SINDY SANCHEZ",
-    manual: "JEISSON CURREA JIMENEZ",
-    pruebasSub: "JEISSON CURREA JIMENEZ",
-    socializacion: "EDISON FERNANDO MATEUS VASQUEZ",
-    implementacion: "CARLOS EDUARDO ACEVEDO",
-    notifica: "SINDY SANCHEZ"
-};
+    analisis:{"EDISON FERNANDO MATEUS VASQUEZ",telefono: "3112161501"},
+    desarrollo:{"CARLOS EDUARDO ACEVEDO",telefono: "3115852782"},
+    pruebas:{"OSCAR ARLEY CURREA JIMENEZ",telefono: "3212096277"},
+    aprobacion:{"SINDY SANCHEZ",telefono: "3005274354"},
+    manual:{"JEISSON CURREA JIMENEZ",telefono: "3017389220"},
+    pruebasSub:{"JEISSON CURREA JIMENEZ",telefono: "3017389220"},
+    socializacion:{"EDISON FERNANDO MATEUS VASQUEZ",telefono: "3112161501"},
+    implementacion:{"CARLOS EDUARDO ACEVEDO",telefono: "3115852782"},
+    notifica:{"SINDY SANCHEZ"telefono: "3005274354"}
+};},
 function asignarResponsablePorEstado() {
     const estado = document.getElementById('projectStatus').value;
     const nombreResponsable = responsablesPorEstado[estado];
@@ -498,6 +508,17 @@ function asignarResponsablePorEstado() {
     // Mostrar campo de archivo solo si es desarrollo
     document.getElementById('fileGroup').style.display = (estado === 'desarrollo' || estado === 'aprobacion' || estado === 'socializacion' ) ? '' : 'none';
 }
+
+function notificarResponsable(estado, prioridad, fechaLimite) {
+    const responsable = responsablesPorEstado[estado];
+    if (!responsable || !responsable.telefono) return;
+    const mensaje = encodeURIComponent(
+        `Se le ha asignado la siguiente tarea:\nEstado: ${estado}\nPrioridad: ${prioridad}\nFecha límite: ${fechaLimite}`
+    );
+    // Abre WhatsApp Web con el mensaje
+    window.open(`https://wa.me/${responsable.telefono}?text=${mensaje}`, '_blank');
+}
+
 // Cuando cambia el estado, asigna el responsable correspondiente
 document.getElementById('projectStatus').addEventListener('change', function() {
     asignarResponsablePorEstado();
