@@ -1760,14 +1760,14 @@ FN_CATALOGODESC(269,RC.accion) AS 'Definir Acción', RC.profesional AS 'Document
 RC.usu_creo AS 'Documento Colaborador', U1.nombre AS 'Nombre Colaborador', U1.perfil AS 'Perfil Colaborador'
 FROM `eac_ruteo_clas` RC
 LEFT JOIN eac_ruteo_ges RG ON RC.idrutges = RG.id_rutges
-LEFT JOIN eac_ruteo R ON RG.idruteo = R.id_ruteo
+LEFT JOIN eac_ruteo R ON RC.idrutges = R.id_ruteo
 LEFT JOIN hog_geo G ON R.idgeo = G.idgeo
 LEFT JOIN usuarios U ON RC.profesional = U.id_usuario
 LEFT JOIN usuarios U1 ON RC.usu_creo = U1.id_usuario WHERE 1";
 	if (perfilUsu()!=='ADM')	$sql.=whe_subred14();
 	$sql.=whe_date14();
 	// echo $sql;
-	$tot="SELECT COUNT(*) total FROM `eac_ruteo_clas` RC LEFT JOIN eac_ruteo_ges RG ON RC.idrutges = RG.id_rutges LEFT JOIN eac_ruteo R ON RG.idruteo = R.id_ruteo LEFT JOIN hog_geo G ON R.idgeo = G.idgeo LEFT JOIN usuarios U ON RC.profesional = U.id_usuario LEFT JOIN usuarios U1 ON RC.usu_creo = U1.id_usuario WHERE 1 ";	
+	$tot="SELECT COUNT(*) total FROM `eac_ruteo_clas` RC LEFT JOIN eac_ruteo_ges RG ON RC.idrutges = RG.id_rutges LEFT JOIN eac_ruteo R ON RC.idrutges = R.id_ruteo LEFT JOIN hog_geo G ON R.idgeo = G.idgeo LEFT JOIN usuarios U ON RC.profesional = U.id_usuario LEFT JOIN usuarios U1 ON RC.usu_creo = U1.id_usuario WHERE 1 ";	
 	if (perfilUsu()!=='ADM')	$tot.=whe_subred14();
 	$tot.=whe_date14();
 	$_SESSION['sql_'.$txt]=$sql;
