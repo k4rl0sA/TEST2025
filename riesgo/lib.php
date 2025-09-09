@@ -56,7 +56,7 @@ switch ($a) {
         $row = datos_mysql_row($sql, $params);
         if (!$row) error_response('Usuario no encontrado o inactivo', 401);
         if (!password_verify($clave, $row['clave'])) error_response('Clave incorrecta', 401);
-        $jwt_secret = isset($_ENV['JWT_SECRET']) ? $_ENV['JWT_SECRET'] : 'CAMBIAESTESECRETO';
+        $jwt_secret = isset($_ENV['JWT_SECRET']) ? $_ENV['JWT_SECRET'] :$_ENV['JWT_SECRET_default'];
         $payload = [
             'usuario' => $row['id_usuario'],
             'correo' => $row['correo'],
