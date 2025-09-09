@@ -1,3 +1,4 @@
+require_once __DIR__ . '/jwt_helper.php';
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     ini_set('session.cookie_httponly', 1);
@@ -281,14 +282,11 @@ function acceso($a){
     }
   }
   if ($jwt) {
-    // Validar JWT (solo estructura básica, para producción usar librería como firebase/php-jwt)
-    $parts = explode('.', $jwt);
-    if (count($parts) === 3) {
-      $payload = json_decode(base64_decode(strtr($parts[1], '-_', '+/')), true);
-      if (is_array($payload) && isset($payload['perfil'])) {
-        // Puedes agregar más validaciones aquí (exp, iss, etc)
-        return true;
-      }
+    $jwt_secret = 'TU_SECRETO_JWT'; // Cambia esto por un valor seguro
+    $payload = jwt_decode($jwt, $jwt_secret);
+    if ($payload && isset($payload['perfil'])) {
+      // Puedes agregar más validaciones aquí (exp, iss, etc)
+      return true;
     }
     // JWT inválido
     return;
