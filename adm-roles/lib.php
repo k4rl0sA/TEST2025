@@ -321,36 +321,4 @@ switch ($a) {
 
     default:
         error_response("Acción no válida", 400);
-
-        /* $sql = "SELECT * FROM adm_roles";
-        $result = datos_mysql($sql); */
-        /* // Obtener un solo rol por ID
-$id = 5;
-$sql = "SELECT * FROM adm_roles WHERE id_rol = ?";
-$params = [['type' => 'i', 'value' => $id]];
-$rol = datos_mysql_row($sql, $params);
-if ($rol) {
-    // $rol es un array asociativo con los campos del registro
-} */
- /*   case 'delete':
-        check_csrf();
-        $id = intval($_POST['id'] ?? $_GET['id'] ?? 0);
-        if (!$id) error_response("ID inválido");
-        $sql = "DELETE FROM adm_roles WHERE id_rol = ?";
-        $params = [['type' => 'i', 'value' => $id]];
-        $res = mysql_prepd($sql, $params);
-        if (strpos($res, 'Error') !== false) error_response("Error al eliminar: $res");
-        success_response('Rol eliminado correctamente');
-        break; */
-
-        // --- CSRF seguro ---
-/* function check_csrf() {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (empty($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-            log_error('CSRF token inválido o ausente');
-            error_response('CSRF token inválido o ausente', 403);
-        }
-    }
-}
- */
 }
