@@ -47,37 +47,30 @@ if (!$db_user || !$db_pass || !$db_name) {
 $con = mysqli_connect($db_host, $db_user, $db_pass, $db_name, $db_port);
 
 
-// --- Validación de dominio permitido para todas las peticiones ---
+// --- Validación estricta de dominio permitido: SIEMPRE se requiere Origin y debe estar permitido ---
 $allowed_domains = array_map('strtolower', array_map('trim', explode(',', $_ENV['ALLOWED_DOMAINS'] ?? 'localhost')));
-if (isset($_SERVER['HTTP_ORIGIN'])) {
-  $origin = $_SERVER['HTTP_ORIGIN'];
-  $parsed = parse_url($origin);
-  $origin_host = strtolower($parsed['host'] ?? '');
-  $permitido = in_array($origin_host, $allowed_domains, true);
-  if ($permitido) {
-    header('Access-Control-Allow-Origin: ' . $origin);
-    header('Access-Control-Allow-Credentials: true');
-    header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-    header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
-    if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-      http_response_code(204);
-      exit;
-    }
-  } else {
-    http_response_code(403);
-    echo json_encode(['success'=>false, 'error'=>'Dominio no permitido']);
+if (!isset($_SERVER['HTTP_ORIGIN'])) {
+  http_response_code(403);
+  echo json_encode(['success'=>false, 'error'=>'Dominio no permitido (Origin requerido)']);
+  exit;
+}
+$origin = $_SERVER['HTTP_ORIGIN'];
+$parsed = parse_url($origin);
+$origin_host = strtolower($parsed['host'] ?? '');
+$permitido = in_array($origin_host, $allowed_domains, true);
+if ($permitido) {
+  header('Access-Control-Allow-Origin: ' . $origin);
+  header('Access-Control-Allow-Credentials: true');
+  header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+  header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+  if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204);
     exit;
   }
-} else if (isset($_SERVER['HTTP_HOST'])) {
-  $host = strtolower($_SERVER['HTTP_HOST']);
-  // Eliminar puerto si existe (corregir regex)
-  $host_base = preg_replace('/:\d+$/', '', $host);
-  $permitido = in_array($host, $allowed_domains, true) || in_array($host_base, $allowed_domains, true);
-  if (!$permitido) {
-    http_response_code(403);
-    echo json_encode(['success'=>false, 'error'=>'Dominio no permitido']);
-    exit;
-  }
+} else {
+  http_response_code(403);
+  echo json_encode(['success'=>false, 'error'=>'Dominio no permitido']);
+  exit;
 }
 
 if (!$con) { $error = mysqli_connect_error();  exit; }
