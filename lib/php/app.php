@@ -310,23 +310,24 @@ function fechas_app($modu){
 }
 
 function datos_mysql($sql, $resulttype = MYSQLI_ASSOC, $pdbs = false, $params = []) {
-    $arr = ['code' => 0, 'message' => '', 'responseResult' => []];
-    $con = $GLOBALS['con'];
-    if (!$con) {
-        $arr['code'] = 30;
-        $arr['message'] = 'No hay conexión activa a la base de datos.';
-        log_error($_SESSION["us_sds"] . ' = Connection error');
-        return $arr;
-    }
+  $arr = ['code' => 0, 'message' => '', 'responseResult' => []];
+  $con = $GLOBALS['con'];
+  $usuario = isset($_SESSION['us_sds']) ? $_SESSION['us_sds'] : 'Usuario Desconocido';
+  if (!$con) {
+    $arr['code'] = 30;
+    $arr['message'] = 'No hay conexión activa a la base de datos.';
+    log_error($usuario . ' = Connection error');
+    return $arr;
+  }
     try {
         $con->set_charset('utf8');
         if ($params && is_array($params) && count($params) > 0) {
             // --- Consulta preparada ---
             $stmt = $con->prepare($sql);
-            if (!$stmt) {
-                log_error($_SESSION["us_sds"] . ' Error preparando: ' . $con->error);
-                throw new mysqli_sql_exception("Error preparando: " . $con->error, $con->errno);
-            }
+      if (!$stmt) {
+        log_error($usuario . ' Error preparando: ' . $con->error);
+        throw new mysqli_sql_exception("Error preparando: " . $con->error, $con->errno);
+      }
             $types = '';
             $values = [];
             foreach ($params as $param) {
@@ -342,10 +343,10 @@ function datos_mysql($sql, $resulttype = MYSQLI_ASSOC, $pdbs = false, $params = 
             }
             call_user_func_array([$stmt, 'bind_param'], $bind_names);
 
-            if (!$stmt->execute()) {
-                log_error($_SESSION["us_sds"] . ' Error ejecutando: ' . $stmt->error);
-                throw new mysqli_sql_exception("Error ejecutando: " . $stmt->error, $stmt->errno);
-            }
+      if (!$stmt->execute()) {
+        log_error($usuario . ' Error ejecutando: ' . $stmt->error);
+        throw new mysqli_sql_exception("Error ejecutando: " . $stmt->error, $stmt->errno);
+      }
             $result = $stmt->get_result();
             if ($result) {
                 while ($r = $result->fetch_array($resulttype)) {
@@ -360,18 +361,18 @@ function datos_mysql($sql, $resulttype = MYSQLI_ASSOC, $pdbs = false, $params = 
         } else {
             // --- Consulta directa (sin parámetros) ---
             $rs = $con->query($sql);
-            if (!$rs) {
-                log_error($_SESSION["us_sds"] . ' Error en la consulta: ' . $con->error, $con->errno);
-                throw new mysqli_sql_exception("Error en la consulta: " . $con->error, $con->errno);
-            }
+      if (!$rs) {
+        log_error($usuario . ' Error en la consulta: ' . $con->error, $con->errno);
+        throw new mysqli_sql_exception("Error en la consulta: " . $con->error, $con->errno);
+      }
             fetch($con, $rs, $resulttype, $arr);
         }
-    } catch (mysqli_sql_exception $e) {
-        $arr['code'] = 30;
-        $arr['message'] = 'Error BD';
-        $arr['errors'] = ['code' => $e->getCode(), 'message' => $e->getMessage()];
-        log_error($_SESSION["us_sds"].'=>'.$e->getCode().'='.$e->getMessage());
-    }
+  } catch (mysqli_sql_exception $e) {
+    $arr['code'] = 30;
+    $arr['message'] = 'Error BD';
+    $arr['errors'] = ['code' => $e->getCode(), 'message' => $e->getMessage()];
+    log_error($usuario.'=>'.$e->getCode().'='.$e->getMessage());
+  }
     return $arr;
 }
 
