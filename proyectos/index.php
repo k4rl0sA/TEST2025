@@ -220,7 +220,9 @@ if (empty($_SESSION['csrf_token'])) {
         };
 
         function cargarProyectos(search = '') {
-            fetch(`${API}?a=list_proyectos&search=${encodeURIComponent(search)}`)
+            fetch(`${API}?a=list_proyectos&search=${encodeURIComponent(search)}`, {
+                credentials: 'include'
+            })
                 .then(r => r.json())
                 .then(data => {
                     if (data.success) {
