@@ -432,6 +432,10 @@ function actualizarProyecto() {
 }
     fetch('lib.php', {
         method: 'POST',
+         headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        credentials: 'include',
         body: new URLSearchParams({
             a: 'actualizar_proyecto',
             id: proyectoActualId,
@@ -571,7 +575,12 @@ document.getElementById('projectFile').addEventListener('change', function() {
     // Usar el nombre esperado como public_id
     formData.append('public_id', nombreEsperado);
 
-    fetch(url, { method: 'POST', body: formData })
+    fetch(url, { method: 'POST', 
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        credentials: 'include',
+        body: formData })
         .then(r => r.json())
         .then(data => {
             if (data.secure_url) {
