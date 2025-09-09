@@ -5,6 +5,7 @@ header('Content-Type: application/json; charset=utf-8');
 
 require_once __DIR__ . '/../lib/php/app.php';
 
+var_dump($_SERVER['HTTP_ORIGIN']);
 // --- CORS seguro para APIs públicas ---
 if (isset($_SERVER['HTTP_ORIGIN'])) {
     $allowed_origins = [
@@ -12,7 +13,6 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
         'https://www.tudominio.com',
         'http://localhost:3000', 
     ];
-    var_dump($_SERVER['HTTP_ORIGIN']);
     if (in_array($_SERVER['HTTP_ORIGIN'], $allowed_origins)) {
         header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
         header('Access-Control-Allow-Credentials: true');
