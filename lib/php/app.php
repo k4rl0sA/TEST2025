@@ -32,42 +32,19 @@ load_env();
 require_once __DIR__ . '/jwt_helper.php';
 $ruta_upload='/public_html/upload/';
 
-$dom = $_SERVER['HTTP_HOST'];
-$dominio = preg_replace('/^www\./i', '', $dom);
-$comy = array(
-  'pruebagtaps.site' => [
-      's' => 'localhost',
-      'u' => 'u470700275_17',
-      'p' => 'z9#KqH!YK2VEyJpT',
-      'bd' => 'u470700275_17'
-  ],
-  'gitapps.site' => [
-      's' => 'localhost',
-      'u' => 'u470700275_08',
-      'p' => 'z9#KqH!YK2VEyJpT',
-      'bd' => 'u470700275_08'
-  ],
-  'gtaps.saludcapital.gov.co' => [
-      's' => '10.234.8.132',
-      'u' => 'u470700275_08',
-      'p' => 'z9#KqH!YK2VEyJpT',
-      'bd' => 'saludencasa_pru'
-  ],
-  'gtaps.42web.io' => [
-      's' => 'srv1723.hstgr.io',
-      'u' => 'u470700275_17',
-      'p' => 'z9#KqH!YK2VEyJpT',
-      'bd' => 'u470700275_17'
-  ]
-);
-// var_dump($dominio);
-$allowed_domains = ['pruebagtaps.site', 'gitapps.site','gtaps.42web.io'];
-if (in_array($dominio, $allowed_domains)) {
-  $dbConfig = $comy[$dominio];
-}else{
-  die('Dominio no permitido.');
+
+// --- Configuración de base de datos desde .env ---
+$db_host = $_ENV['DB_HOST'] ?? 'localhost';
+$db_user = $_ENV['DB_USER'] ?? '';
+$db_pass = $_ENV['DB_PASS'] ?? '';
+$db_name = $_ENV['DB_NAME'] ?? '';
+$db_port = isset($_ENV['DB_PORT']) ? intval($_ENV['DB_PORT']) : 3306;
+
+if (!$db_user || !$db_pass || !$db_name) {
+  die('Faltan variables de entorno para la base de datos.');
 }
-$con=mysqli_connect($dbConfig['s'],$dbConfig['u'],$dbConfig['p'],$dbConfig['bd']);
+
+$con = mysqli_connect($db_host, $db_user, $db_pass, $db_name, $db_port);
 
 
 // --- CORS seguro para APIs públicas ---
