@@ -394,7 +394,7 @@ function llenarModal(proy) {
 function habilitarCamposModal(habilitar) {
     document.getElementById('projectName').disabled = !habilitar;
     document.getElementById('projectDescription').disabled = !habilitar;
-    document.getElementById('projectTeam').disabled = true;
+    document.getElementById('projectTeam').disabled = false;
     document.getElementById('projectStatus').disabled = !habilitar;
     document.getElementById('projectDeadline').disabled = !habilitar;
     document.getElementById('priority').disabled = !habilitar;
