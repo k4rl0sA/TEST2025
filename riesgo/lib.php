@@ -10,7 +10,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
     $allowed_origins = [
         'https://tudominio.com',
         'https://www.tudominio.com',
-        'http://localhost:3000', // para desarrollo
+        'http://localhost:3000', 
     ];
     if (in_array($_SERVER['HTTP_ORIGIN'], $allowed_origins)) {
         header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
@@ -24,7 +24,7 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
     } else {
         // Origen no permitido
         http_response_code(403);
-        echo json_encode(['success'=>false, 'error'=>'CORS: Dominio no permitido']);
+        echo json_encode(['success'=>false, 'error'=>'Dominio no permitido']);
         exit;
     }
 }
