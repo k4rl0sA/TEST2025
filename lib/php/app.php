@@ -136,8 +136,9 @@ function check_csrf() {
 
 //HASHEAR MIS IDS 
 function myhash($a){
-    $hash = md5($a . $_SESSION['us_sds'] . 'D2AC5E5211884EA15F1E950D1445C5E8');
-    return $hash;
+  $usuario = isset($_SESSION['us_sds']) ? $_SESSION['us_sds'] : '';
+  $hash = md5($a . $usuario . 'D2AC5E5211884EA15F1E950D1445C5E8');
+  return $hash;
 }
 
 function IdHash($hash, $accion = '') {
