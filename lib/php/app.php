@@ -49,11 +49,7 @@ $con = mysqli_connect($db_host, $db_user, $db_pass, $db_name, $db_port);
 
 // --- CORS seguro para APIs públicas ---
 if (isset($_SERVER['HTTP_ORIGIN'])) {
-    $allowed_origins = [
-        'https://tudominio.com',
-        'https://www.tudominio.com',
-        'http://localhost:3000', 
-    ];
+    $allowed_origins = array_map('trim', explode(',', $_ENV['ALLOWED_DOMAINS'] ?? 'localhost'));
     if (in_array($_SERVER['HTTP_ORIGIN'], $allowed_origins)) {
         header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
         header('Access-Control-Allow-Credentials: true');
