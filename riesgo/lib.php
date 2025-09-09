@@ -46,14 +46,22 @@ switch ($a) {
     // Endpoint para generar JWT (solo ejemplo, deberías validar usuario/clave)
     case 'login_jwt':
         require_method('POST');
-        // Aquí deberías validar usuario/clave reales
         $usuario = $_POST['usuario'] ?? '';
-        $perfil = $_POST['perfil'] ?? 'API';
-        if (!$usuario) error_response('Usuario requerido', 400);
+        $clave = $_POST['clave'] ?? '';
+        if (!$usuario || !$clave) error_response('Usuario y clave requeridos', 400);
+        // Consulta segura usando prepared statements
+        $sql = "SELECT id_usuario, correo, nombre, clave, subred, perfil FROM usuarios WHERE id_usuario = ? AND estado = 'A' LIMIT 1";
+        $params = [ ['type' => 's', 'value' => $usuario] ];
+        require_once __DIR__ . '/../lib/php/app.php';
+        $row = datos_mysql_row($sql, $params);
+        if (!$row) error_response('Usuario no encontrado o inactivo', 401);
+        if (!password_verify($clave, $row['clave'])) error_response('Clave incorrecta', 401);
         $jwt_secret = isset($_ENV['JWT_SECRET']) ? $_ENV['JWT_SECRET'] : 'CAMBIAESTESECRETO';
         $payload = [
-            'usuario' => $usuario,
-            'perfil' => $perfil,
+            'usuario' => $row['id_usuario'],
+            'correo' => $row['correo'],
+            'nombre' => $row['nombre'],
+            'perfil' => $row['perfil'],
             'iat' => time(),
             'exp' => time() + 3600 // 1 hora
         ];
