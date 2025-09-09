@@ -225,17 +225,20 @@ function rol($a){ //a=modulo, b=perfil c=componente
 }
 
 function perfil($a){
-	$perf=rol($a);
-	//  var_dump($perf);
-	if (empty($perf['perfil']) || $perf['perfil'] === array()){
-		echo "<H1>ACCESO NO AUTORIZADO,PARA {$a} VALIDA TUS PERMISOS CON EL ADMINISTRADOR DEL SISTEMA</H1><div class='messag rtawarn'></div>";
-		exit();
-		 }
+  $perf = rol($a);
+  // Si no hay sesión, simplemente retorna (API pública)
+  if (!isset($_SESSION['us_sds'])) return;
+  // Si hay sesión pero no permisos, muestra mensaje y termina
+  if (empty($perf['perfil']) || $perf['perfil'] === array()){
+    echo "<H1>ACCESO NO AUTORIZADO,PARA {$a} VALIDA TUS PERMISOS CON EL ADMINISTRADOR DEL SISTEMA</H1><div class='messag rtawarn'></div>";
+    exit();
+  }
 }
 
 function acceso($a){
-  $acc=rol($a);
-  // print_r($acc);
+  // Si no hay sesión, permite acceso (API pública)
+  if (!isset($_SESSION['us_sds'])) return true;
+  $acc = rol($a);
   if (!empty($acc['perfil'])){
     return true;
   }else{
