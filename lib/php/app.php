@@ -49,22 +49,31 @@ $con = mysqli_connect($db_host, $db_user, $db_pass, $db_name, $db_port);
 
 // --- CORS seguro para APIs públicas ---
 if (isset($_SERVER['HTTP_ORIGIN'])) {
-    $allowed_origins = array_map('trim', explode(',', $_ENV['ALLOWED_DOMAINS'] ?? 'localhost'));
-    if (in_array($_SERVER['HTTP_ORIGIN'], $allowed_origins)) {
-        header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
-        header('Access-Control-Allow-Credentials: true');
-        header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-        header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
-        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-            http_response_code(204);
-            exit;
-        }
-    } else {
-        // Origen no permitido
-        http_response_code(403);
-        echo json_encode(['success'=>false, 'error'=>'Dominio no permitido']);
-        exit;
+  $allowed_domains = array_map('trim', explode(',', $_ENV['ALLOWED_DOMAINS'] ?? 'localhost'));
+  $origin = $_SERVER['HTTP_ORIGIN'];
+  $parsed = parse_url($origin);
+  $origin_host = $parsed['host'] ?? '';
+  $permitido = false;
+  foreach ($allowed_domains as $dom) {
+    if (stripos($origin_host, $dom) !== false) {
+      $permitido = true;
+      break;
     }
+  }
+  if ($permitido) {
+    header('Access-Control-Allow-Origin: ' . $origin);
+    header('Access-Control-Allow-Credentials: true');
+    header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+    header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+    if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+      http_response_code(204);
+      exit;
+    }
+  } else {
+    http_response_code(403);
+    echo json_encode(['success'=>false, 'error'=>'Dominio no permitido']);
+    exit;
+  }
 }
 
 if (!$con) { $error = mysqli_connect_error();  exit; }
