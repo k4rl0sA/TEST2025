@@ -212,14 +212,16 @@ function validNum($num,$ncar=[],$nlit=[]){
 }
 
 function rol($a){ //a=modulo, b=perfil c=componente
-	$rta=array();
-	$sql="SELECT perfil,componente,crear,editar,consultar,ajustar,importar FROM adm_roles WHERE modulo = '".$a."' and perfil= (SELECT perfil FROM usuarios where id_usuario= '".$_SESSION['us_sds']."') AND componente=(SELECT componente FROM usuarios where id_usuario= '".$_SESSION['us_sds']."') AND estado = 'A'";
-	$data=datos_mysql($sql);
+  $rta = array();
+  $id_usuario = isset($_SESSION['us_sds']) ? $_SESSION['us_sds'] : '';
+  if (!$id_usuario) return $rta;
+  $sql = "SELECT perfil,componente,crear,editar,consultar,ajustar,importar FROM adm_roles WHERE modulo = '".$a."' and perfil= (SELECT perfil FROM usuarios where id_usuario= '".$id_usuario."') AND componente=(SELECT componente FROM usuarios where id_usuario= '".$id_usuario."') AND estado = 'A'";
+  $data = datos_mysql($sql);
   //print_r($data);
-	if ($data && isset($data['responseResult'][0])) {
-        $rta = $data['responseResult'][0];
+  if ($data && isset($data['responseResult'][0])) {
+    $rta = $data['responseResult'][0];
   }
-	return $rta;
+  return $rta;
 }
 
 function perfil($a){
