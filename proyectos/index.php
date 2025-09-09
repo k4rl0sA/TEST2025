@@ -483,15 +483,15 @@ function closeModal() {
 
 // Mapeo de estado a nombre de responsable
 const responsablesPorEstado = {
-    analisis:{"EDISON FERNANDO MATEUS VASQUEZ",telefono: "3112161501"},
-    desarrollo:{"CARLOS EDUARDO ACEVEDO",telefono: "3115852782"},
-    pruebas:{"OSCAR ARLEY CURREA JIMENEZ",telefono: "3212096277"},
-    aprobacion:{"SINDY SANCHEZ",telefono: "3005274354"},
-    manual:{"JEISSON CURREA JIMENEZ",telefono: "3017389220"},
-    pruebasSub:{"JEISSON CURREA JIMENEZ",telefono: "3017389220"},
-    socializacion:{"EDISON FERNANDO MATEUS VASQUEZ",telefono: "3112161501"},
-    implementacion:{"CARLOS EDUARDO ACEVEDO",telefono: "3115852782"},
-    notifica:{"SINDY SANCHEZ"telefono: "3005274354"}
+    analisis:{nombre:"EDISON FERNANDO MATEUS VASQUEZ",telefono: "3112161501"},
+    desarrollo:{nombre:"CARLOS EDUARDO ACEVEDO",telefono: "3115852782"},
+    pruebas:{nombre:"OSCAR ARLEY CURREA JIMENEZ",telefono: "3212096277"},
+    aprobacion:{nombre:"SINDY SANCHEZ",telefono: "3005274354"},
+    manual:{nombre:"JEISSON CURREA JIMENEZ",telefono: "3017389220"},
+    pruebasSub:{nombre:"JEISSON CURREA JIMENEZ",telefono: "3017389220"},
+    socializacion:{nombre:"EDISON FERNANDO MATEUS VASQUEZ",telefono: "3112161501"},
+    implementacion:{nombre:"CARLOS EDUARDO ACEVEDO",telefono: "3115852782"},
+    notifica:{nombre:"SINDY SANCHEZ"telefono: "3005274354"}
 };
 function asignarResponsablePorEstado() {
     const estado = document.getElementById('projectStatus').value;
