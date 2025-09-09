@@ -492,7 +492,7 @@ const responsablesPorEstado = {
     socializacion:{"EDISON FERNANDO MATEUS VASQUEZ",telefono: "3112161501"},
     implementacion:{"CARLOS EDUARDO ACEVEDO",telefono: "3115852782"},
     notifica:{"SINDY SANCHEZ"telefono: "3005274354"}
-};},
+};
 function asignarResponsablePorEstado() {
     const estado = document.getElementById('projectStatus').value;
     const nombreResponsable = responsablesPorEstado[estado];
