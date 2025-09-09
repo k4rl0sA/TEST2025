@@ -1,4 +1,3 @@
-require_once __DIR__ . '/jwt_helper.php';
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     ini_set('session.cookie_httponly', 1);
@@ -17,6 +16,20 @@ $APP='GTAPS';
   header("Location: /index.php"); 
   exit;
 } */
+// --- Cargar variables de entorno desde .env ---
+function load_env($file = __DIR__ . '/.env') {
+  if (!file_exists($file)) return;
+  $lines = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+  foreach ($lines as $line) {
+    if (strpos(trim($line), '#') === 0) continue;
+    list($name, $value) = array_map('trim', explode('=', $line, 2));
+    if (!array_key_exists($name, $_ENV)) {
+      $_ENV[$name] = $value;
+    }
+  }
+}
+load_env();
+require_once __DIR__ . '/jwt_helper.php';
 $ruta_upload='/public_html/upload/';
 
 $dom = $_SERVER['HTTP_HOST'];
@@ -282,7 +295,7 @@ function acceso($a){
     }
   }
   if ($jwt) {
-    $jwt_secret = 'TU_SECRETO_JWT'; // Cambia esto por un valor seguro
+    $jwt_secret = isset($_ENV['JWT_SECRET']) ? $_ENV['JWT_SECRET'] : 'CAMBIAESTESECRETO';
     $payload = jwt_decode($jwt, $jwt_secret);
     if ($payload && isset($payload['perfil'])) {
       // Puedes agregar más validaciones aquí (exp, iss, etc)
