@@ -51,7 +51,7 @@ $con = mysqli_connect($db_host, $db_user, $db_pass, $db_name, $db_port);
 $allowed_domains = array_map('strtolower', array_map('trim', explode(',', $_ENV['ALLOWED_DOMAINS'] ?? 'localhost')));
 if (!isset($_SERVER['HTTP_ORIGIN'])) {
   http_response_code(403);
-  echo json_encode(['success'=>false, 'error'=>'Dominio no permitido (Origin requerido)']);
+  echo json_encode(['success'=>false, 'error'=>'Dominio no permitido (Origin requerido)'.$_SERVER['HTTP_ORIGIN']]);
   exit;
 }
 $origin = $_SERVER['HTTP_ORIGIN'];
@@ -69,7 +69,7 @@ if ($permitido) {
   }
 } else {
   http_response_code(403);
-  echo json_encode(['success'=>false, 'error'=>'Dominio no permitido'.$origin]);
+  echo json_encode(['success'=>false, 'error'=>'Dominio no permitido']);
   exit;
 }
 
