@@ -500,7 +500,7 @@ function asignarResponsablePorEstado() {
     if (!nombreResponsable) return;
     // Busca la opción cuyo texto coincide con el nombre del responsable
     for (let option of select.options) {
-        if (option.text.trim().toUpperCase() === nombreResponsable.trim().toUpperCase()) {
+        if (option.text.trim().toUpperCase() === nombreResponsable.nombre.trim().toUpperCase()) {
             select.value = option.value;
             break;
         }
