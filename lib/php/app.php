@@ -70,7 +70,9 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
   }
 } else if (isset($_SERVER['HTTP_HOST'])) {
   $host = strtolower($_SERVER['HTTP_HOST']);
-  $permitido = in_array($host, $allowed_domains, true);
+  // Eliminar puerto si existe
+  $host_base = preg_replace('/:\\d+$/', '', $host);
+  $permitido = in_array($host, $allowed_domains, true) || in_array($host_base, $allowed_domains, true);
   if (!$permitido) {
     http_response_code(403);
     echo json_encode(['success'=>false, 'error'=>'Dominio no permitido']);
