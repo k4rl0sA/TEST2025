@@ -1,23 +1,33 @@
+
 <?php
 ini_set('display_errors','1');
 header('Content-Type: application/json; charset=utf-8');
 
 require_once __DIR__ . '/../lib/php/app.php';
 
-// --- Validar sesión ---
-if (!isset($_SESSION["us_sds"])) {
-    echo json_encode(['success' => false, 'error' => 'Sesión expirada', 'redirect' => '/index.php']);
-    exit;
-}
-// --- Validar permisos ---
-if (!acceso('roles')) { // Cambia 'ajustes' por el módulo
-    error_response('No tienes permisos para acceder a este módulo', 403);
+// --- CORS seguro para APIs públicas ---
+if (isset($_SERVER['HTTP_ORIGIN'])) {
+    $allowed_origins = [
+        'https://tudominio.com',
+        'https://www.tudominio.com',
+        'http://localhost:3000', // para desarrollo
+    ];
+    if (in_array($_SERVER['HTTP_ORIGIN'], $allowed_origins)) {
+        header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
+        header('Access-Control-Allow-Credentials: true');
+        header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+    }
+    if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+        http_response_code(204);
+        exit;
+    }
 }
 
 // --- Utilidad para respuesta de error segura y log ---
 function error_response($msg, $code = 400) {
     http_response_code($code);
-    log_error($msg);
+    if (function_exists('log_error')) log_error($msg);
     echo json_encode(['success' => false, 'error' => $msg]);
     exit;
 }
@@ -33,10 +43,35 @@ function clean($v) {
     return htmlspecialchars(trim($v), ENT_QUOTES, 'UTF-8');
 }
 
+// --- Seguridad: solo POST para mutaciones, GET para consulta ---
+function require_method($method) {
+    if ($_SERVER['REQUEST_METHOD'] !== $method) {
+        error_response('Método no permitido', 405);
+    }
+}
+
+// --- CSRF solo para POST autenticados ---
+function require_csrf() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (empty($_POST['csrf_token']) || $_POST['csrf_token'] !== ($_SESSION['csrf_token'] ?? '')) {
+            error_response('CSRF token inválido o ausente', 403);
+        }
+    }
+}
+
 $a = $_GET['a'] ?? $_POST['a'] ?? '';
 
 switch ($a) {
+    // Endpoint público para monitoreo/healthcheck
+    case 'health':
+        require_method('GET');
+        echo json_encode(['success'=>true, 'status'=>'ok', 'ts'=>date('c')]);
+        exit;
+
     case 'list':
+        // --- Solo usuarios autenticados ---
+        if (!isset($_SESSION["us_sds"])) error_response('Sesión expirada', 401);
+        if (!acceso('roles')) error_response('No tienes permisos para acceder a este módulo', 403);
         // --- Filtros ---
         $where = [];
         $params = [];
@@ -97,24 +132,24 @@ switch ($a) {
         ]);
         break;
 
-    case 'get':
-    
-        break;
 
+    // Ejemplo de endpoint público (sin sesión):
+    case 'publico':
+        require_method('GET');
+        // Aquí lógica pública, por ejemplo consulta de info general
+        echo json_encode(['success'=>true, 'info'=>'Este endpoint es público']);
+        exit;
+
+    // Ejemplo de endpoint privado (requiere sesión y CSRF para POST):
     case 'create':
-    
+        require_method('POST');
+        if (!isset($_SESSION["us_sds"])) error_response('Sesión expirada', 401);
+        require_csrf();
+        // ... lógica de creación ...
+        success_response('Creado correctamente');
         break;
 
-    case 'update':
-        break;
-
-    case 'inactive':
-        break;
-    
-    case 'opciones':
-        break;
-    case 'bulk':
-        break;
+    // ...otros endpoints privados...
 
     default:
         error_response("Acción no válida", 400);
