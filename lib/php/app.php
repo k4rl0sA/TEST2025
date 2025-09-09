@@ -53,7 +53,10 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
   $origin = $_SERVER['HTTP_ORIGIN'];
   $parsed = parse_url($origin);
   $origin_host = strtolower($parsed['host'] ?? '');
-  $permitido = in_array($origin_host, $allowed_domains, true);
+  // Normalizar para comparar con y sin www
+  $origin_host_nw = preg_replace('/^www\./', '', $origin_host);
+  $allowed_domains_nw = array_map(function($d){ return preg_replace('/^www\./', '', $d); }, $allowed_domains);
+  $permitido = in_array($origin_host, $allowed_domains, true) || in_array($origin_host_nw, $allowed_domains, true) || in_array($origin_host, $allowed_domains_nw, true);
   if ($permitido) {
     header('Access-Control-Allow-Origin: ' . $origin);
     header('Access-Control-Allow-Credentials: true');
