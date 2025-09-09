@@ -69,11 +69,6 @@ switch ($a) {
         echo json_encode(['success'=>true, 'token'=>$token, 'expira'=>$payload['exp']]);
         exit;
     // Endpoint público para monitoreo/healthcheck
-    case 'health':
-        require_method('GET');
-        echo json_encode(['success'=>true, 'status'=>'ok', 'ts'=>date('c')]);
-        exit;
-
     case 'list':
         // --- Solo usuarios autenticados ---
         if (!acceso('roles')) error_response('No tienes permisos para acceder a este módulo', 403);
@@ -136,15 +131,12 @@ switch ($a) {
             'totalPages' => $totalPages
         ]);
         break;
-
-
     // Ejemplo de endpoint público (sin sesión):
     case 'publico':
         require_method('GET');
         // Aquí lógica pública, por ejemplo consulta de info general
         echo json_encode(['success'=>true, 'info'=>'Este endpoint es público']);
         exit;
-
     // Ejemplo de endpoint privado (requiere sesión y CSRF para POST):
     case 'create':
         require_method('POST');
@@ -153,9 +145,7 @@ switch ($a) {
         // ... lógica de creación ...
         success_response('Creado correctamente');
         break;
-
     // ...otros endpoints privados...
-
     default:
         error_response("Acción no válida", 400);
 }
