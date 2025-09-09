@@ -49,17 +49,11 @@ $con = mysqli_connect($db_host, $db_user, $db_pass, $db_name, $db_port);
 
 // --- CORS seguro para APIs públicas ---
 if (isset($_SERVER['HTTP_ORIGIN'])) {
-  $allowed_domains = array_map('trim', explode(',', $_ENV['ALLOWED_DOMAINS'] ?? 'localhost'));
+  $allowed_domains = array_map('strtolower', array_map('trim', explode(',', $_ENV['ALLOWED_DOMAINS'] ?? 'localhost')));
   $origin = $_SERVER['HTTP_ORIGIN'];
   $parsed = parse_url($origin);
-  $origin_host = $parsed['host'] ?? '';
-  $permitido = false;
-  foreach ($allowed_domains as $dom) {
-    if (stripos($origin_host, $dom) !== false) {
-      $permitido = true;
-      break;
-    }
-  }
+  $origin_host = strtolower($parsed['host'] ?? '');
+  $permitido = in_array($origin_host, $allowed_domains, true);
   if ($permitido) {
     header('Access-Control-Allow-Origin: ' . $origin);
     header('Access-Control-Allow-Credentials: true');
