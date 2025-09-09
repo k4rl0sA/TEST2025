@@ -491,7 +491,7 @@ const responsablesPorEstado = {
     pruebasSub:{nombre:"JEISSON CURREA JIMENEZ",telefono: "3017389220"},
     socializacion:{nombre:"EDISON FERNANDO MATEUS VASQUEZ",telefono: "3112161501"},
     implementacion:{nombre:"CARLOS EDUARDO ACEVEDO",telefono: "3115852782"},
-    notifica:{nombre:"SINDY SANCHEZ"telefono: "3005274354"}
+    notifica:{nombre:"SINDY SANCHEZ", telefono: "3005274354"}
 };
 function asignarResponsablePorEstado() {
     const estado = document.getElementById('projectStatus').value;
