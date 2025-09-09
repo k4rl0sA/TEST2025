@@ -497,7 +497,7 @@ const responsablesPorEstado = {
 };
 function asignarResponsablePorEstado() {
     const estado = document.getElementById('projectStatus').value;
-    const nombreResponsable = responsablesPorEstado[estado];
+    const nombreResponsable =document.getElementById('projectTeam').value;
     const select = document.getElementById('projectTeam');
     if (!nombreResponsable) return;
     // Busca la opción cuyo texto coincide con el nombre del responsable
