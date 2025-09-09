@@ -75,7 +75,6 @@ switch ($a) {
 
     case 'list':
         // --- Solo usuarios autenticados ---
-        if (!isset($_SESSION["us_sds"])) error_response('Sesión expirada', 401);
         if (!acceso('roles')) error_response('No tienes permisos para acceder a este módulo', 403);
         // --- Filtros ---
         $where = [];
