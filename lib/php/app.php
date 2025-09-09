@@ -48,16 +48,27 @@ $con = mysqli_connect($db_host, $db_user, $db_pass, $db_name, $db_port);
 
 
 // --- Validación estricta de dominio permitido: SIEMPRE se requiere Origin y debe estar permitido ---
-$allowed_domains = array_map('strtolower', array_map('trim', explode(',', $_ENV['ALLOWED_DOMAINS'] ?? 'localhost')));
+// --- Validación estricta de dominio permitido: SOLO HTTPS y www/sin www ---
+$allowed_domains = array_map('trim', explode(',', $_ENV['ALLOWED_DOMAINS'] ?? 'localhost'));
 if (!isset($_SERVER['HTTP_ORIGIN'])) {
   http_response_code(403);
   echo json_encode(['success'=>false, 'error'=>'Dominio no permitido (Origin requerido)']);
   exit;
 }
 $origin = $_SERVER['HTTP_ORIGIN'];
-$parsed = parse_url($origin);
-$origin_host = strtolower($parsed['host'] ?? '');
-$permitido = in_array($origin_host, $allowed_domains, true);
+$parsed_origin = parse_url($origin);
+$origin_scheme = strtolower($parsed_origin['scheme'] ?? '');
+$origin_host = strtolower($parsed_origin['host'] ?? '');
+$permitido = false;
+foreach ($allowed_domains as $allowed) {
+  $parsed_allowed = parse_url($allowed);
+  $allowed_scheme = strtolower($parsed_allowed['scheme'] ?? '');
+  $allowed_host = strtolower($parsed_allowed['host'] ?? '');
+  if ($origin_scheme === 'https' && $allowed_scheme === 'https' && $origin_host === $allowed_host) {
+    $permitido = true;
+    break;
+  }
+}
 if ($permitido) {
   header('Access-Control-Allow-Origin: ' . $origin);
   header('Access-Control-Allow-Credentials: true');
