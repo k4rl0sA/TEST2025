@@ -97,13 +97,9 @@ function cmp_tamvalories(){
 	$c[]=new cmp('tipoaccion','s',3,'',$w.' '.$o,'Tipo de Accion','tipoaccion',null,null,true,true,'','col-3');
 	
 	$o='comprencion';
-	$c[]=new cmp($o,'e',null,'1. Comprensión y comunicación ',$w);
-	$c[]=new cmp('comprension1','s',3,'',$w.' '.$o,'Concentrarse en algo durante 10 minutos','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('comprension2','s',3,'',$w.' '.$o,'Recordar las cosas importantes que tiene que hacer','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('comprension3','s',3,'',$w.' '.$o,'Analizar y encontrar soluciones a los problemas de la vida diaria','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('comprension4','s',3,'',$w.' '.$o,'Aprender una nueva tarea, como por ejemplo, llegar a un lugar nuevo','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('comprension5','s',3,'',$w.' '.$o,'Entender en general lo que dice la gente','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('comprension6','s',3,'',$w.' '.$o,'Iniciar o mantener una conversación','nivel',null,null,true,true,'','col-10');
+	$c[]=new cmp($o,'e',null,'Vinculación Actividad Estructurada',$w);
+	$c[]=new cmp('actest','s',3,'',$w.' '.$o,'Se ha incorporado actividad estructurada','opcion',null,null,true,true,'','col-10');
+	
 
 	$o='capacidad';
 	$c[]=new cmp($o,'e',null,'2. Capacidad para moverse en su alrededor (entorno)',$w);
@@ -389,6 +385,9 @@ function gra_tamvalories(){
 }
 function opc_tipoaccion($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=290 and estado='A'  ORDER BY 1 ",$id);
+}
+function opc_opcion($id=''){
+	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=170 and estado='A'  ORDER BY 1 ",$id);
 }
 
 	function formato_dato($a,$b,$c,$d){
