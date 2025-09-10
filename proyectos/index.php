@@ -440,7 +440,7 @@ function actualizarProyecto() {
          headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        credentials: 'include',
+        // credentials: 'include',
         body: new URLSearchParams({
             a: 'actualizar_proyecto',
             id: proyectoActualId,
