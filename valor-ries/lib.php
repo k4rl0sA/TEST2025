@@ -45,9 +45,7 @@ function lis_tamvalories(){
 	$datos=datos_mysql($sql);
 	return create_table($total,$datos["responseResult"],"tamvalories",$regxPag);
 	}else{
-		return "<div class='error' style='padding: 12px; background-color:#00a3ffa6;color: white; border-radius: 25px; z-index:100; top:0;text-transform:none'>
-                <span style='margin-left: 15px; color: white; font-weight: bold; float: right; font-size: 22px; line-height: 20px; cursor: pointer; transition: 0.3s;' onclick=\"this.parentElement.style.display='none';\">&times;</span>
-            </div>";
+		return "
 	}
 }
 
