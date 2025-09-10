@@ -12,7 +12,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
 <script src="../libs/js/d.js"></script>
 <script src="../libs/js/popup.js"></script>
 <script>
-var mod='tamValories';	
+var mod='tamvalories';	
 var ruta_app='lib.php';
 
 function actualizar(){
@@ -27,7 +27,7 @@ function actualizar(){
 require_once "../libs/gestion.php";
 if (!isset($_SESSION["us_sds"])){ die("<script>window.top.location.href = '/';</script>");}
 
-$mod='tamValories';
+$mod='tamvalories';
 ?>
 <form method='post' id='fapp' >
 <div class="col-2 menu-filtro" id='<?php echo$mod; ?>-fil'>
