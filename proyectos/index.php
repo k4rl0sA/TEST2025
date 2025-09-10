@@ -6,7 +6,7 @@ if (empty($_SESSION['csrf_token'])) {
 }
 // --- Redirección a login si no hay sesión activa ---
 if (empty($_SESSION['us_sds'])) {
-    header('Location: /login/frmlogin.php?redirect=' . urlencode($_SERVER['REQUEST_URI']));
+    header('Location: /?redirect=' . urlencode($_SERVER['REQUEST_URI']));
     exit;
 }
 ?><!DOCTYPE html>
