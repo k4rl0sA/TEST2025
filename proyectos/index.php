@@ -513,14 +513,6 @@ function asignarResponsablePorEstado() {
     const estado = document.getElementById('projectStatus').value;
     const nombreResponsable =document.getElementById('projectTeam').value;
     const select = document.getElementById('projectTeam');
-    if (!nombreResponsable) return;
-    // Busca la opción cuyo texto coincide con el nombre del responsable
-    for (let option of select.options) {
-        if (option.text.trim().toUpperCase() === nombreResponsable.nombre.trim().toUpperCase()) {
-            select.value = option.value;
-            break;
-        }
-    }
     // Mostrar campo de archivo solo si es desarrollo
     document.getElementById('fileGroup').style.display = (estado === 'desarrollo' || estado === 'aprobacion' || estado === 'socializacion' ) ? '' : 'none';
 }
