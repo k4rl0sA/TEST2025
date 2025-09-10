@@ -1,6 +1,14 @@
 <?php
-ini_set('display_errors','1');
-
+ini_set('display_errors','0');
+$cookieParams = session_get_cookie_params();
+session_set_cookie_params([
+    'lifetime' => $cookieParams['lifetime'],
+    'path' => '/',
+    'domain' => $cookieParams['domain'],
+    'secure' => true, // solo si usas HTTPS
+    'httponly' => true,
+    'samesite' => 'Lax'
+]);
 session_start();
 header('Content-Type: application/json; charset=utf-8');
 require_once __DIR__ . '/../lib/php/app.php';
