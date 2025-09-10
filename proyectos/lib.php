@@ -15,6 +15,14 @@ function require_auth($modulo = 'proyectos') {
     }
 }
 
+// Validar autenticación para endpoints sensibles
+$public_endpoints = ['list_proyectos', 'get_proyecto', 'list_responsables'];
+$private_endpoints = ['crear_proyecto', 'actualizar_proyecto', 'eliminar_proyecto', 'crear_tarea'];
+
+if (in_array($a, $private_endpoints)) {
+    $payload = validateJWT(null, true, 'write');
+}
+
 // --- Protección CSRF para POST ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     validateCSRF();
