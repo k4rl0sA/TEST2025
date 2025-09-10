@@ -9,7 +9,8 @@ require_once __DIR__ . '/../lib/php/app.php';
 function require_auth($modulo = 'proyectos') {
     if (!acceso($modulo)) {
         http_response_code(401);
-        error_response("Error al crear el Proyecto");
+        error_response("Acceso no autorizado");
+        echo json_encode(['success' => false, 'error' => 'Acceso no autorizado']);
         exit;
     }
 }
