@@ -19,14 +19,6 @@ if (empty($_SESSION['us_sds'])) {
         <link rel="stylesheet" href="style.css?v=4">
         <script>
         window.CSRF_TOKEN = "<?php echo $_SESSION['csrf_token']; ?>";
-        // Detección de sesión desde JS (opcional, para SPA o AJAX):
-        fetch('/login/check_session.php', {credentials: 'include'})
-            .then(r => r.json())
-            .then(data => {
-                if (!data.authenticated) {
-                    window.location.href = '/login/frmlogin.php?redirect=' + encodeURIComponent(window.location.pathname);
-                }
-            });
         </script>
 </head>
 <body>
