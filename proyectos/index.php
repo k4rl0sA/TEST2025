@@ -4,6 +4,11 @@ session_start();
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
+// --- Redirección a login si no hay sesión activa ---
+if (empty($_SESSION['us_sds'])) {
+    header('Location: /login/frmlogin.php?redirect=' . urlencode($_SERVER['REQUEST_URI']));
+    exit;
+}
 ?><!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,7 +17,17 @@ if (empty($_SESSION['csrf_token'])) {
     <title>Sistema de Gestión de Proyectos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <link rel="stylesheet" href="style.css?v=4">
-    <script>window.CSRF_TOKEN = "<?php echo $_SESSION['csrf_token']; ?>";</script>
+        <script>
+        window.CSRF_TOKEN = "<?php echo $_SESSION['csrf_token']; ?>";
+        // Detección de sesión desde JS (opcional, para SPA o AJAX):
+        fetch('/login/check_session.php', {credentials: 'include'})
+            .then(r => r.json())
+            .then(data => {
+                if (!data.authenticated) {
+                    window.location.href = '/login/frmlogin.php?redirect=' + encodeURIComponent(window.location.pathname);
+                }
+            });
+        </script>
 </head>
 <body>
     <div class="container">
