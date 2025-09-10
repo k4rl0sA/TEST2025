@@ -208,7 +208,7 @@ if (empty($_SESSION['csrf_token'])) {
     
     <script>
     // Usar URL absoluta para forzar envío de Origin
-    const API = 'https://pruebagtaps.site/proyectos/lib.php';
+    const API = 'lib.php';
 
         // Cargar proyectos al iniciar
         document.addEventListener('DOMContentLoaded', function() {
@@ -279,7 +279,7 @@ if (empty($_SESSION['csrf_token'])) {
     const estado = document.getElementById('projectStatus').value;
     const fecha_fin_estimada = document.getElementById('projectDeadline').value;
     // Campos adicionales
-    const fecha_inicio = ''; // O puedes agregar un campo en el formulario
+    const fecha_inicio = '';
     const prioridad = 'media';
     const progreso = 0;
     const presupuesto = 0;
@@ -293,8 +293,9 @@ if (empty($_SESSION['csrf_token'])) {
     fetch(API, {
         method: 'POST',
           headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/x-www-form-urlencoded'
         },
+        credentials: 'include',
         body: new URLSearchParams({
             a: 'crear_proyecto',
             nombre,
@@ -306,7 +307,8 @@ if (empty($_SESSION['csrf_token'])) {
             prioridad,
             progreso,
             presupuesto,
-            cliente
+            cliente,
+            csrf_token: window.CSRF_TOKEN
         })
     })
     .then(r => r.json())
@@ -433,7 +435,7 @@ function actualizarProyecto() {
     if (archivoSubiendo) return alert('Espera a que termine la carga del archivo.');
     if (!document.getElementById('cloudinaryUrl').value) return alert('Debes subir un archivo para Desarrollo.');
 }
-    fetch('lib.php', {
+    fetch(API, {
         method: 'POST',
          headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -448,7 +450,8 @@ function actualizarProyecto() {
             estado,
             fecha_fin_estimada,
             prioridad,
-            archivo_url: document.getElementById('cloudinaryUrl').value
+            archivo_url: document.getElementById('cloudinaryUrl').value,
+            csrf_token: window.CSRF_TOKEN
         })
     })
     .then(r => r.json())
@@ -473,7 +476,11 @@ function eliminarProyecto(id) {
     if (!confirm('¿Eliminar este proyecto?')) return;
     fetch(API, {
         method: 'POST',
-        body: new URLSearchParams({a: 'eliminar_proyecto', id})
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        credentials: 'include',
+        body: new URLSearchParams({a: 'eliminar_proyecto', id, csrf_token: window.CSRF_TOKEN})
     })
     .then(r => r.json())
     .then(data => {
