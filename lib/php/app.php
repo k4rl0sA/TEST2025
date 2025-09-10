@@ -1,4 +1,11 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    ini_set('session.cookie_httponly', 1);
+    ini_set('session.cookie_secure', 1);
+    ini_set('session.use_strict_mode', 1);
+    session_start();
+}
+
 // --- CONFIGURACIÓN DE SEGURIDAD MEJORADA ---
 header_remove('X-Powered-By');
 
@@ -20,12 +27,7 @@ if (!in_array($_SERVER['REQUEST_METHOD'], $allowed_methods)) {
     exit('Método no permitido');
 }
 
-if (session_status() === PHP_SESSION_NONE) {
-    ini_set('session.cookie_httponly', 1);
-    ini_set('session.cookie_secure', 1);
-    ini_set('session.use_strict_mode', 1);
-    session_start();
-}
+
 ini_set('display_errors','1');
 setlocale(LC_TIME, 'es_CO');
 // $GLOBALS['app']='sds';
