@@ -94,7 +94,7 @@ function cmp_tamvalories(){
 	$c[]=new cmp('valories_fechanacimiento','d','10',$d['valories_fechanacimiento'],$w.' '.$o,'fecha nacimiento','valories_fechanacimiento',null,'',false,false,'','col-15');
     $c[]=new cmp('valories_edad','n','3',$d['valories_edad'],$w.' '.$o,'edad','valories_edad',null,'',true,false,'','col-1');
 	$c[]=new cmp('fecha_toma','d','10','',$w.' '.$o,'fecha de la Toma','fecha_toma',null,'',true,true,'','col-2',"validDate(this,$days,0);");
-	$c[]=new cmp('tipoaccion','s',3,'',$w.' '.$o,'Tipo de Accion','tipoaccion',null,null,true,true,'','col-10');
+	$c[]=new cmp('tipoaccion','s',3,'',$w.' '.$o,'Tipo de Accion','tipoaccion',null,null,true,true,'','col-3');
 	
 	$o='comprencion';
 	$c[]=new cmp($o,'e',null,'1. Comprensión y comunicación ',$w);
