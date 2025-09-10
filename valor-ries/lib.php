@@ -173,38 +173,6 @@ function cmp_tamvalories(){
 	return $rta;
    }
 
-  /*  function get_tamvalories(){
-	if($_POST['id']==0){
-		return "";
-	}else{
-		 $id=divide($_POST['id']);
-		// print_r($_POST);
-		$sql="SELECT `tam_whodas`,`whodas_idpersona`,`whodas_tipodoc`,
-		FN_CATALOGODESC(116,whodas_momento) whodas_momento,`whodas_comprension1`,`whodas_comprension2`,`whodas_comprension3`, 
-		`whodas_comprension4`,`whodas_comprension5`,`whodas_comprension6`,
-		`whodas_moverse1`,`whodas_moverse2`,`whodas_moverse3`,
-		`whodas_moverse4`,`whodas_moverse5`,`whodas_cuidado1`,
-		`whodas_cuidado2`,`whodas_cuidado3`,`whodas_cuidado4`,
-		`whodas_relacionarce1`,`whodas_relacionarce2`,`whodas_relacionarce3`,
-		`whodas_relacionarce4`,`whodas_relacionarce5`,`whodas_actividades1`,
-		`whodas_actividades2`,`whodas_actividades3`,`whodas_actividades4`,
-		`whodas_actividades5`,`whodas_actividades6`,`whodas_actividades7`,
-		`whodas_actividades8`,`whodas_participacion1`,`whodas_participacion2`,
-		`whodas_participacion3`,`whodas_participacion4`,`whodas_participacion5`,
-		`whodas_participacion6`,`whodas_participacion7`,`whodas_participacion8`,
-		`whodas_dias1`,`whodas_dias2`,`whodas_dias3`,
-		`porcentaje_comprension`,`porcentaje_moverse`,`porcentaje_cuidado`,
-		`porcentaje_relacionarce`,`porcentaje_actividades`,
-		`porcentaje_participacion`,`porcentaje_total`,whodas_analisis,O.estado,P.idpersona,P.tipo_doc,concat_ws(' ',P.nombre1,P.nombre2,P.apellido1,P.apellido2) whodas_nombre,P.fecha_nacimiento whodas_fechanacimiento,YEAR(CURDATE())-YEAR(P.fecha_nacimiento) whodas_edad
-		FROM `hog_tam_whodas` O
-		LEFT JOIN personas P ON O.whodas_idpersona = P.idpersona and O.whodas_tipodoc=P.tipo_doc
-		WHERE whodas_idpersona ='{$id[0]}' AND whodas_tipodoc='{$id[1]}' AND whodas_momento = '{$id[2]}'";
-		// echo $sql;
-		$info=datos_mysql($sql);
-				return $info['responseResult'][0];
-		}
-	} */ 
-
 	function get_tamvalories(){
 		if($_POST['id']==0){
 			return "";
@@ -222,20 +190,6 @@ function cmp_tamvalories(){
 			}
 		} 
 
-/* function get_person(){
-	// print_r($_POST);
-	$id=divide($_POST['id']);
-$sql="SELECT idpersona,tipo_doc,concat_ws(' ',nombre1,nombre2,apellido1,apellido2) nombres,fecha_nacimiento,YEAR(CURDATE())-YEAR(fecha_nacimiento) Edad
-FROM personas 
-	WHERE idpersona='".$id[0]."' AND tipo_doc=upper('".$id[1]."')";
-	// echo $sql;
-	$info=datos_mysql($sql);
-	if (!$info['responseResult']) {
-		return '';
-	}
-return json_encode($info['responseResult'][0]);
-}
- */
 function focus_tamvalories(){
 	return 'tamvalories';
    }
