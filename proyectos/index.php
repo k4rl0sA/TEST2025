@@ -520,7 +520,7 @@ function asignarResponsablePorEstado() {
 }
 
 function notificarResponsable(proyecto,estado, prioridad, fechaLimite, responsableId) {
-    const responsable = responsablesPorId[responsableId];
+    const responsable = responsablesPorEstado[responsableId];
     if (!responsable || !responsable.telefono) return;
     const mensaje = encodeURIComponent(
         `Se le ha asignado en "${proyecto.toUpperCase()}" la siguiente tarea:\nEstado: ${estado}\nPrioridad: ${prioridad}\nFecha límite: ${fechaLimite}\nhttps://pruebagtaps.site/proyectos/ `
