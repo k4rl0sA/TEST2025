@@ -317,7 +317,7 @@ li.icono.desplegar-panel{margin-top:-25px;margin-right: -95%;}
 ::-webkit-scrollbar-thumb{background:#999;border-radius: 10px;}
 ::-webkit-scrollbar-thumb:hover {background: #000;}
 
-.scroll-menu{width: 100%;overflow-x: auto;padding: 1.5rem 0;margin: 2rem 0;border-radius: 12px;background: rgba(255, 255, 255, 0.05);backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);scrollbar-width: none;}
+.scroll-menu{width: 100%;overflow-x: auto;border-radius: 12px;background: rgba(255, 255, 255, 0.05);backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);scrollbar-width: none;}
 
 .cuerpo{min-height:100%}
 .invalid:focus { outline-color: red; -webkit-animation: shake .5s linear;}
