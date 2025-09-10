@@ -473,3 +473,132 @@ function getSelectOptions($sql, $idField = 'id', $labelField = 'name') {
 function isAjax() {
     return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
 }
+
+// --- UTILIDADES DE SEGURIDAD AVANZADAS ---
+// Extrae el token Bearer del header Authorization
+function getBearerToken() {
+  $headers = getallheaders();
+  if (isset($headers['Authorization']) && stripos($headers['Authorization'], 'Bearer ') === 0) {
+    return trim(substr($headers['Authorization'], 7));
+  }
+  if (isset($_SERVER['HTTP_AUTHORIZATION']) && stripos($_SERVER['HTTP_AUTHORIZATION'], 'Bearer ') === 0) {
+    return trim(substr($_SERVER['HTTP_AUTHORIZATION'], 7));
+  }
+  return null;
+}
+
+// Valida el JWT y retorna el payload o false
+function validateJWT($jwt = null) {
+  if (!$jwt) $jwt = getBearerToken();
+  if (!$jwt) return false;
+  $jwt_secret = $_ENV['JWT_SECRET'] ?? $_ENV['JWT_SECRET_default'] ?? '';
+  try {
+    $payload = jwt_decode($jwt, $jwt_secret);
+    if ($payload && isset($payload['exp']) && $payload['exp'] > time()) {
+      return $payload;
+    }
+  } catch (Exception $e) {
+    log_error('JWT inválido: ' . $e->getMessage());
+  }
+  return false;
+}
+
+// Valida el CSRF token (POST)
+function validateCSRF() {
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $token = $_POST['csrf_token'] ?? ($_SERVER['HTTP_X_CSRF_TOKEN'] ?? '');
+    if (empty($token) || $token !== ($_SESSION['csrf_token'] ?? '')) {
+      log_error('CSRF token inválido o ausente');
+      http_response_code(403);
+      echo json_encode(['success' => false, 'error' => 'CSRF token inválido o ausente']);
+      exit;
+    }
+  }
+}
+
+// Sanitiza un array de entrada (por ejemplo $_POST o $_GET)
+function sanitizeInput($arr, $exclude = [], $maxLength = null) {
+  $out = [];
+  foreach ($arr as $k => $v) {
+    if (in_array($k, $exclude, true)) {
+      $out[$k] = $v;
+      continue;
+    }
+    if (is_array($v)) {
+      $out[$k] = sanitizeInput($v, $exclude, $maxLength);
+    } else {
+      $val = trim($v);
+      // Limitar longitud si se especifica
+      if ($maxLength !== null && is_string($val)) {
+        $val = mb_substr($val, 0, $maxLength, 'UTF-8');
+      }
+      // Saneamiento básico
+      $val = htmlspecialchars($val, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+      // Opcional: eliminar caracteres de control invisibles
+      $val = preg_replace('/[\x00-\x1F\x7F]/u', '', $val);
+      $out[$k] = $val;
+    }
+  }
+  return $out;
+}
+
+// Valida campos requeridos y tipos básicos
+function validateInput($arr, $rules) {
+  foreach ($rules as $field => $rule) {
+    $value = $arr[$field] ?? null;
+    if (strpos($rule, 'required') !== false && ($value === null || $value === '')) {
+      return "El campo $field es obligatorio";
+    }
+    if (strpos($rule, 'int') !== false && !is_numeric($value)) {
+      return "El campo $field debe ser numérico";
+    }
+    if (strpos($rule, 'string') !== false && !is_string($value)) {
+      return "El campo $field debe ser texto";
+    }
+    //validar fechas
+    if (strpos($rule, 'date') !== false) {
+      $d = DateTime::createFromFormat('Y-m-d', $value);
+      if (!$d || $d->format('Y-m-d') !== $value) {
+        return "El campo $field debe ser una fecha válida (YYYY-MM-DD)";
+      }
+  }
+  //validar emails
+    if (strpos($rule, 'email') !== false && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
+      return "El campo $field debe ser un email válido";
+    }
+  //validar URLs
+    if (strpos($rule, 'url') !== false && !filter_var($value, FILTER_VALIDATE_URL)) {
+      return "El campo $field debe ser una URL válida";
+    }
+  }
+  //validar min/max
+  foreach ($rules as $field => $rule) {
+    $value = $arr[$field] ?? null;
+    if (preg_match('/min:(\d+)/', $rule, $matches) && is_numeric($value) && $value < $matches[1]) {
+      return "El campo $field debe ser al menos " . $matches[1];
+    }
+    if (preg_match('/max:(\d+)/', $rule, $matches) && is_numeric($value) && $value > $matches[1]) {
+      return "El campo $field debe ser como máximo " . $matches[1];
+    }
+  }
+  //validar longitud de strings
+  foreach ($rules as $field => $rule) {
+    $value = $arr[$field] ?? null;
+    if (preg_match('/minlen:(\d+)/', $rule, $matches) && is_string($value) && strlen($value) < $matches[1]) {
+      return "El campo $field debe tener al menos " . $matches[1] . " caracteres";
+    }
+    if (preg_match('/maxlen:(\d+)/', $rule, $matches) && is_string($value) && strlen($value) > $matches[1]) {
+      return "El campo $field debe tener como máximo " . $matches[1] . " caracteres";
+    }
+  }
+  //validar patrones regex
+  foreach ($rules as $field => $rule) { 
+    $value = $arr[$field] ?? null;
+    if (preg_match('/pattern:\/(.+)\/([a-zA-Z]*)/', $rule, $matches) && is_string($value)) {
+      if (!preg_match('/' . $matches[1] . '/' . $matches[2], $value)) {
+        return "El campo $field tiene un formato inválido";
+      }
+    }
+  }
+  return true;
+}
