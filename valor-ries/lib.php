@@ -76,7 +76,7 @@ function whe_tamvalories() {
 }
 
 function cmp_tamvalories(){
-	$rta="<div class='encabezado whodas'>TABLA WHODAS</div><div class='contenido' id='whodas-lis'>".lis_whodas()."</div></div>";
+	$rta="<div class='encabezado whodas'>TABLA WHODAS</div><div class='contenido' id='whodas-lis'>".lis_tamvalories()."</div></div>";
 	$t=['tam_whodas'=>'','whodas_tipodoc'=>'','whodas_nombre'=>'','whodas_idpersona'=>'','whodas_fechanacimiento'=>'','whodas_puntaje'=>'','whodas_momento'=>'','whodas_edad'=>'','whodas_lugarnacimiento'=>'','whodas_condicionsalud'=>'','whodas_estadocivil'=>'','whodas_escolaridad'=>'',
 	 'whodas_ocupacion'=>'','whodas_rutina'=>'','whodas_rol'=>'',	 'whodas_actividad'=>'','whodas_evento'=>'','whodas_comportamiento'=>'','porcentaje_comprension'=>'','porcentaje_moverse'=>'','porcentaje_cuidado'=>'','porcentaje_relacionarce'=>'','porcentaje_actividades'=>'','porcentaje_participacion'=>'','porcentaje_total'=>'','whodas_analisis'=>''];
 
