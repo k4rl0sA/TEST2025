@@ -93,19 +93,21 @@ function cmp_tamcarlos(){
 	$c[]=new cmp('fecha_toma','d','10','',$w.' '.$o,'fecha de la Toma','fecha_toma',null,'',true,true,'','col-2',"validDate(this,$days,0);");
 	
     
-	$o='comprencion';
-	$c[]=new cmp($o,'e',null,'1. Comprensión y comunicación ',$w);
+	$o='Tamizaje';
+	$c[]=new cmp($o,'e',null,'Preguntas',$w);
 	$c[]=new cmp('bebidas','s',3,'',$w.' '.$o,'¿Ha consumido bebidas alcohólicas (más de unos pocos sorbos)?','nivel',null,null,true,true,'','col-10');
 	$c[]=new cmp('sustancias','s',3,'',$w.' '.$o,'¿Ha usado algún otro tipo de sustancias que alteren su estado de ánimo o de conciencia? ','nivel',null,null,true,true,'','col-10');
 	$c[]=new cmp('condualcoh','s',3,'',$w.' '.$o,'¿Alguna vez ha salido a la calle, o se ha subido a un carro conducido por  alguien (que podía ser usted mismo), estando bajo los efectos de alcohol?','nivel',null,null,true,true,'','col-10');
 	$c[]=new cmp('dismalcoh','s',3,'',$w.' '.$o,'¿Alguna vez su familia o sus amigos le han dicho que debería disminuir el consumo de alcohol o de','nivel',null,null,true,true,'','col-10');
 	$c[]=new cmp('estadoanimo','s',3,'',$w.' '.$o,'¿Alguna vez ha usado alcohol o drogas para reconfortarse (para sentirse mejor, para socializar, para mejorar su estado de ánimo, para','nivel',null,null,true,true,'','col-10');
 	$c[]=new cmp('lios','s',3,'',$w.' '.$o,'¿Alguna vez ha tenido líos o problemas (peleas físicas o verbales; suspensiones académicas; detención por la policía; accidentes) estando bajo los efectos de alcohol o de drogas?','nivel',null,null,true,true,'','col-10');
-
-	$o='capacidad';
-	$c[]=new cmp($o,'e',null,'2. Capacidad para moverse en su alrededor (entorno)',$w);
 	$c[]=new cmp('olvido','s',3,'',$w.' '.$o,'¿Alguna vez ha olvidado cosas que hizo estando bajo los efectos de alcohol o de drogas?','nivel',null,null,true,true,'','col-10');
 	$c[]=new cmp('solo','s',3,'',$w.' '.$o,'¿Alguna vez ha consumido alcohol o drogas estando solo?','nivel',null,null,true,true,'','col-10');
+    
+    $o='totalresul';
+	$c[]=new cmp($o,'e',null,'TOTAL',$w);
+    $c[]=new cmp('total','t',3,'',$w.' '.$o,'Puntaje','carlos_total',null,'',false,false,'','col-4');
+    $c[]=new cmp('descripcion','t','3','',$w.' '.$o,'Descripcion','descripcion',null,null,false,false,'','col-5');
 
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	
