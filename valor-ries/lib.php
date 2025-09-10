@@ -251,7 +251,6 @@ function gra_tamvalories(){
 			$pnt='Error en el rango, por favor valide';
 			break;
 	}
-
 		$sql="INSERT INTO hog_tam_valories VALUES (null,
 		$id[0],
 		TRIM(UPPER('{$_POST['fecha_toma']}')),
