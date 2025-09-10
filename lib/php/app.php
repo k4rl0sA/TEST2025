@@ -5,28 +5,26 @@ if (session_status() === PHP_SESSION_NONE) {
     ini_set('session.use_strict_mode', 1);
     session_start();
 }
-
-// --- CONFIGURACIÓN DE SEGURIDAD MEJORADA ---
-header_remove('X-Powered-By');
-
-// Headers de seguridad
-header('X-Content-Type-Options: nosniff');
-header('X-Frame-Options: DENY');
-header('X-XSS-Protection: 1; mode=block');
-header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
-header('Referrer-Policy: strict-origin-when-cross-origin');
-
-// Prevenir caching de respuestas sensibles
-header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
-header('Pragma: no-cache');
-
-// Validar método HTTP
-$allowed_methods = ['GET', 'POST', 'OPTIONS'];
-if (!in_array($_SERVER['REQUEST_METHOD'], $allowed_methods)) {
-    http_response_code(405);
-    exit('Método no permitido');
+// Rate limiting básico
+if (!isset($_SESSION['request_count'])) {
+    $_SESSION['request_count'] = 0;
+    $_SESSION['first_request'] = time();
 }
 
+$_SESSION['request_count']++;
+$time_elapsed = time() - $_SESSION['first_request'];
+
+if ($time_elapsed < 60 && $_SESSION['request_count'] > 100) {
+    http_response_code(429);
+    header('Content-Type: application/json');
+    echo json_encode(['success' => false, 'error' => 'Demasiadas solicitudes']);
+    exit;
+}
+
+if ($time_elapsed >= 60) {
+    $_SESSION['request_count'] = 1;
+    $_SESSION['first_request'] = time();
+}
 
 ini_set('display_errors','1');
 setlocale(LC_TIME, 'es_CO');
@@ -35,10 +33,7 @@ ini_set('memory_limit','1024M');
 date_default_timezone_set('America/Bogota');
 setlocale(LC_ALL,'es_CO');
 $APP='GTAPS';
-/* if (!isset($_SESSION["us_sds"])) {
-  header("Location: /index.php"); 
-  exit;
-} */
+
 // --- Cargar variables de entorno desde .env ---
 function load_env($file = __DIR__ . '/.env') {
   if (!file_exists($file)) return;
@@ -55,7 +50,6 @@ load_env();
 require_once __DIR__ . '/jwt_helper.php';
 $ruta_upload='/public_html/upload/';
 
-
 // --- Configuración de base de datos desde .env ---
 $db_host = $_ENV['DB_HOST'] ?? 'localhost';
 $db_user = $_ENV['DB_USER'] ?? '';
@@ -64,11 +58,18 @@ $db_name = $_ENV['DB_NAME'] ?? '';
 $db_port = isset($_ENV['DB_PORT']) ? intval($_ENV['DB_PORT']) : 3306;
 
 if (!$db_user || !$db_pass || !$db_name) {
-  die('Faltan variables de entorno para la base de datos.');
+    header('Content-Type: application/json');
+    http_response_code(500);
+    echo json_encode(['success' => false, 'error' => 'Configuración de base de datos incompleta']);
+    exit;
 }
-
 $con = mysqli_connect($db_host, $db_user, $db_pass, $db_name, $db_port);
-
+if (!$con) {
+    header('Content-Type: application/json');
+    http_response_code(500);
+    echo json_encode(['success' => false, 'error' => 'Error de conexión a la base de datos']);
+    exit;
+}
 
 // --- Configuración CORS Permitir solo dominios HTTPS listados en ALLOWED_DOMAINS
 $allowed_domains = array_map('trim', explode(',', $_ENV['ALLOWED_DOMAINS'] ?? ''));
@@ -79,18 +80,42 @@ if ($origin && in_array($origin, $allowed_domains)) {
     header('Access-Control-Allow-Credentials: true');
     header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
     header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, X-CSRF-Token');
+
+    header('X-Content-Type-Options: nosniff');
+    header('X-Frame-Options: DENY');
+    header('X-XSS-Protection: 1; mode=block');
+    header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
+    header('Referrer-Policy: strict-origin-when-cross-origin');
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    header('Pragma: no-cache');
     
     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         http_response_code(204);
         exit;
     }
 } elseif ($origin) {
+    header('Content-Type: application/json');
     http_response_code(403);
     echo json_encode(['success'=>false, 'error'=>'Dominio no permitido']);
     exit;
+}else{
+    header('X-Content-Type-Options: nosniff');
+    header('X-Frame-Options: DENY');
+    header('X-XSS-Protection: 1; mode=block');
 }
 
-if (!$con) { $error = mysqli_connect_error();  exit; }
+// Validar método HTTP
+$allowed_methods = ['GET', 'POST', 'OPTIONS'];
+if (!in_array($_SERVER['REQUEST_METHOD'], $allowed_methods)) {
+    http_response_code(405);
+    exit('Método no permitido');
+}
+
+/* if (!isset($_SESSION["us_sds"])) {
+  header("Location: /index.php"); 
+  exit;
+} */
+
 mysqli_set_charset($con,"utf8");
 $GLOBALS['con']=$con;
 $req = (isset($_REQUEST['a'])) ? $_REQUEST['a'] : '';
@@ -585,62 +610,66 @@ function sanitizeInput($arr, $exclude = [], $maxLength = null) {
 }
 
 // Valida campos requeridos y tipos básicos
-function validateInput($arr, $rules) {
-  foreach ($rules as $field => $rule) {
-    $value = $arr[$field] ?? null;
-    if (strpos($rule, 'required') !== false && ($value === null || $value === '')) {
-      return "El campo $field es obligatorio";
+function validateInput($data, $rules) {
+    $errors = [];
+    foreach ($rules as $field => $ruleStr) {
+        $value = $data[$field] ?? null;
+        $rules = explode('|', $ruleStr);
+        foreach ($rules as $rule) {
+            if ($rule === 'required' && ($value === null || $value === '')) {
+                $errors[$field] = "El campo $field es obligatorio";
+                break;
+            }
+            if ($rule === 'int' && $value !== null && !is_numeric($value)) {
+                $errors[$field] = "El campo $field debe ser numérico";
+                break;
+            }
+            if ($rule === 'string' && $value !== null && !is_string($value)) {
+                $errors[$field] = "El campo $field debe ser texto";
+                break;
+            }
+            if ($rule === 'email' && $value !== null && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                $errors[$field] = "El campo $field debe ser un email válido";
+                break;
+            }
+            if ($rule === 'url' && $value !== null && !filter_var($value, FILTER_VALIDATE_URL)) {
+                $errors[$field] = "El campo $field debe ser una URL válida";
+                break;
+            }
+            // Validar fecha
+            if ($rule === 'date' && $value !== null) {
+                $d = DateTime::createFromFormat('Y-m-d', $value);
+                if (!$d || $d->format('Y-m-d') !== $value) {
+                    $errors[$field] = "El campo $field debe ser una fecha válida (YYYY-MM-DD)";
+                    break;
+                }
+            }
+            // Validar min/max para números
+            if (preg_match('/min:(\d+)/', $rule, $matches) && is_numeric($value) && $value < $matches[1]) {
+                $errors[$field] = "El campo $field debe ser al menos " . $matches[1];
+                break;
+            }
+            if (preg_match('/max:(\d+)/', $rule, $matches) && is_numeric($value) && $value > $matches[1]) {
+                $errors[$field] = "El campo $field debe ser como máximo " . $matches[1];
+                break;
+            }
+            // Validar minlen/maxlen para strings
+            if (preg_match('/minlen:(\d+)/', $rule, $matches) && is_string($value) && strlen($value) < $matches[1]) {
+                $errors[$field] = "El campo $field debe tener al menos " . $matches[1] . " caracteres";
+                break;
+            }
+            if (preg_match('/maxlen:(\d+)/', $rule, $matches) && is_string($value) && strlen($value) > $matches[1]) {
+                $errors[$field] = "El campo $field debe tener como máximo " . $matches[1] . " caracteres";
+                break;
+            }
+            // Validar patrones regex
+            if (preg_match('/pattern:\/(.+)\/([a-zA-Z]*)/', $rule, $matches) && is_string($value)) {
+                if (!preg_match('/' . $matches[1] . '/' . $matches[2], $value)) {
+                    $errors[$field] = "El campo $field tiene un formato inválido";
+                    break;
+                }
+            }
+        }
     }
-    if (strpos($rule, 'int') !== false && !is_numeric($value)) {
-      return "El campo $field debe ser numérico";
-    }
-    if (strpos($rule, 'string') !== false && !is_string($value)) {
-      return "El campo $field debe ser texto";
-    }
-    //validar fechas
-    if (strpos($rule, 'date') !== false) {
-      $d = DateTime::createFromFormat('Y-m-d', $value);
-      if (!$d || $d->format('Y-m-d') !== $value) {
-        return "El campo $field debe ser una fecha válida (YYYY-MM-DD)";
-      }
-  }
-  //validar emails
-    if (strpos($rule, 'email') !== false && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
-      return "El campo $field debe ser un email válido";
-    }
-  //validar URLs
-    if (strpos($rule, 'url') !== false && !filter_var($value, FILTER_VALIDATE_URL)) {
-      return "El campo $field debe ser una URL válida";
-    }
-  }
-  //validar min/max
-  foreach ($rules as $field => $rule) {
-    $value = $arr[$field] ?? null;
-    if (preg_match('/min:(\d+)/', $rule, $matches) && is_numeric($value) && $value < $matches[1]) {
-      return "El campo $field debe ser al menos " . $matches[1];
-    }
-    if (preg_match('/max:(\d+)/', $rule, $matches) && is_numeric($value) && $value > $matches[1]) {
-      return "El campo $field debe ser como máximo " . $matches[1];
-    }
-  }
-  //validar longitud de strings
-  foreach ($rules as $field => $rule) {
-    $value = $arr[$field] ?? null;
-    if (preg_match('/minlen:(\d+)/', $rule, $matches) && is_string($value) && strlen($value) < $matches[1]) {
-      return "El campo $field debe tener al menos " . $matches[1] . " caracteres";
-    }
-    if (preg_match('/maxlen:(\d+)/', $rule, $matches) && is_string($value) && strlen($value) > $matches[1]) {
-      return "El campo $field debe tener como máximo " . $matches[1] . " caracteres";
-    }
-  }
-  //validar patrones regex
-  foreach ($rules as $field => $rule) { 
-    $value = $arr[$field] ?? null;
-    if (preg_match('/pattern:\/(.+)\/([a-zA-Z]*)/', $rule, $matches) && is_string($value)) {
-      if (!preg_match('/' . $matches[1] . '/' . $matches[2], $value)) {
-        return "El campo $field tiene un formato inválido";
-      }
-    }
-  }
-  return true;
+    return empty($errors) ? true : $errors;
 }
