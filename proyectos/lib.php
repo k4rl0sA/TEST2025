@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors','0');
+ini_set('display_errors','1');
 $cookieParams = session_get_cookie_params();
 session_set_cookie_params([
     'lifetime' => $cookieParams['lifetime'],
