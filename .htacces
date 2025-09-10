@@ -1,0 +1,24 @@
+# Proteger archivos sensibles
+<Files ~ "^\.">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files ~ "\.(env|log|sql|ini)$">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Headers de seguridad
+Header always set X-Content-Type-Options nosniff
+Header always set X-Frame-Options DENY
+Header always set X-XSS-Protection "1; mode=block"
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+# Prevenir acceso directo a archivos PHP en algunos directorios
+<Directory "/lib/php/">
+    <Files "*.php">
+        Order deny,allow
+        Deny from all
+    </Files>
+</Directory>
