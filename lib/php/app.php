@@ -47,41 +47,50 @@ if (!$db_user || !$db_pass || !$db_name) {
 $con = mysqli_connect($db_host, $db_user, $db_pass, $db_name, $db_port);
 
 
-// --- Validación estricta de dominio permitido: SIEMPRE se requiere Origin y debe estar permitido ---
-// --- Validación estricta de dominio permitido: SOLO HTTPS y www/sin www ---
+// --- Configuración CORS Permitir solo dominios HTTPS listados en ALLOWED_DOMAINS
 $allowed_domains = array_map('trim', explode(',', $_ENV['ALLOWED_DOMAINS'] ?? 'localhost'));
 if (!isset($_SERVER['HTTP_ORIGIN'])) {
-  http_response_code(403);
-  echo json_encode(['success'=>false, 'error'=>'Dominio no permitido (Origin requerido)']);
-  exit;
-}
-$origin = $_SERVER['HTTP_ORIGIN'];
-$parsed_origin = parse_url($origin);
-$origin_scheme = strtolower($parsed_origin['scheme'] ?? '');
-$origin_host = strtolower($parsed_origin['host'] ?? '');
-$permitido = false;
-foreach ($allowed_domains as $allowed) {
-  $parsed_allowed = parse_url($allowed);
-  $allowed_scheme = strtolower($parsed_allowed['scheme'] ?? '');
-  $allowed_host = strtolower($parsed_allowed['host'] ?? '');
-  if ($origin_scheme === 'https' && $allowed_scheme === 'https' && $origin_host === $allowed_host) {
-    $permitido = true;
-    break;
-  }
-}
-if ($permitido) {
-  header('Access-Control-Allow-Origin: ' . $origin);
-  header('Access-Control-Allow-Credentials: true');
-  header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-  header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
-  if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(204);
+  // Permitir si la petición viene del mismo dominio (peticiones internas)
+  if (
+    isset($_SERVER['SERVER_NAME']) &&
+    (in_array('https://' . $_SERVER['SERVER_NAME'], $allowed_domains) ||
+     in_array('https://www.' . $_SERVER['SERVER_NAME'], $allowed_domains))
+  ) {
+    // Permitir continuar SIN header Origin
+  } else {
+    http_response_code(403);
+    echo json_encode(['success'=>false, 'error'=>'Dominio no permitido (Origin requerido)']);
     exit;
   }
 } else {
-  http_response_code(403);
-  echo json_encode(['success'=>false, 'error'=>'Dominio no permitido']);
-  exit;
+  $origin = $_SERVER['HTTP_ORIGIN'];
+  $parsed_origin = parse_url($origin);
+  $origin_scheme = strtolower($parsed_origin['scheme'] ?? '');
+  $origin_host = strtolower($parsed_origin['host'] ?? '');
+  $permitido = false;
+  foreach ($allowed_domains as $allowed) {
+    $parsed_allowed = parse_url($allowed);
+    $allowed_scheme = strtolower($parsed_allowed['scheme'] ?? '');
+    $allowed_host = strtolower($parsed_allowed['host'] ?? '');
+    if ($origin_scheme === 'https' && $allowed_scheme === 'https' && $origin_host === $allowed_host) {
+      $permitido = true;
+      break;
+    }
+  }
+  if ($permitido) {
+    header('Access-Control-Allow-Origin: ' . $origin);
+    header('Access-Control-Allow-Credentials: true');
+    header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+    header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+    if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+      http_response_code(204);
+      exit;
+    }
+  } else {
+    http_response_code(403);
+    echo json_encode(['success'=>false, 'error'=>'Dominio no permitido']);
+    exit;
+  }
 }
 
 if (!$con) { $error = mysqli_connect_error();  exit; }
