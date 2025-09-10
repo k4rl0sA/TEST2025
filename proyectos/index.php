@@ -320,7 +320,8 @@ if (empty($_SESSION['csrf_token'])) {
                 document.getElementById('projectName').value,
             document.getElementById('projectStatus').value,
             document.getElementById('priority').value,
-            document.getElementById('projectDeadline').value
+            document.getElementById('projectDeadline').value,
+                document.getElementById('projectTeam').value
         );
         } else {
             alert(data.error || 'Error al crear proyecto');
@@ -463,7 +464,8 @@ function actualizarProyecto() {
                 document.getElementById('projectName').value,
             document.getElementById('projectStatus').value,
             document.getElementById('priority').value,
-            document.getElementById('projectDeadline').value
+            document.getElementById('projectDeadline').value,
+            document.getElementById('projectTeam').value
         );
         } else {
             alert(data.error || 'Error al actualizar proyecto');
@@ -517,8 +519,8 @@ function asignarResponsablePorEstado() {
     document.getElementById('fileGroup').style.display = (estado === 'desarrollo' || estado === 'aprobacion' || estado === 'socializacion' ) ? '' : 'none';
 }
 
-function notificarResponsable(proyecto,estado, prioridad, fechaLimite) {
-    const responsable = responsablesPorEstado[estado];
+function notificarResponsable(proyecto,estado, prioridad, fechaLimite, responsableId) {
+    const responsable = responsablesPorId[responsableId];
     if (!responsable || !responsable.telefono) return;
     const mensaje = encodeURIComponent(
         `Se le ha asignado en "${proyecto.toUpperCase()}" la siguiente tarea:\nEstado: ${estado}\nPrioridad: ${prioridad}\nFecha límite: ${fechaLimite}\nhttps://pruebagtaps.site/proyectos/ `
