@@ -503,7 +503,7 @@ function closeModal() {
 const responsablesPorEstado = {
     1022358140:{nombre:"EDISON FERNANDO MATEUS VASQUEZ",telefono: "3112161501"},
     80811594:{nombre:"CARLOS EDUARDO ACEVEDO",telefono: "3115852782"},
-    1024545090:{nombre:"OSCAR ARLEY CURREA JIMENEZ",telefono: "3212096277"},
+    1024545090:{nombre:"OSCAR ARLEY CURREA JIMENEZ",telefono: "+573212096277"},
     1032428656: {nombre:"SINDY SANCHEZ",telefono: "3005274354"},
     1024522905: {nombre:"JEISSON CURREA JIMENEZ",telefono: "3017389220"},
     1024522905:{nombre:"JEISSON CURREA JIMENEZ",telefono: "3017389220"},
