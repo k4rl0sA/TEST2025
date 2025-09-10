@@ -20,7 +20,7 @@ else {
 }
 
 
-function lis_tamWhodas(){
+function lis_tamvalories(){
 	if (!empty($_POST['fidentificacion']) || !empty($_POST['ffam'])) {
 		$info=datos_mysql("SELECT COUNT(*) total from hog_tam_whodas O
 		LEFT JOIN person P ON O.idpeople = P.idpeople
@@ -39,7 +39,7 @@ function lis_tamWhodas(){
 		LEFT JOIN hog_geo G ON V.idpre = G.idgeo
 		LEFT JOIN usuarios U ON O.usu_creo=U.id_usuario
 		WHERE ";
-	$sql.=whe_tamWhodas();
+	$sql.=whe_tamvalories();
 	$sql.=" ORDER BY O.fecha_create DESC";
 	//echo $sql;
 	$datos=datos_mysql($sql);
@@ -52,8 +52,8 @@ function lis_tamWhodas(){
 	}
 }
 
-function lis_whodas(){
-	$id=divide($_POST['id']);//id_whodas ACCIONES,
+function lis_valories(){
+	$id=divide($_POST['id']);
 	$sql="SELECT id_whodas 'Cod Registro',momento,porcentaje_total,analisis,`nombre` Creó,`fecha_create` 'fecha Creó'
 	FROM hog_tam_whodas A
 	LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario ";
