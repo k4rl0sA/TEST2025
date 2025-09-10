@@ -956,7 +956,8 @@ function formato_dato($a,$b,$c,$d){
 		$rta.="<li title='Interlocales' Onclick=\"mostrar('trasladint','pro',event,'','../soporte/interloc.php',4,'Interlocales');Color('datos-lis');\"><i class='fas fa-exchange-alt ico' id='".$c['Cod_Familiar']."'></i> </li>";//soporte traslados
 	}
 	if ($a=='datos-lis' && $b=='acciones'){
-		$rta="<nav class='menu'>";
+
+		$rta="<div class='scroll-menu'><nav class='menu'>";
 		/* $rta.="<li class='icono menubtn' id='menuToggle_".$c['ACCIONES']."'></li><div id='menuContainer_".$c['ACCIONES']."'></div>"; */
 		
 		
