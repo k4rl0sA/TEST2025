@@ -22,7 +22,7 @@ else {
 
 function lis_tamvalories(){
 	if (!empty($_POST['fidentificacion']) || !empty($_POST['ffam'])) {
-		$info=datos_mysql("SELECT COUNT(*) total from hog_tam_whodas O
+		$info=datos_mysql("SELECT COUNT(*) total from hog_tam_valories O
 		LEFT JOIN person P ON O.idpeople = P.idpeople
 		LEFT JOIN hog_fam V ON P.vivipersona = V.id_fam
 		LEFT JOIN hog_geo G ON V.idpre = G.idgeo
@@ -54,14 +54,14 @@ function lis_tamvalories(){
 
 function lis_valories(){
 	$id=divide($_POST['id']);
-	$sql="SELECT id_whodas 'Cod Registro',momento,porcentaje_total,analisis,`nombre` Creó,`fecha_create` 'fecha Creó'
-	FROM hog_tam_whodas A
+	$sql="SELECT id_valories 'Cod Registro',momento,porcentaje_total,analisis,`nombre` Creó,`fecha_create` 'fecha Creó'
+	FROM hog_tam_valories A
 	LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario ";
 	$sql.="WHERE idpeople='".$id[0];
 	$sql.="' ORDER BY fecha_create";
 	// echo $sql;
 	$datos=datos_mysql($sql);
-	return panel_content($datos["responseResult"],"whodas-lis",5);
+	return panel_content($datos["responseResult"],"valories-lis",5);
 }
 
 function whe_tamvalories() {
@@ -76,9 +76,9 @@ function whe_tamvalories() {
 }
 
 function cmp_tamvalories(){
-	$rta="<div class='encabezado whodas'>TABLA WHODAS</div><div class='contenido' id='whodas-lis'>".lis_tamvalories()."</div></div>";
-	$t=['tam_whodas'=>'','whodas_tipodoc'=>'','whodas_nombre'=>'','whodas_idpersona'=>'','whodas_fechanacimiento'=>'','whodas_puntaje'=>'','whodas_momento'=>'','whodas_edad'=>'','whodas_lugarnacimiento'=>'','whodas_condicionsalud'=>'','whodas_estadocivil'=>'','whodas_escolaridad'=>'',
-	 'whodas_ocupacion'=>'','whodas_rutina'=>'','whodas_rol'=>'',	 'whodas_actividad'=>'','whodas_evento'=>'','whodas_comportamiento'=>'','porcentaje_comprension'=>'','porcentaje_moverse'=>'','porcentaje_cuidado'=>'','porcentaje_relacionarce'=>'','porcentaje_actividades'=>'','porcentaje_participacion'=>'','porcentaje_total'=>'','whodas_analisis'=>''];
+	$rta="<div class='encabezado valories'>TABLA valories</div><div class='contenido' id='valories-lis'>".lis_tamvalories()."</div></div>";
+	$t=['tam_valories'=>'','valories_tipodoc'=>'','valories_nombre'=>'','valories_idpersona'=>'','valories_fechanacimiento'=>'','valories_puntaje'=>'','valories_momento'=>'','valories_edad'=>'','valories_lugarnacimiento'=>'','valories_condicionsalud'=>'','valories_estadocivil'=>'','valories_escolaridad'=>'',
+	 'valories_ocupacion'=>'','valories_rutina'=>'','valories_rol'=>'',	 'valories_actividad'=>'','valories_evento'=>'','valories_comportamiento'=>'','porcentaje_comprension'=>'','porcentaje_moverse'=>'','porcentaje_cuidado'=>'','porcentaje_relacionarce'=>'','porcentaje_actividades'=>'','porcentaje_participacion'=>'','porcentaje_total'=>'','valories_analisis'=>''];
 
 	$w='tamvalories';
 	$d=get_tamvalories(); 
@@ -89,10 +89,10 @@ function cmp_tamvalories(){
 	$c[]=new cmp($o,'e',null,'DATOS DE IDENTIFICACIÓN',$w);
 	$c[]=new cmp('idvalories','h',15,$_POST['id'],$w.' '.$o,'','',null,'####',false,false);
 	$c[]=new cmp('valories_idpersona','t','20',$d['valories_idpersona'],$w.' '.$o.' '.$key,'N° Identificación','valories_idpersona',null,'',false,false,'','col-2');
-	$c[]=new cmp('whodas_tipodoc','s','3',$d['whodas_tipodoc'],$w.' '.$o.' '.$key,'Tipo Identificación','whodas_tipodoc',null,'',false,false,'','col-25','getDatForm(\'srch\',\'person\',[\'datos\']);');
-	$c[]=new cmp('whodas_nombre','t','50',$d['whodas_nombre'],$w.' '.$o,'nombres','whodas_nombre',null,'',false,false,'','col-4');
-	$c[]=new cmp('whodas_fechanacimiento','d','10',$d['whodas_fechanacimiento'],$w.' '.$o,'fecha nacimiento','whodas_fechanacimiento',null,'',false,false,'','col-15');
-    $c[]=new cmp('whodas_edad','n','3',$d['whodas_edad'],$w.' '.$o,'edad','whodas_edad',null,'',true,false,'','col-1');
+	$c[]=new cmp('valories_tipodoc','s','3',$d['valories_tipodoc'],$w.' '.$o.' '.$key,'Tipo Identificación','valories_tipodoc',null,'',false,false,'','col-25','getDatForm(\'srch\',\'person\',[\'datos\']);');
+	$c[]=new cmp('valories_nombre','t','50',$d['valories_nombre'],$w.' '.$o,'nombres','valories_nombre',null,'',false,false,'','col-4');
+	$c[]=new cmp('valories_fechanacimiento','d','10',$d['valories_fechanacimiento'],$w.' '.$o,'fecha nacimiento','valories_fechanacimiento',null,'',false,false,'','col-15');
+    $c[]=new cmp('valories_edad','n','3',$d['valories_edad'],$w.' '.$o,'edad','valories_edad',null,'',true,false,'','col-1');
 	$c[]=new cmp('fecha_toma','d','10','',$w.' '.$o,'fecha de la Toma','fecha_toma',null,'',true,true,'','col-2',"validDate(this,$days,0);");
 	
     
@@ -166,7 +166,7 @@ function cmp_tamvalories(){
   $c[]=new cmp('porcentaje_participacion','t',20,'',$w.' '.$o,'Participacion','porcentaje_participacion',null,'',false,false,'','col-25');
   $c[]=new cmp('porcentaje_total','t',20,'',$w.' '.$o,'Puntaje Total','porcentaje_total',null,'',false,false,'','col-3');
   $c[]=new cmp('analisis','t',20,'',$w.' '.$o,'Clasificación','porcentaje_total',null,'',false,false,'','col-4');
-  $c[]=new cmp('momento','t',20,'',$w.' '.$o,'Momento','whodas_momento',null,'',false,false,'','col-3');
+  $c[]=new cmp('momento','t',20,'',$w.' '.$o,'Momento','valories_momento',null,'',false,false,'','col-3');
 
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	
@@ -179,9 +179,9 @@ function cmp_tamvalories(){
 		}else{
 			 $id=divide($_POST['id']);
 			// print_r($_POST);
-			$sql="SELECT P.idpeople,P.idpersona whodas_idpersona,P.tipo_doc whodas_tipodoc,
-			concat_ws(' ',P.nombre1,P.nombre2,P.apellido1,P.apellido2) whodas_nombre,P.fecha_nacimiento whodas_fechanacimiento,
-			TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, CURDATE()) AS whodas_edad
+			$sql="SELECT P.idpeople,P.idpersona valories_idpersona,P.tipo_doc valories_tipodoc,
+			concat_ws(' ',P.nombre1,P.nombre2,P.apellido1,P.apellido2) valories_nombre,P.fecha_nacimiento valories_fechanacimiento,
+			TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, CURDATE()) AS valories_edad
 			FROM person P
 			WHERE P.idpeople ='{$id[0]}'";
 			// echo $sql; 
@@ -209,12 +209,12 @@ function men_tamvalories(){
   }
    
 function gra_tamvalories(){
-	$id=divide($_POST['idwhodas']);
+	$id=divide($_POST['idvalories']);
 	// print_r($_POST);
 	if(count($id)!= "2"){
 		return "No es posible actualizar el tamizaje";
 	}else{
-		$data=datos_mysql("select count(Z.momento) as moment from hog_tam_whodas Z  where Z.idpeople='{$id[0]}'");
+		$data=datos_mysql("select count(Z.momento) as moment from hog_tam_valories Z  where Z.idpeople='{$id[0]}'");
 		$momen=$data['responseResult'][0]['moment'];
 		if($momen=='0'){
 			$idmomento = 1;
@@ -279,23 +279,23 @@ function gra_tamvalories(){
 			$_POST['participacion8']
 		);
 
-		$suma_whodas = ($suma_com+$suma_mov+$suma_cui+$suma_rel+$suma_act+$suma_par);
+		$suma_valories = ($suma_com+$suma_mov+$suma_cui+$suma_rel+$suma_act+$suma_par);
 
 	// var_dump($numero);
-	switch ($suma_whodas) {
-		case ($suma_whodas >= 1 && $suma_whodas <= 36):
+	switch ($suma_valories) {
+		case ($suma_valories >= 1 && $suma_valories <= 36):
 			$pnt=' Ninguna Discapacidad';
 			break;
-		case ($suma_whodas >= 37 && $suma_whodas <= 72):
+		case ($suma_valories >= 37 && $suma_valories <= 72):
 			$pnt=' Discapacidad Leve';
 			break;
-		case ($suma_whodas >= 73 && $suma_whodas <= 108):
+		case ($suma_valories >= 73 && $suma_valories <= 108):
 			$pnt=' Discapacidad Moderada';
 			break;
-		case ($suma_whodas >= 109 && $suma_whodas <= 144):
+		case ($suma_valories >= 109 && $suma_valories <= 144):
 				$pnt=' Discapacidad Severa';
 			break;
-		case ($suma_whodas >= 145 && $suma_whodas <= 180):
+		case ($suma_valories >= 145 && $suma_valories <= 180):
 				$pnt=' Discapacidad Severa';
 			break;
 		default:
@@ -303,7 +303,7 @@ function gra_tamvalories(){
 			break;
 	}
 
-		$sql="INSERT INTO hog_tam_whodas VALUES (null,
+		$sql="INSERT INTO hog_tam_valories VALUES (null,
 		$id[0],
 		TRIM(UPPER('{$_POST['fecha_toma']}')),
 		TRIM(UPPER('{$idmomento}')),
@@ -352,7 +352,7 @@ function gra_tamvalories(){
 		'{$suma_rel}',
 		'{$suma_act}',
 		'{$suma_par}',
-		$suma_whodas,
+		$suma_valories,
 		'$pnt',
 		TRIM(UPPER('{$_SESSION['us_sds']}')),
 		DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')";
@@ -363,7 +363,7 @@ function gra_tamvalories(){
 	}
 
 
-	function opc_whodas_tipodoc($id=''){
+	function opc_valories_tipodoc($id=''){
 		return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 1",$id);
 	}
 	function opc_sexo($id=''){
