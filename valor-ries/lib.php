@@ -27,10 +27,10 @@ function lis_tamvalories(){
 		LEFT JOIN hog_fam V ON P.vivipersona = V.id_fam
 		LEFT JOIN hog_geo G ON V.idpre = G.idgeo
 		LEFT JOIN usuarios U ON O.usu_creo=U.id_usuario
-		where ".whe_tamWhodas());
+		where ".whe_tamvalories());
 		$total=$info['responseResult'][0]['total'];
 		$regxPag=12;
-		$pag=(isset($_POST['pag-tamWhodas']))? (intval($_POST['pag-tamWhodas'])-1)* $regxPag:0;
+		$pag=(isset($_POST['pag-tamvalories']))? (intval($_POST['pag-tamvalories'])-1)* $regxPag:0;
 
 		$sql="SELECT O.idpeople ACCIONES,idoms 'Cod Registro',V.id_fam 'Cod Familia',P.idpersona Documento,FN_CATALOGODESC(1,P.tipo_doc) 'Tipo de Documento',CONCAT_ws(' ',P.nombre1,P.nombre2,P.apellido1,P.apellido2) Nombres,`puntaje` Puntaje,`descripcion` Descripcion, U.nombre Creo,U.subred,U.perfil perfil
 	FROM hog_tam_oms O
@@ -43,7 +43,7 @@ function lis_tamvalories(){
 	$sql.=" ORDER BY O.fecha_create DESC";
 	//echo $sql;
 	$datos=datos_mysql($sql);
-	return create_table($total,$datos["responseResult"],"tamWhodas",$regxPag);
+	return create_table($total,$datos["responseResult"],"tamvalories",$regxPag);
 	}else{
 		return "<div class='error' style='padding: 12px; background-color:#00a3ffa6;color: white; border-radius: 25px; z-index:100; top:0;text-transform:none'>
                 <strong style='text-transform:uppercase'>NOTA:</strong>Por favor Ingrese el numero de documento ó familia a Consultar
@@ -64,7 +64,7 @@ function lis_valories(){
 	return panel_content($datos["responseResult"],"whodas-lis",5);
 }
 
-function whe_tamWhodas() {
+function whe_tamvalories() {
 	$sql = '1';
     if (!empty($_POST['fidentificacion'])) {
         $sql .= " AND P.idpersona = '".$_POST['fidentificacion']."'";
@@ -75,13 +75,13 @@ function whe_tamWhodas() {
     return $sql;
 }
 
-function cmp_tamWhodas(){
+function cmp_tamvalories(){
 	$rta="<div class='encabezado whodas'>TABLA WHODAS</div><div class='contenido' id='whodas-lis'>".lis_whodas()."</div></div>";
 	$t=['tam_whodas'=>'','whodas_tipodoc'=>'','whodas_nombre'=>'','whodas_idpersona'=>'','whodas_fechanacimiento'=>'','whodas_puntaje'=>'','whodas_momento'=>'','whodas_edad'=>'','whodas_lugarnacimiento'=>'','whodas_condicionsalud'=>'','whodas_estadocivil'=>'','whodas_escolaridad'=>'',
 	 'whodas_ocupacion'=>'','whodas_rutina'=>'','whodas_rol'=>'',	 'whodas_actividad'=>'','whodas_evento'=>'','whodas_comportamiento'=>'','porcentaje_comprension'=>'','porcentaje_moverse'=>'','porcentaje_cuidado'=>'','porcentaje_relacionarce'=>'','porcentaje_actividades'=>'','porcentaje_participacion'=>'','porcentaje_total'=>'','whodas_analisis'=>''];
 
-	$w='tamwhodas';
-	$d=get_tamWhodas(); 
+	$w='tamvalories';
+	$d=get_tamvalories(); 
 	if ($d=="") {$d=$t;}
 	$o='datos';
     $key='srch';
@@ -173,7 +173,7 @@ function cmp_tamWhodas(){
 	return $rta;
    }
 
-  /*  function get_tamWhodas(){
+  /*  function get_tamvalories(){
 	if($_POST['id']==0){
 		return "";
 	}else{
@@ -205,7 +205,7 @@ function cmp_tamWhodas(){
 		}
 	} */ 
 
-	function get_tamWhodas(){
+	function get_tamvalories(){
 		if($_POST['id']==0){
 			return "";
 		}else{
@@ -236,25 +236,25 @@ FROM personas
 return json_encode($info['responseResult'][0]);
 }
  */
-function focus_tamWhodas(){
-	return 'tamWhodas';
+function focus_tamvalories(){
+	return 'tamvalories';
    }
    
-function men_tamWhodas(){
-	$rta=cap_menus('tamWhodas','pro');
+function men_tamvalories(){
+	$rta=cap_menus('tamvalories','pro');
 	return $rta;
    }
 
    function cap_menus($a,$b='cap',$con='con') {
 	$rta = ""; 
 	$acc=rol($a);
-	if ($a=='tamWhodas'  && isset($acc['crear']) && $acc['crear']=='SI'){  
+	if ($a=='tamvalories'  && isset($acc['crear']) && $acc['crear']=='SI'){  
 	 $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
     }
 	return $rta;
   }
    
-function gra_tamWhodas(){
+function gra_tamvalories(){
 	$id=divide($_POST['idwhodas']);
 	// print_r($_POST);
 	if(count($id)!= "2"){
@@ -440,9 +440,9 @@ function gra_tamWhodas(){
 	   // $rta=iconv('UTF-8','ISO-8859-1',$rta);
 	   // var_dump($a);
 	   // var_dump($rta);
-		   if ($a=='tamWhodas' && $b=='acciones'){
+		   if ($a=='tamvalories' && $b=='acciones'){
 			$rta="<nav class='menu right'>";		
-				$rta.="<li class='icono editar ' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('tamWhodas','pro',event,'','lib.php',7,'tamWhodas');\"></li>";  //act_lista(f,this);
+				$rta.="<li class='icono editar ' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('tamvalories','pro',event,'','lib.php',7,'tamvalories');\"></li>";  //act_lista(f,this);
 			}
 		return $rta;
 	   }
