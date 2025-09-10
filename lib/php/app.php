@@ -20,26 +20,6 @@ if (!in_array($_SERVER['REQUEST_METHOD'], $allowed_methods)) {
     exit('Método no permitido');
 }
 
-// Rate limiting básico
-session_start();
-if (!isset($_SESSION['request_count'])) {
-    $_SESSION['request_count'] = 0;
-    $_SESSION['first_request'] = time();
-}
-
-$_SESSION['request_count']++;
-$time_elapsed = time() - $_SESSION['first_request'];
-
-if ($time_elapsed < 60 && $_SESSION['request_count'] > 100) {
-    http_response_code(429);
-    exit('Demasiadas solicitudes');
-}
-
-if ($time_elapsed >= 60) {
-    $_SESSION['request_count'] = 1;
-    $_SESSION['first_request'] = time();
-}
-
 if (session_status() === PHP_SESSION_NONE) {
     ini_set('session.cookie_httponly', 1);
     ini_set('session.cookie_secure', 1);
@@ -89,49 +69,23 @@ $con = mysqli_connect($db_host, $db_user, $db_pass, $db_name, $db_port);
 
 
 // --- Configuración CORS Permitir solo dominios HTTPS listados en ALLOWED_DOMAINS
-$allowed_domains = array_map('trim', explode(',', $_ENV['ALLOWED_DOMAINS'] ?? 'localhost'));
-if (!isset($_SERVER['HTTP_ORIGIN'])) {
-  // Permitir si la petición viene del mismo dominio (peticiones internas)
-  if (
-    isset($_SERVER['SERVER_NAME']) &&
-    (in_array('https://' . $_SERVER['SERVER_NAME'], $allowed_domains) ||
-     in_array('https://www.' . $_SERVER['SERVER_NAME'], $allowed_domains))
-  ) {
-    // Permitir continuar SIN header Origin
-  } else {
-    http_response_code(403);
-    echo json_encode(['success'=>false, 'error'=>'Dominio no permitido (Origin requerido)']);
-    exit;
-  }
-} else {
-  $origin = $_SERVER['HTTP_ORIGIN'];
-  $parsed_origin = parse_url($origin);
-  $origin_scheme = strtolower($parsed_origin['scheme'] ?? '');
-  $origin_host = strtolower($parsed_origin['host'] ?? '');
-  $permitido = false;
-  foreach ($allowed_domains as $allowed) {
-    $parsed_allowed = parse_url($allowed);
-    $allowed_scheme = strtolower($parsed_allowed['scheme'] ?? '');
-    $allowed_host = strtolower($parsed_allowed['host'] ?? '');
-    if ($origin_scheme === 'https' && $allowed_scheme === 'https' && $origin_host === $allowed_host) {
-      $permitido = true;
-      break;
-    }
-  }
-  if ($permitido) {
+$allowed_domains = array_map('trim', explode(',', $_ENV['ALLOWED_DOMAINS'] ?? ''));
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+
+if ($origin && in_array($origin, $allowed_domains)) {
     header('Access-Control-Allow-Origin: ' . $origin);
     header('Access-Control-Allow-Credentials: true');
     header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-    header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+    header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, X-CSRF-Token');
+    
     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-      http_response_code(204);
-      exit;
+        http_response_code(204);
+        exit;
     }
-  } else {
+} elseif ($origin) {
     http_response_code(403);
     echo json_encode(['success'=>false, 'error'=>'Dominio no permitido']);
     exit;
-  }
 }
 
 if (!$con) { $error = mysqli_connect_error();  exit; }
