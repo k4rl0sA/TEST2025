@@ -1,4 +1,45 @@
 <?php
+// --- CONFIGURACIÓN DE SEGURIDAD MEJORADA ---
+header_remove('X-Powered-By');
+
+// Headers de seguridad
+header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: DENY');
+header('X-XSS-Protection: 1; mode=block');
+header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
+header('Referrer-Policy: strict-origin-when-cross-origin');
+
+// Prevenir caching de respuestas sensibles
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Pragma: no-cache');
+
+// Validar método HTTP
+$allowed_methods = ['GET', 'POST', 'OPTIONS'];
+if (!in_array($_SERVER['REQUEST_METHOD'], $allowed_methods)) {
+    http_response_code(405);
+    exit('Método no permitido');
+}
+
+// Rate limiting básico
+session_start();
+if (!isset($_SESSION['request_count'])) {
+    $_SESSION['request_count'] = 0;
+    $_SESSION['first_request'] = time();
+}
+
+$_SESSION['request_count']++;
+$time_elapsed = time() - $_SESSION['first_request'];
+
+if ($time_elapsed < 60 && $_SESSION['request_count'] > 100) {
+    http_response_code(429);
+    exit('Demasiadas solicitudes');
+}
+
+if ($time_elapsed >= 60) {
+    $_SESSION['request_count'] = 1;
+    $_SESSION['first_request'] = time();
+}
+
 if (session_status() === PHP_SESSION_NONE) {
     ini_set('session.cookie_httponly', 1);
     ini_set('session.cookie_secure', 1);
