@@ -487,20 +487,60 @@ function getBearerToken() {
   return null;
 }
 
-// Valida el JWT y retorna el payload o false
-function validateJWT($jwt = null) {
+// Valida un JWT y retorna el payload si es válido Opcionalmente, valida si el token es requerido y si tiene el scope necesario.
+function validateJWT($jwt = null, $required = false, $requiredScope = null) {
   if (!$jwt) $jwt = getBearerToken();
-  if (!$jwt) return false;
-  $jwt_secret = $_ENV['JWT_SECRET'] ?? $_ENV['JWT_SECRET_default'] ?? '';
+  if (!$jwt) {
+    if ($required) {
+      http_response_code(401);
+      echo json_encode(['success' => false, 'error' => 'Token requerido']);
+      exit;
+    }
+    return false;
+  }
+  $jwt_secret = $_ENV['JWT_SECRET'] ?? ($_ENV['JWT_SECRET_default'] ?? '');
   try {
     $payload = jwt_decode($jwt, $jwt_secret);
-    if ($payload && isset($payload['exp']) && $payload['exp'] > time()) {
-      return $payload;
+    if (!$payload) throw new Exception('Token inválido');
+    if (isset($payload['exp']) && $payload['exp'] < time()) {
+      if ($required) {
+        http_response_code(401);
+        echo json_encode(['success' => false, 'error' => 'Token expirado']);
+        exit;
+      }
+      return false;
     }
+    // Validar scope si se requiere
+    if ($requiredScope) {
+      $tokenScopes = [];
+      if (isset($payload['scope'])) {
+        if (is_array($payload['scope'])) {
+          $tokenScopes = $payload['scope'];
+        } else {
+          $tokenScopes = explode(' ', (string)$payload['scope']);
+        }
+      }
+      $requiredScopes = is_array($requiredScope) ? $requiredScope : [$requiredScope];
+      $missing = array_diff($requiredScopes, $tokenScopes);
+      if (!empty($missing)) {
+        if ($required) {
+          http_response_code(403);
+          echo json_encode(['success' => false, 'error' => 'Permiso insuficiente (scope requerido)']);
+          exit;
+        }
+        return false;
+      }
+    }
+    return $payload;
   } catch (Exception $e) {
     log_error('JWT inválido: ' . $e->getMessage());
+    if ($required) {
+      http_response_code(401);
+      echo json_encode(['success' => false, 'error' => 'Token inválido']);
+      exit;
+    }
+    return false;
   }
-  return false;
 }
 
 // Valida el CSRF token (POST)
