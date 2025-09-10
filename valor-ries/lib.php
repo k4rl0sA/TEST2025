@@ -96,74 +96,30 @@ function cmp_tamvalories(){
 	$c[]=new cmp('fecha_toma','d','10','',$w.' '.$o,'fecha de la Toma','fecha_toma',null,'',true,true,'','col-2',"validDate(this,$days,0);");
 	$c[]=new cmp('tipoaccion','s',3,'',$w.' '.$o,'Tipo de Accion','tipoaccion',null,null,true,true,'','col-3');
 	
-	$o='comprencion';
+	$o='vinculacion';
 	$c[]=new cmp($o,'e',null,'Vinculación Actividad Estructurada',$w);
 	$c[]=new cmp('actest','s',3,'',$w.' '.$o,'Se ha incorporado actividad estructurada','opcion',null,null,true,true,'','col-10');
 	
 
-	$o='capacidad';
-	$c[]=new cmp($o,'e',null,'2. Capacidad para moverse en su alrededor (entorno)',$w);
-	$c[]=new cmp('moverse1','s',3,'',$w.' '.$o,'Estar de pie durante largos períodos de tiempo, como por ejemplo, 30 minutos','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('moverse2','s',3,'',$w.' '.$o,'Ponerse de pie cuando estaba sentado','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('moverse3','s',3,'',$w.' '.$o,'Moverse dentro de su casa','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('moverse4','s',3,'',$w.' '.$o,'Salir de su casa','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('moverse5','s',3,'',$w.' '.$o,'Andar largas distancias como un kilómetro (o algo equivalente)','nivel',null,null,true,true,'','col-10');
-
-	$o='cuidado';
-	$c[]=new cmp($o,'e',null,'3. Cuidado personal ',$w);
-	$c[]=new cmp('cuidado1','s',3,'',$w.' '.$o,'Lavarse todo el cuerpo (bañarse)','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('cuidado2','s',3,'',$w.' '.$o,'Vestirse','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('cuidado3','s',3,'',$w.' '.$o,'Comer','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('cuidado4','s',3,'',$w.' '.$o,'Estar solo/a durante unos día','nivel',null,null,true,true,'','col-10');
-
-	$o='relacion';
-	$c[]=new cmp($o,'e',null,'4. Relacionarse con otras personas ',$w);
-	$c[]=new cmp('relacionarce1','s',3,'',$w.' '.$o,'Relacionarse con personas que no conoce','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('relacionarce2','s',3,'',$w.' '.$o,'Mantener una amistad','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('relacionarce3','s',3,'',$w.' '.$o,'Llevar bien con personas cercanas a usted','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('relacionarce4','s',3,'',$w.' '.$o,'Hacer nuevos amigos','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('relacionarce5','s',3,'',$w.' '.$o,'Tener relaciones sexuales','nivel',null,null,true,true,'','col-10');
-
-	$o='actividad';
-	$c[]=new cmp($o,'e',null,'5. Actividades de la vida diaria',$w);
-	$c[]=new cmp('actividades1','s',3,'',$w.' '.$o,'Cumplir con sus quehaceres de la casa','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('actividades2','s',3,'',$w.' '.$o,'Realizar bien los quehaceres más importantes de la casa','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('actividades3','s',3,'',$w.' '.$o,'Acabar todos los quehaceres que tenía que hacer en la casa','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('actividades4','s',3,'',$w.' '.$o,'Acabar sus quehaceres de la casa tan rápido como era necesario','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('actividades5','s',3,'',$w.' '.$o,'Llevar a cabo su trabajo diario o las actividades escolares','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('actividades6','s',3,'',$w.' '.$o,'Realizar bien las tareas más importantes de su trabajo o de la escuela','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('actividades7','s',3,'',$w.' '.$o,'Acabar todo el trabajo que necesitaba hacer','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('actividades8','s',3,'',$w.' '.$o,'Acabar su trabajo tan rápido como era necesario','nivel',null,null,true,true,'','col-10');
-
-	$o='participacion';
-	$c[]=new cmp($o,'e',null,'6. Participación en sociedad',$w);
-	$c[]=new cmp('participacion1','s',3,'',$w.' '.$o,'Dificultad para participar, al mismo nivel que el resto de las personas, en actividades de la comunidad (p.e. fiestas, actividades religiosas u otras)','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('participacion2','s',3,'',$w.' '.$o,'Dificultades debido a barreras u obstáculos existentes en su alrededor (entorno)','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('participacion3','s',3,'',$w.' '.$o,'Dificultad para vivir con dignidad o respeto debido a las actitudes y acciones de otras personas','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('participacion4','s',3,'',$w.' '.$o,'Cantidad de tiempo que ha dedicado a su "condición de salud" o a las consecuencias de la misma','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('participacion5','s',3,'',$w.' '.$o,'Qué impacto emocional (qué tanto le ha afectado) su "condición de salud"','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('participacion6','s',3,'',$w.' '.$o,'Qué impacto económico ha tenido usted o su familia debido a su "condición de salud"','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('participacion7','s',3,'',$w.' '.$o,'Dificultad que ha tenido usted y/o su familia debido a su "condición de salud"','nivel',null,null,true,true,'','col-10');
-	$c[]=new cmp('participacion8','s',3,'',$w.' '.$o,'Dificultad que ha tenido para realizar cosas que le ayuden a relajarse o disfrutar','nivel',null,null,true,true,'','col-10');
-
-	$o='dias';
-	$c[]=new cmp($o,'e',null,'Días',$w);
-	$c[]=new cmp('dias1','n',2,'',$w.' '.$o,'En los últimos 30 días, cuántos días ha tenido estas dificultades','nivel',null,null,true,true,'','col-10','validardias');
-	$c[]=new cmp('dias2','n',2,'',$w.' '.$o,'En los últimos 30 días, cuántos días no pudo realizar ninguna de sus actividades habituales (nada) o del trabajo debido a su "condición de salud"','nivel',null,null,true,true,'','col-10','validardias');
-	$c[]=new cmp('dias3','n',2,'',$w.' '.$o,'En los últimos 30 días, sin contar los días en que no pudo realizar "ninguna de sus actividades", cuántos días tuvo que recortar o reducir sus actividades habituales o del trabajo debido a su "condición de salud"','nivel',null,null,true,true,'','col-10','validardias');
+	$o='relaciones';
+	$c[]=new cmp($o,'e',null,'Relaciones Interpersonales',$w);
+	$c[]=new cmp('redsoc','s',3,'',$w.' '.$o,'Mejores relaciones  con sus redes sociales de apoyo','opcion',null,null,true,true,'','col-10');
 	
-	$o='analisis';
-	$c[]=new cmp($o,'e',null,'Analisis ',$w);
-  $c[]=new cmp('porcentaje_comprension','t',20,'',$w.' '.$o,'Comprensión','porcentaje_comprension',null,'',false,false,'','col-15');
-  $c[]=new cmp('porcentaje_moverse','t',20,'',$w.' '.$o,'Moverse','porcentaje_moverse',null,'',false,false,'','col-15');
-  $c[]=new cmp('porcentaje_cuidado','t',20,'',$w.' '.$o,'Cuidado','porcentaje_cuidado',null,'',false,false,'','col-15');
-  $c[]=new cmp('porcentaje_relacionarce','t',20,'',$w.' '.$o,'Relacionarce','porcentaje_relacionarce',null,'',false,false,'','col-15');
-  $c[]=new cmp('porcentaje_actividades','t',20,'',$w.' '.$o,'Actividades','porcentaje_actividades',null,'',false,false,'','col-15');
-  $c[]=new cmp('porcentaje_participacion','t',20,'',$w.' '.$o,'Participacion','porcentaje_participacion',null,'',false,false,'','col-25');
-  $c[]=new cmp('porcentaje_total','t',20,'',$w.' '.$o,'Puntaje Total','porcentaje_total',null,'',false,false,'','col-3');
-  $c[]=new cmp('analisis','t',20,'',$w.' '.$o,'Clasificación','porcentaje_total',null,'',false,false,'','col-4');
-  $c[]=new cmp('momento','t',20,'',$w.' '.$o,'Momento','valories_momento',null,'',false,false,'','col-3');
 
+	$o='patron';
+	$c[]=new cmp($o,'e',null,'Patrón de consumo',$w);
+	$c[]=new cmp('aumsus','s',3,'',$w.' '.$o,'Aumentó la cantidad de sustancia consumida.','opcion',null,null,true,true,'','col-10');
+	$c[]=new cmp('mantsus','s',3,'',$w.' '.$o,'Mantiene la cantidad de sustancia consumida.','opcion',null,null,true,true,'','col-10');
+	$c[]=new cmp('dismsus','s',3,'',$w.' '.$o,'Disminuyó  la cantidad de sustancia consumida.','opcion',null,null,true,true,'','col-10');
+	$c[]=new cmp('elimsus','s',3,'',$w.' '.$o,'Eliminó el consumo de sustancias psicoactivas','opcion',null,null,true,true,'','col-10');
+
+	$o='percepcion';
+	$c[]=new cmp($o,'e',null,'Percepción de riesgo',$w);
+	$c[]=new cmp('consfisc','s',3,'',$w.' '.$o,'Relacionarse con personas que no conoce','opcion',null,null,true,true,'','col-10');
+	$c[]=new cmp('pelicons','s',3,'',$w.' '.$o,'Mantener una amistad','opcion',null,null,true,true,'','col-10');
+	
+
+	
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	
 	return $rta;
