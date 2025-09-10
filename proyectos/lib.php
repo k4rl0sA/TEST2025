@@ -1,10 +1,28 @@
 <?php
 ini_set('display_errors','1');
 
+
 session_start();
 header('Content-Type: application/json; charset=utf-8');
-
 require_once __DIR__ . '/../lib/php/app.php';
+
+// --- Protección global: solo usuarios autenticados o con JWT válido ---
+function require_auth($modulo = 'proyectos') {
+    if (!acceso($modulo)) {
+        http_response_code(401);
+        echo json_encode(['success' => false, 'error' => 'Acceso no autorizado']);
+        exit;
+    }
+}
+
+// --- Protección CSRF para POST ---
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    validateCSRF();
+}
+
+// --- Sanitizar entrada global (opcional, puedes excluir archivos) ---
+$_POST = sanitizeInput($_POST);
+$_GET = sanitizeInput($_GET);
 
 /* // --- Validar sesión (ajusta según tu lógica de login) ---
 if (!isset($_SESSION["us_sds"])) {
@@ -46,6 +64,7 @@ function progreso_por_estado($estado) {
 switch ($a) {
     // --- Listar proyectos (dashboard) ---
     case 'list_proyectos':
+        require_auth('proyectos');
         $where = [];
         $params = [];
         if (!empty($_GET['estado'])) {
@@ -72,17 +91,30 @@ switch ($a) {
 
     // --- Crear proyecto ---
     case 'crear_proyecto':
-        $nombre = clean($_POST['nombre'] ?? '');
-        $descripcion = clean($_POST['descripcion'] ?? '');
-        $fecha_inicio =date('Y-m-d');
-        $fecha_fin_estimada = $_POST['fecha_fin_estimada'] ?? null;
-        $estado = $_POST['estado'] ?? 'planificacion';
-        $prioridad = $_POST['prioridad'] ?? 'media';
+        require_auth('proyectos');
+        $data = sanitizeInput($_POST);
+        $rules = [
+            'nombre' => 'required|string|minlen:3|maxlen:100',
+            'descripcion' => 'string|maxlen:500',
+            'responsable_id' => 'required|int',
+            'estado' => 'required|string',
+            'fecha_fin_estimada' => 'date',
+            'prioridad' => 'string',
+            'presupuesto' => 'int',
+            'cliente' => 'string|maxlen:100'
+        ];
+        $valid = validateInput($data, $rules);
+        if ($valid !== true) error_response(json_encode($valid));
+        $nombre = $data['nombre'];
+        $descripcion = $data['descripcion'] ?? '';
+        $fecha_inicio = date('Y-m-d');
+        $fecha_fin_estimada = $data['fecha_fin_estimada'] ?? null;
+        $estado = $data['estado'] ?? 'planificacion';
+        $prioridad = $data['prioridad'] ?? 'media';
         $progreso = progreso_por_estado($estado);
-        $presupuesto = floatval($_POST['presupuesto'] ?? 0);
-        $responsable_id = intval($_POST['responsable_id'] ?? 0);
-        $cliente = clean($_POST['cliente'] ?? '');
-        if (!$nombre) error_response("El nombre del proyecto es obligatorio");
+        $presupuesto = floatval($data['presupuesto'] ?? 0);
+        $responsable_id = intval($data['responsable_id'] ?? 0);
+        $cliente = $data['cliente'] ?? '';
         $sql = "INSERT INTO proyectos 
             (nombre, descripcion, fecha_inicio, fecha_fin_estimada, estado, prioridad, progreso, presupuesto, responsable_id, cliente) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -98,8 +130,7 @@ switch ($a) {
             ['type'=>'i','value'=>$responsable_id],
             ['type'=>'s','value'=>$cliente]
         ];
-        // return show_sql($sql, $params);
-         $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);
+        $arr = datos_mysql($sql, MYSQLI_ASSOC, false, $params);
         if (!isset($arr['responseResult'][0]['affected_rows']) || $arr['responseResult'][0]['affected_rows'] < 1) {
             error_response("Error al crear el Proyecto");
         }
