@@ -26,7 +26,7 @@ if ($time_elapsed >= 60) {
     $_SESSION['first_request'] = time();
 }
 
-ini_set('display_errors','1');
+ini_set('display_errors','0');
 setlocale(LC_TIME, 'es_CO');
 // $GLOBALS['app']='sds';
 ini_set('memory_limit','1024M');
