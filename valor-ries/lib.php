@@ -45,7 +45,7 @@ function lis_tamvalories(){
 	$datos=datos_mysql($sql);
 	return create_table($total,$datos["responseResult"],"tamvalories",$regxPag);
 	}else{
-		return "
+		return "";
 	}
 }
 
