@@ -507,7 +507,7 @@ function gra_rute(){
 		['type' => 'i', 'value' => $_POST['estado_llamada']?? ''],
 		['type' => 's', 'value' => $_POST['observacion']?? ''],
 		['type' => 'i', 'value' => $_POST['estado_agenda']?? ''],
-		['type' => empty($_POST['motivo_estado']) ? 'z' : 'i', 'value' => empty($_POST['motivo_estado']) ? null : $_POST['motivo_estado']],
+		['type' => empty($_POST['motivo_estado']) ? 'z' : 'i', 'value' => empty($_POST['motivo_estado']) ? '' : $_POST['motivo_estado']],
 		['type' => empty($_POST['fecha_gestion']) ? 'z' : 's', 'value' => empty($_POST['fecha_gestion']) ? null : $_POST['fecha_gestion']],
 		['type' => empty($_POST['docu_confirm']) ? 'z' : 'i', 'value' => empty($_POST['docu_confirm']) ? null : $_POST['docu_confirm']],
 		['type' => empty($_POST['usuario_gest']) ? 'z' : 'i', 'value' => empty($_POST['usuario_gest']) ? null : $_POST['usuario_gest']],
