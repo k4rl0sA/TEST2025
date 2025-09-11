@@ -109,7 +109,7 @@ function cmp_tamcarlos(){
     $c[]=new cmp('descripcion','t','3','',$w.' '.$o,'Descripcion','descripcion',null,null,false,false,'','col-5');
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
-   }
+}
 
 	function get_tamcarlos(){
 		if($_POST['id']==0){
