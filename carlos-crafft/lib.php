@@ -170,7 +170,6 @@ function gra_tamcarlos() {
 		$val = ($valor == 1) ? 1 : 0;
 		$total += $val;
 	}
-
 	// Clasificación
 	if ($total <= 2) {
 		$descripcion = 'Consumo funcional - No consumo';
