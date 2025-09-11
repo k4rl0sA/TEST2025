@@ -147,60 +147,60 @@ function men_tamcarlos(){
   }
    
 function gra_tamcarlos() {
-    $id=divide($_POST['id']);
-    $idpeople = isset($id[0]) ? intval($id[0]) : 0;
-		// Validar que se recibe la edad por POST
-		if (!isset($_POST['edad']) || !is_numeric($_POST['edad'])) {
-			return "Edad no proporcionada o inválida.";
-		}
-		$edad = intval($_POST['edad']);
-		if ($edad < 16 && empty($_POST['fecha_toma'])) {
-			return "La fecha de toma es obligatoria para menores de 16 años.";
-		}
-        if ($idpeople <= 0) {
-            return "ID de persona no válido.";
-        }
-		// Preguntas 2 a 8
-		$campos = [
-			'sustancias', 'condualcoh', 'dismalcoh', 'estadoanimo', 'lios', 'olvido', 'solo'
-		];
-		$total = 0;
-		foreach ($campos as $campo) {
-            $campo = ($_POST[$campo]==2)? 0:;
-			$val = isset($campo) ? intval($campo) : 0;
-			$total += $val;
-		}
-
-		// Clasificación
-		if ($total <= 2) {
-			$descripcion = 'Consumo funcional - No consumo';
-		} else {
-			$descripcion = 'Consumo disfuncional (mayor riesgo)';
-		}
-
-		// Preparar consulta y parámetros
-		$sql = "INSERT INTO tam_carlos_crafft (
-			idpeople, fecha_toma, bebidas, sustancias, condualcoh, dismalcoh, estadoanimo, lios, olvido, solo, total, descripcion, usu_creo, fecha_create, estado
-		) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?)";
-		$params = [
-			['type' => 'i', 'value' => $idpeople],
-			['type' => 's', 'value' => $_POST['fecha_toma']],
-			['type' => 's', 'value' => $_POST['bebidas']],
-			['type' => 's', 'value' => $_POST['sustancias']],
-			['type' => 's', 'value' => $_POST['condualcoh']],
-			['type' => 's', 'value' => $_POST['dismalcoh']],
-			['type' => 's', 'value' => $_POST['estadoanimo']],
-			['type' => 's', 'value' => $_POST['lios']],
-			['type' => 's', 'value' => $_POST['olvido']],
-			['type' => 's', 'value' => $_POST['solo']],
-			['type' => 'i', 'value' => $total],
-			['type' => 's', 'value' => $descripcion],
-			['type' => 's', 'value' => $_SESSION['us_sds']],
-			['type' => 's', 'value' => 'A']
-		];
-		$rta = mysql_prepd($sql, $params);
-		return $rta;
+	$id = divide($_POST['id']);
+	$idpeople = isset($id[0]) ? intval($id[0]) : 0;
+	// Validar que se recibe la edad por POST
+	if (!isset($_POST['edad']) || !is_numeric($_POST['edad'])) {
+		return "Edad no proporcionada o inválida.";
 	}
+	$edad = intval($_POST['edad']);
+	if ($edad < 16 && empty($_POST['fecha_toma'])) {
+		return "La fecha de toma es obligatoria para menores de 16 años.";
+	}
+	if ($idpeople <= 0) {
+		return "ID de persona no válido.";
+	}
+	// Preguntas 2 a 8
+	$campos = [
+		'sustancias', 'condualcoh', 'dismalcoh', 'estadoanimo', 'lios', 'olvido', 'solo'
+	];
+	$total = 0;
+	foreach ($campos as $campo) {
+		$valor = isset($_POST[$campo]) ? intval($_POST[$campo]) : 2; // Si no viene, se asume 2 (cuenta como 0)
+		$val = ($valor == 1) ? 1 : 0;
+		$total += $val;
+	}
+
+	// Clasificación
+	if ($total <= 2) {
+		$descripcion = 'Consumo funcional - No consumo';
+	} else {
+		$descripcion = 'Consumo disfuncional (mayor riesgo)';
+	}
+
+	// Preparar consulta y parámetros
+	$sql = "INSERT INTO tam_carlos_crafft (
+		idpeople, fecha_toma, bebidas, sustancias, condualcoh, dismalcoh, estadoanimo, lios, olvido, solo, total, descripcion, usu_creo, fecha_create, estado
+	) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?)";
+	$params = [
+		['type' => 'i', 'value' => $idpeople],
+		['type' => 's', 'value' => $_POST['fecha_toma']],
+		['type' => 's', 'value' => $_POST['bebidas']],
+		['type' => 's', 'value' => $_POST['sustancias']],
+		['type' => 's', 'value' => $_POST['condualcoh']],
+		['type' => 's', 'value' => $_POST['dismalcoh']],
+		['type' => 's', 'value' => $_POST['estadoanimo']],
+		['type' => 's', 'value' => $_POST['lios']],
+		['type' => 's', 'value' => $_POST['olvido']],
+		['type' => 's', 'value' => $_POST['solo']],
+		['type' => 'i', 'value' => $total],
+		['type' => 's', 'value' => $descripcion],
+		['type' => 's', 'value' => $_SESSION['us_sds']],
+		['type' => 's', 'value' => 'A']
+	];
+	$rta = mysql_prepd($sql, $params);
+	return $rta;
+}
 
 function opc_rta($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=170 and estado='A' ORDER BY 1",$id);
