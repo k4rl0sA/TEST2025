@@ -166,7 +166,8 @@ function grabar(tb='',ev){
   'validPerson':'../soporte/valperson.php',
   'medicamentctrl':'../servicios/medicamentos.php',
   'traslados': '../soporte/trasladloc.php',
-  'trasladint': '../soporte/interloc.php'
+  'trasladint': '../soporte/interloc.php',
+  'gra_tamcarlos':'../carlos-crafft/lib.php'
  	};
    let ruta_app = rutaMap[tb] || 'lib.php';
   if(tb=='sesion2'){
