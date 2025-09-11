@@ -92,7 +92,6 @@ function cmp_tamcarlos(){
     $c[]=new cmp('valories_edad','n','3',$d['valories_edad'],$w.' '.$o,'edad','valories_edad',null,'',true,false,'','col-1');
 	$c[]=new cmp('fecha_toma','d','10','',$w.' '.$o,'fecha de la Toma','fecha_toma',null,'',true,true,'','col-2',"validDate(this,$days,0);");
 	
-    
 	$o='Tamizaje';
 	$c[]=new cmp($o,'e',null,'Preguntas',$w);
 	$c[]=new cmp('bebidas','s',3,'',$w.' '.$o,'¿Ha consumido bebidas alcohólicas (más de unos pocos sorbos)?','rta',null,null,true,true,'','col-10');
