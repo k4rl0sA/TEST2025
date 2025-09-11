@@ -146,7 +146,7 @@ function men_tamcarlos(){
 	return $rta;
   }
    
-function gra_tamcarlosen() {
+function gra_tamcarlos() {
 		// Validar que se recibe la edad por POST
 		if (!isset($_POST['edad']) || !is_numeric($_POST['edad'])) {
 			return "Edad no proporcionada o inválida.";
