@@ -147,19 +147,19 @@ function men_tamcarlos(){
   }
    
 function gra_tamcarlos() {
+    $id=divide($_POST['id']);
+    $idpeople = isset($id[0]) ? intval($id[0]) : 0;
 		// Validar que se recibe la edad por POST
 		if (!isset($_POST['edad']) || !is_numeric($_POST['edad'])) {
 			return "Edad no proporcionada o inválida.";
 		}
 		$edad = intval($_POST['edad']);
-		$idpeople = isset($_POST['idpeople']) ? intval($_POST['idpeople']) : 0;
-		if ($idpeople <= 0) {
-			return "ID de persona no válido.";
-		}
 		if ($edad < 16 && empty($_POST['fecha_toma'])) {
 			return "La fecha de toma es obligatoria para menores de 16 años.";
 		}
-
+        if ($idpeople <= 0) {
+            return "ID de persona no válido.";
+        }
 		// Preguntas 2 a 8
 		$campos = [
 			'sustancias', 'condualcoh', 'dismalcoh', 'estadoanimo', 'lios', 'olvido', 'solo'
