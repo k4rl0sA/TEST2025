@@ -308,6 +308,10 @@ function opc_rta($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=173 and estado='A' ORDER BY 1",$id);
 	}
 
+    function opc_tipodoc($id=''){
+		return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 1",$id);
+	}
+
 	function formato_dato($a,$b,$c,$d){
 		$b=strtolower($b);
 		$rta=$c[$d];
