@@ -86,7 +86,7 @@ function cmp_tamcarlos(){
 	$c[]=new cmp($o,'e',null,'DATOS DE IDENTIFICACIÓN',$w);
 	$c[]=new cmp('idvalories','h',15,$_POST['id'],$w.' '.$o,'','',null,'####',false,false);
 	$c[]=new cmp('valories_idpersona','t','20',$d['valories_idpersona'],$w.' '.$o.' '.$key,'N° Identificación','valories_idpersona',null,'',false,false,'','col-2');
-	$c[]=new cmp('valories_tipodoc','s','3',$d['valories_tipodoc'],$w.' '.$o.' '.$key,'Tipo Identificación','valories_tipodoc',null,'',false,false,'','col-25','getDatForm(\'srch\',\'person\',[\'datos\']);');
+	$c[]=new cmp('valories_tipodoc','s','3',$d['valories_tipodoc'],$w.' '.$o.' '.$key,'Tipo Identificación','tipodoc',null,'',false,false,'','col-25','getDatForm(\'srch\',\'person\',[\'datos\']);');
 	$c[]=new cmp('valories_nombre','t','50',$d['valories_nombre'],$w.' '.$o,'nombres','valories_nombre',null,'',false,false,'','col-4');
 	$c[]=new cmp('valories_fechanacimiento','d','10',$d['valories_fechanacimiento'],$w.' '.$o,'fecha nacimiento','valories_fechanacimiento',null,'',false,false,'','col-15');
     $c[]=new cmp('valories_edad','n','3',$d['valories_edad'],$w.' '.$o,'edad','valories_edad',null,'',true,false,'','col-1');
