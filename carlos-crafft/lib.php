@@ -242,8 +242,7 @@ function gra_tamcarlos(){
 	}
 
     /*
-    Variable dependiente de la puntuación de las preguntas 2 a la 8
-    Variable dependiente de fecha de nacimiento cuando la edad del usuario sea inferior a 16 años esta variable es mandatoria.
+    Variable dependiente de la puntuación de las preguntas 2 a la 8,Variable dependiente de fecha de nacimiento cuando la edad del usuario sea inferior a 16 años esta variable es mandatoria.
     Con un puntaje de corte de 2 se puede realizar la clasificación en 2 grupos:
     0-2: consumo funcional -no consumo
     3 o más: consumo disfuncional permite identificar aquellos pacientes con mayor riesgo de trastorno por abuso de sustancias y realizar una entrevista a mayor profundidad para lograr así una intervención precoz.
@@ -307,7 +306,6 @@ function gra_tamcarlos(){
 	  $rta=dato_mysql($sql);
 	  return $rta; 
 	}
-
 
 function opc_rta($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=170 and estado='A' ORDER BY 1",$id);
