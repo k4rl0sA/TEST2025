@@ -84,7 +84,7 @@ function cmp_tamcarlos(){
     $key='srch';
 	$days=fechas_app('psicologia');
 	$c[]=new cmp($o,'e',null,'DATOS DE IDENTIFICACIÓN',$w);
-	$c[]=new cmp('idvalories','h',15,$_POST['id'],$w.' '.$o,'','',null,'####',false,false);
+	$c[]=new cmp('id','h',15,$_POST['id'],$w.' '.$o,'','',null,'####',false,false);
 	$c[]=new cmp('valories_idpersona','t','20',$d['valories_idpersona'],$w.' '.$o.' '.$key,'N° Identificación','valories_idpersona',null,'',false,false,'','col-2');
 	$c[]=new cmp('valories_tipodoc','s','3',$d['valories_tipodoc'],$w.' '.$o.' '.$key,'Tipo Identificación','tipodoc',null,'',false,false,'','col-25','getDatForm(\'srch\',\'person\',[\'datos\']);');
 	$c[]=new cmp('valories_nombre','t','50',$d['valories_nombre'],$w.' '.$o,'nombres','valories_nombre',null,'',false,false,'','col-4');
@@ -96,7 +96,7 @@ function cmp_tamcarlos(){
 	$o='Tamizaje';
 	$c[]=new cmp($o,'e',null,'Preguntas',$w);
 	$c[]=new cmp('bebidas','s',3,'',$w.' '.$o,'¿Ha consumido bebidas alcohólicas (más de unos pocos sorbos)?','rta',null,null,true,true,'','col-10');
-	$c[]=new cmp('sustancias','s',3,'',$w.' '.$o,'¿Ha usado algún otro tipo de sustancias que alteren su estado de ánimo o de conciencia? ','rta',null,null,true,true,'','col-10');
+	$c[]=new cmp('sustancias','s',3,'',$w.' '.$o,'¿Ha usado algún otro tipo de sustancias que alteren su estado de ánimo o de conciencia?','rta',null,null,true,true,'','col-10');
 	$c[]=new cmp('condualcoh','s',3,'',$w.' '.$o,'¿Alguna vez ha salido a la calle, o se ha subido a un carro conducido por  alguien (que podía ser usted mismo), estando bajo los efectos de alcohol?','rta',null,null,true,true,'','col-10');
 	$c[]=new cmp('dismalcoh','s',3,'',$w.' '.$o,'¿Alguna vez su familia o sus amigos le han dicho que debería disminuir el consumo de alcohol o de','rta',null,null,true,true,'','col-10');
 	$c[]=new cmp('estadoanimo','s',3,'',$w.' '.$o,'¿Alguna vez ha usado alcohol o drogas para reconfortarse (para sentirse mejor, para socializar, para mejorar su estado de ánimo, para','rta',null,null,true,true,'','col-10');
