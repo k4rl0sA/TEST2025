@@ -162,7 +162,7 @@ function gra_tamcarlos() {
 	}
 	// Preguntas 2 a 8
 	$campos = [
-		'sustancias', 'condualcoh', 'dismalcoh', 'estadoanimo', 'lios', 'olvido', 'solo'
+		'bebidas','sustancias', 'condualcoh', 'dismalcoh', 'estadoanimo', 'lios', 'olvido', 'solo'
 	];
 	$total = 0;
 	foreach ($campos as $campo) {
