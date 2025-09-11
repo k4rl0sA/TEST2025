@@ -173,7 +173,7 @@ function gra_tamcarlos() {
 
 		// Clasificación
 		if ($total <= 2) {
-			$descripcion = 'Consumo funcional / No consumo';
+			$descripcion = 'Consumo funcional - No consumo';
 		} else {
 			$descripcion = 'Consumo disfuncional (mayor riesgo)';
 		}
