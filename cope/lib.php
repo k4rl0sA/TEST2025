@@ -178,14 +178,13 @@ function cmp_tamcope(){
 	}
 }
 
-   function get_tamcope(){
+function get_tamcope(){
 	if($_POST['id']==0){
 		return "";
 	}else{
 		 $id=divide($_POST['id']);
 		// print_r($_POST);
-		$sql="SELECT `tam_cope`,`cope_idpersona`,`cope_tipodoc`,
-		cope_momento,cope_reporta,cope_pregunta1,cope_pregunta2,cope_pregunta3,cope_pregunta4,cope_pregunta5,cope_pregunta6,cope_pregunta7,cope_pregunta8,cope_pregunta9,cope_pregunta10,cope_pregunta11,cope_pregunta12,cope_pregunta13,cope_pregunta14,cope_pregunta15,cope_pregunta16,cope_pregunta17,cope_pregunta18,cope_pregunta19,cope_pregunta20,cope_pregunta21,cope_pregunta22,cope_pregunta23,cope_pregunta24,cope_pregunta25,cope_pregunta26,cope_pregunta27,cope_pregunta28,cope_puntajea,cope_descripciona,cope_puntajee,cope_descripcione,
+		$sql="SELECT `tam_cope`,`cope_idpersona`,`cope_tipodoc`,cope_momento,cope_reporta,cope_pregunta1,cope_pregunta2,cope_pregunta3,cope_pregunta4,cope_pregunta5,cope_pregunta6,cope_pregunta7,cope_pregunta8,cope_pregunta9,cope_pregunta10,cope_pregunta11,cope_pregunta12,cope_pregunta13,cope_pregunta14,cope_pregunta15,cope_pregunta16,cope_pregunta17,cope_pregunta18,cope_pregunta19,cope_pregunta20,cope_pregunta21,cope_pregunta22,cope_pregunta23,cope_pregunta24,cope_pregunta25,cope_pregunta26,cope_pregunta27,cope_pregunta28,cope_puntajea,cope_descripciona,cope_puntajee,cope_descripcione,
 		P.idpersona,P.tipo_doc,concat_ws(' ',P.nombre1,P.nombre2,P.apellido1,P.apellido2) cope_nombre,P.fecha_nacimiento cope_fechanacimiento,YEAR(CURDATE())-YEAR(P.fecha_nacimiento) cope_edad
 		FROM `hog_tam_cope` O
 		LEFT JOIN personas P ON O.cope_idpersona = P.idpersona and O.cope_tipodoc=P.tipo_doc
@@ -195,7 +194,7 @@ function cmp_tamcope(){
 		$info=datos_mysql($sql);
 				return $info['responseResult'][0];
 		}
-	} 
+} 
 
 
 function get_person(){

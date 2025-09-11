@@ -241,6 +241,14 @@ function gra_tamcarlos(){
 			break;
 	}
 
+    /*
+    Variable dependiente de la puntuación de las preguntas 2 a la 8
+    Variable dependiente de fecha de nacimiento cuando la edad del usuario sea inferior a 16 años esta variable es mandatoria.
+    Con un puntaje de corte de 2 se puede realizar la clasificación en 2 grupos:
+    0-2: consumo funcional -no consumo
+    3 o más: consumo disfuncional permite identificar aquellos pacientes con mayor riesgo de trastorno por abuso de sustancias y realizar una entrevista a mayor profundidad para lograr así una intervención precoz.
+    */
+
 		$sql="INSERT INTO hog_tam_valories VALUES (null,
 		$id[0],
 		TRIM(UPPER('{$_POST['fecha_toma']}')),
