@@ -108,9 +108,7 @@ function cmp_tamcarlos(){
 	$c[]=new cmp($o,'e',null,'Resultado',$w);
     $c[]=new cmp('total','t',3,'',$w.' '.$o,'Puntaje','total',null,'',false,false,'','col-4');
     $c[]=new cmp('descripcion','t','3','',$w.' '.$o,'Descripcion','descripcion',null,null,false,false,'','col-5');
-
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
-	
 	return $rta;
    }
 
