@@ -41,7 +41,7 @@ LEFT JOIN personas P ON O.zarit_idpersona = P.idpersona
 
 function lis_zarit(){
 	$id=divide($_POST['id']);//id_zarit ACCIONES,
-	$sql="SELECT id_zarit 'Cod Registro',momento,analisis,puntaje,`nombre` Creó,`fecha_create` 'fecha Creó'
+	$sql="SELECT id_zarit 'Cod Registro',momento,analisis,puntaje,`nombre` Creó,fecha_toma,`fecha_create` 'fecha Creó'
 	FROM hog_tam_zarit A
 	LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario ";
 	$sql.="WHERE idpeople='".$id[0];
