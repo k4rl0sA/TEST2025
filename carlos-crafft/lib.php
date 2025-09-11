@@ -166,7 +166,7 @@ function gra_tamcarlos() {
 		];
 		$total = 0;
 		foreach ($campos as $campo) {
-            $campo = ($campo==2)?0:1;
+            $campo = ($campo==2)? 0:1;
 			$val = isset($_POST[$campo]) ? intval($_POST[$campo]) : 0;
 			$total += $val;
 		}
