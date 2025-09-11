@@ -89,7 +89,7 @@ function cmp_tamcarlos(){
 	$c[]=new cmp('valories_tipodoc','s','3',$d['valories_tipodoc'],$w.' '.$o.' '.$key,'Tipo Identificación','tipodoc',null,'',false,false,'','col-25','getDatForm(\'srch\',\'person\',[\'datos\']);');
 	$c[]=new cmp('valories_nombre','t','50',$d['valories_nombre'],$w.' '.$o,'nombres','valories_nombre',null,'',false,false,'','col-4');
 	$c[]=new cmp('valories_fechanacimiento','d','10',$d['valories_fechanacimiento'],$w.' '.$o,'fecha nacimiento','valories_fechanacimiento',null,'',false,false,'','col-15');
-    $c[]=new cmp('valories_edad','n','3',$d['valories_edad'],$w.' '.$o,'edad','valories_edad',null,'',true,false,'','col-1');
+    $c[]=new cmp('edad','n','3',$d['valories_edad'],$w.' '.$o,'edad','valories_edad',null,'',true,false,'','col-1');
 	$c[]=new cmp('fecha_toma','d','10','',$w.' '.$o,'fecha de la Toma','fecha_toma',null,'',true,true,'','col-2',"validDate(this,$days,0);");
 	
 	$o='Tamizaje';
@@ -146,166 +146,64 @@ function men_tamcarlos(){
 	return $rta;
   }
    
-function gra_tamcarlos(){
-	$id=divide($_POST['idvalories']);
-	// print_r($_POST);
-	if(count($id)!= "2"){
-		return "No es posible actualizar el tamizaje";
-	}else{
-		$data=datos_mysql("select count(Z.momento) as moment from hog_tam_valories Z  where Z.idpeople='{$id[0]}'");
-		$momen=$data['responseResult'][0]['moment'];
-		if($momen=='0'){
-			$idmomento = 1;
-		}elseif($momen=='1'){
-			$idmomento = 2;
-		}else{
-			return "Ya se realizo los dos momentos";
+function gra_tamcarlosen() {
+	// Validar que se recibe la edad por POST
+	if (!isset($_POST['edad']) || !is_numeric($_POST['edad'])) {
+		return "Edad no proporcionada o inválida.";
+	}
+	$edad = intval($_POST['edad']);
+	$idpeople = isset($_POST['idpeople']) ? intval($_POST['idpeople']) : 0;
+	if ($idpeople <= 0) {
+		return "ID de persona no válido.";
+	}
+	// Si es menor de 16 años, la variable es obligatoria
+	if ($edad < 16) {
+		// Aquí podrías validar campos obligatorios adicionales si aplica
+		if (empty($_POST['fecha_toma'])) {
+			return "La fecha de toma es obligatoria para menores de 16 años.";
 		}
-	
-
-	$suma_com = (
-			$_POST['comprension1']+
-			$_POST['comprension2']+
-			$_POST['comprension3']+
-			$_POST['comprension4']+
-			$_POST['comprension5']+
-			$_POST['comprension6']
-		);
-
-	$suma_mov = (
-			$_POST['moverse1']+
-			$_POST['moverse2']+
-			$_POST['moverse3']+
-			$_POST['moverse4']+
-			$_POST['moverse5']
-		);
-
-	$suma_cui = (
-			$_POST['cuidado1']+
-			$_POST['cuidado2']+
-			$_POST['cuidado3']+
-			$_POST['cuidado4']
-		);
-
-	$suma_rel = (
-			$_POST['relacionarce1']+
-			$_POST['relacionarce2']+
-			$_POST['relacionarce3']+
-			$_POST['relacionarce4']+
-			$_POST['relacionarce5']
-		);
-
-	$suma_act = (
-			$_POST['actividades1']+
-			$_POST['actividades2']+
-			$_POST['actividades3']+
-			$_POST['actividades4']+
-			$_POST['actividades5']+
-			$_POST['actividades6']+
-			$_POST['actividades7']+
-			$_POST['actividades8']
-		);
-
-	$suma_par = (
-			$_POST['participacion1']+
-			$_POST['participacion2']+
-			$_POST['participacion3']+
-			$_POST['participacion4']+
-			$_POST['participacion5']+
-			$_POST['participacion6']+
-			$_POST['participacion7']+
-			$_POST['participacion8']
-		);
-
-		$suma_valories = ($suma_com+$suma_mov+$suma_cui+$suma_rel+$suma_act+$suma_par);
-
-	// var_dump($numero);
-	switch ($suma_valories) {
-		case ($suma_valories >= 1 && $suma_valories <= 36):
-			$pnt=' Ninguna Discapacidad';
-			break;
-		case ($suma_valories >= 37 && $suma_valories <= 72):
-			$pnt=' Discapacidad Leve';
-			break;
-		case ($suma_valories >= 73 && $suma_valories <= 108):
-			$pnt=' Discapacidad Moderada';
-			break;
-		case ($suma_valories >= 109 && $suma_valories <= 144):
-				$pnt=' Discapacidad Severa';
-			break;
-		case ($suma_valories >= 145 && $suma_valories <= 180):
-				$pnt=' Discapacidad Severa';
-			break;
-		default:
-			$pnt='Error en el rango, por favor valide';
-			break;
 	}
 
-    /*
-    Variable dependiente de la puntuación de las preguntas 2 a la 8,Variable dependiente de fecha de nacimiento cuando la edad del usuario sea inferior a 16 años esta variable es mandatoria.
-    Con un puntaje de corte de 2 se puede realizar la clasificación en 2 grupos:
-    0-2: consumo funcional -no consumo
-    3 o más: consumo disfuncional permite identificar aquellos pacientes con mayor riesgo de trastorno por abuso de sustancias y realizar una entrevista a mayor profundidad para lograr así una intervención precoz.
-    */
+	// Preguntas 2 a 8
+	$campos = [
+		'sustancias', 'condualcoh', 'dismalcoh', 'estadoanimo', 'lios', 'olvido', 'solo'
+	];
+	$total = 0;
+	foreach ($campos as $campo) {
+		$val = isset($_POST[$campo]) ? intval($_POST[$campo]) : 0;
+		$total += $val;
+	}
 
-		$sql="INSERT INTO hog_tam_valories VALUES (null,
-		$id[0],
-		TRIM(UPPER('{$_POST['fecha_toma']}')),
-		TRIM(UPPER('{$idmomento}')),
-		TRIM(UPPER('{$_POST['comprension1']}')),
-		TRIM(UPPER('{$_POST['comprension2']}')),
-		TRIM(UPPER('{$_POST['comprension3']}')),
-		TRIM(UPPER('{$_POST['comprension4']}')),
-		TRIM(UPPER('{$_POST['comprension5']}')),
-		TRIM(UPPER('{$_POST['comprension6']}')),
-		TRIM(UPPER('{$_POST['moverse1']}')),
-		TRIM(UPPER('{$_POST['moverse2']}')),
-		TRIM(UPPER('{$_POST['moverse3']}')),
-		TRIM(UPPER('{$_POST['moverse4']}')),
-		TRIM(UPPER('{$_POST['moverse5']}')),
-		TRIM(UPPER('{$_POST['cuidado1']}')),
-		TRIM(UPPER('{$_POST['cuidado2']}')),
-		TRIM(UPPER('{$_POST['cuidado3']}')),
-		TRIM(UPPER('{$_POST['cuidado4']}')),
-		TRIM(UPPER('{$_POST['relacionarce1']}')),
-		TRIM(UPPER('{$_POST['relacionarce2']}')),
-		TRIM(UPPER('{$_POST['relacionarce3']}')),
-		TRIM(UPPER('{$_POST['relacionarce4']}')),
-		TRIM(UPPER('{$_POST['relacionarce5']}')),
-		TRIM(UPPER('{$_POST['actividades1']}')),
-		TRIM(UPPER('{$_POST['actividades2']}')),
-		TRIM(UPPER('{$_POST['actividades3']}')),
-		TRIM(UPPER('{$_POST['actividades4']}')),
-		TRIM(UPPER('{$_POST['actividades5']}')),
-		TRIM(UPPER('{$_POST['actividades6']}')),
-		TRIM(UPPER('{$_POST['actividades7']}')),
-		TRIM(UPPER('{$_POST['actividades8']}')),
-		TRIM(UPPER('{$_POST['participacion1']}')),
-		TRIM(UPPER('{$_POST['participacion2']}')),
-		TRIM(UPPER('{$_POST['participacion3']}')),
-		TRIM(UPPER('{$_POST['participacion4']}')),
-		TRIM(UPPER('{$_POST['participacion5']}')),
-		TRIM(UPPER('{$_POST['participacion6']}')),
-		TRIM(UPPER('{$_POST['participacion7']}')),
-		TRIM(UPPER('{$_POST['participacion8']}')),
-		TRIM(UPPER('{$_POST['dias1']}')),
-		TRIM(UPPER('{$_POST['dias2']}')),
-		TRIM(UPPER('{$_POST['dias3']}')),
-		'{$suma_com}',
-		'{$suma_mov}',
-		'{$suma_cui}',
-		'{$suma_rel}',
-		'{$suma_act}',
-		'{$suma_par}',
-		$suma_valories,
-		'$pnt',
-		TRIM(UPPER('{$_SESSION['us_sds']}')),
-		DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')";
-		// echo $sql;
+	// Clasificación
+	if ($total <= 2) {
+		$descripcion = 'Consumo funcional / No consumo';
+	} else {
+		$descripcion = 'Consumo disfuncional (mayor riesgo)';
 	}
-	  $rta=dato_mysql($sql);
-	  return $rta; 
-	}
+
+	// Insertar en la tabla tam_carlos_crafft
+	$sql = "INSERT INTO tam_carlos_crafft (
+		idpeople, fecha_toma, bebidas, sustancias, condualcoh, dismalcoh, estadoanimo, lios, olvido, solo, total, descripcion, usu_creo, fecha_create, estado
+	) VALUES (
+		'{$idpeople}',
+		'" . addslashes($_POST['fecha_toma']) . "',
+		'" . addslashes($_POST['bebidas']) . "',
+		'" . addslashes($_POST['sustancias']) . "',
+		'" . addslashes($_POST['condualcoh']) . "',
+		'" . addslashes($_POST['dismalcoh']) . "',
+		'" . addslashes($_POST['estadoanimo']) . "',
+		'" . addslashes($_POST['lios']) . "',
+		'" . addslashes($_POST['olvido']) . "',
+		'" . addslashes($_POST['solo']) . "',
+		'{$total}',
+		'" . addslashes($descripcion) . "',
+		'" . addslashes($_SESSION['us_sds']) . "',
+		NOW(),
+		'A'
+	)";
+	$rta = dato_mysql($sql);
+	return $rta;
+}
 
 function opc_rta($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=170 and estado='A' ORDER BY 1",$id);
