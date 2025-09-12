@@ -1058,6 +1058,9 @@ function formato_dato($a,$b,$c,$d){
 			if (is_array($tamiz) && in_array('tamcarlos', $tamiz)) {
 				$rta .= acceso('tamcarlos') ? "<li title='Tamizaje Carlos Crafft' onclick=\"mostrar('tamcarlos','pro',event,'','../tamizajes/carlos.php',7,'Carlos Crafft');Color('datos-lis');\"><i class='fas fa-clipboard-list ico' id='{$c['ACCIONES']}'></i></li>":"";
 			}
+			if (is_array($tamiz) && in_array('tamasssist', $tamiz)) {
+				$rta .= acceso('tamasssist') ? "<li title='Tamizaje asssist' onclick=\"mostrar('tamasssist','pro',event,'','../tamizajes/assist.php',7,'Assist');Color('datos-lis');\"><i class='fas fa-clipboard-list ico' id='{$c['ACCIONES']}'></i></li>":"";
+			}
 		}
 	}
 		if($a=='atencion' && $b=='acciones'){
