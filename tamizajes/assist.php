@@ -53,13 +53,13 @@ function cmp_tamassist(){
 	$o='Tabaco';
 	$c[]=new cmp($o,'e',null,'Preguntas',$w);
 	$c[]=new cmp('tconsumido','s',3,'',$w.' '.$o,'1. A lo largo de su vida, ¿cual de las siguientes sustancias ha consumido alguna vez? (SOLO PARA USOS NO‐ MÉDICOS)','rta',null,null,true,true,'','col-10');
-	$c[]=new cmp('sustancias','s',3,'',$w.' '.$o,'¿Ha usado algún otro tipo de sustancias que alteren su estado de ánimo o de conciencia?','rta',null,null,true,true,'','col-10');
-	$c[]=new cmp('condualcoh','s',3,'',$w.' '.$o,'¿Alguna vez ha salido a la calle, o se ha subido a un carro conducido por  alguien (que podía ser usted mismo), estando bajo los efectos de alcohol?','rta',null,null,true,true,'','col-10');
-	$c[]=new cmp('dismalcoh','s',3,'',$w.' '.$o,'¿Alguna vez su familia o sus amigos le han dicho que debería disminuir el consumo de alcohol o de','rta',null,null,true,true,'','col-10');
-	$c[]=new cmp('estadoanimo','s',3,'',$w.' '.$o,'¿Alguna vez ha usado alcohol o drogas para reconfortarse (para sentirse mejor, para socializar, para mejorar su estado de ánimo, para','rta',null,null,true,true,'','col-10');
-	$c[]=new cmp('lios','s',3,'',$w.' '.$o,'¿Alguna vez ha tenido líos o problemas (peleas físicas o verbales; suspensiones académicas; detención por la policía; accidentes) estando bajo los efectos de alcohol o de drogas?','rta',null,null,true,true,'','col-10');
-	$c[]=new cmp('olvido','s',3,'',$w.' '.$o,'¿Alguna vez ha olvidado cosas que hizo estando bajo los efectos de alcohol o de drogas?','rta',null,null,true,true,'','col-10');
-	$c[]=new cmp('solo','s',3,'',$w.' '.$o,'¿Alguna vez ha consumido alcohol o drogas estando solo?','rta',null,null,true,true,'','col-10');
+	$c[]=new cmp('tfrecuencia','s',3,'',$w.' '.$o,'2. ¿Con qué frecuencia ha consumido las sustancias que ha mencionado en los últimos tres meses, (PRIMERA DROGA,SEGUND A DROGA, ETC)?','rta',null,null,true,true,'','col-10');
+	$c[]=new cmp('tdeseo','s',3,'',$w.' '.$o,'3. En los últimos tres meses, ¿con qué frecuencia ha tenido deseos fuertes o ansias de consumir (PRIMERA DROGA, SEGUNDA DROGA, ETC)?','rta',null,null,true,true,'','col-10');
+	$c[]=new cmp('tsalud','s',3,'',$w.' '.$o,'4. En los últimos tres meses, ¿con qué frecuencia le ha llevado su consumo de (PRIMERA DROGA SEGUNDA DROGA, ETC) a problemas de salud, sociales, legales o económicos?','rta',null,null,true,true,'','col-10');
+	$c[]=new cmp('thabitual','s',3,'',$w.' '.$o,'5. En los últimos tres meses, ¿con qué frecuencia dejó de hacer lo que se esperaba de usted habitualmente por el consumo de (PRIMERA DROGA, SEGUNDA DROGA, ETC)?','rta',null,null,true,true,'','col-10');
+	$c[]=new cmp('tpreocupa','s',3,'',$w.' '.$o,'6. ¿Un amigo, un familiar o alguien más alguna vez ha mostrado preocupación por su consumo de (PRIMERA DROGA, SEGUNDA DROGA, ETC)?','rta',null,null,true,true,'','col-10');
+	$c[]=new cmp('tcontrolar','s',3,'',$w.' '.$o,'7. ¿Ha intentado alguna vez controlar, reducir o dejar de consumir (PRIMERA DROGA, SEGUNDA DROGA, ETC) y no lo ha logrado?','rta',null,null,true,true,'','col-10');
+	
     
   
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
