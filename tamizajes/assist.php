@@ -52,7 +52,7 @@ function cmp_tamassist(){
 	
 	$o='Tabaco';
 	$c[]=new cmp($o,'e',null,'Preguntas',$w);
-	$c[]=new cmp('bebidas','s',3,'',$w.' '.$o,'¿Ha consumido bebidas alcohólicas (más de unos pocos sorbos)?','rta',null,null,true,true,'','col-10');
+	$c[]=new cmp('tconsumido','s',3,'',$w.' '.$o,'1. A lo largo de su vida, ¿cual de las siguientes sustancias ha consumido alguna vez? (SOLO PARA USOS NO‐ MÉDICOS)','rta',null,null,true,true,'','col-10');
 	$c[]=new cmp('sustancias','s',3,'',$w.' '.$o,'¿Ha usado algún otro tipo de sustancias que alteren su estado de ánimo o de conciencia?','rta',null,null,true,true,'','col-10');
 	$c[]=new cmp('condualcoh','s',3,'',$w.' '.$o,'¿Alguna vez ha salido a la calle, o se ha subido a un carro conducido por  alguien (que podía ser usted mismo), estando bajo los efectos de alcohol?','rta',null,null,true,true,'','col-10');
 	$c[]=new cmp('dismalcoh','s',3,'',$w.' '.$o,'¿Alguna vez su familia o sus amigos le han dicho que debería disminuir el consumo de alcohol o de','rta',null,null,true,true,'','col-10');
