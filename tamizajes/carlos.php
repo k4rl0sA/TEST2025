@@ -32,7 +32,7 @@ function lis_carlos(){
 }
 
 function cmp_tamcarlos(){
-	$rta="<div class='encabezado valories'>TABLA valories</div><div class='contenido' id='valories-lis'>".lis_tamcarlos()."</div></div>";
+	$rta="<div class='encabezado valories'>TABLA valories</div><div class='contenido' id='valories-lis'>".lis_carlos()."</div></div>";
 	$t=['tam_valories'=>'','valories_tipodoc'=>'','valories_nombre'=>'','valories_idpersona'=>'','valories_fechanacimiento'=>'','valories_puntaje'=>'','valories_momento'=>'','valories_edad'=>'','valories_lugarnacimiento'=>'','valories_condicionsalud'=>'','valories_estadocivil'=>'','valories_escolaridad'=>'',
 	 'valories_ocupacion'=>'','valories_rutina'=>'','valories_rol'=>'',	 'valories_actividad'=>'','valories_evento'=>'','valories_comportamiento'=>'','porcentaje_comprension'=>'','porcentaje_moverse'=>'','porcentaje_cuidado'=>'','porcentaje_relacionarce'=>'','porcentaje_actividades'=>'','porcentaje_participacion'=>'','porcentaje_total'=>'','valories_analisis'=>''];
 	$w='tamcarlos';
