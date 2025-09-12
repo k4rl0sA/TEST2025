@@ -1053,7 +1053,7 @@ function formato_dato($a,$b,$c,$d){
 			$rta.="<li title='Trasladar Usuario' Onclick=\"mostrar('traslados','pro',event,'','../soporte/trasladloc.php',4,'traslados');Color('datos-lis');\"><i class='fas fa-exchange-alt ico' id='".$c['ACCIONES']."'></i> </li>";
 
 			if (is_array($tamiz) && in_array('tamvalories', $tamiz)) {
-				$rta .= acceso('tamvalories') ? "<li title='Valoración del Riesgo' onclick=\"mostrar('tamvalories','pro',event,'','../tamizajes/valor-ries.php',7,'Valoración del Riesgo');Color('datos-lis');\"><i class='fa-solid fa-person-skating ico' id='{$c['ACCIONES']}'></i></li>":"";
+				$rta .= acceso('tamvalories') ? "<li title='Valoración del Riesgo' onclick=\"mostrar('tamvalories','pro',event,'','../tamizajes/valoriesg.php',7,'Valoración del Riesgo');Color('datos-lis');\"><i class='fa-solid fa-person-skating ico' id='{$c['ACCIONES']}'></i></li>":"";
 			}
 			if (is_array($tamiz) && in_array('tamcarlos', $tamiz)) {
 				$rta .= acceso('tamcarlos') ? "<li title='Tamizaje Carlos Crafft' onclick=\"mostrar('tamcarlos','pro',event,'','../tamizajes/carlos.php',7,'Carlos Crafft');Color('datos-lis');\"><i class='fas fa-clipboard-list ico' id='{$c['ACCIONES']}'></i></li>":"";
