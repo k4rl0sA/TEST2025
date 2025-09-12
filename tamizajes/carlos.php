@@ -61,10 +61,10 @@ function cmp_tamcarlos(){
 	$c[]=new cmp('olvido','s',3,'',$w.' '.$o,'¿Alguna vez ha olvidado cosas que hizo estando bajo los efectos de alcohol o de drogas?','rta',null,null,true,true,'','col-10');
 	$c[]=new cmp('solo','s',3,'',$w.' '.$o,'¿Alguna vez ha consumido alcohol o drogas estando solo?','rta',null,null,true,true,'','col-10');
     
-    $o='totalresul';
+  /*   $o='totalresul';
 	$c[]=new cmp($o,'e',null,'Resultado',$w);
     $c[]=new cmp('total','t',3,'',$w.' '.$o,'Puntaje','total',null,'',false,false,'','col-4');
-    $c[]=new cmp('descripcion','t','3','',$w.' '.$o,'Descripcion','descripcion',null,null,false,false,'','col-5');
+    $c[]=new cmp('descripcion','t','3','',$w.' '.$o,'Descripcion','descripcion',null,null,false,false,'','col-5'); */
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
 }
