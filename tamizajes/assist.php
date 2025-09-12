@@ -21,7 +21,7 @@ else {
 
 function lis_assist(){
 	$id=divide($_POST['id']);
-	$sql="SELECT id_carlcra 'Cod Registro',fecha_toma,total Puntaje,descripcion,`nombre` Creó,`fecha_create` 'fecha Creó'
+	$sql="SELECT id_assist 'Cod Registro',fecha_toma,total Puntaje,descripcion,`nombre` Creó,`fecha_create` 'fecha Creó'
 	FROM tam_assist A
 	LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario ";
 	$sql.="WHERE idpeople='".$id[0];
