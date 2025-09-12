@@ -19,36 +19,7 @@ else {
   }   
 }
 
-function lis_tamcarlos(){
-	if (!empty($_POST['fidentificacion']) || !empty($_POST['ffam'])) {
-		$info=datos_mysql("SELECT COUNT(*) total from hog_tam_valories O
-		LEFT JOIN person P ON O.idpeople = P.idpeople
-		LEFT JOIN hog_fam V ON P.vivipersona = V.id_fam
-		LEFT JOIN hog_geo G ON V.idpre = G.idgeo
-		LEFT JOIN usuarios U ON O.usu_creo=U.id_usuario
-		where ".whe_tamcarlos());
-		$total=$info['responseResult'][0]['total'];
-		$regxPag=12;
-		$pag=(isset($_POST['pag-tamcarlos']))? (intval($_POST['pag-tamcarlos'])-1)* $regxPag:0;
-
-		$sql="SELECT O.idpeople ACCIONES,idoms 'Cod Registro',V.id_fam 'Cod Familia',P.idpersona Documento,FN_CATALOGODESC(1,P.tipo_doc) 'Tipo de Documento',CONCAT_ws(' ',P.nombre1,P.nombre2,P.apellido1,P.apellido2) Nombres,`puntaje` Puntaje,`descripcion` Descripcion, U.nombre Creo,U.subred,U.perfil perfil
-	FROM hog_tam_oms O
-		LEFT JOIN person P ON O.idpeople = P.idpeople
-		LEFT JOIN hog_fam V ON P.vivipersona = V.id_fam
-		LEFT JOIN hog_geo G ON V.idpre = G.idgeo
-		LEFT JOIN usuarios U ON O.usu_creo=U.id_usuario
-		WHERE ";
-	$sql.=whe_tamcarlos();
-	$sql.=" ORDER BY O.fecha_create DESC";
-	//echo $sql;
-	$datos=datos_mysql($sql);
-	return create_table($total,$datos["responseResult"],"tamcarlos",$regxPag);
-	}else{
-		return "";
-	}
-}
-
-function lis_valories(){
+function lis_carlos(){
 	$id=divide($_POST['id']);
 	$sql="SELECT id_valories 'Cod Registro',momento,porcentaje_total,analisis,`nombre` Creó,`fecha_create` 'fecha Creó'
 	FROM hog_tam_valories A
