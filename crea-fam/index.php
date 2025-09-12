@@ -169,7 +169,7 @@ function grabar(tb='',ev){
   'trasladint': '../soporte/interloc.php',
   'tamcarlos':'../tamizajes/carlos.php',
   'tamassist':'../tamizajes/assist.php',
-  'tamvalories':'../tamizajes/valoriesg.php',
+  'tamvalories':'../tamizajes/valoriesg.php'
  	};
    let ruta_app = rutaMap[tb] || 'lib.php';
   if(tb=='sesion2'){
