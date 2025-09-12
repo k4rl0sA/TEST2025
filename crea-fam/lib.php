@@ -1060,7 +1060,7 @@ function formato_dato($a,$b,$c,$d){
 				$rta .= acceso('tamcarlos') ? "<li title='Tamizaje Carlos Crafft' onclick=\"mostrar('tamcarlos','pro',event,'','../tamizajes/carlos.php',7,'Carlos Crafft');Color('datos-lis');\"><i class='fas fa-clipboard-list ico' id='{$c['ACCIONES']}'></i></li>":"";
 			}
 			if (is_array($tamiz) && in_array('tamassist', $tamiz)) {
-				$rta .= acceso('tamassist') ? "<li title='Tamizaje asssist' onclick=\"mostrar('tamassist','pro',event,'','../tamizajes/assist.php',7,'Assist');Color('datos-lis');\"><i class='fas fa-clipboard-list ico' id='{$c['ACCIONES']}'></i></li>":"";
+				$rta .= acceso('tamassist') ? "<li title='Tamizaje assist' onclick=\"mostrar('tamassist','pro',event,'','../tamizajes/assist.php',7,'Assist');Color('datos-lis');\"><i class='fas fa-clipboard-list ico' id='{$c['ACCIONES']}'></i></li>":"";
 			}
 		}
 	}
