@@ -168,6 +168,7 @@ function grabar(tb='',ev){
   'traslados': '../soporte/trasladloc.php',
   'trasladint': '../soporte/interloc.php',
   'tamcarlos':'../tamizajes/carlos.php',
+  'tamassist':'../tamizajes/assist.php',
   'tamvalories':'../tamizajes/valoriesg.php',
  	};
    let ruta_app = rutaMap[tb] || 'lib.php';
