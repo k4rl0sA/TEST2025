@@ -19,10 +19,10 @@ else {
   }   
 }
 
-function lis_carlos(){
+function lis_assist(){
 	$id=divide($_POST['id']);
 	$sql="SELECT id_carlcra 'Cod Registro',fecha_toma,total Puntaje,descripcion,`nombre` Creó,`fecha_create` 'fecha Creó'
-	FROM tam_carlos_crafft A
+	FROM tam_assist_crafft A
 	LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario ";
 	$sql.="WHERE idpeople='".$id[0];
 	$sql.="' ORDER BY fecha_create";
@@ -31,12 +31,12 @@ function lis_carlos(){
 	return panel_content($datos["responseResult"],"valories-lis",5);
 }
 
-function cmp_tamcarlos(){
-	$rta="<div class='encabezado valories'>TABLA valories</div><div class='contenido' id='valories-lis'>".lis_carlos()."</div></div>";
+function cmp_tamassist(){
+	$rta="<div class='encabezado valories'>TABLA valories</div><div class='contenido' id='valories-lis'>".lis_assist()."</div></div>";
 	$t=['tam_valories'=>'','valories_tipodoc'=>'','valories_nombre'=>'','valories_idpersona'=>'','valories_fechanacimiento'=>'','valories_puntaje'=>'','valories_momento'=>'','valories_edad'=>'','valories_lugarnacimiento'=>'','valories_condicionsalud'=>'','valories_estadocivil'=>'','valories_escolaridad'=>'',
 	 'valories_ocupacion'=>'','valories_rutina'=>'','valories_rol'=>'',	 'valories_actividad'=>'','valories_evento'=>'','valories_comportamiento'=>'','porcentaje_comprension'=>'','porcentaje_moverse'=>'','porcentaje_cuidado'=>'','porcentaje_relacionarce'=>'','porcentaje_actividades'=>'','porcentaje_participacion'=>'','porcentaje_total'=>'','valories_analisis'=>''];
-	$w='tamcarlos';
-	$d=get_tamcarlos(); 
+	$w='tamassist';
+	$d=get_tamassist(); 
 	if ($d=="") {$d=$t;}
 	$o='datos';
     $key='srch';
@@ -61,15 +61,12 @@ function cmp_tamcarlos(){
 	$c[]=new cmp('olvido','s',3,'',$w.' '.$o,'¿Alguna vez ha olvidado cosas que hizo estando bajo los efectos de alcohol o de drogas?','rta',null,null,true,true,'','col-10');
 	$c[]=new cmp('solo','s',3,'',$w.' '.$o,'¿Alguna vez ha consumido alcohol o drogas estando solo?','rta',null,null,true,true,'','col-10');
     
-  /*   $o='totalresul';
-	$c[]=new cmp($o,'e',null,'Resultado',$w);
-    $c[]=new cmp('total','t',3,'',$w.' '.$o,'Puntaje','total',null,'',false,false,'','col-4');
-    $c[]=new cmp('descripcion','t','3','',$w.' '.$o,'Descripcion','descripcion',null,null,false,false,'','col-5'); */
+  
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
 }
 
-	function get_tamcarlos(){
+	function get_tamassist(){
 		if($_POST['id']==0){
 			return "";
 		}else{
@@ -86,25 +83,25 @@ function cmp_tamcarlos(){
 			}
 		} 
 
-function focus_tamcarlos(){
-	return 'tamcarlos';
+function focus_tamassist(){
+	return 'tamassist';
    }
    
-function men_tamcarlos(){
-	$rta=cap_menus('tamcarlos','pro');
+function men_tamassist(){
+	$rta=cap_menus('tamassist','pro');
 	return $rta;
    }
 
    function cap_menus($a,$b='cap',$con='con') {
 	$rta = ""; 
 	$acc=rol($a);
-	if ($a=='tamcarlos'  && isset($acc['crear']) && $acc['crear']=='SI'){  
+	if ($a=='tamassist'  && isset($acc['crear']) && $acc['crear']=='SI'){  
 	 $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
     }
 	return $rta;
   }
    
-function gra_tamcarlos() {
+function gra_tamassist() {
 	$id = divide($_POST['id']);
 	$idpeople = isset($id[0]) ? intval($id[0]) : 0;
 	// Validar que se recibe la edad por POST
@@ -136,7 +133,7 @@ function gra_tamcarlos() {
 	}
 
 	// Preparar consulta y parámetros
-	$sql = "INSERT INTO tam_carlos_crafft (
+	$sql = "INSERT INTO tam_assist_crafft (
 		idpeople, fecha_toma, bebidas, sustancias, condualcoh, dismalcoh, estadoanimo, lios, olvido, solo, total, descripcion, usu_creo, fecha_create, estado
 	) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?)";
 	$params = [
@@ -173,9 +170,9 @@ function opc_rta($id=''){
 	   // $rta=iconv('UTF-8','ISO-8859-1',$rta);
 	   // var_dump($a);
 	   // var_dump($rta);
-		   if ($a=='tamcarlos' && $b=='acciones'){
+		   if ($a=='tamassist' && $b=='acciones'){
 			$rta="<nav class='menu right'>";		
-				$rta.="<li class='icono editar ' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('tamcarlos','pro',event,'','lib.php',7,'tamcarlos');\"></li>";  //act_lista(f,this);
+				$rta.="<li class='icono editar ' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('tamassist','pro',event,'','lib.php',7,'tamassist');\"></li>";  //act_lista(f,this);
 			}
 		return $rta;
 	   }
