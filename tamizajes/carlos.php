@@ -31,17 +31,6 @@ function lis_carlos(){
 	return panel_content($datos["responseResult"],"valories-lis",5);
 }
 
-function whe_tamcarlos() {
-	$sql = '1';
-    if (!empty($_POST['fidentificacion'])) {
-        $sql .= " AND P.idpersona = '".$_POST['fidentificacion']."'";
-    }
-    if (!empty($_POST['ffam'])) {
-        $sql .= " AND V.id_fam = '".$_POST['ffam']."'";
-    }
-    return $sql;
-}
-
 function cmp_tamcarlos(){
 	$rta="<div class='encabezado valories'>TABLA valories</div><div class='contenido' id='valories-lis'>".lis_tamcarlos()."</div></div>";
 	$t=['tam_valories'=>'','valories_tipodoc'=>'','valories_nombre'=>'','valories_idpersona'=>'','valories_fechanacimiento'=>'','valories_puntaje'=>'','valories_momento'=>'','valories_edad'=>'','valories_lugarnacimiento'=>'','valories_condicionsalud'=>'','valories_estadocivil'=>'','valories_escolaridad'=>'',
