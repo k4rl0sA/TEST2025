@@ -21,8 +21,8 @@ else {
 
 function lis_carlos(){
 	$id=divide($_POST['id']);
-	$sql="SELECT id_valories 'Cod Registro',momento,porcentaje_total,analisis,`nombre` Creó,`fecha_create` 'fecha Creó'
-	FROM hog_tam_valories A
+	$sql="SELECT id_carlcra 'Cod Registro',fecha_toma,total Puntaje,descripcion,`nombre` Creó,`fecha_create` 'fecha Creó'
+	FROM tam_carlos_crafft A
 	LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario ";
 	$sql.="WHERE idpeople='".$id[0];
 	$sql.="' ORDER BY fecha_create";
