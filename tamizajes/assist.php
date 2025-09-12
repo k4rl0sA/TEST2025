@@ -133,7 +133,7 @@ function gra_tamassist() {
 	}
 
 	// Preparar consulta y parámetros
-	$sql = "INSERT INTO tam_assist_crafft (
+	$sql = "INSERT INTO tam_assist (
 		idpeople, fecha_toma, bebidas, sustancias, condualcoh, dismalcoh, estadoanimo, lios, olvido, solo, total, descripcion, usu_creo, fecha_create, estado
 	) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?)";
 	$params = [
