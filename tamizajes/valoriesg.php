@@ -133,7 +133,7 @@ function gra_tamvalories() {
         return "Ya existe un registro de tipo {$_POST['tipo']} para esta persona.";
     } */
     // Sumar puntaje de preguntas 1 a 8
-    $campos = ['preg1','preg2','preg3','preg4','preg5','preg6','preg7','preg8'];
+	$campos = ['actest','redsoc','aumsus','mantsus','dismsus','elimsus','consfisc','pelicons'];
     $puntaje = 0;
     foreach ($campos as $campo) {
         $valor = isset($_POST[$campo]) ? intval($_POST[$campo]) : 0;
