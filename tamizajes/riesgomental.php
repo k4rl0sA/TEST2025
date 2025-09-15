@@ -128,14 +128,18 @@ function gra_riesgomental() {
         return "ID de persona no válido.";
     }
     // Campos de preguntas (ajustar según tabla)
-    $campos = [
-        'exprsent','optideci','trisirri','nervans','perdsep','famsuic','ideasui','diagmen','antefam','probdom','apoyfam','exptrau','estrtrab','desemple','probsust','concent','acoso','somat','enfcron','discrim','actrecre','medprot','cambhorm','ocupsalud','gestante'
-    ];
+    $campos = ['exprsent','optideci','trisirri','nervans','perdsep','famsuic','ideasui','diagmen','antefam','probdom','apoyfam','exptrau','estrtrab','desemple','probsust','concent','acoso','somat','enfcron','discrim','medprot','cambhorm','ocupsalud','gestante'];
     $total = 0;
     foreach ($campos as $campo) {
         $valor = isset($_POST[$campo]) ? intval($_POST[$campo]) : 0;
-        $val = ($valor == 1) ? 4 : 0;
+        $val = ($valor == 1) ? 1 : 0;
         $total += $val;
+    }
+    // Pregunta especial: actrecre
+    if (isset($_POST['actrecre'])) {
+        if (intval($_POST['actrecre']) == 2) {
+            $total += 4;
+        }
     }
     // Clasificación (ajustar lógica según requerimiento)
     if ($total < 33) {
