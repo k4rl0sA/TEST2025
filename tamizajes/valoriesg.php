@@ -49,7 +49,7 @@ function cmp_tamvalories(){
 	$c[]=new cmp('fechanacimiento','d','10',$d['fechanacimiento'],$w.' '.$o,'fecha nacimiento','fechanacimiento',null,'',false,false,'','col-15');
     $c[]=new cmp('edad','n','3',$d['edad'],$w.' '.$o,'edad','edad',null,'',true,false,'','col-1');
 	$c[]=new cmp('fecha_toma','d','10','',$w.' '.$o,'fecha de la Toma','fecha_toma',null,'',true,true,'','col-2',"validDate(this,$days,0);");
-	$c[]=new cmp('tipoaccion','s',3,'',$w.' '.$o,'Tipo de Accion','tipoaccion',null,null,true,true,'','col-3');
+	$c[]=new cmp('tipo','s',3,'',$w.' '.$o,'Tipo de Accion','tipoaccion',null,null,true,true,'','col-3');
 	
 	$o='vinculacion';
 	$c[]=new cmp($o,'e',null,'Vinculación Actividad Estructurada',$w);
@@ -148,15 +148,15 @@ function gra_tamvalories() {
         $descripcion = 'Alto riesgo';
     }
     $sql = "INSERT INTO tam_valo_ries (
-        idpeople, fecha_toma, tipo, preg1, preg2, preg3, preg4, preg5, preg6, preg7, preg8, puntaje, descripcion, usu_creo, fecha_create, estado
+        idpeople, fecha_toma, tipo, actest,redsoc , mantsus, preg4, preg5, preg6, preg7, preg8, puntaje, descripcion, usu_creo, fecha_create, estado
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(),INTERVAL 5 HOUR), ?)";
     $params = [
        ['type' => 'i', 'value' => $idpeople],
         ['type' => 's', 'value' => $_POST['fecha_toma']],
         ['type' => 's', 'value' => $_POST['tipo']],
-        ['type' => 's', 'value' => $_POST['preg1']],
-        ['type' => 's', 'value' => $_POST['preg2']],
-        ['type' => 's', 'value' => $_POST['preg3']],
+        ['type' => 's', 'value' => $_POST['actest']],
+        ['type' => 's', 'value' => $_POST['redsoc']],
+        ['type' => 's', 'value' => $_POST['mantsus']],
         ['type' => 's', 'value' => $_POST['preg4']],
         ['type' => 's', 'value' => $_POST['preg5']],
         ['type' => 's', 'value' => $_POST['preg6']],
