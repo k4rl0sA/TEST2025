@@ -827,12 +827,13 @@ function get_Tamiz($fec) {
 	if ($edad>=12 && $edad<=17) {
 		$tamiz[] = 'tamvalories';
 	}
-	if ($edad>=16) {
-		$tamiz[] = 'tamsrq';
-	}
 	if($edad>=16 && $edad<=17){
 		$tamiz[] = 'tamassist';
 	}
+	if ($edad>=16) {
+		$tamiz[] = 'tamsrq';
+	}
+	
     return $tamiz;
 }
 
@@ -1061,9 +1062,9 @@ function formato_dato($a,$b,$c,$d){
 			if (is_array($tamiz) && in_array('tamcarlos', $tamiz)) {
 				$rta .= acceso('tamcarlos') ? "<li title='Tamizaje Carlos Crafft' onclick=\"mostrar('tamcarlos','pro',event,'','../tamizajes/carlos.php',7,'Carlos Crafft');Color('datos-lis');\"><i class='fas fa-clipboard-list ico' id='{$c['ACCIONES']}'></i></li>":"";
 			}
-			// if (is_array($tamiz) && in_array('tamassist', $tamiz)) {
+			if (is_array($tamiz) && in_array('tamassist', $tamiz)) {
 				$rta .= acceso('tamassist') ? "<li title='Tamizaje assist' onclick=\"mostrar('tamassist','pro',event,'','../tamizajes/assist.php',7,'Assist');Color('datos-lis');\"><i class='fas fa-clipboard-list ico' id='{$c['ACCIONES']}'></i></li>":"";
-			// }
+			}
 		}
 	}
 		if($a=='atencion' && $b=='acciones'){
