@@ -1075,7 +1075,7 @@ function formato_dato($a,$b,$c,$d){
 				$rta .= acceso('tamassist') ? "<li title='Tamizaje assist' onclick=\"mostrar('tamassist','pro',event,'','../tamizajes/assist.php',7,'Assist');Color('datos-lis');\"><i class='fas fa-clipboard-list ico' id='{$c['ACCIONES']}'></i></li>":"";
 			}
 			if (is_array($tamiz) && in_array('riesgomental', $tamiz)) {
-				$rta .= acceso('riesgomental') ? "<li title='Tamizaje Riesgo Mental' onclick=\"mostrar('riesgomental','pro',event,'','../tamizajes/riesgomental.php',7,'Riesgo Mental');Color('datos-lis');\"><i class='fas fa-clipboard-list ico' id='{$c['ACCIONES']}'></i></li>":"";
+				$rta .= acceso('riesgomental') ? "<li title='Tamizaje Riesgo Mental' onclick=\"mostrar('riesgomental','pro',event,'','../tamizajes/riesgomental.php',7,'Riesgo Mental');Color('datos-lis');\"><i class='fas fa-brain ico' id='{$c['ACCIONES']}'></i></li>":"";
 			}
 		}
 	}
