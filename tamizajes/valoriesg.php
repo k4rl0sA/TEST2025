@@ -115,158 +115,63 @@ function men_tamvalories(){
 	return $rta;
   }
    
-function gra_tamvalories(){
-	$id=divide($_POST['idvalories']);
-	// print_r($_POST);
-	if(count($id)!= "2"){
-		return "No es posible actualizar el tamizaje";
-	}else{
-		$data=datos_mysql("select count(Z.momento) as moment from hog_tam_valories Z  where Z.idpeople='{$id[0]}'");
-		$momen=$data['responseResult'][0]['moment'];
-		if($momen=='0'){
-			$idmomento = 1;
-		}elseif($momen=='1'){
-			$idmomento = 2;
-		}else{
-			return "Ya se realizo los dos momentos";
-		}
-	
-
-	$suma_com = (
-			$_POST['comprension1']+
-			$_POST['comprension2']+
-			$_POST['comprension3']+
-			$_POST['comprension4']+
-			$_POST['comprension5']+
-			$_POST['comprension6']
-		);
-
-	$suma_mov = (
-			$_POST['moverse1']+
-			$_POST['moverse2']+
-			$_POST['moverse3']+
-			$_POST['moverse4']+
-			$_POST['moverse5']
-		);
-
-	$suma_cui = (
-			$_POST['cuidado1']+
-			$_POST['cuidado2']+
-			$_POST['cuidado3']+
-			$_POST['cuidado4']
-		);
-
-	$suma_rel = (
-			$_POST['relacionarce1']+
-			$_POST['relacionarce2']+
-			$_POST['relacionarce3']+
-			$_POST['relacionarce4']+
-			$_POST['relacionarce5']
-		);
-
-	$suma_act = (
-			$_POST['actividades1']+
-			$_POST['actividades2']+
-			$_POST['actividades3']+
-			$_POST['actividades4']+
-			$_POST['actividades5']+
-			$_POST['actividades6']+
-			$_POST['actividades7']+
-			$_POST['actividades8']
-		);
-
-	$suma_par = (
-			$_POST['participacion1']+
-			$_POST['participacion2']+
-			$_POST['participacion3']+
-			$_POST['participacion4']+
-			$_POST['participacion5']+
-			$_POST['participacion6']+
-			$_POST['participacion7']+
-			$_POST['participacion8']
-		);
-
-		$suma_valories = ($suma_com+$suma_mov+$suma_cui+$suma_rel+$suma_act+$suma_par);
-
-	// var_dump($numero);
-	switch ($suma_valories) {
-		case ($suma_valories >= 1 && $suma_valories <= 36):
-			$pnt=' Ninguna Discapacidad';
-			break;
-		case ($suma_valories >= 37 && $suma_valories <= 72):
-			$pnt=' Discapacidad Leve';
-			break;
-		case ($suma_valories >= 73 && $suma_valories <= 108):
-			$pnt=' Discapacidad Moderada';
-			break;
-		case ($suma_valories >= 109 && $suma_valories <= 144):
-				$pnt=' Discapacidad Severa';
-			break;
-		case ($suma_valories >= 145 && $suma_valories <= 180):
-				$pnt=' Discapacidad Severa';
-			break;
-		default:
-			$pnt='Error en el rango, por favor valide';
-			break;
-	}
-		$sql="INSERT INTO hog_tam_valories VALUES (null,
-		$id[0],
-		TRIM(UPPER('{$_POST['fecha_toma']}')),
-		TRIM(UPPER('{$idmomento}')),
-		TRIM(UPPER('{$_POST['comprension1']}')),
-		TRIM(UPPER('{$_POST['comprension2']}')),
-		TRIM(UPPER('{$_POST['comprension3']}')),
-		TRIM(UPPER('{$_POST['comprension4']}')),
-		TRIM(UPPER('{$_POST['comprension5']}')),
-		TRIM(UPPER('{$_POST['comprension6']}')),
-		TRIM(UPPER('{$_POST['moverse1']}')),
-		TRIM(UPPER('{$_POST['moverse2']}')),
-		TRIM(UPPER('{$_POST['moverse3']}')),
-		TRIM(UPPER('{$_POST['moverse4']}')),
-		TRIM(UPPER('{$_POST['moverse5']}')),
-		TRIM(UPPER('{$_POST['cuidado1']}')),
-		TRIM(UPPER('{$_POST['cuidado2']}')),
-		TRIM(UPPER('{$_POST['cuidado3']}')),
-		TRIM(UPPER('{$_POST['cuidado4']}')),
-		TRIM(UPPER('{$_POST['relacionarce1']}')),
-		TRIM(UPPER('{$_POST['relacionarce2']}')),
-		TRIM(UPPER('{$_POST['relacionarce3']}')),
-		TRIM(UPPER('{$_POST['relacionarce4']}')),
-		TRIM(UPPER('{$_POST['relacionarce5']}')),
-		TRIM(UPPER('{$_POST['actividades1']}')),
-		TRIM(UPPER('{$_POST['actividades2']}')),
-		TRIM(UPPER('{$_POST['actividades3']}')),
-		TRIM(UPPER('{$_POST['actividades4']}')),
-		TRIM(UPPER('{$_POST['actividades5']}')),
-		TRIM(UPPER('{$_POST['actividades6']}')),
-		TRIM(UPPER('{$_POST['actividades7']}')),
-		TRIM(UPPER('{$_POST['actividades8']}')),
-		TRIM(UPPER('{$_POST['participacion1']}')),
-		TRIM(UPPER('{$_POST['participacion2']}')),
-		TRIM(UPPER('{$_POST['participacion3']}')),
-		TRIM(UPPER('{$_POST['participacion4']}')),
-		TRIM(UPPER('{$_POST['participacion5']}')),
-		TRIM(UPPER('{$_POST['participacion6']}')),
-		TRIM(UPPER('{$_POST['participacion7']}')),
-		TRIM(UPPER('{$_POST['participacion8']}')),
-		TRIM(UPPER('{$_POST['dias1']}')),
-		TRIM(UPPER('{$_POST['dias2']}')),
-		TRIM(UPPER('{$_POST['dias3']}')),
-		'{$suma_com}',
-		'{$suma_mov}',
-		'{$suma_cui}',
-		'{$suma_rel}',
-		'{$suma_act}',
-		'{$suma_par}',
-		$suma_valories,
-		'$pnt',
-		TRIM(UPPER('{$_SESSION['us_sds']}')),
-		DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')";
-		// echo $sql;
-	}
-	  $rta=dato_mysql($sql);
-	  return $rta; 
-	}
+function gra_tamvalories() {
+    $id = divide($_POST['id']);
+    $idpeople = isset($id[0]) ? intval($id[0]) : 0;
+    if ($idpeople <= 0) {
+        return "ID de persona no válido.";
+    }
+    if (!isset($_POST['tipo']) || !in_array($_POST['tipo'], ['PRE', 'POS'])) {
+        return "Tipo de acción inválido (debe ser PRE o POS).";
+    }
+    // Validar que solo se puedan hacer 2 registros (uno PRE y uno POS) por persona
+    $sql_check = "SELECT COUNT(*) AS total FROM tam_valo_ries WHERE idpeople=? AND tipo=? AND estado='A'";
+    $params_check = [
+        ['type' => 'i', 'value' => $idpeople],
+        ['type' => 's', 'value' => $_POST['tipo']]
+    ];
+    $res_check = mysql_prepd($sql_check, $params_check);
+    if (isset($res_check[0]['total']) && $res_check[0]['total'] > 0) {
+        return "Ya existe un registro de tipo {$_POST['tipo']} para esta persona.";
+    }
+    // Sumar puntaje de preguntas 1 a 8
+    $campos = ['preg1','preg2','preg3','preg4','preg5','preg6','preg7','preg8'];
+    $puntaje = 0;
+    foreach ($campos as $campo) {
+        $valor = isset($_POST[$campo]) ? intval($_POST[$campo]) : 0;
+        $puntaje += $valor;
+    }
+    // Descripción según puntaje (puedes ajustar la lógica si se requiere)
+    if ($puntaje >= 7) {
+        $descripcion = 'Bajo riesgo';
+    } elseif ($puntaje >= 4) {
+        $descripcion = 'Riesgo moderado';
+    } else {
+        $descripcion = 'Alto riesgo';
+    }
+    $sql = "INSERT INTO tam_valo_ries (
+        idpeople, fecha_toma, tipo, preg1, preg2, preg3, preg4, preg5, preg6, preg7, preg8, puntaje, descripcion, usu_creo, fecha_create, estado
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?)";
+    $params = [
+       ['type' => 'i', 'value' => $idpeople],
+        ['type' => 's', 'value' => $_POST['fecha_toma']],
+        ['type' => 's', 'value' => $_POST['tipo']],
+        ['type' => 's', 'value' => $_POST['preg1']],
+        ['type' => 's', 'value' => $_POST['preg2']],
+        ['type' => 's', 'value' => $_POST['preg3']],
+        ['type' => 's', 'value' => $_POST['preg4']],
+        ['type' => 's', 'value' => $_POST['preg5']],
+        ['type' => 's', 'value' => $_POST['preg6']],
+        ['type' => 's', 'value' => $_POST['preg7']],
+        ['type' => 's', 'value' => $_POST['preg8']],
+        ['type' => 'i', 'value' => $puntaje],
+        ['type' => 's', 'value' => $descripcion],
+        ['type' => 's', 'value' => $_SESSION['us_sds']],
+        ['type' => 's', 'value' => 'A']
+    ];
+    $rta = mysql_prepd($sql, $params);
+    return $rta;
+}
 
 
 function opc_tipodoc($id=''){
