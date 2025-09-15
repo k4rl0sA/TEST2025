@@ -137,15 +137,16 @@ function gra_tamvalories() {
     $puntaje = 0;
     foreach ($campos as $campo) {
         $valor = isset($_POST[$campo]) ? intval($_POST[$campo]) : 0;
-        $puntaje += $valor;
+		$val = ($valor == 2) ? 0 : 1;
+        $puntaje += $val;
     }
     // Descripción según puntaje (puedes ajustar la lógica si se requiere)
     if ($puntaje >= 7) {
-        $descripcion = 'Bajo riesgo';
+        $descripcion = 'Alto riesgo';
     } elseif ($puntaje >= 4) {
         $descripcion = 'Riesgo moderado';
     } else {
-        $descripcion = 'Alto riesgo';
+        $descripcion = 'Bajo riesgo';
     }
     $sql = "INSERT INTO tam_valo_ries (
         idpeople, fecha_toma, tipo, actest,redsoc ,aumsus, mantsus,dismsus, elimsus,consfisc, pelicons,puntaje, descripcion, usu_creo, fecha_create, estado
