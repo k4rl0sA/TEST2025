@@ -269,37 +269,11 @@ function gra_tamvalories(){
 	}
 
 
-	function opc_tipodoc($id=''){
+function opc_tipodoc($id=''){
 		return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 1",$id);
 	}
-	function opc_sexo($id=''){
-		return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=21 and estado='A' ORDER BY 1",$id);
-	}
-	function opc_momento($id=''){
-		return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=116 and estado='A'  ORDER BY 1 ",$id);
-	}
-	function opc_departamento($id=''){
-		return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=105 and estado='A' ORDER BY 1",$id);
-	}
-	function opc_salud_mental($id=''){
-		return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=104 and estado='A' ORDER BY 1",$id);
-	}
-	function opc_estado_civil($id=''){
-		return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=47 and estado='A' ORDER BY 1",$id);
-	}
-	function opc_niv_educativo($id=''){
-		return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=52 and estado='A' ORDER BY 1",$id);
-	}
-	function opc_nivel($id=''){
-	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=162 and estado='A'  ORDER BY 1 ",$id);
-}
-function opc_tipoaccion($id=''){
-	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=290 and estado='A'  ORDER BY 1 ",$id);
-}
-function opc_opcion($id=''){
-	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=170 and estado='A'  ORDER BY 1 ",$id);
-}
 
+	
 	function formato_dato($a,$b,$c,$d){
 		$b=strtolower($b);
 		$rta=$c[$d];
