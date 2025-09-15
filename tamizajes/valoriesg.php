@@ -22,8 +22,8 @@ else {
 
 function lis_valories(){
 	$id=divide($_POST['id']);
-	$sql="SELECT id_valories 'Cod Registro',momento,porcentaje_total,analisis,`nombre` Creó,`fecha_create` 'fecha Creó'
-	FROM hog_tam_valories A
+	$sql="SELECT id_valrie 'Cod Registro',fecha_toma,tipo,puntaje,descripcion,`nombre` Creó,`fecha_create` 'fecha Creó'
+	FROM tam_valo_ries A
 	LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario ";
 	$sql.="WHERE idpeople='".$id[0];
 	$sql.="' ORDER BY fecha_create";
@@ -273,7 +273,7 @@ function opc_tipodoc($id=''){
 		return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 1",$id);
 	}
 
-	
+
 	function formato_dato($a,$b,$c,$d){
 		$b=strtolower($b);
 		$rta=$c[$d];
