@@ -450,12 +450,10 @@ function focus_person(){
 	return 'person';
 }
    
-   
 function men_person(){
 	$rta=cap_menus('person','pro');
 	return $rta;
 }
-
 
 function get_person(){
 	//  print_r($_REQUEST);
