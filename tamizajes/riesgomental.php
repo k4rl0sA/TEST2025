@@ -124,10 +124,6 @@ function gra_riesgomental() {
     if (!isset($_POST['edad']) || !is_numeric($_POST['edad'])) {
         return "Edad no proporcionada o inválida.";
     }
-    $edad = intval($_POST['edad']);
-    if ($edad < 16 && empty($_POST['fecha_toma'])) {
-        return "La fecha de toma es obligatoria para menores de 16 años.";
-    }
     if ($idpeople <= 0) {
         return "ID de persona no válido.";
     }
@@ -138,7 +134,7 @@ function gra_riesgomental() {
     $total = 0;
     foreach ($campos as $campo) {
         $valor = isset($_POST[$campo]) ? intval($_POST[$campo]) : 0;
-        $val = ($valor == 1) ? 1 : 0;
+        $val = ($valor == 1) ? 4 : 0;
         $total += $val;
     }
     // Clasificación (ajustar lógica según requerimiento)
