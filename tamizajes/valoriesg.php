@@ -121,10 +121,8 @@ function gra_tamvalories() {
     if ($idpeople <= 0) {
         return "ID de persona no válido.";
     }
-    if (!isset($_POST['tipo']) || !in_array($_POST['tipo'], ['PRE', 'POS'])) {
-        return "Tipo de acción inválido (debe ser PRE o POS).";
-    }
-    // Validar que solo se puedan hacer 2 registros (uno PRE y uno POS) por persona
+
+  /*   // Validar que solo se puedan hacer 2 registros (uno PRE y uno POS) por persona
     $sql_check = "SELECT COUNT(*) AS total FROM tam_valo_ries WHERE idpeople=? AND tipo=? AND estado='A'";
     $params_check = [
         ['type' => 'i', 'value' => $idpeople],
@@ -133,7 +131,7 @@ function gra_tamvalories() {
     $res_check = mysql_prepd($sql_check, $params_check);
     if (isset($res_check[0]['total']) && $res_check[0]['total'] > 0) {
         return "Ya existe un registro de tipo {$_POST['tipo']} para esta persona.";
-    }
+    } */
     // Sumar puntaje de preguntas 1 a 8
     $campos = ['preg1','preg2','preg3','preg4','preg5','preg6','preg7','preg8'];
     $puntaje = 0;
@@ -151,7 +149,7 @@ function gra_tamvalories() {
     }
     $sql = "INSERT INTO tam_valo_ries (
         idpeople, fecha_toma, tipo, preg1, preg2, preg3, preg4, preg5, preg6, preg7, preg8, puntaje, descripcion, usu_creo, fecha_create, estado
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?)";
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(),INTERVAL 5 HOUR), ?)";
     $params = [
        ['type' => 'i', 'value' => $idpeople],
         ['type' => 's', 'value' => $_POST['fecha_toma']],
