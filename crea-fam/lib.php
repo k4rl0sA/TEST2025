@@ -829,6 +829,8 @@ function get_Tamiz($fec) {
 	}
 	if ($edad>=16) {
 		$tamiz[] = 'tamsrq';
+	}
+	if($edad>=16 && $edad<=17){
 		$tamiz[] = 'tamassist';
 	}
     return $tamiz;
