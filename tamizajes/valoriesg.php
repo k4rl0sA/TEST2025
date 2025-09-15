@@ -116,7 +116,7 @@ function men_tamvalories(){
   }
    
 function gra_tamvalories() {
-    $id = divide($_POST['id']);
+    $id = divide($_POST['idvalories']);
     $idpeople = isset($id[0]) ? intval($id[0]) : 0;
     if ($idpeople <= 0) {
         return "ID de persona no válido.";
