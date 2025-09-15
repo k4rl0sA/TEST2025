@@ -144,7 +144,7 @@ function gra_riesgomental() {
     // Clasificación (ajustar lógica según requerimiento)
     if ($total < 33) {
         $descripcion = 'Sin riesgo significativo';
-    } elseif ($total >= 33 && $total =< 66) {
+    } elseif ($total >= 33 && $total <= 66) {
         $descripcion = 'Riesgo moderado';
     } else {
         $descripcion = 'Riesgo alto';
