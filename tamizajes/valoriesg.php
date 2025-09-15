@@ -148,7 +148,7 @@ function gra_tamvalories() {
         $descripcion = 'Alto riesgo';
     }
     $sql = "INSERT INTO tam_valo_ries (
-        idpeople, fecha_toma, tipo, actest,redsoc , mantsus, preg4, preg5, preg6, preg7, preg8, puntaje, descripcion, usu_creo, fecha_create, estado
+        idpeople, fecha_toma, tipo, actest,redsoc ,aumsus, mantsus,dismsus, elimsus,consfisc, pelicons,puntaje, descripcion, usu_creo, fecha_create, estado
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(),INTERVAL 5 HOUR), ?)";
     $params = [
        ['type' => 'i', 'value' => $idpeople],
@@ -156,12 +156,12 @@ function gra_tamvalories() {
         ['type' => 's', 'value' => $_POST['tipo']],
         ['type' => 's', 'value' => $_POST['actest']],
         ['type' => 's', 'value' => $_POST['redsoc']],
-        ['type' => 's', 'value' => $_POST['mantsus']],
-        ['type' => 's', 'value' => $_POST['preg4']],
-        ['type' => 's', 'value' => $_POST['preg5']],
-        ['type' => 's', 'value' => $_POST['preg6']],
-        ['type' => 's', 'value' => $_POST['preg7']],
-        ['type' => 's', 'value' => $_POST['preg8']],
+        ['type' => 's', 'value' => $_POST['aumsus']],
+		['type' => 's', 'value' => $_POST['mantsus']],
+		['type' => 's', 'value' => $_POST['dismsus']],
+		['type' => 's', 'value' => $_POST['elimsus']],
+		['type' => 's', 'value' => $_POST['consfisc']],
+		['type' => 's', 'value' => $_POST['pelicons']],
         ['type' => 'i', 'value' => $puntaje],
         ['type' => 's', 'value' => $descripcion],
         ['type' => 's', 'value' => $_SESSION['us_sds']],
