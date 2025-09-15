@@ -151,7 +151,7 @@ function gra_riesgomental() {
     }
     $sql = "INSERT INTO tam_ries_mental (
         idpeople, fecha_toma, exprsent, optideci, trisirri, nervans, perdsep, famsuic, ideasui, diagmen, antefam, probdom, apoyfam, exptrau, estrtrab, desemple, probsust, concent, acoso, somat, enfcron, discrim, actrecre, medprot, cambhorm, ocupsalud, gestante, puntaje, descripcion, usu_creo, fecha_create, estado
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?)";
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SUB_DATE(NOW()INTERVAL 5 DAYS), ?)";
     $params = [
         ['type' => 'i', 'value' => $idpeople],
         ['type' => 's', 'value' => $_POST['fecha_toma']],
