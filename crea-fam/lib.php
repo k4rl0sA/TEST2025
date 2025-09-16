@@ -1024,7 +1024,7 @@ function formato_dato($a,$b,$c,$d){
 			
 			// if (medicamAtenci($c['ACCIONES'])) {
 				$rta .= acceso('medicamentctrl') ? "<li title='Entrega Medicamentos' onclick=\"mostrar('medicamentctrl','pro',event,'','../servicios_complem/medicamentos.php',7,'Control Medicamentos');Color('datos-lis')\"><i class='fa-solid fa-capsules ico' id='{$c['ACCIONES']}'></i></li>" : "";
-				$rta .= acceso('laboratorios') ? "<li title='Laboratorios' onclick=\"mostrar('laboratorios','pro',event,'','../servicios_complem/laboratorios.php',7,'Control Medicamentos');Color('datos-lis')\"><i class='fa-solid fa-flask-vial ico' id='{$c['ACCIONES']}'></i></li>" : "";
+				$rta .= acceso('laboratorios') ? "<li title='Laboratorios' onclick=\"mostrar('laboratorios','pro',event,'','../servicios_complem/laboratorios.php',7,'Control Laboratorios');Color('datos-lis')\"><i class='fa-solid fa-flask-vial ico' id='{$c['ACCIONES']}'></i></li>" : "";
 			// }
 			
 
