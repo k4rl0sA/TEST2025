@@ -196,6 +196,9 @@ function opc_tipodoc($id=''){
 function opc_tipo_lab($id=''){
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=23 and estado='A' ORDER BY 1",$id);
 }
+function opc_lab_tomado($id=''){
+  return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=24 and estado='A' ORDER BY 1",$id);
+}
 
 
 function formato_dato($a,$b,$c,$d){
