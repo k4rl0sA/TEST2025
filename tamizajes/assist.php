@@ -200,6 +200,13 @@ function gra_tamassist() {
 	if ($idpeople <= 0) {
 		return "ID de persona no válido.";
 	}
+
+	  // Función para mapear valor
+    function map_val($post_key, $map) {
+        $v = isset($_POST[$post_key]) ? intval($_POST[$post_key]) : null;
+        return isset($map[$v]) ? $map[$v] : $v;
+    }
+
 	 $map_tfrecuencia = [1 => 0, 2 => 2, 3 => 3, 4 => 4, 5 => 6];
     $map_tdeseo      = [1 => 0, 2 => 3, 3 => 4, 4 => 5, 5 => 6];
     $map_tsalud      = [1 => 0, 2 => 4, 3 => 5, 4 => 6, 5 => 7];
