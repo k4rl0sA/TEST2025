@@ -149,6 +149,10 @@ function cmp_tamassist(){
 	$c[]=new cmp('otpreocupa','s',3,'',$w.' '.$o,'6. ¿Un amigo, un familiar o alguien más alguna vez ha mostrado preocupación por su consumo de (PRIMERA DROGA, SEGUNDA DROGA, ETC)?','assist2',null,null,true,true,'','col-10');
 	$c[]=new cmp('otcontrolar','s',3,'',$w.' '.$o,'7. ¿Ha intentado alguna vez controlar, reducir o dejar de consumir (PRIMERA DROGA, SEGUNDA DROGA, ETC) y no lo ha logrado?','assist2',null,null,true,true,'','col-10');
 
+$o='inyectada';
+	$c[]=new cmp($o,'e',null,'droga por vía inyectada',$w);
+	$c[]=new cmp('inyec','s',3,'',$w.' '.$o,' 8 - ¿Ha consumido alguna vez alguna droga por vía inyectada? (ÚNICAMENTE PARA USOS NO MÉDICOS)','assist2',null,null,true,true,'','col-10');
+
 
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
