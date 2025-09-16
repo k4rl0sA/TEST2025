@@ -212,7 +212,7 @@ function gra_tamassist() {
         alconsumido, alfrecuencia, aldeseo, alsalud, alhabitual, alpreocupa, alcontrolar,
         oconsumido, ofrecuencia, odeseo, osalud, ohabitual, opreocupa, ocontrolar,
         otconsumido, otfrecuencia, otdeseo, otsalud, othabitual, otpreocupa, otcontrolar,
-        assist2, usu_creo, fecha_create, estado
+        inyec, usu_creo, fecha_create, estado
     ) VALUES (
         ?, ?, ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, ?, ?, ?,
@@ -300,7 +300,7 @@ function gra_tamassist() {
         ['type' => 's', 'value' => $_POST['othabitual']],
         ['type' => 's', 'value' => $_POST['otpreocupa']],
         ['type' => 's', 'value' => $_POST['otcontrolar']],
-        ['type' => 's', 'value' => $_POST['assist2']],
+        ['type' => 's', 'value' => $_POST['inyec']],
         ['type' => 's', 'value' => $_SESSION['us_sds']],
         ['type' => 's', 'value' => 'A']
     ];
