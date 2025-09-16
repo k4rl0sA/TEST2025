@@ -1023,8 +1023,8 @@ function formato_dato($a,$b,$c,$d){
 			$rta .= acceso('atencion') ? "<li title='Crear Atención' onclick=\"mostrar('atencion','pro',event,'','atencion.php',7,'atencion');Color('datos-lis')\"><i class='fa-solid fa-user-doctor ico' id='{$c['ACCIONES']}'></i></li>" : "";
 			
 			// if (medicamAtenci($c['ACCIONES'])) {
-				$rta .= acceso('medicamentctrl') ? "<li title='Entrega Medicamentos' onclick=\"mostrar('medicamentctrl','pro',event,'','../servicios/medicamentos.php',7,'Control Medicamentos');Color('datos-lis')\"><i class='fa-solid fa-capsules ico' id='{$c['ACCIONES']}'></i></li>" : "";
-				$rta .= acceso('laboratorios') ? "<li title='Laboratorio' onclick=\"mostrar('laboratorios','pro',event,'','../servicios/laboratorios.php',7,'Control Medicamentos');Color('datos-lis')\"><i class='fa-solid fa-flask-vial ico' id='{$c['ACCIONES']}'></i></li>" : "";
+				$rta .= acceso('medicamentctrl') ? "<li title='Entrega Medicamentos' onclick=\"mostrar('medicamentctrl','pro',event,'','../servicios_complem/medicamentos.php',7,'Control Medicamentos');Color('datos-lis')\"><i class='fa-solid fa-capsules ico' id='{$c['ACCIONES']}'></i></li>" : "";
+				$rta .= acceso('laboratorios') ? "<li title='Laboratorio' onclick=\"mostrar('laboratorios','pro',event,'','../servicios_complem/laboratorios.php',7,'Control Medicamentos');Color('datos-lis')\"><i class='fa-solid fa-flask-vial ico' id='{$c['ACCIONES']}'></i></li>" : "";
 			// }
 			
 
