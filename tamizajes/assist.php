@@ -227,7 +227,7 @@ function gra_tamassist() {
 	}
 
 	// Preparar consulta y parámetros
-	 $sql = "INSERT INTO tam_assist (idpeople, fecha_toma, tconsumido, tfrecuencia, tdeseo, tsalud, thabitual, tpreocupa, tcontrolar,bconsumido, bfrecuencia, bdeseo, bsalud, bhabitual, bpreocupa, bcontrolar,cconsumido, cfrecuencia, cdeseo, csalud, chabitual, cpreocupa, ccontrolar,coconsumido, cofrecuencia, codeseo, cosalud, cohabitual, copreocupa, cocontrolar,aconsumido, afrecuencia, adeseo, asalud, ahabitual, apreocupa, acontrolar,iconsumido, ifrecuencia, ideseo, isalud, ihabitual, ipreocupa, icontrolar,trconsumido, trfrecuencia, trdeseo, trsalud, trhabitual, trpreocupa, trcontrolar,alconsumido, alfrecuencia, aldeseo, alsalud, alhabitual, alpreocupa, alcontrolar,oconsumido, ofrecuencia, odeseo, osalud, ohabitual, opreocupa, ocontrolar,otconsumido, otfrecuencia, otdeseo, otsalud, othabitual, otpreocupa, otcontrolar,inyec, usu_creo, fecha_create, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?,?,?, NOW(), ?)";
+	 $sql = "INSERT INTO tam_assist (idpeople, fecha_toma, tconsumido, tfrecuencia, tdeseo, tsalud, thabitual, tpreocupa, tcontrolar,bconsumido, bfrecuencia, bdeseo, bsalud, bhabitual, bpreocupa, bcontrolar,cconsumido, cfrecuencia, cdeseo, csalud, chabitual, cpreocupa, ccontrolar,coconsumido, cofrecuencia, codeseo, cosalud, cohabitual, copreocupa, cocontrolar,aconsumido, afrecuencia, adeseo, asalud, ahabitual, apreocupa, acontrolar,iconsumido, ifrecuencia, ideseo, isalud, ihabitual, ipreocupa, icontrolar,trconsumido, trfrecuencia, trdeseo, trsalud, trhabitual, trpreocupa, trcontrolar,alconsumido, alfrecuencia, aldeseo, alsalud, alhabitual, alpreocupa, alcontrolar,oconsumido, ofrecuencia, odeseo, osalud, ohabitual, opreocupa, ocontrolar,otconsumido, otfrecuencia, otdeseo, otsalud, othabitual, otpreocupa, otcontrolar,inyec,pts_tabaco,nvl_tabaco, usu_creo, fecha_create, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?,?,?, NOW(), ?)";
     $params = [
         ['type' => 'i', 'value' => $idpeople],
         ['type' => 's', 'value' => $_POST['fecha_toma']],
@@ -302,7 +302,7 @@ function gra_tamassist() {
         ['type' => 's', 'value' => $_POST['otpreocupa']],
         ['type' => 's', 'value' => $_POST['otcontrolar']],
         ['type' => 's', 'value' => $_POST['inyec']],
-        ['type' => 's', 'value' => $_POST['puntaje_tabaco']],
+        ['type' => 's', 'value' => $puntaje_tabaco],
 		['type' => 's', 'value' => $nivel_tabaco],
         ['type' => 's', 'value' => $_SESSION['us_sds']],
         ['type' => 's', 'value' => 'A']
