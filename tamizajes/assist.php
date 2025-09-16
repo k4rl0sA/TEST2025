@@ -200,33 +200,34 @@ function gra_tamassist() {
 	if ($idpeople <= 0) {
 		return "ID de persona no válido.";
 	}
+	 $map_tfrecuencia = [1 => 0, 2 => 2, 3 => 3, 4 => 4, 5 => 6];
+    $map_tdeseo      = [1 => 0, 2 => 3, 3 => 4, 4 => 5, 5 => 6];
+    $map_tsalud      = [1 => 0, 2 => 4, 3 => 5, 4 => 6, 5 => 7];
+    $map_thabitual   = [1 => 0, 2 => 5, 3 => 6, 4 => 7, 5 => 8];
+    $map_tpreocupa   = [1 => 0, 2 => 6, 3 => 3];
+    $map_tcontrolar  = [1 => 0, 2 => 6, 3 => 3];
+
+	// Mapeo para Tabaco (haz lo mismo para las demás sustancias si lo necesitas)
+    $tfrecuencia = map_val('tfrecuencia', $map_tfrecuencia);
+    $tdeseo      = map_val('tdeseo', $map_tdeseo);
+    $tsalud      = map_val('tsalud', $map_tsalud);
+    $thabitual   = map_val('thabitual', $map_thabitual);
+    $tpreocupa   = map_val('tpreocupa', $map_tpreocupa);
+    $tcontrolar  = map_val('tcontrolar', $map_tcontrolar);
+
+	// Calcular puntaje total y nivel de riesgo para Tabaco
+	$puntaje_tabaco = $tfrecuencia + $tdeseo + $tsalud + $thabitual + $tpreocupa + $tcontrolar;
+	$nivel_tabaco = '';
+	if ($puntaje_tabaco <= 3) {	
+		$nivel_tabaco = 'BAJO';
+	} elseif ($puntaje_tabaco <= 26) {
+		$nivel_tabaco = 'MODERADO';
+	} else {
+		$nivel_tabaco = 'ALTO';
+	}
+
 	// Preparar consulta y parámetros
-	 $sql = "INSERT INTO tam_assist (
-        idpeople, fecha_toma, tconsumido, tfrecuencia, tdeseo, tsalud, thabitual, tpreocupa, tcontrolar,
-        bconsumido, bfrecuencia, bdeseo, bsalud, bhabitual, bpreocupa, bcontrolar,
-        cconsumido, cfrecuencia, cdeseo, csalud, chabitual, cpreocupa, ccontrolar,
-        coconsumido, cofrecuencia, codeseo, cosalud, cohabitual, copreocupa, cocontrolar,
-        aconsumido, afrecuencia, adeseo, asalud, ahabitual, apreocupa, acontrolar,
-        iconsumido, ifrecuencia, ideseo, isalud, ihabitual, ipreocupa, icontrolar,
-        trconsumido, trfrecuencia, trdeseo, trsalud, trhabitual, trpreocupa, trcontrolar,
-        alconsumido, alfrecuencia, aldeseo, alsalud, alhabitual, alpreocupa, alcontrolar,
-        oconsumido, ofrecuencia, odeseo, osalud, ohabitual, opreocupa, ocontrolar,
-        otconsumido, otfrecuencia, otdeseo, otsalud, othabitual, otpreocupa, otcontrolar,
-        inyec, usu_creo, fecha_create, estado
-    ) VALUES (
-        ?, ?, ?, ?, ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?, ?, ?,
-        ?, ?, NOW(), ?
-    )";
-	
+	 $sql = "INSERT INTO tam_assist (idpeople, fecha_toma, tconsumido, tfrecuencia, tdeseo, tsalud, thabitual, tpreocupa, tcontrolar,bconsumido, bfrecuencia, bdeseo, bsalud, bhabitual, bpreocupa, bcontrolar,cconsumido, cfrecuencia, cdeseo, csalud, chabitual, cpreocupa, ccontrolar,coconsumido, cofrecuencia, codeseo, cosalud, cohabitual, copreocupa, cocontrolar,aconsumido, afrecuencia, adeseo, asalud, ahabitual, apreocupa, acontrolar,iconsumido, ifrecuencia, ideseo, isalud, ihabitual, ipreocupa, icontrolar,trconsumido, trfrecuencia, trdeseo, trsalud, trhabitual, trpreocupa, trcontrolar,alconsumido, alfrecuencia, aldeseo, alsalud, alhabitual, alpreocupa, alcontrolar,oconsumido, ofrecuencia, odeseo, osalud, ohabitual, opreocupa, ocontrolar,otconsumido, otfrecuencia, otdeseo, otsalud, othabitual, otpreocupa, otcontrolar,inyec, usu_creo, fecha_create, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?,?,? NOW(), ?)";
     $params = [
         ['type' => 'i', 'value' => $idpeople],
         ['type' => 's', 'value' => $_POST['fecha_toma']],
@@ -301,6 +302,8 @@ function gra_tamassist() {
         ['type' => 's', 'value' => $_POST['otpreocupa']],
         ['type' => 's', 'value' => $_POST['otcontrolar']],
         ['type' => 's', 'value' => $_POST['inyec']],
+        ['type' => 's', 'value' => $_POST['puntaje_tabaco']],
+		['type' => 's', 'value' => $nivel_tabaco],
         ['type' => 's', 'value' => $_SESSION['us_sds']],
         ['type' => 's', 'value' => 'A']
     ];
