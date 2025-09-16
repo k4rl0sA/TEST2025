@@ -936,7 +936,7 @@ function validUser($id) {
 }
 
 
-function medicamAtenci($id) {
+/* function medicamAtenci($id) {
     $id = divide($id);
     $sql = "SELECT COUNT(*) AS total FROM eac_atencion WHERE idpeople='".$id[0]."' AND medicamentos = '1'";
     $info = datos_mysql($sql);
@@ -947,7 +947,7 @@ function medicamAtenci($id) {
 		return false;
 	}
 	return ;
-}
+} */
 
 function formato_dato($a,$b,$c,$d){
  $b=strtolower($b);
@@ -1022,9 +1022,11 @@ function formato_dato($a,$b,$c,$d){
 			$rta .= acceso('admision') ? "<li title='Solicitar Admisión' onclick=\"mostrar('admision','pro',event,'','admision.php',7,'admision');Color('datos-lis');\"><i class='fa-solid fa-tty ico' id='{$c['ACCIONES']}'></i></li>" : "";
 			$rta .= acceso('atencion') ? "<li title='Crear Atención' onclick=\"mostrar('atencion','pro',event,'','atencion.php',7,'atencion');Color('datos-lis')\"><i class='fa-solid fa-user-doctor ico' id='{$c['ACCIONES']}'></i></li>" : "";
 			
-			if (medicamAtenci($c['ACCIONES'])) {
+			// if (medicamAtenci($c['ACCIONES'])) {
 				$rta .= acceso('medicamentctrl') ? "<li title='Entrega Medicamentos' onclick=\"mostrar('medicamentctrl','pro',event,'','../servicios/medicamentos.php',7,'Control Medicamentos');Color('datos-lis')\"><i class='fa-solid fa-capsules ico' id='{$c['ACCIONES']}'></i></li>" : "";
-			}
+				$rta .= acceso('laboratorios') ? "<li title='Entrega Medicamentos' onclick=\"mostrar('medicamentctrl','pro',event,'','../servicios/medicamentos.php',7,'Control Medicamentos');Color('datos-lis')\"><i class='fa-solid fa-flask-vial ico' id='{$c['ACCIONES']}'></i></li>" : "";
+			// }
+			
 
 			$rta .= acceso('vspeve') ? "<li class='icono admsi1' title='Validar Evento' id='{$c['ACCIONES']}' onclick=\"mostrar('vspeve','pro',event,'','vspeve.php',7,'vspeve');Color('datos-lis');\"></li>" : "";
 			$rta.=eventAsign($c['ACCIONES']);
@@ -1066,7 +1068,7 @@ function formato_dato($a,$b,$c,$d){
 			$rta.="<li title='Trasladar Usuario' Onclick=\"mostrar('traslados','pro',event,'','../soporte/trasladloc.php',4,'traslados');Color('datos-lis');\"><i class='fas fa-exchange-alt ico' id='".$c['ACCIONES']."'></i> </li>";
 
 			if (is_array($tamiz) && in_array('tamvalories', $tamiz)) {
-				$rta .= acceso('tamvalories') ? "<li title='Valoración del Riesgo' onclick=\"mostrar('tamvalories','pro',event,'','../tamizajes/valoriesg.php',7,'Valoración del Riesgo');Color('datos-lis');\"><i class='fa-solid fa-person-skating ico' id='{$c['ACCIONES']}'></i></li>":"";
+				$rta .= acceso('tamvalories') ? "<li title='Valoración del Riesgo' onclick=\"mostrar('tamvalories','pro',event,'','../tamizajes/valoriesg.php',7,'Valoración del Riesgo');Color('datos-lis');\"><i class='fa-solid fa-skull-crossbones ico' id='{$c['ACCIONES']}'></i></li>":"";
 			}
 			if (is_array($tamiz) && in_array('tamcarlos', $tamiz)) {
 				$rta .= acceso('tamcarlos') ? "<li title='Tamizaje Carlos Crafft' onclick=\"mostrar('tamcarlos','pro',event,'','../tamizajes/carlos.php',7,'Carlos Crafft');Color('datos-lis');\"><i class='fa-solid fa-cannabis ico' id='{$c['ACCIONES']}'></i></li>":""; //fa-clipboard-list
