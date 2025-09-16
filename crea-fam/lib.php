@@ -1069,10 +1069,10 @@ function formato_dato($a,$b,$c,$d){
 				$rta .= acceso('tamvalories') ? "<li title='Valoración del Riesgo' onclick=\"mostrar('tamvalories','pro',event,'','../tamizajes/valoriesg.php',7,'Valoración del Riesgo');Color('datos-lis');\"><i class='fa-solid fa-person-skating ico' id='{$c['ACCIONES']}'></i></li>":"";
 			}
 			if (is_array($tamiz) && in_array('tamcarlos', $tamiz)) {
-				$rta .= acceso('tamcarlos') ? "<li title='Tamizaje Carlos Crafft' onclick=\"mostrar('tamcarlos','pro',event,'','../tamizajes/carlos.php',7,'Carlos Crafft');Color('datos-lis');\"><i class='fas fa-clipboard-list ico' id='{$c['ACCIONES']}'></i></li>":"";
+				$rta .= acceso('tamcarlos') ? "<li title='Tamizaje Carlos Crafft' onclick=\"mostrar('tamcarlos','pro',event,'','../tamizajes/carlos.php',7,'Carlos Crafft');Color('datos-lis');\"><i class='fa-solid fa-cannabis ico' id='{$c['ACCIONES']}'></i></li>":""; //fa-clipboard-list
 			}
 			if (is_array($tamiz) && in_array('tamassist', $tamiz)) {
-				$rta .= acceso('tamassist') ? "<li title='Tamizaje assist' onclick=\"mostrar('tamassist','pro',event,'','../tamizajes/assist.php',7,'Assist');Color('datos-lis');\"><i class='fas fa-clipboard-list ico' id='{$c['ACCIONES']}'></i></li>":"";
+				$rta .= acceso('tamassist') ? "<li title='Tamizaje assist' onclick=\"mostrar('tamassist','pro',event,'','../tamizajes/assist.php',7,'Assist');Color('datos-lis');\"><i class='fa-solid fa-wine-bottle ico' id='{$c['ACCIONES']}'></i></li>":"";
 			}
 			if (is_array($tamiz) && in_array('riesgomental', $tamiz)) {
 				$rta .= acceso('riesgomental') ? "<li title='Tamizaje Riesgo Mental' onclick=\"mostrar('riesgomental','pro',event,'','../tamizajes/riesgomental.php',7,'Riesgo Mental');Color('datos-lis');\"><i class='fas fa-brain ico' id='{$c['ACCIONES']}'></i></li>":"";
