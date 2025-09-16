@@ -197,33 +197,9 @@ function gra_tamassist() {
 	$id = divide($_POST['id']);
 	$idpeople = isset($id[0]) ? intval($id[0]) : 0;
 	// Validar que se recibe la edad por POST
-	if (!isset($_POST['edad']) || !is_numeric($_POST['edad'])) {
-		return "Edad no proporcionada o inválida.";
-	}
-	$edad = intval($_POST['edad']);
-	if ($edad < 16 && empty($_POST['fecha_toma'])) {
-		return "La fecha de toma es obligatoria para menores de 16 años.";
-	}
 	if ($idpeople <= 0) {
 		return "ID de persona no válido.";
 	}
-	// Preguntas 2 a 8
-	$campos = [
-		'bebidas','sustancias', 'condualcoh', 'dismalcoh', 'estadoanimo', 'lios', 'olvido', 'solo'
-	];
-	$total = 0;
-	foreach ($campos as $campo) {
-		$valor = isset($_POST[$campo]) ? intval($_POST[$campo]) : 2; // Si no viene, se asume 2 (cuenta como 0)
-		$val = ($valor == 1) ? 1 : 0;
-		$total += $val;
-	}
-	// Clasificación
-	if ($total <= 2) {
-		$descripcion = 'Consumo funcional - No consumo';
-	} else {
-		$descripcion = 'Consumo disfuncional (mayor riesgo)';
-	}
-
 	// Preparar consulta y parámetros
 	$sql = "INSERT INTO tam_assist (
 		idpeople, fecha_toma, bebidas, sustancias, condualcoh, dismalcoh, estadoanimo, lios, olvido, solo, total, descripcion, usu_creo, fecha_create, estado
