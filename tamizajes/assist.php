@@ -201,9 +201,31 @@ function gra_tamassist() {
 		return "ID de persona no válido.";
 	}
 	// Preparar consulta y parámetros
-	$sql = "INSERT INTO tam_assist (
-		idpeople, fecha_toma, bebidas, sustancias, condualcoh, dismalcoh, estadoanimo, lios, olvido, solo, total, descripcion, usu_creo, fecha_create, estado
-	) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, NOW(),?)";
+	 $sql = "INSERT INTO tam_assist (
+        idpeople, fecha_toma, tconsumido, tfrecuencia, tdeseo, tsalud, thabitual, tpreocupa, tcontrolar,
+        bconsumido, bfrecuencia, bdeseo, bsalud, bhabitual, bpreocupa, bcontrolar,
+        cconsumido, cfrecuencia, cdeseo, csalud, chabitual, cpreocupa, ccontrolar,
+        coconsumido, cofrecuencia, codeseo, cosalud, cohabitual, copreocupa, cocontrolar,
+        aconsumido, afrecuencia, adeseo, asalud, ahabitual, apreocupa, acontrolar,
+        iconsumido, ifrecuencia, ideseo, isalud, ihabitual, ipreocupa, icontrolar,
+        trconsumido, trfrecuencia, trdeseo, trsalud, trhabitual, trpreocupa, trcontrolar,
+        alconsumido, alfrecuencia, aldeseo, alsalud, alhabitual, alpreocupa, alcontrolar,
+        oconsumido, ofrecuencia, odeseo, osalud, ohabitual, opreocupa, ocontrolar,
+        otconsumido, otfrecuencia, otdeseo, otsalud, othabitual, otpreocupa, otcontrolar,
+        assist2, usu_creo, fecha_create, estado
+    ) VALUES (
+        ?, ?, ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, NOW(), ?
+    )";
 	$params = [
 		['type' => 'i', 'value' => $idpeople],
 		['type' => 's', 'value' => $_POST['fecha_toma']],
