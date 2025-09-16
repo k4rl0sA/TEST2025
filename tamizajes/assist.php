@@ -160,9 +160,9 @@ function cmp_tamassist(){
 		}else{
 			 $id=divide($_POST['id']);
 			// print_r($_POST);
-			$sql="SELECT P.idpeople,P.idpersona valories_idpersona,P.tipo_doc valories_tipodoc,
-			concat_ws(' ',P.nombre1,P.nombre2,P.apellido1,P.apellido2) valories_nombre,P.fecha_nacimiento valories_fechanacimiento,
-			TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, CURDATE()) AS valories_edad
+			$sql="SELECT P.idpeople,P.idpersona idpersona,P.tipo_doc tipodoc,
+			concat_ws(' ',P.nombre1,P.nombre2,P.apellido1,P.apellido2) nombre,P.fecha_nacimiento fechanacimiento,
+			TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, CURDATE()) AS edad
 			FROM person P
 			WHERE P.idpeople ='{$id[0]}'";
 			// echo $sql; 
