@@ -170,7 +170,8 @@ function grabar(tb='',ev){
   'tamcarlos':'../tamizajes/carlos.php',
   'tamassist':'../tamizajes/assist.php',
   'tamvalories':'../tamizajes/valoriesg.php',
-  'riesgomental':'../tamizajes/riesgomental.php'
+  'riesgomental':'../tamizajes/riesgomental.php',
+  'laboratorios':'../servicios_complem/laboratorios.php'
  	};
    let ruta_app = rutaMap[tb] || 'lib.php';
   if(tb=='sesion2'){
