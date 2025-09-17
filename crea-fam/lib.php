@@ -940,7 +940,20 @@ function medicamAtenci($id) {
     $id = divide($id);
     $sql = "SELECT COUNT(*) AS total FROM eac_atencion WHERE idpeople='".$id[0]."' AND medicamentos = '1'";
     $info = datos_mysql($sql);
-	// var_dump($sql);
+	//var_dump($sql);
+	if(isset($info['responseResult'][0]['total']) && intval($info['responseResult'][0]['total']) > 0) {
+		return true;
+	} else {
+		return false;
+	}
+	return ;
+}
+
+function laboratorios($id) {
+    $id = divide($id);
+    $sql = "SELECT COUNT(*) AS total FROM eac_atencion WHERE idpeople='".$id[0]."' AND laboratorios = '1'";
+    $info = datos_mysql($sql);
+	//var_dump($sql);
 	if(isset($info['responseResult'][0]['total']) && intval($info['responseResult'][0]['total']) > 0) {
 		return true;
 	} else {
@@ -953,7 +966,7 @@ function formato_dato($a,$b,$c,$d){
  $b=strtolower($b);
  $rta=$c[$d];
 // print_r($c);
-var_dump($c);
+// var_dump($c);
 	if ($a=='homes' && $b=='acciones'){
 		$rta="<nav class='menu right'>";		
 		$rta.="<li title='Caracterización del Hogar'  Onclick=\"mostrar('homes1','fix',event,'','lib.php',0,'homes1');hideFix('person1','fix');Color('homes-lis');\"><i class='fa-solid fa-house-user ico' id='".$c['ACCIONES']."'></i></li>";//setTimeout(mostrar('person1','fix',event,'','lib.php',0,'person1'),500);
@@ -1023,9 +1036,11 @@ var_dump($c);
 			$rta .= acceso('atencion') ? "<li title='Crear Atención' onclick=\"mostrar('atencion','pro',event,'','atencion.php',7,'atencion');Color('datos-lis')\"><i class='fa-solid fa-user-doctor ico' id='{$c['ACCIONES']}'></i></li>" : "";
 			
 			 if (medicamAtenci($c['ACCIONES'])) {
-				$rta .= acceso('medicamentctrl') ? "<li title='Entrega Medicamentos' onclick=\"mostrar('medicamentctrl','pro',event,'','../servicios_complem/medicamentos.php',7,'Control Medicamentos');Color('datos-lis')\"><i class='fa-solid fa-capsules ico' id='{$c['ACCIONES']}'></i></li>" : "";
-				$rta .= acceso('laboratorios') ? "<li title='Laboratorios' onclick=\"mostrar('laboratorios','pro',event,'','../servicios_complem/laboratorios.php',7,'Control Laboratorios');Color('datos-lis')\"><i class='fa-solid fa-flask-vial ico' id='{$c['ACCIONES']}'></i></li>" : "";
+				$rta .= acceso('medicamentctrl') ? "<li title='Entrega Medicamentos' onclick=\"mostrar('medicamentctrl','pro',event,'','../servicios_complem/medicamentos.php',7,'Control Medicamentos');Color('datos-lis')\"><i class='fa-solid fa-capsules ico' id='{$c['ACCIONES']}'></i></li>" : "";	
 			}
+
+			$rta .= acceso('laboratorios') ? "<li title='Laboratorios' onclick=\"mostrar('laboratorios','pro',event,'','../servicios_complem/laboratorios.php',7,'Control Laboratorios');Color('datos-lis')\"><i class='fa-solid fa-flask-vial ico' id='{$c['ACCIONES']}'></i></li>" : "";
+
 			$rta .= acceso('vspeve') ? "<li class='icono admsi1' title='Validar Evento' id='{$c['ACCIONES']}' onclick=\"mostrar('vspeve','pro',event,'','vspeve.php',7,'vspeve');Color('datos-lis');\"></li>" : "";
 			$rta.=eventAsign($c['ACCIONES']);
 			$rta .= acceso('relevo') ? "<li title='Relevo' onclick=\"mostrar('relevo','pro',event,'','../relevo/lib.php',7,'relevo');Color('datos-lis');\"><i class=' fa-solid fa-person-cane ico' id='{$c['ACCIONES']}'></i></li>":"";
