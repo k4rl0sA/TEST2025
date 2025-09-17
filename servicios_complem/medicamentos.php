@@ -92,7 +92,7 @@ function cmp_medicamentctrl(){
     $key='med';
     $edad='AÑOS= '.$d['anos'].' MESES= '.$d['meses'].' DIAS= '.$d['dias'];
     $days=fechas_app('med');
-    
+    var_dump($_REQUEST['id']);
     // Datos de identificación
     $c[]=new cmp($o,'e',null,'DATOS DE IDENTIFICACIÓN',$w);
     $c[]=new cmp('id','h',15,$_POST['id'],$w.' '.$o,'','',null,'####',false,false);
