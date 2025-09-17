@@ -172,6 +172,17 @@ function opc_estado_entrega($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=91 AND estado='A' ORDER BY 1",$id);
 }
 
+function opc_entrega($id=''){
+  return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=91 AND estado='A' ORDER BY 1",$id);
+
+  /* $id=divide($a);
+  $sql="SELECT idcatadeta, descripcion FROM `catadeta` WHERE idcatalogo=305 AND estado='A' AND VALOR=0 ORDER BY 2";
+		 FROM `eac_ruteo` WHERE  id_ruteo='{$id[0]}'";
+		 $info=datos_mysql($sql);
+		 $cod= $info['responseResult'][0]['cod'];
+		 return $cod; */
+}
+
 
 
 
