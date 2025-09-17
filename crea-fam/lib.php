@@ -953,7 +953,7 @@ function formato_dato($a,$b,$c,$d){
  $b=strtolower($b);
  $rta=$c[$d];
 // print_r($c);
-//  var_dump($c);
+var_dump($c);
 	if ($a=='homes' && $b=='acciones'){
 		$rta="<nav class='menu right'>";		
 		$rta.="<li title='Caracterización del Hogar'  Onclick=\"mostrar('homes1','fix',event,'','lib.php',0,'homes1');hideFix('person1','fix');Color('homes-lis');\"><i class='fa-solid fa-house-user ico' id='".$c['ACCIONES']."'></i></li>";//setTimeout(mostrar('person1','fix',event,'','lib.php',0,'person1'),500);
