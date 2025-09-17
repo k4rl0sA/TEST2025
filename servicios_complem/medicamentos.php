@@ -109,7 +109,7 @@ function cmp_medicamentctrl(){
     $c[]=new cmp('fecha_orden','d',10,$e,$w.' '.$o,'Fecha de orden','fecha_orden',null,'',true,true,'','col-2');
     $c[]=new cmp('cantidad_prescrita','nu',10,$e,$w.' '.$o,'Cantidad Prescrita','cantidad_prescrita',null,'',true,true,'','col-2');
     $c[]=new cmp('fecha_entrega','d',10,$e,$w.' '.$o,'Fecha de Entrega','fecha_entrega',null,'',true,true,'','col-2',"validDate(this,$days,0);");
-    $c[]=new cmp('numero_entrega','s',2,$e,$w.' '.$o,'Número de Entrega','numero_entrega',null,'',true,true,'','col-2');
+    $c[]=new cmp('numero_entrega','s',2,$e,$w.' '.$o,'Número de Entrega','entrega',null,'',true,true,'','col-2');
     $c[]=new cmp('cantidad_entregada','nu',10,$e,$w.' '.$o,'Cantidad Entregada','cantidad_entregada',null,'',true,true,'','col-2');
     $c[]=new cmp('tipo_medicamento','s',2,$e,$w.' '.$o,'Medicamento NO POS','tipo_medicamento',null,'',true,true,'','col-2');
     $c[]=new cmp('medicamento','s',2,$e,$w.' '.$o,'Medicamento','medicamento',null,'',true,true,'','col-2');
@@ -171,6 +171,9 @@ function opc_requiere_aprobacion($id=''){
 function opc_estado_entrega($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=91 AND estado='A' ORDER BY 1",$id);
 }
+
+
+
 
 function gra_medicamentctrl(){
     // Validación de campos obligatorios
