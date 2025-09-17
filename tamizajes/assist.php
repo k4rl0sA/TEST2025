@@ -270,7 +270,7 @@ function gra_tamassist() {
         alconsumido, alfrecuencia, aldeseo, alsalud, alhabitual, alpreocupa, alcontrolar,
         oconsumido, ofrecuencia, odeseo, osalud, ohabitual, opreocupa, ocontrolar,
         otconsumido, otfrecuencia, otdeseo, otsalud, othabitual, otpreocupa, otcontrolar,
-        inyec, pts_tabaco, nvl_tabaco, usu_creo, fecha_create, estado
+        inyec, pts_tabaco, nvl_tabaco, pts_bebida, nvl_bebida,pts_cannabis, nvl_cannabis,pts_cocaina, nvl_cocaina,pts_anfetaminas, nvl_anfetaminas,pts_inhalantes, nvl_inhalantes,pts_tranqui, nvl_tranqui,pts_alucinog, nvl_alucinog,pts_opiaceos, nvl_opiaceos,pts_otros, nvl_otros,usu_creo, fecha_create,estado
     ) VALUES (
         ?, ?, ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, ?, ?, ?,
@@ -282,7 +282,9 @@ function gra_tamassist() {
         ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?
+        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?, ? NOW(), ?
     )";
 
     $params = [
@@ -361,6 +363,24 @@ function gra_tamassist() {
         ['type' => 's', 'value' => $_POST['inyec']],
         ['type' => 'i', 'value' => $puntaje_tabaco],
         ['type' => 's', 'value' => $nivel_tabaco],
+		['type' => 'i', 'value' => $puntaje_bebidas],
+        ['type' => 's', 'value' => $nivel_bebidas],
+		['type' => 'i', 'value' => $puntaje_cannabis],
+        ['type' => 's', 'value' => $nivel_cannabis],
+		['type' => 'i', 'value' => $puntaje_cocaina],
+		['type' => 's', 'value' => $nivel_cocaina],
+		['type' => 'i', 'value' => $puntaje_anfetaminas],
+		['type' => 's', 'value' => $nivel_anfetaminas],
+		['type' => 'i', 'value' => $puntaje_inhalantes],
+		['type' => 's', 'value' => $nivel_inhalantes],
+		['type' => 'i', 'value' => $puntaje_tranquilizantes],
+		['type' => 's', 'value' => $nivel_tranquilizantes],
+		['type' => 'i', 'value' => $puntaje_alucinogenos],
+		['type' => 's', 'value' => $nivel_alucinogenos],
+		['type' => 'i', 'value' => $puntaje_opiaceos],
+		['type' => 's', 'value' => $nivel_opiaceos],
+		['type' => 'i', 'value' => $puntaje_otros],
+		['type' => 's', 'value' => $nivel_otros],	
         ['type' => 's', 'value' => $_SESSION['us_sds']],
         ['type' => 's', 'value' => 'A']
     ];
