@@ -182,8 +182,10 @@ function opc_entrega($id=''){
 		 return $cod; */
 }
 
-
-
+function opc_cod_admin($id=''){
+	$cod=divide($_REQUEST['id']);
+	return opc_sql("SELECT cod_admin,CONCAT_WS(' - ',cod_admin,FN_CATALOGODESC(127,final_consul))  from adm_facturacion af WHERE af.idpeople='".$cod[0]."' AND cod_cups=8 AND final_consul=15 ORDER BY 1", $id);
+}
 
 function gra_medicamentctrl(){
     // Validación de campos obligatorios
