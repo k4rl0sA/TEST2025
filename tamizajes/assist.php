@@ -256,7 +256,87 @@ function gra_tamassist() {
     } else {
         $nivel_tabaco = 'ALTO';
     }
-
+	 $puntaje_bebidas = $valores['bfrecuencia'] + $valores['bdeseo'] + $valores['bsalud'] + $valores['bhabitual'] + $valores['bpreocupa'] + $valores['bcontrolar'];
+    $nivel_bebidas = '';
+    if ($puntaje_bebidas <= 10) {
+        $nivel_bebidas = 'BAJO';
+    } elseif ($puntaje_bebidas <= 26) {
+        $nivel_bebidas = 'MODERADO';
+    } else {
+        $nivel_bebidas = 'ALTO';
+    }
+	 $puntaje_cannabis = $valores['cfrecuencia'] + $valores['cdeseo'] + $valores['csalud'] + $valores['chabitual'] + $valores['cpreocupa'] + $valores['ccontrolar'];
+    $nivel_cannabis = '';
+    if ($puntaje_cannabis <= 10) {
+        $nivel_cannabis = 'BAJO';
+    } elseif ($puntaje_cannabis <= 26) {
+        $nivel_cannabis = 'MODERADO';
+    } else {
+        $nivel_cannabis = 'ALTO';
+    }
+	$puntaje_cocaina = $valores['cofrecuencia'] + $valores['codeseo'] + $valores['cosalud'] + $valores['cohabitual'] + $valores['copreocupa'] + $valores['cocontrolar'];
+    $nivel_cocaina = '';
+    if ($puntaje_cocaina <= 10) {
+        $nivel_cocaina = 'BAJO';
+    } elseif ($puntaje_cocaina <= 26) {
+        $nivel_cocaina = 'MODERADO';
+    } else {
+        $nivel_cocaina = 'ALTO';
+    }
+	$puntaje_anfetaminas = $valores['afrecuencia'] + $valores['adeseo'] + $valores['asalud'] + $valores['ahabitual'] + $valores['apreocupa'] + $valores['acontrolar'];
+    $nivel_anfetaminas = '';
+    if ($puntaje_anfetaminas <= 10) {
+        $nivel_anfetaminas = 'BAJO';
+    } elseif ($puntaje_anfetaminas <= 26) {
+        $nivel_anfetaminas = 'MODERADO';
+    } else {
+        $nivel_anfetaminas = 'ALTO';
+    }
+	$puntaje_inhalantes = $valores['ifrecuencia'] + $valores['ideseo'] + $valores['isalud'] + $valores['ihabitual'] + $valores['ipreocupa'] + $valores['icontrolar'];
+    $nivel_inhalantes = '';
+    if ($puntaje_inhalantes <= 10) {
+        $nivel_inhalantes = 'BAJO';
+    } elseif ($puntaje_inhalantes <= 26) {
+        $nivel_inhalantes = 'MODERADO';
+    } else {
+        $nivel_inhalantes = 'ALTO';
+    }
+	$puntaje_tranquilizantes = $valores['trfrecuencia'] + $valores['trdeseo'] + $valores['trsalud'] + $valores['trhabitual'] + $valores['trpreocupa'] + $valores['trcontrolar'];
+    $nivel_tranquilizantes = '';
+    if ($puntaje_tranquilizantes <= 10) {
+        $nivel_tranquilizantes = 'BAJO';
+    } elseif ($puntaje_tranquilizantes <= 26) {
+        $nivel_tranquilizantes = 'MODERADO';
+    } else {
+        $nivel_tranquilizantes = 'ALTO';
+    }
+	$puntaje_alucinogenos = $valores['alfrecuencia'] + $valores['aldeseo'] + $valores['alsalud'] + $valores['alhabitual'] + $valores['alpreocupa'] + $valores['alcontrolar'];
+    $nivel_alucinogenos = '';
+    if ($puntaje_alucinogenos <= 10) {
+        $nivel_alucinogenos = 'BAJO';
+    } elseif ($puntaje_alucinogenos <= 26) {
+        $nivel_alucinogenos = 'MODERADO';
+    } else {
+        $nivel_alucinogenos = 'ALTO';
+    }
+	$puntaje_opiaceos = $valores['ofrecuencia'] + $valores['odeseo'] + $valores['osalud'] + $valores['ohabitual'] + $valores['opreocupa'] + $valores['tcontrolar'];
+    $nivel_opiaceos = '';
+    if ($puntaje_opiaceos <= 10) {
+        $nivel_opiaceos = 'BAJO';
+    } elseif ($puntaje_opiaceos <= 26) {
+        $nivel_opiaceos = 'MODERADO';
+    } else {
+        $nivel_opiaceos = 'ALTO';
+    }
+	$puntaje_otros = $valores['otfrecuencia'] + $valores['otdeseo'] + $valores['otsalud'] + $valores['othabitual'] + $valores['otpreocupa'] + $valores['otcontrolar'];
+    $nivel_otros = '';
+    if ($puntaje_otros <= 10) {
+        $nivel_otros = 'BAJO';
+    } elseif ($puntaje_otros <= 26) {
+        $nivel_otros = 'MODERADO';
+    } else {
+        $nivel_otros = 'ALTO';
+    }
     // Preparar consulta y parámetros (solo ejemplo para los primeros campos, agrega los demás según tu tabla)
     $sql = "INSERT INTO tam_assist (
         idpeople, fecha_toma,
