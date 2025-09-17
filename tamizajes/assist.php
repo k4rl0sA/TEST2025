@@ -194,130 +194,179 @@ function men_tamassist(){
   }
    
 function gra_tamassist() {
-	$id = divide($_POST['id']);
-	$idpeople = isset($id[0]) ? intval($id[0]) : 0;
-	// Validar que se recibe la edad por POST
-	if ($idpeople <= 0) {
-		return "ID de persona no válido.";
-	}
-
-	  // Función para mapear valor
-    function map_val($post_key, $map) {
-        $v = isset($_POST[$post_key]) ? intval($_POST[$post_key]) : null;
-        return isset($map[$v]) ? $map[$v] : $v;
+    $id = divide($_POST['id']);
+    $idpeople = isset($id[0]) ? intval($id[0]) : 0;
+    if ($idpeople <= 0) {
+        return "ID de persona no válido.";
     }
 
-	$tconsumido = [1=>3, 2=>0];
-	$map_tfrecuencia = [1 => 0, 2 => 2, 3 => 3, 4 => 4, 5 => 6];
-    $map_tdeseo      = [1 => 0, 2 => 3, 3 => 4, 4 => 5, 5 => 6];
-    $map_tsalud      = [1 => 0, 2 => 4, 3 => 5, 4 => 6, 5 => 7];
-    $map_thabitual   = [1 => 0, 2 => 5, 3 => 6, 4 => 7, 5 => 8];
-    $map_tpreocupa   = [1 => 0, 2 => 6, 3 => 3];
-    $map_tcontrolar  = [1 => 0, 2 => 6, 3 => 3];
+    // Mapas de equivalencia
+    $mapas = [
+        'frecuencia' => [1 => 0, 2 => 2, 3 => 3, 4 => 4, 5 => 6],
+        'deseo'      => [1 => 0, 2 => 3, 3 => 4, 4 => 5, 5 => 6],
+        'salud'      => [1 => 0, 2 => 4, 3 => 5, 4 => 6, 5 => 7],
+        'habitual'   => [1 => 0, 2 => 5, 3 => 6, 4 => 7, 5 => 8],
+        'preocupa'   => [1 => 0, 2 => 6, 3 => 3],
+        'controlar'  => [1 => 0, 2 => 6, 3 => 3],
+    ];
 
-	// Mapeo para Tabaco (haz lo mismo para las demás sustancias si lo necesitas)
-	$tconsumido=
-    $tfrecuencia = map_val('tfrecuencia', $map_tfrecuencia);
-    $tdeseo      = map_val('tdeseo', $map_tdeseo);
-    $tsalud      = map_val('tsalud', $map_tsalud);
-    $thabitual   = map_val('thabitual', $map_thabitual);
-    $tpreocupa   = map_val('tpreocupa', $map_tpreocupa);
-    $tcontrolar  = map_val('tcontrolar', $map_tcontrolar);
+    // Prefijos de sustancias según los campos de la tabla
+    $sustancias = [
+        't'  => 'Tabaco',
+        'b'  => 'Bebidas',
+        'c'  => 'Cannabis',
+        'co' => 'Cocaina',
+        'a'  => 'Anfetaminas',
+        'i'  => 'Inhalantes',
+        'tr' => 'Tranquilizantes',
+        'al' => 'Alucinogenos',
+        'o'  => 'Opiaceos',
+        'ot' => 'Otros',
+    ];
 
-	// Calcular puntaje total y nivel de riesgo para Tabaco
-	$puntaje_tabaco = $tfrecuencia + $tdeseo + $tsalud + $thabitual + $tpreocupa + $tcontrolar;
-	$nivel_tabaco = '';
-	if ($puntaje_tabaco <= 3) {	
-		$nivel_tabaco = 'BAJO';
-	} elseif ($puntaje_tabaco <= 26) {
-		$nivel_tabaco = 'MODERADO';
-	} else {
-		$nivel_tabaco = 'ALTO';
-	}
+    // Campos a mapear por sustancia
+    $campos = ['frecuencia', 'deseo', 'salud', 'habitual', 'preocupa', 'controlar'];
 
-	// Preparar consulta y parámetros
-	 $sql = "INSERT INTO tam_assist (idpeople, fecha_toma, tconsumido, tfrecuencia, tdeseo, tsalud, thabitual, tpreocupa, tcontrolar,bconsumido, bfrecuencia, bdeseo, bsalud, bhabitual, bpreocupa, bcontrolar,cconsumido, cfrecuencia, cdeseo, csalud, chabitual, cpreocupa, ccontrolar,coconsumido, cofrecuencia, codeseo, cosalud, cohabitual, copreocupa, cocontrolar,aconsumido, afrecuencia, adeseo, asalud, ahabitual, apreocupa, acontrolar,iconsumido, ifrecuencia, ideseo, isalud, ihabitual, ipreocupa, icontrolar,trconsumido, trfrecuencia, trdeseo, trsalud, trhabitual, trpreocupa, trcontrolar,alconsumido, alfrecuencia, aldeseo, alsalud, alhabitual, alpreocupa, alcontrolar,oconsumido, ofrecuencia, odeseo, osalud, ohabitual, opreocupa, ocontrolar,otconsumido, otfrecuencia, otdeseo, otsalud, othabitual, otpreocupa, otcontrolar,inyec,pts_tabaco,nvl_tabaco, usu_creo, fecha_create, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?,?,?, NOW(), ?)";
+    // Array para almacenar los valores mapeados
+    $valores = [];
+
+    // Procesar cada sustancia y sus campos
+    foreach ($sustancias as $prefijo => $nombre) {
+        foreach ($campos as $campo) {
+            $post_key = $prefijo . $campo;
+            if (isset($_POST[$post_key]) && isset($mapas[$campo])) {
+                $valor = intval($_POST[$post_key]);
+                $valores[$post_key] = isset($mapas[$campo][$valor]) ? $mapas[$campo][$valor] : $valor;
+            } else {
+                $valores[$post_key] = isset($_POST[$post_key]) ? $_POST[$post_key] : null;
+            }
+        }
+        // Consumido no se mapea, solo se toma el valor
+        $consumido_key = $prefijo . 'consumido';
+        $valores[$consumido_key] = isset($_POST[$consumido_key]) ? $_POST[$consumido_key] : null;
+    }
+
+    // Calcular puntaje y nivel de riesgo para Tabaco (puedes hacer lo mismo para las demás sustancias si lo necesitas)
+    $puntaje_tabaco = $valores['tfrecuencia'] + $valores['tdeseo'] + $valores['tsalud'] + $valores['thabitual'] + $valores['tpreocupa'] + $valores['tcontrolar'];
+    $nivel_tabaco = '';
+    if ($puntaje_tabaco <= 3) {
+        $nivel_tabaco = 'BAJO';
+    } elseif ($puntaje_tabaco <= 26) {
+        $nivel_tabaco = 'MODERADO';
+    } else {
+        $nivel_tabaco = 'ALTO';
+    }
+
+    // Preparar consulta y parámetros (solo ejemplo para los primeros campos, agrega los demás según tu tabla)
+    $sql = "INSERT INTO tam_assist (
+        idpeople, fecha_toma,
+        tconsumido, tfrecuencia, tdeseo, tsalud, thabitual, tpreocupa, tcontrolar,
+        bconsumido, bfrecuencia, bdeseo, bsalud, bhabitual, bpreocupa, bcontrolar,
+        cconsumido, cfrecuencia, cdeseo, csalud, chabitual, cpreocupa, ccontrolar,
+        coconsumido, cofrecuencia, codeseo, cosalud, cohabitual, copreocupa, cocontrolar,
+        aconsumido, afrecuencia, adeseo, asalud, ahabitual, apreocupa, acontrolar,
+        iconsumido, ifrecuencia, ideseo, isalud, ihabitual, ipreocupa, icontrolar,
+        trconsumido, trfrecuencia, trdeseo, trsalud, trhabitual, trpreocupa, trcontrolar,
+        alconsumido, alfrecuencia, aldeseo, alsalud, alhabitual, alpreocupa, alcontrolar,
+        oconsumido, ofrecuencia, odeseo, osalud, ohabitual, opreocupa, ocontrolar,
+        otconsumido, otfrecuencia, otdeseo, otsalud, othabitual, otpreocupa, otcontrolar,
+        inyec, pts_tabaco, nvl_tabaco, usu_creo, fecha_create, estado
+    ) VALUES (
+        ?, ?, ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?
+    )";
+
     $params = [
         ['type' => 'i', 'value' => $idpeople],
         ['type' => 's', 'value' => $_POST['fecha_toma']],
-        ['type' => 's', 'value' => $_POST['tconsumido']],
-        ['type' => 's', 'value' => $_POST['tfrecuencia']],
-        ['type' => 's', 'value' => $_POST['tdeseo']],
-        ['type' => 's', 'value' => $_POST['tsalud']],
-        ['type' => 's', 'value' => $_POST['thabitual']],
-        ['type' => 's', 'value' => $_POST['tpreocupa']],
-        ['type' => 's', 'value' => $_POST['tcontrolar']],
-        ['type' => 's', 'value' => $_POST['bconsumido']],
-        ['type' => 's', 'value' => $_POST['bfrecuencia']],
-        ['type' => 's', 'value' => $_POST['bdeseo']],
-        ['type' => 's', 'value' => $_POST['bsalud']],
-        ['type' => 's', 'value' => $_POST['bhabitual']],
-        ['type' => 's', 'value' => $_POST['bpreocupa']],
-        ['type' => 's', 'value' => $_POST['bcontrolar']],
-        ['type' => 's', 'value' => $_POST['cconsumido']],
-        ['type' => 's', 'value' => $_POST['cfrecuencia']],
-        ['type' => 's', 'value' => $_POST['cdeseo']],
-        ['type' => 's', 'value' => $_POST['csalud']],
-        ['type' => 's', 'value' => $_POST['chabitual']],
-        ['type' => 's', 'value' => $_POST['cpreocupa']],
-        ['type' => 's', 'value' => $_POST['ccontrolar']],
-        ['type' => 's', 'value' => $_POST['coconsumido']],
-        ['type' => 's', 'value' => $_POST['cofrecuencia']],
-        ['type' => 's', 'value' => $_POST['codeseo']],
-        ['type' => 's', 'value' => $_POST['cosalud']],
-        ['type' => 's', 'value' => $_POST['cohabitual']],
-        ['type' => 's', 'value' => $_POST['copreocupa']],
-        ['type' => 's', 'value' => $_POST['cocontrolar']],
-        ['type' => 's', 'value' => $_POST['aconsumido']],
-        ['type' => 's', 'value' => $_POST['afrecuencia']],
-        ['type' => 's', 'value' => $_POST['adeseo']],
-        ['type' => 's', 'value' => $_POST['asalud']],
-        ['type' => 's', 'value' => $_POST['ahabitual']],
-        ['type' => 's', 'value' => $_POST['apreocupa']],
-        ['type' => 's', 'value' => $_POST['acontrolar']],
-        ['type' => 's', 'value' => $_POST['iconsumido']],
-        ['type' => 's', 'value' => $_POST['ifrecuencia']],
-        ['type' => 's', 'value' => $_POST['ideseo']],
-        ['type' => 's', 'value' => $_POST['isalud']],
-        ['type' => 's', 'value' => $_POST['ihabitual']],
-        ['type' => 's', 'value' => $_POST['ipreocupa']],
-        ['type' => 's', 'value' => $_POST['icontrolar']],
-        ['type' => 's', 'value' => $_POST['trconsumido']],
-        ['type' => 's', 'value' => $_POST['trfrecuencia']],
-        ['type' => 's', 'value' => $_POST['trdeseo']],
-        ['type' => 's', 'value' => $_POST['trsalud']],
-        ['type' => 's', 'value' => $_POST['trhabitual']],
-        ['type' => 's', 'value' => $_POST['trpreocupa']],
-        ['type' => 's', 'value' => $_POST['trcontrolar']],
-        ['type' => 's', 'value' => $_POST['alconsumido']],
-        ['type' => 's', 'value' => $_POST['alfrecuencia']],
-        ['type' => 's', 'value' => $_POST['aldeseo']],
-        ['type' => 's', 'value' => $_POST['alsalud']],
-        ['type' => 's', 'value' => $_POST['alhabitual']],
-        ['type' => 's', 'value' => $_POST['alpreocupa']],
-        ['type' => 's', 'value' => $_POST['alcontrolar']],
-        ['type' => 's', 'value' => $_POST['oconsumido']],
-        ['type' => 's', 'value' => $_POST['ofrecuencia']],
-        ['type' => 's', 'value' => $_POST['odeseo']],
-        ['type' => 's', 'value' => $_POST['osalud']],
-        ['type' => 's', 'value' => $_POST['ohabitual']],
-        ['type' => 's', 'value' => $_POST['opreocupa']],
-        ['type' => 's', 'value' => $_POST['ocontrolar']],
-        ['type' => 's', 'value' => $_POST['otconsumido']],
-        ['type' => 's', 'value' => $_POST['otfrecuencia']],
-        ['type' => 's', 'value' => $_POST['otdeseo']],
-        ['type' => 's', 'value' => $_POST['otsalud']],
-        ['type' => 's', 'value' => $_POST['othabitual']],
-        ['type' => 's', 'value' => $_POST['otpreocupa']],
-        ['type' => 's', 'value' => $_POST['otcontrolar']],
+        ['type' => 's', 'value' => $valores['tconsumido']],
+        ['type' => 'i', 'value' => $valores['tfrecuencia']],
+        ['type' => 'i', 'value' => $valores['tdeseo']],
+        ['type' => 'i', 'value' => $valores['tsalud']],
+        ['type' => 'i', 'value' => $valores['thabitual']],
+        ['type' => 'i', 'value' => $valores['tpreocupa']],
+        ['type' => 'i', 'value' => $valores['tcontrolar']],
+        ['type' => 's', 'value' => $valores['bconsumido']],
+        ['type' => 'i', 'value' => $valores['bfrecuencia']],
+        ['type' => 'i', 'value' => $valores['bdeseo']],
+        ['type' => 'i', 'value' => $valores['bsalud']],
+        ['type' => 'i', 'value' => $valores['bhabitual']],
+        ['type' => 'i', 'value' => $valores['bpreocupa']],
+        ['type' => 'i', 'value' => $valores['bcontrolar']],
+        ['type' => 's', 'value' => $valores['cconsumido']],
+        ['type' => 'i', 'value' => $valores['cfrecuencia']],
+        ['type' => 'i', 'value' => $valores['cdeseo']],
+        ['type' => 'i', 'value' => $valores['csalud']],
+        ['type' => 'i', 'value' => $valores['chabitual']],
+        ['type' => 'i', 'value' => $valores['cpreocupa']],
+        ['type' => 'i', 'value' => $valores['ccontrolar']],
+        ['type' => 's', 'value' => $valores['coconsumido']],
+        ['type' => 'i', 'value' => $valores['cofrecuencia']],
+        ['type' => 'i', 'value' => $valores['codeseo']],
+        ['type' => 'i', 'value' => $valores['cosalud']],
+        ['type' => 'i', 'value' => $valores['cohabitual']],
+        ['type' => 'i', 'value' => $valores['copreocupa']],
+        ['type' => 'i', 'value' => $valores['cocontrolar']],
+        ['type' => 's', 'value' => $valores['aconsumido']],
+        ['type' => 'i', 'value' => $valores['afrecuencia']],
+        ['type' => 'i', 'value' => $valores['adeseo']],
+        ['type' => 'i', 'value' => $valores['asalud']],
+        ['type' => 'i', 'value' => $valores['ahabitual']],
+        ['type' => 'i', 'value' => $valores['apreocupa']],
+        ['type' => 'i', 'value' => $valores['acontrolar']],
+        ['type' => 's', 'value' => $valores['iconsumido']],
+        ['type' => 'i', 'value' => $valores['ifrecuencia']],
+        ['type' => 'i', 'value' => $valores['ideseo']],
+        ['type' => 'i', 'value' => $valores['isalud']],
+        ['type' => 'i', 'value' => $valores['ihabitual']],
+        ['type' => 'i', 'value' => $valores['ipreocupa']],
+        ['type' => 'i', 'value' => $valores['icontrolar']],
+        ['type' => 's', 'value' => $valores['trconsumido']],
+        ['type' => 'i', 'value' => $valores['trfrecuencia']],
+        ['type' => 'i', 'value' => $valores['trdeseo']],
+        ['type' => 'i', 'value' => $valores['trsalud']],
+        ['type' => 'i', 'value' => $valores['trhabitual']],
+        ['type' => 'i', 'value' => $valores['trpreocupa']],
+        ['type' => 'i', 'value' => $valores['trcontrolar']],
+        ['type' => 's', 'value' => $valores['alconsumido']],
+        ['type' => 'i', 'value' => $valores['alfrecuencia']],
+        ['type' => 'i', 'value' => $valores['aldeseo']],
+        ['type' => 'i', 'value' => $valores['alsalud']],
+        ['type' => 'i', 'value' => $valores['alhabitual']],
+        ['type' => 'i', 'value' => $valores['alpreocupa']],
+        ['type' => 'i', 'value' => $valores['alcontrolar']],
+        ['type' => 's', 'value' => $valores['oconsumido']],
+        ['type' => 'i', 'value' => $valores['ofrecuencia']],
+        ['type' => 'i', 'value' => $valores['odeseo']],
+        ['type' => 'i', 'value' => $valores['osalud']],
+        ['type' => 'i', 'value' => $valores['ohabitual']],
+        ['type' => 'i', 'value' => $valores['opreocupa']],
+        ['type' => 'i', 'value' => $valores['ocontrolar']],
+        ['type' => 's', 'value' => $valores['otconsumido']],
+        ['type' => 'i', 'value' => $valores['otfrecuencia']],
+        ['type' => 'i', 'value' => $valores['otdeseo']],
+        ['type' => 'i', 'value' => $valores['otsalud']],
+        ['type' => 'i', 'value' => $valores['othabitual']],
+        ['type' => 'i', 'value' => $valores['otpreocupa']],
+        ['type' => 'i', 'value' => $valores['otcontrolar']],
         ['type' => 's', 'value' => $_POST['inyec']],
-        ['type' => 's', 'value' => $puntaje_tabaco],
-		['type' => 's', 'value' => $nivel_tabaco],
+        ['type' => 'i', 'value' => $puntaje_tabaco],
+        ['type' => 's', 'value' => $nivel_tabaco],
         ['type' => 's', 'value' => $_SESSION['us_sds']],
         ['type' => 's', 'value' => 'A']
     ];
-	$rta = mysql_prepd($sql, $params);
-	return $rta;
+
+    $rta = mysql_prepd($sql, $params);
+    return $rta;
 }
 
 function opc_rta($id=''){
