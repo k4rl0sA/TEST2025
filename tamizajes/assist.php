@@ -207,7 +207,8 @@ function gra_tamassist() {
         return isset($map[$v]) ? $map[$v] : $v;
     }
 
-	 $map_tfrecuencia = [1 => 0, 2 => 2, 3 => 3, 4 => 4, 5 => 6];
+	$tconsumido = [1=>3, 2=>0];
+	$map_tfrecuencia = [1 => 0, 2 => 2, 3 => 3, 4 => 4, 5 => 6];
     $map_tdeseo      = [1 => 0, 2 => 3, 3 => 4, 4 => 5, 5 => 6];
     $map_tsalud      = [1 => 0, 2 => 4, 3 => 5, 4 => 6, 5 => 7];
     $map_thabitual   = [1 => 0, 2 => 5, 3 => 6, 4 => 7, 5 => 8];
@@ -215,6 +216,7 @@ function gra_tamassist() {
     $map_tcontrolar  = [1 => 0, 2 => 6, 3 => 3];
 
 	// Mapeo para Tabaco (haz lo mismo para las demás sustancias si lo necesitas)
+	$tconsumido=
     $tfrecuencia = map_val('tfrecuencia', $map_tfrecuencia);
     $tdeseo      = map_val('tdeseo', $map_tdeseo);
     $tsalud      = map_val('tsalud', $map_tsalud);
