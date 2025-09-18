@@ -333,8 +333,8 @@ function gra_tamassist() {
     } else {
         $nivel_alucinogenos = 'ALTO';
     }
-	$puntaje_opiaceos = $valores['oconsumido']+$valores['ofrecuencia'] + $valores['odeseo'] + $valores['osalud'] + $valores['ohabitual'] + $valores['opreocupa'] + $valores['tcontrolar'];
-    var_dump($valores['ocontrolar'],$valores[ofrecuencia],$valores['odeseo'] ,$valores['osalud'] ,$valores['ohabitual'] ,$valores['opreocupa']);
+	$puntaje_opiaceos = $valores['oconsumido']+$valores['ofrecuencia'] + $valores['odeseo'] + $valores['osalud'] + $valores['ohabitual'] + $valores['opreocupa'] + $valores['ocontrolar'];
+    var_dump($valores['ocontrolar'],$valores[ofrecuencia],$valores['odeseo'] ,$valores['osalud'] ,$valores['ohabitual'] ,$valores['opreocupa'],);
     $nivel_opiaceos = '';
     if ($puntaje_opiaceos <= 3) {
         $nivel_opiaceos = 'BAJO';
