@@ -212,7 +212,7 @@ function gra_tamassist() {
 
     // Mapas de equivalencia
     $mapas = [
-        'consumido' => [1 => 3, 0 => 0],
+        'consumido' => [1 => 1.5, 0 => 0],
         'frecuencia' => [1 => 0, 2 => 2, 3 => 3, 4 => 4, 5 => 6],
         'deseo'      => [1 => 0, 2 => 3, 3 => 4, 4 => 5, 5 => 6],
         'salud'      => [1 => 0, 2 => 4, 3 => 5, 4 => 6, 5 => 7],
