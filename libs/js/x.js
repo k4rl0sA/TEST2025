@@ -1499,3 +1499,51 @@ function enabbebidasAssist(){
 	];
 	EnabDepeDynamic(['BeB'], conditions);
 }
+function enabcannabisAssist(){
+	const conditions = [
+		{ id: 'cconsumido', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['CaN'], conditions);
+}
+function enabcocainaAssist(){
+	const conditions = [
+		{ id: 'coconsumido', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['CoC'], conditions);
+}
+function enabanfetaminasAssist(){
+	const conditions = [
+		{ id: 'aconsumido', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['AnF'], conditions);
+}
+function enabinhalantesAssist(){
+	const conditions = [
+		{ id: 'iconsumido', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['InH'], conditions);
+}
+function enabtranquilizanteAssist(){
+	const conditions = [
+		{ id: 'trconsumido', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['TrA'], conditions);
+}
+function enabalucinogenosAssist(){
+	const conditions = [
+		{ id: 'alconsumido', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['AlU'], conditions);
+}
+function enabopiaceosAssist(){
+	const conditions = [
+		{ id: 'oconsumido', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['OpI'], conditions);
+}
+function enabotrosAssist(){
+	const conditions = [
+		{ id: 'otconsumido', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['OtR'], conditions);
+}
