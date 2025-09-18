@@ -285,8 +285,7 @@ function gra_medicamentctrl(){
     var_dump('FLKUHJLKHGJGLKJ');
     $rta="Error: msj['No existe un equipo actualmente para el usuario que realizo el seguimiento']";
   }
-  var_dump('hola mundo');
-  return $rta;
+  return 'HOLA MUNDO';
 }
 
 function get_medicamentctrl(){
