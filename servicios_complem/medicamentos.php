@@ -184,7 +184,7 @@ function opc_entrega($id=''){
 
 function opc_cod_admision($id=''){
 	$cod=divide($_REQUEST['id']);
-	return opc_sql("SELECT cod_admin,CONCAT_WS(' - ',cod_admin,FN_CATALOGODESC(127,final_consul))  from adm_facturacion af WHERE af.idpeople='".$cod[0]."' AND cod_cups=8 AND final_consul=15 ORDER BY 1", $id);
+  return opc_sql("SELECT CONCAT_WS(' - ',f.cod_admin,FN_CATALOGODESC(127,f.final_consul)) AS descripcion, f.cod_admin AS idcatadeta FROM eac_atencion a LEFT JOIN adm_facturacion f ON a.id_factura=f.id_factura WHERE a.idpeople='{$cod[0]}' AND a.medicamentos=1", $id);
 }
 
 function gra_medicamentctrl(){
