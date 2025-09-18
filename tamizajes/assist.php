@@ -83,14 +83,15 @@ function cmp_tamassist(){
 	$c[]=new cmp('ccontrolar','s',3,'',$w.' '.$can.' '.$o,'7. ¿Ha intentado alguna vez controlar, reducir o dejar de consumir (PRIMERA DROGA, SEGUNDA DROGA, ETC) y no lo ha logrado?','assist2',null,null,true,true,'','col-10');
 
 	$o='Cocaina';
+    $co='CoC';
 	$c[]=new cmp($o,'e',null,'Cocaína',$w);
 	$c[]=new cmp('coconsumido','s',3,'',$w.' '.$o,'1. A lo largo de su vida, ¿cual de las siguientes sustancias ha consumido alguna vez? (SOLO PARA USOS NO‐ MÉDICOS)','rta',null,null,true,true,'','col-10');
-	$c[]=new cmp('cofrecuencia','s',3,'',$w.' '.$o,'2. ¿Con qué frecuencia ha consumido las sustancias que ha mencionado en los últimos tres meses, (PRIMERA DROGA,SEGUND A DROGA, ETC)?','assist',null,null,true,true,'','col-10');
-	$c[]=new cmp('codeseo','s',3,'',$w.' '.$o,'3. En los últimos tres meses, ¿con qué frecuencia ha tenido deseos fuertes o ansias de consumir (PRIMERA DROGA, SEGUNDA DROGA, ETC)?','assist',null,null,true,true,'','col-10');
-	$c[]=new cmp('cosalud','s',3,'',$w.' '.$o,'4. En los últimos tres meses, ¿con qué frecuencia le ha llevado su consumo de (PRIMERA DROGA SEGUNDA DROGA, ETC) a problemas de salud, sociales, legales o económicos?','assist',null,null,true,true,'','col-10');
-	$c[]=new cmp('cohabitual','s',3,'',$w.' '.$o,'5. En los últimos tres meses, ¿con qué frecuencia dejó de hacer lo que se esperaba de usted habitualmente por el consumo de (PRIMERA DROGA, SEGUNDA DROGA, ETC)?','assist',null,null,true,true,'','col-10');
-	$c[]=new cmp('copreocupa','s',3,'',$w.' '.$o,'6. ¿Un amigo, un familiar o alguien más alguna vez ha mostrado preocupación por su consumo de (PRIMERA DROGA, SEGUNDA DROGA, ETC)?','assist2',null,null,true,true,'','col-10');
-	$c[]=new cmp('cocontrolar','s',3,'',$w.' '.$o,'7. ¿Ha intentado alguna vez controlar, reducir o dejar de consumir (PRIMERA DROGA, SEGUNDA DROGA, ETC) y no lo ha logrado?','assist2',null,null,true,true,'','col-10');
+	$c[]=new cmp('cofrecuencia','s',3,'',$w.' '.$co.' '.$o,'2. ¿Con qué frecuencia ha consumido las sustancias que ha mencionado en los últimos tres meses, (PRIMERA DROGA,SEGUND A DROGA, ETC)?','assist',null,null,true,true,'','col-10');
+	$c[]=new cmp('codeseo','s',3,'',$w.' '.$co.' '.$o,'3. En los últimos tres meses, ¿con qué frecuencia ha tenido deseos fuertes o ansias de consumir (PRIMERA DROGA, SEGUNDA DROGA, ETC)?','assist',null,null,true,true,'','col-10');
+	$c[]=new cmp('cosalud','s',3,'',$w.' '.$co.' '.$o,'4. En los últimos tres meses, ¿con qué frecuencia le ha llevado su consumo de (PRIMERA DROGA SEGUNDA DROGA, ETC) a problemas de salud, sociales, legales o económicos?','assist',null,null,true,true,'','col-10');
+	$c[]=new cmp('cohabitual','s',3,'',$w.' '.$co.' '.$o,'5. En los últimos tres meses, ¿con qué frecuencia dejó de hacer lo que se esperaba de usted habitualmente por el consumo de (PRIMERA DROGA, SEGUNDA DROGA, ETC)?','assist',null,null,true,true,'','col-10');
+	$c[]=new cmp('copreocupa','s',3,'',$w.' '.$co.' '.$o,'6. ¿Un amigo, un familiar o alguien más alguna vez ha mostrado preocupación por su consumo de (PRIMERA DROGA, SEGUNDA DROGA, ETC)?','assist2',null,null,true,true,'','col-10');
+	$c[]=new cmp('cocontrolar','s',3,'',$w.' '.$co.' '.$o,'7. ¿Ha intentado alguna vez controlar, reducir o dejar de consumir (PRIMERA DROGA, SEGUNDA DROGA, ETC) y no lo ha logrado?','assist2',null,null,true,true,'','col-10');
 
 	$o='Anfetaminas';
 	$c[]=new cmp($o,'e',null,'Anfetaminas u otro tipo de estimulantes',$w);
