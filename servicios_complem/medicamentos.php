@@ -278,7 +278,7 @@ function gra_medicamentctrl(){
       ['type' => 's', 'value' => 'A'] // estado
     ];
   } else {
-    return ['error' => 'ID inválido.'];
+    $rta="Error: msj['No existe un equipo actualmente para el usuario que realizo el seguimiento']";
   }
 
   $rta = mysql_prepd($sql, $params);
