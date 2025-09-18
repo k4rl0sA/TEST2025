@@ -164,14 +164,14 @@ function grabar(tb='',ev){
   'tamrqc':'../tamizajes/rqc.php',
   'tamsrq':'../tamizajes/srq.php',
   'validPerson':'../soporte/valperson.php',
-  'medicamentctrl':'../servicios_complem/medicamentos.php',
+  'medicamentctrl':'../servicios_complementarios/medicamentos.php',
   'traslados': '../soporte/trasladloc.php',
   'trasladint': '../soporte/interloc.php',
   'tamcarlos':'../tamizajes/carlos.php',
   'tamassist':'../tamizajes/assist.php',
   'tamvalories':'../tamizajes/valoriesg.php',
   'riesgomental':'../tamizajes/riesgomental.php',
-  'laboratorios':'../servicios_complem/laboratorios.php'
+  'laboratorios':'../servicios_complementarios/laboratorios.php'
  	};
    let ruta_app = rutaMap[tb] || 'lib.php';
   if(tb=='sesion2'){
