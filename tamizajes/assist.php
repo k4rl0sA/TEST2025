@@ -50,7 +50,7 @@ function cmp_tamassist(){
 	$c[]=new cmp('fecha_toma','d','10','',$w.' '.$o,'fecha de la Toma','fecha_toma',null,'',true,true,'','col-2',"validDate(this,$days,0);");
 	
 	$o='Tabaco';
-    $tab='hhjg';
+    $tab='taB';
 	$c[]=new cmp($o,'e',null,'Tabaco',$w);
 	$c[]=new cmp('tconsumido','s',3,'',$w.' '.$o,'1. A lo largo de su vida, ¿cual de las siguientes sustancias ha consumido alguna vez? (SOLO PARA USOS NO‐ MÉDICOS)','rta',null,null,true,true,'','col-10');
 	$c[]=new cmp('tfrecuencia','s',3,'',$w.'  '.$tab.' '.$o,'2. ¿Con qué frecuencia ha consumido las sustancias que ha mencionado en los últimos tres meses, (PRIMERA DROGA,SEGUND A DROGA, ETC)?','assist',null,null,true,true,'','col-10');
