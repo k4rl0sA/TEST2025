@@ -253,9 +253,9 @@ function gra_tamassist() {
             }
         }
         // Consumido no se mapea, solo se toma el valor
-        $consumido_key = $prefijo . 'consumido';
-        $valores[$consumido_key] = isset($_POST[$consumido_key]) ? $_POST[$consumido_key] : null;
-        var_dump($consumido_key,$valores[$consumido_key]);
+        // $consumido_key = $prefijo . 'consumido';
+        // $valores[$consumido_key] = isset($_POST[$consumido_key]) ? $_POST[$consumido_key] : null;
+        // var_dump($consumido_key,$valores[$consumido_key]);
 
     }
 
