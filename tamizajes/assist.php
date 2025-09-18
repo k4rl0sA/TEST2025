@@ -74,7 +74,7 @@ function cmp_tamassist(){
     $o='Cannabis';
     $can='CaN';
 	$c[]=new cmp($o,'e',null,'Cannabis',$w);
-	$c[]=new cmp('cconsumido','s',3,'',$w.' '.$o,'1. A lo largo de su vida, ¿cual de las siguientes sustancias ha consumido alguna vez? (SOLO PARA USOS NO‐ MÉDICOS)','rta',null,null,true,true,'','col-10');
+	$c[]=new cmp('cconsumido','s',3,'',$w.' '.$o,'1. A lo largo de su vida, ¿cual de las siguientes sustancias ha consumido alguna vez? (SOLO PARA USOS NO‐ MÉDICOS)','rta',null,null,true,true,'','col-10',"enabcannabisAssist();");
 	$c[]=new cmp('cfrecuencia','s',3,'',$w.' '.$can.' '.$o,'2. ¿Con qué frecuencia ha consumido las sustancias que ha mencionado en los últimos tres meses, (PRIMERA DROGA,SEGUND A DROGA, ETC)?','assist',null,null,true,true,'','col-10');
 	$c[]=new cmp('cdeseo','s',3,'',$w.' '.$can.' '.$o,'3. En los últimos tres meses, ¿con qué frecuencia ha tenido deseos fuertes o ansias de consumir (PRIMERA DROGA, SEGUNDA DROGA, ETC)?','assist',null,null,true,true,'','col-10');
 	$c[]=new cmp('csalud','s',3,'',$w.' '.$can.' '.$o,'4. En los últimos tres meses, ¿con qué frecuencia le ha llevado su consumo de (PRIMERA DROGA SEGUNDA DROGA, ETC) a problemas de salud, sociales, legales o económicos?','assist',null,null,true,true,'','col-10');
@@ -85,7 +85,7 @@ function cmp_tamassist(){
 	$o='Cocaina';
     $co='CoC';
 	$c[]=new cmp($o,'e',null,'Cocaína',$w);
-	$c[]=new cmp('coconsumido','s',3,'',$w.' '.$o,'1. A lo largo de su vida, ¿cual de las siguientes sustancias ha consumido alguna vez? (SOLO PARA USOS NO‐ MÉDICOS)','rta',null,null,true,true,'','col-10');
+	$c[]=new cmp('coconsumido','s',3,'',$w.' '.$o,'1. A lo largo de su vida, ¿cual de las siguientes sustancias ha consumido alguna vez? (SOLO PARA USOS NO‐ MÉDICOS)','rta',null,null,true,true,'','col-10',"enabcocainaAssist();");
 	$c[]=new cmp('cofrecuencia','s',3,'',$w.' '.$co.' '.$o,'2. ¿Con qué frecuencia ha consumido las sustancias que ha mencionado en los últimos tres meses, (PRIMERA DROGA,SEGUND A DROGA, ETC)?','assist',null,null,true,true,'','col-10');
 	$c[]=new cmp('codeseo','s',3,'',$w.' '.$co.' '.$o,'3. En los últimos tres meses, ¿con qué frecuencia ha tenido deseos fuertes o ansias de consumir (PRIMERA DROGA, SEGUNDA DROGA, ETC)?','assist',null,null,true,true,'','col-10');
 	$c[]=new cmp('cosalud','s',3,'',$w.' '.$co.' '.$o,'4. En los últimos tres meses, ¿con qué frecuencia le ha llevado su consumo de (PRIMERA DROGA SEGUNDA DROGA, ETC) a problemas de salud, sociales, legales o económicos?','assist',null,null,true,true,'','col-10');
@@ -96,7 +96,7 @@ function cmp_tamassist(){
 	$o='Anfetaminas';
     $anf='AnF';
 	$c[]=new cmp($o,'e',null,'Anfetaminas u otro tipo de estimulantes',$w);
-	$c[]=new cmp('aconsumido','s',3,'',$w.' '.$o,'1. A lo largo de su vida, ¿cual de las siguientes sustancias ha consumido alguna vez? (SOLO PARA USOS NO‐ MÉDICOS)','rta',null,null,true,true,'','col-10');
+	$c[]=new cmp('aconsumido','s',3,'',$w.' '.$o,'1. A lo largo de su vida, ¿cual de las siguientes sustancias ha consumido alguna vez? (SOLO PARA USOS NO‐ MÉDICOS)','rta',null,null,true,true,'','col-10',"enabanfetaminasAssist();");
 	$c[]=new cmp('afrecuencia','s',3,'',$w.' '.$anf.' '.$o,'2. ¿Con qué frecuencia ha consumido las sustancias que ha mencionado en los últimos tres meses, (PRIMERA DROGA,SEGUND A DROGA, ETC)?','assist',null,null,true,true,'','col-10');
 	$c[]=new cmp('adeseo','s',3,'',$w.' '.$anf.' '.$o,'3. En los últimos tres meses, ¿con qué frecuencia ha tenido deseos fuertes o ansias de consumir (PRIMERA DROGA, SEGUNDA DROGA, ETC)?','assist',null,null,true,true,'','col-10');
 	$c[]=new cmp('asalud','s',3,'',$w.' '.$anf.' '.$o,'4. En los últimos tres meses, ¿con qué frecuencia le ha llevado su consumo de (PRIMERA DROGA SEGUNDA DROGA, ETC) a problemas de salud, sociales, legales o económicos?','assist',null,null,true,true,'','col-10');
@@ -107,7 +107,7 @@ function cmp_tamassist(){
 	$o='Inhalantes';
     $inh='InH';
 	$c[]=new cmp($o,'e',null,'Inhalantes',$w);
-	$c[]=new cmp('iconsumido','s',3,'',$w.' '.$o,'1. A lo largo de su vida, ¿cual de las siguientes sustancias ha consumido alguna vez? (SOLO PARA USOS NO‐ MÉDICOS)','rta',null,null,true,true,'','col-10');
+	$c[]=new cmp('iconsumido','s',3,'',$w.' '.$o,'1. A lo largo de su vida, ¿cual de las siguientes sustancias ha consumido alguna vez? (SOLO PARA USOS NO‐ MÉDICOS)','rta',null,null,true,true,'','col-10',"enabinhalantesAssist();");
 	$c[]=new cmp('ifrecuencia','s',3,'',$w.' '.$inh.' '.$o,'2. ¿Con qué frecuencia ha consumido las sustancias que ha mencionado en los últimos tres meses, (PRIMERA DROGA,SEGUND A DROGA, ETC)?','assist',null,null,true,true,'','col-10');
 	$c[]=new cmp('ideseo','s',3,'',$w.' '.$inh.' '.$o,'3. En los últimos tres meses, ¿con qué frecuencia ha tenido deseos fuertes o ansias de consumir (PRIMERA DROGA, SEGUNDA DROGA, ETC)?','assist',null,null,true,true,'','col-10');
 	$c[]=new cmp('isalud','s',3,'',$w.' '.$inh.' '.$o,'4. En los últimos tres meses, ¿con qué frecuencia le ha llevado su consumo de (PRIMERA DROGA SEGUNDA DROGA, ETC) a problemas de salud, sociales, legales o económicos?','assist',null,null,true,true,'','col-10');
@@ -118,7 +118,7 @@ function cmp_tamassist(){
 	$o='Tranquilizantes';
     $traq='TrA';
 	$c[]=new cmp($o,'e',null,'Tranquilizantes o pastillas para dormir',$w);
-	$c[]=new cmp('trconsumido','s',3,'',$w.' '.$o,'1. A lo largo de su vida, ¿cual de las siguientes sustancias ha consumido alguna vez? (SOLO PARA USOS NO‐ MÉDICOS)','rta',null,null,true,true,'','col-10');
+	$c[]=new cmp('trconsumido','s',3,'',$w.' '.$o,'1. A lo largo de su vida, ¿cual de las siguientes sustancias ha consumido alguna vez? (SOLO PARA USOS NO‐ MÉDICOS)','rta',null,null,true,true,'','col-10',"enabtranquilizanteAssist();");
 	$c[]=new cmp('trfrecuencia','s',3,'',$w.' '.$traq.' '.$o,'2. ¿Con qué frecuencia ha consumido las sustancias que ha mencionado en los últimos tres meses, (PRIMERA DROGA,SEGUND A DROGA, ETC)?','assist',null,null,true,true,'','col-10');
 	$c[]=new cmp('trdeseo','s',3,'',$w.' '.$traq.' '.$o,'3. En los últimos tres meses, ¿con qué frecuencia ha tenido deseos fuertes o ansias de consumir (PRIMERA DROGA, SEGUNDA DROGA, ETC)?','assist',null,null,true,true,'','col-10');
 	$c[]=new cmp('trsalud','s',3,'',$w.' '.$traq.' '.$o,'4. En los últimos tres meses, ¿con qué frecuencia le ha llevado su consumo de (PRIMERA DROGA SEGUNDA DROGA, ETC) a problemas de salud, sociales, legales o económicos?','assist',null,null,true,true,'','col-10');
@@ -140,7 +140,7 @@ function cmp_tamassist(){
 	$o='Opiaceos';
     $opi='OpI';
 	$c[]=new cmp($o,'e',null,'Opiáceos',$w);
-	$c[]=new cmp('oconsumido','s',3,'',$w.' '.$o,'1. A lo largo de su vida, ¿cual de las siguientes sustancias ha consumido alguna vez? (SOLO PARA USOS NO‐ MÉDICOS)','rta',null,null,true,true,'','col-10');
+	$c[]=new cmp('oconsumido','s',3,'',$w.' '.$o,'1. A lo largo de su vida, ¿cual de las siguientes sustancias ha consumido alguna vez? (SOLO PARA USOS NO‐ MÉDICOS)','rta',null,null,true,true,'','col-10',"enabopiaceosAssist();");
 	$c[]=new cmp('ofrecuencia','s',3,'',$w.' '.$opi.' '.$o,'2. ¿Con qué frecuencia ha consumido las sustancias que ha mencionado en los últimos tres meses, (PRIMERA DROGA,SEGUND A DROGA, ETC)?','assist',null,null,true,true,'','col-10');
 	$c[]=new cmp('odeseo','s',3,'',$w.' '.$opi.' '.$o,'3. En los últimos tres meses, ¿con qué frecuencia ha tenido deseos fuertes o ansias de consumir (PRIMERA DROGA, SEGUNDA DROGA, ETC)?','assist',null,null,true,true,'','col-10');
 	$c[]=new cmp('osalud','s',3,'',$w.' '.$opi.' '.$o,'4. En los últimos tres meses, ¿con qué frecuencia le ha llevado su consumo de (PRIMERA DROGA SEGUNDA DROGA, ETC) a problemas de salud, sociales, legales o económicos?','assist',null,null,true,true,'','col-10');
@@ -151,7 +151,7 @@ function cmp_tamassist(){
 	$o='Otros';
     $ot='OtR';
 	$c[]=new cmp($o,'e',null,'Otros',$w);
-	$c[]=new cmp('otconsumido','s',3,'',$w.' '.$o,'1. A lo largo de su vida, ¿cual de las siguientes sustancias ha consumido alguna vez? (SOLO PARA USOS NO‐ MÉDICOS)','rta',null,null,true,true,'','col-10');
+	$c[]=new cmp('otconsumido','s',3,'',$w.' '.$o,'1. A lo largo de su vida, ¿cual de las siguientes sustancias ha consumido alguna vez? (SOLO PARA USOS NO‐ MÉDICOS)','rta',null,null,true,true,'','col-10',"enabotrosAssist();");
 	$c[]=new cmp('otfrecuencia','s',3,'',$w.' '.$ot.' '.$o,'2. ¿Con qué frecuencia ha consumido las sustancias que ha mencionado en los últimos tres meses, (PRIMERA DROGA,SEGUND A DROGA, ETC)?','assist',null,null,true,true,'','col-10');
 	$c[]=new cmp('otdeseo','s',3,'',$w.' '.$ot.' '.$o,'3. En los últimos tres meses, ¿con qué frecuencia ha tenido deseos fuertes o ansias de consumir (PRIMERA DROGA, SEGUNDA DROGA, ETC)?','assist',null,null,true,true,'','col-10');
 	$c[]=new cmp('otsalud','s',3,'',$w.' '.$ot.' '.$o,'4. En los últimos tres meses, ¿con qué frecuencia le ha llevado su consumo de (PRIMERA DROGA SEGUNDA DROGA, ETC) a problemas de salud, sociales, legales o económicos?','assist',null,null,true,true,'','col-10');
