@@ -114,7 +114,7 @@ function cmp_medicamentctrl(){
     $c[]=new cmp('cantidadXaprobar','nu',30,$e,$w.' '.$o,'Pendiente por Entregar','cantidadXaprobar',null,'',false,false,'','col-2');
     $c[]=new cmp('tipo_medicamento','s',2,$e,$w.' '.$o,'Medicamento NO POS','tipo_medicamento',null,'',true,true,'','col-2');
     $c[]=new cmp('cant_ordenada','nu',30,$e,$w.' '.$o,'Cantidad Ordenada','cant_ordenada',null,'',true,true,'','col-2');  
-    $c[]=new cmp('cod_admision','s',2,$e,$w.' '.$o,'Cod. Admisión','cod_admision',null,'',true,true,'','col-2');
+    $c[]=new cmp('cod_admision','s',2,$e,$w.' '.$o,'Cod. Admisión','cod_admision',null,'',true,true,'','col-4');
     $c[]=new cmp('observaciones','a',255,$e,$w.' '.$o,'Observaciones','observaciones',null,'',true,true,'','col-12');
     
     for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
