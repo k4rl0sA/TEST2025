@@ -182,84 +182,104 @@ function opc_cod_admision($id=''){
 }
 
 function gra_medicamentctrl(){
-    // Validación de campos obligatorios
-    $required = [
-        'cantidad_prescrita', 'fecha_entrega', 'numero_entrega',
-        'tipo_medicamento', 'medicamento', 'estado_entrega'
+  // Validación de campos obligatorios
+  $required = [
+    'fecha_orden', 'cantidad_prescrita', 'fecha_entrega', 'numero_entrega',
+    'cantidad_entregada', 'tipo_medicamento', 'medicamento', 'requiere_aprobacion',
+    'cantidadXaprobar', 'cant_ordenada', 'cod_admision', 'estado_entrega', 'observaciones'
+  ];
+
+  foreach ($required as $field) {
+    if (isset($_POST[$field]) && trim($_POST[$field]) === '' && $field !== 'observaciones') {
+      return ['error' => 'El campo '.$field.' es obligatorio.'];
+    }
+  }
+
+  // Validar formato de fecha (YYYY-MM-DD)
+  if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $_POST['fecha_entrega'])) {
+    return ['error' => 'El formato de la fecha de entrega es inválido.'];
+  }
+  if (!empty($_POST['fecha_orden']) && !preg_match('/^\d{4}-\d{2}-\d{2}$/', $_POST['fecha_orden'])) {
+    return ['error' => 'El formato de la fecha de orden es inválido.'];
+  }
+
+  // Validar valores numéricos
+  if (!is_numeric($_POST['cantidad_prescrita']) || $_POST['cantidad_prescrita'] <= 0) {
+    return ['error' => 'La cantidad prescrita debe ser un número positivo.'];
+  }
+  if (!empty($_POST['cantidad_entregada']) && 
+    (!is_numeric($_POST['cantidad_entregada']) || $_POST['cantidad_entregada'] < 0)) {
+    return ['error' => 'La cantidad entregada debe ser un número positivo.'];
+  }
+  if (!empty($_POST['cant_ordenada']) && 
+    (!is_numeric($_POST['cant_ordenada']) || $_POST['cant_ordenada'] < 0)) {
+    return ['error' => 'La cantidad ordenada debe ser un número positivo.'];
+  }
+  if (!empty($_POST['cantidadXaprobar']) && 
+    (!is_numeric($_POST['cantidadXaprobar']) || $_POST['cantidadXaprobar'] < 0)) {
+    return ['error' => 'La cantidad pendiente por entregar debe ser un número positivo.'];
+  }
+
+  $id = divide($_POST['id']);
+  if (count($id) == 1) {
+    // Actualización
+    $sql = "UPDATE medicamentos_ctrl SET 
+        fecha_orden=?, cantidad_prescrita=?, fecha_entrega=?, numero_entrega=?, 
+        cantidad_entregada=?, tipo_medicamento=?, medicamento=?, requiere_aprobacion=?, 
+        cantidadXaprobar=?, cant_ordenada=?, cod_admision=?, estado_entrega=?, observaciones=?, 
+        usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
+        WHERE id_medicam=?";
+    $params = [
+      ['type' => 's', 'value' => trim($_POST['fecha_orden'])],
+      ['type' => 'i', 'value' => intval($_POST['cantidad_prescrita'])],
+      ['type' => 's', 'value' => trim($_POST['fecha_entrega'])],
+      ['type' => 's', 'value' => trim($_POST['numero_entrega'])],
+      ['type' => 'i', 'value' => intval($_POST['cantidad_entregada'] ?? 0)],
+      ['type' => 's', 'value' => trim($_POST['tipo_medicamento'])],
+      ['type' => 's', 'value' => trim($_POST['medicamento'])],
+      ['type' => 's', 'value' => trim($_POST['requiere_aprobacion'] ?? '')],
+      ['type' => 'i', 'value' => intval($_POST['cantidadXaprobar'] ?? 0)],
+      ['type' => 'i', 'value' => intval($_POST['cant_ordenada'] ?? 0)],
+      ['type' => 's', 'value' => trim($_POST['cod_admision'] ?? '')],
+      ['type' => 's', 'value' => trim($_POST['estado_entrega'])],
+      ['type' => 's', 'value' => trim($_POST['observaciones'] ?? '')],
+      ['type' => 's', 'value' => $_SESSION['us_sds']],
+      ['type' => 'i', 'value' => intval($id[0])]
     ];
-    
-    foreach ($required as $field) {
-        if (empty($_POST[$field])) {
-            return ['error' => 'El campo '.$field.' es obligatorio.'];
-        }
-    }
-    
-    // Validar formato de fecha (YYYY-MM-DD)
-    if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $_POST['fecha_entrega'])) {
-        return ['error' => 'El formato de la fecha es inválido.'];
-    }
-    
-    // Validar valores numéricos
-    if (!is_numeric($_POST['cantidad_prescrita']) || $_POST['cantidad_prescrita'] <= 0) {
-        return ['error' => 'La cantidad prescrita debe ser un número positivo.'];
-    }
-    
-    if (!empty($_POST['cantidad_entregada']) && 
-        (!is_numeric($_POST['cantidad_entregada']) || $_POST['cantidad_entregada'] < 0)) {
-        return ['error' => 'La cantidad entregada debe ser un número positivo.'];
-    }
-    
-    $id = divide($_POST['id']);
-    if (count($id) == 1) {
-        // Actualización
-        $sql = "UPDATE medicamentos_ctrl SET 
-                cantidad_prescrita=?, fecha_entrega=?, numero_entrega=?, 
-                cantidad_entregada=?, tipo_medicamento=?, medicamento=?, 
-                requiere_aprobacion=?, cantidadXaprobar=?, estado_entrega=?, 
-                observaciones=?, usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
-                WHERE id_medicam=?";
-        $params = [
-            ['type' => 'i', 'value' => intval($_POST['cantidad_prescrita'])],
-            ['type' => 's', 'value' => trim($_POST['fecha_entrega'])],
-            ['type' => 's', 'value' => trim($_POST['numero_entrega'])],
-            ['type' => 'i', 'value' => intval($_POST['cantidad_entregada'] ?? 0)],
-            ['type' => 's', 'value' => trim($_POST['tipo_medicamento'])],
-            ['type' => 's', 'value' => trim($_POST['medicamento'])],
-            ['type' => 's', 'value' => trim($_POST['requiere_aprobacion'] ?? '')],
-            ['type' => 'i', 'value' => intval($_POST['cantidadXaprobar'] ?? 0)],
-            ['type' => 's', 'value' => trim($_POST['estado_entrega'])],
-            ['type' => 's', 'value' => trim($_POST['observaciones'] ?? '')],
-            ['type' => 's', 'value' => $_SESSION['us_sds']],
-            ['type' => 'i', 'value' => intval($id[0])]
-        ];
-    } else if (count($id) == 2) {
-        // Inserción
-        $sql = "INSERT INTO medicamentos_ctrl VALUES (
-                ?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),?,?,?)";
-        $params = [
-            ['type' => 'i', 'value' => null], // id_medicam auto-increment
-            ['type' => 's', 'value' => $id[0]], // idpeople
-            ['type' => 'i', 'value' => intval($_POST['cantidad_prescrita'])],
-            ['type' => 's', 'value' => trim($_POST['fecha_entrega'])],
-            ['type' => 's', 'value' => trim($_POST['numero_entrega'])],
-            ['type' => 'i', 'value' => intval($_POST['cantidad_entregada'] ?? 0)],
-            ['type' => 's', 'value' => trim($_POST['tipo_medicamento'])],
-            ['type' => 's', 'value' => trim($_POST['medicamento'])],
-            ['type' => 's', 'value' => trim($_POST['requiere_aprobacion'] ?? '')],
-            ['type' => 'i', 'value' => intval($_POST['cantidadXaprobar'] ?? 0)],
-            ['type' => 's', 'value' => trim($_POST['estado_entrega'])],
-            ['type' => 's', 'value' => trim($_POST['observaciones'] ?? '')],
-            ['type' => 's', 'value' => $_SESSION['us_sds']], // usu_create
-            ['type' => 's', 'value' => null], // usu_update
-            ['type' => 's', 'value' => null], // fecha_update
-            ['type' => 's', 'value' => 'A'] // estado
-        ];
-    } else {
-        return ['error' => 'ID inválido.'];
-    }
-    
-    $rta = mysql_prepd($sql, $params);
-    return $rta;
+  } else if (count($id) == 2) {
+    // Inserción
+    $sql = "INSERT INTO medicamentos_ctrl (
+        id_medicam, idpeople, fecha_orden, cantidad_prescrita, fecha_entrega, numero_entrega, cantidad_entregada, tipo_medicamento, medicamento, requiere_aprobacion, cantidadXaprobar, cant_ordenada, cod_admision, estado_entrega, observaciones, usu_create, usu_update, fecha_update, estado, fecha_create
+      ) VALUES (
+        ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR)
+      )";
+    $params = [
+      ['type' => 'i', 'value' => null], // id_medicam auto-increment
+      ['type' => 's', 'value' => $id[0]], // idpeople
+      ['type' => 's', 'value' => trim($_POST['fecha_orden'])],
+      ['type' => 'i', 'value' => intval($_POST['cantidad_prescrita'])],
+      ['type' => 's', 'value' => trim($_POST['fecha_entrega'])],
+      ['type' => 's', 'value' => trim($_POST['numero_entrega'])],
+      ['type' => 'i', 'value' => intval($_POST['cantidad_entregada'] ?? 0)],
+      ['type' => 's', 'value' => trim($_POST['tipo_medicamento'])],
+      ['type' => 's', 'value' => trim($_POST['medicamento'])],
+      ['type' => 's', 'value' => trim($_POST['requiere_aprobacion'] ?? '')],
+      ['type' => 'i', 'value' => intval($_POST['cantidadXaprobar'] ?? 0)],
+      ['type' => 'i', 'value' => intval($_POST['cant_ordenada'] ?? 0)],
+      ['type' => 's', 'value' => trim($_POST['cod_admision'] ?? '')],
+      ['type' => 's', 'value' => trim($_POST['estado_entrega'])],
+      ['type' => 's', 'value' => trim($_POST['observaciones'] ?? '')],
+      ['type' => 's', 'value' => $_SESSION['us_sds']], // usu_create
+      ['type' => 's', 'value' => null], // usu_update
+      ['type' => 's', 'value' => null], // fecha_update
+      ['type' => 's', 'value' => 'A'] // estado
+    ];
+  } else {
+    return ['error' => 'ID inválido.'];
+  }
+
+  $rta = mysql_prepd($sql, $params);
+  return $rta;
 }
 
 function get_medicamentctrl(){
