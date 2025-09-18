@@ -42,7 +42,7 @@ function lis_medicamentctrl(){
     $id=divide($_POST['id']);
 
     $total="SELECT COUNT(*) AS total FROM (
-      SELECT id_medic 'Cod Registro',fecha_orden, CONCAT(cantidad_prescrita, ' unidades') as cantidad_prescrita,fecha_entrega,FN_CATALOGODESC(88, numero_entrega) as numero_entrega,
+      SELECT id_medicam 'Cod Registro',fecha_orden, CONCAT(cantidad_prescrita, ' unidades') as cantidad_prescrita,fecha_entrega,FN_CATALOGODESC(88, numero_entrega) as numero_entrega,
       CONCAT(cantidad_entregada, ' unidades') as cantidad_entregada,FN_CATALOGODESC(89, tipo_medicamento) as tipo_medicamento,FN_CATALOGODESC(90, medicamento) as medicamento,
              FN_CATALOGODESC(91, estado_entrega) as estado_entrega
       FROM medicamentos_ctrl 
@@ -54,7 +54,7 @@ function lis_medicamentctrl(){
     $regxPag=5;
     $pag=(isset($_POST['pag-medicamentctrl']))? ($_POST['pag-medicamentctrl']-1)* $regxPag:0;
 
-    $sql="SELECT id_medic 'Cod Registro', idpeople, 
+    $sql="SELECT id_medicam 'Cod Registro', fecha_orden, 
                  CONCAT(cantidad_prescrita, ' unidades') as cantidad_prescrita,
                  fecha_entrega,
                  FN_CATALOGODESC(88, numero_entrega) as numero_entrega,
@@ -74,7 +74,7 @@ function cmp_medicamentctrl(){
     $rta="<div class='encabezado medid'>CONTROL DE ENTREGAS DE MEDICAMENTOS</div>
     <div class='contenido' id='medicamentctrl-lis'>".lis_medicamentctrl()."</div></div>";
     
-    $t=['id_medic'=>'','idpersona'=>'','nombre'=>'','tipodoc'=>'','fechanacimiento'=>'','edad'=>'','sexo'=>'',
+    $t=['id_medicam'=>'','idpersona'=>'','nombre'=>'','tipodoc'=>'','fechanacimiento'=>'','edad'=>'','sexo'=>'',
         'cantidad_prescrita'=>'','fecha_entrega'=>'','numero_entrega'=>'','cantidad_entregada'=>'',
         'tipo_medicamento'=>'','medicamento'=>'','requiere_aprobacion'=>'','cantidadXaprobar'=>'',
         'estado_entrega'=>'','observaciones'=>''];
@@ -218,7 +218,7 @@ function gra_medicamentctrl(){
                 cantidad_entregada=?, tipo_medicamento=?, medicamento=?, 
                 requiere_aprobacion=?, cantidadXaprobar=?, estado_entrega=?, 
                 observaciones=?, usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
-                WHERE id_medic=?";
+                WHERE id_medicam=?";
         $params = [
             ['type' => 'i', 'value' => intval($_POST['cantidad_prescrita'])],
             ['type' => 's', 'value' => trim($_POST['fecha_entrega'])],
@@ -238,7 +238,7 @@ function gra_medicamentctrl(){
         $sql = "INSERT INTO medicamentos_ctrl VALUES (
                 ?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),?,?,?)";
         $params = [
-            ['type' => 'i', 'value' => null], // id_medic auto-increment
+            ['type' => 'i', 'value' => null], // id_medicam auto-increment
             ['type' => 's', 'value' => $id[0]], // idpeople
             ['type' => 'i', 'value' => intval($_POST['cantidad_prescrita'])],
             ['type' => 's', 'value' => trim($_POST['fecha_entrega'])],
@@ -268,9 +268,9 @@ function get_medicamentctrl(){
         return "";
     } else {
         $id=divide($_REQUEST['id']);
-        $sql="SELECT id_medic, idpeople, cantidad_prescrita, fecha_entrega,numero_entrega, cantidad_entregada, tipo_medicamento,medicamento, requiere_aprobacion, cantidadXaprobar,estado_entrega, observaciones
+        $sql="SELECT id_medicam, idpeople, cantidad_prescrita, fecha_entrega,numero_entrega, cantidad_entregada, tipo_medicamento,medicamento, requiere_aprobacion, cantidadXaprobar,estado_entrega, observaciones
               FROM medicamentos_ctrl 
-              WHERE id_medic='{$id[0]}'";
+              WHERE id_medicam='{$id[0]}'";
         $info=datos_mysql($sql);
         return json_encode($info['responseResult'][0]);
     } 
