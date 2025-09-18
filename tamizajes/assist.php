@@ -453,7 +453,7 @@ function gra_tamassist() {
         ['type' => 'i', 'value' => $valores['othabitual']],
         ['type' => 'i', 'value' => $valores['otpreocupa']],
         ['type' => 'i', 'value' => $valores['otcontrolar']],
-        ['type' => 's', 'value' => $valores['inyec']],
+        ['type' => 's', 'value' => $_POST['inyec']],
         ['type' => 'i', 'value' => $puntaje_tabaco],
         ['type' => 's', 'value' => $nivel_tabaco],
 		['type' => 'i', 'value' => $puntaje_bebidas],
