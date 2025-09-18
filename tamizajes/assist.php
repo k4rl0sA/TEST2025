@@ -251,13 +251,13 @@ function gra_tamassist() {
             } else {
                 $valores[$post_key] = isset($_POST[$post_key]) ? $_POST[$post_key] : null;
             }
-            var_dump($prefijo . 'consumido',$valores[$post_key]);
+            
         }
         // Consumido no se mapea, solo se toma el valor
 /*         $consumido_key = $prefijo . 'consumido';
         $valores[$consumido_key] = isset($_POST[$consumido_key]) ? $_POST[$consumido_key] : null;
         var_dump($consumido_key,$valores[$consumido_key]); */
-
+var_dump($prefijo . 'consumido',$valores[$post_key]);
     }
 
     // Calcular puntaje y nivel de riesgo para Tabaco (puedes hacer lo mismo para las demás sustancias si lo necesitas)
