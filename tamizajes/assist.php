@@ -257,7 +257,7 @@ function gra_tamassist() {
 /*         $consumido_key = $prefijo . 'consumido';
         $valores[$consumido_key] = isset($_POST[$consumido_key]) ? $_POST[$consumido_key] : null;
         var_dump($consumido_key,$valores[$consumido_key]); */
-var_dump($prefijo . 'consumido',$valores[$post_key]);
+var_dump($prefijo . 'consumido', $valores[$prefijo . 'consumido']);
     }
 
     // Calcular puntaje y nivel de riesgo para Tabaco (puedes hacer lo mismo para las demás sustancias si lo necesitas)
