@@ -40,7 +40,6 @@ function cap_menus($a,$b='cap',$con='con') {
 
 function lis_medicamentctrl(){
     $id=divide($_POST['id']);
-
     $total="SELECT COUNT(*) AS total FROM (
       SELECT id_medicam 'Cod Registro',fecha_orden, CONCAT(cantidad_prescrita, ' unidades') as cantidad_prescrita,fecha_entrega,FN_CATALOGODESC(88, numero_entrega) as numero_entrega,
       CONCAT(cantidad_entregada, ' unidades') as cantidad_entregada,FN_CATALOGODESC(89, tipo_medicamento) as tipo_medicamento,FN_CATALOGODESC(90, medicamento) as medicamento,
