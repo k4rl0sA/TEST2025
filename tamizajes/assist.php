@@ -350,7 +350,7 @@ function gra_tamassist() {
     alconsumido, alfrecuencia, aldeseo, alsalud, alhabitual, alpreocupa, alcontrolar,
     oconsumido, ofrecuencia, odeseo, osalud, ohabitual, opreocupa, ocontrolar,
     otconsumido, otfrecuencia, otdeseo, otsalud, othabitual, otpreocupa, otcontrolar,
-    assist2, usu_creo, fecha_create, estado
+    inyec, usu_creo, fecha_create, estado
 ) VALUES (
     ?, ?, ?, ?, ?, ?, ?, ?, ?,
     ?, ?, ?, ?, ?, ?, ?,
