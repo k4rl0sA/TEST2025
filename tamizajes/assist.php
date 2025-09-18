@@ -252,10 +252,12 @@ function gra_tamassist() {
                 $valores[$post_key] = isset($_POST[$post_key]) ? $_POST[$post_key] : null;
             }
         }
+        VAR_DUMP($prefijo . 'consumido');
+        VAR_DUMP($valores[$prefijo . 'consumido']);
         // Consumido no se mapea, solo se toma el valor
-        $consumido_key = $prefijo . 'consumido';
+       /*  $consumido_key = $prefijo . 'consumido';
         $valores[$consumido_key] = isset($_POST[$consumido_key]) ? $_POST[$consumido_key] : null;
-        var_dump($consumido_key,$valores[$consumido_key]);
+        var_dump($consumido_key,$valores[$consumido_key]); */
 
     }
 
