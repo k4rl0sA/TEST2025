@@ -338,7 +338,7 @@ function gra_tamassist() {
         $nivel_otros = 'ALTO';
     }
     // Preparar consulta y parámetros (solo ejemplo para los primeros campos, agrega los demás según tu tabla)
-    $$sql = "INSERT INTO tam_assist (
+    $sql = "INSERT INTO tam_assist (
     idpeople, fecha_toma,
     tconsumido, tfrecuencia, tdeseo, tsalud, thabitual, tpreocupa, tcontrolar,
     bconsumido, bfrecuencia, bdeseo, bsalud, bhabitual, bpreocupa, bcontrolar,
