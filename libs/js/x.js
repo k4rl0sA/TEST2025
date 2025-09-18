@@ -1493,3 +1493,9 @@ function enabTabacoAssist(){
 	];
 	EnabDepeDynamic(['TaBa'], conditions);
 }
+function enabbebidasAssist(){
+	const conditions = [
+		{ id: 'bconsumido', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['BeB'], conditions);
+}
