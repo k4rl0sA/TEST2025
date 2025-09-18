@@ -249,6 +249,7 @@ function gra_medicamentctrl(){
       ['type' => 's', 'value' => $_SESSION['us_sds']],
       ['type' => 'i', 'value' => intval($id[0])]
     ];
+    $rta = mysql_prepd($sql, $params);
   } else if (count($id) == 2) {
     // Inserción
     $sql = "INSERT INTO medicamentos_ctrl (
@@ -277,11 +278,10 @@ function gra_medicamentctrl(){
       ['type' => 's', 'value' => null], // fecha_update
       ['type' => 's', 'value' => 'A'] // estado
     ];
+    $rta = mysql_prepd($sql, $params);
   } else {
     $rta="Error: msj['No existe un equipo actualmente para el usuario que realizo el seguimiento']";
   }
-
-  $rta = mysql_prepd($sql, $params);
   return $rta;
 }
 
