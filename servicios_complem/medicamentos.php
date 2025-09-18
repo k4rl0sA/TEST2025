@@ -166,6 +166,8 @@ function opc_estado_entrega($id=''){
 }
 
 function opc_entrega($id=''){
+  $id=divide($a);
+  
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=305 AND VALOR=0 AND estado='A' ORDER BY 1",$id);
 
   /* $id=divide($a);
