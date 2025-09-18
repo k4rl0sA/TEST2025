@@ -273,10 +273,7 @@ function get_medicamentctrl(){
         return "";
     } else {
         $id=divide($_REQUEST['id']);
-        $sql="SELECT id_medic, idpeople, cantidad_prescrita, fecha_entrega, 
-                     numero_entrega, cantidad_entregada, tipo_medicamento, 
-                     medicamento, requiere_aprobacion, cantidadXaprobar, 
-                     estado_entrega, observaciones
+    $sql="SELECT id_medic, idpeople, cantidad_prescrita, fecha_entrega,numero_entrega, cantidad_entregada, tipo_medicamento,medicamento, requiere_aprobacion, cantidadXaprobar,estado_entrega, observaciones
               FROM medicamentos_ctrl 
               WHERE id_medic='{$id[0]}'";
         $info=datos_mysql($sql);
