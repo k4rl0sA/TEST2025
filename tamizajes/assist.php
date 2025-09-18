@@ -278,7 +278,7 @@ function gra_tamassist() {
     }
 	 $puntaje_cannabis = $valores['cconsumido']+$valores['cfrecuencia'] + $valores['cdeseo'] + $valores['csalud'] + $valores['chabitual'] + $valores['cpreocupa'] + $valores['ccontrolar'];
     $nivel_cannabis = '';
-    if ($puntaje_cannabis <= 10) {
+    if ($puntaje_cannabis <= 3) {
         $nivel_cannabis = 'BAJO';
     } elseif ($puntaje_cannabis <= 26) {
         $nivel_cannabis = 'MODERADO';
@@ -287,7 +287,7 @@ function gra_tamassist() {
     }
 	$puntaje_cocaina = $valores['coconsumido']+$valores['cofrecuencia'] + $valores['codeseo'] + $valores['cosalud'] + $valores['cohabitual'] + $valores['copreocupa'] + $valores['cocontrolar'];
     $nivel_cocaina = '';
-    if ($puntaje_cocaina <= 10) {
+    if ($puntaje_cocaina <= 3) {
         $nivel_cocaina = 'BAJO';
     } elseif ($puntaje_cocaina <= 26) {
         $nivel_cocaina = 'MODERADO';
@@ -296,7 +296,7 @@ function gra_tamassist() {
     }
 	$puntaje_anfetaminas = $valores['aconsumido']+$valores['afrecuencia'] + $valores['adeseo'] + $valores['asalud'] + $valores['ahabitual'] + $valores['apreocupa'] + $valores['acontrolar'];
     $nivel_anfetaminas = '';
-    if ($puntaje_anfetaminas <= 10) {
+    if ($puntaje_anfetaminas <= 3) {
         $nivel_anfetaminas = 'BAJO';
     } elseif ($puntaje_anfetaminas <= 26) {
         $nivel_anfetaminas = 'MODERADO';
@@ -305,7 +305,7 @@ function gra_tamassist() {
     }
 	$puntaje_inhalantes = $valores['iconsumido']+$valores['ifrecuencia'] + $valores['ideseo'] + $valores['isalud'] + $valores['ihabitual'] + $valores['ipreocupa'] + $valores['icontrolar'];
     $nivel_inhalantes = '';
-    if ($puntaje_inhalantes <= 10) {
+    if ($puntaje_inhalantes <= 3) {
         $nivel_inhalantes = 'BAJO';
     } elseif ($puntaje_inhalantes <= 26) {
         $nivel_inhalantes = 'MODERADO';
@@ -314,7 +314,7 @@ function gra_tamassist() {
     }
 	$puntaje_tranquilizantes = $valores['trconsumido']+$valores['trfrecuencia'] + $valores['trdeseo'] + $valores['trsalud'] + $valores['trhabitual'] + $valores['trpreocupa'] + $valores['trcontrolar'];
     $nivel_tranquilizantes = '';
-    if ($puntaje_tranquilizantes <= 10) {
+    if ($puntaje_tranquilizantes <= 3) {
         $nivel_tranquilizantes = 'BAJO';
     } elseif ($puntaje_tranquilizantes <= 26) {
         $nivel_tranquilizantes = 'MODERADO';
@@ -323,7 +323,7 @@ function gra_tamassist() {
     }
 	$puntaje_alucinogenos = $valores['alconsumido']+$valores['alfrecuencia'] + $valores['aldeseo'] + $valores['alsalud'] + $valores['alhabitual'] + $valores['alpreocupa'] + $valores['alcontrolar'];
     $nivel_alucinogenos = '';
-    if ($puntaje_alucinogenos <= 10) {
+    if ($puntaje_alucinogenos <= 3) {
         $nivel_alucinogenos = 'BAJO';
     } elseif ($puntaje_alucinogenos <= 26) {
         $nivel_alucinogenos = 'MODERADO';
@@ -332,7 +332,7 @@ function gra_tamassist() {
     }
 	$puntaje_opiaceos = $valores['oconsumido']+$valores['ofrecuencia'] + $valores['odeseo'] + $valores['osalud'] + $valores['ohabitual'] + $valores['opreocupa'] + $valores['tcontrolar'];
     $nivel_opiaceos = '';
-    if ($puntaje_opiaceos <= 10) {
+    if ($puntaje_opiaceos <= 3) {
         $nivel_opiaceos = 'BAJO';
     } elseif ($puntaje_opiaceos <= 26) {
         $nivel_opiaceos = 'MODERADO';
@@ -341,7 +341,7 @@ function gra_tamassist() {
     }
 	$puntaje_otros = $valores['otconsumido']+$valores['otfrecuencia'] + $valores['otdeseo'] + $valores['otsalud'] + $valores['othabitual'] + $valores['otpreocupa'] + $valores['otcontrolar'];
     $nivel_otros = '';
-    if ($puntaje_otros <= 10) {
+    if ($puntaje_otros <= 3) {
         $nivel_otros = 'BAJO';
     } elseif ($puntaje_otros <= 26) {
         $nivel_otros = 'MODERADO';
