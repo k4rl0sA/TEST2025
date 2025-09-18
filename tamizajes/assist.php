@@ -334,6 +334,7 @@ function gra_tamassist() {
         $nivel_alucinogenos = 'ALTO';
     }
 	$puntaje_opiaceos = $valores['oconsumido']+$valores['ofrecuencia'] + $valores['odeseo'] + $valores['osalud'] + $valores['ohabitual'] + $valores['opreocupa'] + $valores['tcontrolar'];
+    var_dump($puntaje_opiaceos);
     $nivel_opiaceos = '';
     if ($puntaje_opiaceos <= 3) {
         $nivel_opiaceos = 'BAJO';
