@@ -212,7 +212,7 @@ function gra_tamassist() {
 
     // Mapas de equivalencia
     $mapas = [
-        'consumido' => [1 => 3, 2 => 0],
+        'consumido' => [1 => 1, 0 => 0],
         'frecuencia' => [1 => 0, 2 => 2, 3 => 3, 4 => 4, 5 => 6],
         'deseo'      => [1 => 0, 2 => 3, 3 => 4, 4 => 5, 5 => 6],
         'salud'      => [1 => 0, 2 => 4, 3 => 5, 4 => 6, 5 => 7],
@@ -255,6 +255,8 @@ function gra_tamassist() {
         // Consumido no se mapea, solo se toma el valor
         $consumido_key = $prefijo . 'consumido';
         $valores[$consumido_key] = isset($_POST[$consumido_key]) ? $_POST[$consumido_key] : null;
+        var_dump($consumido_key);
+
     }
 
     // Calcular puntaje y nivel de riesgo para Tabaco (puedes hacer lo mismo para las demás sustancias si lo necesitas)
