@@ -42,13 +42,8 @@ function lis_medicamentctrl(){
     $id=divide($_POST['id']);
 
     $total="SELECT COUNT(*) AS total FROM (
-      SELECT id_medic 'Cod Registro', idpeople, 
-             CONCAT(cantidad_prescrita, ' unidades') as cantidad_prescrita,
-             fecha_entrega,
-             FN_CATALOGODESC(88, numero_entrega) as numero_entrega,
-             CONCAT(cantidad_entregada, ' unidades') as cantidad_entregada,
-             FN_CATALOGODESC(89, tipo_medicamento) as tipo_medicamento,
-             FN_CATALOGODESC(90, medicamento) as medicamento,
+      SELECT id_medic 'Cod Registro',fecha_orden, CONCAT(cantidad_prescrita, ' unidades') as cantidad_prescrita,fecha_entrega,FN_CATALOGODESC(88, numero_entrega) as numero_entrega,
+      CONCAT(cantidad_entregada, ' unidades') as cantidad_entregada,FN_CATALOGODESC(89, tipo_medicamento) as tipo_medicamento,FN_CATALOGODESC(90, medicamento) as medicamento,
              FN_CATALOGODESC(91, estado_entrega) as estado_entrega
       FROM medicamentos_ctrl 
       WHERE idpeople='{$id[0]}' AND estado='A'
@@ -273,7 +268,7 @@ function get_medicamentctrl(){
         return "";
     } else {
         $id=divide($_REQUEST['id']);
-    $sql="SELECT id_medic, idpeople, cantidad_prescrita, fecha_entrega,numero_entrega, cantidad_entregada, tipo_medicamento,medicamento, requiere_aprobacion, cantidadXaprobar,estado_entrega, observaciones
+        $sql="SELECT id_medic, idpeople, cantidad_prescrita, fecha_entrega,numero_entrega, cantidad_entregada, tipo_medicamento,medicamento, requiere_aprobacion, cantidadXaprobar,estado_entrega, observaciones
               FROM medicamentos_ctrl 
               WHERE id_medic='{$id[0]}'";
         $info=datos_mysql($sql);
