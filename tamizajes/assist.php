@@ -253,14 +253,14 @@ function gra_tamassist() {
             }
         }
         // Consumido no se mapea, solo se toma el valor
-       /*  $consumido_key = $prefijo . 'consumido';
+        $consumido_key = $prefijo . 'consumido';
         $valores[$consumido_key] = isset($_POST[$consumido_key]) ? $_POST[$consumido_key] : null;
-        var_dump($consumido_key,$valores[$consumido_key]); */
+        var_dump($consumido_key,$valores[$consumido_key]);
 
     }
 
-    // Calcular puntaje y nivel de riesgo para cada sustancia (incluyendo consumido)
-    $puntaje_tabaco = $valores['tconsumido'] + $valores['tfrecuencia'] + $valores['tdeseo'] + $valores['tsalud'] + $valores['thabitual'] + $valores['tpreocupa'] + $valores['tcontrolar'];
+    // Calcular puntaje y nivel de riesgo para Tabaco (puedes hacer lo mismo para las demás sustancias si lo necesitas)
+    $puntaje_tabaco = $valores['tconsumido']+$valores['tfrecuencia'] + $valores['tdeseo'] + $valores['tsalud'] + $valores['thabitual'] + $valores['tpreocupa'] + $valores['tcontrolar'];
     $nivel_tabaco = '';
     if ($puntaje_tabaco <= 3) {
         $nivel_tabaco = 'BAJO';
@@ -269,7 +269,7 @@ function gra_tamassist() {
     } else {
         $nivel_tabaco = 'ALTO';
     }
-    $puntaje_bebidas = $valores['bconsumido'] + $valores['bfrecuencia'] + $valores['bdeseo'] + $valores['bsalud'] + $valores['bhabitual'] + $valores['bpreocupa'] + $valores['bcontrolar'];
+	 $puntaje_bebidas = $valores['bconsumido']+$valores['bfrecuencia'] + $valores['bdeseo'] + $valores['bsalud'] + $valores['bhabitual'] + $valores['bpreocupa'] + $valores['bcontrolar'];
     $nivel_bebidas = '';
     if ($puntaje_bebidas <= 10) {
         $nivel_bebidas = 'BAJO';
@@ -278,7 +278,7 @@ function gra_tamassist() {
     } else {
         $nivel_bebidas = 'ALTO';
     }
-    $puntaje_cannabis = $valores['cconsumido'] + $valores['cfrecuencia'] + $valores['cdeseo'] + $valores['csalud'] + $valores['chabitual'] + $valores['cpreocupa'] + $valores['ccontrolar'];
+	 $puntaje_cannabis = $valores['cconsumido']+$valores['cfrecuencia'] + $valores['cdeseo'] + $valores['csalud'] + $valores['chabitual'] + $valores['cpreocupa'] + $valores['ccontrolar'];
     $nivel_cannabis = '';
     if ($puntaje_cannabis <= 3) {
         $nivel_cannabis = 'BAJO';
@@ -287,7 +287,7 @@ function gra_tamassist() {
     } else {
         $nivel_cannabis = 'ALTO';
     }
-    $puntaje_cocaina = $valores['coconsumido'] + $valores['cofrecuencia'] + $valores['codeseo'] + $valores['cosalud'] + $valores['cohabitual'] + $valores['copreocupa'] + $valores['cocontrolar'];
+	$puntaje_cocaina = $valores['coconsumido']+$valores['cofrecuencia'] + $valores['codeseo'] + $valores['cosalud'] + $valores['cohabitual'] + $valores['copreocupa'] + $valores['cocontrolar'];
     $nivel_cocaina = '';
     if ($puntaje_cocaina <= 3) {
         $nivel_cocaina = 'BAJO';
@@ -296,7 +296,7 @@ function gra_tamassist() {
     } else {
         $nivel_cocaina = 'ALTO';
     }
-    $puntaje_anfetaminas = $valores['aconsumido'] + $valores['afrecuencia'] + $valores['adeseo'] + $valores['asalud'] + $valores['ahabitual'] + $valores['apreocupa'] + $valores['acontrolar'];
+	$puntaje_anfetaminas = $valores['aconsumido']+$valores['afrecuencia'] + $valores['adeseo'] + $valores['asalud'] + $valores['ahabitual'] + $valores['apreocupa'] + $valores['acontrolar'];
     $nivel_anfetaminas = '';
     if ($puntaje_anfetaminas <= 3) {
         $nivel_anfetaminas = 'BAJO';
@@ -305,7 +305,7 @@ function gra_tamassist() {
     } else {
         $nivel_anfetaminas = 'ALTO';
     }
-    $puntaje_inhalantes = $valores['iconsumido'] + $valores['ifrecuencia'] + $valores['ideseo'] + $valores['isalud'] + $valores['ihabitual'] + $valores['ipreocupa'] + $valores['icontrolar'];
+	$puntaje_inhalantes = $valores['iconsumido']+$valores['ifrecuencia'] + $valores['ideseo'] + $valores['isalud'] + $valores['ihabitual'] + $valores['ipreocupa'] + $valores['icontrolar'];
     $nivel_inhalantes = '';
     if ($puntaje_inhalantes <= 3) {
         $nivel_inhalantes = 'BAJO';
@@ -314,7 +314,7 @@ function gra_tamassist() {
     } else {
         $nivel_inhalantes = 'ALTO';
     }
-    $puntaje_tranquilizantes = $valores['trconsumido'] + $valores['trfrecuencia'] + $valores['trdeseo'] + $valores['trsalud'] + $valores['trhabitual'] + $valores['trpreocupa'] + $valores['trcontrolar'];
+	$puntaje_tranquilizantes = $valores['trconsumido']+$valores['trfrecuencia'] + $valores['trdeseo'] + $valores['trsalud'] + $valores['trhabitual'] + $valores['trpreocupa'] + $valores['trcontrolar'];
     $nivel_tranquilizantes = '';
     if ($puntaje_tranquilizantes <= 3) {
         $nivel_tranquilizantes = 'BAJO';
@@ -323,7 +323,7 @@ function gra_tamassist() {
     } else {
         $nivel_tranquilizantes = 'ALTO';
     }
-    $puntaje_alucinogenos = $valores['alconsumido'] + $valores['alfrecuencia'] + $valores['aldeseo'] + $valores['alsalud'] + $valores['alhabitual'] + $valores['alpreocupa'] + $valores['alcontrolar'];
+	$puntaje_alucinogenos = $valores['alconsumido']+$valores['alfrecuencia'] + $valores['aldeseo'] + $valores['alsalud'] + $valores['alhabitual'] + $valores['alpreocupa'] + $valores['alcontrolar'];
     $nivel_alucinogenos = '';
     if ($puntaje_alucinogenos <= 3) {
         $nivel_alucinogenos = 'BAJO';
@@ -332,7 +332,7 @@ function gra_tamassist() {
     } else {
         $nivel_alucinogenos = 'ALTO';
     }
-    $puntaje_opiaceos = $valores['oconsumido'] + $valores['ofrecuencia'] + $valores['odeseo'] + $valores['osalud'] + $valores['ohabitual'] + $valores['opreocupa'] + $valores['ocontrolar'];
+	$puntaje_opiaceos = $valores['oconsumido']+$valores['ofrecuencia'] + $valores['odeseo'] + $valores['osalud'] + $valores['ohabitual'] + $valores['opreocupa'] + $valores['tcontrolar'];
     $nivel_opiaceos = '';
     if ($puntaje_opiaceos <= 3) {
         $nivel_opiaceos = 'BAJO';
@@ -341,7 +341,7 @@ function gra_tamassist() {
     } else {
         $nivel_opiaceos = 'ALTO';
     }
-    $puntaje_otros = $valores['otconsumido'] + $valores['otfrecuencia'] + $valores['otdeseo'] + $valores['otsalud'] + $valores['othabitual'] + $valores['otpreocupa'] + $valores['otcontrolar'];
+	$puntaje_otros = $valores['otconsumido']+$valores['otfrecuencia'] + $valores['otdeseo'] + $valores['otsalud'] + $valores['othabitual'] + $valores['otpreocupa'] + $valores['otcontrolar'];
     $nivel_otros = '';
     if ($puntaje_otros <= 3) {
         $nivel_otros = 'BAJO';
@@ -376,8 +376,7 @@ function gra_tamassist() {
         ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, ?, ?, ?,
-        ?, ?, ?,
-        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, NOW(), ?)";
 
