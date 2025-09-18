@@ -380,7 +380,7 @@ function gra_tamassist() {
 
     $params = [
         ['type' => 'i', 'value' => $idpeople],
-        ['type' => 's', 'value' => $valores['fecha_toma']],
+        ['type' => 's', 'value' => $_POST['fecha_toma']],
         ['type' => 's', 'value' => $valores['tconsumido']],
         ['type' => 'i', 'value' => $valores['tfrecuencia']],
         ['type' => 'i', 'value' => $valores['tdeseo']],
