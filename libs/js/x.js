@@ -1486,3 +1486,10 @@ function typeSheet(){
 	];
 	EnabDepeDynamic(['Pcf'], conditions);
 }
+
+function enabTabacoAssist(){
+	const conditions = [
+		{ id: 'tconsumido', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['TaBa'], conditions);
+}
