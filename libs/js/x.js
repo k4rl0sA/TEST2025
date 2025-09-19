@@ -1547,3 +1547,9 @@ function enabotrosAssist(){
 	];
 	EnabDepeDynamic(['OtR'], conditions);
 }
+function enabPosMedicam(){
+	const conditions = [
+		{ id: 'req_aprobacion', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['POs'], conditions);
+}
