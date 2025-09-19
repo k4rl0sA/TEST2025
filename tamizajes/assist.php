@@ -514,14 +514,14 @@ function opc_rta($id=''){
      VAR_dump('fila:',$row,'tipo:',$tipo,'coluna:',$col);
     // Lista de columnas de sustancias a colorear
     $cols_riesgo = [
-        'BEBIDAS', 'CANNABIS', 'COCAINA', 'ANFETAMINAS', 'INHALANTES',
-        'TRANQUILIZANTES', 'ALUCINOGENOS', 'OPIACEOS', 'OTRAS'
+        'Bebidas', 'Cannabis', 'Cocaina', 'Anfetaminas', 'Inhalantes',
+        'Tranquilizantes', 'Alucinogenos', 'Opiaceos', 'Otras'
     ];
     if ($tipo === "c" && in_array($col, $cols_riesgo)) {
         $valor = mb_strtoupper(trim($row[$col]), 'UTF-8');
         switch ($valor) {
             case "ALTO": return "style='background-color:#ffcccc;'";
-            case "MODERADO": return "style='background-color:#fff2cc;'";
+            case "MEDIO": return "style='background-color:#fff2cc;'";
             case "BAJO": return "style='background-color:#ccffcc;'";
         }
     }
