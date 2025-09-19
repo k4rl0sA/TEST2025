@@ -295,7 +295,8 @@ function gra_medicamentctrl(){
   $requeridos = ['fecha_orden', 'cantidad_prescrita', 'fecha_entrega', 'numero_entrega','cantidad_entregada','cantidadXaprobar','tipo_medicamento','cant_ordenada', 'cod_admision','observaciones'];
   $rta = fieldsRequired($requeridos);
   if( $rta !== true) return $rta;
-  var_dump('OK');
+  $id = divide($_POST['id']);
+  return $id
 }
 
 function get_medicamentctrl(){
