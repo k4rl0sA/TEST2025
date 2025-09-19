@@ -252,32 +252,26 @@ function opc_cod_admision($id=''){
     ];
     $rta = mysql_prepd($sql, $params);
   } else if (count($id) == 2) {
+    $pendiente_entregar = intval($_POST['cantidad_prescrita']) - intval($_POST['cantidad_entregada']);
     // Inserción
     $sql = "INSERT INTO medicamentos_ctrl (
-        id_medicam, idpeople, fecha_orden, cantidad_prescrita, fecha_entrega, numero_entrega, cantidad_entregada, tipo_medicamento, medicamento, requiere_aprobacion, cantidadXaprobar, cant_ordenada, cod_admision, estado_entrega, observaciones, usu_create, usu_update, fecha_update, estado, fecha_create
-      ) VALUES (
-        ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR)
-      )";
+  idpeople, idatencion, fecha_orden, cantidad_prescrita, fecha_entrega, numero_entrega, cantidad_entregada,
+  pendiente_entregar, pos, cantidad_aprobar, observaciones, usu_create, estado, fecha_create
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,DATE_SUB(NOW(),INTERVAL 5 HOUR))";
     $params = [
-      ['type' => 'i', 'value' => null], // id_medicam auto-increment
-      ['type' => 's', 'value' => $id[0]], // idpeople
-      ['type' => 's', 'value' => trim($_POST['fecha_orden'])],
+      ['type' => 's', 'value' => $_POST['idpeople']],
+      ['type' => 'i', 'value' => intval($_POST['idatencion'])],
+      ['type' => 's', 'value' => $_POST['fecha_orden']],
       ['type' => 'i', 'value' => intval($_POST['cantidad_prescrita'])],
-      ['type' => 's', 'value' => trim($_POST['fecha_entrega'])],
-      ['type' => 's', 'value' => trim($_POST['numero_entrega'])],
-      ['type' => 'i', 'value' => intval($_POST['cantidad_entregada'] ?? 0)],
-      ['type' => 's', 'value' => trim($_POST['tipo_medicamento'])],
-      ['type' => 's', 'value' => trim($_POST['medicamento'])],
-      ['type' => 's', 'value' => trim($_POST['requiere_aprobacion'] ?? '')],
-      ['type' => 'i', 'value' => intval($_POST['cantidadXaprobar'] ?? 0)],
-      ['type' => 'i', 'value' => intval($_POST['cant_ordenada'] ?? 0)],
-      ['type' => 's', 'value' => trim($_POST['cod_admision'] ?? '')],
-      ['type' => 's', 'value' => trim($_POST['estado_entrega'])],
-      ['type' => 's', 'value' => trim($_POST['observaciones'] ?? '')],
-      ['type' => 's', 'value' => $_SESSION['us_sds']], // usu_create
-      ['type' => 's', 'value' => null], // usu_update
-      ['type' => 's', 'value' => null], // fecha_update
-      ['type' => 's', 'value' => 'A'] // estado
+      ['type' => 's', 'value' => $_POST['fecha_entrega']],
+      ['type' => 's', 'value' => $_POST['numero_entrega']],
+      ['type' => 'i', 'value' => intval($_POST['cantidad_entregada'])],
+      ['type' => 'i', 'value' => $pendiente_entregar],
+      ['type' => 's', 'value' => $_POST['pos']],
+      ['type' => 'i', 'value' => intval($_POST['cantidad_aprobar'])],
+      ['type' => 's', 'value' => $_POST['observaciones'] ?? ''],
+      ['type' => 's', 'value' => $_SESSION['us_sds']],
+      ['type' => 's', 'value' => 'A']
     ];
     $rta = mysql_prepd($sql, $params);
   } else {
