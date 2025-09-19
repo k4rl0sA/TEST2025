@@ -512,17 +512,13 @@ function opc_rta($id=''){
 	   
 	   function bgcolor($a,$c,$f='c'){
 		// return $rta;
-     /*    $rta = 'red';
+         $alto = 'red';
 	    if ($a=='valories-lis'){
-		if($c['Cronico']==='SIN'){
+		if($c['Tabaco']==='MODERADO'){
 			return ($rta !== '') ? "style='background-color: $rta;'" : '';
 		}
-		if($c['Gestante']==='SIN'){
+		/* if($c['Tabaco']==='BAJO'){
 			return ($rta !== '') ? "style='background-color: $rta;'" : '';
-		}
-	} */
-
-         $rta="";
- return $rta;
-
+		} */
+	} 
 	   }
