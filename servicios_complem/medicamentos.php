@@ -300,7 +300,7 @@ function gra_medicamentctrl(){
 
   foreach ($required as $field) {
     var_dump($field);
-    if (isset($_POST[$field]) && trim($_POST[$field]) === '' && $field !== 'observaciones') {
+    if (isset($_POST[$field]) && trim($_POST[$field]) === '') {
       return ['error' => 'El campo '.$field.' es obligatorio.'];
     }
   }
