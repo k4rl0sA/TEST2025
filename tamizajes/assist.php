@@ -515,7 +515,7 @@ function opc_rta($id=''){
          $alto = 'red';
 	    if ($a=='valories-lis'){
 		if($c['Tabaco']==='MODERADO'){
-			return ($rta !== '') ? "style='background-color: $rta;'" : '';
+			return ($alto !== '') ? "style='background-color: $alto;'" : '';
 		}
 		/* if($c['Tabaco']==='BAJO'){
 			return ($rta !== '') ? "style='background-color: $rta;'" : '';
