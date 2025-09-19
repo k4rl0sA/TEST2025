@@ -219,6 +219,7 @@ function opc_cod_admision($id=''){
   $id = divide($_POST['id']);
 
   if (count($id) == 1) {
+    $pendiente_entregar = intval($_POST['cantidad_prescrita']) - intval($_POST['cantidad_entregada']);
     // Actualización
    $sql = "UPDATE medicamentos_ctrl SET
   fecha_orden=?, cantidad_prescrita=?, fecha_entrega=?, numero_entrega=?, cantidad_entregada=?,
@@ -235,9 +236,9 @@ $params = [
   ['type' => 'i', 'value' => intval($_POST['cantidad_aprobar'])],
   ['type' => 's', 'value' => $_POST['observaciones'] ?? ''],
   ['type' => 's', 'value' => $_SESSION['us_sds']],
-  ['type' => 's', 'value' => $_POST['idpeople']],
+  ['type' => 's', 'value' => $id[0]],
   ['type' => 's', 'value' => $_POST['numero_entrega']],
-  ['type' => 'i', 'value' => intval($_POST['idatencion'])]
+  ['type' => 'i', 'value' => intval($_POST['cod_admision'])]
 ];
     $rta = mysql_prepd($sql, $params);
   } else if (count($id) == 2) {
@@ -248,7 +249,7 @@ $params = [
   pendiente_entregar, pos, cantidad_aprobar, observaciones, usu_create, estado, fecha_create
 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,DATE_SUB(NOW(),INTERVAL 5 HOUR))";
     $params = [
-      ['type' => 's', 'value' => $_POST['idpeople']],
+      ['type' => 's', 'value' => $id[0]],
       ['type' => 'i', 'value' => intval($_POST['idatencion'])],
       ['type' => 's', 'value' => $_POST['fecha_orden']],
       ['type' => 'i', 'value' => intval($_POST['cantidad_prescrita'])],
