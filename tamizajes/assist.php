@@ -499,28 +499,15 @@ function opc_rta($id=''){
 		return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=292 and estado='A' ORDER BY 1",$id);
 	}
 
-	function formato_dato($a,$b,$c,$d){
-		$b=strtolower($b);
-		$rta=$c[$d];
-	   // $rta=iconv('UTF-8','ISO-8859-1',$rta);
-	   var_dump($d);
-	   var_dump($rta);
-		   if ($a=='tamassist' && $b=='acciones'){
-			$rta="<nav class='menu right'>";		
-				$rta.="<li class='icono editar ' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('tamassist','pro',event,'','lib.php',7,'tamassist');\"></li>";  //act_lista(f,this);
-			}
-		return $rta;
-	   }
 	   
-  function bgcolor($tab,$row,$f='c'){
-		// return $rta;
-         $alto = 'red';
-	     // Solo aplica color en la celda, no en la fila
-    if ($f === 'c' && $tab === 'valories-lis') {
-        // Ejemplo: colorear solo la celda de Tabaco si es MODERADO
-        if (isset($row['Tabaco']) && $row['Tabaco'] === 'MODERADO') {
+  function bgcolor($obj_name, $row, $f='c', $col='') {
+    $alto = 'red';
+    if ($f === 'c' && $obj_name === 'valories-lis') {
+        // Solo colorear la celda de Tabaco si es MODERADO
+        if ($col === 'Tabaco' && isset($row['Tabaco']) && $row['Tabaco'] === 'MODERADO') {
             return "style='background-color:{$alto};'";
         }
+        // Puedes agregar más condiciones para otras columnas aquí
     }
     return '';
-  }
+}
