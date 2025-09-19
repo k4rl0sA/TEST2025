@@ -227,29 +227,25 @@ function opc_cod_admision($id=''){
 
   if (count($id) == 1) {
     // Actualización
-    $sql = "UPDATE medicamentos_ctrl SET 
-        fecha_orden=?, cantidad_prescrita=?, fecha_entrega=?, numero_entrega=?, 
-        cantidad_entregada=?, tipo_medicamento=?, medicamento=?, requiere_aprobacion=?, 
-        cantidadXaprobar=?, cant_ordenada=?, cod_admision=?, estado_entrega=?, observaciones=?, 
-        usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
-        WHERE id_medicam=?";
-    $params = [
-      ['type' => 's', 'value' => trim($_POST['fecha_orden'])],
-      ['type' => 'i', 'value' => intval($_POST['cantidad_prescrita'])],
-      ['type' => 's', 'value' => trim($_POST['fecha_entrega'])],
-      ['type' => 's', 'value' => trim($_POST['numero_entrega'])],
-      ['type' => 'i', 'value' => intval($_POST['cantidad_entregada'] ?? 0)],
-      ['type' => 's', 'value' => trim($_POST['tipo_medicamento'])],
-      ['type' => 's', 'value' => trim($_POST['medicamento'])],
-      ['type' => 's', 'value' => trim($_POST['requiere_aprobacion'] ?? '')],
-      ['type' => 'i', 'value' => intval($_POST['cantidadXaprobar'] ?? 0)],
-      ['type' => 'i', 'value' => intval($_POST['cant_ordenada'] ?? 0)],
-      ['type' => 's', 'value' => trim($_POST['cod_admision'] ?? '')],
-      ['type' => 's', 'value' => trim($_POST['estado_entrega'])],
-      ['type' => 's', 'value' => trim($_POST['observaciones'] ?? '')],
-      ['type' => 's', 'value' => $_SESSION['us_sds']],
-      ['type' => 'i', 'value' => intval($id[0])]
-    ];
+   $sql = "UPDATE medicamentos_ctrl SET
+  fecha_orden=?, cantidad_prescrita=?, fecha_entrega=?, numero_entrega=?, cantidad_entregada=?,
+  pendiente_entregar=?, pos=?, cantidad_aprobar=?, observaciones=?, usu_update=?, fecha_update=NOW()
+  WHERE idpeople=? AND numero_entrega=? AND idatencion=? AND estado='A'";
+$params = [
+  ['type' => 's', 'value' => $_POST['fecha_orden']],
+  ['type' => 'i', 'value' => intval($_POST['cantidad_prescrita'])],
+  ['type' => 's', 'value' => $_POST['fecha_entrega']],
+  ['type' => 's', 'value' => $_POST['numero_entrega']],
+  ['type' => 'i', 'value' => intval($_POST['cantidad_entregada'])],
+  ['type' => 'i', 'value' => $pendiente_entregar],
+  ['type' => 's', 'value' => $_POST['pos']],
+  ['type' => 'i', 'value' => intval($_POST['cantidad_aprobar'])],
+  ['type' => 's', 'value' => $_POST['observaciones'] ?? ''],
+  ['type' => 's', 'value' => $_SESSION['us_sds']],
+  ['type' => 's', 'value' => $_POST['idpeople']],
+  ['type' => 's', 'value' => $_POST['numero_entrega']],
+  ['type' => 'i', 'value' => intval($_POST['idatencion'])]
+];
     $rta = mysql_prepd($sql, $params);
   } else if (count($id) == 2) {
     $pendiente_entregar = intval($_POST['cantidad_prescrita']) - intval($_POST['cantidad_entregada']);
