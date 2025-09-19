@@ -522,7 +522,7 @@ function opc_rta($id=''){
         $valor = mb_strtoupper(trim($row[$col]), 'UTF-8');
         switch ($valor) {
             case "ALTO": return "style='background-color:#ffcccc;'";
-            case "MEDIO": return "style='background-color:#fff2cc;'";
+            case "MODERADO": return "style='background-color:#fff2cc;'";
             case "BAJO": return "style='background-color:#ccffcc;'";
         }
     }
