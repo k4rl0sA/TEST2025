@@ -512,7 +512,7 @@ function opc_rta($id=''){
 	   }
 	   
   function bgcolor($obj_name, $row, $tipo, $col = null) {
-     VAR_dump('fila:',$row,'tipo:',$tipo,'coluna:',$col);
+    //  VAR_dump('fila:',$row,'tipo:',$tipo,'coluna:',$col);
     // Lista de columnas de sustancias a colorear
     $cols_riesgo = [
         'Bebidas', 'Cannabis', 'Cocaina', 'Anfetaminas', 'Inhalantes',
