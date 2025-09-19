@@ -222,7 +222,7 @@ function opc_cod_admision($id=''){
     // Actualización
    $sql = "UPDATE medicamentos_ctrl SET
   fecha_orden=?, cantidad_prescrita=?, fecha_entrega=?, numero_entrega=?, cantidad_entregada=?,
-  pendiente_entregar=?, pos=?, cantidad_aprobar=?, observaciones=?, usu_update=?, fecha_update=NOW()
+  pendiente_entregar=?, pos=?, cantidad_aprobar=?, observaciones=?, usu_update=?, fecha_update=SUB_DATE(NOW(), INTERVAL 5 HOUR) 
   WHERE idpeople=? AND numero_entrega=? AND idatencion=? AND estado='A'";
 $params = [
   ['type' => 's', 'value' => $_POST['fecha_orden']],
