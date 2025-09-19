@@ -296,7 +296,7 @@ function gra_medicamentctrl(){
   $rta = fieldsRequired($requeridos);
   if( $rta !== true) return $rta;
   $id = divide($_POST['id']);
-  return $id
+  return $id;
 }
 
 function get_medicamentctrl(){
