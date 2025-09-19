@@ -21,7 +21,7 @@ else {
 
 function lis_assist(){
 	$id=divide($_POST['id']);
-	$sql="SELECT id_assist 'Cod Registro',fecha_toma,nvl_tabaco AS Tabaco,nvl_bebida AS Bebidas,nvl_cannabis AS Cannabis,nvl_cocaina AS Cocaina,nvl_anfetaminas AS Anfetaminas,nvl_inhalantes AS Inhalantes,nvl_tranqui AS Tranquilizantes,nvl_alucinog AS Alucinogenos,nvl_opiaceos AS Opiaceos,nvl_otros AS Otras,`nombre` Creó,`fecha_create` 'fecha Creó'
+	$sql="SELECT id_assist 'Cod Registro',fecha_toma,nvl_tabaco AS Tabaco,nvl_bebida AS Bebidas,nvl_cannabis AS Cannabis,nvl_cocaina AS Cocaina,nvl_anfetaminas AS Anfetaminas,nvl_inhalantes AS Inhalantes,nvl_tranqui AS Tranquilizantes,nvl_alucinog AS Alucinogenos,nvl_opiaceos AS Opiaceos,nvl_otros AS Otras,nvl_inyec AS Inyectables,`nombre` Creó,`fecha_create` 'fecha Creó'
 	FROM tam_assist A
 	LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario ";
 	$sql.="WHERE idpeople='".$id[0];
