@@ -216,6 +216,14 @@ function opc_cod_admision($id=''){
     return ['error' => 'La cantidad pendiente por entregar debe ser un número positivo.'];
   }
  */
+$campos = [
+  'idpeople', 'idatencion', 'fecha_orden', 'cantidad_prescrita', 'fecha_entrega', 'numero_entrega',
+  'cantidad_entregada', 'pos'
+];
+$validacion = fieldsRequired($campos, ['observaciones']);
+if ($validacion !== true) {
+  return ['error' => $validacion['error']];
+}
   $id = divide($_POST['id']);
 
   if (count($id) == 1) {
