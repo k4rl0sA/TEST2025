@@ -512,14 +512,14 @@ function opc_rta($id=''){
 	   
 	   function bgcolor($a,$c,$f='c'){
 		// return $rta;
-        $rta = 'red';
+     /*    $rta = 'red';
 	    if ($a=='valories-lis'){
 		if($c['Cronico']==='SIN'){
 			return ($rta !== '') ? "style='background-color: $rta;'" : '';
 		}
 		if($c['Gestante']==='SIN'){
 			return ($rta !== '') ? "style='background-color: $rta;'" : '';
-		}
+		} */
 	}
 
 	   }
