@@ -498,14 +498,14 @@ function opc_rta($id=''){
 	}
 
 
-  function bgcolor($obj_name, $row, $f='c', $col='') {
-    $alto = 'red';
-    if ($f === 'c' && $obj_name === 'valories-lis') {
-        // Solo colorear la celda de Tabaco si es MODERADO
-        if ($col === 'Tabaco' && isset($row['Tabaco']) && $row['Tabaco'] === 'MODERADO') {
-            return "style='background-color:{$alto};'";
+ function bgcolor($obj_name, $row, $tipo, $col = null) {
+    // Solo colorear la celda si es la columna de riesgo
+    if ($tipo === "c" && $col === "riesgo") {
+        switch ($row[$col]) {
+            case "ALTO": return "style='background-color:#ffcccc;'";
+            case "MEDIO": return "style='background-color:#fff2cc;'";
+            case "BAJO": return "style='background-color:#ccffcc;'";
         }
-        // Puedes agregar más condiciones para otras columnas aquí
     }
-    return '';
+    return "";
 }
