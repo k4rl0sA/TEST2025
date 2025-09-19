@@ -533,7 +533,7 @@ function create_table($totalReg, $data_arr, $obj_name, $rp = 20,$mod='lib.php', 
          $rta .= "<tr>"; // No aplicar color a la fila
          foreach ($data_arr[0] as $key => $cmp) {
             if (!in_array($key, $no)) {
-               $rta .= "<td data-tit='".$key."' class='".alinea($r[$key])."' ".bgcolor($obj_name, $r, "c",$key).">";
+               $rta .= "<td data-tit='".$key."' class='".alinea($r[$key])."' ".bgcolor($obj_name, $r, \"c\", $key).">";
                $rta .= formato_dato($obj_name, $key, $r, $key);
                $rta .= "</td>";
             }
