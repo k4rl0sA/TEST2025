@@ -185,7 +185,7 @@ function opc_cod_admision($id=''){
 }
 
  function gra_medicamentctrl(){
-  // Validación de campos obligatorios
+ /*  // Validación de campos obligatorios
   $required = [
     'fecha_orden', 'cantidad_prescrita', 'fecha_entrega', 'numero_entrega',
     'cantidad_entregada', 'tipo_medicamento', 'medicamento', 'requiere_aprobacion',
@@ -222,7 +222,7 @@ function opc_cod_admision($id=''){
     (!is_numeric($_POST['cantidadXaprobar']) || $_POST['cantidadXaprobar'] < 0)) {
     return ['error' => 'La cantidad pendiente por entregar debe ser un número positivo.'];
   }
-
+ */
   $id = divide($_POST['id']);
 
   if (count($id) == 1) {
