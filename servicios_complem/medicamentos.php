@@ -290,6 +290,10 @@ function opc_cod_admision($id=''){
   return 'HOLA MUNDO';
 } */
 
+function gra_medicamentctrl(){
+  return 'HOLA MUNDO';
+}
+
 function get_medicamentctrl(){
     if($_REQUEST['id']==''){
         return "";
