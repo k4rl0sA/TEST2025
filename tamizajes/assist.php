@@ -510,15 +510,15 @@ function opc_rta($id=''){
 		return $rta;
 	   }
 	   
-	   function bgcolor($a,$c,$f='c'){
+  function bgcolor($a,$c,$f='c'){
 		// return $rta;
          $alto = 'red';
-	    if ($a=='valories-lis'){
-		if($c['Tabaco']==='MODERADO'){
-			return ($alto !== '') ? "style='background-color: $alto;'" : '';
-		}
-		/* if($c['Tabaco']==='BAJO'){
-			return ($rta !== '') ? "style='background-color: $rta;'" : '';
-		} */
-	} 
-	   }
+	     // Solo aplica color en la celda, no en la fila
+    if ($f === 'c' && $obj_name === 'valories-lis') {
+        // Ejemplo: colorear solo la celda de Tabaco si es MODERADO
+        if (isset($row['Tabaco']) && $row['Tabaco'] === 'MODERADO') {
+            return "style='background-color:{$alto};'";
+        }
+    }
+    return '';
+  }
