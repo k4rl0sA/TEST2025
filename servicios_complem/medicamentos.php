@@ -184,7 +184,7 @@ function opc_cod_admision($id=''){
   return opc_sql("SELECT a.id_aten,CONCAT_WS(' - ',f.cod_admin,FN_CATALOGODESC(127,f.final_consul)) AS descripcion FROM eac_atencion a LEFT JOIN adm_facturacion f ON a.id_factura=f.id_factura WHERE a.idpeople='{$cod[0]}' AND a.medicamentos=1", $id);
 }
 
-/* function gra_medicamentctrl(){
+ function gra_medicamentctrl(){
   // Validación de campos obligatorios
   $required = [
     'fecha_orden', 'cantidad_prescrita', 'fecha_entrega', 'numero_entrega',
@@ -225,7 +225,6 @@ function opc_cod_admision($id=''){
 
   $id = divide($_POST['id']);
 
-  echo "OK JHDSFJKHJKHJKHDGSKJGSDHJK";
   if (count($id) == 1) {
     // Actualización
     $sql = "UPDATE medicamentos_ctrl SET 
@@ -251,7 +250,6 @@ function opc_cod_admision($id=''){
       ['type' => 's', 'value' => $_SESSION['us_sds']],
       ['type' => 'i', 'value' => intval($id[0])]
     ];
-    var_dump($show_sql($sql, $params));
     $rta = mysql_prepd($sql, $params);
   } else if (count($id) == 2) {
     // Inserción
@@ -281,23 +279,20 @@ function opc_cod_admision($id=''){
       ['type' => 's', 'value' => null], // fecha_update
       ['type' => 's', 'value' => 'A'] // estado
     ];
-    var_dump($show_sql($sql, $params));
     $rta = mysql_prepd($sql, $params);
   } else {
-    var_dump('FLKUHJLKHGJGLKJ');
     $rta="Error: msj['No existe un equipo actualmente para el usuario que realizo el seguimiento']";
   }
-  return 'HOLA MUNDO';
-} */
-
+  return $rta;
+} 
+/* 
 function gra_medicamentctrl(){
   // Validación de campos obligatorios
   $requeridos = ['fecha_orden', 'cantidad_prescrita', 'fecha_entrega', 'numero_entrega','cantidad_entregada','cantidadXaprobar','tipo_medicamento','cant_ordenada', 'cod_admision','observaciones'];
   $rta = fieldsRequired($requeridos);
   if( $rta !== true) return $rta;
   $id = divide($_POST['id']);
-  return $id;
-}
+} */
 
 function get_medicamentctrl(){
     if($_REQUEST['id']==''){
