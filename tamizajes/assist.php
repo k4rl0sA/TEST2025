@@ -522,4 +522,7 @@ function opc_rta($id=''){
 		}
 	} */
 
+         $rta="";
+ return $rta;
+
 	   }
