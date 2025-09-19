@@ -21,7 +21,7 @@ else {
 
 function lis_assist(){
 	$id=divide($_POST['id']);
-	$sql="SELECT id_assist 'Cod Registro',fecha_toma,nvl_tabaco AS Tabaco,nvl_bebida AS Bebidas,nvl_cannabis AS Cannabis,nvl_cocaina AS Cocaina,nvl_anfetaminas AS Anfetaminas,nvl_inhalantes AS Inhalantes,nvl_tranqui AS Tranquilizantes,nvl_alucinog AS Alucinogenos,nvl_opiaceos AS Opiaceos,nvl_otros AS Otras,nvl_inyec AS Inyectable,`nombre` Creó,`fecha_create` 'fecha Creó'
+	$sql="SELECT id_assist 'Cod Registro',fecha_toma,nvl_tabaco AS Tabaco,nvl_bebida AS Bebidas,nvl_cannabis AS Cannabis,nvl_cocaina AS Cocaina,nvl_anfetaminas AS Anfetaminas,nvl_inhalantes AS Inhalantes,nvl_tranqui AS Tranquilizantes,nvl_alucinog AS Alucinogenos,nvl_opiaceos AS Opiaceos,nvl_otros AS Otras,`nombre` Creó,`fecha_create` 'fecha Creó'
 	FROM tam_assist A
 	LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario ";
 	$sql.="WHERE idpeople='".$id[0];
@@ -351,7 +351,6 @@ function gra_tamassist() {
     } else {
         $nivel_otros = 'ALTO';
     }
-    $nivel_inyec = (isset($_POST['inyec']) && intval($_POST['inyec']) == 1) ? 'BAJO' : 'ALTO';
 
     $puntaje=$puntaje_bebidas+$puntaje_cannabis+$puntaje_cocaina+$puntaje_anfetaminas+$puntaje_inhalantes+$puntaje_tranquilizantes+$puntaje_alucinogenos+$puntaje_opiaceos+$puntaje_otros;
     // Preparar consulta y parámetros (solo ejemplo para los primeros campos, agrega los demás según tu tabla)
@@ -367,7 +366,7 @@ function gra_tamassist() {
         alconsumido, alfrecuencia, aldeseo, alsalud, alhabitual, alpreocupa, alcontrolar,
         oconsumido, ofrecuencia, odeseo, osalud, ohabitual, opreocupa, ocontrolar,
         otconsumido, otfrecuencia, otdeseo, otsalud, othabitual, otpreocupa, otcontrolar,
-        inyec, nvl_inyec,pts_tabaco, nvl_tabaco, pts_bebida, nvl_bebida,pts_cannabis, nvl_cannabis,pts_cocaina, nvl_cocaina,pts_anfetaminas, nvl_anfetaminas,pts_inhalantes, nvl_inhalantes,pts_tranqui, nvl_tranqui,pts_alucinog, nvl_alucinog,pts_opiaceos, nvl_opiaceos,pts_otros, nvl_otros,usu_creo, fecha_create,estado) VALUES (
+        inyec, pts_tabaco, nvl_tabaco, pts_bebida, nvl_bebida,pts_cannabis, nvl_cannabis,pts_cocaina, nvl_cocaina,pts_anfetaminas, nvl_anfetaminas,pts_inhalantes, nvl_inhalantes,pts_tranqui, nvl_tranqui,pts_alucinog, nvl_alucinog,pts_opiaceos, nvl_opiaceos,pts_otros, nvl_otros,usu_creo, fecha_create,estado) VALUES (
         ?, ?, ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, ?, ?, ?,
@@ -379,7 +378,7 @@ function gra_tamassist() {
         ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, NOW(), ?)";
 
     $params = [
@@ -456,7 +455,6 @@ function gra_tamassist() {
         ['type' => 'i', 'value' => $valores['otpreocupa']],
         ['type' => 'i', 'value' => $valores['otcontrolar']],
         ['type' => 's', 'value' => $_POST['inyec']],
-        ['type' => 's', 'value' => $nvl_inyec],
         ['type' => 'i', 'value' => $puntaje_tabaco],
         ['type' => 's', 'value' => $nivel_tabaco],
 		['type' => 'i', 'value' => $puntaje_bebidas],
@@ -499,7 +497,7 @@ function opc_rta($id=''){
 		return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=292 and estado='A' ORDER BY 1",$id);
 	}
 
-	   
+
   function bgcolor($obj_name, $row, $f='c', $col='') {
     $alto = 'red';
     if ($f === 'c' && $obj_name === 'valories-lis') {
