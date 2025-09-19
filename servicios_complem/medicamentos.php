@@ -242,7 +242,7 @@ $params = [
 ];
     $rta = mysql_prepd($sql, $params);
   } else if (count($id) == 2) {
-    $pendiente_entregar = intval($_POST['cantidad_prescrita']) - intval($_POST['cantidad_entregada']);
+    $pendiente_entregar = intval($_POST['cantidad_prescrita']) - intval($_POST['cant_entregada']);
     // Inserción
     $sql = "INSERT INTO medicamentos_ctrl (
   idpeople, idatencion, fecha_orden, cantidad_prescrita, fecha_entrega, numero_entrega, cantidad_entregada,
@@ -250,15 +250,15 @@ $params = [
 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,DATE_SUB(NOW(),INTERVAL 5 HOUR))";
     $params = [
       ['type' => 's', 'value' => $id[0]],
-      ['type' => 'i', 'value' => intval($_POST['idatencion'])],
+      ['type' => 'i', 'value' => intval($_POST['cod_admision'])],
       ['type' => 's', 'value' => $_POST['fecha_orden']],
       ['type' => 'i', 'value' => intval($_POST['cantidad_prescrita'])],
       ['type' => 's', 'value' => $_POST['fecha_entrega']],
-      ['type' => 's', 'value' => $_POST['numero_entrega']],
-      ['type' => 'i', 'value' => intval($_POST['cantidad_entregada'])],
+      ['type' => 's', 'value' => $_POST['num_entrega']],
+      ['type' => 'i', 'value' => intval($_POST['cant_entregada'])],
       ['type' => 'i', 'value' => $pendiente_entregar],
-      ['type' => 's', 'value' => $_POST['pos']],
-      ['type' => 'i', 'value' => intval($_POST['cantidad_aprobar'])],
+      ['type' => 's', 'value' => $_POST['req_aprobacion']],
+      ['type' => 'i', 'value' => intval($_POST['cant_ordenada'])],
       ['type' => 's', 'value' => $_POST['observaciones'] ?? ''],
       ['type' => 's', 'value' => $_SESSION['us_sds']],
       ['type' => 's', 'value' => 'A']
