@@ -291,7 +291,18 @@ function opc_cod_admision($id=''){
 } */
 
 function gra_medicamentctrl(){
-  return 'HOLA MUNDO';
+   // Validación de campos obligatorios
+  $required = [
+    'fecha_orden', 'cantidad_prescrita', 'fecha_entrega', 'numero_entrega',
+    'cantidad_entregada', 'tipo_medicamento', 'medicamento', 'requiere_aprobacion',
+    'cantidadXaprobar', 'cant_ordenada', 'cod_admision', 'estado_entrega', 'observaciones'
+  ];
+
+  foreach ($required as $field) {
+    if (isset($_POST[$field]) && trim($_POST[$field]) === '' && $field !== 'observaciones') {
+      return ['error' => 'El campo '.$field.' es obligatorio.'];
+    }
+  }
 }
 
 function get_medicamentctrl(){
