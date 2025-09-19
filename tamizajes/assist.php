@@ -501,7 +501,7 @@ function opc_rta($id=''){
 		$b=strtolower($b);
 		$rta=$c[$d];
 	   // $rta=iconv('UTF-8','ISO-8859-1',$rta);
-	   var_dump($a);
+	   var_dump($d);
 	   var_dump($rta);
 		   if ($a=='tamassist' && $b=='acciones'){
 			$rta="<nav class='menu right'>";		
