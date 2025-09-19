@@ -351,7 +351,7 @@ function gra_tamassist() {
     } else {
         $nivel_otros = 'ALTO';
     }
-
+    $nivel_inyec = (isset($_POST['inyec']) && intval($_POST['inyec']) == 1) ? 'BAJO' : 'ALTO';
     $puntaje=$puntaje_bebidas+$puntaje_cannabis+$puntaje_cocaina+$puntaje_anfetaminas+$puntaje_inhalantes+$puntaje_tranquilizantes+$puntaje_alucinogenos+$puntaje_opiaceos+$puntaje_otros;
     // Preparar consulta y parámetros (solo ejemplo para los primeros campos, agrega los demás según tu tabla)
     $sql = "INSERT INTO tam_assist (
