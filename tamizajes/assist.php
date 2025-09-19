@@ -512,7 +512,7 @@ function opc_rta($id=''){
 	   
   function bgcolor($obj_name, $row, $tipo, $col = null) {
     // Solo colorear la celda si es la columna de riesgo
-    VAR_dump($obj_name, $row, $tipo, $col);
+    VAR_dump('objeto:',$obj_name,'fila:',$row,'tipo:',$tipo,'coluna:',$col);
     if ($tipo === "c" && $col === "Tabaco" || $col === "Bebidas" || $col === "Cannabis" || $col === "Cocaina" || $col === "Anfetaminas" || $col === "Inhalantes" || $col === "Tranquilizantes" || $col === "Alucinogenos" || $col === "Opiaceos" || $col === "Otros"    ) {
         switch ($row[$col]) {
             case "ALTO": return "style='background-color:#ffcccc;'";
