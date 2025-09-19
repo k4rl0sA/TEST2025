@@ -519,7 +519,7 @@ function opc_rta($id=''){
 		}
 		if($c['Gestante']==='SIN'){
 			return ($rta !== '') ? "style='background-color: $rta;'" : '';
-		} */
-	}
+		}
+	} */
 
 	   }
