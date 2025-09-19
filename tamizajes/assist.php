@@ -502,7 +502,7 @@ function opc_rta($id=''){
 		$rta=$c[$d];
 	   // $rta=iconv('UTF-8','ISO-8859-1',$rta);
 	   // var_dump($a);
-	   // var_dump($rta);
+	   var_dump($rta);
 		   if ($a=='tamassist' && $b=='acciones'){
 			$rta="<nav class='menu right'>";		
 				$rta.="<li class='icono editar ' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('tamassist','pro',event,'','lib.php',7,'tamassist');\"></li>";  //act_lista(f,this);
@@ -512,4 +512,14 @@ function opc_rta($id=''){
 	   
 	   function bgcolor($a,$c,$f='c'){
 		// return $rta;
+        $rta = 'red';
+	    if ($a=='valories-lis'){
+		if($c['Cronico']==='SIN'){
+			return ($rta !== '') ? "style='background-color: $rta;'" : '';
+		}
+		if($c['Gestante']==='SIN'){
+			return ($rta !== '') ? "style='background-color: $rta;'" : '';
+		}
+	}
+
 	   }
