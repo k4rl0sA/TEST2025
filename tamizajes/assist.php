@@ -380,7 +380,7 @@ function gra_tamassist() {
         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, NOW(), ?)";
-
+    var_dump($_POST['fecha_toma']);
     $params = [
         ['type' => 'i', 'value' => $idpeople],
         ['type' => 's', 'value' => $_POST['fecha_toma']],
