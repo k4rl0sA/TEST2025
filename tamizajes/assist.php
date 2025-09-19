@@ -510,11 +510,11 @@ function opc_rta($id=''){
 		return $rta;
 	   }
 	   
-  function bgcolor($a,$c,$f='c'){
+  function bgcolor($tab,$row,$f='c'){
 		// return $rta;
          $alto = 'red';
 	     // Solo aplica color en la celda, no en la fila
-    if ($f === 'c' && $obj_name === 'valories-lis') {
+    if ($f === 'c' && $tab === 'valories-lis') {
         // Ejemplo: colorear solo la celda de Tabaco si es MODERADO
         if (isset($row['Tabaco']) && $row['Tabaco'] === 'MODERADO') {
             return "style='background-color:{$alto};'";
