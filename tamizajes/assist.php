@@ -501,8 +501,8 @@ function opc_rta($id=''){
 		$b=strtolower($b);
 		$rta=$c[$d];
 	   // $rta=iconv('UTF-8','ISO-8859-1',$rta);
-	   var_dump($d);
-	   var_dump($rta);
+	//    var_dump($d);
+	//    var_dump($rta);
 		   if ($a=='tamassist' && $b=='acciones'){
 			$rta="<nav class='menu right'>";		
 				$rta.="<li class='icono editar ' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('tamassist','pro',event,'','lib.php',7,'tamassist');\"></li>";  //act_lista(f,this);
