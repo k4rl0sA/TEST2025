@@ -511,12 +511,16 @@ function opc_rta($id=''){
 	   }
 	   
   function bgcolor($obj_name, $row, $tipo, $col = null) {
-    // Solo colorear la celda si es la columna de riesgo
-    VAR_dump('objeto:',$obj_name,'fila:',$row,'tipo:',$tipo,'coluna:',$col);
-    if ($tipo === "c" && $col === "Tabaco" || $col === "Bebidas" || $col === "Cannabis" || $col === "Cocaina" || $col === "Anfetaminas" || $col === "Inhalantes" || $col === "Tranquilizantes" || $col === "Alucinogenos" || $col === "Opiaceos" || $col === "Otros"    ) {
-        switch ($row[$col]) {
+    // Lista de columnas de sustancias a colorear
+    $cols_riesgo = [
+        'BEBIDAS', 'CANNABIS', 'COCAINA', 'ANFETAMINAS', 'INHALANTES',
+        'TRANQUILIZANTES', 'ALUCINOGENOS', 'OPIACEOS', 'OTRAS'
+    ];
+    if ($tipo === "c" && in_array($col, $cols_riesgo)) {
+        $valor = mb_strtoupper(trim($row[$col]), 'UTF-8');
+        switch ($valor) {
             case "ALTO": return "style='background-color:#ffcccc;'";
-            case "MODERADO": return "style='background-color:#fff2cc;'";
+            case "MEDIO": return "style='background-color:#fff2cc;'";
             case "BAJO": return "style='background-color:#ccffcc;'";
         }
     }
