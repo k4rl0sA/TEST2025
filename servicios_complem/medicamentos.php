@@ -290,20 +290,25 @@ function opc_cod_admision($id=''){
   return 'HOLA MUNDO';
 } */
 
-function gra_medicamentctrl(){
-   // Validación de campos obligatorios
-  $required = [
-    'fecha_orden', 'cantidad_prescrita', 'fecha_entrega', 'numero_entrega',
-    'cantidad_entregada','cantidadXaprobar','tipo_medicamento',
-     'cant_ordenada', 'cod_admision','observaciones'
-  ];
-
-  foreach ($required as $field) {
-    // var_dump($field);
-    if (isset($_POST[$field]) && trim($_POST[$field]) === '') {
-      return ['error' => 'El campo '.$field.' es obligatorio.'];
+function fieldsRequired($elements, $except['campo']) {
+  foreach ($elements as $field) {
+    if (!in_array($field, $except)) {
+      if (!isset($_POST[$field]) || trim($_POST[$field]) === '') {
+        return ['error' => "El campo $field es obligatorio."];
+      }
     }
   }
+  return true;
+}
+
+function gra_medicamentctrl(){
+   // Validación de campos obligatorios
+  $requeridos = ['fecha_orden', 'cantidad_prescrita', 'fecha_entrega', 'numero_entrega','cantidad_entregada','cantidadXaprobar','tipo_medicamento','cant_ordenada', 'cod_admision','observaciones'];
+  $rta = fieldsRequired($requeridos);
+  if (is_array($rta) && isset($rta['error'])) {
+    return $rta;
+  }
+ 
 }
 
 function get_medicamentctrl(){

@@ -672,6 +672,17 @@ function show_sql($sql, $params) {
   return $final_sql;
 }
 
+function fieldsRequired($elements, $except = ['observaciones']) {
+  foreach ($elements as $field) {
+    if (!in_array($field, $except)) {
+      if (!isset($_POST[$field]) || trim($_POST[$field]) === '') {
+        return ['error' => "El campo $field es obligatorio."];
+      }
+    }
+  }
+  return true;
+}
+
 /*COMPONENTES*/
 class cmp { //ntwplcsdxhvuf
   public $n; //1 name
