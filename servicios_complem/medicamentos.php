@@ -184,7 +184,7 @@ function opc_cod_admision($id=''){
   return opc_sql("SELECT a.id_aten,CONCAT_WS(' - ',f.cod_admin,FN_CATALOGODESC(127,f.final_consul)) AS descripcion FROM eac_atencion a LEFT JOIN adm_facturacion f ON a.id_factura=f.id_factura WHERE a.idpeople='{$cod[0]}' AND a.medicamentos=1", $id);
 }
 
-function gra_medicamentctrl(){
+/* function gra_medicamentctrl(){
   // Validación de campos obligatorios
   $required = [
     'fecha_orden', 'cantidad_prescrita', 'fecha_entrega', 'numero_entrega',
@@ -288,7 +288,7 @@ function gra_medicamentctrl(){
     $rta="Error: msj['No existe un equipo actualmente para el usuario que realizo el seguimiento']";
   }
   return 'HOLA MUNDO';
-}
+} */
 
 function get_medicamentctrl(){
     if($_REQUEST['id']==''){
