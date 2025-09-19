@@ -224,6 +224,8 @@ function gra_medicamentctrl(){
   }
 
   $id = divide($_POST['id']);
+
+  echo "OK JHDSFJKHJKHJKHDGSKJGSDHJK";
   if (count($id) == 1) {
     // Actualización
     $sql = "UPDATE medicamentos_ctrl SET 
