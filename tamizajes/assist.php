@@ -366,7 +366,7 @@ function gra_tamassist() {
         alconsumido, alfrecuencia, aldeseo, alsalud, alhabitual, alpreocupa, alcontrolar,
         oconsumido, ofrecuencia, odeseo, osalud, ohabitual, opreocupa, ocontrolar,
         otconsumido, otfrecuencia, otdeseo, otsalud, othabitual, otpreocupa, otcontrolar,
-        inyec, pts_tabaco, nvl_tabaco, pts_bebida, nvl_bebida,pts_cannabis, nvl_cannabis,pts_cocaina, nvl_cocaina,pts_anfetaminas, nvl_anfetaminas,pts_inhalantes, nvl_inhalantes,pts_tranqui, nvl_tranqui,pts_alucinog, nvl_alucinog,pts_opiaceos, nvl_opiaceos,pts_otros, nvl_otros,usu_creo, fecha_create,estado) VALUES (
+        inyec, pts_tabaco, nvl_tabaco, pts_bebida, nvl_bebida,pts_cannabis, nvl_cannabis,pts_cocaina, nvl_cocaina,pts_anfetaminas, nvl_anfetaminas,pts_inhalantes, nvl_inhalantes,pts_tranqui, nvl_tranqui,pts_alucinog, nvl_alucinog,pts_opiaceos, nvl_opiaceos,pts_otros, nvl_otros,nvl_inyec,usu_creo, fecha_create,estado) VALUES (
         ?, ?, ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, ?, ?, ?,
@@ -378,7 +378,7 @@ function gra_tamassist() {
         ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, NOW(), ?)";
 
     $params = [
@@ -475,6 +475,7 @@ function gra_tamassist() {
 		['type' => 's', 'value' => $nivel_opiaceos],
 		['type' => 'i', 'value' => $puntaje_otros],
 		['type' => 's', 'value' => $nivel_otros],	
+        ['type' => 's', 'value' => $nivel_inyec],
         ['type' => 's', 'value' => $_SESSION['us_sds']],
         ['type' => 's', 'value' => 'A']
     ];
