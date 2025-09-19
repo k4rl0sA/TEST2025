@@ -294,8 +294,8 @@ function gra_medicamentctrl(){
    // Validación de campos obligatorios
   $required = [
     'fecha_orden', 'cantidad_prescrita', 'fecha_entrega', 'numero_entrega',
-    'cantidad_entregada', 'tipo_medicamento', 'medicamento', 'requiere_aprobacion',
-    'cantidadXaprobar', 'cant_ordenada', 'cod_admision', 'estado_entrega', 'observaciones'
+    'cantidad_entregada','cantidadXaprobar','tipo_medicamento',
+     'cant_ordenada', 'cod_admision','observaciones'
   ];
 
   foreach ($required as $field) {
