@@ -515,7 +515,7 @@ function opc_rta($id=''){
     if ($tipo === "c" && $col === "Tabaco" || $col === "Bebidas" || $col === "Cannabis" || $col === "Cocaina" || $col === "Anfetaminas" || $col === "Inhalantes" || $col === "Tranquilizantes" || $col === "Alucinogenos" || $col === "Opiaceos" || $col === "Otros"    ) {
         switch ($row[$col]) {
             case "ALTO": return "style='background-color:#ffcccc;'";
-            case "MEDIO": return "style='background-color:#fff2cc;'";
+            case "MODERADO": return "style='background-color:#fff2cc;'";
             case "BAJO": return "style='background-color:#ccffcc;'";
         }
     }
