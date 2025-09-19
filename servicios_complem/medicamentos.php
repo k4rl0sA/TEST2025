@@ -302,12 +302,10 @@ function fieldsRequired($elements, $except['campo']) {
 }
 
 function gra_medicamentctrl(){
-   // Validación de campos obligatorios
+  // Validación de campos obligatorios
   $requeridos = ['fecha_orden', 'cantidad_prescrita', 'fecha_entrega', 'numero_entrega','cantidad_entregada','cantidadXaprobar','tipo_medicamento','cant_ordenada', 'cod_admision','observaciones'];
   $rta = fieldsRequired($requeridos);
-  if (is_array($rta) && isset($rta['error'])) {
-    return $rta;
-  }
+  if( $rta !== true) return $rta;
  
 }
 
