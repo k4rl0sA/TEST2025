@@ -42,8 +42,7 @@ function lis_medicamentctrl(){
     $id=divide($_POST['id']);
     $total="SELECT COUNT(*) AS total FROM (
       SELECT id_medicam 'Cod Registro',fecha_orden, CONCAT(cantidad_prescrita, ' unidades') as cantidad_prescrita,fecha_entrega,FN_CATALOGODESC(88, numero_entrega) as numero_entrega,
-      CONCAT(cantidad_entregada, ' unidades') as cantidad_entregada,FN_CATALOGODESC(89, tipo_medicamento) as tipo_medicamento,FN_CATALOGODESC(90, medicamento) as medicamento,
-             FN_CATALOGODESC(91, estado_entrega) as estado_entrega
+      CONCAT(cantidad_entregada, ' unidades') as cantidad_entregada,pendiente_entregar as 'Pendiente por Entregar'
       FROM medicamentos_ctrl 
       WHERE idpeople='{$id[0]}' AND estado='A'
     ) AS Subquery";
@@ -53,17 +52,11 @@ function lis_medicamentctrl(){
     $regxPag=5;
     $pag=(isset($_POST['pag-medicamentctrl']))? ($_POST['pag-medicamentctrl']-1)* $regxPag:0;
 
-    $sql="SELECT id_medicam 'Cod Registro', fecha_orden, 
-                 CONCAT(cantidad_prescrita, ' unidades') as cantidad_prescrita,
-                 fecha_entrega,
-                 FN_CATALOGODESC(88, numero_entrega) as numero_entrega,
-                 CONCAT(cantidad_entregada, ' unidades') as cantidad_entregada,
-                 FN_CATALOGODESC(89, tipo_medicamento) as tipo_medicamento,
-                 FN_CATALOGODESC(90, medicamento) as medicamento,
-                 FN_CATALOGODESC(91, estado_entrega) as estado_entrega
-          FROM medicamentos_ctrl 
-          WHERE idpeople='{$id[0]}' AND estado='A'";
-    $sql.=" ORDER BY fecha_entrega DESC LIMIT $pag, $regxPag";
+    $sql="SELECT id_medicam 'Cod Registro',fecha_orden, CONCAT(cantidad_prescrita, ' unidades') as cantidad_prescrita,fecha_entrega,FN_CATALOGODESC(88, numero_entrega) as numero_entrega,
+      CONCAT(cantidad_entregada, ' unidades') as cantidad_entregada,pendiente_entregar as 'Pendiente por Entregar'
+      FROM medicamentos_ctrl 
+      WHERE idpeople='{$id[0]}' AND estado='A'";
+    $sql.=" ORDER BY fecha_o¿rden ASC LIMIT $pag, $regxPag";
     
     $datos=datos_mysql($sql);
     return create_table($total,$datos["responseResult"],"medicamentctrl",$regxPag,'medicamentctrl.php');
