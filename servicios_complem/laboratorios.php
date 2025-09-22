@@ -123,6 +123,18 @@ function gra_laboratorios(){
             return ['error' => 'El campo '.$field.' es obligatorio.'];
         }
     }
+    // Validación de fechas si lab_tomado=1 fecha_toma debe ser una fecha valida, tambien para cuenta_resul=1 fecha_resul debe ser una fecha valida, si dato_crit=1 gestion debe ser obligatorio y si gestion=1 gest_cump debe ser obligatorio
+    if ($_POST['lab_tomado'] == '1' && (empty($_POST['fecha_toma']) || !validateDate($_POST['fecha_toma']))) {
+      return "msj['Error: La fecha de toma es obligatoria y debe ser una fecha válida cuando el laboratorio ha sido tomado.']";
+    } 
+    if ($_POST['cuenta_resul'] == '1' && (empty($_POST['fecha_resul']) || !validateDate($_POST['fecha_resul']))) {
+      return "msj['Error: La fecha de resultado es obligatoria y debe ser una fecha válida cuando se cuenta con resultado.']";
+    }
+    if ($_POST['dato_crit'] == '1' && empty($_POST['gestion'])) {
+      return "msj['Error: La gestión es obligatoria cuando hay dato crítico.']";
+    }
+
+
     $id = divide($_POST['id']);
     if (count($id) == 1) {
         // Actualización
