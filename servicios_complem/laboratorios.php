@@ -77,7 +77,6 @@ function cmp_laboratorios(){
     $c[]=new cmp('nombre','t','50',$d['nombre'],$w.' '.$o,'nombres','nombre',null,'',false,false,'','col-4');
     $c[]=new cmp('fechanacimiento','d',10,$d['fechanacimiento'],$w.' '.$o,'fecha nacimiento','fechanacimiento',null,'',true,false,'','col-3');
     $c[]=new cmp('edad','t',30,$edad,$w.' '.$o,'edad en Años','edad',null,'',true,false,'','col-3');
-    // Datos de laboratorios
     $o='laboratorio';
     $c[]=new cmp($o,'e',null,'CONTROL DE LABORATORIOS',$w);
     $c[]=new cmp('cod_admision','s',2,$e,$w.' '.$o,'Cod. Admisión','cod_admision',null,'',true,true,'','col-4');
