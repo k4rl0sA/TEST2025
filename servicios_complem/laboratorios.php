@@ -188,7 +188,6 @@ function get_laboratorios(){
     } else {
         $id=divide($_REQUEST['id']);
         $sql="SELECT id_lab,P.idpersona idpersona,P.tipo_doc tipodoc,CONCAT_WS(' ',nombre1,nombre2,apellido1,apellido2) nombre,P.fecha_nacimiento fechanacimiento,
-        P.sexo sexo,
     TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) AS anos,
     TIMESTAMPDIFF(MONTH, fecha_nacimiento, CURDATE())-(TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) * 12) AS meses,
     DATEDIFF(CURDATE(),DATE_ADD(fecha_nacimiento, INTERVAL TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) YEAR)) % 30 AS dias, tipo_lab, otro_lab, fecha_orden, lab_tomado, fecha_toma, cuenta_resul, fecha_resul, dato_crit, gestion, gest_cump, obs
