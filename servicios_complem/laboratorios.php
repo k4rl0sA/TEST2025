@@ -116,7 +116,7 @@ function get_persona(){
 
 function gra_laboratorios(){
     // Validación de campos obligatorios
-    $required = ['cod_admision','tipo_lab', 'otro_lab', 'fecha_orden'];
+    $required = ['cod_admision','tipo_lab','fecha_orden','lab_tomado','cuenta_resul','dato_crit'];
     foreach ($required as $field) {
         if (empty($_POST[$field])) {
             return ['error' => 'El campo '.$field.' es obligatorio.'];
