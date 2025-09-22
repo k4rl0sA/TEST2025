@@ -1038,9 +1038,9 @@ function formato_dato($a,$b,$c,$d){
 			 if (medicamAtenci($c['ACCIONES'])) {
 				$rta .= acceso('medicamentctrl') ? "<li title='Entrega Medicamentos' onclick=\"mostrar('medicamentctrl','pro',event,'','../servicios_complem/medicamentos.php',7,'Control Medicamentos');Color('datos-lis')\"><i class='fa-solid fa-capsules ico' id='{$c['ACCIONES']}'></i></li>" : "";	
 			}
-
-			$rta .= acceso('laboratorios') ? "<li title='Laboratorios' onclick=\"mostrar('laboratorios','pro',event,'','../servicios_complem/laboratorios.php',7,'Control Laboratorios');Color('datos-lis')\"><i class='fa-solid fa-flask-vial ico' id='{$c['ACCIONES']}'></i></li>" : "";
-
+			if (laboratorios($c['ACCIONES'])) {
+				$rta .= acceso('laboratorios') ? "<li title='Laboratorios' onclick=\"mostrar('laboratorios','pro',event,'','../servicios_complem/laboratorios.php',7,'Control Laboratorios');Color('datos-lis')\"><i class='fa-solid fa-flask-vial ico' id='{$c['ACCIONES']}'></i></li>" : "";
+			}
 			$rta .= acceso('vspeve') ? "<li class='icono admsi1' title='Validar Evento' id='{$c['ACCIONES']}' onclick=\"mostrar('vspeve','pro',event,'','vspeve.php',7,'vspeve');Color('datos-lis');\"></li>" : "";
 			$rta.=eventAsign($c['ACCIONES']);
 			$rta .= acceso('relevo') ? "<li title='Relevo' onclick=\"mostrar('relevo','pro',event,'','../relevo/lib.php',7,'relevo');Color('datos-lis');\"><i class=' fa-solid fa-person-cane ico' id='{$c['ACCIONES']}'></i></li>":"";
