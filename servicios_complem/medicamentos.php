@@ -94,7 +94,7 @@ function cmp_medicamentctrl(){
     $o='medicamentos';
     $c[]=new cmp($o,'e',null,'CONTROL DE MEDICAMENTOS',$w);
     $c[]=new cmp('cod_admision','s',2,$e,$w.' '.$o,'Cod. Admisión','cod_admision',null,'',true,true,'','col-4');
-    $c[]=new cmp('fecha_orden','d',10,$e,$w.' '.$o,'Fecha de orden','fecha_orden',null,'',true,true,'','col-2',"validDate(this,-30,10);");
+    $c[]=new cmp('fecha_orden','d',10,$e,$w.' '.$o,'Fecha de orden','fecha_orden',null,'',true,true,'','col-2',"validDate(this,-30,0);");
     $c[]=new cmp('cantidad_prescrita','nu',10,$e,$w.' '.$o,'Cantidad Prescrita','cantidad_prescrita',null,'',true,true,'','col-2');
     $c[]=new cmp('fecha_entrega','d',10,$e,$w.' '.$o,'Fecha de Entrega','fecha_entrega',null,'',true,true,'','col-2',"validDate(this,$days,0);");
     // $c[]=new cmp('num_entrega','s',2,$e,$w.' '.$o,'Número de Entrega','entrega',null,'',true,true,'','col-2');
