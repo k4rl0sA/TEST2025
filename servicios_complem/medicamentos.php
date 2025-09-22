@@ -240,7 +240,7 @@ $atencion=intval($_POST['cod_admision']);
 
     $sql="SELECT sum(cantidad_entregada) as entregadas, FROM `medicamentos_ctrl` WHERE  idpeople='{$id[0]}' AND idatencion=$atencion AND estado='A'";
     $info=datos_mysql($sql);
-		$entregadas= intval($info['responseResult'][0]['entregadas']);
+		$entregadas= intval($info['responseResult'][0]['entregadas']??0);
 
     $sql="SELECT cantidad_prescrita AS prescrita FROM `medicamentos_ctrl` WHERE  idpeople='{$id[0]}' AND idatencion=$atencion AND estado='A' ORDER BY id_medicam LIMIT 1";
     $info=datos_mysql($sql);
