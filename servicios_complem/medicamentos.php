@@ -230,30 +230,27 @@ function opc_cod_admision($id=''){
     return ['error' => 'La cantidad pendiente por entregar debe ser un número positivo.'];
   }
  */
-$campos = [
+/* $campos = [
   'idpeople', 'idatencion', 'fecha_orden', 'cantidad_prescrita', 'fecha_entrega', 'numero_entrega',
   'cantidad_entregada', 'pos'
 ];
 $validacion = fieldsRequired($campos, ['observaciones']);
 if ($validacion !== true) {
   return ['error' => $validacion['error']];
-}
+} */
 
 $numero_entrega = intval($_POST['numero_entrega']);
 $cantidad_prescrita = intval($_POST['cantidad_prescrita']);
 $cantidad_entregada = intval($_POST['cantidad_entregada']);
 $pendiente_entregar = $cantidad_prescrita - $cantidad_entregada;
 
-/* if ($numero_entrega === 1 && $cantidad_entregada > $cantidad_prescrita) {
+if ($numero_entrega === 1 && $cantidad_entregada > $cantidad_prescrita) {
   return ['error' => 'La cantidad entregada no puede ser mayor a la cantidad prescrita en la primera entrega.'];
 }
 if ($numero_entrega !== 1 && $cantidad_entregada > $pendiente_entregar) {
   return ['error' => 'La cantidad entregada no puede ser mayor al pendiente por entregar en entregas posteriores.'];
 }
- */
-
   $id = divide($_POST['id']);
-
   if (count($id) == 1) {
     $pendiente_entregar = intval($_POST['cantidad_prescrita']) - intval($_POST['cantidad_entregada']);
     // Actualización
