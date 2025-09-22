@@ -1559,3 +1559,21 @@ function enabOthLaborat(){
 	];
 	EnabDepeDynamic(['oTH'], conditions);
 }
+function enabFechaTomaLab(){
+	const conditions = [
+		{ id: 'lab_tomado', value: '15', compare: true }
+	];
+	EnabDepeDynamic(['ToM'], conditions);
+}
+function enabFechaResulLab(){
+	const conditions = [
+		{ id: 'cuenta_resul', value: '15', compare: true }
+	];
+	EnabDepeDynamic(['RTa'], conditions);
+}
+function enabGestionLab(){
+	const conditions = [
+		{ id: 'dato_crit', value: '15', compare: true }
+	];
+	EnabDepeDynamic(['dCR'], conditions);
+}
