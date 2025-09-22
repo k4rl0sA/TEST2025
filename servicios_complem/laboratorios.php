@@ -121,17 +121,12 @@ function gra_laboratorios(){
             return ['error' => 'El campo '.$field.' es obligatorio.'];
         }
     }
-
     $id = divide($_POST['id']);
     if (count($id) == 1) {
         // Actualización
-        $sql = "UPDATE hog_laboratorios SET 
-                tipo_lab=?, otro_lab=?, fecha_orden=?, lab_tomado=?, fecha_toma=?, cuenta_resul=?, fecha_resul=?, dato_crit=?, gestion=?, gest_cump=?, obs=?, usu_update=?, fecha_update=NOW() 
+        $sql = "UPDATE hog_laboratorios SET lab_tomado=?, fecha_toma=?, cuenta_resul=?, fecha_resul=?, dato_crit=?, gestion=?, gest_cump=?, obs=?, usu_update=?, fecha_update=SUB_DATE(NOW(),INTERVAL 5 HOUR) 
                 WHERE id_lab=?";
         $params = [
-            ['type' => 's', 'value' => trim($_POST['tipo_lab'])],
-            ['type' => 's', 'value' => trim($_POST['otro_lab'])],
-            ['type' => 's', 'value' => trim($_POST['fecha_orden'])],
             ['type' => 's', 'value' => trim($_POST['lab_tomado'] ?? '')],
             ['type' => 's', 'value' => trim($_POST['fecha_toma'] ?? '')],
             ['type' => 's', 'value' => trim($_POST['cuenta_resul'] ?? '')],
