@@ -1579,7 +1579,7 @@ function enabGestionLab(){
 }
 function enabTomaLab(){
 	const conditions = [
-		{ id: 'lab_tomado', value: '2', compare: false }
+		{ id: 'lab_tomado', value: '2', compare: true }
 	];
 	EnabDepeDynamic(['TaL'], conditions);
 }
