@@ -167,9 +167,9 @@ function opc_estado_entrega($id=''){
 
 function opc_entrega($id=''){
   $idp=divide($_REQUEST['id']);
-   $sqlCat = "SELECT valor, descripcion FROM catadeta WHERE idcatalogo=305 AND estado='A' ORDER BY valor";
+  /*  $sqlCat = "SELECT valor, descripcion FROM catadeta WHERE idcatalogo=305 AND estado='A' ORDER BY valor";
   $info=datos_mysql($sqlCat);
-  $cat = $info['responseResult']; 
+  $cat = $info['responseResult'];  */
   $sql="SELECT count(*) as entregas FROM `medicamentos_ctrl` WHERE  idpeople='{$idp[0]}' AND estado='A'";
   $info=datos_mysql($sql);
 		 $nuem= intval($info['responseResult'][0]['entregas']);
@@ -179,9 +179,9 @@ function opc_entrega($id=''){
        $selected = ($item['value']['valor'] == $entrega) ? " selected" : "";
        $rta .= "<option value='{$item['valor']['valor']}'$selected>{$item['descripcion']}</option>";
      } */
-      $rta = "<option value='$entrega'".($entrega=='1'?" selected":"").">PRIMERA ENTREGA</option>";
-     $rta = "<option value='$entrega'".($entrega=='2'?" selected":"").">SEGUNDA ENTREGA</option>";
-     $rta = "<option value='$entrega'".($entrega=='3'?" selected":"").">TERCERA ENTREGA</option>";
+      $rta = "<option value='$entrega'".($entrega==1?" selected":"").">PRIMERA ENTREGA</option>";
+     $rta = "<option value='$entrega'".($entrega==2?" selected":"").">SEGUNDA ENTREGA</option>";
+     $rta = "<option value='$entrega'".($entrega==3?" selected":"").">TERCERA ENTREGA</option>";
 		 return $rta;
 
 
