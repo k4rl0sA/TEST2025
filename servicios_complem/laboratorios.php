@@ -41,7 +41,7 @@ function cap_menus($a,$b='cap',$con='con') {
 function lis_laboratorios(){
     $id=divide($_POST['id']);
     $total="SELECT COUNT(*) AS total FROM (
-      SELECT id_lab 'Cod Laboratorio', idpeople, tipo_lab, otro_lab, fecha_orden, lab_tomado, fecha_toma, cuenta_resul, fecha_resul, dato_crit, gestion, gest_cump, obs
+      SELECT id_lab 'Cod Laboratorio',FN_CATALOGODESC(307, tipo_lab) Laboratorio, otro_lab,fecha_orden,FN_CATALOGODESC(170,lab_tomado) Tomado, fecha_toma,FN_CATALOGODESC(170,cuenta_resul) Resultado, fecha_resul,FN_CATALOGODESC(170,dato_crit) Daño_Critico, gestion, gest_cump, obs AS Observaciones
       FROM hog_laboratorios 
       WHERE idpeople='{$id[0]}' AND estado='A'
     ) AS Subquery";
