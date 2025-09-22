@@ -238,10 +238,10 @@ function opc_cod_admision($id=''){
   $cantidad_prescrita = intval($_POST['cantidad_prescrita']);
   $cantidad_entregada = intval($_POST['cant_entregada']);
   if ($numero_entrega === 1 && $cantidad_entregada > $cantidad_prescrita) {
-    return "Error: La cantidad entregada no puede ser mayor a la cantidad prescrita en la primera entrega.";
+        return "msj['Error: La cantidad entregada no puede ser mayor a la cantidad prescrita en la primera entrega.']";
   }
   if ($numero_entrega !== 1 && $cantidad_entregada > ($cantidad_prescrita - $cantidad_entregada)) {
-    return "Error: La cantidad entregada no puede ser mayor al pendiente por entregar en entregas posteriores.";
+    return "msj['Error: La cantidad entregada no puede ser mayor al pendiente por entregar en entregas posteriores.']";
   }
   $id = divide($_POST['id']);
   if (count($id) == 1) {
