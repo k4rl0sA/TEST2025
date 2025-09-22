@@ -231,7 +231,9 @@ function opc_cod_admision($id=''){
   }
  */
 
-  $sql="SELECT count(*) as entregas FROM `medicamentos_ctrl` WHERE  idpeople='{$idp[0]}' AND estado='A'";
+$id = divide($_POST['id']);
+$atencion=intval($_POST['cod_admision']);
+  $sql="SELECT count(*) as entregas FROM `medicamentos_ctrl` WHERE  idpeople='{$idp[0]}' AND idatencion=$atencion AND estado='A'";
   $info=datos_mysql($sql);
 		 $nuem= intval($info['responseResult'][0]['entregas']);
      $entrega = min($nuem + 1, 3);
@@ -250,11 +252,7 @@ function opc_cod_admision($id=''){
   if ($numero_entrega !== 1 && $cantidad_entregada > ($cantidad_prescrita - $cantidad_entregada)) {
     return "msj['Error: La cantidad entregada no puede ser mayor al pendiente por entregar en entregas posteriores.']";
   }
-
   
-
-
-  $id = divide($_POST['id']);
   if (count($id) == 1) {
     $pendiente_entregar = intval($_POST['cantidad_prescrita']) - intval($_POST['cantidad_entregada']);
     // Actualización
