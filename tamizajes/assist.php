@@ -250,8 +250,7 @@ function gra_tamassist() {
                 $valores[$post_key] = isset($mapas[$campo][$valor]) ? $mapas[$campo][$valor] : $valor;
             } else {
                 $valores[$post_key] = isset($_POST[$post_key]) ? $_POST[$post_key] : null;
-            }
-            
+            } 
         }
       
     $puntaje_tabaco = $valores['tfrecuencia'] + $valores['tdeseo'] + $valores['tsalud'] + $valores['thabitual'] + $valores['tpreocupa'] + $valores['tcontrolar'];
