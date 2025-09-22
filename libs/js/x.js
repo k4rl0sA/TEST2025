@@ -1553,3 +1553,9 @@ function enabPosMedicam(){
 	];
 	EnabDepeDynamic(['POs'], conditions);
 }
+function enabOthLaborat(){
+	const conditions = [
+		{ id: 'tipo_lab', value: '15', compare: true }
+	];
+	EnabDepeDynamic(['oTH'], conditions);
+}
