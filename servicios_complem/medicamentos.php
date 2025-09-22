@@ -236,7 +236,7 @@ function opc_cod_admision($id=''){
   if( $rta !== true) return $rta;
   $numero_entrega = intval($_POST['num_entrega']);
   $cantidad_prescrita = intval($_POST['cantidad_prescrita']);
-  $cantidad_entregada = intval($_POST['cantidad_entregada']);
+  $cantidad_entregada = intval($_POST['cant_entregada']);
   if ($numero_entrega === 1 && $cantidad_entregada > $cantidad_prescrita) {
     return "Error: La cantidad entregada no puede ser mayor a la cantidad prescrita en la primera entrega.";
   }
