@@ -364,7 +364,7 @@ function formato_dato($a,$b,$c,$d){
     
     if ($a=='medicamentctrl-lis' && $b=='acciones'){
         $rta="<nav class='menu right'>";    
-        $rta.="<li class='icono editar' title='Editar' id='".$c['Cod Registro']."' Onclick=\"setTimeout(getData,500,'medicamentctrl',event,this,['cantidad_prescrita','fecha_entrega','numero_entrega','cantidad_entregada','tipo_medicamento','medicamento','requiere_aprobacion','cantidadXaprobar','estado_entrega','observaciones'],'medicamentctrl.php');\"></li>";
+        // $rta.="<li class='icono editar' title='Editar' id='".$c['Cod Registro']."' Onclick=\"setTimeout(getData,500,'medicamentctrl',event,this,['cantidad_prescrita','fecha_entrega','numero_entrega','cantidad_entregada','tipo_medicamento','medicamento','requiere_aprobacion','cantidadXaprobar','estado_entrega','observaciones'],'medicamentctrl.php');\"></li>";
         $rta.="</nav>";
     }
     return $rta;
