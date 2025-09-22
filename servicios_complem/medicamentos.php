@@ -275,6 +275,12 @@ if ($total_entregado > $prescrita) {
   if( $_POST['fecha_orden']>$_POST['fecha_entrega']) {
     return "msj['Error: La fecha de orden no puede ser posterior a la fecha de entrega.']";
   }
+
+  $sql="SELECT cantidad_prescrita AS prescrita FROM `medicamentos_ctrl` WHERE idpeople='{$id[0]}' AND idatencion=$atencion AND estado='A' and numero_entrega=1 ORDER BY id_medicam LIMIT 1";
+    $info=datos_mysql($sql);
+    $prescrita = isset($info['responseResult'][0]['prescrita']) ? intval($info['responseResult'][0]['prescrita']) : intval($_POST['cantidad_prescrita']);
+
+  $pendiente_entregar = $entregadas-$prescrita;
   
   if (count($id) == 1) {
     $pendiente_entregar = intval($_POST['cantidad_prescrita']) - intval($_POST['cantidad_entregada']);
@@ -300,7 +306,7 @@ $params = [
 ];
     $rta = mysql_prepd($sql, $params);
   } else if (count($id) == 2) {
-    $pendiente_entregar = intval($_POST['cantidad_prescrita']) - intval($_POST['cant_entregada']);
+    // $pendiente_entregar = intval($_POST['cantidad_prescrita']) - intval($_POST['cant_entregada']);
     // Inserción
     $sql = "INSERT INTO medicamentos_ctrl (
   idpeople, idatencion, fecha_orden, cantidad_prescrita, fecha_entrega, numero_entrega, cantidad_entregada,
