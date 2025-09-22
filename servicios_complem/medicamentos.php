@@ -238,9 +238,11 @@ $atencion=intval($_POST['cod_admision']);
 		 $nuem= intval($info['responseResult'][0]['entregas']);
      $entrega = min($nuem + 1, 3);
 
-    $sql="SELECT sum(cantidad_entregada) as entregadas FROM `medicamentos_ctrl` WHERE  idpeople='{$id[0]}' AND idatencion=$atencion AND estado='A'";
+    $sql="SELECT sum(cantidad_entregada) as entregadas, FROM `medicamentos_ctrl` WHERE  idpeople='{$id[0]}' AND idatencion=$atencion AND estado='A'";
     $info=datos_mysql($sql);
 		$entregadas= intval($info['responseResult'][0]['entregadas']);
+
+    $sql="SELECT cantidad_prescrita AS prescrita FROM `medicamentos_ctrl` WHERE  idpeople='{$id[0]}' AND idatencion=$atencion AND estado='A' ORDER BY id_medicam LIMIT 1";
 
     if($entregadas >= intval($_POST['cantidad_prescrita'])) {
       return "msj['Error: La cantidad total entregada ya ha alcanzado o superado la cantidad prescrita. No se pueden realizar más entregas.']";
