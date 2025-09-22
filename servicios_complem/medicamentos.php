@@ -173,7 +173,7 @@ function opc_entrega($id=''){
      $rta = "<option value='$entrega'".($entrega==1?" selected":"").">PRIMERA ENTREGA</option>";
      $rta = "<option value='$entrega'".($entrega==2?" selected":"").">SEGUNDA ENTREGA</option>";
      $rta = "<option value='$entrega'".($entrega==3?" selected":"").">TERCERA ENTREGA</option>";
-		 return json_encode($entrega,$entrega);
+		 return $rta;
 
 
   // return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=305 AND VALOR=0 AND estado='A' ORDER BY 1",$id);
