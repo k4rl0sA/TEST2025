@@ -178,8 +178,13 @@ function get_laboratorios(){
         return "";
     } else {
         $id=divide($_REQUEST['id']);
-        $sql="SELECT id_lab, idpeople, tipo_lab, otro_lab, fecha_orden, lab_tomado, fecha_toma, cuenta_resul, fecha_resul, dato_crit, gestion, gest_cump, obs
+        $sql="SELECT id_lab,P.idpersona idpersona,P.tipo_doc tipodoc,CONCAT_WS(' ',nombre1,nombre2,apellido1,apellido2) nombre,P.fecha_nacimiento fechanacimiento,
+        P.sexo sexo,
+    TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) AS anos,
+    TIMESTAMPDIFF(MONTH, fecha_nacimiento, CURDATE())-(TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) * 12) AS meses,
+    DATEDIFF(CURDATE(),DATE_ADD(fecha_nacimiento, INTERVAL TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) YEAR)) % 30 AS dias idpeople, tipo_lab, otro_lab, fecha_orden, lab_tomado, fecha_toma, cuenta_resul, fecha_resul, dato_crit, gestion, gest_cump, obs
               FROM hog_laboratorios 
+              LEFT JOIN person P ON hog_laboratorios.idpeople=P.idpeople
               WHERE id_lab='{$id[0]}'";
         $info=datos_mysql($sql);
         return json_encode($info['responseResult'][0]);
