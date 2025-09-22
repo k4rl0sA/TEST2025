@@ -222,7 +222,7 @@ function formato_dato($a,$b,$c,$d){
     $rta=$c[$d];
     if ($a=='laboratorios' && $b=='cod laboratorio'){
         $rta="<nav class='menu right'>";    
-        $rta.="<li class='icono editar' title='Editar' id='".$c['Cod Laboratorio']."' Onclick=\"setTimeout(getData,500,'laboratorios',event,this,['tipo_lab','otro_lab','fecha_orden','lab_tomado','fecha_toma','cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump','obs'],'laboratorios.php');\"></li>";
+        $rta.="<li class='icono editar' title='Editar' id='".$c['Cod Laboratorio']."' Onclick=\"setTimeout(getData,500,'laboratorios',event,this,['tipo_lab','otro_lab','fecha_orden','lab_tomado','fecha_toma','cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump','obs'],'../servicios_complem/laboratorios.php');\"></li>";
         $rta.="</nav>";
     }
     return $rta;
