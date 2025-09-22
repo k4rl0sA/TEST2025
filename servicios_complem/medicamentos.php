@@ -170,8 +170,17 @@ function opc_entrega($id=''){
   $info=datos_mysql($sql);
 		 $nuem= $info['responseResult'][0]['entregas'];
      $entrega = min($nuem + 1, 3);
-		 return $entrega;
+		 return return json_encode($entrega,$entrega);
+
+
   // return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=305 AND VALOR=0 AND estado='A' ORDER BY 1",$id);
+
+  /* $id=divide($a);
+  $sql="SELECT idcatadeta, descripcion FROM `catadeta` WHERE idcatalogo=305 AND estado='A' AND VALOR=0 ORDER BY 2";
+		 FROM `eac_ruteo` WHERE  id_ruteo='{$id[0]}'";
+		 $info=datos_mysql($sql);
+		 $cod= $info['responseResult'][0]['cod'];
+		 return $cod; */
 }
 
 function opc_cod_admision($id=''){
