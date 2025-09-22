@@ -145,10 +145,10 @@ function gra_laboratorios(){
         ];
     } else if (count($id) == 2) {
         // Inserción
-        $sql = "INSERT INTO hog_laboratorios VALUES (
-                ?,?,?,?,?,?,?,?,?,?,?,?,?,NOW(),?,?,?)";
+        $sql = "INSERT INTO hog_laboratorios VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,?)";
         $params = [
-            ['type' => 'i', 'value' => null], // id_lab auto-increment
+            ['type' => 'i', 'value' => null], // id_lab
+            ['type' => 'i', 'value' => intval($_POST['cod_admision'])], // id_aten
             ['type' => 'i', 'value' => intval($id[0])], // idpeople
             ['type' => 's', 'value' => trim($_POST['tipo_lab'])],
             ['type' => 's', 'value' => trim($_POST['otro_lab'])],
