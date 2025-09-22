@@ -250,7 +250,9 @@ $atencion=intval($_POST['cod_admision']);
     }
     
 
-    if($entregadas >= intval($_POST['cantidad_prescrita'])) {
+    if($entregadas > intval($_POST['cantidad_prescrita'] && $entrega==1)) {
+      return "msj['Error: La cantidad total entregada ya ha alcanzado o superado la cantidad prescrita. No se pueden realizar más entregas.']";
+    }elseif($entregadas >= intval($_POST['cantidad_prescrita'] && $entrega>1)){
       return "msj['Error: La cantidad total entregada ya ha alcanzado o superado la cantidad prescrita. No se pueden realizar más entregas.']";
     }
   // Validación de campos obligatorios
