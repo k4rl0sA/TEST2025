@@ -150,14 +150,14 @@ function gra_laboratorios(){
             ['type' => 's', 'value' => trim($_POST['tipo_lab'])],
             ['type' => 's', 'value' => trim($_POST['otro_lab'])],
             ['type' => 's', 'value' => trim($_POST['fecha_orden'])],
-            ['type' => 's', 'value' => trim($_POST['lab_tomado'] ?? '')],
-            ['type' => 's', 'value' => trim($_POST['fecha_toma'] ?? '')],
-            ['type' => 's', 'value' => trim($_POST['cuenta_resul'] ?? '')],
-            ['type' => 's', 'value' => trim($_POST['fecha_resul'] ?? '')],
-            ['type' => 'i', 'value' => intval($_POST['dato_crit'] ?? 0)],
-            ['type' => 's', 'value' => trim($_POST['gestion'] ?? '')],
-            ['type' => 's', 'value' => trim($_POST['gest_cump'] ?? '')],
-            ['type' => 's', 'value' => trim($_POST['obs'] ?? '')],
+            ['type' => 's', 'value' => trim($_POST['lab_tomado'] ?? null)],
+            ['type' => 's', 'value' => trim($_POST['fecha_toma'] ?? '0000-00-00')],
+            ['type' => 's', 'value' => trim($_POST['cuenta_resul'] ?? null)],
+            ['type' => 's', 'value' => trim($_POST['fecha_resul'] ?? '0000-00-00')],
+            ['type' => 'i', 'value' => intval($_POST['dato_crit'] ?? null)],
+            ['type' => 's', 'value' => trim($_POST['gestion'] ?? null)],
+            ['type' => 's', 'value' => trim($_POST['gest_cump'] ?? null)],
+            ['type' => 's', 'value' => trim($_POST['obs'] ?? null)],
             ['type' => 's', 'value' => $_SESSION['us_sds']], // usu_create
             ['type' => 's', 'value' => null], // usu_update
             ['type' => 's', 'value' => null], // fecha_update
