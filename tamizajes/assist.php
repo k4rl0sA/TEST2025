@@ -478,7 +478,7 @@ function gra_tamassist() {
         ['type' => 's', 'value' => $nivel_inyec],
         ['type' => 's', 'value' => $_SESSION['us_sds']],
         ['type' => 's', 'value' => 'A']
-    ];
+    ];var_dump($_POST['fecha_toma']);
 
     $rta = mysql_prepd($sql, $params);
     return $rta;
