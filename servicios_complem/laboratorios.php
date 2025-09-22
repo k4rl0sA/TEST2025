@@ -49,7 +49,7 @@ function lis_laboratorios(){
     $total=$info['responseResult'][0]['total']; 
     $regxPag=5;
     $pag=(isset($_POST['pag-laboratorios']))? ($_POST['pag-laboratorios']-1)* $regxPag:0;
-    $sql="SELECT id_lab 'Cod Laboratorio',FN_CATALOGODESC(307, tipo_lab) Laboratorio, otro_lab,fecha_orden,FN_CATALOGODESC(170,lab_tomado) Tomado, fecha_toma,FN_CATALOGODESC(170,cuenta_resul) Resultado, fecha_resul,FN_CATALOGODESC(170,dato_crit) Daño_Critico, gestion, gest_cump, obs AS Observaciones
+    $sql="SELECT id_lab 'Cod Laboratorio',FN_CATALOGODESC(307, tipo_lab) Laboratorio, otro_lab Otro,fecha_orden,FN_CATALOGODESC(170,lab_tomado) Tomado, fecha_toma,FN_CATALOGODESC(170,cuenta_resul) Resultado, fecha_resul,FN_CATALOGODESC(170,dato_crit) Daño_Critico, gestion, gest_cump, obs AS Observaciones
           FROM hog_laboratorios 
           WHERE idpeople='{$id[0]}' AND estado='A'";
     $sql.=" ORDER BY fecha_orden DESC LIMIT $pag, $regxPag";
