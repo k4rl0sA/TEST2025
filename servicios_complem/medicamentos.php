@@ -230,16 +230,16 @@ function opc_cod_admision($id=''){
     return ['error' => 'La cantidad pendiente por entregar debe ser un número positivo.'];
   }
  */
-/* $campos = [
-  'idpeople', 'idatencion', 'fecha_orden', 'cantidad_prescrita', 'fecha_entrega', 'numero_entrega',
+$campos = [
+  'idpeople', 'idatencion', 'fecha_orden', 'cantidad_prescrita', 'fecha_entrega', 'num_entrega',
   'cantidad_entregada', 'pos'
 ];
 $validacion = fieldsRequired($campos, ['observaciones']);
 if ($validacion !== true) {
   return ['error' => $validacion['error']];
-} */
+}
 
-$numero_entrega = intval($_POST['numero_entrega']);
+$numero_entrega = intval($_POST['num_entrega']);
 $cantidad_prescrita = intval($_POST['cantidad_prescrita']);
 $cantidad_entregada = intval($_POST['cantidad_entregada']);
 $pendiente_entregar = $cantidad_prescrita - $cantidad_entregada;
