@@ -230,11 +230,18 @@ function opc_cod_admision($id=''){
     return ['error' => 'La cantidad pendiente por entregar debe ser un número positivo.'];
   }
  */
+
+  $sql="SELECT count(*) as entregas FROM `medicamentos_ctrl` WHERE  idpeople='{$idp[0]}' AND estado='A'";
+  $info=datos_mysql($sql);
+		 $nuem= intval($info['responseResult'][0]['entregas']);
+     $entrega = min($nuem + 1, 3);
+
   // Validación de campos obligatorios
   $requeridos = ['cod_admision','fecha_orden', 'cantidad_prescrita', 'fecha_entrega','cant_entregada','req_aprobacion'];
   $rta = fieldsRequired($requeridos);
   if( $rta !== true) return $rta;
-  $numero_entrega = intval($_POST['num_entrega']);
+
+  $numero_entrega = intval($entrega);
   $cantidad_prescrita = intval($_POST['cantidad_prescrita']);
   $cantidad_entregada = intval($_POST['cant_entregada']);
   if ($numero_entrega === 1 && $cantidad_entregada > $cantidad_prescrita) {
@@ -244,10 +251,7 @@ function opc_cod_admision($id=''){
     return "msj['Error: La cantidad entregada no puede ser mayor al pendiente por entregar en entregas posteriores.']";
   }
 
-  $sql="SELECT count(*) as entregas FROM `medicamentos_ctrl` WHERE  idpeople='{$idp[0]}' AND estado='A'";
-  $info=datos_mysql($sql);
-		 $nuem= intval($info['responseResult'][0]['entregas']);
-     $entrega = min($nuem + 1, 3);
+  
 
 
   $id = divide($_POST['id']);
