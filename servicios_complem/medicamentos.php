@@ -179,9 +179,9 @@ function opc_entrega($id=''){
        $selected = ($item['value']['valor'] == $entrega) ? " selected" : "";
        $rta .= "<option value='{$item['valor']['valor']}'$selected>{$item['descripcion']}</option>";
      } */
-     /* $rta = "<option value='$entrega'".($entrega=='1'?" selected":"").">PRIMERA ENTREGA</option>";
+      $rta = "<option value='$entrega'".($entrega=='1'?" selected":"").">PRIMERA ENTREGA</option>";
      $rta = "<option value='$entrega'".($entrega=='2'?" selected":"").">SEGUNDA ENTREGA</option>";
-     $rta = "<option value='$entrega'".($entrega=='3'?" selected":"").">TERCERA ENTREGA</option>"; */
+     $rta = "<option value='$entrega'".($entrega=='3'?" selected":"").">TERCERA ENTREGA</option>";
 		 return $rta;
 
 
