@@ -116,17 +116,13 @@ function get_persona(){
 
 function gra_laboratorios(){
     // Validación de campos obligatorios
-    $required = [
-        'tipo_lab', 'otro_lab', 'fecha_orden'
-    ];
+    $required = ['cod_admision','tipo_lab', 'otro_lab', 'fecha_orden'];
     foreach ($required as $field) {
         if (empty($_POST[$field])) {
             return ['error' => 'El campo '.$field.' es obligatorio.'];
         }
     }
-    if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $_POST['fecha_orden'])) {
-        return ['error' => 'El formato de la fecha de orden es inválido.'];
-    }
+
     $id = divide($_POST['id']);
     if (count($id) == 1) {
         // Actualización
