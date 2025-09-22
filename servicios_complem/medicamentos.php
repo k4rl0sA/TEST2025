@@ -139,7 +139,13 @@ function opc_sexo($id=''){
 
 // Funciones para opciones de select
 function opc_numero_entrega($id=''){
-    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=305 AND estado='A' ORDER BY 1",$id);
+  $id=divide($a);
+  $sql = "SELECT COUNT(*) AS entregas FROM medicamentos_ctrl WHERE idpeople='$id[0]' AND idatencion='$idatencion' AND estado='A'";
+  $info=datos_mysql($sql);
+		 $nuem= $info['responseResult'][0]['entregas'];
+     $entrega = min($nuem + 1, 3);
+		 return $entrega;
+    // return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=305 AND estado='A' ORDER BY 1",$id);
 }
 
 function opc_tipo_medicamento($id=''){
