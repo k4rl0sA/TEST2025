@@ -240,23 +240,24 @@ $atencion=intval($_POST['cod_admision']);
 
     $sql="SELECT sum(cantidad_entregada) as entregadas, FROM `medicamentos_ctrl` WHERE  idpeople='{$id[0]}' AND idatencion=$atencion AND estado='A'";
     $info=datos_mysql($sql);
-		$entregadas= intval($info['responseResult'][0]['entregadas']??intval($_POST['cant_entregada']));
-    var_dump($entregadas);
+		$entregadas = isset($info['responseResult'][0]['entregadas']) ? intval($info['responseResult'][0]['entregadas']) : 0;
 
-    $sql="SELECT cantidad_prescrita AS prescrita FROM `medicamentos_ctrl` WHERE  idpeople='{$id[0]}' AND idatencion=$atencion AND estado='A' ORDER BY id_medicam LIMIT 1";
+
+    $sql="SELECT cantidad_prescrita AS prescrita FROM `medicamentos_ctrl` WHERE idpeople='{$id[0]}' AND idatencion=$atencion AND estado='A' ORDER BY id_medicam LIMIT 1";
     $info=datos_mysql($sql);
-    $prescrita= intval($info['responseResult'][0]['prescrita']??intval($_POST['cantidad_prescrita']));
-    var_dump($prescrita);
-    if($_POST['cantidad_prescrita'] != $prescrita) {
-      return "msj['Error: La cantidad prescrita tiene que ser igual en las demas entregas']";
+    $prescrita = isset($info['responseResult'][0]['prescrita']) ? intval($info['responseResult'][0]['prescrita']) : intval($_POST['cantidad_prescrita']);
+  
+    if ($entregadas > 0 && $_POST['cantidad_prescrita'] != $prescrita) {
+      return "msj['Error: La cantidad prescrita tiene que ser igual en las demás entregas']";
     }
-    
 
-    if($entregadas > intval($_POST['cantidad_prescrita'] && $entrega==1)) {
-      return "msj['Error: La cantidad total entregada ya ha alcanzado o superado la cantidad prescrita. No se pueden realizar más entregas.']";
-    }elseif($entregadas >= intval($_POST['cantidad_prescrita'] && $entrega>1)){
-      return "msj['Error: La cantidad total entregada ya ha alcanzado o superado la cantidad prescrita. No se pueden realizar más entregas.']";
-    }
+// Validar que la suma de entregas no supere la prescrita
+$nueva_entrega = intval($_POST['cant_entregada']);
+$total_entregado = $entregadas + $nueva_entrega;
+if ($total_entregado > $prescrita) {
+    return "msj['Error: La cantidad total entregada no puede superar la cantidad prescrita.']";
+}
+
   // Validación de campos obligatorios
   $requeridos = ['cod_admision','fecha_orden', 'cantidad_prescrita', 'fecha_entrega','cant_entregada','req_aprobacion'];
   $rta = fieldsRequired($requeridos);
