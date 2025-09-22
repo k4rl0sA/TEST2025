@@ -56,7 +56,7 @@ function lis_medicamentctrl(){
       CONCAT(cantidad_entregada, ' unidades') as cantidad_entregada,pendiente_entregar as 'Pendiente por Entregar'
       FROM medicamentos_ctrl 
       WHERE idpeople='{$id[0]}' AND estado='A'";
-    $sql.=" ORDER BY fecha_orden ASC LIMIT $pag, $regxPag";
+    $sql.=" ORDER BY fecha_entrega ASC LIMIT $pag, $regxPag";
     
     $datos=datos_mysql($sql);
     return create_table($total,$datos["responseResult"],"medicamentctrl",$regxPag,'medicamentctrl.php');
