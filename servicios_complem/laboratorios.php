@@ -78,11 +78,13 @@ function cmp_laboratorios(){
     $c[]=new cmp('fechanacimiento','d',10,$d['fechanacimiento'],$w.' '.$o,'fecha nacimiento','fechanacimiento',null,'',true,false,'','col-3');
     $c[]=new cmp('edad','t',30,$edad,$w.' '.$o,'edad en Años','edad',null,'',true,false,'','col-3');
     $o='laboratorio';
-    $c[]=new cmp($o,'e',null,'CONTROL DE LABORATORIOS',$w);
+    $c[]=new cmp($o,'e',null,'LABORATORIOS',$w);
     $c[]=new cmp('cod_admision','s',2,$e,$w.' '.$o,'Cod. Admisión','cod_admision',null,'',true,true,'','col-4');
     $c[]=new cmp('tipo_lab','s',3,$e,$w.' '.$o,'Tipo Laboratorio','tipo_lab',null,'',true,true,'','col-2',"enabOthLaborat();");
     $c[]=new cmp('otro_lab','t',255,$e,$w.' oTH '.$o,'Otro Laboratorio, ¿Cuál?','otro_lab',null,'',true,false,'','col-4');
     $c[]=new cmp('fecha_orden','d',10,$e,$w.' '.$o,'Fecha de orden','fecha_orden',null,'',true,true,'','col-2',"validDate(this,-30,0);");
+    $o='laboratorio';
+    $c[]=new cmp($o,'e',null,'CONTROL DE LABORATORIOS',$w);
     $c[]=new cmp('lab_tomado','s',3,$e,$w.' '.$o,'¿Laboratorio tomado?','lab_tomado',null,'',true,true,'','col-2');
     $c[]=new cmp('fecha_toma','d',10,$e,$w.' '.$o,'Fecha de Toma','fecha_toma',null,'',false,false,'','col-2');
     $c[]=new cmp('cuenta_resul','s',3,$e,$w.' '.$o,'¿Cuenta con resultado?','cuenta_resul',null,'',true,true,'','col-2');
