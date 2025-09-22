@@ -174,11 +174,11 @@ function opc_entrega($id=''){
   $info=datos_mysql($sql);
 		 $nuem= intval($info['responseResult'][0]['entregas']);
      $entrega = min($nuem + 1, 3);
-     $rta="";
+     /* $rta="";
      foreach($cat as $item) {
        $selected = ($item['value']['valor'] == $entrega) ? " selected" : "";
        $rta .= "<option value='{$item['valor']['valor']}'$selected>{$item['descripcion']}</option>";
-     }
+     } */
      /* $rta = "<option value='$entrega'".($entrega=='1'?" selected":"").">PRIMERA ENTREGA</option>";
      $rta = "<option value='$entrega'".($entrega=='2'?" selected":"").">SEGUNDA ENTREGA</option>";
      $rta = "<option value='$entrega'".($entrega=='3'?" selected":"").">TERCERA ENTREGA</option>"; */
