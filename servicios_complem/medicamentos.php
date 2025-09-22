@@ -166,16 +166,12 @@ function opc_estado_entrega($id=''){
 
 function opc_entrega($id=''){
   $idp=divide($_REQUEST['id']);
-  $sql="SELECT count(*) as total FROM `medicamentos_ctrl` WHERE  idpeople='{$idp[0]}' AND estado='A' AND idatencion=";
-
-  return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=305 AND VALOR=0 AND estado='A' ORDER BY 1",$id);
-
-  /* $id=divide($a);
-  $sql="SELECT idcatadeta, descripcion FROM `catadeta` WHERE idcatalogo=305 AND estado='A' AND VALOR=0 ORDER BY 2";
-		 FROM `eac_ruteo` WHERE  id_ruteo='{$id[0]}'";
-		 $info=datos_mysql($sql);
-		 $cod= $info['responseResult'][0]['cod'];
-		 return $cod; */
+  $sql="SELECT count(*) as entregas FROM `medicamentos_ctrl` WHERE  idpeople='{$idp[0]}' AND estado='A'";
+  $info=datos_mysql($sql);
+		 $nuem= $info['responseResult'][0]['entregas'];
+     $entrega = min($nuem + 1, 3);
+		 return $entrega;
+  // return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=305 AND VALOR=0 AND estado='A' ORDER BY 1",$id);
 }
 
 function opc_cod_admision($id=''){
