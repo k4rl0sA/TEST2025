@@ -238,7 +238,7 @@ $atencion=intval($_POST['cod_admision']);
 		 $nuem= intval($info['responseResult'][0]['entregas']);
      $entrega = min($nuem + 1, 3);
 
-    $sql="SELECT sum(cantidad_entregada) as entregadas, FROM `medicamentos_ctrl` WHERE  idpeople='{$id[0]}' AND idatencion=$atencion AND estado='A'";
+    $sql="SELECT sum(cantidad_entregada) as entregadas FROM `medicamentos_ctrl` WHERE idpeople='{$id[0]}' AND idatencion=$atencion AND estado='A'";
     $info=datos_mysql($sql);
 		$entregadas = isset($info['responseResult'][0]['entregadas']) ? intval($info['responseResult'][0]['entregadas']) : 0;
 
