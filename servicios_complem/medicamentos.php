@@ -175,9 +175,9 @@ function opc_entrega($id=''){
 		 $nuem= intval($info['responseResult'][0]['entregas']);
      $entrega = min($nuem + 1, 3);
      $rta="";
-     while($cat=each($cat)) {
-       $selected = ($cat['value']['valor'] == $entrega) ? " selected" : "";
-       $rta .= "<option value='{$cat['value']['valor']}'$selected>{$cat['value']['descripcion']}</option>";
+     foreach($cat as $item) {
+       $selected = ($item['value']['valor'] == $entrega) ? " selected" : "";
+       $rta .= "<option value='{$item['valor']['valor']}'$selected>{$item['descripcion']}</option>";
      }
      /* $rta = "<option value='$entrega'".($entrega=='1'?" selected":"").">PRIMERA ENTREGA</option>";
      $rta = "<option value='$entrega'".($entrega=='2'?" selected":"").">SEGUNDA ENTREGA</option>";
