@@ -171,9 +171,9 @@ function opc_entrega($id=''){
   $info=datos_mysql($sql);
 		 $nuem= $info['responseResult'][0]['entregas'];
      $entrega = min($nuem + 1, 3);
-     $rta = "<option value='$entrega'".($entrega==1?" selected":"").">PRIMERA ENTREGA</option>";
-     $rta = "<option value='$entrega'".($entrega==2?" selected":"").">SEGUNDA ENTREGA</option>";
-     $rta = "<option value='$entrega'".($entrega==3?" selected":"").">TERCERA ENTREGA</option>";
+     $rta = "<option value='$entrega'".($entrega=='1'?" selected":"").">PRIMERA ENTREGA</option>";
+     $rta = "<option value='$entrega'".($entrega=='2'?" selected":"").">SEGUNDA ENTREGA</option>";
+     $rta = "<option value='$entrega'".($entrega=='3'?" selected":"").">TERCERA ENTREGA</option>";
 		 return $rta;
 
 
