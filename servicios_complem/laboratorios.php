@@ -80,6 +80,7 @@ function cmp_laboratorios(){
     // Datos de laboratorios
     $o='laboratorio';
     $c[]=new cmp($o,'e',null,'CONTROL DE LABORATORIOS',$w);
+    $c[]=new cmp('cod_admision','s',2,$e,$w.' '.$o,'Cod. Admisión','cod_admision',null,'',true,true,'','col-4');
     $c[]=new cmp('tipo_lab','s',3,$e,$w.' '.$o,'Tipo Laboratorio','tipo_lab',null,'',true,true,'','col-2');
     $c[]=new cmp('otro_lab','t',255,$e,$w.' '.$o,'Otro Laboratorio, ¿Cuál?','otro_lab',null,'',true,true,'','col-4');
     $c[]=new cmp('fecha_orden','d',10,$e,$w.' '.$o,'Fecha de Orden','fecha_orden',null,'',true,true,'','col-2',"validDate(this,$days,0);");
@@ -208,6 +209,11 @@ function opc_gestion($id=''){
 function opc_gest_cump($id=''){
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=27 and estado='A' ORDER BY 1",$id);
 }
+function opc_cod_admision($id=''){
+	$cod=divide($_REQUEST['id']);
+  return opc_sql("SELECT a.id_aten,CONCAT_WS(' - ',f.cod_admin,FN_CATALOGODESC(127,f.final_consul)) AS descripcion FROM eac_atencion a LEFT JOIN adm_facturacion f ON a.id_factura=f.id_factura WHERE a.idpeople='{$cod[0]}' AND a.medicamentos=1", $id);
+}
+
 
 function formato_dato($a,$b,$c,$d){
     $b=strtolower($b);
