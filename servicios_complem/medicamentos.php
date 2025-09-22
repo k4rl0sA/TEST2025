@@ -243,6 +243,13 @@ function opc_cod_admision($id=''){
   if ($numero_entrega !== 1 && $cantidad_entregada > ($cantidad_prescrita - $cantidad_entregada)) {
     return "msj['Error: La cantidad entregada no puede ser mayor al pendiente por entregar en entregas posteriores.']";
   }
+
+  $sql="SELECT count(*) as entregas FROM `medicamentos_ctrl` WHERE  idpeople='{$idp[0]}' AND estado='A'";
+  $info=datos_mysql($sql);
+		 $nuem= intval($info['responseResult'][0]['entregas']);
+     $entrega = min($nuem + 1, 3);
+
+
   $id = divide($_POST['id']);
   if (count($id) == 1) {
     $pendiente_entregar = intval($_POST['cantidad_prescrita']) - intval($_POST['cantidad_entregada']);
@@ -280,7 +287,7 @@ $params = [
       ['type' => 's', 'value' => $_POST['fecha_orden']],
       ['type' => 'i', 'value' => intval($_POST['cantidad_prescrita'])],
       ['type' => 's', 'value' => $_POST['fecha_entrega']],
-      ['type' => 's', 'value' => $_POST['num_entrega']],
+      ['type' => 's', 'value' => $entrega],
       ['type' => 'i', 'value' => intval($_POST['cant_entregada'])],
       ['type' => 'i', 'value' => $pendiente_entregar],
       ['type' => 's', 'value' => $_POST['req_aprobacion']],
