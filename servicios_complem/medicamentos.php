@@ -231,7 +231,7 @@ function opc_cod_admision($id=''){
   }
  */
   // Validación de campos obligatorios
-  $requeridos = ['cod_admision','fecha_orden', 'cantidad_prescrita', 'fecha_entrega', 'num_entrega','cant_entregada','req_aprobacion'];
+  $requeridos = ['cod_admision','fecha_orden', 'cantidad_prescrita', 'fecha_entrega','cant_entregada','req_aprobacion'];
   $rta = fieldsRequired($requeridos);
   if( $rta !== true) return $rta;
   $numero_entrega = intval($_POST['num_entrega']);
