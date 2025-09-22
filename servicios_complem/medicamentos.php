@@ -283,7 +283,7 @@ if ($total_entregado > $prescrita) {
     var_dump($entregadas);
     var_dump($prescrita);
     var_dump($cantidad_entregada);
-  $pendiente_entregar = $entregadas-$prescrita;
+  $pendiente_entregar = $prescrita-cantidad_prescrita;
   
   if (count($id) == 1) {
     $pendiente_entregar = intval($_POST['cantidad_prescrita']) - intval($_POST['cantidad_entregada']);
