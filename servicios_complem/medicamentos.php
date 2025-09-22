@@ -255,14 +255,14 @@ if ($numero_entrega !== 1 && $cantidad_entregada > $pendiente_entregar) {
     $pendiente_entregar = intval($_POST['cantidad_prescrita']) - intval($_POST['cantidad_entregada']);
     // Actualización
    $sql = "UPDATE medicamentos_ctrl SET
-  fecha_orden=?, cantidad_prescrita=?, fecha_entrega=?, numero_entrega=?, cantidad_entregada=?,
+  fecha_orden=?, cantidad_prescrita=?, fecha_entrega=?, num_entrega=?, cantidad_entregada=?,
   pendiente_entregar=?, pos=?, cantidad_aprobar=?, observaciones=?, usu_update=?, fecha_update=SUB_DATE(NOW(), INTERVAL 5 HOUR) 
-  WHERE idpeople=? AND numero_entrega=? AND idatencion=? AND estado='A'";
+  WHERE idpeople=? AND num_entrega=? AND idatencion=? AND estado='A'";
 $params = [
   ['type' => 's', 'value' => $_POST['fecha_orden']],
   ['type' => 'i', 'value' => intval($_POST['cantidad_prescrita'])],
   ['type' => 's', 'value' => $_POST['fecha_entrega']],
-  ['type' => 's', 'value' => $_POST['numero_entrega']],
+  ['type' => 's', 'value' => $numero_entrega],
   ['type' => 'i', 'value' => intval($_POST['cantidad_entregada'])],
   ['type' => 'i', 'value' => $pendiente_entregar],
   ['type' => 's', 'value' => $_POST['pos']],
