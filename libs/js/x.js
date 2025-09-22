@@ -1561,19 +1561,25 @@ function enabOthLaborat(){
 }
 function enabFechaTomaLab(){
 	const conditions = [
-		{ id: 'lab_tomado', value: '15', compare: true }
+		{ id: 'lab_tomado', value: '1', compare: true }
 	];
 	EnabDepeDynamic(['ToM'], conditions);
 }
 function enabFechaResulLab(){
 	const conditions = [
-		{ id: 'cuenta_resul', value: '15', compare: true }
+		{ id: 'cuenta_resul', value: '1', compare: true }
 	];
 	EnabDepeDynamic(['RTa'], conditions);
 }
 function enabGestionLab(){
 	const conditions = [
-		{ id: 'dato_crit', value: '15', compare: true }
+		{ id: 'dato_crit', value: '1', compare: true }
 	];
 	EnabDepeDynamic(['dCR'], conditions);
+}
+function enabTomaLab(){
+	const conditions = [
+		{ id: 'lab_tomado', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['TaL'], conditions);
 }
