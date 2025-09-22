@@ -259,6 +259,9 @@ $atencion=intval($_POST['cod_admision']);
   if ($numero_entrega !== 1 && $cantidad_entregada > ($cantidad_prescrita - $cantidad_entregada)) {
     return "msj['Error: La cantidad entregada no puede ser mayor al pendiente por entregar en entregas posteriores.']";
   }
+  if( $_POST['fecha_entrega']>$_POST['fecha_orden']) {
+    return "msj['Error: La fecha de entrega no puede ser posterior a la fecha de orden.']";
+  }
   
   if (count($id) == 1) {
     $pendiente_entregar = intval($_POST['cantidad_prescrita']) - intval($_POST['cantidad_entregada']);
