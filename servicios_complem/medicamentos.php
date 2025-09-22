@@ -143,7 +143,8 @@ function opc_numero_entrega($id=''){
   $sql = "SELECT COUNT(*) AS entregas FROM medicamentos_ctrl WHERE idpeople='$id[0]' AND estado='A'";
   $info=datos_mysql($sql);
 		 $nuem= $info['responseResult'][0]['entregas'];
-     $entrega = min($nuem + 1, 3);
+     $nuem=$nuem+1;
+     $entrega = min($nuem, 3);
 		 return $entrega;
     // return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=305 AND estado='A' ORDER BY 1",$id);
 }
