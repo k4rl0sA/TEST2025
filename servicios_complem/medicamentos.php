@@ -233,7 +233,7 @@ function opc_cod_admision($id=''){
 
 $id = divide($_POST['id']);
 $atencion=intval($_POST['cod_admision']);
-  $sql="SELECT count(*) as entregas FROM `medicamentos_ctrl` WHERE  idpeople='{$idp[0]}' AND idatencion=$atencion AND estado='A'";
+  $sql="SELECT count(*) as entregas FROM `medicamentos_ctrl` WHERE  idpeople='{$id[0]}' AND idatencion=$atencion AND estado='A'";
   $info=datos_mysql($sql);
 		 $nuem= intval($info['responseResult'][0]['entregas']);
      $entrega = min($nuem + 1, 3);
