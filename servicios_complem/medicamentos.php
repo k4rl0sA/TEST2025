@@ -238,6 +238,13 @@ $atencion=intval($_POST['cod_admision']);
 		 $nuem= intval($info['responseResult'][0]['entregas']);
      $entrega = min($nuem + 1, 3);
 
+    $sql="SELECT sum(cantidad_entregada) as entregadas FROM `medicamentos_ctrl` WHERE  idpeople='{$id[0]}' AND idatencion=$atencion AND estado='A'";
+    $info=datos_mysql($sql);
+		$entregadas= intval($info['responseResult'][0]['entregadas']);
+
+    if($entregadas >= intval($_POST['cantidad_prescrita'])) {
+      return "msj['Error: La cantidad total entregada ya ha alcanzado o superado la cantidad prescrita. No se pueden realizar más entregas.']";
+    }
   // Validación de campos obligatorios
   $requeridos = ['cod_admision','fecha_orden', 'cantidad_prescrita', 'fecha_entrega','cant_entregada','req_aprobacion'];
   $rta = fieldsRequired($requeridos);
