@@ -41,7 +41,7 @@ function cap_menus($a,$b='cap',$con='con') {
 function lis_medicamentctrl(){
     $id=divide($_POST['id']);
     $total="SELECT COUNT(*) AS total FROM (
-      SELECT id_medicam 'Cod Registro',fecha_orden, CONCAT(cantidad_prescrita, ' unidades') as cantidad_prescrita,fecha_entrega,FN_CATALOGODESC(88, numero_entrega) as numero_entrega,
+      SELECT id_medicam 'Cod Registro',fecha_orden, CONCAT(cantidad_prescrita, ' unidades') as cantidad_prescrita,fecha_entrega,FN_CATALOGODESC(305, numero_entrega) as numero_entrega,
       CONCAT(cantidad_entregada, ' unidades') as cantidad_entregada,pendiente_entregar as 'Pendiente por Entregar'
       FROM medicamentos_ctrl 
       WHERE idpeople='{$id[0]}' AND estado='A'
@@ -52,7 +52,7 @@ function lis_medicamentctrl(){
     $regxPag=5;
     $pag=(isset($_POST['pag-medicamentctrl']))? ($_POST['pag-medicamentctrl']-1)* $regxPag:0;
 
-    $sql="SELECT id_medicam 'Cod Registro',fecha_orden, CONCAT(cantidad_prescrita, ' unidades') as cantidad_prescrita,fecha_entrega,FN_CATALOGODESC(88, numero_entrega) as numero_entrega,
+    $sql="SELECT id_medicam 'Cod Registro',fecha_orden, CONCAT(cantidad_prescrita, ' unidades') as cantidad_prescrita,fecha_entrega,FN_CATALOGODESC(305, numero_entrega) as numero_entrega,
       CONCAT(cantidad_entregada, ' unidades') as cantidad_entregada,pendiente_entregar as 'Pendiente por Entregar'
       FROM medicamentos_ctrl 
       WHERE idpeople='{$id[0]}' AND estado='A'";
