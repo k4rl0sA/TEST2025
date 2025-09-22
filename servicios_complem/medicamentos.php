@@ -97,7 +97,7 @@ function cmp_medicamentctrl(){
     $c[]=new cmp('fecha_orden','d',10,$e,$w.' '.$o,'Fecha de orden','fecha_orden',null,'',true,true,'','col-2',"validDate(this,-30,10);");
     $c[]=new cmp('cantidad_prescrita','nu',10,$e,$w.' '.$o,'Cantidad Prescrita','cantidad_prescrita',null,'',true,true,'','col-2');
     $c[]=new cmp('fecha_entrega','d',10,$e,$w.' '.$o,'Fecha de Entrega','fecha_entrega',null,'',true,true,'','col-2',"validDate(this,$days,0);");
-    $c[]=new cmp('num_entrega','s',2,$e,$w.' '.$o,'Número de Entrega','entrega',null,'',true,true,'','col-2');
+    // $c[]=new cmp('num_entrega','s',2,$e,$w.' '.$o,'Número de Entrega','entrega',null,'',true,true,'','col-2');
     $c[]=new cmp('cant_entregada','nu',30,$e,$w.' '.$o,'Cantidad Entregada','cantidad_entregada',null,'',true,true,'','col-2');
     $c[]=new cmp('pend_entregar','nu',30,$e,$w.' '.$o,'Pendiente por Entregar','cantidadXaprobar',null,'',false,false,'','col-2');
     $c[]=new cmp('req_aprobacion','s',2,$e,$w.' '.$o,'Medicamento NO POS','tipo_medicamento',null,'',true,true,'','col-2',"enabPosMedicam();");
