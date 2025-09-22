@@ -169,7 +169,7 @@ function opc_entrega($id=''){
   $idp=divide($_REQUEST['id']);
   $sql="SELECT count(*) as entregas FROM `medicamentos_ctrl` WHERE  idpeople='{$idp[0]}' AND estado='A'";
   $info=datos_mysql($sql);
-		 $nuem= $info['responseResult'][0]['entregas'];
+		 $nuem= intval($info['responseResult'][0]['entregas']);
      $entrega = min($nuem + 1, 3);
      $rta = "<option value='$entrega'".($entrega=='1'?" selected":"").">PRIMERA ENTREGA</option>";
      $rta = "<option value='$entrega'".($entrega=='2'?" selected":"").">SEGUNDA ENTREGA</option>";
