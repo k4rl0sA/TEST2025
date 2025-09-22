@@ -243,6 +243,12 @@ $atencion=intval($_POST['cod_admision']);
 		$entregadas= intval($info['responseResult'][0]['entregadas']);
 
     $sql="SELECT cantidad_prescrita AS prescrita FROM `medicamentos_ctrl` WHERE  idpeople='{$id[0]}' AND idatencion=$atencion AND estado='A' ORDER BY id_medicam LIMIT 1";
+    $info=datos_mysql($sql);
+    $prescrita= intval($info['responseResult'][0]['prescrita']);
+    if($_POST['cantidad_prescrita'] != $prescrita) {
+      return "msj['Error: La cantidad prescrita tiene que ser igual en las demas entregas']";
+    }
+    
 
     if($entregadas >= intval($_POST['cantidad_prescrita'])) {
       return "msj['Error: La cantidad total entregada ya ha alcanzado o superado la cantidad prescrita. No se pueden realizar más entregas.']";
