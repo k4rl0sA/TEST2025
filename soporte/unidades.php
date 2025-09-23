@@ -89,7 +89,7 @@ function gra_unidadeshs() {
     } */
 
     // Insertar en soporte si la subred es la misma
-    $sql = "INSERT INTO soporte (idsoporte, idpeople, cod_familia, formulario, prioridad, usu_creo, fecha_create, estado) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO soporte (idsoporte, idpeople, cod_familia, formulario, prioridad, usu_creo, fecha_create, estado) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
     $params = [
         ['type' => 'i', 'value' => $id[0]],      // idpeople
         ['type' => 'i', 'value' => $cod_predio],
