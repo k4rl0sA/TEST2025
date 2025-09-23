@@ -86,7 +86,7 @@ function cmp_laboratorios(){
     $o='ctrlLab';
     $c[]=new cmp($o,'e',null,'CONTROL DE LABORATORIOS',$w);
     $c[]=new cmp('lab_tomado','s',3,$e,$w.' '.$o,'¿Laboratorio tomado?','lab_tomado',null,'',true,true,'','col-2',"enabFechaTomaLab();enabTomaLab();");
-    $c[]=new cmp('fecha_toma','d',10,$e,$w.' ToM '.$o,'Fecha de Toma','fecha_toma',null,'',false,false,'','col-2');
+    $c[]=new cmp('fecha_toma','d',10,$e,$w.' ToM '.$o,'Fecha de Toma','fecha_toma',null,'',false,false,'','col-2',"validDate(this,-30,0);");
     $c[]=new cmp('cuenta_resul','s',3,$e,$w.' ToM '.$o,'¿Cuenta con resultado?','cuenta_resul',null,'',true,true,'','col-2',"enabFechaResulLab();");    
     $c[]=new cmp('fecha_resul','d',10,$e,$w.' RTa  '.$o,'Fecha de Resultado','fecha_resul',null,'',false,false,'','col-2');
     $c[]=new cmp('dato_crit','s',10,$e,$w.' ToM '.$o,'Dato Crítico','dato_crit',null,'',true,true,'','col-2',"enabGestionLab();");
