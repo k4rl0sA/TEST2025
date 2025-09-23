@@ -178,7 +178,7 @@ function gra_laboratorios(){
     } else {
         return ['error' => 'ID inválido.'];
     }
-    $rta = mysql_prepd($sql, $params);
+    // $rta = mysql_prepd($sql, $params);
     return $rta;
 }
 
