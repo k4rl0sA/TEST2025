@@ -971,7 +971,7 @@ function formato_dato($a,$b,$c,$d){
 		$rta="<nav class='menu right'>";		
 		$rta.="<li title='Caracterización del Hogar'  Onclick=\"mostrar('homes1','fix',event,'','lib.php',0,'homes1');hideFix('person1','fix');Color('homes-lis');\"><i class='fa-solid fa-house-user ico' id='".$c['ACCIONES']."'></i></li>";//setTimeout(mostrar('person1','fix',event,'','lib.php',0,'person1'),500);
 		$rta.="<li title='Crear Ubicación de la Familia'  Onclick=\"mostrar('homes','pro',event,'','lib.php',7,'homes');Color('homes-lis');\"><i class='fa-solid fa-circle-plus ico' id='".$c['ACCIONES']."'></i></li>";//setTimeout(DisableUpdate,300,'fechaupd','hid');
-		$rta .= acceso('unidadeshs') ? "<li title='Unidades Habitacionales'  Onclick=\"mostrar('unidadeshs','pro',event,'','../soporte/unidades.php',3,'unidadeshs');Color('homes-lis');\"><i class='fa-solid fa-building-un soporte ico' id='".$c['ACCIONES']."'></i></li>" : "";
+		$rta .= acceso('unidadeshs') ? "<li title='Unidades Habitacionales'  Onclick=\"mostrar('unidadeshs','pro',event,'','../soporte/unidades.php',3,'unidadeshs');Color('homes-lis');\"><i class='fa-solid fa-building-un color-soporte ico' id='".$c['ACCIONES']."'></i></li>" : "";
 	}
  	if ($a=='famili-lis' && $b=='acciones'){
 		$rta="<nav class='menu right'>";		
@@ -985,7 +985,7 @@ function formato_dato($a,$b,$c,$d){
 		}
 		$rta.=(acceso('ambient')) ? "<li title='Riesgo Ambiental' Onclick=\"mostrar('ambient','pro',event,'','amb.php',7);Color('famili-lis');\"><i class='fa-solid fa-tree-city ico' id='".$c['Cod_Familiar']."' ></i></li>":'';
 
-		$rta.="<li title='Interlocales' Onclick=\"mostrar('trasladint','pro',event,'','../soporte/interloc.php',4,'Interlocales');Color('datos-lis');\"><i class='fa-solid fa-reply-all soporte ico' id='".$c['Cod_Familiar']."'></i> </li>";//soporte traslados
+		$rta.="<li title='Interlocales' Onclick=\"mostrar('trasladint','pro',event,'','../soporte/interloc.php',4,'Interlocales');Color('datos-lis');\"><i class='fa-solid fa-reply-all color-soporte ico' id='".$c['Cod_Familiar']."'></i> </li>";//soporte traslados
 	}
 	if ($a=='datos-lis' && $b=='acciones'){
 
@@ -995,7 +995,7 @@ function formato_dato($a,$b,$c,$d){
 		
 		//mostrar('person','pro',event,'','lib.php',7,'person');Color('datos-lis');setTimeout(enabAfil,1000,'regimen','eaf');setTimeout(enabEtni,1000,'etnia','ocu','idi');setTimeout(enabLoca,1000,'reside_localidad','lochi');setTimeout(EditOcup,1000,'ocupacion','true');setTimeout(hideCuida,1000,'cuidador','cUi')
 		if(!validUser($c['ACCIONES'])){
-		$rta.="<li title='Validar Usuario' Onclick=\"mostrar('validPerson','pro',event,'','../soporte/valperson.php',7,'person');Color('datos-lis');\"><i class='fas fa-user-check soporte ico' id='".$c['ACCIONES']."'></i> </li>";
+		$rta.="<li title='Validar Usuario' Onclick=\"mostrar('validPerson','pro',event,'','../soporte/valperson.php',7,'person');Color('datos-lis');\"><i class='fas fa-user-check color-soporte ico' id='".$c['ACCIONES']."'></i> </li>";
 		}
 		if(validUser($c['ACCIONES'])){
 			$rta.="<li title='Editar Usuario' Onclick=\"mostrar('person','pro',event,'','lib.php',7,'person');Color('datos-lis');\"><i class='fa-solid fa-pen-to-square ico' id='".$c['ACCIONES']."'></i> </li>";//setTimeout(enabEapb,700,'regimen','rgm');setTimeout(getData,600,'person',event,this,['idpersona','tipo_doc','fecha_nacimiento','sexo']);
@@ -1078,7 +1078,7 @@ function formato_dato($a,$b,$c,$d){
 			}
 			$rta .= acceso('servagen') ? "<li title='Servicio de Agendamiento' onclick=\"mostrar('servagen','pro',event,'','../agendamient/serage.php',7,'Servicio de Agendamiento');Color('datos-lis');\"><i class=' fa-solid fa-square-phone ico' id='{$c['ACCIONES']}'></i></li>":"";
 
-			$rta.="<li title='Trasladar Usuario' Onclick=\"mostrar('traslados','pro',event,'','../soporte/trasladloc.php',4,'traslados');Color('datos-lis');\"><i class='fa-solid fa-reply-all soporte ico' id='".$c['ACCIONES']."'></i> </li>";
+			$rta.="<li title='Trasladar Usuario' Onclick=\"mostrar('traslados','pro',event,'','../soporte/trasladloc.php',4,'traslados');Color('datos-lis');\"><i class='fa-solid fa-reply-all color-color-soporte ico' id='".$c['ACCIONES']."'></i> </li>";
 
 			if (is_array($tamiz) && in_array('tamvalories', $tamiz)) {
 				$rta .= acceso('tamvalories') ? "<li title='Valoración del Riesgo' onclick=\"mostrar('tamvalories','pro',event,'','../tamizajes/valoriesg.php',7,'Valoración del Riesgo');Color('datos-lis');\"><i class='fa-solid fa-skull-crossbones ico' id='{$c['ACCIONES']}'></i></li>":"";
