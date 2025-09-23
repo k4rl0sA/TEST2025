@@ -153,7 +153,7 @@ function gra_laboratorios(){
         ];
     // Mostrar la consulta generada para depuración
     $debug_sql = show_sql($sql, $params);
-    error_log('SQL DEBUG: ' . $debug_sql);
+    log_error('SQL DEBUG: ' . $debug_sql);
     } else if (count($id) == 2) {
         // Inserción
         $sql = "INSERT INTO hog_laboratorios VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,?)";
