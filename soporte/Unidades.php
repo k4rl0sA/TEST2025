@@ -28,7 +28,7 @@ function cmp_unidadeshs(){
     $t = ['idpeople'=>'','cod_familia'=>''];
     $c[] = new cmp($o,'e',null,'UNIDADES DE FAMILIA',$w);
     $c[]=new cmp('idp','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
-    $c[] = new cmp('cod_familia','nu','999999999',$t['cod_familia'],$w.' '.$o,'Ingrese la cantidad de Unidades habitacionales al predio','cod_familia',null,null,true,true,'','col-4');
+    $c[] = new cmp('cod_familia','nu','999999999',$t['cod_familia'],$w.' '.$o,'Ingrese la cantidad de Unidades habitacionales al predio','cod_familia',null,null,true,true,'','col-1');
     for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
     return $rta;
 }
