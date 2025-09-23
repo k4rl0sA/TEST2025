@@ -151,7 +151,8 @@ function gra_laboratorios(){
             ['type' => 's', 'value' => $_SESSION['us_sds']],
             ['type' => 'i', 'value' => intval($id[0])]
         ];
-        show_sql($sql, $params);
+        $debug_sql = show_sql($sql, $params);
+        error_log($debug_sql);
     } else if (count($id) == 2) {
         // Inserción
         $sql = "INSERT INTO hog_laboratorios VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,?)";
@@ -178,7 +179,7 @@ function gra_laboratorios(){
     } else {
         return ['error' => 'ID inválido.'];
     }
-    // $rta = mysql_prepd($sql, $params);
+    $rta = mysql_prepd($sql, $params);
     return $rta;
 }
 
