@@ -138,7 +138,7 @@ function gra_laboratorios(){
     $id = divide($_POST['id']);
     if (count($id) == 1) {
         // Actualización
-  $sql = "UPDATE hog_laboratorios SET lab_tomado=?, fecha_toma=?, cuenta_resul=?, fecha_resul=?, dato_crit=?, gestion=?, gest_cump=?, obs=?, usu_update=?, fecha_update=SUB_DATE(NOW(),INTERVAL 5 HOUR) WHERE id_lab=?";
+  $sql = "UPDATE hog_laboratorios SET lab_tomado=?, fecha_toma=?, cuenta_resul=?, fecha_resul=?, dato_crit=?, gestion=?, gest_cump=?, obs=?, usu_update= {$_SESSION['us_sds']}, fecha_update=SUB_DATE(NOW(),INTERVAL 5 HOUR) WHERE id_lab=?";
         $params = [
             ['type' => 's', 'value' => trim($_POST['lab_tomado'] ?? '')],
             ['type' => 's', 'value' => trim($_POST['fecha_toma'] ?? '')],
@@ -148,7 +148,6 @@ function gra_laboratorios(){
             ['type' => 's', 'value' => trim($_POST['gestion'] ?? '')],
             ['type' => 's', 'value' => trim($_POST['gest_cump'] ?? '')],
             ['type' => 's', 'value' => trim($_POST['obs'] ?? '')],
-            ['type' => 's', 'value' => $_SESSION['us_sds']],
             ['type' => 'i', 'value' => intval($id[0])]
         ];
     // Mostrar la consulta generada para depuración
