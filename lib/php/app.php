@@ -72,10 +72,17 @@ if (!$con) {
 }
 
 // --- Configuración CORS Permitir solo dominios HTTPS listados en ALLOWED_DOMAINS
+// Permitir dominios con y sin esquema
 $allowed_domains = array_map('trim', explode(',', $_ENV['ALLOWED_DOMAINS'] ?? ''));
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+$origin_host = '';
+if ($origin) {
+  $parsed = parse_url($origin);
+  $origin_host = isset($parsed['host']) ? $parsed['host'] : $origin;
+}
 
-if ($origin && in_array($origin, $allowed_domains)) {
+// Permitir si el dominio coincide con o sin esquema
+if ($origin && (in_array($origin, $allowed_domains) || in_array($origin_host, $allowed_domains))) {
     header('Access-Control-Allow-Origin: ' . $origin);
     header('Access-Control-Allow-Credentials: true');
     header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
