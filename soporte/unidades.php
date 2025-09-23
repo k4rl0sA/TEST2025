@@ -80,8 +80,7 @@ function gra_unidadeshs() {
     $subred_fam = isset($info_fam['responseResult'][0]['subred']) ? $info_fam['responseResult'][0]['subred'] : null;
 
     // Insertar en soporte si la subred es la misma
-    $sql = "INSERT INTO soporte (idsoporte, idpeople, cod_predio,cod_familia, cod_registro,formulario, prioridad, usu_creo, fecha_create, estado) VALUES (NULL, ?, ?, ?, ?, ?, ?,?, ?)";
-    
+    $sql = "INSERT INTO soporte (idsoporte, cod_predio, cod_familia, cod_registro,formulario, prioridad, usu_creo, fecha_create, estado) VALUES (NULL, ?, ?, ?, ?, ?, ?,?, ?)";
     $params = [
         ['type' => 'i', 'value' => $cod_predio],      // idpeople
          ['type' => 'i', 'value' => $registro],    // cod_familia
