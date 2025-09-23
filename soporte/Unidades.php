@@ -26,9 +26,9 @@ function cmp_unidadeshs(){
     $w = 'unidadeshs';
     $o = 'inftras';
     $t = ['idpeople'=>'','cod_familia'=>''];
-    $c[] = new cmp($o,'e',null,'unidadesH DE FAMILIA',$w);
+    $c[] = new cmp($o,'e',null,'UNIDADES HABITACIONALES',$w);
     $c[]=new cmp('idp','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
-    $c[] = new cmp('cod_familia','nu','999999999',$t['cod_familia'],$w.' '.$o,'Código de Familia a donde desea trasladar dentro de la misma subred','cod_familia',null,null,true,true,'','col-4');
+    $c[] = new cmp('cod_familia','nu','999999999',$t['cod_familia'],$w.' '.$o,'Ingrese la cantidad de Unidades habitacionales al predio',null,null,true,true,'','col-4');
     for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
     return $rta;
 }
