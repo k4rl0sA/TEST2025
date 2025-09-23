@@ -94,7 +94,7 @@ function gra_unidadeshs() {
         ['type' => 'i', 'value' => $id[0]],      // idpeople
          ['type' => 'i', 'value' => $cod_predio],    // cod_familia
         ['type' => 'i', 'value' => $familia],    // cod_familia
-        ['type' => 'i', 'value' => 2],           // formulario (2 = Unidades Habitacionales)
+        ['type' => 'i', 'value' => 4],           // formulario (2 = Unidades Habitacionales)
         ['type' => 's', 'value' => 'A'],         // prioridad
         ['type' => 's', 'value' => $usu_creo],   // usu_creo
         ['type' => 's', 'value' => $creo],       // fecha_create
