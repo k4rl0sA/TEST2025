@@ -151,6 +151,7 @@ function gra_laboratorios(){
             ['type' => 's', 'value' => $_SESSION['us_sds']],
             ['type' => 'i', 'value' => intval($id[0])]
         ];
+        show_sql($sql, $params);
     } else if (count($id) == 2) {
         // Inserción
         $sql = "INSERT INTO hog_laboratorios VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,?)";
