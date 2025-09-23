@@ -55,13 +55,13 @@ function cap_menus($a,$b='cap',$con='con') {
 
 // Guardar unidadesH
 function gra_unidadeshs() {
-    $id = divide($_POST['idp']);
-    $familia = intval($_POST['cod_familia']);
-    $usu_creo = $_SESSION['us_sds'];
-    $creo = date('Y-m-d H:i:s', strtotime('-5 hours'));
+    $id = divide($_POST['idp']); // idpeople
+    $familia = intval($_POST['cod_familia']); // id de la familia destino
+    $usu_creo = $_SESSION['us_sds']; // usuario que crea
+    $creo = date('Y-m-d H:i:s', strtotime('-5 hours')); // fecha creación ajustada
     $estado = 2;
 
-    //Obtener subred del usuario de la sesión
+    // Obtener subred del usuario de la sesión
     $sql_usr = "SELECT subred FROM usuarios WHERE id_usuario = '{$usu_creo}' LIMIT 1";
     $info_usr = datos_mysql($sql_usr);
     $subred_usr = isset($info_usr['responseResult'][0]['subred']) ? $info_usr['responseResult'][0]['subred'] : null;
@@ -70,7 +70,7 @@ function gra_unidadeshs() {
         return "Error: msj['No se pudo determinar la subred del usuario.']";
     }
 
-    //Obtener subred del cod_familia destino
+    // Obtener subred del cod_familia destino
     $sql_fam = "SELECT hg.subred 
                 FROM hog_fam hf 
                 INNER JOIN hog_geo hg ON hf.idpre = hg.idgeo 
@@ -80,27 +80,25 @@ function gra_unidadeshs() {
 
     if (!$subred_fam) {
         return "Error: msj['No se encontró la familia destino o no tiene subred asociada.']";
-        // return ['success' => false, 'msg' => 'No se encontró la familia destino o no tiene subred asociada.'];
     }
 
     // Comparar subredes
     if ($subred_usr !== $subred_fam) {
-        return "Error: msj['No es posible trasladar a una familia de otra subred. Para unidadeshs entre subredes, dirijase al icono de interlocales ubicado en la tabla de familias.']";
-        // return ['success' => false, 'msg' => 'No es posible trasladar a una familia de otra subred. Para unidadeshs entre subredes, utilice el módulo de soporte.'];
+        return "Error: msj['No es posible trasladar a una familia de otra subred. Para unidadeshs entre subredes, diríjase al icono de interlocales ubicado en la tabla de familias.']";
     }
 
     // Insertar en soporte si la subred es la misma
     $sql = "INSERT INTO soporte (idsoporte, idpeople, cod_familia, formulario, prioridad, usu_creo, fecha_create, estado) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)";
     $params = [
         ['type' => 'i', 'value' => $id[0]],      // idpeople
-        ['type' => 'i', 'value' => $familia],   // cod_familia
-        ['type' => 'i', 'value' => 2],              // formulario
-        ['type' => 's', 'value' => 'A'],            // prioridad
-        ['type' => 's', 'value' => $usu_creo],      // usu_creo
-        ['type' => 's', 'value' => $creo],  // fecha_create
-        ['type' => 'i', 'value' => $estado]         // estado
+        ['type' => 'i', 'value' => $familia],    // cod_familia
+        ['type' => 'i', 'value' => 2],           // formulario (2 = Unidades Habitacionales)
+        ['type' => 's', 'value' => 'A'],         // prioridad
+        ['type' => 's', 'value' => $usu_creo],   // usu_creo
+        ['type' => 's', 'value' => $creo],       // fecha_create
+        ['type' => 'i', 'value' => $estado]      // estado
     ];
-   $rta = mysql_prepd($sql, $params);
+    $rta = mysql_prepd($sql, $params);
     return $rta;
 }
 
