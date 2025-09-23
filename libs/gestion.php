@@ -169,6 +169,11 @@ function validFecha($mod,$fecha){
   return true;
 }
 
+function validateDate($date, $format = 'Y-m-d') {
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) === $date;
+}
+
 function validNum($num,$ncar=[],$nlit=[]){
   if ($num === '' || $num === null) {
     return "msj['Error: El número es obligatorio.']";

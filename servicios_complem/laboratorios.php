@@ -117,7 +117,7 @@ function get_persona(){
 
 function gra_laboratorios(){
     // Validación de campos obligatorios
-/*     $required = ['cod_admision','tipo_lab','fecha_orden','lab_tomado','cuenta_resul','dato_crit'];
+     $required = ['cod_admision','tipo_lab','fecha_orden','lab_tomado'];
     foreach ($required as $field) {
         if (empty($_POST[$field])) {
             return ['error' => 'El campo '.$field.' es obligatorio.'];
@@ -133,7 +133,7 @@ function gra_laboratorios(){
     if ($_POST['dato_crit'] == '1' && empty($_POST['gestion'])) {
       return "msj['Error: La gestión es obligatoria cuando hay dato crítico.']";
     }
- */
+ 
 
     $id = divide($_POST['id']);
     if (count($id) == 1) {
