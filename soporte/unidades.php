@@ -25,10 +25,10 @@ function cmp_unidadeshs(){
     $rta = "";
     $w = 'unidadeshs';
     $o = 'inftras';
-    $t = ['idpeople'=>'','cod_familia'=>''];
-    $c[] = new cmp($o,'e',null,'UNIDADES DE FAMILIA',$w);
+    $t = ['idpeople'=>'','unidades'=>''];
+    $c[] = new cmp($o,'e',null,'UNIDADES HABITACIONALES',$w);
     $c[]=new cmp('idp','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
-    $c[] = new cmp('cod_familia','nu','999999999',$t['cod_familia'],$w.' '.$o,'Ingrese la cantidad de Unidades habitacionales al predio','cod_familia',null,null,true,true,'','col-0');
+    $c[] = new cmp('unidades','nu','9999',$t['unidades'],$w.' '.$o,'Ingrese la cantidad de Unidades habitacionales al predio','unidades',null,null,true,true,'','col-0');
     for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
     return $rta;
 }
@@ -55,14 +55,17 @@ function cap_menus($a,$b='cap',$con='con') {
 
 // Guardar unidadesH
 function gra_unidadeshs() {
-    $cod_predio = isset($_POST['cod_predio']) ? intval($_POST['cod_predio']) : 0;
     $id = divide($_POST['idp']); // idpeople
-    $familia = intval($_POST['cod_familia']); // id de la familia destino
     $usu_creo = $_SESSION['us_sds']; // usuario que crea
     $creo = date('Y-m-d H:i:s', strtotime('-5 hours')); // fecha creación ajustada
+    //validar numeros positivos $_POST['unidades']
+    if (!isset($_POST['unidades']) || !is_numeric($_POST['unidades']) || intval($_POST['unidades']) < 0) {
+        return "Error: msj['El número de unidades debe ser un valor numérico positivo.']";
+    }   
+    $unidades = intal($POST['unidades']);
     $estado = 2;
 
-    // Obtener subred del usuario de la sesión
+   /*  // Obtener subred del usuario de la sesión
     $sql_usr = "SELECT subred FROM usuarios WHERE id_usuario = '{$usu_creo}' LIMIT 1";
     $info_usr = datos_mysql($sql_usr);
     $subred_usr = isset($info_usr['responseResult'][0]['subred']) ? $info_usr['responseResult'][0]['subred'] : null;
@@ -77,14 +80,13 @@ function gra_unidadeshs() {
                 INNER JOIN hog_geo hg ON hf.idpre = hg.idgeo 
                 WHERE hf.id_fam = {$familia} LIMIT 1";
     $info_fam = datos_mysql($sql_fam);
-    $subred_fam = isset($info_fam['responseResult'][0]['subred']) ? $info_fam['responseResult'][0]['subred'] : null;
+    $subred_fam = isset($info_fam['responseResult'][0]['subred']) ? $info_fam['responseResult'][0]['subred'] : null; */
 
     // Insertar en soporte si la subred es la misma
-    $sql = "INSERT INTO soporte (idsoporte, cod_predio, cod_familia, cod_registro,formulario, prioridad, usu_creo, fecha_create, estado) VALUES (NULL, ?, ?, ?, ?, ?, ?,?, ?)";
+    $sql = "INSERT INTO soporte (cod_predio,cod_registro,formulario, prioridad, usu_creo, fecha_create, estado) VALUES (?, ?, ?, ?, ?, ?,?, ?)";
     $params = [
-        ['type' => 'i', 'value' => $cod_predio],      // idpeople
-         ['type' => 'i', 'value' => $registro],    // cod_familia
-        ['type' => 'i', 'value' => $familia],    // cod_familia
+        ['type' => 'i', 'value' => $id[0]],      // idpeople
+         ['type' => 'i', 'value' => $unidades],    // cod_familia
         ['type' => 'i', 'value' => 4],           // formulario (2 = Unidades Habitacionales)
         ['type' => 's', 'value' => 'A'],         // prioridad
         ['type' => 's', 'value' => $usu_creo],   // usu_creo
