@@ -83,7 +83,7 @@ function cmp_laboratorios(){
     $c[]=new cmp('tipo_lab','s',3,$e,$w.' '.$o,'Tipo Laboratorio','tipo_lab',null,'',true,true,'','col-2',"enabOthLaborat();");
     $c[]=new cmp('otro_lab','t',255,$e,$w.' oTH '.$o,'Otro Laboratorio, ¿Cuál?','otro_lab',null,'',true,false,'','col-4');
     $c[]=new cmp('fecha_orden','d',10,$e,$w.' '.$o,'Fecha de orden','fecha_orden',null,'',true,true,'','col-2',"validDate(this,-30,0);");
-    $o='laboratorio';
+    $o='ctrlLab';
     $c[]=new cmp($o,'e',null,'CONTROL DE LABORATORIOS',$w);
     $c[]=new cmp('lab_tomado','s',3,$e,$w.' '.$o,'¿Laboratorio tomado?','lab_tomado',null,'',true,true,'','col-2',"enabFechaTomaLab();enabTomaLab();");
     $c[]=new cmp('fecha_toma','d',10,$e,$w.' ToM '.$o,'Fecha de Toma','fecha_toma',null,'',false,false,'','col-2');
@@ -237,7 +237,7 @@ function formato_dato($a,$b,$c,$d){
     $rta=$c[$d];
     if ($a=='laboratorios' && $b=='cod laboratorio'){
         $rta="<nav class='menu right'>";    
-        $rta.="<li class='icono editar' title='Editar' id='".$c['Cod Laboratorio']."' Onclick=\"setTimeout(getData,500,'laboratorios',event,this,['cod_admision','tipo_lab','otro_lab','fecha_orden','fecha_toma','cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump','obs'],'../servicios_complem/laboratorios.php');\"></li>";
+        $rta.="<li class='icono editar' title='Editar' id='".$c['Cod Laboratorio']."' Onclick=\"setTimeout(getData,500,'laboratorios',event,this,['cod_admision','tipo_lab','otro_lab','fecha_orden','fecha_toma','cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump','obs'],'../servicios_complem/laboratorios.php');setTimeout(funNew,500,'../servicios_complem/laboratorios.php');\"></li>";
         $rta.="</nav>";
     }
     return $rta;
