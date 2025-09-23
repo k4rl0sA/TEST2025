@@ -25,10 +25,10 @@ function cmp_unidadeshs(){
     $rta = "";
     $w = 'unidadeshs';
     $o = 'inftras';
-    $t = ['idpeople'=>'','cod_registro'=>''];
+    $t = ['idpeople'=>'','cod_familia'=>''];
     $c[] = new cmp($o,'e',null,'UNIDADES DE FAMILIA',$w);
     $c[]=new cmp('idp','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
-    $c[] = new cmp('cod_registro','nu','999999999',$t['cod_registro'],$w.' '.$o,'Ingrese la cantidad de Unidades habitacionales al predio','cod_registro',null,null,true,true,'','col-0');
+    $c[] = new cmp('cod_familia','nu','999999999',$t['cod_familia'],$w.' '.$o,'Ingrese la cantidad de Unidades habitacionales al predio','cod_familia',null,null,true,true,'','col-0');
     for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
     return $rta;
 }
@@ -83,7 +83,7 @@ function gra_unidadeshs() {
     $sql = "INSERT INTO soporte (idsoporte, cod_predio, cod_familia, cod_registro,formulario, prioridad, usu_creo, fecha_create, estado) VALUES (NULL, ?, ?, ?, ?, ?, ?,?, ?)";
     $params = [
         ['type' => 'i', 'value' => $cod_predio],      // idpeople
-        ['type' => 'i', 'value' => $registro],    // cod_familia
+         ['type' => 'i', 'value' => $registro],    // cod_familia
         ['type' => 'i', 'value' => $familia],    // cod_familia
         ['type' => 'i', 'value' => 4],           // formulario (2 = Unidades Habitacionales)
         ['type' => 's', 'value' => 'A'],         // prioridad
