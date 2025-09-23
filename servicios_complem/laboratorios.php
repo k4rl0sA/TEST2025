@@ -151,8 +151,9 @@ function gra_laboratorios(){
             ['type' => 's', 'value' => $_SESSION['us_sds']],
             ['type' => 'i', 'value' => intval($id[0])]
         ];
-        $debug_sql = show_sql($sql, $params);
-        error_log($debug_sql);
+    // Mostrar la consulta generada para depuración
+    $debug_sql = show_sql($sql, $params);
+    error_log('SQL DEBUG: ' . $debug_sql);
     } else if (count($id) == 2) {
         // Inserción
         $sql = "INSERT INTO hog_laboratorios VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,?)";
