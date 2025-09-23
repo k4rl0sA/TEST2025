@@ -75,7 +75,7 @@ function gra_unidadeshs() {
     $sql_fam = "SELECT hg.subred 
                 FROM hog_fam hf 
                 INNER JOIN hog_geo hg ON hf.idpre = hg.idgeo 
-                WHERE hf.id_fam = {$familia} LIMIT 1";
+                -- WHERE hf.id_fam = {$familia} LIMIT 1";
     $info_fam = datos_mysql($sql_fam);
     $subred_fam = isset($info_fam['responseResult'][0]['subred']) ? $info_fam['responseResult'][0]['subred'] : null;
 
