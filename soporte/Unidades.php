@@ -1,5 +1,5 @@
 <?php
-// filepath: vscode-vfs://github/k4rl0sA/TEST2025/crea-fam/unidadesHs.php
+// filepath: vscode-vfs://github/k4rl0sA/TEST2025/crea-fam/unidadeshs.php
 ini_set('display_errors','1');
 require_once "../libs/gestion.php";
 if ($_POST['a']!='opc') $perf=perfil($_POST['tb']);
@@ -21,9 +21,9 @@ else {
 }
 
 // Componente del formulario
-function cmp_unidadesHs(){
+function cmp_unidadeshs(){
     $rta = "";
-    $w = 'unidadesHs';
+    $w = 'unidadeshs';
     $o = 'inftras';
     $t = ['idpeople'=>'','cod_familia'=>''];
     $c[] = new cmp($o,'e',null,'unidadesH DE FAMILIA',$w);
@@ -34,27 +34,27 @@ function cmp_unidadesHs(){
 }
 
 // Enfocar el formulario
-function focus_unidadesHs(){
-    return 'unidadesHs';
+function focus_unidadeshs(){
+    return 'unidadeshs';
 }
 
 // Menú de acciones
-function men_unidadesHs(){
-    $rta = cap_menus('unidadesHs','pro');
+function men_unidadeshs(){
+    $rta = cap_menus('unidadeshs','pro');
     return $rta;
 }
 
 function cap_menus($a,$b='cap',$con='con') {
     $rta = "";
     $acc = rol($a);
-    if ($a=='unidadesHs' && isset($acc['crear']) && $acc['crear']=='SI') {  
+    if ($a=='unidadeshs' && isset($acc['crear']) && $acc['crear']=='SI') {  
         $rta .= "<li class='icono $a grabar' title='Grabar' OnClick=\"grabar('$a',this);\"></li>";
     }
     return $rta;
 }
 
 // Guardar unidadesH
-function gra_unidadesHs() {
+function gra_unidadeshs() {
     $id = divide($_POST['idp']);
     $familia = intval($_POST['cod_familia']);
     $usu_creo = $_SESSION['us_sds'];
@@ -85,8 +85,8 @@ function gra_unidadesHs() {
 
     // Comparar subredes
     if ($subred_usr !== $subred_fam) {
-        return "Error: msj['No es posible trasladar a una familia de otra subred. Para unidadesHs entre subredes, dirijase al icono de interlocales ubicado en la tabla de familias.']";
-        // return ['success' => false, 'msg' => 'No es posible trasladar a una familia de otra subred. Para unidadesHs entre subredes, utilice el módulo de soporte.'];
+        return "Error: msj['No es posible trasladar a una familia de otra subred. Para unidadeshs entre subredes, dirijase al icono de interlocales ubicado en la tabla de familias.']";
+        // return ['success' => false, 'msg' => 'No es posible trasladar a una familia de otra subred. Para unidadeshs entre subredes, utilice el módulo de soporte.'];
     }
 
     // Insertar en soporte si la subred es la misma
@@ -104,7 +104,7 @@ function gra_unidadesHs() {
     return $rta;
 }
 
-// Si necesitas opciones para selects, puedes agregar funciones opc_unidadesHs(), etc.
+// Si necesitas opciones para selects, puedes agregar funciones opc_unidadeshs(), etc.
 // Puedes agregar funciones como formato_dato y bgcolor si tu sistema las requiere.
 function formato_dato($a,$b,$c,$d){
     return $c[$d];
