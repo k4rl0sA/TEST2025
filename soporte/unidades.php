@@ -79,15 +79,6 @@ function gra_unidadeshs() {
     $info_fam = datos_mysql($sql_fam);
     $subred_fam = isset($info_fam['responseResult'][0]['subred']) ? $info_fam['responseResult'][0]['subred'] : null;
 
-    /* if (!$subred_fam) {
-        return "Error: msj['No se encontró la familia destino o no tiene subred asociada.']";
-    }
-
-    // Comparar subredes
-    if ($subred_usr !== $subred_fam) {
-        return "Error: msj['No es posible trasladar a una familia de otra subred. Para unidadeshs entre subredes, diríjase al icono de interlocales ubicado en la tabla de familias.']";
-    } */
-
     // Insertar en soporte si la subred es la misma
     $sql = "INSERT INTO soporte (idsoporte, idpeople, cod_predio,cod_familia, formulario, prioridad, usu_creo, fecha_create, estado) VALUES (NULL, ?, ?, ?, ?, ?, ?,?, ?)";
     $params = [
