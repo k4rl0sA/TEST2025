@@ -208,9 +208,9 @@ function opc_tipodoc($id=''){
 function opc_tipo_lab($id=''){
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=307 and estado='A' ORDER BY CAST(idcatadeta AS UNSIGNED)",$id);
 }
-/* function opc_lab_tomado($id=''){
-  return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=170 and estado='A' ORDER BY CAST(idcatadeta AS UNSIGNED)",$id);
-} */
+function opc_lab_tomado($id=''){
+  return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=170 and estado='A' ORDER BY 1",$id);
+}
 function opc_cuenta_resul($id=''){
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=170 and estado='A' ORDER BY 1",$id);
 }
