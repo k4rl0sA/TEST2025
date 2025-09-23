@@ -92,7 +92,7 @@ function gra_unidadeshs() {
     $sql = "INSERT INTO soporte (idsoporte, idpeople, cod_predio,cod_familia, formulario, prioridad, usu_creo, fecha_create, estado) VALUES (NULL, ?, ?, ?, ?, ?, ?,?, ?)";
     $params = [
         ['type' => 'i', 'value' => $cod_predio],      // idpeople
-         ['type' => 'i', 'value' => $cod_predio],    // cod_familia
+         ['type' => 'i', 'value' => $registro],    // cod_familia
         ['type' => 'i', 'value' => $familia],    // cod_familia
         ['type' => 'i', 'value' => 4],           // formulario (2 = Unidades Habitacionales)
         ['type' => 's', 'value' => 'A'],         // prioridad
