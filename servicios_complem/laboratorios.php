@@ -90,8 +90,8 @@ function cmp_laboratorios(){
     $c[]=new cmp('cuenta_resul','s',3,$e,$w.' ToM '.$o,'¿Cuenta con resultado?','cuenta_resul',null,'',true,true,'','col-2',"enabFechaResulLab();");    
     $c[]=new cmp('fecha_resul','d',10,$e,$w.' RTa  '.$o,'Fecha de Resultado','fecha_resul',null,'',false,false,'','col-2');
     $c[]=new cmp('dato_crit','s',10,$e,$w.' ToM '.$o,'Dato Crítico','dato_crit',null,'',true,true,'','col-2',"enabGestionLab();");
-    $c[]=new cmp('gestion','s',3,$e,$w.' dCR '.$o,'Gestión al Dato Crítico','gestion',null,'',false,false,'','col-2');
-    $c[]=new cmp('gest_cump','s',3,$e,$w.' dCR '.$o,'Estado Gestión','gest_cump',null,'',false,false,'','col-2');
+    $c[]=new cmp('gestion','s',3,$e,$w.' dCR '.$o,'Cita de Control','gestion',null,'',false,false,'','col-2');
+    $c[]=new cmp('gest_cump','d',3,$e,$w.' dCR '.$o,'Fecha Gestión','gest_cump',null,'',false,false,'','col-2');
     $c[]=new cmp('obs','a',255,$e,$w.' '.$o,'Observaciones','obs',null,'',true,true,'','col-12');
     for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
     return $rta;
@@ -206,11 +206,11 @@ function opc_tipodoc($id=''){
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 1",$id);
 }
 function opc_tipo_lab($id=''){
-  return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=307 and estado='A' ORDER BY 1",$id);
+  return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=307 and estado='A' ORDER BY CAST(idcatadeta AS UNSIGNED)",$id);
 }
-function opc_lab_tomado($id=''){
+/* function opc_lab_tomado($id=''){
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=170 and estado='A' ORDER BY CAST(idcatadeta AS UNSIGNED)",$id);
-}
+} */
 function opc_cuenta_resul($id=''){
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=170 and estado='A' ORDER BY 1",$id);
 }
@@ -219,9 +219,6 @@ function opc_dato_crit($id=''){
 }
 function opc_gestion($id=''){
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=170 and estado='A' ORDER BY 1",$id);
-}
-function opc_gest_cump($id=''){
-  return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=27 and estado='A' ORDER BY 1",$id);
 }
 function opc_cod_admision($id=''){
 	$cod=divide($_REQUEST['id']);
