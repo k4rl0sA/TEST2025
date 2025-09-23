@@ -65,23 +65,7 @@ function gra_unidadeshs() {
     $unidades = intval($_POST['unidades']);
     $estado = 2;
 
-   /*  // Obtener subred del usuario de la sesión
-    $sql_usr = "SELECT subred FROM usuarios WHERE id_usuario = '{$usu_creo}' LIMIT 1";
-    $info_usr = datos_mysql($sql_usr);
-    $subred_usr = isset($info_usr['responseResult'][0]['subred']) ? $info_usr['responseResult'][0]['subred'] : null;
-
-    if (!$subred_usr) {
-        return "Error: msj['No se pudo determinar la subred del usuario.']";
-    }
-
-    // Obtener subred del cod_familia destino
-    $sql_fam = "SELECT hg.subred 
-                FROM hog_fam hf 
-                INNER JOIN hog_geo hg ON hf.idpre = hg.idgeo 
-                WHERE hf.id_fam = {$familia} LIMIT 1";
-    $info_fam = datos_mysql($sql_fam);
-    $subred_fam = isset($info_fam['responseResult'][0]['subred']) ? $info_fam['responseResult'][0]['subred'] : null; */
-
+   
     // Insertar en soporte si la subred es la misma
     $sql = "INSERT INTO soporte (cod_predio,cod_registro,formulario, prioridad, usu_creo, fecha_create, estado) VALUES (?, ?, ?, ?, ?, ?,?)";
     $params = [
