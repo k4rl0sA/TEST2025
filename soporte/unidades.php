@@ -57,7 +57,7 @@ function cap_menus($a,$b='cap',$con='con') {
 function gra_unidadeshs() {
     $cod_predio = isset($_POST['cod_predio']) ? intval($_POST['cod_predio']) : 0;
     $id = divide($_POST['idp']); // idpeople
-$familia = intval($_POST['cod_registro']); // id de la familia destino
+    $cod_registro = intval($_POST['cod_registro']); // id de la familia destino
     $usu_creo = $_SESSION['us_sds']; // usuario que crea
     $creo = date('Y-m-d H:i:s', strtotime('-5 hours')); // fecha creación ajustada
     $estado = 2;
@@ -83,7 +83,7 @@ $familia = intval($_POST['cod_registro']); // id de la familia destino
 $sql = "INSERT INTO soporte (idsoporte, cod_predio, cod_registro, formulario, prioridad, usu_creo, fecha_create, estado) VALUES (NULL, ?, ?, ?, ?, ?, ?,?)";
     $params = [
         ['type' => 'i', 'value' => $cod_predio],      // idpeople
-        ['type' => 'i', 'value' => $registro],    // cod_registro
+        ['type' => 'i', 'value' => $cod_registro],    // cod_registro
         // ['type' => 'i', 'value' => $familia],    // cod_registro
         ['type' => 'i', 'value' => 4],           // formulario (2 = Unidades Habitacionales)
         ['type' => 's', 'value' => 'A'],         // prioridad
