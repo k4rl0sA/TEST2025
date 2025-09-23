@@ -62,7 +62,7 @@ function gra_unidadeshs() {
     if (!isset($_POST['unidades']) || !is_numeric($_POST['unidades']) || intval($_POST['unidades']) < 0) {
         return "Error: msj['El número de unidades debe ser un valor numérico positivo.']";
     }   
-    $unidades = intal($POST['unidades']);
+    $unidades = intval($POST['unidades']);
     $estado = 2;
 
    /*  // Obtener subred del usuario de la sesión
