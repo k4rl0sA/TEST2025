@@ -55,9 +55,9 @@ function cap_menus($a,$b='cap',$con='con') {
 
 // Guardar unidadesH
 function gra_unidadeshs() {
-    $cod_predio = isset($_POST['cod_predio']) ? intval($_POST['cod_predio']) : 0;
+    $cod_predio = intval($_POST['cod_predio']);
     $id = divide($_POST['idp']); // idpeople
-    $familia = intval($_POST['cod_familia']); // id de la familia destino
+    //$familia = intval($_POST['cod_familia']); // id de la familia destino
     $usu_creo = $_SESSION['us_sds']; // usuario que crea
     $creo = date('Y-m-d H:i:s', strtotime('-5 hours')); // fecha creación ajustada
     $estado = 2;
