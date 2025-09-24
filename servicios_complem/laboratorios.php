@@ -236,6 +236,7 @@ function opc_cod_admision($id=''){
   $o='rtas';
   $key='lab';
   $days=fechas_app('lab');
+  $c[]=new cmp('id','h',15,$_POST['id'],$w.' '.$o,'','',null,'####',false,false);
   $c[]=new cmp('cuenta_resul','s',3,$e,$w.' ToM '.$o,'¿Cuenta con resultado?','cuenta_resul',null,'',true,true,'','col-2',"enabFechaResulLab();");    
     $c[]=new cmp('fecha_resul','d',10,$e,$w.' RTa  '.$o,'Fecha de Resultado','fecha_resul',null,'',false,false,'','col-2');
     $c[]=new cmp('dato_crit','s',10,$e,$w.' ToM '.$o,'Dato Crítico','dato_crit',null,'',true,true,'','col-2',"enabGestionLab();");
@@ -243,7 +244,7 @@ function opc_cod_admision($id=''){
     $c[]=new cmp('gest_cump','d',3,$e,$w.' dCR '.$o,'Fecha Gestión','gest_cump',null,'',false,false,'','col-2');
  }
 
- function get_laboratorios(){
+ function get_respuesta(){
     if($_REQUEST['id']==''){
         return "";
     } else {
