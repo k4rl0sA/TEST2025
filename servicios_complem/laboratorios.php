@@ -141,13 +141,13 @@ function gra_laboratorios(){
   $sql = "UPDATE hog_laboratorios SET lab_tomado=?, fecha_toma=?, cuenta_resul=?, fecha_resul=?, dato_crit=?, gestion=?, gest_cump=?, obs=?, usu_update= {$_SESSION['us_sds']}, fecha_update=SUB_DATE(NOW(),INTERVAL 5 HOUR) WHERE id_lab=?";
         $params = [
             ['type' => 's', 'value' => trim($_POST['lab_tomado'] ?? '')],
-            ['type' => 's', 'value' => trim($_POST['fecha_toma'] ?? '')],
+            ['type' => 's', 'value' => trim($_POST['fecha_toma'] ?? NULL)],
             ['type' => 's', 'value' => trim($_POST['cuenta_resul'] ?? '')],
-            ['type' => 's', 'value' => trim($_POST['fecha_resul'] ?? '')],
+            ['type' => 's', 'value' => trim($_POST['fecha_resul'] ?? null)],
             ['type' => 'i', 'value' => intval($_POST['dato_crit'] ?? 0)],
             ['type' => 's', 'value' => trim($_POST['gestion'] ?? '')],
             ['type' => 's', 'value' => trim($_POST['gest_cump'] ?? '')],
-            ['type' => 's', 'value' => trim($_POST['obs'] ?? '')],
+            ['type' => 's', 'value' => trim($_POST['obs'] ?? NULL)],
             ['type' => 'i', 'value' => intval($id[0])]
         ];
     // Mostrar la consulta generada para depuración
