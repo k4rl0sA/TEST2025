@@ -236,7 +236,7 @@ function formato_dato($a,$b,$c,$d){
     if ($a=='laboratorios' && $b=='cod laboratorio'){
         $rta="<nav class='menu right'>";
         $rta.="<li class='icono editar' title='Editar' id='".$c['Cod Laboratorio']."' Onclick=\"setTimeout(getData,500,'laboratorios',event,this,['cod_admision','tipo_lab','otro_lab','fecha_orden','fecha_toma','cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump'],'../servicios_complem/laboratorios.php');setTimeout(funNew,500,'../servicios_complem/laboratorios.php');\"></li>";
-        $rta.=$c['tomado']=='SI'?"<li title='Resultado Laboratorios' Onclick=\"mostrar('resultados','pro',event,'','../servicios_complem/laboratorios.php',4,'resultLab');Color('datos-lis');\"><i class='fa-solid fa-file-waweform ico' id='".$c['Cod Laboratorio']."'></i> </li>":'';
+        $rta.=$c['Tomado']=='SI'?"<li title='Resultado Laboratorios' Onclick=\"mostrar('resultados','pro',event,'','../servicios_complem/laboratorios.php',4,'resultLab');Color('datos-lis');\"><i class='fa-solid fa-file-waweform ico' id='".$c['Cod Laboratorio']."'></i> </li>":'';
         $rta.="</nav>";
     }
     return $rta;
