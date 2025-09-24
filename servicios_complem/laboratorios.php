@@ -229,6 +229,7 @@ function opc_cod_admision($id=''){
  function cmp_resultLab(){
   $rta="";
   $t=['id_lab'=>'','cuenta_resul'=>'','fecha_resul'=>'','dato_crit'=>'','gestion'=>'','gest_cump'=>'','obs'=>''];
+  $d=get_respuesta();
   if ($d==""){$d=$t;}
   $e="";
   $w='respuestas';
