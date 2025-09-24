@@ -230,7 +230,7 @@ function formato_dato($a,$b,$c,$d){
     $b=strtolower($b);
     // var_dump($a);//laboratorios
   var_dump($b);
-    // var_dump($c);
+  var_dump($c);
     // var_dump($d);
     $rta=$c[$d];
     if ($a=='laboratorios' && $b=='cod laboratorio'){
