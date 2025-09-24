@@ -234,9 +234,9 @@ function formato_dato($a, $b, $c, $d) {
   // var_dump($d);
   $rta = $c[$d];
   if ($a == 'laboratorios' && $b == 'cod laboratorio') {
-    $rta = "<nav class=\"menu right\">";
-    $rta .= "<li class=\"icono editar\" title=\"Editar\" id=\"{$c['Cod Laboratorio']}\" onclick=\"setTimeout(getData,500,'laboratorios',event,this,['cod_admision','tipo_lab','otro_lab','fecha_orden','fecha_toma','cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump'],'../servicios_complem/laboratorios.php');setTimeout(funNew,500,'../servicios_complem/laboratorios.php');\"></li>";
-    $rta .= "<li title=\"Resultado Laboratorios\" onclick=\"mostrar('resultados','pro',event,'','../servicios_complem/laboratorios.php',3,'Resultados del Laboratorio');Color('datos-lis');\"><i class=\"fa-solid fa-file-waweform ico\" id=\"{$c['Cod Laboratorio']}\"></i></li>";
+    $rta = "<nav class='menu right'>";
+    $rta .= "<li class='icono editar' title='Editar' id='{$c['Cod Laboratorio']}' onclick=\"setTimeout(getData,500,'laboratorios',event,this,['cod_admision','tipo_lab','otro_lab','fecha_orden','fecha_toma','cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump'],'../servicios_complem/laboratorios.php');setTimeout(funNew,500,'../servicios_complem/laboratorios.php');\"></li>";
+    $rta .= "<li title='Resultado Laboratorios' onclick=\"mostrar('resultados','pro',event,'','../servicios_complem/laboratorios.php',3,'Resultados del Laboratorio');Color('datos-lis');\"><i class='fa-solid fa-file-waweform ico' id='{$c['Cod Laboratorio']}'></i></li>";
     // $rta .= "<li title=\"Resultado Laboratorios\" onclick=\"mostrar('resultados','pro',event,'','../servicios_complem/laboratorios.php',4,'resultLab');Color('datos-lis');\"><i class=\"fa-solid fa-file-waweform ico\" id=\"{$c['Cod Laboratorio']}\"></i></li>";
     // $c['Tomado']=='SI' ?
     $rta .= "</nav>";
