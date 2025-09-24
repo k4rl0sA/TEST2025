@@ -243,6 +243,20 @@ function opc_cod_admision($id=''){
     $c[]=new cmp('gest_cump','d',3,$e,$w.' dCR '.$o,'Fecha Gestión','gest_cump',null,'',false,false,'','col-2');
  }
 
+ function get_laboratorios(){
+    if($_REQUEST['id']==''){
+        return "";
+    } else {
+        $id=divide($_REQUEST['id']);
+        $sql="SELECT  cuenta_resul, fecha_resul, dato_crit, gestion, gest_cump, obs
+FROM hog_laboratorios 
+              LEFT JOIN person P ON hog_laboratorios.idpeople=P.idpeople
+              WHERE id_lab='{$id[0]}'";
+        $info=datos_mysql($sql);
+        return json_encode($info['responseResult'][0]);
+    } 
+}
+
 function formato_dato($a, $b, $c, $d) {
   $b = strtolower($b);
   // var_dump($a); //laboratorios
