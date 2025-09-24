@@ -240,7 +240,6 @@ function formato_dato($a,$b,$c,$d){
         // $rta.="<li title='Resultado Laboratorios' Onclick=\"mostrar('resultados','pro',event,'','../servicios_complem/laboratorios.php',4,'resultLab');Color('datos-lis');\"><i class='fa-solid fa-file-waweform ico' id='".$c['Cod Laboratorio']."'></i> </li>";
         $rta.="</nav>";
     }
-    $rta.=$c['Tomado']=='SI'?"<li title='Resultado Laboratorios' Onclick=\"mostrar('resultados','pro',event,'','../servicios_complem/laboratorios.php',4,'resultLab');Color('datos-lis');\"><i class='fa-solid fa-file-waweform ico' id='".$c['Cod Laboratorio']."'></i> </li>":'OK';
     return $rta;
 }
 
