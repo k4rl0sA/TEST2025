@@ -34,7 +34,9 @@ function cap_menus($a,$b='cap',$con='con') {
   if ($a=='laboratorios' && isset($acc['crear']) && $acc['crear']=='SI') {  
    $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
   }
-  if($a=='resultLab')
+  if($a=='resultLab' && isset($acc['crear']) && $acc['crear']=='SI') {  
+   $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
+  }
   $rta .= "<li class='icono $a actualizar'  title='Actualizar'      Onclick=\"act_lista('$a',this);\"></li>";  
   return $rta;
 }
