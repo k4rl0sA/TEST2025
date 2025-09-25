@@ -40,8 +40,7 @@ function focus_resultLab(){
 }
 
 function cmp_resultLab(){
-  $rta ="<div class='encabezado seguiCom'>TABLA DE COMPROMISOS NO CUMPLIDOS</div>
-	<div class='contenido' id='seguiCom-lis' >".lis_seguim()."</div></div>";
+  $rta ="";
     $w="placuifam";
       $o='accide';
       $e="";
