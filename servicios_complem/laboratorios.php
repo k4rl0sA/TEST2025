@@ -332,7 +332,7 @@ function cmp_resultLab(){
 }
 
   function gra_resultLab(){
-	$id=divide($_POST['idcom']);
+/* 	$id=divide($_POST['idcom']);
     // var_dump($id);
     $info=datos_mysql("select equipo from usuarios where id_usuario='{$_SESSION['us_sds']}'");
     if(isset($info['responseResult'][0])){ 
@@ -356,7 +356,7 @@ function cmp_resultLab(){
       return $rta;
     }else{
       $rta="Error: msj['No existe un equipo actualmente para el usuario que realizo el seguimiento']";
-    }
+    } */
 }
 
 
