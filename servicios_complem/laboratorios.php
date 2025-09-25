@@ -258,6 +258,11 @@ FROM hog_laboratorios
     } 
 }
 
+function men_resultLab(){
+  $rta=cap_menus('laboratorios','pro');
+  return $rta;
+}
+
 function formato_dato($a, $b, $c, $d) {
   $b = strtolower($b);
   // var_dump($a); //laboratorios
