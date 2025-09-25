@@ -279,17 +279,15 @@ FROM hog_laboratorios
 }
 
   function gra_resultLab(){
-/* 	$id=divide($_POST['idrta']);
+	$id=divide($_POST['idrta']);
     // var_dump($id);
 
- /*  $required = ['cuenta_resul','dato_crit'];
+  $required = ['cuenta_resul','dato_crit'];
     foreach ($required as $field) {
         if (empty($_POST[$field])) {
             return ['error' => 'El campo '.$field.' es obligatorio.'];
         }
     } 
-
-
 
     if ($_POST['cuenta_resul'] == '1' && (empty($_POST['fecha_resul']) || !validateDate($_POST['fecha_resul']))) {
       return "msj['Error: La fecha de resultado es obligatoria y debe ser una fecha válida cuando se cuenta con resultado.']";
@@ -297,7 +295,7 @@ FROM hog_laboratorios
     if ($_POST['dato_crit'] == '1' && empty($_POST['gestion'] && empty($_POST['gest_cump'])) {
       return "msj['Error: La gestión es obligatoria cuando hay dato crítico. Por favor ingrese la gestión y la fecha de gestión.']";
     } 
-      $sql = "UPDATE hog_laboratorios SET cuenta_resul=?, fecha_resul=?, dato_crit=?, gestion=?, gest_cump=?, usu_update= ?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) WHERE id_lab=?";
+     $sql = "UPDATE hog_laboratorios SET cuenta_resul=?, fecha_resul=?, dato_crit=?, gestion=?, gest_cump=?, usu_update= ?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) WHERE id_lab=?";
         $params = [
             ['type' => 's', 'value' => trim($_POST['cuenta_resul'] ??null )],
             ['type' => 's', 'value' => trim($_POST['fecha_resul'] ?? null)],
@@ -308,7 +306,7 @@ FROM hog_laboratorios
             ['type' => 'i', 'value' => intval($id[0])]
         ];
       $rta = mysql_prepd($sql, $params);
-      return $rta; */
+      return $rta; 
 }
 
 
