@@ -298,8 +298,7 @@ function cmp_resultLab(){
 	$days=fechas_app('vivienda');
       $c[]=new cmp($o,'e',null,'PLAN DE CUIDADO FAMILIAR CONCERTADO',$w);
       $c[]=new cmp('idrta','h',15,$_POST['id'],$w.' '.$key.' '.$o,'id','id',null,'####',false,false);
-      
-      $c[]=new cmp('cuenta_resul','s',3,$e,$w.' ToM '.$o,'¿Cuenta con resultado?','cuenta_resul',null,'',true,true,'','col-2',"enabFechaResulLab();");    
+      $c[]=new cmp('cuenta_resul','s',3,$e,$w.' ToM '.$o,'¿Cuenta con resultado?','cuenta_resul',null,'',true,true,'','col-3',"enabFechaResulLab();");    
       $c[]=new cmp('fecha_resul','d',10,$e,$w.' RTa  '.$o,'Fecha de Resultado','fecha_resul',null,'',false,false,'','col-2');
       $c[]=new cmp('dato_crit','s',10,$e,$w.' ToM '.$o,'Dato Crítico','dato_crit',null,'',true,true,'','col-2',"enabGestionLab();");
       $c[]=new cmp('gestion','s',3,$e,$w.' dCR '.$o,'Cita de Control','gestion',null,'',false,false,'','col-2');
