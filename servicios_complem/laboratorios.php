@@ -286,14 +286,14 @@ function men_resultLab(){
 
 function cmp_resultLab(){
   $rta ="";
-    $w="placuifam";
+  $w="resultados";
       $o='accide';
       $e="";
       $key='pln';
       $o='resultLab';
     //   var_dump($_POST);
       $t=['compromiso'=>''];
-	$d=get_compromiso();
+	$d=get_respuesta();
 	if ($d==""){$d=$t;}
 	$days=fechas_app('vivienda');
       $c[]=new cmp($o,'e',null,'PLAN DE CUIDADO FAMILIAR CONCERTADO',$w);
@@ -309,7 +309,7 @@ function cmp_resultLab(){
       return $rta;
   }
 
-  function get_compromiso(){
+/*   function get_compromiso(){
     // var_dump($_REQUEST);
     if($_REQUEST['id']==''){
         return "";
@@ -323,7 +323,7 @@ function cmp_resultLab(){
         $info=datos_mysql($sql);
         return $info['responseResult'][0];			
     }
-}
+} */
 
   function gra_resultLab(){
 	$id=divide($_POST['idcom']);
