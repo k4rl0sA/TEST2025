@@ -283,7 +283,7 @@ function formato_dato($a, $b, $c, $d) {
 
     // $rta.="<li ><i class='fa-solid fa-file-waveform ico' title='Seguimiento a Compromisos' id='{$c['Cod Laboratorio']}' Onclick=\"mostrar(mostrar('resultLab','pro',event,'','../servicios_complem/laboratorios.php',3,'resultLab');\"></i></li>"
 
-$rta.="<li ><i class='fa-solid fa-house-medical-circle-check ico' title='Seguimiento a Compromisos' id='".$c['Cod Laboratorio']."' Onclick=\"mostrar('segComp','pro',event,'','resultados.php',7,'Seguimiento a Compromisos');\"></i></li>";
+$rta.="<li ><i class='fa-solid fa-house-medical-circle-check ico' title='Seguimiento a Compromisos' id='".$c['Cod Laboratorio']."' Onclick=\"mostrar('segComp','pro',event,'','../servicios_complem/resultados.php',7,'Seguimiento a Compromisos');\"></i></li>";
     
 
     // $rta .= "<li title=\"Resultado Laboratorios\" onclick=\"mostrar('resultados','pro',event,'','../servicios_complem/laboratorios.php',4,'resultLab');Color('datos-lis');\"><i class=\"fa-solid fa-file-waweform ico\" id=\"{$c['Cod Laboratorio']}\"></i></li>";
