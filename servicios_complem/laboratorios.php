@@ -289,7 +289,7 @@ FROM hog_laboratorios
         }
     } 
 
- /*    if ($_POST['cuenta_resul'] == '1' && (empty($_POST['fecha_resul']) || !validateDate($_POST['fecha_resul']))) {
+ /* if ($_POST['cuenta_resul'] == '1' && (empty($_POST['fecha_resul']) || !validateDate($_POST['fecha_resul']))) {
       return "msj['Error: La fecha de resultado es obligatoria y debe ser una fecha válida cuando se cuenta con resultado.']";
     }
     if ($_POST['dato_crit'] == '1' && empty($_POST['gestion'] && empty($_POST['gest_cump'])) {
