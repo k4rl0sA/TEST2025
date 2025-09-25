@@ -293,7 +293,7 @@ FROM hog_laboratorios
       return "msj['Error: La fecha de resultado es obligatoria y debe ser una fecha válida cuando se cuenta con resultado.']";
     }
  
-    if ($_POST['dato_crit'] == '1' && (empty($_POST['gestion']) || empty($_POST['gest_cump']))) {
+    if ($_POST['dato_crit'] == '1' && (empty($_POST['gestion']) && empty($_POST['gest_cump']))) {
       return "msj['Error: La gestión es obligatoria cuando hay dato crítico. Por favor ingrese la gestión y la fecha de gestión.']";
     }
      $sql = "UPDATE hog_laboratorios SET cuenta_resul=?, fecha_resul=?, dato_crit=?, gestion=?, gest_cump=?, usu_update= ?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) WHERE id_lab=?";
