@@ -268,7 +268,6 @@ function men_resultLab(){
 }
 
 
-
 function formato_dato($a, $b, $c, $d) {
   $b = strtolower($b);
   // var_dump($a); //laboratorios
