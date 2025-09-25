@@ -127,12 +127,12 @@ function gra_laboratorios(){
     if ($_POST['lab_tomado'] == '1' && (empty($_POST['fecha_toma']) || !validateDate($_POST['fecha_toma']))) {
       return "msj['Error: La fecha de toma es obligatoria y debe ser una fecha válida cuando el laboratorio ha sido tomado.']";
     } 
-    if ($_POST['cuenta_resul'] == '1' && (empty($_POST['fecha_resul']) || !validateDate($_POST['fecha_resul']))) {
+    /* if ($_POST['cuenta_resul'] == '1' && (empty($_POST['fecha_resul']) || !validateDate($_POST['fecha_resul']))) {
       return "msj['Error: La fecha de resultado es obligatoria y debe ser una fecha válida cuando se cuenta con resultado.']";
     }
     if ($_POST['dato_crit'] == '1' && empty($_POST['gestion'])) {
       return "msj['Error: La gestión es obligatoria cuando hay dato crítico.']";
-    }
+    } */
  
 
     $id = divide($_POST['id']);
