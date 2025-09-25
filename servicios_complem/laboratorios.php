@@ -258,6 +258,7 @@ FROM hog_laboratorios
     } 
 }
 
+*/
 function focus_resultLab(){
   return 'resultLab';
 }
@@ -266,14 +267,14 @@ function men_resultLab(){
   $rta=cap_menus('resultLab','pro');
   return $rta;
 }
- */
+ 
 
 
 
 
 
 
-function focus_resultLab(){
+/* function focus_resultLab(){
 	return 'resultLab';
    }
    
@@ -281,7 +282,7 @@ function focus_resultLab(){
    function men_resultLab(){
 	$rta=cap_menus('resultLab','pro');
 	return $rta;
-   }
+   } */
 
 function cmp_resultLab(){
   $rta ="";
