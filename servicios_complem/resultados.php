@@ -39,25 +39,6 @@ function focus_resultLab(){
   return $rta;
 }
 
-function lis_seguim(){
-  // print_r($_POST);
-  $id = divide($_POST['id']);
-  $info=datos_mysql("SELECT COUNT(*) total FROM hog_segcom WHERE id_con='".$id[1]."'");
-  $total=$info['responseResult'][0]['total'];
-  $regxPag=5;
-  $pag=(isset($_POST['pag-seguiCom']))? ($_POST['pag-seguiCom']-1)* $regxPag:0;
-  
-      $sql="SELECT hs.fecha_seg,FN_CATALOGODESC(234,tipo_seg) tipo,FN_CATALOGODESC(170,estado_seg) cumplio,u.nombre,hs.equipo FROM 
-            hog_segcom hs
-        LEFT JOIN usuarios u ON hs.usu_create=u.id_usuario
-        WHERE id_con='".$id[1];
-          $sql.="' ORDER BY fecha_create";
-          $sql.=' LIMIT '.$pag.','.$regxPag;
-          //  echo $sql;
-          $datos=datos_mysql($sql);
-          return create_table($total,$datos["responseResult"],"seguiCom",$regxPag,'plnsegcon.php');
-}
-
 function cmp_resultLab(){
   $rta ="<div class='encabezado seguiCom'>TABLA DE COMPROMISOS NO CUMPLIDOS</div>
 	<div class='contenido' id='seguiCom-lis' >".lis_seguim()."</div></div>";
