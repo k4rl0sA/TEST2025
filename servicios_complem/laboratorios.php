@@ -282,15 +282,6 @@ function focus_resultLab(){
 	$rta=cap_menus('resultLab','pro');
 	return $rta;
    }
-   
-   function cap_menus($a,$b='cap',$con='con') {
-	 $rta = ""; 
-	 $acc=rol($a);
-	   if ($a=='resultLab'  && isset($acc['crear']) && $acc['crear']=='SI'){  
-	 $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>"; //~ openModal();
-	   }
-  return $rta;
-}
 
 function cmp_resultLab(){
   $rta ="";
@@ -332,7 +323,7 @@ function cmp_resultLab(){
 }
 
   function gra_resultLab(){
-/* 	$id=divide($_POST['idcom']);
+	$id=divide($_POST['idcom']);
     // var_dump($id);
     $info=datos_mysql("select equipo from usuarios where id_usuario='{$_SESSION['us_sds']}'");
     if(isset($info['responseResult'][0])){ 
@@ -356,7 +347,7 @@ function cmp_resultLab(){
       return $rta;
     }else{
       $rta="Error: msj['No existe un equipo actualmente para el usuario que realizo el seguimiento']";
-    } */
+    }
 }
 
 
