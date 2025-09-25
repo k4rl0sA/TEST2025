@@ -279,7 +279,14 @@ function formato_dato($a, $b, $c, $d) {
   if ($a == 'laboratorios' && $b == 'cod laboratorio') {
     $rta = "<nav class='menu right'>";
     $rta .= "<li class='icono editar' title='Editar' id='{$c['Cod Laboratorio']}' onclick=\"setTimeout(getData,500,'laboratorios',event,this,['cod_admision','tipo_lab','otro_lab','fecha_orden','fecha_toma','cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump'],'../servicios_complem/laboratorios.php');\"></li>";
-    $rta .= $c['Tomado']=='SI' ? "<li title='Resultado Laboratorios' onclick=\"mostrar('resultLab','pro',event,'','../servicios_complem/laboratorios.php',3,'resultLab');Color('datos-lis');\"><i class='fa-solid fa-file-waveform ico' id='{$c['Cod Laboratorio']}'></i></li>":'';
+    
+     $rta .= $c['Tomado']=='SI' ? "<li ><i class='fa-solid fa-file-waveform ico' title='Seguimiento a Compromisos' id='{$c['Cod Laboratorio']}' Onclick=\"mostrar(mostrar('resultLab','pro',event,'','../servicios_complem/laboratorios.php',3,'resultLab');\"></i></li>":'';
+
+    // $rta.="<li ><i class='fa-solid fa-file-waveform ico' title='Seguimiento a Compromisos' id='{$c['Cod Laboratorio']}' Onclick=\"mostrar(mostrar('resultLab','pro',event,'','../servicios_complem/laboratorios.php',3,'resultLab');\"></i></li>"
+
+// $rta.="<li ><i class='fa-solid fa-house-medical-circle-check ico' title='Seguimiento a Compromisos' id='".$c['ACCIONES']."' Onclick=\"mostrar('segComp','pro',event,'','plnsegcon.php',7,'Seguimiento a Compromisos');\"></i></li>";
+    
+
     // $rta .= "<li title=\"Resultado Laboratorios\" onclick=\"mostrar('resultados','pro',event,'','../servicios_complem/laboratorios.php',4,'resultLab');Color('datos-lis');\"><i class=\"fa-solid fa-file-waweform ico\" id=\"{$c['Cod Laboratorio']}\"></i></li>";
     // $c['Tomado']=='SI' ?
     $rta .= "</nav>";
