@@ -297,12 +297,14 @@ function cmp_resultLab(){
 	if ($d==""){$d=$t;}
 	$days=fechas_app('vivienda');
       $c[]=new cmp($o,'e',null,'PLAN DE CUIDADO FAMILIAR CONCERTADO',$w);
-      $c[]=new cmp('idcom','h',15,$_POST['id'],$w.' '.$key.' '.$o,'id','id',null,'####',false,false);
-      $c[]=new cmp('compromiso','a',50,$d['compromiso'],$w.''.$o,'Compromisos concertados','observaciones',null,null,true,false,'','col-0');
-      $c[]=new cmp('fechac','d','3',$e,$w.' '.$o,'Fecha','fecha',null,null,true,true,'','col-5',"validDate(this,$days,0);");
-      $c[]=new cmp('tipo','s','2',$e,$w.' '.$o,'Tipo de Seguimiento','tipo',null,null,true,true,'','col-1');
-      $c[]=new cmp('cumplio','s','2',$e,$w.' '.$o,'cumplio','cumplio',null,null,true,true,'','col-1',"enbValue('cumplio','rt',2);");
-      $c[]=new cmp('observacion','a',50,'',$w.' rt '.$o,'Observación del Incumplimiento','observaciones',null,null,false,false,'','col-7');
+      $c[]=new cmp('idrta','h',15,$_POST['id'],$w.' '.$key.' '.$o,'id','id',null,'####',false,false);
+      
+      $c[]=new cmp('cuenta_resul','s',3,$e,$w.' ToM '.$o,'¿Cuenta con resultado?','cuenta_resul',null,'',true,true,'','col-2',"enabFechaResulLab();");    
+      $c[]=new cmp('fecha_resul','d',10,$e,$w.' RTa  '.$o,'Fecha de Resultado','fecha_resul',null,'',false,false,'','col-2');
+      $c[]=new cmp('dato_crit','s',10,$e,$w.' ToM '.$o,'Dato Crítico','dato_crit',null,'',true,true,'','col-2',"enabGestionLab();");
+      $c[]=new cmp('gestion','s',3,$e,$w.' dCR '.$o,'Cita de Control','gestion',null,'',false,false,'','col-2');
+      $c[]=new cmp('gest_cump','d',3,$e,$w.' dCR '.$o,'Fecha Gestión','gest_cump',null,'',false,false,'','col-2');
+
       for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
       return $rta;
   }
