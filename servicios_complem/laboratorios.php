@@ -279,7 +279,7 @@ function formato_dato($a, $b, $c, $d) {
     $rta = "<nav class='menu right'>";
     $rta .= "<li class='icono editar' title='Editar' id='{$c['Cod Laboratorio']}' onclick=\"setTimeout(getData,500,'laboratorios',event,this,['cod_admision','tipo_lab','otro_lab','fecha_orden','fecha_toma','cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump'],'../servicios_complem/laboratorios.php');\"></li>";
     
-     $rta .= $c['Tomado']=='SI' ? "<li><i class='fa-solid fa-file-waveform ico' title='Seguimiento a Compromisos' id='{$c['Cod Laboratorio']}' Onclick=\"mostrar(mostrar('resultLab','pro',event,'','../servicios_complem/resultados.php',3,'resultLab');\"></i></li>":'';
+    // $rta .= $c['Tomado']=='SI' ? "<li><i class='fa-solid fa-file-waveform ico' title='Seguimiento a Compromisos' id='{$c['Cod Laboratorio']}' Onclick=\"mostrar(mostrar('resultLab','pro',event,'','../servicios_complem/resultados.php',3,'resultLab');\"></i></li>":'';
 
     // $rta.="<li ><i class='fa-solid fa-file-waveform ico' title='Seguimiento a Compromisos' id='{$c['Cod Laboratorio']}' Onclick=\"mostrar(mostrar('resultLab','pro',event,'','../servicios_complem/laboratorios.php',3,'resultLab');\"></i></li>"
 
