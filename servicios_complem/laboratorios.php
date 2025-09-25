@@ -139,7 +139,7 @@ function gra_laboratorios(){
     if (count($id) == 1) {
         // Actualización
  /*  $sql = "UPDATE hog_laboratorios SET lab_tomado=?, fecha_toma=?, cuenta_resul=?, fecha_resul=?, dato_crit=?, gestion=?, gest_cump=?, obs=?, usu_update= {$_SESSION['us_sds']}, fecha_update=SUB_DATE(NOW(),INTERVAL 5 HOUR) WHERE id_lab=?"; */
-  $sql = "UPDATE hog_laboratorios SET lab_tomado=?, fecha_toma=?, obs=?, usu_update= ".$_SESSION['us_sds'].", fecha_update=SUB_DATE(NOW(),INTERVAL 5 HOUR) WHERE id_lab=?";
+  $sql = "UPDATE hog_laboratorios SET lab_tomado=?, fecha_toma=?, obs=?, usu_update= ?, fecha_update=SUB_DATE(NOW(),INTERVAL 5 HOUR) WHERE id_lab=?";
         $params = [
             ['type' => 's', 'value' => trim($_POST['lab_tomado'] ?? '')],
             ['type' => 's', 'value' => trim($_POST['fecha_toma'] ?? NULL)],
