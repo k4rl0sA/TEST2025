@@ -34,6 +34,7 @@ function cap_menus($a,$b='cap',$con='con') {
   if ($a=='laboratorios' && isset($acc['crear']) && $acc['crear']=='SI') {  
    $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
   }
+  if($a=='resultLab')
   $rta .= "<li class='icono $a actualizar'  title='Actualizar'      Onclick=\"act_lista('$a',this);\"></li>";  
   return $rta;
 }
@@ -127,12 +128,7 @@ function gra_laboratorios(){
     if ($_POST['lab_tomado'] == '1' && (empty($_POST['fecha_toma']) || !validateDate($_POST['fecha_toma']))) {
       return "msj['Error: La fecha de toma es obligatoria y debe ser una fecha válida cuando el laboratorio ha sido tomado.']";
     } 
-    /* if ($_POST['cuenta_resul'] == '1' && (empty($_POST['fecha_resul']) || !validateDate($_POST['fecha_resul']))) {
-      return "msj['Error: La fecha de resultado es obligatoria y debe ser una fecha válida cuando se cuenta con resultado.']";
-    }
-    if ($_POST['dato_crit'] == '1' && empty($_POST['gestion'])) {
-      return "msj['Error: La gestión es obligatoria cuando hay dato crítico.']";
-    } */
+    /* */
  
 
     $id = divide($_POST['id']);
@@ -228,37 +224,10 @@ function opc_cod_admision($id=''){
 }
 
 
-/*  function cmp_resultLab(){
-  $rta="";
-  $t=['id_lab'=>'','cuenta_resul'=>'','fecha_resul'=>'','dato_crit'=>'','gestion'=>'','gest_cump'=>'','obs'=>''];
-  $d=get_respuesta();
-  if ($d==""){$d=$t;}
-  $e="";
-  $w='respuestas';
-  $o='rtas';
-  $key='lab';
-  $days=fechas_app('lab');
-  $c[]=new cmp('id','h',15,$_POST['id'],$w.' '.$o,'','',null,'####',false,false);
-  $c[]=new cmp('cuenta_resul','s',3,$e,$w.' ToM '.$o,'¿Cuenta con resultado?','cuenta_resul',null,'',true,true,'','col-2',"enabFechaResulLab();");    
-    $c[]=new cmp('fecha_resul','d',10,$e,$w.' RTa  '.$o,'Fecha de Resultado','fecha_resul',null,'',false,false,'','col-2');
-    $c[]=new cmp('dato_crit','s',10,$e,$w.' ToM '.$o,'Dato Crítico','dato_crit',null,'',true,true,'','col-2',"enabGestionLab();");
-    $c[]=new cmp('gestion','s',3,$e,$w.' dCR '.$o,'Cita de Control','gestion',null,'',false,false,'','col-2');
-    $c[]=new cmp('gest_cump','d',3,$e,$w.' dCR '.$o,'Fecha Gestión','gest_cump',null,'',false,false,'','col-2');
- }
-*/
- function get_respuesta(){
-    if($_REQUEST['id']==''){
-        return "";
-    } else {
-        $id=divide($_REQUEST['id']);
-        $sql="SELECT  cuenta_resul, fecha_resul, dato_crit, gestion, gest_cump, obs
-FROM hog_laboratorios 
-              LEFT JOIN person P ON hog_laboratorios.idpeople=P.idpeople
-              WHERE id_lab='{$id[0]}'";
-        $info=datos_mysql($sql);
-        return json_encode($info['responseResult'][0]);
-    } 
-}
+
+
+//********************************RESULTADO LABORATORIOS***********************************************/
+
 
 
 function focus_resultLab(){
@@ -270,21 +239,6 @@ function men_resultLab(){
   return $rta;
 }
  
-
-
-
-
-
-
-/* function focus_resultLab(){
-	return 'resultLab';
-   }
-   
-   
-   function men_resultLab(){
-	$rta=cap_menus('resultLab','pro');
-	return $rta;
-   } */
 
 function cmp_resultLab(){
   $rta ="";
@@ -310,58 +264,57 @@ function cmp_resultLab(){
       return $rta;
   }
 
-/*   function get_compromiso(){
-    // var_dump($_REQUEST);
+ function get_respuesta(){
     if($_REQUEST['id']==''){
         return "";
-    }else{
+    } else {
         $id=divide($_REQUEST['id']);
-        //  `fechaatencion`, `codigocups`, `finalidadconsulta`, `peso`, `talla`, `sistolica`, `diastolica`, `abdominal`, `brazo`, `diagnosticoprincipal`, `diagnosticorelacion1`, `diagnosticorelacion2`, `diagnosticorelacion3`, `fertil`, `preconcepcional`, `metodo`, `anticonceptivo`, `planificacion`, `mestruacion`, `gestante`, `gestaciones`, `partos`, `abortos`, `cesarias`, `vivos`, `muertos`, `vacunaciongestante`, `edadgestacion`, `ultimagestacion`, `probableparto`, `prenatal`, `fechaparto`, `rpsicosocial`, `robstetrico`, `rtromboembo`, `rdepresion`, `sifilisgestacional`, `sifiliscongenita`, `morbilidad`, `hepatitisb`, `vih`, `cronico`, `asistenciacronica`, `tratamiento`, `vacunascronico`, `menos5anios`, `esquemavacuna`, `signoalarma`, `cualalarma`, `dxnutricional`, `eventointeres`, `evento`, `cualevento`, `sirc`, `rutasirc`, `remision`, `cualremision`, `ordenpsicologia`, `ordenvacunacion`, `vacunacion`, `ordenlaboratorio`, `laboratorios`, `ordenimagenes`, `imagenes`, `ordenmedicamentos`, `medicamentos`, `rutacontinuidad`, `continuidad`, `relevo`  ON a.idpersona = b.idpersona AND a.tipodoc = b.tipo_doc
-        $sql="SELECT  compromiso
-        FROM hog_planconc
-        WHERE idcon ='{$id[1]}'";
-        // echo $sql;
+        $sql="SELECT  cuenta_resul, fecha_resul, dato_crit, gestion, gest_cump, obs
+FROM hog_laboratorios 
+              LEFT JOIN person P ON hog_laboratorios.idpeople=P.idpeople
+              WHERE id_lab='{$id[0]}'";
         $info=datos_mysql($sql);
-        return $info['responseResult'][0];			
-    }
-} */
+        return json_encode($info['responseResult'][0]);
+    } 
+}
 
   function gra_resultLab(){
-	$id=divide($_POST['idcom']);
+	$id=divide($_POST['idrta']);
     // var_dump($id);
-    $info=datos_mysql("select equipo from usuarios where id_usuario='{$_SESSION['us_sds']}'");
-    if(isset($info['responseResult'][0])){ 
-      $equipo=$info['responseResult'][0]['equipo'];
-      $sql = "INSERT INTO hog_segcom VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-      $params = [
-        ['type' => 'i', 'value' => NULL ],
-        ['type' => 's', 'value' => $id[1]],
-        ['type' => 's', 'value' => $_POST['fechac']],
-        ['type' => 's', 'value' => $_POST['tipo']],
-        ['type' => 's', 'value' => $_POST['cumplio']],
-        ['type' => 's', 'value' => $_POST['observacion']],
-        ['type' => 's', 'value' => $equipo],
-         ['type' => 'i', 'value' => $_SESSION['us_sds']], // usu_create
-        ['type' => 's', 'value' => date("Y-m-d H:i:s")], // fecha_create
-        ['type' => 'i', 'value' => $_SESSION['us_sds']], // usu_update (ajustado)
-        ['type' => 's', 'value' => date("Y-m-d H:i:s")], // fecha_update (ajustado)
-        ['type' => 's', 'value' => 'A']
-      ];
+
+  $required = ['cuenta_resul','dato_crit'];
+    foreach ($required as $field) {
+        if (empty($_POST[$field])) {
+            return ['error' => 'El campo '.$field.' es obligatorio.'];
+        }
+    }
+
+
+
+    if ($_POST['cuenta_resul'] == '1' && (empty($_POST['fecha_resul']) || !validateDate($_POST['fecha_resul']))) {
+      return "msj['Error: La fecha de resultado es obligatoria y debe ser una fecha válida cuando se cuenta con resultado.']";
+    }
+    if ($_POST['dato_crit'] == '1' && empty($_POST['gestion'] && empty($_POST['gest_cump'])) {
+      return "msj['Error: La gestión es obligatoria cuando hay dato crítico. Por favor ingrese la gestión y la fecha de gestión.']";
+    } 
+      $sql = "UPDATE hog_laboratorios SET cuenta_resul=?, fecha_resul=?, dato_crit=?, gestion=?, gest_cump=?, usu_update= ?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) WHERE id_lab=?";
+        $params = [
+   
+            ['type' => 's', 'value' => trim($_POST['cuenta_resul'] ??null )],
+            ['type' => 's', 'value' => trim($_POST['fecha_resul'] ?? null)],
+            ['type' => 'i', 'value' => intval($_POST['dato_crit'] ?? 0)],
+            ['type' => 's', 'value' => trim($_POST['gestion'] ?? null)],
+            ['type' => 's', 'value' => trim($_POST['gest_cump'] ?? null)],
+            ['type' => 's', 'value' => intval(($_SESSION['us_sds']) ?? 0)],
+            ['type' => 'i', 'value' => intval($id[0])]
+        ];
       $rta = mysql_prepd($sql, $params);
       return $rta;
-    }else{
-      $rta="Error: msj['No existe un equipo actualmente para el usuario que realizo el seguimiento']";
-    }
 }
 
 
-function opc_cumplio($id=''){
-return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=170 and estado='A' ORDER BY 1",$id);
-}
-function opc_tipo($id=''){
-    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=234 and estado='A' ORDER BY 1",$id);
-    }
 
+    //********************************RESULTADO LABORATORIOS***********************************************/
 
 function formato_dato($a, $b, $c, $d) {
   $b = strtolower($b);
