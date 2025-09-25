@@ -243,7 +243,7 @@ function opc_cod_admision($id=''){
     $c[]=new cmp('gestion','s',3,$e,$w.' dCR '.$o,'Cita de Control','gestion',null,'',false,false,'','col-2');
     $c[]=new cmp('gest_cump','d',3,$e,$w.' dCR '.$o,'Fecha Gestión','gest_cump',null,'',false,false,'','col-2');
  }
-
+*/
  function get_respuesta(){
     if($_REQUEST['id']==''){
         return "";
@@ -258,7 +258,7 @@ FROM hog_laboratorios
     } 
 }
 
-*/
+
 function focus_resultLab(){
   return 'resultLab';
 }
