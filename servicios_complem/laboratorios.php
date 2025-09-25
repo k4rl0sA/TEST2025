@@ -282,12 +282,12 @@ FROM hog_laboratorios
 	$id=divide($_POST['idrta']);
     // var_dump($id);
 
-  $required = ['cuenta_resul','dato_crit'];
+ /*  $required = ['cuenta_resul','dato_crit'];
     foreach ($required as $field) {
         if (empty($_POST[$field])) {
             return ['error' => 'El campo '.$field.' es obligatorio.'];
         }
-    }
+    } */
 
 
 
