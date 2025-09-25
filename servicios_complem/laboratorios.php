@@ -149,6 +149,7 @@ function gra_laboratorios(){
             ['type' => 's', 'value' => trim($_POST['gestion'] ?? '')],
             ['type' => 's', 'value' => trim($_POST['gest_cump'] ?? '')], */
             ['type' => 's', 'value' => trim($_POST['obs'] ?? NULL)],
+            ['type' => 's', 'value' => intval(($_SESSION['us_sds']) ?? 0)],
             ['type' => 'i', 'value' => intval($id[0])]
         ];
     // Mostrar la consulta generada para depuración
