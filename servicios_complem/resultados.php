@@ -20,20 +20,20 @@ else {
 }
 
 
-function focus_resultLab(){
-	return 'resultLab';
+function focus_segComp(){
+	return 'segComp';
    }
    
    
-   function men_resultLab(){
-	$rta=cap_menus('resultLab','pro');
+   function men_segComp(){
+	$rta=cap_menus('segComp','pro');
 	return $rta;
    }
    
    function cap_menus($a,$b='cap',$con='con') {
 	 $rta = ""; 
 	 $acc=rol($a);
-	   if ($a=='resultLab'  && isset($acc['crear']) && $acc['crear']=='SI'){  
+	   if ($a=='segComp'  && isset($acc['crear']) && $acc['crear']=='SI'){  
 	 $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>"; //~ openModal();
 	   }
   return $rta;
@@ -58,14 +58,14 @@ function lis_seguim(){
           return create_table($total,$datos["responseResult"],"seguiCom",$regxPag,'plnsegcon.php');
 }
 
-function cmp_resultLab(){
+function cmp_segComp(){
   $rta ="<div class='encabezado seguiCom'>TABLA DE COMPROMISOS NO CUMPLIDOS</div>
 	<div class='contenido' id='seguiCom-lis' >".lis_seguim()."</div></div>";
     $w="placuifam";
       $o='accide';
       $e="";
       $key='pln';
-      $o='resultLab';
+      $o='segComp';
     //   var_dump($_POST);
       $t=['compromiso'=>''];
 	$d=get_compromiso();
@@ -98,7 +98,7 @@ function cmp_resultLab(){
     }
 }
 
-  function gra_resultLab(){
+  function gra_segComp(){
 	$id=divide($_POST['idcom']);
     // var_dump($id);
     $info=datos_mysql("select equipo from usuarios where id_usuario='{$_SESSION['us_sds']}'");
@@ -138,7 +138,7 @@ function formato_dato($a,$b,$c,$d){
     $b=strtolower($b);
     $rta=$c[$d];
     // var_dump($a);
-    if ($a=='resultLab' && $b=='acciones'){
+    if ($a=='segComp' && $b=='acciones'){
         $rta="<nav class='menu right'>";
             $rta.="<li title='Ver Apgar'><i class='fa-solid fa-eye ico' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getDataFetch,500,'compConc',event,this,'plncon.php',['obs','equipo']);\"></i></li>";  //   act_lista(f,this);
           $rta.="<li class='icono editar' title='Seguimiento a Compromisos' id='".$c['ACCIONES']."' Onclick=\"mostrar('compConc','pro',event,'','plnsegcon.php',7);\"></li>";
