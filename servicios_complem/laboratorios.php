@@ -258,6 +258,10 @@ FROM hog_laboratorios
     } 
 }
 
+function focus_resultLab(){
+  return 'resultLab';
+}
+
 function men_resultLab(){
   $rta=cap_menus('resultLab','pro');
   return $rta;
