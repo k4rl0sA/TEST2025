@@ -279,7 +279,7 @@ FROM hog_laboratorios
 }
 
   function gra_resultLab(){
-	$id=divide($_POST['idrta']);
+/* 	$id=divide($_POST['idrta']);
     // var_dump($id);
 
  /*  $required = ['cuenta_resul','dato_crit'];
@@ -287,7 +287,7 @@ FROM hog_laboratorios
         if (empty($_POST[$field])) {
             return ['error' => 'El campo '.$field.' es obligatorio.'];
         }
-    } */
+    } 
 
 
 
@@ -299,7 +299,6 @@ FROM hog_laboratorios
     } 
       $sql = "UPDATE hog_laboratorios SET cuenta_resul=?, fecha_resul=?, dato_crit=?, gestion=?, gest_cump=?, usu_update= ?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) WHERE id_lab=?";
         $params = [
-   
             ['type' => 's', 'value' => trim($_POST['cuenta_resul'] ??null )],
             ['type' => 's', 'value' => trim($_POST['fecha_resul'] ?? null)],
             ['type' => 'i', 'value' => intval($_POST['dato_crit'] ?? 0)],
@@ -309,7 +308,7 @@ FROM hog_laboratorios
             ['type' => 'i', 'value' => intval($id[0])]
         ];
       $rta = mysql_prepd($sql, $params);
-      return $rta;
+      return $rta; */
 }
 
 
