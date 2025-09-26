@@ -180,13 +180,58 @@ function indivi_planillas(){
 }
 
 function pcf_planillas(){
-    $id = divide($_POST['id'] ?? ''); // Espera: idpersona_tipo_doc_fecha_usuario_evento_seguimiento
+    $id = divide($_POST['id'] ?? ''); 
+    $info = datos_mysql("SELECT P.idpeople idpeople, P.vivipersona idfam FROM person P WHERE P.idpersona = $id[0] AND P.tipo_doc = '$id[1]'");
+    $row = $info['responseResult'][0];
+    $idfam = $row['idfam'];
+    $idp=$row['idpeople'];
+    // Espera: idpersona_tipo_doc_fecha_usuario_evento_seguimiento
     if (empty($id[0])) return json_encode (new stdClass);
-    $info = datos_mysql("SELECT P.idpeople, CASE WHEN EXISTS (
+    
+    $info = datos_mysql("SELECT CASE 
+        WHEN EXISTS (
+            SELECT 1
+            FROM $id[4] A
+            INNER JOIN person P ON A.idpeople = P.idpeople
+            WHERE P.idpeople = $idp
+              AND A.numsegui = $id[5]
+              AND A.fecha_seg = '$id[2]'
+              AND A.usu_creo = '$id[3]'
+              AND A.estado = 'A'
+        ) 
+        THEN 'Completado' 
+        ELSE 'Validar' 
+    END AS Estado,
+
+    (
+        SELECT MAX(A2.fecha_seg)
+        FROM $id[4] A2
+        INNER JOIN person P2 ON A2.idpeople = P2.idpeople
+        WHERE P2.idpeople = $idp AND A2.numsegui = $id[5] AND A2.usu_creo = '$id[3]' AND A2.estado = 'A'
+          AND A2.fecha_seg >= (
+                CASE 
+                    WHEN DAY(CURDATE()) <= 5 
+                    THEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') 
+                    ELSE DATE_FORMAT(CURDATE(), '%Y-%m-01') 
+                END
+          )
+          AND A2.fecha_seg < (
+                CASE 
+                    WHEN DAY(CURDATE()) <= 5 
+                    THEN DATE_FORMAT(CURDATE(), '%Y-%m-01') 
+                    ELSE DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') 
+                END
+          )
+    ) AS fecha_ultima;"
+
+);
+
+SELECT P.idpeople, CASE WHEN EXISTS (
         SELECT 1 FROM pcf_familiares F WHERE F.idpeople = P.idpeople AND F.fecha = '$id[2]' AND F.usu_creo = $id[3] AND F.estado = 'A'
     ) THEN 'Completado' ELSE 'Validar' END AS Estado,
     ( SELECT MAX(F2.fecha) FROM pcf_familiares F2 WHERE F2.idpeople = P.idpeople AND F2.usu_creo = $id[3] AND F2.estado = 'A' AND F2.fecha >= (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') ELSE DATE_FORMAT(CURDATE(), '%Y-%m-01') END) AND F2.fecha < (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(CURDATE(), '%Y-%m-01') ELSE DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') END)) AS fecha_ultima
-    FROM person P WHERE P.idpersona = $id[0] AND P.tipo_doc = '$id[1]';");
+    FROM person P WHERE P.idpersona = $id[0] AND P.tipo_doc = '$id[1]';
+
     return json_encode($info['responseResult']);
 }
 
