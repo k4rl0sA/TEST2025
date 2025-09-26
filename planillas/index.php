@@ -84,7 +84,7 @@ async function cargarResumenPcf(){
 	const tta= document.getElementById('tipo').value;
 	const eve= document.getElementById('evento').value;
 	const nseg= document.getElementById('seguimiento').value;
-	if(tta=='2' && eve!='' && nseg!=''){
+	if(tta=='1' && eve=='' && nseg==''){
 		document.getElementById('valida-pcf').innerHTML = '';
 		return;
 	}
