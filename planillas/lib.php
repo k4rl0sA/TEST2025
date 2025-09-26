@@ -343,11 +343,9 @@ function bgcolor($a,$c,$f='c'){
  $rta="";
  return $rta;
 }
-?>
 
 
-
-<!--  $eventos = array(
+/*$eventos = array(
        1 => ['tabla' => 'vsp_sifigest'],
 	   2 => ['tabla' => 'vsp_hbgest'],
 	   3 => ['tabla' => 'vsp_vihgest'],
@@ -376,4 +374,8 @@ function bgcolor($a,$c,$f='c'){
 	  26 => ['tabla' => 'vsp_condsuic'],
 	  27 => ['tabla' => 'vsp_condsuic'],
 	  28 => ['tabla' => 'vsp_condsuic']
-    ); -->
+    ); */
+?>
+
+
+
