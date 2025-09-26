@@ -97,7 +97,7 @@ function cmp_planillas(){
     $c[]= new cmp('fecha_formato','d','',$d['fecha_formato'],$w.' '.$o,'Fecha del Formato','fecha_formato',null,null,true,$edit,'','col-2',"validDate(this,$days,0);");
     $c[]= new cmp('tipo','s',3,$d['tipo'] ,$w.' '.$o, 'Tipo Planilla', 'tipo_planilla','','',true,true,'','col-2',"typeSheet();");
     $c[]= new cmp('evento','s',3,$d['evento'] ,$w.' Pcf '.$o, 'Evento','evento','','',true,false,'','col-4');
-    $c[]= new cmp('seguimiento','nu',50,$d['seguimiento'] ,$w.' Pcf '.$o, 'numsegui','','','',true,false,'','col-2','',[],false,'lib.php',1);
+    $c[]= new cmp('seguimiento','s',3,$d['seguimiento'] ,$w.' Pcf '.$o, 'numsegui','','','',true,false,'','col-2','',[],false,'lib.php',1);
     $c[]= new cmp('perfil','s',3,'',$w.' '.$o,'Perfil','perfil',null,'',true,true,'','col-15',"changeSelect('perfil','colaborador');");//  ,"enabDepeValu('perfil','uSR');
     $c[]= new cmp('colaborador','s',20,$d['colaborador'] ,$w.' uSR '.$o, 'Colaborador','colaborador','','',false,true,'','col-35',"cargarResumenFamiliar();cargarResumenIndivi();");//  ,"enabDepeValu('perfil','uSR');
     $c[]= new cmp('estado_planilla','s',3,$d['estado_planilla'] ,$w.' '.$o, 'Estado Planilla', 'estado_planilla','','',true,true,'','col-2');
