@@ -202,7 +202,6 @@ function pcf_planillas(){
         THEN 'Completado' 
         ELSE 'Validar' 
     END AS Estado,
-
     (
         SELECT MAX(A2.fecha_seg)
         FROM $id[4] A2
@@ -225,14 +224,13 @@ function pcf_planillas(){
     ) AS fecha_ultima;"
 
 );
-
-SELECT P.idpeople, CASE WHEN EXISTS (
-        SELECT 1 FROM pcf_familiares F WHERE F.idpeople = P.idpeople AND F.fecha = '$id[2]' AND F.usu_creo = $id[3] AND F.estado = 'A'
-    ) THEN 'Completado' ELSE 'Validar' END AS Estado,
-    ( SELECT MAX(F2.fecha) FROM pcf_familiares F2 WHERE F2.idpeople = P.idpeople AND F2.usu_creo = $id[3] AND F2.estado = 'A' AND F2.fecha >= (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') ELSE DATE_FORMAT(CURDATE(), '%Y-%m-01') END) AND F2.fecha < (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(CURDATE(), '%Y-%m-01') ELSE DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') END)) AS fecha_ultima
-    FROM person P WHERE P.idpersona = $id[0] AND P.tipo_doc = '$id[1]';
-
-    return json_encode($info['responseResult']);
+    if (!$info['responseResult']) {
+        return json_encode (new stdClass);
+    } else {
+        $result = $info['responseResult'][0];
+        $result['id'] = $idp;
+        return json_encode($result);
+    }
 }
 
 function get_planilla() {
