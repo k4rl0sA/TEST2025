@@ -1583,3 +1583,9 @@ function enabTomaLab(){
 	];
 	EnabDepeDynamic(['TaL'], conditions);
 }
+function enabGestRtaLab(){
+	const conditions = [
+		{ id: 'gestion', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['FgE'], conditions);
+}
