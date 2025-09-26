@@ -93,6 +93,7 @@ function cmp_planillas(){
     // $c[]= new cmp('idpeop','t',18,'',$w.' IPe '.$o, 'Código Persona','','','',true,true);
     $c[]= new cmp('nombre','t',50,'',$w.' IPe '.$o, 'Nombre Completo','','','',false,false,'','col-5');
     
+    
     $o='infubi';
     $c[]= new cmp('fecha_formato','d','',$d['fecha_formato'],$w.' '.$o,'Fecha del Formato','fecha_formato',null,null,true,$edit,'','col-2',"validDate(this,$days,0);");
     $c[]= new cmp('tipo','s',3,$d['tipo'] ,$w.' '.$o, 'Tipo Planilla', 'tipo_planilla','','',true,true,'','col-2',"typeSheet();");
@@ -105,6 +106,7 @@ function cmp_planillas(){
     $c[]= new cmp('caja','nu',50,$d['caja'] ,$w.' '.$o, 'Caja','','','',true,true,'','col-15');
     foreach ($c as $cmp) $rta .= $cmp->put();
     $rta .= "<div class='padre' style='display: flex; width: 100%; gap: 10px;'>
+    <div id='valida-family' style='flex: 1 1 0; min-width: 0;'></div>
         <div id='valida-family' style='flex: 1 1 0; min-width: 0;'></div>
         <div id='valida-indivi' style='flex: 1 1 0; min-width: 0;'></div>
     </div>";
