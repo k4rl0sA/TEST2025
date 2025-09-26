@@ -238,14 +238,16 @@ function pcf_planillas(){
     }
 
     //obtener en una variable la tabla segun el evento y acorde al numero $id[4]
-    if (!isset($eventos[$id[4]])) {
+    if (!isset($eventos[$id[4]]['tabla'])) {
         return json_encode (new stdClass);
     }
+    // Construir y ejecutar la consulta SQL
+    $tabla = $eventos[$id[4]]['tabla'];
     
     $info = datos_mysql("SELECT CASE 
         WHEN EXISTS (
             SELECT 1
-            FROM  $eventos[$id[4]] A
+            FROM  $tabla A 
             INNER JOIN person P ON A.idpeople = P.idpeople
             WHERE P.idpeople = $idp
               AND A.numsegui = $id[5]
