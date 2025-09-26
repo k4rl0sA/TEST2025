@@ -243,6 +243,8 @@ function pcf_planillas(){
     }
     // Construir y ejecutar la consulta SQL
     $tabla = $eventos[$id[4]]['tabla'];
+
+    var_dump($tabla);
     
     $info = datos_mysql("SELECT CASE 
         WHEN EXISTS (
