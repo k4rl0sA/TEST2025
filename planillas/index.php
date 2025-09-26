@@ -43,7 +43,7 @@ async function cargarResumenFamiliar() {
 	const col = document.getElementById('colaborador').value;
 	const tta= document.getElementById('tipo').value;
 	const eve= document.getElementById('evento').value;
-	if(tta=='1' && eve=='1'){
+	if((tta=='1') || (tta=='2' && eve=='1')){
 		if (doc != '' || tip != ''|| fec != '' || col != '') {	
   			const data = await getJSON('family',mod,doc+'_'+tip+'_'+fec+'_'+col,'lib.php');
   			if (!data) return;
