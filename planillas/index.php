@@ -88,8 +88,8 @@ async function cargarResumenPcf(){
 		document.getElementById('valida-pcf').innerHTML = '';
 		return;
 	}
-	if (doc != '' || tip != ''|| fec != '' || col != '') {	
-  		const data = await getJSON('pcf',mod,doc+'_'+tip+'_'+fec+'_'+col,'lib.php');
+	if (doc != '' || tip != ''|| fec != '' || col != ''|| tta != 2 || eve != '' || nseg != '') {
+  		const data = await getJSON('pcf',mod,doc+'_'+tip+'_'+fec+'_'+col+'_'+eve+'_'+nseg,'lib.php');
   		if (!data) return;
   		let html = "<table style='width:100%; border-collapse:collapse;'><tr><th>Validación</th><th>Estado</th><th>Fecha</th><th>Ajustar</th></tr>";
   		data.forEach(row => {
