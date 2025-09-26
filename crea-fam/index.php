@@ -184,6 +184,9 @@ function grabar(tb='',ev){
 			}
   }else if(tb=='validPerson'){
       fetch(ruta_app, {
+          setTimeout(function(){
+            act_lista(tb, null, ruta_app);
+          }, 800);
       method: 'POST',
       headers: {'Content-type': 'application/x-www-form-urlencoded'},
       body: "a=gra&tb="+tb + form_input('fapp')
@@ -209,6 +212,9 @@ function grabar(tb='',ev){
               // ok(rta.msg);
               // alert(rta.msg + " Estado: " + rta.estado);
             } else {
+                  setTimeout(function(){
+                    act_lista(tb, null, ruta_app);
+                  }, 800);
               errors("Error al guardar: " + (rta.msg || "Respuesta no válida"));
             }
           });
@@ -218,12 +224,18 @@ function grabar(tb='',ev){
       } else if(resp && resp.success){
         ok(resp.msg+' Información guardada correctamente. Haga clic en "Mostrar Integrantes" para ver los cambios.');
         // alert(resp.msg + " Estado: " + resp.estado);
+            setTimeout(function(){
+              act_lista(tb, null, ruta_app);
+            }, 800);
       } else {
         // Si no es JSON, mostrar como antes
         errors(JSON.parse(data).msg);
       }
     });
   }else{
+        setTimeout(function(){
+          act_lista(tb, null, ruta_app);
+        }, 800);
 		myFetch(ruta_app,"a=gra&tb="+tb,mod);
 	if (tb == 'person') {
   		setTimeout(function() {
