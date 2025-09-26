@@ -180,44 +180,62 @@ function indivi_planillas(){
 }
 
 function pcf_planillas(){
-    $id = divide($_POST['id'] ?? ''); 
-    $info = datos_mysql("SELECT P.idpeople idpeople, P.vivipersona idfam FROM person P WHERE P.idpersona = $id[0] AND P.tipo_doc = '$id[1]'");
+    // Manejo de errores y logs para depuración
+    $id = divide($_POST['id'] ?? '');
+    if (!function_exists('log_error')) {
+        function log_error($msg) { error_log($msg); }
+    }
+    log_error('pcf_planillas: id recibido = ' . print_r($id, true));
+
+    if (!isset($id[0]) || !isset($id[1]) || !isset($id[2]) || !isset($id[3]) || !isset($id[4]) || !isset($id[5])) {
+        log_error('pcf_planillas: Faltan parámetros en id.');
+        return json_encode(['error' => 'Parámetros insuficientes.']);
+    }
+
+    $info = datos_mysql("SELECT P.idpeople idpeople, P.vivipersona idfam FROM person P WHERE P.idpersona = {$id[0]} AND P.tipo_doc = '{$id[1]}'");
+    if (!$info['responseResult'] || !isset($info['responseResult'][0])) {
+        log_error('pcf_planillas: No se encontró persona con esos datos.');
+        return json_encode(['error' => 'Persona no encontrada.']);
+    }
     $row = $info['responseResult'][0];
     $idfam = $row['idfam'];
-    $idp=$row['idpeople'];
-    // Espera: idpersona_tipo_doc_fecha_usuario_evento_seguimiento
-    if (empty($id[0])) return json_encode (new stdClass);
+    $idp = $row['idpeople'];
 
     $eventos = array(
        1 => ['tabla' => 'vsp_sifigest'],
-	   2 => ['tabla' => 'vsp_hbgest'],
-	   3 => ['tabla' => 'vsp_vihgest'],
-	   4 => ['tabla' => 'vsp_gestantes'],
-	   5 => ['tabla' => 'vsp_gestantes'],
-	   6 => ['tabla' => 'vsp_mme'],
-	   7 => ['tabla' => 'vsp_condsuic'],
-	   8 => ['tabla' => 'vsp_violgest'],
-	   9 => ['tabla' => 'vsp_dntsevymod'],
-	  10 => ['tabla' => 'vsp_dntsevymod'],
-	  11 => ['tabla' => 'vsp_bpnterm'],
-	  12 => ['tabla' => 'vsp_bpnpret'],
-	  13 => ['tabla' => 'vsp_mnehosp'],
-	  14 => ['tabla' => 'vsp_eraira'],
-	  15 => ['tabla' => 'vsp_dntsevymod'],
-	  16 => ['tabla' => 'vsp_cancinfa'],
-	  17 => ['tabla' => 'vsp_sificong'],
-	  18 => ['tabla' => 'vsp_acompsic'],
-	  19 => ['tabla' => 'vsp_apopsicduel'],
-	  20 => ['tabla' => 'vsp_cronicos'],
-	  21 => ['tabla' => 'vsp_violreite'],
-	  22 => ['tabla' => 'vsp_saludoral'],
-	  23 => ['tabla' => 'vsp_otroprio'],
-	  24 => ['tabla' => 'vsp_gestantes'],
-	  25 => ['tabla' => 'vsp_gestantes'],
-	  26 => ['tabla' => 'vsp_condsuic'],
-	  27 => ['tabla' => 'vsp_condsuic'],
-	  28 => ['tabla' => 'vsp_condsuic']
+       2 => ['tabla' => 'vsp_hbgest'],
+       3 => ['tabla' => 'vsp_vihgest'],
+       4 => ['tabla' => 'vsp_gestantes'],
+       5 => ['tabla' => 'vsp_gestantes'],
+       6 => ['tabla' => 'vsp_mme'],
+       7 => ['tabla' => 'vsp_condsuic'],
+       8 => ['tabla' => 'vsp_violgest'],
+       9 => ['tabla' => 'vsp_dntsevymod'],
+      10 => ['tabla' => 'vsp_dntsevymod'],
+      11 => ['tabla' => 'vsp_bpnterm'],
+      12 => ['tabla' => 'vsp_bpnpret'],
+      13 => ['tabla' => 'vsp_mnehosp'],
+      14 => ['tabla' => 'vsp_eraira'],
+      15 => ['tabla' => 'vsp_dntsevymod'],
+      16 => ['tabla' => 'vsp_cancinfa'],
+      17 => ['tabla' => 'vsp_sificong'],
+      18 => ['tabla' => 'vsp_acompsic'],
+      19 => ['tabla' => 'vsp_apopsicduel'],
+      20 => ['tabla' => 'vsp_cronicos'],
+      21 => ['tabla' => 'vsp_violreite'],
+      22 => ['tabla' => 'vsp_saludoral'],
+      23 => ['tabla' => 'vsp_otroprio'],
+      24 => ['tabla' => 'vsp_gestantes'],
+      25 => ['tabla' => 'vsp_gestantes'],
+      26 => ['tabla' => 'vsp_condsuic'],
+      27 => ['tabla' => 'vsp_condsuic'],
+      28 => ['tabla' => 'vsp_condsuic']
     );
+
+    if (!isset($eventos[$id[4]])) {
+        log_error('pcf_planillas: Evento no válido: ' . $id[4]);
+        return json_encode(['error' => 'Evento no válido.']);
+    }
 
     //obtener en una variable la tabla segun el evento y acorde al numero $id[4]
     if (!isset($eventos[$id[4]])) {
