@@ -30,13 +30,12 @@ function men_laboratorios(){
 
 function cap_menus($a,$b='cap',$con='con') {
   $rta = "";
-  var_dump($a);
+  // var_dump($a);
   $acc=rol($a);
-  $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
-  /* 
+  $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>"; 
   if ($a=='laboratorios' && isset($acc['crear']) && $acc['crear']=='SI') {  
    $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
-  }*/
+  }
   if($a=='resultLab' && isset($acc['crear']) && $acc['crear']=='SI') {  
    $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
   } 
