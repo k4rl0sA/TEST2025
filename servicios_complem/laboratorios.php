@@ -39,7 +39,7 @@ function cap_menus($a,$b='cap',$con='con') {
   if($a=='resultLab' && isset($acc['crear']) && $acc['crear']=='SI') {  
    $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
   } 
-  $rta .= "<li class='icono $a actualizar'  title='Actualizar'      Onclick=\"act_lista('$a',this);\"></li>";  
+  $rta .= "<li class='icono $a actualizar'  title='Actualizar'      Onclick=\"act_lista('$a',this,'../servicios_complem/laboratorios.php');\"></li>";  
   return $rta;
 }
 
