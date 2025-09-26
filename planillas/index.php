@@ -41,17 +41,21 @@ async function cargarResumenFamiliar() {
 	const tip = document.getElementById('tipo_doc').value;
 	const fec = document.getElementById('fecha_formato').value;
 	const col = document.getElementById('colaborador').value;
-	if (doc != '' || tip != ''|| fec != '' || col != '') {	
-  		const data = await getJSON('family',mod,doc+'_'+tip+'_'+fec+'_'+col,'lib.php');
-  		if (!data) return;
-  		let html = "<table style='width:100%; border-collapse:collapse;'><tr><th>Validación</th><th>Estado</th><th>Fecha</th><th>Ajustar</th></tr>";
-  		data.forEach(row => {
-  		  let icono = row.estado === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
-		  let ajustar = (row.fecha_ultima && row.estado === 'Validar') ? `<i class='fa-solid fa-screwdriver-wrench icon' style='cursor:pointer;color:mediumblue;text-shadow: 3px 3px 1px rgb(255 210 0);font-size:18px;' title='Ajustar' id='${row.id || ''}' onclick=\"mostrar('fechas','pro',event,'','../soporte/fechas.php',4,'Ajustar Fechas');\"></i>` : '';// && 
-		  html += `<tr><td>${row.nombre}</td><td>${icono}</td><td>${row.fecha_ultima || ''}</td><td style='text-align:center;'>${ajustar}</td></tr>`;
-  		});
-  		html += "</table>";
-  		document.getElementById('valida-family').innerHTML = html;
+	const tta= document.getElementById('tipo').value;
+	const eve= document.getElementById('evento').value;
+	if(tta=='1' && eve=='1'){
+		if (doc != '' || tip != ''|| fec != '' || col != '') {	
+  			const data = await getJSON('family',mod,doc+'_'+tip+'_'+fec+'_'+col,'lib.php');
+  			if (!data) return;
+  			let html = "<table style='width:100%; border-collapse:collapse;'><tr><th>Validación</th><th>Estado</th><th>Fecha</th><th>Ajustar</th></tr>";
+  			data.forEach(row => {
+  			  let icono = row.estado === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
+			  let ajustar = (row.fecha_ultima && row.estado === 'Validar') ? `<i class='fa-solid fa-screwdriver-wrench icon' style='cursor:pointer;color:mediumblue;text-shadow: 3px 3px 1px rgb(255 210 0);font-size:18px;' title='Ajustar' id='${row.id || ''}' onclick=\"mostrar('fechas','pro',event,'','../soporte/fechas.php',4,'Ajustar Fechas');\"></i>` : '';// && 
+			  html += `<tr><td>${row.nombre}</td><td>${icono}</td><td>${row.fecha_ultima || ''}</td><td style='text-align:center;'>${ajustar}</td></tr>`;
+  			});
+  			html += "</table>";
+  			document.getElementById('valida-family').innerHTML = html;
+		}
 	}
 }
 
@@ -60,6 +64,9 @@ async function cargarResumenIndivi() {
     const tip = document.getElementById('tipo_doc').value;
     const fec = document.getElementById('fecha_formato').value;
     const col = document.getElementById('colaborador').value;
+	const tta= document.getElementById('tipo').value;
+	const eve= document.getElementById('evento').value;
+	if(tta=='1' && eve=='1'){
     if (doc && tip && fec && col) {
         const data = await getJSON('indivi', 'planillas', doc + '_' + tip + '_' + fec + '_' + col, 'lib.php');
         if (!data) return;
@@ -74,6 +81,7 @@ async function cargarResumenIndivi() {
         html += "</table>";
         document.getElementById('valida-indivi').innerHTML = html;
     }
+	}
 }
 
 async function cargarResumenPcf(){
