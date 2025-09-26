@@ -187,11 +187,47 @@ function pcf_planillas(){
     $idp=$row['idpeople'];
     // Espera: idpersona_tipo_doc_fecha_usuario_evento_seguimiento
     if (empty($id[0])) return json_encode (new stdClass);
+
+    $eventos = array(
+       1 => ['tabla' => 'vsp_sifigest'],
+	   2 => ['tabla' => 'vsp_hbgest'],
+	   3 => ['tabla' => 'vsp_vihgest'],
+	   4 => ['tabla' => 'vsp_gestantes'],
+	   5 => ['tabla' => 'vsp_gestantes'],
+	   6 => ['tabla' => 'vsp_mme'],
+	   7 => ['tabla' => 'vsp_condsuic'],
+	   8 => ['tabla' => 'vsp_violgest'],
+	   9 => ['tabla' => 'vsp_dntsevymod'],
+	  10 => ['tabla' => 'vsp_dntsevymod'],
+	  11 => ['tabla' => 'vsp_bpnterm'],
+	  12 => ['tabla' => 'vsp_bpnpret'],
+	  13 => ['tabla' => 'vsp_mnehosp'],
+	  14 => ['tabla' => 'vsp_eraira'],
+	  15 => ['tabla' => 'vsp_dntsevymod'],
+	  16 => ['tabla' => 'vsp_cancinfa'],
+	  17 => ['tabla' => 'vsp_sificong'],
+	  18 => ['tabla' => 'vsp_acompsic'],
+	  19 => ['tabla' => 'vsp_apopsicduel'],
+	  20 => ['tabla' => 'vsp_cronicos'],
+	  21 => ['tabla' => 'vsp_violreite'],
+	  22 => ['tabla' => 'vsp_saludoral'],
+	  23 => ['tabla' => 'vsp_otroprio'],
+	  24 => ['tabla' => 'vsp_gestantes'],
+	  25 => ['tabla' => 'vsp_gestantes'],
+	  26 => ['tabla' => 'vsp_condsuic'],
+	  27 => ['tabla' => 'vsp_condsuic'],
+	  28 => ['tabla' => 'vsp_condsuic']
+    );
+
+    //obtener en una variable la tabla segun el evento y acorde al numero $id[4]
+    if (!isset($eventos[$id[4]])) {
+        return json_encode (new stdClass);
+    }
     
     $info = datos_mysql("SELECT CASE 
         WHEN EXISTS (
             SELECT 1
-            FROM $id[4] A
+            FROM  $eventos[$id[4]] A
             INNER JOIN person P ON A.idpeople = P.idpeople
             WHERE P.idpeople = $idp
               AND A.numsegui = $id[5]
@@ -401,36 +437,7 @@ function bgcolor($a,$c,$f='c'){
 }
 
 
-/*$eventos = array(
-       1 => ['tabla' => 'vsp_sifigest'],
-	   2 => ['tabla' => 'vsp_hbgest'],
-	   3 => ['tabla' => 'vsp_vihgest'],
-	   4 => ['tabla' => 'vsp_gestantes'],
-	   5 => ['tabla' => 'vsp_gestantes'],
-	   6 => ['tabla' => 'vsp_mme'],
-	   7 => ['tabla' => 'vsp_condsuic'],
-	   8 => ['tabla' => 'vsp_violgest'],
-	   9 => ['tabla' => 'vsp_dntsevymod'],
-	  10 => ['tabla' => 'vsp_dntsevymod'],
-	  11 => ['tabla' => 'vsp_bpnterm'],
-	  12 => ['tabla' => 'vsp_bpnpret'],
-	  13 => ['tabla' => 'vsp_mnehosp'],
-	  14 => ['tabla' => 'vsp_eraira'],
-	  15 => ['tabla' => 'vsp_dntsevymod'],
-	  16 => ['tabla' => 'vsp_cancinfa'],
-	  17 => ['tabla' => 'vsp_sificong'],
-	  18 => ['tabla' => 'vsp_acompsic'],
-	  19 => ['tabla' => 'vsp_apopsicduel'],
-	  20 => ['tabla' => 'vsp_cronicos'],
-	  21 => ['tabla' => 'vsp_violreite'],
-	  22 => ['tabla' => 'vsp_saludoral'],
-	  23 => ['tabla' => 'vsp_otroprio'],
-	  24 => ['tabla' => 'vsp_gestantes'],
-	  25 => ['tabla' => 'vsp_gestantes'],
-	  26 => ['tabla' => 'vsp_condsuic'],
-	  27 => ['tabla' => 'vsp_condsuic'],
-	  28 => ['tabla' => 'vsp_condsuic']
-    ); */
+
 ?>
 
 
