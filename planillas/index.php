@@ -76,6 +76,10 @@ async function cargarResumenIndivi() {
     }
 }
 
+async function cargarResumenPcf(){
+	
+}
+
 </script>
 </head>
 <body Onload="actualizar();">
