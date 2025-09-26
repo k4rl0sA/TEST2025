@@ -88,6 +88,10 @@ async function cargarResumenPcf(){
 		document.getElementById('valida-pcf').innerHTML = '';
 		return;
 	}
+	if(nseg!='1'){
+		document.getElementById('valida-family').innerHTML = '';
+		document.getElementById('valida-indivi').innerHTML = '';
+	}
 	if (doc != '' || tip != ''|| fec != '' || col != ''|| tta != 2 || eve != '' || nseg != '') {
   		const data = await getJSON('pcf',mod,doc+'_'+tip+'_'+fec+'_'+col+'_'+eve+'_'+nseg,'lib.php');
   		if (!data) return;
