@@ -244,7 +244,7 @@ function pcf_planillas(){
     // Construir y ejecutar la consulta SQL
     $tabla = $eventos[$id[4]]['tabla'];
 
-    var_dump($tabla);
+    // var_dump($tabla);
     
     $info = datos_mysql("SELECT CASE 
         WHEN EXISTS (
@@ -262,7 +262,7 @@ function pcf_planillas(){
     END AS Estado,
     (
         SELECT MAX(A2.fecha_seg)
-        FROM $id[4] A2
+        FROM $tabla A2
         INNER JOIN person P2 ON A2.idpeople = P2.idpeople
         WHERE P2.idpeople = $idp AND A2.numsegui = $id[5] AND A2.usu_creo = '$id[3]' AND A2.estado = 'A'
           AND A2.fecha_seg >= (
