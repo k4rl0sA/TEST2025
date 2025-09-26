@@ -107,7 +107,7 @@ async function cargarResumenPcf(){
   		data.forEach(row => {
   		  let icono = row.estado === 'Completado' ? "<span style='color:green;'>✔</span>" : "<span style='color:red;'>✘</span>";
 		  let ajustar = (row.fecha_ultima && row.estado === 'Validar') ? `<i class='fa-solid fa-screwdriver-wrench icon' style='cursor:pointer;color:mediumblue;text-shadow: 3px 3px 1px rgb(255 210 0);font-size:18px;' title='Ajustar' id='${row.id || ''}' onclick=\"mostrar('fechas','pro',event,'','../soporte/fechas.php',4,'Ajustar Fechas');\"></i>` : '';// && 
-		  html += `<tr><td>${row.nombre}</td><td>${icono}</td><td>${row.fecha_ultima || ''}</td><td style='text-align:center;'>${ajustar}</td></tr>`;
+		  html += `<tr><td>${row.idp}</td><td>${icono}</td><td>${row.numsegui}</td><td>${row.fecha_ultima || ''}</td><td style='text-align:center;'>${ajustar}</td></tr>`;
   		});
   		html += "</table>";
   		document.getElementById('valida-pcf').innerHTML = html;

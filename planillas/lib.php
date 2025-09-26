@@ -282,13 +282,12 @@ function pcf_planillas(){
     ) AS fecha_ultima;"
 
 );
-    if (!$info['responseResult']) {
-        return json_encode (new stdClass);
-    } else {
-        $result = $info['responseResult'][0];
-        $result['id'] = $idp;
-        return json_encode($result);
-    }
+   //RETORNAR idp,numerodeseguimiento,fecha,estado,fecha_ultima
+    $row = $info['responseResult'][0];
+    $estado = $row['Estado'] ?? 'Validar';
+    $fecha_ultima = isset($row['fecha_ultima']) ? $row['fecha_ultima'] : '';
+    $result = ['idpeople' => $idp, 'numsegui' => $id[5], 'estado' => $estado, 'fecha_ultima' => $fecha_ultima];
+    return json_encode($result);
 }
 
 function get_planilla() {
