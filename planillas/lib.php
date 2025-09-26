@@ -287,7 +287,7 @@ function pcf_planillas(){
     $estado = $row['Estado'] ?? 'Validar';
     $fecha_ultima = isset($row['fecha_ultima']) ? $row['fecha_ultima'] : '';
     $result = ['idpeople' => $idp, 'numsegui' => $id[5], 'estado' => $estado, 'fecha_ultima' => $fecha_ultima];
-    return json_encode($result);
+    return json_encode([$result]);
 }
 
 function get_planilla() {
