@@ -184,7 +184,7 @@ function gra_tamzung(){
 	if(count($id)!= "2"){
 		return "No es posible actualizar el tamizaje";
 	}else{
-		$data=datos_mysql("select count(Z.momento) as moment from hog_tam_zung Z  where Z.idpeople='{$id[0]}'");
+		$data=datos_mysql("select count(Z.momento) as moment from hog_tam_zung Z  where Z.idpeople='{$id[0]}' and Z.estado='A'");
 		$momen=$data['responseResult'][0]['moment'];
 		if($momen=='0'){
 			$idmomento = 1;
