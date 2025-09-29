@@ -393,8 +393,6 @@ WHERE C2.idfam = $codfam AND C2.usu_create = $id[3] LIMIT 1;";
         $estado_carac=$info['responseResult'][0]['Estado'];
    }
      
-
-
     $id = divide($_POST['id_planilla']);
     $isNew = empty($id[0]);
     if ($isNew) {
