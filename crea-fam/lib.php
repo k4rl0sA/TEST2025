@@ -1033,7 +1033,7 @@ function formato_dato($a,$b,$c,$d){
 			/**********************TAMIZAJES*************************/
 		
 			$rta .= acceso('admision') ? "<li title='Solicitar Admisión' onclick=\"mostrar('admision','pro',event,'','admision.php',7,'admision');Color('datos-lis');\"><i class='fa-solid fa-tty ico' id='{$c['ACCIONES']}'></i></li>" : "";
-			$rta .= acceso('atencionMedico') ? "<li title='Crear Atención' onclick=\"mostrar('atencion','pro',event,'','../atenciones/atencionMedi.php',7,'atencion');Color('datos-lis')\"><i class='fa-solid fa-user-doctor ico' id='{$c['ACCIONES']}'></i></li>" : "";
+			$rta .= acceso('atencionMedico') ? "<li title='Crear Atención' onclick=\"mostrar('atencion','pro',event,'','../atenciones/atencionMedi.php',7,'atencion');Color('datos-lis')\"><i class='fa-solid fa-user-doctor blanco ico' id='{$c['ACCIONES']}'></i></li>" : "";
 			$rta .= acceso('atencionOdont') ? "<li title='Crear Atención' onclick=\"mostrar('atencion','pro',event,'','../atenciones/atencionOdon.php',7,'atencion');Color('datos-lis')\"><i class='fa-solid fa-user-doctor ico' id='{$c['ACCIONES']}'></i></li>" : "";
 			$rta .= acceso('atencionPsico') ? "<li title='Crear Atención' onclick=\"mostrar('atencion','pro',event,'','../atenciones/atencionPsic.php',7,'atencion');Color('datos-lis')\"><i class='fa-solid fa-user-doctor ico' id='{$c['ACCIONES']}'></i></li>" : "";
 			
