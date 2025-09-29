@@ -12,7 +12,6 @@ function error_response($msg, $code = 400) {
     echo json_encode(['success' => false, 'error' => $msg]);
     exit;
 }
-
 // --- Utilidad para respuesta de éxito ---
 function success_response($msg = 'Operación exitosa', $extra = []) {
     echo json_encode(array_merge(['success' => true, 'message' => $msg], $extra));
