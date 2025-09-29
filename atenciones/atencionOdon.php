@@ -53,13 +53,13 @@ function cmp_atencion(){
 	$o='consulta';
 	$c[]=new cmp($o,'e',null,'Datos de la atencion medica	',$w);
 	$c[]=new cmp('idf','h',15,'',$w.' '.$o,'idf','idf',null,'####',false,false,'','col-1');
-	$c[]=new cmp('fechaatencion','d',20,$x,$w.' '.$o,'Fecha de la consulta','fechaatencion',null,'',true,false,'','col-2');
-	$c[]=new cmp('tipo_consulta','s',3,$x,$w.' '.$o,'Tipo de Consulta','tipo_consulta',null,'',true,false,'','col-2');
-	$c[]=new cmp('codigocups','s',3,$x,$w.' '.$o,'Código CUPS','cups',null,'',true,false,'','col-3');
-	$c[]=new cmp('finalidadconsulta','s',3,$x,$w.' '.$o,'Finalidad de la Consulta','consultamedica',null,'',true,false,'','col-3');
+	$c[]=new cmp('fechaatencion','d',20,$x,$w.' '.$o,'Fecha de la consulta','fechaatencion',null,'',true,false,'','col-15');
+	$c[]=new cmp('tipo_consulta','s',3,$x,$w.' '.$o,'Tipo de Consulta','tipo_consulta',null,'',true,false,'','col-15');
+	$c[]=new cmp('codigocups','s',3,$x,$w.' '.$o,'Código CUPS','cups',null,'',true,false,'','col-2');
+	$c[]=new cmp('finalidadconsulta','s',3,$x,$w.' '.$o,'Finalidad de la Consulta','consultamedica',null,'',true,false,'','col-2');
+	$c[]=new cmp('fechaingreso','d',20,$x,$w.' '.$o,'Fecha de la consulta','fechaingreso',null,'',true,true,'','col-15');
+	$c[]=new cmp('tipo_estrategia','s',3,$x,$w.' eSt '.$o,'Prioridad','prioridad',null,'',true,true,'','col-15');
 
-	1 $c[]=new cmp('fechaingreso','d',20,$x,$w.' '.$o,'Fecha de la consulta','fechaingreso',null,'',true,false,'','col-2');
-	2 $c[]=new cmp('tipo_estrategia','s',3,$x,$w.' eSt '.$o,'Prioridad','prioridad',null,'',true,false,'','col-4');
 	$c[]=new cmp('letra1','s','3',$x,$w.' '.$o,'Letra CIE(1)','letra1',null,null,true,true,'','col-1',"valPyd(this,'tipo_consulta');valResol('tipo_consulta','letra1');selectDepend('letra1','rango1','atencion.php');");//,['rango1']
  	$c[]=new cmp('rango1','s','3',$x,$w.' '.$o,'Tipo1','rango1',null,null,true,true,'','col-45',"selectDepend('rango1','diagnostico1','atencion.php');");
  	$c[]=new cmp('diagnostico1','s','8',$x,$w.' '.$o,'Diagnostico Principal','diagnostico1',null,null,true,true,'','col-45');
@@ -71,7 +71,7 @@ function cmp_atencion(){
  	$c[]=new cmp('diagnostico3','s','8',$x,$w.' '.$o,'Diagnostico 3','diagnostico3',null,null,false,true,'','col-45');
 // }	
 
-$o='Med_Fnf_Nut';
+$o='pruebas';
 	$c[]=new cmp($o,'e',null,'Aplicacion de Pruebas Rapidas',$w);
 	$c[]=new cmp('vih','s',3,$x,$w.' '.$o,'Prueba Rapida Para VIH','aler',null,'',true,true,'','col-25',"enabTest(this,'vih');");
 	$c[]=new cmp('resul_vih','s',3,$x,$w.' vih '.$o,'Resultado VIH','vih',null,'',true,false,'','col-25');
@@ -83,23 +83,12 @@ $o='Med_Fnf_Nut';
 	$c[]=new cmp('resul_emba','s',3,$x,$w.' pem '.$o,'Resultado prueba de Embarazo','rep',null,'',$gest,false,'','col-25');
 	$c[]=new cmp('pru_apetito','s',3,$x,$w.' '.$o,'Prueba de apetito','aler',null,'',$gest,$gest,'','col-25',"enabTest(this,'ape');");
 	$c[]=new cmp('resul_apetito','s',3,$x,$w.' ape '.$o,'Resultado prueba de Apetito','rep',null,'',$gest,false,'','col-25');
-	$c[]=new cmp('laboratorios','s',3,$x,$w.' lab '.$o,'Laboratorio','solicitud',null,'',false,false,'','col-2');
-	$c[]=new cmp('medicamentos','s',3,$x,$w.' med '.$o,'Medicamentos','medicamentos',null,'',false,false,'','col-2');
 
 	$o='Odontologia';
 	$c[]=new cmp($o,'e',null,'Acciones Odontologia',$w);
 	$c[]=new cmp('n_superficie','s',3,$x,$w.' lab '.$o,'N° Superficies','solicitud',null,'',false,false,'','col-2');
 	$c[]=new cmp('n_placa_superf','s',3,$x,$w.' med '.$o,'N° Superficies con Placa','medicamentos',null,'',false,false,'','col-2');
 	$c[]=new cmp('riesgo','s',3,$x,$w.' med '.$o,'Riesgo','medicamentos',null,'',false,false,'','col-2');	
-
-	$o='psicologia';
-	$c[]=new cmp($o,'e',null,'Acciones Psicologia',$w);
-	$c[]=new cmp('daño','s',3,$x,$w.' lab '.$o,'¿Ha pensado en hacerse daño o en que sería mejor no vivir?','solicitud',null,'',false,false,'','col-2');
-	$c[]=new cmp('tristeza','s',3,$x,$w.' med '.$o,'¿Ha sentido tristeza, nerviosismo o preocupación excesiva en el último mes?','medicamentos',null,'',false,false,'','col-2');
-	$c[]=new cmp('violencia','s',3,$x,$w.' med '.$o,'¿Ha experimentado violencia física, emocional o sexual?','medicamentos',null,'',false,false,'','col-2');
-	
-	
-
 
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
