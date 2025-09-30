@@ -19,10 +19,10 @@ else {
   }
 }
 
-function cmp_atencion(){
+function cmp_atencionP(){
 	$rta="";
 	$rta .="<div class='encabezado atencion'>Consultas realizadas al paciente</div>
-	<div class='contenido' id='atencion-lis' >".lis_atencion()."</div></div>";
+	<div class='contenido' id='atencionP-lis' >".lis_atencionP()."</div></div>";
 	$hoy=date('Y-m-d');
 	$t=['id'=>$_POST['id'],'idpersona'=>'','tipo_doc'=>'','nombres'=>'','fecha_atencion'=>'','tipo_consulta'=>'','cod_cups'=>'','fecha_nacimiento'=>'','sexo'=>'','genero'=>'','nacionalidad'=>''];
 	$d=get_personas();
@@ -102,14 +102,14 @@ $o='Med_Fnf_Nut';
 	return $rta;
    }
 
-   function lis_atencion(){
+   function lis_atencionP(){
 	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['ida']) ? divide($_POST['ida']) : null);
 	// print_r($id);
 	$info=datos_mysql("SELECT COUNT(*) total FROM adm_facturacion F WHERE F.idpeople ='{$id[0]}'");
 	$total=$info['responseResult'][0]['total'];
 	$regxPag=4;
 
-	$pag=(isset($_POST['pag-atencion']))? ($_POST['pag-atencion']-1)* $regxPag:0;
+	$pag=(isset($_POST['pag-atencionP']))? ($_POST['pag-atencionP']-1)* $regxPag:0;
 	$sql="SELECT  F.id_factura ACCIONES,F.cod_admin,F.fecha_consulta fecha,FN_CATALOGODESC(182,F.tipo_consulta) Consulta,
 	FN_CATALOGODESC(126,F.cod_cups) 'Código CUPS',FN_CATALOGODESC(127,F.final_consul) Finalidad
 	FROM adm_facturacion F
@@ -118,7 +118,7 @@ $o='Med_Fnf_Nut';
 		$sql.=' LIMIT '.$pag.','.$regxPag;
 		// echo $sql;
 			$datos=datos_mysql($sql);
-			return create_table($total,$datos["responseResult"],"atencion",$regxPag,'../atenciones/atencionPsic.php');
+			return create_table($total,$datos["responseResult"],"atencionP",$regxPag,'../atenciones/atencionPsic.php');
 		// return panel_content($datos["responseResult"],"atencion-lis",5);
 	}
 
@@ -140,7 +140,7 @@ $o='Med_Fnf_Nut';
 		}
 }
 
-function get_atencion(){
+function get_atencionP(){
 	// var_dump($_POST);
 	if($_REQUEST['id']==''){
 		return "";
@@ -195,12 +195,12 @@ function get_atencion(){
 	}
 
 /*************INICIO MENU***********************/
-function men_atencion(){
-	$rta=cap_menus('atencion','pro');
+function men_atencionP(){
+	$rta=cap_menus('atencionP','pro');
 	return $rta;
    }
-   function focus_atencion(){
-	return 'atencion';
+   function focus_atencionP(){
+	return 'atencionP';
    }
 
 
@@ -362,156 +362,7 @@ function opc_prioridad($id=''){
 function opc_estrategia($id=''){
 	return opc_sql("SELECT idcatadeta,descripcion,valor FROM `catadeta` WHERE idcatalogo=203 and estado='A'  ORDER BY 1 ",$id);
 }
-/****************FIN DESPLEGABLES*****************+*****/
-/* function gra_atencion(){
-	// var_dump($_POST);
-		$id=divide($_POST['ida']);
-	// print_r($_POST['ida']);
-	if(count($id)==1){
-		$fertil = isset($_POST['fertil']) ? trim($_POST['fertil']) : '';
-		$preconcepcional = isset($_POST['preconcepcional']) ? trim($_POST['preconcepcional']) : '';
-		$metodo = isset($_POST['metodo']) ? trim($_POST['metodo']) : '';
-		$anticonceptivo = isset($_POST['anticonceptivo']) ? trim($_POST['anticonceptivo']) : '';
-		$planificacion = isset($_POST['planificacion']) ? trim($_POST['planificacion']) : '';
-		$mestruacion = ['type' => empty($_POST['motivo_estado']) ? 'z' : 'i', 'value' => empty($_POST['motivo_estado']) ? null : $_POST['motivo_estado']];
-		$gestante = isset($_POST['gestante']) ? trim($_POST['gestante']) : '';
-
-		if (($smu2 = $_POST['rutasirc'] ?? null) && is_array($smu2)){$rutasirc = implode(",", array_map('trim', $smu2));}
-		if (($smu1 = $_POST['continuidad'] ?? null) && is_array($smu1)){$contin = implode(",", array_map('trim', $smu1));}
-		if (($smu3 = $_POST['cualremision'] ?? null) && is_array($smu3)){$remisi = implode(",", array_map('trim', $smu3));}
-
-		var_dump($rutasirc,$contin,$remisi);
-
-	  $sql = "INSERT INTO eac_atencion VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-	  									     	  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-												  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-												   DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')";
-	  $params=[
-		// id_aten
-		['type'=>'i', 'value'=>$id[0]], // idpeople
-		['type'=>'s', 'value'=>$_POST['idf']], // id_factura
-		['type'=>'s', 'value'=>$_POST['fechaatencion']], // fechaatencion
-		['type'=>'s', 'value'=>$_POST['tipo_consulta']], // tipo_consulta
-		['type'=>'s', 'value'=>$_POST['codigocups']], // codigocups
-		['type'=>'s', 'value'=>$_POST['finalidadconsulta']], // finalidadconsulta
-		['type'=>'s', 'value'=>$_POST['letra1']], // letra1
-		['type'=>'s', 'value'=>$_POST['rango1']], // rango1
-		['type'=>'s', 'value'=>$_POST['diagnostico1']], // diagnostico1
-		['type'=>'s', 'value'=>$_POST['letra2']], // letra2
-		['type'=>'s', 'value'=>$_POST['rango2']], // rango2
-		['type'=>'s', 'value'=>$_POST['diagnostico2']], // diagnostico2
-		['type'=>'s', 'value'=>$_POST['letra3']], // letra3
-		['type'=>'s', 'value'=>$_POST['rango3']], // rango3
-		['type'=>'s', 'value'=>$_POST['diagnostico3']], // diagnostico3
-		['type'=>'s', 'value'=>$fertil], // fertil
-		['type'=>'s', 'value'=>$preconcepcional], // preconcepcional
-		['type'=>'s', 'value'=>$metodo], // metodo
-		['type'=>'s', 'value'=>$anticonceptivo], // anticonceptivo
-		['type'=>'s', 'value'=>$planificacion], // planificacion
-		$mestruacion, // mestruacion
-		['type'=>'s', 'value'=>$_POST['vih']], // vih
-		['type'=>'s', 'value'=>$_POST['resul_vih']], // resul_vih
-		['type'=>'s', 'value'=>$_POST['hb']], // hb
-		['type'=>'s', 'value'=>$_POST['resul_hb']], // resul_hb
-		['type'=>'s', 'value'=>$_POST['trepo_sifil']], // trepo_sifil
-		['type'=>'s', 'value'=>$_POST['resul_sifil']], // resul_sifil
-		['type'=>'s', 'value'=>$_POST['pru_embarazo']], // pru_embarazo
-		['type'=>'s', 'value'=>$_POST['resul_emba']], // resul_emba
-		['type'=>'s', 'value'=>$_POST['pru_apetito']], // pru_apetito
-		['type'=>'s', 'value'=>$_POST['resul_apetito']], // resul_apetito
-		['type'=>'s', 'value'=>$_POST['eventointeres']], // evento_interes
-		['type'=>'s', 'value'=>$_POST['evento']], // evento
-		['type'=>'s', 'value'=>$_POST['cualevento']], // cualevento
-		['type'=>'s', 'value'=>$_POST['sirc']], // sirc
-		['type'=>'s', 'value'=>$rutasirc], // ruta_sirc
-		['type'=>'s', 'value'=>$_POST['remision']], // remision
-		['type'=>'s', 'value'=>$remisi], // cual_remision
-		['type'=>'s', 'value'=>$_POST['ordenvacunacion']], // orden_vacunacion
-		['type'=>'s', 'value'=>$_POST['vacunacion']], // vacunacion
-		['type'=>'s', 'value'=>$_POST['ordenlaboratorio']], // orden_laboratorio
-		['type'=>'s', 'value'=>$_POST['laboratorios']], // laboratorios
-		['type'=>'s', 'value'=>$_POST['ordenmedicamentos']], // orden_medicamentos
-		['type'=>'s', 'value'=>$_POST['medicamentos']], // medicamentos
-		['type'=>'s', 'value'=>$_POST['rutacontinuidad']], // ruta_continuidad
-		['type'=>'s', 'value'=>$contin], // continuidad
-		['type'=>'s', 'value'=>$_POST['ordenimagenes']], // orden_imagenes
-		['type'=>'s', 'value'=>$_POST['ordenpsicologia']], // orden_psicologia
-		['type'=>'s', 'value'=>$_POST['relevo']], // relevo
-		['type'=>'s', 'value'=>$_POST['estrategia']], // estrategia
-		['type'=>'s', 'value'=>$_POST['tipo_estrategia']], // motivo_estrategia
-		['type'=>'s', 'value'=>$_SESSION['us_sds']] // usu_creo
-	];
-	return show_sql($sql,$params);
-	// return $rta=mysql_prepd($sql, $params);
-	}elseif(count($id)==0){
-		return "No es posible actualizar consulte con el administrador";
-	}
-} */
-
-/* function gra_atencion() {
-    
-    $cmps = ['idpeople' => 'idpeople','idf' => 'id_factura','fechaatencion' => 'fecha_atencion','tipo_consulta' => 'tipo_consulta','codigocups'  => 'codigo_cups','finalidadconsulta'=> 'finalidad_consulta','letra1'   => 'letra1','rango1'   => 'rango1','diagnostico1'  => 'diagnostico1','letra2'   => 'letra2','rango2'   => 'rango2','diagnostico2'  => 'diagnostico2','letra3'   => 'letra3','rango3'   => 'rango3','diagnostico3'  => 'diagnostico3','fertil'   => 'fertil','preconcepcional'  => 'preconcepcional','metodo'   => 'metodo','anticonceptivo'   => 'anticonceptivo','planificacion' => 'planificacion','mestruacion' => 'mestruacion','vih' => 'vih','resul_vih'   => 'resul_vih','hb'  => 'hb','resul_hb' => 'resul_hb','trepo_sifil' => 'trepo_sifil','resul_sifil' => 'resul_sifil','pru_embarazo'  => 'pru_embarazo','resul_emba'  => 'resul_emba','pru_apetito' => 'pru_apetito','resul_apetito' => 'resul_apetito','eventointeres' => 'evento_interes','evento'   => 'evento','cualevento'  => 'cuale_vento','sirc'  => 'sirc','rutasirc' => 'ruta_sirc','remision' => 'remision','cualremision'  => 'cual_remision','ordenvacunacion'  => 'orden_vacunacion','vacunacion'  => 'vacunacion','ordenlaboratorio' => 'orden_laboratorio','laboratorios'  => 'laboratorios','ordenmedicamentos'=> 'orden_medicamentos','medicamentos'  => 'medicamentos','rutacontinuidad'  => 'ruta_continuidad','continuidad' => 'continuidad','ordenimagenes' => 'orden_imagenes','ordenpsicologia'  => 'orden_psicologia','relevo'   => 'relevo','estrategia'  => 'estrategia','tipo_estrategia'  => 'motivo_estrategia'];
-
-    // Procesar campos múltiples para guardar solo los IDs seleccionados
-    $multi = [
-        'continuidad'   => isset($_POST['continuidad']) && is_array($_POST['continuidad']) ? implode(',', array_map('trim', $_POST['continuidad'])) : '',
-        'rutasirc'      => isset($_POST['rutasirc']) && is_array($_POST['rutasirc']) ? implode(',', array_map('trim', $_POST['rutasirc'])) : '',
-        'cualremision'  => isset($_POST['cualremision']) && is_array($_POST['cualremision']) ? implode(',', array_map('trim', $_POST['cualremision'])) : ''
-    ];
-
-	$id = divide($_POST['ida']);
-        if (count($id) != 1) return "No es posible actualizar consulte con el administrador";
-
-	 $obligatorios = ['idpeople', 'idf', 'fechaatencion', 'tipo_consulta', 'codigocups', 'finalidadconsulta', 'letra1', 'rango1', 'diagnostico1','estrategia'];
-    foreach ($obligatorios as $campo) {
-        $valor = ($campo == 'idpeople') ? $id[0] : ($_POST[$campo] ?? null);
-        if ($valor === null || $valor === '') {
-            return "Error: El campo '$campo' es obligatorio y no puede ser nulo o vacío.";
-        }
-    }
-
-    $params = [];
-    $cols = [];
-    foreach ($cmps as $form => $col) {
-        $cols[] = $col;
-        if (array_key_exists($form, $multi)) {
-            $params[] = ['type' => 's', 'value' => $multi[$form]];
-        } elseif ($col == 'mestruacion') {
-            // Si es fecha y puede ser null
-            $valor = $_POST[$form] ?? null;
-            $params[] = [
-                'type' => ($valor === '' || $valor === null) ? 'z' : 's',
-                'value' => ($valor === '' || $valor === null) ? null : $valor
-            ];
-        } else {
-            $valor = $_POST[$form] ?? null;
-            $params[] = ['type' => 's', 'value' => $valor];
-        }
-    }
-    // Campos finales: usu_creo, fecha_create, usu_update, fecha_update, estado
-    $cols[] = 'usu_creo';
-    $cols[] = 'fecha_create';
-    $cols[] = 'usu_update';
-    $cols[] = 'fecha_update';
-    $cols[] = 'estado';
-
-    $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_creo
-    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')]; // fecha_create
-    $params[] = ['type' => 'z', 'value' => null]; // usu_update
-    $params[] = ['type' => 'z', 'value' => null]; // fecha_update
-    $params[] = ['type' => 's', 'value' => 'A']; // estado
-
-    $placeholders = implode(', ', array_fill(0, count($params), '?'));
-    $sql = "INSERT INTO eac_atencion (
-        " . implode(', ', $cols) . "
-    ) VALUES (
-        $placeholders
-    )";
-	return show_sql($sql, $params);
-    // return mysql_prepd($sql, $params);
-} */
-
-function gra_atencion() {
+function gra_atencionP() {
     // Mapeo: campo_formulario => campo_bd
     $map = ['idpeople' => 'idpeople','idf' => 'id_factura','fechaatencion' => 'fecha_atencion','tipo_consulta' => 'tipo_consulta','codigocups'  => 'codigo_cups','finalidadconsulta'=> 'finalidad_consulta','letra1'   => 'letra1','rango1'   => 'rango1','diagnostico1'  => 'diagnostico1','letra2'   => 'letra2','rango2'   => 'rango2','diagnostico2'  => 'diagnostico2','letra3'   => 'letra3','rango3'   => 'rango3','diagnostico3'  => 'diagnostico3','fertil'   => 'fertil','preconcepcional'  => 'preconcepcional','metodo'   => 'metodo','anticonceptivo'   => 'anticonceptivo','planificacion' => 'planificacion','mestruacion' => 'mestruacion','vih' => 'vih','resul_vih'   => 'resul_vih','hb'  => 'hb','resul_hb' => 'resul_hb','trepo_sifil' => 'trepo_sifil','resul_sifil' => 'resul_sifil','pru_embarazo'  => 'pru_embarazo','resul_emba'  => 'resul_emba','pru_apetito' => 'pru_apetito','resul_apetito' => 'resul_apetito','eventointeres' => 'evento_interes','evento'   => 'evento','cualevento'  => 'cuale_vento','sirc'  => 'sirc','rutasirc' => 'ruta_sirc','remision' => 'remision','cualremision'  => 'cual_remision','ordenvacunacion'  => 'orden_vacunacion','vacunacion'  => 'vacunacion','ordenlaboratorio' => 'orden_laboratorio','laboratorios'  => 'laboratorios','ordenmedicamentos'=> 'orden_medicamentos','medicamentos'  => 'medicamentos','rutacontinuidad'  => 'ruta_continuidad','continuidad' => 'continuidad','ordenimagenes' => 'orden_imagenes','ordenpsicologia'  => 'orden_psicologia','relevo'   => 'relevo','estrategia'  => 'estrategia','tipo_estrategia'  => 'motivo_estrategia'];
     // Campos de tipo fecha que pueden ser obligatorios o nulos
@@ -585,7 +436,7 @@ function gra_atencion() {
 function cap_menus($a,$b='cap',$con='con') {
 	$rta = "";
 	$acc=rol($a);
-	  if($a=='atencion' && isset($acc['crear']) && $acc['crear']=='SI'){
+	  if($a=='atencionP' && isset($acc['crear']) && $acc['crear']=='SI'){
 		  $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
 		  $rta .= "<li class='icono $a actualizar'  title='Actualizar'      Onclick=\"act_lista('$a',this);\"></li>";
   
@@ -598,9 +449,9 @@ function cap_menus($a,$b='cap',$con='con') {
 	$rta=$c[$d];
    // print_r($c);
    // var_dump($a);   
-	   if($a=='atencion' && $b=='acciones'){
+	   if($a=='atencionP' && $b=='acciones'){
 		   $rta="<nav class='menu right'>";
-		   $rta.="<li class='icono editar ' title='Generar Consulta' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getData,1000,'atencion',event,this,['idpersona','tipo_doc'],'../atenciones/atencionPsic.php');Color('datos-lis');\"></li>";
+		   $rta.="<li class='icono editar ' title='Generar Consulta' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getData,1000,'atencionP',event,this,['idpersona','tipo_doc'],'../atenciones/atencionPsic.php');Color('datos-lis');\"></li>";
 	   }
 	return $rta;
    }
