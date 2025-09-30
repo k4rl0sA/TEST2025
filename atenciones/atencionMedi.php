@@ -174,11 +174,11 @@ function get_atencion(){
 
 /*************INICIO MENU***********************/
 function men_atencion(){
-	$rta=cap_menus('atencionMedi','pro');
+	$rta=cap_menus('atencionM','pro');
 	return $rta;
    }
    function focus_atencion(){
-	return 'atencionMedi';
+	return 'atencionM';
    }
 
 
