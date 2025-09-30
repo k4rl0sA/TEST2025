@@ -444,7 +444,8 @@ function cap_menus($a,$b='cap',$con='con') {
    // var_dump($a);   
 	   if($a=='atencion' && $b=='acciones'){
 		   $rta="<nav class='menu right'>";
-		   $rta.="<li class='icono editar ' title='Generar Consulta' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getData,1000,'atencion',event,this,['idpersona','tipo_doc'],'../atenciones/atencionMedi.php');Color('datos-lis');\"></li>";
+		   $rta.="<li class='icono editar ' title='Editar Atención' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getData,1000,'atencion',event,this,['idpersona','tipo_doc'],'../atenciones/atencionMedi.php');setTimeout(getData,1300,'atencion',event,this,['idpersona','tipo_doc'],'../atenciones/atencionMedi.php');setTimeout(getData,1500,'atencion',event,this,['idpersona','tipo_doc'],'../atenciones/atencionMedi.php');setTimeout(changeSelect,1100,'letra1','rango1','../atenciones/atencionMedi.php');setTimeout(changeSelect,1150,'letra2','rango2','../atenciones/atencionMedi.php');setTimeout(changeSelect,1280,'letra3','rango3','../atenciones/atencionMedi.php');setTimeout(changeSelect,1385,'rango1','diagnostico1','../atenciones/atencionMedi.php');setTimeout(changeSelect,1385,'rango2','diagnostico2','../atenciones/atencionMedi.php');setTimeout(changeSelect,1385,'rango3','diagnostico3','../atenciones/atencionMedi.php');Color('datos-lis');\"></li>";
+			//$rta.="<li class='icono editar ' title='Generar Consulta' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getData,1000,'atencion',event,this,['idpersona','tipo_doc'],'../atenciones/atencionMedi.php');Color('datos-lis');\"></li>";
 	   }
 	return $rta;
    }
