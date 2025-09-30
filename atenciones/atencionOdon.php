@@ -119,53 +119,38 @@ function cmp_atencionO(){
 }
 
 function get_atencionO(){
-	// var_dump($_POST);
 	if($_REQUEST['id']==''){
 		return "";
 	}else{
-		 $id=$_REQUEST['id'];
-			// print_r($id[0]);
-			// print_r($_REQUEST['id']);
-			$sql1="SELECT COUNT(*) rta
-			FROM adm_facturacion a
-			LEFT JOIN eac_atencion c ON a.idpeople = c.idpeople
-			WHERE c.id_factura ='{$id}' and a.id_factura='{$id}'";
-			$info=datos_mysql($sql1);
-			$total=$info['responseResult'][0]['rta'];
-			/* $info=datos_mysql($sql); */
-			// return json_encode($info['responseResult'][0]);
-			if ($total==1){		
-				$sql="SELECT concat(a.idpeople) id,b.tipo_doc,b.idpersona,concat_ws(' ',b.nombre1,b.nombre2,b.apellido1,b.apellido2) nombres,
-					b.fecha_nacimiento,b.sexo,b.genero,b.nacionalidad,a.id_factura,a.fecha_consulta,a.tipo_consulta,a.cod_cups,a.final_consul,
-					letra1, rango1, diagnostico1, letra2, rango2, diagnostico2, letra3, rango3, 
-					diagnostico3,fertil, preconcepcional, metodo, anticonceptivo, planificacion, 
-					mestruacion,vih,resul_vih,hb,resul_hb,trepo_sifil,resul_sifil,pru_embarazo,resul_emba,
-					pru_apetito,resul_apetito,evento_interes,evento,cuale_vento,sirc,ruta_sirc,remision,cual_remision, orden_vacunacion, vacunacion, 
-					orden_laboratorio, laboratorios, orden_medicamentos,medicamentos, ruta_continuidad, continuidad, orden_imagenes, orden_psicologia, relevo,
-					estrategia,motivo_estrategia
-					FROM adm_facturacion a
-					LEFT JOIN person b ON a.idpeople=b.idpeople
-					LEFT JOIN eac_atencion c ON a.idpeople=c.idpeople 
-					WHERE c.id_factura ='{$id}' and a.id_factura='{$id}'";
-			 		// echo $sql;
-					$info=datos_mysql($sql);
-				return json_encode($info['responseResult'][0]);
-			}else{
-				$sql="SELECT concat(b.idpeople) id,
-				b.tipo_doc,
-				b.idpersona,
-				concat_ws(' ',b.nombre1,b.nombre2,b.apellido1,b.apellido2) nombres,
-				b.fecha_nacimiento,b.sexo,b.genero,b.nacionalidad, a.id_factura,a.fecha_consulta,a.tipo_consulta,a.cod_cups,a.final_consul,
-				letra1,rango1,diagnostico1,letra2,rango2,diagnostico2,letra3,rango3,
-				diagnostico3, fertil, preconcepcional,metodo,anticonceptivo,planificacion,
-				mestruacion,vih,resul_vih,hb,resul_hb,trepo_sifil,resul_sifil,pru_embarazo,resul_emba,
-				evento,cuale_vento,sirc,ruta_sirc,remision,cual_remision,orden_vacunacion,vacunacion,orden_laboratorio,laboratorios,orden_medicamentos,medicamentos,ruta_continuidad,continuidad,orden_imagenes,orden_psicologia,relevo,estrategia,motivo_estrategia
+		$id=$_REQUEST['id'];
+		$sql1="SELECT COUNT(*) rta
+		FROM adm_facturacion a
+		LEFT JOIN eac_atencion c ON a.idpeople = c.idpeople AND a.id_factura = c.id_factura
+		WHERE a.id_factura ='{$id}'";
+		$info=datos_mysql($sql1);
+		$total=$info['responseResult'][0]['rta'];
+		
+		if ($total==1){		
+			$sql="SELECT concat(a.idpeople) id, b.tipo_doc, b.idpersona, concat_ws(' ',b.nombre1,b.nombre2,b.apellido1,b.apellido2) nombres,
+				b.fecha_nacimiento, b.sexo, b.genero, b.nacionalidad, a.id_factura, a.fecha_consulta fechaatencion, a.tipo_consulta, a.cod_cups codigocups, a.final_consul finalidadconsulta,
+				c.fecha_atencion, c.codigo_cups, c.finalidad_consulta, c.fuente, c.fecha_ingr fechaingreso,
+				c.letra1, c.rango1, c.diagnostico1, c.letra2, c.rango2, c.diagnostico2, c.letra3, c.rango3, c.diagnostico3,
+				c.n_superficie, c.n_placa_superf, c.resultado_placa riesgo
 				FROM adm_facturacion a
-				LEFT JOIN person b ON a.idpeople=b.idpeople 
+				LEFT JOIN person b ON a.idpeople=b.idpeople
 				LEFT JOIN eac_atencion c ON a.idpeople=c.idpeople AND a.id_factura=c.id_factura
-				WHERE a.id_factura='{$id}'";
-			//  echo $sql;
-			/*  */
+				WHERE a.id_factura ='{$id}'";
+				$info=datos_mysql($sql);
+			return json_encode($info['responseResult'][0]);
+		}else{
+			$sql="SELECT concat(b.idpeople) id,
+			b.tipo_doc,
+			b.idpersona,
+			concat_ws(' ',b.nombre1,b.nombre2,b.apellido1,b.apellido2) nombres,
+			b.fecha_nacimiento, b.sexo, b.genero, b.nacionalidad, a.id_factura, a.fecha_consulta fechaatencion, a.tipo_consulta, a.cod_cups codigocups, a.final_consul finalidadconsulta
+			FROM adm_facturacion a
+			LEFT JOIN person b ON a.idpeople=b.idpeople 
+			WHERE a.id_factura='{$id}'";
 			$info=datos_mysql($sql);
 			return json_encode($info['responseResult'][0]);
 			}
@@ -342,26 +327,36 @@ function opc_estrategia($id=''){
 }
 
 function gra_atencionO() {
-    // Mapeo: campo_formulario => campo_bd
-    $map = ['idpeople' => 'idpeople','idf' => 'id_factura','fechaatencion' => 'fecha_atencion','tipo_consulta' => 'tipo_consulta','codigocups'  => 'codigo_cups','finalidadconsulta'=> 'finalidad_consulta','letra1'   => 'letra1','rango1'   => 'rango1','diagnostico1'  => 'diagnostico1','letra2'   => 'letra2','rango2'   => 'rango2','diagnostico2'  => 'diagnostico2','letra3'   => 'letra3','rango3'   => 'rango3','diagnostico3'  => 'diagnostico3','fertil'   => 'fertil','preconcepcional'  => 'preconcepcional','metodo'   => 'metodo','anticonceptivo'   => 'anticonceptivo','planificacion' => 'planificacion','mestruacion' => 'mestruacion','vih' => 'vih','resul_vih'   => 'resul_vih','hb'  => 'hb','resul_hb' => 'resul_hb','trepo_sifil' => 'trepo_sifil','resul_sifil' => 'resul_sifil','pru_embarazo'  => 'pru_embarazo','resul_emba'  => 'resul_emba','pru_apetito' => 'pru_apetito','resul_apetito' => 'resul_apetito','eventointeres' => 'evento_interes','evento'   => 'evento','cualevento'  => 'cuale_vento','sirc'  => 'sirc','rutasirc' => 'ruta_sirc','remision' => 'remision','cualremision'  => 'cual_remision','ordenvacunacion'  => 'orden_vacunacion','vacunacion'  => 'vacunacion','ordenlaboratorio' => 'orden_laboratorio','laboratorios'  => 'laboratorios','ordenmedicamentos'=> 'orden_medicamentos','medicamentos'  => 'medicamentos','rutacontinuidad'  => 'ruta_continuidad','continuidad' => 'continuidad','ordenimagenes' => 'orden_imagenes','ordenpsicologia'  => 'orden_psicologia','relevo'   => 'relevo','estrategia'  => 'estrategia','tipo_estrategia'  => 'motivo_estrategia'];
-    // Campos de tipo fecha que pueden ser obligatorios o nulos
-	 // Campos de tipo fecha que pueden ser nulos
-    $campos_fecha_null = ['mestruacion'];
-
-    // Procesar campos múltiples para guardar solo los IDs seleccionados separados por guion
-    $multi = [
-		'continuidad'=>isset($_POST['fcontinuidad'])? str_replace([",", "'", '"'], ['-', '', ''], $_POST['fcontinuidad']) : '',
-        'rutasirc' => isset($_POST['frutasirc'])? str_replace([",", "'", '"'], ['-', '', ''], $_POST['frutasirc']) : '',
-        'cualremision' => isset($_POST['fcualremision']) ? str_replace([",", "'", '"'], ['-', '', ''], $_POST['fcualremision']) : ''
+    // Mapeo: campo_formulario => campo_bd (solo campos que existen en eac_atencion)
+    $map = [
+        'idpeople' => 'idpeople',
+        'idf' => 'id_factura', 
+        'fechaatencion' => 'fecha_atencion',
+        'tipo_consulta' => 'tipo_consulta',
+        'codigocups' => 'codigo_cups',
+        'finalidadconsulta' => 'finalidad_consulta',
+        'fechaingreso' => 'fecha_ingr',
+        'letra1' => 'letra1',
+        'rango1' => 'rango1', 
+        'diagnostico1' => 'diagnostico1',
+        'letra2' => 'letra2',
+        'rango2' => 'rango2',
+        'diagnostico2' => 'diagnostico2',
+        'letra3' => 'letra3',
+        'rango3' => 'rango3',
+        'diagnostico3' => 'diagnostico3',
+        'n_superficie' => 'n_superficie',
+        'n_placa_superf' => 'n_placa_superf',
+        'riesgo' => 'resultado_placa'
     ];
 
     $id = divide($_POST['ida']);
     if (count($id) != 1 || empty($id[0])) return "Error: idpeople es obligatorio y no puede ser nulo.";
-
-    // Validar campos obligatorios (ajusta según tus campos NOT NULL)
-    $obligatorios = ['idpeople', 'idf', 'fechaatencion', 'tipo_consulta', 'codigocups', 'finalidadconsulta', 'letra1', 'rango1', 'diagnostico1', 'estrategia'];
+    
+    // Validar campos obligatorios (campos NOT NULL en la tabla)
+    $obligatorios = ['idf', 'fechaatencion', 'tipo_consulta', 'codigocups', 'finalidadconsulta', 'fechaingreso', 'letra1', 'rango1', 'diagnostico1'];
     foreach ($obligatorios as $campo) {
-        $valor = ($campo == 'idpeople') ? $id[0] : ($_POST[$campo] ?? null);
+        $valor = $_POST[$campo] ?? null;
         if ($valor === null || $valor === '') {
             return "Error: El campo '$campo' es obligatorio y no puede ser nulo o vacío.";
         }
@@ -369,36 +364,34 @@ function gra_atencionO() {
 
     $params = [];
     $cols = [];
+    
+    // Agregar campos del mapeo
     foreach ($map as $form => $col) {
         $cols[] = $col;
         if ($form == 'idpeople') {
             $params[] = ['type' => 'i', 'value' => $id[0]];
-        } elseif (array_key_exists($form, $multi)) {
-            $params[] = ['type' => 's', 'value' => $multi[$form]];
-        } elseif (in_array($col, $campos_fecha_null)) {
-            $valor = $_POST[$form] ?? null;
-            $params[] = [
-                'type' => ($valor === '' || $valor === null) ? 'z' : 's',
-                'value' => ($valor === '' || $valor === null) ? null : $valor
-            ];
         } else {
             $valor = $_POST[$form] ?? null;
-            $params[] = ['type' => 's', 'value' => $valor];
+            if ($valor === '' || $valor === null) {
+                $params[] = ['type' => 'z', 'value' => null];
+            } else {
+                $params[] = ['type' => 's', 'value' => $valor];
+            }
         }
     }
 
-    // Campos finales: usu_creo, fecha_create, usu_update, fecha_update, estado
+    // Agregar campo fuente (requerido en BD pero no en formulario)
+    $cols[] = 'fuente';
+    $params[] = ['type' => 's', 'value' => '1']; // Valor por defecto
+
+    // Campos de auditoría
     $cols[] = 'usu_creo';
     $cols[] = 'fecha_create';
-    $cols[] = 'usu_update';
-    $cols[] = 'fecha_update';
     $cols[] = 'estado';
-
-    $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_creo
-    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')]; // fecha_create
-    $params[] = ['type' => 'z', 'value' => null]; // usu_update
-    $params[] = ['type' => 'z', 'value' => null]; // fecha_update
-    $params[] = ['type' => 's', 'value' => 'A']; // estado
+    
+    $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
+    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))]; // Fecha menos 5 horas
+    $params[] = ['type' => 's', 'value' => 'A'];
 
     $placeholders = implode(', ', array_fill(0, count($params), '?'));
     $sql = "INSERT INTO eac_atencion (
@@ -406,8 +399,8 @@ function gra_atencionO() {
     ) VALUES (
         $placeholders
     )";
-	//$rta=show_sql($sql, $params);
-     $rta = mysql_prepd($sql, $params);
+    
+    $rta = mysql_prepd($sql, $params);
     return $rta;
 }
 
