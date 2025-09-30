@@ -53,12 +53,12 @@ function cmp_atencion(){
 	$o='consulta';
 	$c[]=new cmp($o,'e',null,'Datos de la atencion medica	',$w);
 	$c[]=new cmp('idf','h',15,'',$w.' '.$o,'idf','idf',null,'####',false,false,'','col-1');
-	$c[]=new cmp('fechaatencion','d',20,$x,$w.' '.$o,'Fecha de la consulta','fechaatencion',null,'',true,false,'','col-15');
-	$c[]=new cmp('tipo_consulta','s',3,$x,$w.' '.$o,'Tipo de Consulta','tipo_consulta',null,'',true,false,'','col-15');
-	$c[]=new cmp('codigocups','s',3,$x,$w.' '.$o,'Código CUPS','cups',null,'',true,false,'','col-2');
-	$c[]=new cmp('finalidadconsulta','s',3,$x,$w.' '.$o,'Finalidad de la Consulta','consultamedica',null,'',true,false,'','col-2');
-	$c[]=new cmp('fechaingreso','d',20,$x,$w.' '.$o,'Fecha de la consulta','fechaingreso',null,'',true,true,'','col-15');
-	$c[]=new cmp('tipo_estrategia','s',3,$x,$w.' eSt '.$o,'Prioridad','prioridad',null,'',true,true,'','col-15');
+	$c[]=new cmp('fechaatencion','d',20,$x,$w.' '.$o,'Fecha de Atención','fechaatencion',null,'',true,true,'','col-15');
+	$c[]=new cmp('tipo_consulta','s',3,$x,$w.' '.$o,'Tipo de Consulta','tipo_consulta',null,'',true,true,'','col-15');
+	$c[]=new cmp('codigocups','s',3,$x,$w.' '.$o,'Código CUPS','cups',null,'',true,true,'','col-2');
+	$c[]=new cmp('finalidadconsulta','s',3,$x,$w.' '.$o,'Finalidad de la Consulta','consultamedica',null,'',true,true,'','col-2');
+	$c[]=new cmp('fuente','s',3,$x,$w.' '.$o,'Fuente','fuente',null,'',false,false,'','col-15');
+	$c[]=new cmp('fechaingreso','d',20,$x,$w.' '.$o,'Fecha de Ingreso','fechaingreso',null,'',true,true,'','col-15');
 
 	$c[]=new cmp('letra1','s','3',$x,$w.' '.$o,'Letra CIE(1)','letra1',null,null,true,true,'','col-1',"valPyd(this,'tipo_consulta');valResol('tipo_consulta','letra1');selectDepend('letra1','rango1','atencion.php');");//,['rango1']
  	$c[]=new cmp('rango1','s','3',$x,$w.' '.$o,'Tipo1','rango1',null,null,true,true,'','col-45',"selectDepend('rango1','diagnostico1','atencion.php');");
@@ -86,8 +86,20 @@ $o='pruebas';
 
 $o='complementarios';
 	$c[]=new cmp($o,'e',null,'Servicios Complementarios',$w);
-	$c[]=new cmp('laboratorios','s',3,$x,$w.' lab '.$o,'Laboratorio','solicitud',null,'',false,true,'','col-2');
-	$c[]=new cmp('medicamentos','s',3,$x,$w.' med '.$o,'Medicamentos','medicamentos',null,'',false,true,'','col-2');
+	$c[]=new cmp('laboratorios','s',3,$x,$w.' lab '.$o,'Laboratorio','solicitud',null,'',false,false,'','col-2');
+	$c[]=new cmp('medicamentos','s',3,$x,$w.' med '.$o,'Medicamentos','medicamentos',null,'',false,false,'','col-2');
+
+$o='odontologia';
+	$c[]=new cmp($o,'e',null,'Datos Odontológicos',$w);
+	$c[]=new cmp('n_superficie','n',2,$x,$w.' '.$o,'Número de Superficies','n_superficie',null,'',false,false,'','col-2');
+	$c[]=new cmp('n_placa_superf','n',2,$x,$w.' '.$o,'Número de Placa Superficie','n_placa_superf',null,'',false,false,'','col-2');
+	$c[]=new cmp('resultado_placa','t',50,$x,$w.' '.$o,'Resultado de Placa','resultado_placa',null,'',false,false,'','col-4');
+
+$o='psicologia';
+	$c[]=new cmp($o,'e',null,'Datos Psicológicos',$w);
+	$c[]=new cmp('psico_1','s',3,$x,$w.' '.$o,'Psicología 1','psico_1',null,'',false,false,'','col-2');
+	$c[]=new cmp('psico_2','s',3,$x,$w.' '.$o,'Psicología 2','psico_2',null,'',false,false,'','col-2');
+	$c[]=new cmp('psico_3','s',3,$x,$w.' '.$o,'Psicología 3','psico_3',null,'',false,false,'','col-2');
 
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
@@ -141,7 +153,7 @@ function get_atencion(){
 			// print_r($_REQUEST['id']);
 			$sql1="SELECT COUNT(*) rta
 			FROM adm_facturacion a
-			LEFT JOIN eac_atencion c ON a.idpeople = c.idpeople
+			LEFT JOIN eac_atencion c ON a.idpeople = c.idpeople AND a.id_factura = c.id_factura
 			WHERE c.id_factura ='{$id}' and a.id_factura='{$id}'";
 			$info=datos_mysql($sql1);
 			$total=$info['responseResult'][0]['rta'];
@@ -150,15 +162,12 @@ function get_atencion(){
 			if ($total==1){		
 				$sql="SELECT concat(a.idpeople) id,b.tipo_doc,b.idpersona,concat_ws(' ',b.nombre1,b.nombre2,b.apellido1,b.apellido2) nombres,
 					b.fecha_nacimiento,b.sexo,b.genero,b.nacionalidad,a.id_factura,a.fecha_consulta,a.tipo_consulta,a.cod_cups,a.final_consul,
-					letra1, rango1, diagnostico1, letra2, rango2, diagnostico2, letra3, rango3, 
-					diagnostico3,fertil, preconcepcional, metodo, anticonceptivo, planificacion, 
-					mestruacion,vih,resul_vih,hb,resul_hb,trepo_sifil,resul_sifil,pru_embarazo,resul_emba,
-					pru_apetito,resul_apetito,evento_interes,evento,cuale_vento,sirc,ruta_sirc,remision,cual_remision, orden_vacunacion, vacunacion, 
-					orden_laboratorio, laboratorios, orden_medicamentos,medicamentos, ruta_continuidad, continuidad, orden_imagenes, orden_psicologia, relevo,
-					estrategia,motivo_estrategia
+					c.fecha_atencion,c.codigo_cups,c.finalidad_consulta,c.fuente,c.fecha_ingr,c.letra1, c.rango1, c.diagnostico1, c.letra2, c.rango2, c.diagnostico2, c.letra3, c.rango3, 
+					c.diagnostico3,c.vih,c.resul_vih,c.hb,c.resul_hb,c.trepo_sifil,c.resul_sifil,c.pru_embarazo,c.resul_emba,
+					c.pru_apetito,c.resul_apetito,c.laboratorios,c.medicamentos,c.n_superficie,c.n_placa_superf,c.resultado_placa,c.psico_1,c.psico_2,c.psico_3
 					FROM adm_facturacion a
 					LEFT JOIN person b ON a.idpeople=b.idpeople
-					LEFT JOIN eac_atencion c ON a.idpeople=c.idpeople 
+					LEFT JOIN eac_atencion c ON a.idpeople=c.idpeople AND a.id_factura=c.id_factura
 					WHERE c.id_factura ='{$id}' and a.id_factura='{$id}'";
 			 		// echo $sql;
 					$info=datos_mysql($sql);
@@ -169,10 +178,8 @@ function get_atencion(){
 				b.idpersona,
 				concat_ws(' ',b.nombre1,b.nombre2,b.apellido1,b.apellido2) nombres,
 				b.fecha_nacimiento,b.sexo,b.genero,b.nacionalidad, a.id_factura,a.fecha_consulta,a.tipo_consulta,a.cod_cups,a.final_consul,
-				letra1,rango1,diagnostico1,letra2,rango2,diagnostico2,letra3,rango3,
-				diagnostico3, fertil, preconcepcional,metodo,anticonceptivo,planificacion,
-				mestruacion,vih,resul_vih,hb,resul_hb,trepo_sifil,resul_sifil,pru_embarazo,resul_emba,
-				evento,cuale_vento,sirc,ruta_sirc,remision,cual_remision,orden_vacunacion,vacunacion,orden_laboratorio,laboratorios,orden_medicamentos,medicamentos,ruta_continuidad,continuidad,orden_imagenes,orden_psicologia,relevo,estrategia,motivo_estrategia
+				c.fecha_atencion,c.codigo_cups,c.finalidad_consulta,c.fuente,c.fecha_ingr,c.letra1,c.rango1,c.diagnostico1,c.letra2,c.rango2,c.diagnostico2,c.letra3,c.rango3,
+				c.diagnostico3,c.vih,c.resul_vih,c.hb,c.resul_hb,c.trepo_sifil,c.resul_sifil,c.pru_embarazo,c.resul_emba,c.pru_apetito,c.resul_apetito,c.laboratorios,c.medicamentos,c.n_superficie,c.n_placa_superf,c.resultado_placa,c.psico_1,c.psico_2,c.psico_3
 				FROM adm_facturacion a
 				LEFT JOIN person b ON a.idpeople=b.idpeople 
 				LEFT JOIN eac_atencion c ON a.idpeople=c.idpeople AND a.id_factura=c.id_factura
@@ -353,202 +360,81 @@ function opc_prioridad($id=''){
 function opc_estrategia($id=''){
 	return opc_sql("SELECT idcatadeta,descripcion,valor FROM `catadeta` WHERE idcatalogo=203 and estado='A'  ORDER BY 1 ",$id);
 }
-/****************FIN DESPLEGABLES*****************+*****/
-/* function gra_atencion(){
-	// var_dump($_POST);
-		$id=divide($_POST['ida']);
-	// print_r($_POST['ida']);
-	if(count($id)==1){
-		$fertil = isset($_POST['fertil']) ? trim($_POST['fertil']) : '';
-		$preconcepcional = isset($_POST['preconcepcional']) ? trim($_POST['preconcepcional']) : '';
-		$metodo = isset($_POST['metodo']) ? trim($_POST['metodo']) : '';
-		$anticonceptivo = isset($_POST['anticonceptivo']) ? trim($_POST['anticonceptivo']) : '';
-		$planificacion = isset($_POST['planificacion']) ? trim($_POST['planificacion']) : '';
-		$mestruacion = ['type' => empty($_POST['motivo_estado']) ? 'z' : 'i', 'value' => empty($_POST['motivo_estado']) ? null : $_POST['motivo_estado']];
-		$gestante = isset($_POST['gestante']) ? trim($_POST['gestante']) : '';
-
-		if (($smu2 = $_POST['rutasirc'] ?? null) && is_array($smu2)){$rutasirc = implode(",", array_map('trim', $smu2));}
-		if (($smu1 = $_POST['continuidad'] ?? null) && is_array($smu1)){$contin = implode(",", array_map('trim', $smu1));}
-		if (($smu3 = $_POST['cualremision'] ?? null) && is_array($smu3)){$remisi = implode(",", array_map('trim', $smu3));}
-
-		var_dump($rutasirc,$contin,$remisi);
-
-	  $sql = "INSERT INTO eac_atencion VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-	  									     	  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-												  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-												   DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')";
-	  $params=[
-		// id_aten
-		['type'=>'i', 'value'=>$id[0]], // idpeople
-		['type'=>'s', 'value'=>$_POST['idf']], // id_factura
-		['type'=>'s', 'value'=>$_POST['fechaatencion']], // fechaatencion
-		['type'=>'s', 'value'=>$_POST['tipo_consulta']], // tipo_consulta
-		['type'=>'s', 'value'=>$_POST['codigocups']], // codigocups
-		['type'=>'s', 'value'=>$_POST['finalidadconsulta']], // finalidadconsulta
-		['type'=>'s', 'value'=>$_POST['letra1']], // letra1
-		['type'=>'s', 'value'=>$_POST['rango1']], // rango1
-		['type'=>'s', 'value'=>$_POST['diagnostico1']], // diagnostico1
-		['type'=>'s', 'value'=>$_POST['letra2']], // letra2
-		['type'=>'s', 'value'=>$_POST['rango2']], // rango2
-		['type'=>'s', 'value'=>$_POST['diagnostico2']], // diagnostico2
-		['type'=>'s', 'value'=>$_POST['letra3']], // letra3
-		['type'=>'s', 'value'=>$_POST['rango3']], // rango3
-		['type'=>'s', 'value'=>$_POST['diagnostico3']], // diagnostico3
-		['type'=>'s', 'value'=>$fertil], // fertil
-		['type'=>'s', 'value'=>$preconcepcional], // preconcepcional
-		['type'=>'s', 'value'=>$metodo], // metodo
-		['type'=>'s', 'value'=>$anticonceptivo], // anticonceptivo
-		['type'=>'s', 'value'=>$planificacion], // planificacion
-		$mestruacion, // mestruacion
-		['type'=>'s', 'value'=>$_POST['vih']], // vih
-		['type'=>'s', 'value'=>$_POST['resul_vih']], // resul_vih
-		['type'=>'s', 'value'=>$_POST['hb']], // hb
-		['type'=>'s', 'value'=>$_POST['resul_hb']], // resul_hb
-		['type'=>'s', 'value'=>$_POST['trepo_sifil']], // trepo_sifil
-		['type'=>'s', 'value'=>$_POST['resul_sifil']], // resul_sifil
-		['type'=>'s', 'value'=>$_POST['pru_embarazo']], // pru_embarazo
-		['type'=>'s', 'value'=>$_POST['resul_emba']], // resul_emba
-		['type'=>'s', 'value'=>$_POST['pru_apetito']], // pru_apetito
-		['type'=>'s', 'value'=>$_POST['resul_apetito']], // resul_apetito
-		['type'=>'s', 'value'=>$_POST['eventointeres']], // evento_interes
-		['type'=>'s', 'value'=>$_POST['evento']], // evento
-		['type'=>'s', 'value'=>$_POST['cualevento']], // cualevento
-		['type'=>'s', 'value'=>$_POST['sirc']], // sirc
-		['type'=>'s', 'value'=>$rutasirc], // ruta_sirc
-		['type'=>'s', 'value'=>$_POST['remision']], // remision
-		['type'=>'s', 'value'=>$remisi], // cual_remision
-		['type'=>'s', 'value'=>$_POST['ordenvacunacion']], // orden_vacunacion
-		['type'=>'s', 'value'=>$_POST['vacunacion']], // vacunacion
-		['type'=>'s', 'value'=>$_POST['ordenlaboratorio']], // orden_laboratorio
-		['type'=>'s', 'value'=>$_POST['laboratorios']], // laboratorios
-		['type'=>'s', 'value'=>$_POST['ordenmedicamentos']], // orden_medicamentos
-		['type'=>'s', 'value'=>$_POST['medicamentos']], // medicamentos
-		['type'=>'s', 'value'=>$_POST['rutacontinuidad']], // ruta_continuidad
-		['type'=>'s', 'value'=>$contin], // continuidad
-		['type'=>'s', 'value'=>$_POST['ordenimagenes']], // orden_imagenes
-		['type'=>'s', 'value'=>$_POST['ordenpsicologia']], // orden_psicologia
-		['type'=>'s', 'value'=>$_POST['relevo']], // relevo
-		['type'=>'s', 'value'=>$_POST['estrategia']], // estrategia
-		['type'=>'s', 'value'=>$_POST['tipo_estrategia']], // motivo_estrategia
-		['type'=>'s', 'value'=>$_SESSION['us_sds']] // usu_creo
-	];
-	return show_sql($sql,$params);
-	// return $rta=mysql_prepd($sql, $params);
-	}elseif(count($id)==0){
-		return "No es posible actualizar consulte con el administrador";
-	}
-} */
-
-/* function gra_atencion() {
-    
-    $cmps = ['idpeople' => 'idpeople','idf' => 'id_factura','fechaatencion' => 'fecha_atencion','tipo_consulta' => 'tipo_consulta','codigocups'  => 'codigo_cups','finalidadconsulta'=> 'finalidad_consulta','letra1'   => 'letra1','rango1'   => 'rango1','diagnostico1'  => 'diagnostico1','letra2'   => 'letra2','rango2'   => 'rango2','diagnostico2'  => 'diagnostico2','letra3'   => 'letra3','rango3'   => 'rango3','diagnostico3'  => 'diagnostico3','fertil'   => 'fertil','preconcepcional'  => 'preconcepcional','metodo'   => 'metodo','anticonceptivo'   => 'anticonceptivo','planificacion' => 'planificacion','mestruacion' => 'mestruacion','vih' => 'vih','resul_vih'   => 'resul_vih','hb'  => 'hb','resul_hb' => 'resul_hb','trepo_sifil' => 'trepo_sifil','resul_sifil' => 'resul_sifil','pru_embarazo'  => 'pru_embarazo','resul_emba'  => 'resul_emba','pru_apetito' => 'pru_apetito','resul_apetito' => 'resul_apetito','eventointeres' => 'evento_interes','evento'   => 'evento','cualevento'  => 'cuale_vento','sirc'  => 'sirc','rutasirc' => 'ruta_sirc','remision' => 'remision','cualremision'  => 'cual_remision','ordenvacunacion'  => 'orden_vacunacion','vacunacion'  => 'vacunacion','ordenlaboratorio' => 'orden_laboratorio','laboratorios'  => 'laboratorios','ordenmedicamentos'=> 'orden_medicamentos','medicamentos'  => 'medicamentos','rutacontinuidad'  => 'ruta_continuidad','continuidad' => 'continuidad','ordenimagenes' => 'orden_imagenes','ordenpsicologia'  => 'orden_psicologia','relevo'   => 'relevo','estrategia'  => 'estrategia','tipo_estrategia'  => 'motivo_estrategia'];
-
-    // Procesar campos múltiples para guardar solo los IDs seleccionados
-    $multi = [
-        'continuidad'   => isset($_POST['continuidad']) && is_array($_POST['continuidad']) ? implode(',', array_map('trim', $_POST['continuidad'])) : '',
-        'rutasirc'      => isset($_POST['rutasirc']) && is_array($_POST['rutasirc']) ? implode(',', array_map('trim', $_POST['rutasirc'])) : '',
-        'cualremision'  => isset($_POST['cualremision']) && is_array($_POST['cualremision']) ? implode(',', array_map('trim', $_POST['cualremision'])) : ''
-    ];
-
-	$id = divide($_POST['ida']);
-        if (count($id) != 1) return "No es posible actualizar consulte con el administrador";
-
-	 $obligatorios = ['idpeople', 'idf', 'fechaatencion', 'tipo_consulta', 'codigocups', 'finalidadconsulta', 'letra1', 'rango1', 'diagnostico1','estrategia'];
-    foreach ($obligatorios as $campo) {
-        $valor = ($campo == 'idpeople') ? $id[0] : ($_POST[$campo] ?? null);
-        if ($valor === null || $valor === '') {
-            return "Error: El campo '$campo' es obligatorio y no puede ser nulo o vacío.";
-        }
-    }
-
-    $params = [];
-    $cols = [];
-    foreach ($cmps as $form => $col) {
-        $cols[] = $col;
-        if (array_key_exists($form, $multi)) {
-            $params[] = ['type' => 's', 'value' => $multi[$form]];
-        } elseif ($col == 'mestruacion') {
-            // Si es fecha y puede ser null
-            $valor = $_POST[$form] ?? null;
-            $params[] = [
-                'type' => ($valor === '' || $valor === null) ? 'z' : 's',
-                'value' => ($valor === '' || $valor === null) ? null : $valor
-            ];
-        } else {
-            $valor = $_POST[$form] ?? null;
-            $params[] = ['type' => 's', 'value' => $valor];
-        }
-    }
-    // Campos finales: usu_creo, fecha_create, usu_update, fecha_update, estado
-    $cols[] = 'usu_creo';
-    $cols[] = 'fecha_create';
-    $cols[] = 'usu_update';
-    $cols[] = 'fecha_update';
-    $cols[] = 'estado';
-
-    $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_creo
-    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')]; // fecha_create
-    $params[] = ['type' => 'z', 'value' => null]; // usu_update
-    $params[] = ['type' => 'z', 'value' => null]; // fecha_update
-    $params[] = ['type' => 's', 'value' => 'A']; // estado
-
-    $placeholders = implode(', ', array_fill(0, count($params), '?'));
-    $sql = "INSERT INTO eac_atencion (
-        " . implode(', ', $cols) . "
-    ) VALUES (
-        $placeholders
-    )";
-	return show_sql($sql, $params);
-    // return mysql_prepd($sql, $params);
-} */
 
 function gra_atencion() {
-    // Mapeo: campo_formulario => campo_bd
-    $map = ['idpeople' => 'idpeople','idf' => 'id_factura','fechaatencion' => 'fecha_atencion','tipo_consulta' => 'tipo_consulta','codigocups'  => 'codigo_cups','finalidadconsulta'=> 'finalidad_consulta','letra1'   => 'letra1','rango1'   => 'rango1','diagnostico1'  => 'diagnostico1','letra2'   => 'letra2','rango2'   => 'rango2','diagnostico2'  => 'diagnostico2','letra3'   => 'letra3','rango3'   => 'rango3','diagnostico3'  => 'diagnostico3','fertil'   => 'fertil','preconcepcional'  => 'preconcepcional','metodo'   => 'metodo','anticonceptivo'   => 'anticonceptivo','planificacion' => 'planificacion','mestruacion' => 'mestruacion','vih' => 'vih','resul_vih'   => 'resul_vih','hb'  => 'hb','resul_hb' => 'resul_hb','trepo_sifil' => 'trepo_sifil','resul_sifil' => 'resul_sifil','pru_embarazo'  => 'pru_embarazo','resul_emba'  => 'resul_emba','pru_apetito' => 'pru_apetito','resul_apetito' => 'resul_apetito','eventointeres' => 'evento_interes','evento'   => 'evento','cualevento'  => 'cuale_vento','sirc'  => 'sirc','rutasirc' => 'ruta_sirc','remision' => 'remision','cualremision'  => 'cual_remision','ordenvacunacion'  => 'orden_vacunacion','vacunacion'  => 'vacunacion','ordenlaboratorio' => 'orden_laboratorio','laboratorios'  => 'laboratorios','ordenmedicamentos'=> 'orden_medicamentos','medicamentos'  => 'medicamentos','rutacontinuidad'  => 'ruta_continuidad','continuidad' => 'continuidad','ordenimagenes' => 'orden_imagenes','ordenpsicologia'  => 'orden_psicologia','relevo'   => 'relevo','estrategia'  => 'estrategia','tipo_estrategia'  => 'motivo_estrategia'];
-    // Campos de tipo fecha que pueden ser obligatorios o nulos
-	 // Campos de tipo fecha que pueden ser nulos
-    $campos_fecha_null = ['mestruacion'];
-
-    // Procesar campos múltiples para guardar solo los IDs seleccionados separados por guion
-    $multi = [
-		'continuidad'=>isset($_POST['fcontinuidad'])? str_replace([",", "'", '"'], ['-', '', ''], $_POST['fcontinuidad']) : '',
-        'rutasirc' => isset($_POST['frutasirc'])? str_replace([",", "'", '"'], ['-', '', ''], $_POST['frutasirc']) : '',
-        'cualremision' => isset($_POST['fcualremision']) ? str_replace([",", "'", '"'], ['-', '', ''], $_POST['fcualremision']) : ''
+    // Mapeo: campo_formulario => campo_bd según la estructura real de la tabla
+    $map = [
+        'idpeople' => 'idpeople',
+        'idf' => 'id_factura',
+        'fechaatencion' => 'fecha_atencion',
+        'tipo_consulta' => 'tipo_consulta',
+        'codigocups' => 'codigo_cups',
+        'finalidadconsulta' => 'finalidad_consulta',
+        'fuente' => 'fuente',
+        'fechaingreso' => 'fecha_ingr',
+        'letra1' => 'letra1',
+        'rango1' => 'rango1',
+        'diagnostico1' => 'diagnostico1',
+        'letra2' => 'letra2',
+        'rango2' => 'rango2',
+        'diagnostico2' => 'diagnostico2',
+        'letra3' => 'letra3',
+        'rango3' => 'rango3',
+        'diagnostico3' => 'diagnostico3',
+        'vih' => 'vih',
+        'resul_vih' => 'resul_vih',
+        'hb' => 'hb',
+        'resul_hb' => 'resul_hb',
+        'trepo_sifil' => 'trepo_sifil',
+        'resul_sifil' => 'resul_sifil',
+        'pru_embarazo' => 'pru_embarazo',
+        'resul_emba' => 'resul_emba',
+        'pru_apetito' => 'pru_apetito',
+        'resul_apetito' => 'resul_apetito',
+        'laboratorios' => 'laboratorios',
+        'medicamentos' => 'medicamentos',
+        'n_superficie' => 'n_superficie',
+        'n_placa_superf' => 'n_placa_superf',
+        'resultado_placa' => 'resultado_placa',
+        'psico_1' => 'psico_1',
+        'psico_2' => 'psico_2',
+        'psico_3' => 'psico_3'
     ];
 
     $id = divide($_POST['ida']);
     if (count($id) != 1 || empty($id[0])) return "Error: idpeople es obligatorio y no puede ser nulo.";
-
-    // Validar campos obligatorios (ajusta según tus campos NOT NULL)
-    $obligatorios = ['idpeople', 'idf', 'fechaatencion', 'tipo_consulta', 'codigocups', 'finalidadconsulta', 'letra1', 'rango1', 'diagnostico1', 'estrategia'];
+    
+    // Validar campos obligatorios según la estructura de la tabla
+    $obligatorios = ['idpeople', 'idf', 'fechaatencion', 'tipo_consulta', 'codigocups', 'finalidadconsulta', 'fechaingreso', 'letra1', 'rango1', 'diagnostico1'];
     foreach ($obligatorios as $campo) {
         $valor = ($campo == 'idpeople') ? $id[0] : ($_POST[$campo] ?? null);
         if ($valor === null || $valor === '') {
             return "Error: El campo '$campo' es obligatorio y no puede ser nulo o vacío.";
         }
     }
-
+    
     $params = [];
     $cols = [];
+    
     foreach ($map as $form => $col) {
         $cols[] = $col;
         if ($form == 'idpeople') {
-            $params[] = ['type' => 'i', 'value' => $id[0]];
-        } elseif (array_key_exists($form, $multi)) {
-            $params[] = ['type' => 's', 'value' => $multi[$form]];
-        } elseif (in_array($col, $campos_fecha_null)) {
-            $valor = $_POST[$form] ?? null;
-            $params[] = [
-                'type' => ($valor === '' || $valor === null) ? 'z' : 's',
-                'value' => ($valor === '' || $valor === null) ? null : $valor
-            ];
+            $params[] = ['type' => 'i', 'value' => intval($id[0])];
         } else {
             $valor = $_POST[$form] ?? null;
-            $params[] = ['type' => 's', 'value' => $valor];
+            // Para campos que pueden ser NULL en la BD
+            if (in_array($col, ['letra2', 'rango2', 'diagnostico2', 'letra3', 'rango3', 'diagnostico3', 'vih', 'resul_vih', 'hb', 'resul_hb', 'trepo_sifil', 'resul_sifil', 'pru_embarazo', 'resul_emba', 'pru_apetito', 'resul_apetito', 'laboratorios', 'medicamentos', 'n_superficie', 'n_placa_superf', 'resultado_placa', 'psico_1', 'psico_2', 'psico_3'])) {
+                $params[] = [
+                    'type' => ($valor === '' || $valor === null) ? 'z' : 's',
+                    'value' => ($valor === '' || $valor === null) ? null : $valor
+                ];
+            } else {
+                $params[] = ['type' => 's', 'value' => $valor];
+            }
         }
     }
-
-    // Campos finales: usu_creo, fecha_create, usu_update, fecha_update, estado
+    
+    // Campos del sistema: usu_creo, fecha_create, usu_update, fecha_update, estado
     $cols[] = 'usu_creo';
     $cols[] = 'fecha_create';
     $cols[] = 'usu_update';
@@ -567,11 +453,12 @@ function gra_atencion() {
     ) VALUES (
         $placeholders
     )";
-	//$rta=show_sql($sql, $params);
-     $rta = mysql_prepd($sql, $params);
+    
+    // Debug opcional
+    //$rta = show_sql($sql, $params);
+    $rta = mysql_prepd($sql, $params);
     return $rta;
 }
-
 
 function cap_menus($a,$b='cap',$con='con') {
 	$rta = "";
