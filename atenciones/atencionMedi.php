@@ -19,10 +19,10 @@ else {
   }
 }
 
-function cmp_atencion(){
+function cmp_atencionM(){
 	$rta="";
 	$rta .="<div class='encabezado atencion'>Consultas realizadas al paciente</div>
-	<div class='contenido' id='atencion-lis' >".lis_atencion()."</div></div>";
+	<div class='contenido' id='atencion-lis' >".lis_atencionM()."</div></div>";
 	$hoy=date('Y-m-d');
 	$t=['id'=>$_POST['id'],'idpersona'=>'','tipo_doc'=>'','nombres'=>'','fecha_atencion'=>'','tipo_consulta'=>'','cod_cups'=>'','fecha_nacimiento'=>'','sexo'=>'','genero'=>'','nacionalidad'=>''];
 	$d=get_personas();
@@ -93,7 +93,7 @@ $o='complementarios';
 	return $rta;
    }
 
-   function lis_atencion(){
+   function lis_atencionM(){
 	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['ida']) ? divide($_POST['ida']) : null);
 	// print_r($id);
 	$info=datos_mysql("SELECT COUNT(*) total FROM adm_facturacion F WHERE F.idpeople ='{$id[0]}'");
@@ -173,11 +173,11 @@ function get_atencionM(){
 }
 
 /*************INICIO MENU***********************/
-function men_atencion(){
+function men_atencionM(){
 	$rta=cap_menus('atencionM','pro');
 	return $rta;
    }
-   function focus_atencion(){
+   function focus_atencionM(){
 	return 'atencionM';
    }
 
@@ -341,7 +341,7 @@ function opc_estrategia($id=''){
 	return opc_sql("SELECT idcatadeta,descripcion,valor FROM `catadeta` WHERE idcatalogo=203 and estado='A'  ORDER BY 1 ",$id);
 }
 
-function gra_atencion() {
+function gra_atencionM() {
     // Mapeo: campo_formulario => campo_bd (solo campos que existen en eac_atencion)
     $map = [
         'idpeople' => 'idpeople',
