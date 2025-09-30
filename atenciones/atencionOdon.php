@@ -72,9 +72,9 @@ function cmp_atencionO(){
 
 	$o='Odontologia';
 	$c[]=new cmp($o,'e',null,'Acciones Odontologia',$w);
-	$c[]=new cmp('n_superficie','s',3,$x,$w.' lab '.$o,'N° Superficies','solicitud',null,'',false,true,'','col-2');
-	$c[]=new cmp('n_placa_superf','s',3,$x,$w.' med '.$o,'N° Superficies con Placa','medicamentos',null,'',false,true,'','col-2');
-	$c[]=new cmp('riesgo','s',3,$x,$w.' med '.$o,'Riesgo','medicamentos',null,'',false,true,'','col-2');	
+	$c[]=new cmp('n_superficie','nu',3,$x,$w.' lab '.$o,'N° Superficies','solicitud',null,'',false,true,'','col-2');
+	$c[]=new cmp('n_placa_superf','nu',3,$x,$w.' med '.$o,'N° Superficies con Placa','medicamentos',null,'',false,true,'','col-2');
+	$c[]=new cmp('riesgo','nu',3,$x,$w.' med '.$o,'Riesgo','medicamentos',null,'',false,true,'','col-2');	
 
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
