@@ -69,20 +69,6 @@ function cmp_atencionO(){
 	$c[]=new cmp('letra3','s','3',$x,$w.' '.$o,'Letra CIE(3)','letra3',null,null,false,true,'','col-1',"selectDepend('letra3','rango3','../atenciones/atencionOdon.php');");
  	$c[]=new cmp('rango3','s','3',$x,$w.' '.$o,'Tipo3','rango3',null,null,false,true,'','col-45',"selectDepend('rango3','diagnostico3','../atenciones/atencionOdon.php');");
  	$c[]=new cmp('diagnostico3','s','8',$x,$w.' '.$o,'Diagnostico 3','diagnostico3',null,null,false,true,'','col-45');
-// }	
-
-$o='pruebas';
-	$c[]=new cmp($o,'e',null,'Aplicacion de Pruebas Rapidas',$w);
-	$c[]=new cmp('vih','s',3,$x,$w.' '.$o,'Prueba Rapida Para VIH','aler',null,'',true,true,'','col-25',"enabTest(this,'vih');");
-	$c[]=new cmp('resul_vih','s',3,$x,$w.' vih '.$o,'Resultado VIH','vih',null,'',true,false,'','col-25');
-	$c[]=new cmp('hb','s',3,$x,$w.' '.$o,'Prueba Rapida Para Hepatitis B Antigeno de Superficie','aler',null,'',true,true,'','col-25',"enabTest(this,'hb');");
-	$c[]=new cmp('resul_hb','s',3,$x,$w.' hb '.$o,'Resultado Hepatitis B Antigeno de Superficie','rep',null,'',true,false,'','col-25');
-	$c[]=new cmp('trepo_sifil','s',3,$x,$w.' '.$o,'Prueba Rapida Treponémica Para Sifilis','aler',null,'',true,true,'','col-25',"enabTest(this,'sif');");
-	$c[]=new cmp('resul_sifil','s',3,$x,$w.' sif '.$o,'Resultado Treponémica Para Sifilis','rep',null,'',true,false,'','col-25');
-	$c[]=new cmp('pru_embarazo','s',3,$x,$w.' '.$o,'Prueba de Embarazo','aler',null,'',$gest,$gest,'','col-25',"enabTest(this,'pem');");
-	$c[]=new cmp('resul_emba','s',3,$x,$w.' pem '.$o,'Resultado prueba de Embarazo','rep',null,'',$gest,false,'','col-25');
-	$c[]=new cmp('pru_apetito','s',3,$x,$w.' '.$o,'Prueba de apetito','aler',null,'',$gest,$gest,'','col-25',"enabTest(this,'ape');");
-	$c[]=new cmp('resul_apetito','s',3,$x,$w.' ape '.$o,'Resultado prueba de Apetito','rep',null,'',$gest,false,'','col-25');
 
 	$o='Odontologia';
 	$c[]=new cmp($o,'e',null,'Acciones Odontologia',$w);
