@@ -53,7 +53,7 @@ function cmp_atencion(){
 	$o='consulta';
 	$c[]=new cmp($o,'e',null,'Datos de la atencion medica	',$w);
 	$c[]=new cmp('idf','h',15,'',$w.' '.$o,'idf','idf',null,'####',false,false,'','col-1');
-	$c[]=new cmp('fechaatencion','d',20,$x,$w.' '.$o,'Fecha de la consulta','fechaatencion',null,'',true,false,'','col-15');
+	$c[]=new cmp('fechaatencion','d',20,$x,$w.' '.$o,'Fecha de la Admision','fechaatencion',null,'',true,false,'','col-15');
 	$c[]=new cmp('tipo_consulta','s',3,$x,$w.' '.$o,'Tipo de Consulta','tipo_consulta',null,'',true,false,'','col-15');
 	$c[]=new cmp('codigocups','s',3,$x,$w.' '.$o,'Código CUPS','cups',null,'',true,false,'','col-2');
 	$c[]=new cmp('finalidadconsulta','s',3,$x,$w.' '.$o,'Finalidad de la Consulta','consultamedica',null,'',true,false,'','col-2');

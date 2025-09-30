@@ -53,7 +53,7 @@ function cmp_atencion(){
 	$o='consulta';
 	$c[]=new cmp($o,'e',null,'Datos de la atencion medica	',$w);
 	$c[]=new cmp('idf','h',15,'',$w.' '.$o,'idf','idf',null,'####',false,false,'','col-1');
-	$c[]=new cmp('fechaatencion','d',20,$x,$w.' '.$o,'Fecha de la consulta','fechaatencion',null,'',true,false,'','col-2');
+	$c[]=new cmp('fechaatencion','d',20,$x,$w.' '.$o,'Fecha de la Admision','fechaatencion',null,'',true,false,'','col-2');
 	$c[]=new cmp('tipo_consulta','s',3,$x,$w.' '.$o,'Tipo de Consulta','tipo_consulta',null,'',true,false,'','col-2');
 	$c[]=new cmp('codigocups','s',3,$x,$w.' '.$o,'Código CUPS','cups',null,'',true,false,'','col-3');
 	$c[]=new cmp('finalidadconsulta','s',3,$x,$w.' '.$o,'Finalidad de la Consulta','consultamedica',null,'',true,false,'','col-3');
@@ -98,9 +98,6 @@ $o='Med_Fnf_Nut';
 	$c[]=new cmp('tristeza','s',3,$x,$w.' med '.$o,'¿Ha sentido tristeza, nerviosismo o preocupación excesiva en el último mes?','medicamentos',null,'',false,false,'','col-2');
 	$c[]=new cmp('violencia','s',3,$x,$w.' med '.$o,'¿Ha experimentado violencia física, emocional o sexual?','medicamentos',null,'',false,false,'','col-2');
 	
-	
-
-
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
    }
