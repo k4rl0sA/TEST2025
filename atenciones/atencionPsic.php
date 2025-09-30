@@ -72,9 +72,9 @@ function cmp_atencionP(){
 
 	$o='psicologia';
 	$c[]=new cmp($o,'e',null,'Acciones Psicologia',$w);
-	$c[]=new cmp('daño','s',3,$x,$w.' lab '.$o,'¿Ha pensado en hacerse daño o en que sería mejor no vivir?','solicitud',null,'',false,false,'','col-2');
-	$c[]=new cmp('tristeza','s',3,$x,$w.' med '.$o,'¿Ha sentido tristeza, nerviosismo o preocupación excesiva en el último mes?','medicamentos',null,'',false,false,'','col-2');
-	$c[]=new cmp('violencia','s',3,$x,$w.' med '.$o,'¿Ha experimentado violencia física, emocional o sexual?','medicamentos',null,'',false,false,'','col-2');
+	$c[]=new cmp('daño','s',3,$x,$w.' lab '.$o,'¿Ha pensado en hacerse daño o en que sería mejor no vivir?','solicitud',null,'',false,true,'','col-2');
+	$c[]=new cmp('tristeza','s',3,$x,$w.' med '.$o,'¿Ha sentido tristeza, nerviosismo o preocupación excesiva en el último mes?','medicamentos',null,'',false,true,'','col-2');
+	$c[]=new cmp('violencia','s',3,$x,$w.' med '.$o,'¿Ha experimentado violencia física, emocional o sexual?','medicamentos',null,'',false,true,'','col-2');
 	
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
