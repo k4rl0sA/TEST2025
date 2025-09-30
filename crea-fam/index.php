@@ -147,7 +147,9 @@ function grabar(tb='',ev){
     'sesion2':'../psicologia/lib.php',
     'sesiones_psi':'../psicologia/sesiones.php',
     'sesion_fin':'../psicologia/lib.php',
-    'atencion':'atencion.php',
+    'atencionM':'../atenciones/atencionMedi.php',
+    'atencionO':'../atenciones/atencionOdon.php',
+    'atencionP':'../atenciones/atencionPsic.php',
 	'tamzung':'../tamizajes/zung.php',
 	'tamhamilton':'../tamizajes/hamilton.php',
 	'tamWhodas':'../tamizajes/whodas.php',
@@ -593,7 +595,7 @@ function valPyd(act,el){
 		act.value='';
 	}
 }
-function valResol(a,el){
+function valResol(a,el,path){
 	const act = document.getElementById(a);
 	const ele = document.getElementById(el);
 	if (act.value=='1'){
@@ -604,7 +606,7 @@ function valResol(a,el){
     	ele.classList.toggle('captura', true);
     	ele.classList.toggle('bloqueo', true);
     	ele.setAttribute('readonly', true);
-		selectDepend('letra1','rango1','atencion.php');
+		selectDepend('letra1','rango1',path);
 	}else{
 		if(ele.value==25){// if(ele.value==25 || ele.value==18){
 			ele.value='';
