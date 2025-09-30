@@ -131,7 +131,7 @@ $o='complementarios';
 		}
 }
 
-function get_atencion(){
+function get_atencionM(){
 	if($_REQUEST['id']==''){
 		return "";
 	}else{
