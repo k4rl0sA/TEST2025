@@ -381,7 +381,7 @@ function gra_atencionM() {
     foreach ($obligatorios as $campo) {
         $valor = $_POST[$campo] ?? null;
         if ($valor === null || $valor === '') {
-            return "Error: El campo '$campo' es obligatorio y no puede ser nulo o vacío.";
+            return "msj['Error: El campo '$campo' es obligatorio y no puede ser nulo o vacío.']";
         }
     }
 
