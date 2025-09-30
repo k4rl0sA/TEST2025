@@ -330,7 +330,7 @@ function opc_tipo_planilla($id=''){
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=287 and estado='A' ORDER BY 1",$id);
 }
 function opc_estado_planilla($id=''){
-    return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=2 and estado='A' ORDER BY 1",$id);
+    return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=293 and estado='A' ORDER BY 1",$id);
 }
 function opc_perfil($id=''){
     if (adm()=='ADM') {
