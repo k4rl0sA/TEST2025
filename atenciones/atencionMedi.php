@@ -60,14 +60,14 @@ function cmp_atencion(){
 	$c[]=new cmp('fechaingreso','d',20,$x,$w.' '.$o,'Fecha de la consulta','fechaingreso',null,'',true,true,'','col-15');
 	$c[]=new cmp('tipo_estrategia','s',3,$x,$w.' eSt '.$o,'Prioridad','prioridad',null,'',true,true,'','col-15');
 
-	$c[]=new cmp('letra1','s','3',$x,$w.' '.$o,'Letra CIE(1)','letra1',null,null,true,true,'','col-1',"valPyd(this,'tipo_consulta');valResol('tipo_consulta','letra1');selectDepend('letra1','rango1','atencion.php');");//,['rango1']
- 	$c[]=new cmp('rango1','s','3',$x,$w.' '.$o,'Tipo1','rango1',null,null,true,true,'','col-45',"selectDepend('rango1','diagnostico1','atencion.php');");
+	$c[]=new cmp('letra1','s','3',$x,$w.' '.$o,'Letra CIE(1)','letra1',null,null,true,true,'','col-1',"valPyd(this,'tipo_consulta');valResol('tipo_consulta','letra1');selectDepend('letra1','rango1','../atenciones/atencionMedi.php');");//,['rango1']
+ 	$c[]=new cmp('rango1','s','3',$x,$w.' '.$o,'Tipo1','rango1',null,null,true,true,'','col-45',"selectDepend('rango1','diagnostico1','../atenciones/atencionMedi.php');");
  	$c[]=new cmp('diagnostico1','s','8',$x,$w.' '.$o,'Diagnostico Principal','diagnostico1',null,null,true,true,'','col-45');
-	$c[]=new cmp('letra2','s','3',$x,$w.' '.$o,'Letra CIE(2)','letra2',null,null,false,true,'','col-1',"selectDepend('letra2','rango2','atencion.php');");
- 	$c[]=new cmp('rango2','s','3',$x,$w.' '.$o,'Tipo2','rango2',null,null,false,true,'','col-45',"selectDepend('rango2','diagnostico2','atencion.php');");
+	$c[]=new cmp('letra2','s','3',$x,$w.' '.$o,'Letra CIE(2)','letra2',null,null,false,true,'','col-1',"selectDepend('letra2','rango2','../atenciones/atencionMedi.php');");
+ 	$c[]=new cmp('rango2','s','3',$x,$w.' '.$o,'Tipo2','rango2',null,null,false,true,'','col-45',"selectDepend('rango2','diagnostico2','../atenciones/atencionMedi.php');");
  	$c[]=new cmp('diagnostico2','s','8',$x,$w.' '.$o,'Diagnostico 2','diagnostico2',null,null,false,true,'','col-45');
-	$c[]=new cmp('letra3','s','3',$x,$w.' '.$o,'Letra CIE(3)','letra3',null,null,false,true,'','col-1',"selectDepend('letra3','rango3','atencion.php');");
- 	$c[]=new cmp('rango3','s','3',$x,$w.' '.$o,'Tipo3','rango3',null,null,false,true,'','col-45',"selectDepend('rango3','diagnostico3','atencion.php');");
+	$c[]=new cmp('letra3','s','3',$x,$w.' '.$o,'Letra CIE(3)','letra3',null,null,false,true,'','col-1',"selectDepend('letra3','rango3','../atenciones/atencionMedi.php');");
+ 	$c[]=new cmp('rango3','s','3',$x,$w.' '.$o,'Tipo3','rango3',null,null,false,true,'','col-45',"selectDepend('rango3','diagnostico3','../atenciones/atencionMedi.php');");
  	$c[]=new cmp('diagnostico3','s','8',$x,$w.' '.$o,'Diagnostico 3','diagnostico3',null,null,false,true,'','col-45');
 // }	
 
@@ -445,7 +445,6 @@ function cap_menus($a,$b='cap',$con='con') {
 	   if($a=='atencion' && $b=='acciones'){
 		   $rta="<nav class='menu right'>";
 		   $rta.="<li class='icono editar ' title='Generar Consulta' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getData,1000,'atencion',event,this,['idpersona','tipo_doc'],'../atenciones/atencionMedi.php');Color('datos-lis');\"></li>";
-		   	//setTimeout(selectDepend,1100,'letra1','rango1','atencion.php');setTimeout(selectDepend,1150,'letra2','rango2','atencion.php');setTimeout(selectDepend,1280,'letra3','rango3','atencion.php');setTimeout(selectDepend,1385,'rango1','diagnostico1','atencion.php');setTimeout(selectDepend,1385,'rango2','diagnostico2','atencion.php');setTimeout(selectDepend,1385,'rango3','diagnostico3','atencion.php');
 	   }
 	return $rta;
    }
