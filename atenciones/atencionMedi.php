@@ -410,9 +410,11 @@ function gra_atencionM() {
 
     // Campos de auditoría
     $cols[] = 'usu_creo';
+    $cols[] = 'fecha_create';
     $cols[] = 'estado';
     
     $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
+    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))]; // Fecha menos 5 horas
     $params[] = ['type' => 's', 'value' => 'A'];
 
     $placeholders = implode(', ', array_fill(0, count($params), '?'));
