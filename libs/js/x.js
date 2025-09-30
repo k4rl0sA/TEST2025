@@ -1589,3 +1589,9 @@ function enabGestRtaLab(){
 	];
 	EnabDepeDynamic(['FgE'], conditions);
 }
+function enabPrioAten(){
+	const conditions = [
+		{ id: 'tipo_estrategia', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['PRi'], conditions);
+}
