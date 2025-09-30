@@ -109,7 +109,7 @@ $o='complementarios';
 		$sql.=' LIMIT '.$pag.','.$regxPag;
 		// echo $sql;
 			$datos=datos_mysql($sql);
-			return create_table($total,$datos["responseResult"],"atencion",$regxPag,'atencion.php');
+			return create_table($total,$datos["responseResult"],"atencion",$regxPag,'../atencion/atencionMedi.php');
 		// return panel_content($datos["responseResult"],"atencion-lis",5);
 	}
 
