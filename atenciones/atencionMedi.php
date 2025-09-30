@@ -86,8 +86,8 @@ $o='pruebas';
 
 $o='complementarios';
 	$c[]=new cmp($o,'e',null,'Servicios Complementarios',$w);
-	$c[]=new cmp('laboratorios','s',3,$x,$w.' PRi '.$o,'Laboratorio','solicitud',null,'',false,false,'','col-2');
-	$c[]=new cmp('medicamentos','s',3,$x,$w.' PRi '.$o,'Medicamentos','medicamentos',null,'',false,false,'','col-2');
+	$c[]=new cmp('laboratorios','s',3,$x,$w.' PRi '.$o,'Laboratorio','aler',null,'',false,false,'','col-2');
+	$c[]=new cmp('medicamentos','s',3,$x,$w.' PRi '.$o,'Medicamentos','aler',null,'',false,false,'','col-2');
 
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
