@@ -60,7 +60,7 @@ function cmp_atencion(){
 	$c[]=new cmp('fechaingreso','d',20,$x,$w.' '.$o,'Fecha de la consulta','fechaingreso',null,'',true,true,'','col-15');
 	$c[]=new cmp('tipo_estrategia','s',3,$x,$w.' eSt '.$o,'Prioridad','prioridad',null,'',true,true,'','col-15');
 
-	$c[]=new cmp('letra1','s','3',$x,$w.' '.$o,'Letra CIE(1)','letra1',null,null,true,true,'','col-1',"valPyd(this,'tipo_consulta');valResol('tipo_consulta','letra1');selectDepend('letra1','rango1','../atenciones/atencionMedi.php');");//,['rango1']
+	$c[]=new cmp('letra1','s','3',$x,$w.' '.$o,'Letra CIE(1)','letra1',null,null,true,true,'','col-1',"valPyd(this,'tipo_consulta');valResol('tipo_consulta','letra1','../atenciones/atencionMedi.php');selectDepend('letra1','rango1','../atenciones/atencionMedi.php');");//,['rango1']
  	$c[]=new cmp('rango1','s','3',$x,$w.' '.$o,'Tipo1','rango1',null,null,true,true,'','col-45',"selectDepend('rango1','diagnostico1','../atenciones/atencionMedi.php');");
  	$c[]=new cmp('diagnostico1','s','8',$x,$w.' '.$o,'Diagnostico Principal','diagnostico1',null,null,true,true,'','col-45');
 	$c[]=new cmp('letra2','s','3',$x,$w.' '.$o,'Letra CIE(2)','letra2',null,null,false,true,'','col-1',"selectDepend('letra2','rango2','../atenciones/atencionMedi.php');");
