@@ -105,6 +105,10 @@ function focus_rute(){
  return 'rute';
 }
 
+function focus_reasignar(){
+ return 'reasignar';
+}
+
 function men_rute(){
  $rta=cap_menus('rute','pro');
  return $rta;
@@ -115,6 +119,9 @@ function cap_menus($a,$b='cap',$con='con') {
   if ($a=='rute'){  
 	$rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>"; //~ openModal();
 	// $rta .= "<li class='icono $a actualizar'    title='Actualizar'      Onclick=\"act_lista('$a',this);\"></li>";
+  }
+  if ($a=='reasignar'){  
+	$rta .= "<li class='icono $a grabar'      title='Reasignar'       OnClick=\"grabar('$a',this);\"></li>";
   }
   return $rta;
 }
@@ -412,7 +419,19 @@ function opc_motivo_estado($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=272 and estado='A' ORDER BY 1",$id);
 }
 function opc_perfil($id=''){
-return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=218 and estado="A" ORDER BY 1',$id);
+	return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=218 and estado="A" ORDER BY 1',$id);
+}
+
+function opc_nombre($id=''){
+	if(!empty($_REQUEST['perfil'])){
+		$perfil = $_REQUEST['perfil'];
+		$sql = "SELECT id_usuario, CONCAT(id_usuario, ' - ', nombre) as descripcion 
+				FROM usuarios 
+				WHERE perfil = '$perfil' AND estado = 'A' 
+				ORDER BY nombre";
+		return opc_sql($sql, $id);
+	}
+	return "";
 }
 function opc_doc_asignado($id=''){
 	$co=datos_mysql("select FN_USUARIO(".$_SESSION['us_sds'].") as co;");
@@ -454,11 +473,30 @@ function get_gest(){
 		return "";
 	}else{
 		$id=divide($_POST['id']);
-		$sql="SELECT `id_ruteo`, 
+		$sql="SELECT `id_ruteo`, `fecha_llamada`, `estado_llamada`, `observacion`, `estado_agenda`, `motivo_estado`
 		 FROM `eac_ruteo_ges` R
 		 WHERE  id_ruteo='{$id[0]}'";
 		$info=datos_mysql($sql);
 		if (!$info['responseResult']) {
+			return '';
+		}
+	return $info['responseResult'][0];
+	} 
+}
+
+function get_reasignar(){
+	if(!isset($_POST['id']) || $_POST['id']=='0'){
+		return "";
+	}else{
+		$id=divide($_POST['id']);
+		if (empty($id) || !is_numeric($id[0])) {
+			return '';
+		}
+		$sql="SELECT id_ruteo as id, perfil1 as perfil, actividad1 as nombre
+		 FROM eac_ruteo 
+		 WHERE id_ruteo='{$id[0]}'";
+		$info=datos_mysql($sql);
+		if (!$info['responseResult'] || empty($info['responseResult'])) {
 			return '';
 		}
 	return $info['responseResult'][0];
@@ -570,10 +608,49 @@ WHERE g.id_ruteo = {$id[0]} AND g.estado_ruteo IS NULL or g.estado_ruteo = ''";
 }
 
 function cmp_reasignar(){
+ $rta="";
+ $t=['id'=>'', 'perfil'=>'', 'nombre'=>''];
+ $w='reasignar';
+ $d=get_reasignar();
+ if ($d=="") {$d=$t;}
+ 
+ $o='reasig';
+ $c[]=new cmp($o,'e',null,'REASIGNAR RUTEO',$w);
+ $c[]=new cmp('id','h','20',$d['id'],$w.' '.$o,'','',null,null,true,false,'','col-1');
+ $c[]=new cmp('perfil','s','3',$d['perfil'],$w.' '.$o,'Perfil A Asignar','perfil',null,null,true,true,'','col-3',"selectDepend('perfil','nombre','lib.php');");
+ $c[]=new cmp('nombre','s','10',$d['nombre'],$w.' '.$o,'Profesional Asignado','nombre',null,null,true,true,'','col-4');
+ 
+ for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
+ return $rta;
+}
 
-	 $c[]=new cmp('perfil','s','90','',$w.' dir '.$o,'Perfil A Asignar','perfil',null,null,false,true,'','col-25',"selectDepend('perfil','nombre','clasifica.php');");
- $c[]=new cmp('nombre','s','6',$d['profesional'],$w.' dir '.$o,'Profesional Asignado','doc_asignado',null,null,false,true,'','col-25');
-
+function gra_reasignar(){
+	$id = divide($_POST['id'] ?? '');
+	if (empty($id) || !is_numeric($id[0])) {
+		return "Error: ID de ruteo inválido";
+	}
+	
+	// Validar campos obligatorios
+	if (empty($_POST['perfil']) || empty($_POST['nombre'])) {
+		return "Error: Perfil y Profesional son campos obligatorios";
+	}
+	
+	$sql = "UPDATE eac_ruteo SET 
+			perfil1 = ?, 
+			actividad1 = ?, 
+			usu_update = ?, 
+			fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR)
+			WHERE id_ruteo = ?";
+	
+	$params = [
+		['type' => 's', 'value' => $_POST['perfil']],
+		['type' => 'i', 'value' => $_POST['nombre']],
+		['type' => 's', 'value' => $_SESSION['us_sds']],
+		['type' => 'i', 'value' => $id[0]]
+	];
+	
+	$rta = mysql_prepd($sql, $params);
+	return $rta;
 }
 /***************************************************************************/
 function formato_dato($a,$b,$c,$d){
