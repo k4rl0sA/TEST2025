@@ -111,7 +111,7 @@ function gra_routing(){
 
     $subredU=$subredUsu['responseResult'][0]['subred'];
     if($subredU!=$_POST['subred']){
-        return "msj ['Error: No puede asignar a una subred diferente a la suya']";
+        return "msj['Error: No puede asignar a una subred diferente a la suya.']";
     }
 
     $data = array(
