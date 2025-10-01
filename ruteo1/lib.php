@@ -672,6 +672,16 @@ function gra_reasignar(){
            return json_encode($info['responseResult']);	
         }
 }
+function opc_perfilnombre($id=''){
+  if($_REQUEST['id']!=''){	
+    $sql = "SELECT id_usuario id,CONCAT(id_usuario,'-',nombre) usuario FROM usuarios right join apro_terr at ON id_usuario=at.doc_asignado  WHERE 
+    perfil=(select descripcion from catadeta c where idcatalogo=218 and idcatadeta='{$_REQUEST['id']}' and estado='A') 
+    and subred=(SELECT subred FROM usuarios WHERE id_usuario ='{$_SESSION['us_sds']}')   ORDER BY nombre";
+    // var_dump($sql);
+    $info = datos_mysql($sql);		
+  return json_encode($info['responseResult']);	
+  }
+}
 /***************************************************************************/
 function formato_dato($a,$b,$c,$d){
  $b=strtolower($b);
