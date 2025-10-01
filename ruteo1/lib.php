@@ -550,7 +550,7 @@ function fin($id) {
     $id = divide($id);
     $sql = "SELECT COUNT(*) AS estado from eac_ruteo_ges g
 LEFT JOIN eac_ruteo er ON g.idruteo=er.id_ruteo 
-	WHERE idruteo=$id[0] and (g.estado_agenda=1 or g.estado_agenda=9)";
+	WHERE idruteo=$id[0] and (g.estado_agenda=1 or g.estado_agenda=9 or g.estado_agenda=12)";
     $info = datos_mysql($sql);
 	// var_dump($info);
 	if(intval($info['responseResult'][0]["estado"])>0){
