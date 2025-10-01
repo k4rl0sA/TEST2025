@@ -546,7 +546,6 @@ LEFT JOIN eac_ruteo er ON g.idruteo=er.id_ruteo
 		return false;
 	}
 }
-
 function fin($id) {
     $id = divide($id);
     $sql = "SELECT COUNT(*) AS estado from eac_ruteo_ges g
@@ -560,28 +559,6 @@ LEFT JOIN eac_ruteo er ON g.idruteo=er.id_ruteo
 		return false;
 	}
 }
-
-/*********************************************************************** */
-function final($id) {
-/* 	$id = divide($id);
-	$sql = "SELECT COUNT(*) AS estado from eac_ruteo_ges g */
-}
-
-function cmp_reasignar(){
- $rta="";
- $t=['id'=>'', 'idgeo'=>'', 'id_ruteo'=>'','fecha_asig'=>'','fuente'=>'','priorizacion'=>'','tipo_prior'=>'','tipo_doc'=>'','documento'=>'','nombres'=>'','sexo'=>'',
- 'direccion'=>'','telefono1'=>'','telefono2'=>'','telefono3'=>'', 'subred'=>'','localidad'=>'','upz'=>'','barrio'=>'', 'sector_catastral'=>'','nummanzana'=>'',
- 'predio_num'=>'','unidad_habit'=>'','cordx'=>'','cordy'=>''];
- $w='reasignar';
-//  var_dump($d);
- $o='reasig';
- $c[]=new cmp('perfil','s','90','',$w.' dir '.$o,'Perfil A Asignar','perfil',null,null,false,true,'','col-25',"selectDepend('perfil','nombre','clasifica.php');");
- $c[]=new cmp('nombre','s','6',$d['profesional'],$w.' dir '.$o,'Profesional Asignado','doc_asignado',null,null,false,true,'','col-25');
- for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
- return $rta;
-}
-
-/***************************************************************************/
 function formato_dato($a,$b,$c,$d){
  $b=strtolower($b);
  $rta=$c[$d];
@@ -601,10 +578,7 @@ if ($a=='rute' && $b=='acciones'){
 		if (fin($c['ACCIONES'])) {
 			$rta.="<li class='icono efectividadAgenda' title='GESTIÓN FINAL' id='".$c['ACCIONES']."' Onclick=\"mostrar('ruteresol','pro',event,'','ruteoresolut.php',7,'ruteresol');\"></li>";
 		}
-	/* 	if(final($c['ACCIONES'])){
-			$rta .= acceso('reasigRut') ? "<li title='Reasignar' onclick=\"mostrar('reasignar','pro',event,'','lib.php',7,'Reasignar Ruteo');\"><i class='fa-solid fa-route ico' id='{$c['ACCIONES']}'></i></li>" : "";
-		}
-		 */
+		
 		// $rta.="<li class='icono  editarAgenda' title='CLASIFICACIÓN' id='".$c['ACCIONES']."' Onclick=\"mostrar('rutclasif','pro',event,'','clasifica.php',7,'clasifica');\"></li>";
 		//$rta.="<li class='icono efectividadAgenda' title='GESTIÓN' id='".$c['ACCIONES']."' Onclick=\"mostrar('ruteresol','pro',event,'','ruteoresolut.php',7,'ruteresol');\"></li>";
 		// if($c['Gestionado']== '1' || $c['Gestionado']=='2'){
