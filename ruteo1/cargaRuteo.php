@@ -108,7 +108,8 @@ function gra_routing(){
     //si la subred del usuario no es la mia mostrar error
     $subred="select subred from usuarios where id_usuario=".$_SESSION['us_sds'];
     $subredUsu=datos_mysql($subred);
-    $subredU=['responseResult'][0]['subred'];
+
+    $subredU=$subredUsu['responseResult'][0]['subred'];
     if($subredU!=$_POST['subred']){
         return "msj ['Error: No puede asignar a una subred diferente a la suya']";
     }
