@@ -1595,3 +1595,16 @@ function enabPrioAten(){
 	];
 	EnabDepeDynamic(['PRi'], conditions);
 }
+function riskPlacaAtenOdon(){
+	const placa=document.getElementById('n_placa_superf').value;
+	const superficie=document.getElementById('n_superficie').value;
+	if(placa>25 || superficie>12){
+		const ele=document.getElementById('riesgo');
+		ele.value=1;
+		enaFie(ele,false);
+	}else{
+		const ele=document.getElementById('riesgo');
+		ele.value=2;
+		enaFie(ele,false);
+	}
+}
