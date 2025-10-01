@@ -575,9 +575,6 @@ functtion cmp_reasignar(){
  return $rta;
 }
 
-
-
-
 /***************************************************************************/
 function formato_dato($a,$b,$c,$d){
  $b=strtolower($b);
