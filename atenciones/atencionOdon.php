@@ -372,6 +372,11 @@ function gra_atencionO() {
 		return;
 	}
 
+	if($_POST['n_placa_superf'] < 0 || $_POST['n_placa_superf'] > $_POST['n_superficie']){
+		return "msj['Error: El campo 'N° Superficies con Placa' debe ser mayor o igual a 0 y menor o igual a 'N° Superficies'.']";
+		return;
+	}
+
     $params = [];
     $cols = [];
     
