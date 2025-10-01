@@ -75,11 +75,10 @@ function cmp_rutclasif(){
  $c[]=new cmp('entornos','s','2',$d['entornos'],$w.' '.$cl,'¿Entornos?','rta',null,null,true,false,'','col-25');
  $c[]=new cmp('aseguramiento','s','2',$d['aseguram'],$w.' '.$cl,'Aseguramiento','rta',null,null,true,false,'','col-25');
 
- $o='bajo';
- $c[]=new cmp($o,'e',null,'RIESGO BAJO',$w);
- $c[]=new cmp('accion','s','10',$d['accion'],$w.' '.$o,'Definir Acción','accion',null,null,true,false,'','col-5');
  
- /* $o='alto';
+ /*$o='bajo';
+ $c[]=new cmp($o,'e',null,'RIESGO BAJO',$w);
+  $o='alto';
  $c[]=new cmp($o,'e',null,'RIESGO ALTO',$w); 
 //  $c[]=new cmp('perfil','s','90','',$w.' dir '.$o,'Perfil A Asignar','perfil',null,null,false,false,'','col-25',"selectDepend('perfil','nombre','clasifica.php');");
 //  $c[]=new cmp('nombre','s','6',$d['profesional'],$w.' dir '.$o,'Profesional Asignado','doc_asignado',null,null,false,false,'','col-25');
@@ -87,6 +86,7 @@ function cmp_rutclasif(){
 
  $o='gesefc';
  $c[]=new cmp($o,'e',null,'PROCESO DE GESTIÓN',$w);
+ $c[]=new cmp('accion','s','10',$d['accion'],$w.' '.$o,'Definir Acción','accion',null,null,true,false,'','col-5');
  $c[]=new cmp('fecha_gestion','d','10','',$w.' AGe '.$o,'Fecha de Agenda','fecha_gestion',null,null,false,true,'','col-2',"validDate(this,$days,30);");
  $c[]=new cmp('docu_confirm','nu','999999999999999999','',$w.' AGe '.$o,'Documento Confirmado  del Usuario','docu_confirm',null,null,false,true,'','col-2');
  //$c[]=new cmp('perfil_gest','s',3,'',$w.' AGe '.$o,'Perfil que Gestiona','perfil_gest',null,'',false,true,'','col-2',"selectDepend('perfil_gest','usuario_gest','clasifica.php');");
