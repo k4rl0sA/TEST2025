@@ -166,7 +166,6 @@ function men_atencionO(){
 	return 'atencionO';
    }
 
-
 /****************FIN MENU*****************+*****/
 /*************INICIO DESPLEGABLES***********************/
 function opc_riesgoOdon($id=''){
