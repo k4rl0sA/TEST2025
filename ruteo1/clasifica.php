@@ -79,10 +79,11 @@ function cmp_rutclasif(){
  $c[]=new cmp($o,'e',null,'RIESGO BAJO',$w);
  $c[]=new cmp('accion','s','10',$d['accion'],$w.' '.$o,'Definir Acción','accion',null,null,true,false,'','col-5');
  
- $o='alto';
- $c[]=new cmp($o,'e',null,'RIESGO ALTO',$w);
+ /* $o='alto';
+ $c[]=new cmp($o,'e',null,'RIESGO ALTO',$w); 
 //  $c[]=new cmp('perfil','s','90','',$w.' dir '.$o,'Perfil A Asignar','perfil',null,null,false,false,'','col-25',"selectDepend('perfil','nombre','clasifica.php');");
 //  $c[]=new cmp('nombre','s','6',$d['profesional'],$w.' dir '.$o,'Profesional Asignado','doc_asignado',null,null,false,false,'','col-25');
+*/
 
  $o='gesefc';
  $c[]=new cmp($o,'e',null,'PROCESO DE GESTIÓN',$w);
