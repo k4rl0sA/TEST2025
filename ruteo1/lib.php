@@ -546,6 +546,7 @@ LEFT JOIN eac_ruteo er ON g.idruteo=er.id_ruteo
 		return false;
 	}
 }
+
 function fin($id) {
     $id = divide($id);
     $sql = "SELECT COUNT(*) AS estado from eac_ruteo_ges g
@@ -561,7 +562,7 @@ LEFT JOIN eac_ruteo er ON g.idruteo=er.id_ruteo
 }
 
 /*********************************************************************** */
-functtion cmp_reasignar(){
+function cmp_reasignar(){
  $rta="";
  $t=['id'=>'', 'idgeo'=>'', 'id_ruteo'=>'','fecha_asig'=>'','fuente'=>'','priorizacion'=>'','tipo_prior'=>'','tipo_doc'=>'','documento'=>'','nombres'=>'','sexo'=>'',
  'direccion'=>'','telefono1'=>'','telefono2'=>'','telefono3'=>'', 'subred'=>'','localidad'=>'','upz'=>'','barrio'=>'', 'sector_catastral'=>'','nummanzana'=>'',
