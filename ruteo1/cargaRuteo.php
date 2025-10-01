@@ -34,7 +34,7 @@ function cmp_routing(){
     $o='beneficiario';
     $c[]=new cmp($o,'e',null,'DATOS DEL USUARIO',$w);
     $c[]=new cmp('tipo_doc','s','3',$d['tipo_doc']??'',$w.' '.$o,'Tipo Documento','tipo_doc',null,'',true,true,'','col-2');
-    $c[]=new cmp('documento','t','18',$d['documento']??'',$w.' '.$o,'Documento','documento',null,'',true,true,'','col-2');
+    $c[]=new cmp('documento','nu','18',$d['documento']??'',$w.' '.$o,'Documento','documento',null,'',true,true,'','col-2');
     $c[]=new cmp('nombres','t','50',$d['nombres']??'',$w.' '.$o,'Nombres Completos','nombres',null,'',true,true,'','col-4');
     $c[]=new cmp('sexo','s','1',$d['sexo']??'',$w.' '.$o,'Sexo','sexo',null,'',true,true,'','col-1');
     
