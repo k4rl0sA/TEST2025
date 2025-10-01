@@ -132,9 +132,9 @@ function get_atencionP(){
 		
 		if ($total==1){		
 			$sql="SELECT concat(a.idpeople) id, b.tipo_doc, b.idpersona, concat_ws(' ',b.nombre1,b.nombre2,b.apellido1,b.apellido2) nombres,
-				b.fecha_nacimiento, b.sexo, b.genero, b.nacionalidad, a.id_factura, a.fecha_consulta fechaatencion, a.tipo_consulta, a.cod_cups codigocups, a.final_consul finalidadconsulta,
-				c.fecha_atencion, c.codigo_cups, c.finalidad_consulta, c.fuente, c.fecha_ingr fechaingreso,
-				c.letra1, c.rango1, c.diagnostico1, c.letra2, c.rango2, c.diagnostico2, c.letra3, c.rango3, c.diagnostico3,
+				b.fecha_nacimiento, b.sexo, b.genero, b.nacionalidad, a.id_factura, a.fecha_consulta fechaatencion,
+				a.tipo_consulta, a.cod_cups codigocups, a.final_consul finalidadconsulta,
+				c.fecha_ingr fechaingreso,c.fuente tipo_estrategia,c.letra1, c.rango1, c.diagnostico1, c.letra2, c.rango2, c.diagnostico2, c.letra3, c.rango3, c.diagnostico3,
 				c.psico_1 daño, c.psico_2 tristeza, c.psico_3 violencia
 				FROM adm_facturacion a
 				LEFT JOIN person b ON a.idpeople=b.idpeople
