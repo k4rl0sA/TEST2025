@@ -561,7 +561,7 @@ LEFT JOIN eac_ruteo er ON g.idruteo=er.id_ruteo
 }
 
 /***************************************************************************/
-function final($id) {
+function EnabFin($id) {
     $id = divide($id);
     $sql = "SELECT COUNT(*) AS agenda from eac_ruteo_ges g
 LEFT JOIN eac_ruteo er ON g.idruteo=er.id_ruteo 
@@ -595,8 +595,8 @@ if ($a=='rute' && $b=='acciones'){
 		if (fin($c['ACCIONES'])) {
 			$rta.="<li class='icono efectividadAgenda' title='GESTIÓN FINAL' id='".$c['ACCIONES']."' Onclick=\"mostrar('ruteresol','pro',event,'','ruteoresolut.php',7,'ruteresol');\"></li>";
 		}
-		 if (final($c['ACCIONES'])) {
-			$rta .= acceso('reasigRut') ? "<li title='Crear Atención Psicologo' onclick=\"mostrar('reasignar','pro',event,'','lib.php',7,'Reasignar Ruteo');\"><i class='fa-solid fa-route ico' id='{$c['ACCIONES']}'></i></li>" : "";
+		 if (EnabFin($c['ACCIONES'])) {
+			$rta .= acceso('reasigRut') ? "<li title='Reasignar Ruteo' onclick=\"mostrar('reasignar','pro',event,'','lib.php',7,'Reasignar Ruteo');\"><i class='fa-solid fa-route ico' id='{$c['ACCIONES']}'></i></li>" : "";
 		}
 
 		
