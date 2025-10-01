@@ -1595,16 +1595,25 @@ function enabPrioAten(){
 	];
 	EnabDepeDynamic(['PRi'], conditions);
 }
-function riskPlacaAtenOdon(){
-	const placa=document.getElementById('n_placa_superf').value;
-	const superficie=document.getElementById('n_superficie').value;
-	if(placa>25 || superficie>12){
-		const ele=document.getElementById('riesgo');
-		ele.value=1;
-		enaFie(ele,false);
-	}else{
-		const ele=document.getElementById('riesgo');
-		ele.value=2;
-		enaFie(ele,false);
+function riskPlacaAtenOdon() {
+	const placa = Number(document.getElementById('n_placa_superf').value);
+	const superficie = Number(document.getElementById('n_superficie').value);
+	if (isNaN(placa) || isNaN(superficie)) {
+		errors("Los valores ingresados en las Acciones De Odontologia, no son válidos.");
+		return;
 	}
+	if (superficie < 1 || superficie > 112) {
+		errors("El valor de Superficie debe estar entre 1 y 112.");
+		return;
+	}
+	let indice = (placa / superficie) * 100;
+	let riesgo;
+	if (indice < 20) {
+		riesgo = 2;
+	} else if (indice <= 40) {
+		riesgo = 4;
+	} else {
+		riesgo = 6;
+	}
+	document.getElementById('riesgo_placa').value = riesgo;
 }

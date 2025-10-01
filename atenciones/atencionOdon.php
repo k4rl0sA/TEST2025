@@ -74,7 +74,7 @@ function cmp_atencionO(){
 	$c[]=new cmp($o,'e',null,'Acciones Odontologia',$w);
 	$c[]=new cmp('n_superficie','nu',3,$x,$w.' lab '.$o,'N° Superficies','solicitud',null,'',false,true,'','col-2','riskPlacaAtenOdon();');
 	$c[]=new cmp('n_placa_superf','nu',3,$x,$w.' med '.$o,'N° Superficies con Placa','medicamentos',null,'',false,true,'','col-2','riskPlacaAtenOdon();');
-	$c[]=new cmp('riesgo','nu',3,$x,$w.' med '.$o,'Riesgo','medicamentos',null,'',false,false,'','col-2');	
+	$c[]=new cmp('riesgo','s',3,$x,$w.' med '.$o,'Riesgo','riesgoOdon',null,'',false,false,'','col-2');	
 
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
@@ -169,6 +169,9 @@ function men_atencionO(){
 
 /****************FIN MENU*****************+*****/
 /*************INICIO DESPLEGABLES***********************/
+function opc_riesgoOdon($id=''){
+	return opc_sql("SELECT `idcatadeta`,descripcion,valor FROM `catadeta` WHERE idcatalogo=101 and estado='A'  ORDER BY 1 ",$id);
+}
 function opc_sexo($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=21 and estado='A' ORDER BY 1",$id);
 }
