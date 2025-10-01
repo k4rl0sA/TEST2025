@@ -363,11 +363,13 @@ function gra_atencionO() {
         $valor = $_POST[$campo] ?? null;
         if ($valor === null || $valor === '') {
 			 return "msj['Error: El campo '$campo' es obligatorio y no puede ser nulo o vacío.']";
+			 return;
         }
     }
 
 	if($_POST['n_superficie'] < 1 || $_POST['n_superficie'] > 112){
 		return "msj['Error: El campo 'N° Superficies' debe ser mayor a 0 y menor o igual a 112.']";
+		return;
 	}
 
     $params = [];
