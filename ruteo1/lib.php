@@ -272,7 +272,7 @@ function opc_gestion($id=''){
 	return opc_sql("SELECT `idcatadeta`, descripcion FROM `catadeta` WHERE idcatalogo=222 AND estado='A' ORDER BY 1", $id);
 }
 function opc_estado_agenda($id=''){
-	return opc_sql("SELECT `idcatadeta`, descripcion FROM `catadeta` WHERE idcatalogo=271 AND estado='A' ORDER BY 1", $id);
+	return opc_sql("SELECT `idcatadeta`, descripcion FROM `catadeta` WHERE idcatalogo=271 AND estado='A' ORDER BY cast(idcatadeta as SIGNED)", $id);
 }
 function opc_idgeo($a){
 	$id=divide($a);
