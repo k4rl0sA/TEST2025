@@ -81,8 +81,8 @@ $o='pruebas';
 	$c[]=new cmp('resul_sifil','s',3,$x,$w.' sif '.$o,'Resultado Treponémica Para Sifilis','rep',null,'',true,false,'','col-25');
 	$c[]=new cmp('pru_embarazo','s',3,$x,$w.' '.$o,'Prueba de Embarazo','aler',null,'',$gest,$gest,'','col-25',"enabTest(this,'pem');");
 	$c[]=new cmp('resul_emba','s',3,$x,$w.' pem '.$o,'Resultado prueba de Embarazo','rep',null,'',$gest,false,'','col-25');
-	$c[]=new cmp('pru_apetito','s',3,$x,$w.' '.$o,'Prueba de apetito','aler',null,'',$gest,$gest,'','col-25',"enabTest(this,'ape');");
-	$c[]=new cmp('resul_apetito','s',3,$x,$w.' ape '.$o,'Resultado prueba de Apetito','rep',null,'',$gest,false,'','col-25');
+	$c[]=new cmp('pru_apetito','s',3,$x,$w.' '.$o,'Prueba de apetito','aler',null,'',$meno,$meno,'','col-25',"enabTest(this,'ape');");
+	$c[]=new cmp('resul_apetito','s',3,$x,$w.' ape '.$o,'Resultado prueba de Apetito','rep',null,'',$meno,false,'','col-25');
 
 $o='complementarios';
 	$c[]=new cmp($o,'e',null,'Servicios Complementarios',$w);
