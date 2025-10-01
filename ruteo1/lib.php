@@ -114,6 +114,7 @@ function men_rute(){
  return $rta;
 }
 
+
 function cap_menus($a,$b='cap',$con='con') {
   $rta = ""; 
   if ($a=='rute'){  
@@ -605,6 +606,14 @@ function EnabFin($id) {
 WHERE g.id_ruteo = {$id[0]} AND g.estado_ruteo IS NULL or g.estado_ruteo = ''";
 	$info = datos_mysql($sql);
 	return intval($info['responseResult'][0]["agenda"]) > 0;
+}
+
+function men_reasignar(){
+ $rta="";
+ if(acceso('reasigRut')){
+	 $rta.="<li title='Reasignar Ruteo' onclick=\"mostrar('reasignar','pro',event,'','lib.php',7,'Reasignar Ruteo');\"><i class='fa-solid fa-route ico'></i></li>";
+ }
+ return $rta;
 }
 
 function cmp_reasignar(){
