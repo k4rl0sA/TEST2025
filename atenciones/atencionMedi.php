@@ -38,7 +38,8 @@ function cmp_atencionM(){
 	$adult = ($edad>=18) ? 'true' : 'false';
 	$meno = ($edad<5) ? true : false;
 	$gest = (($edad>=10 && $edad <= 54) && $d['sexo'] == 'M') ? true : false;
-	
+	$days=fechas_app('vivienda');
+
 	$c[]=new cmp($o,'e',null,'Datos atención medica usuario',$w);
 	$c[]=new cmp('ida','h',15,$d['id'],$w.' '.$o,'ida','ida',null,'####',false,false,'col-1');
 	$c[]=new cmp('tipodoc','t','20',$d['tipo_doc'],$w.' '.$o,'Tipo','tipodoc',null,'',false,false,'','col-1');
@@ -55,7 +56,7 @@ function cmp_atencionM(){
 	$c[]=new cmp('fechaatencion','d',20,$x,$w.' '.$o,'Fecha de la Admision','fechaatencion',null,'',true,false,'','col-15');
 	$c[]=new cmp('tipo_consulta','s',3,$x,$w.' '.$o,'Tipo de Consulta','tipo_consulta',null,'',true,false,'','col-15');
 	$c[]=new cmp('codigocups','s',3,$x,$w.' '.$o,'Código CUPS','cups',null,'',true,false,'','col-2');
-	$c[]=new cmp('finalidadconsulta','s',3,$x,$w.' '.$o,'Finalidad de la Consulta','consultamedica',null,'',true,false,'','col-2');
+	$c[]=new cmp('finalidadconsulta','s',3,$x,$w.' '.$o,'Finalidad de la Consulta','consultamedica',null,'',true,false,'','col-2',"validDate(this,$days,0);");
 	$c[]=new cmp('fechaingreso','d',20,$x,$w.' '.$o,'Fecha de la consulta','fechaingreso',null,'',true,true,'','col-15');
 	$c[]=new cmp('tipo_estrategia','s',3,$x,$w.' eSt '.$o,'Fuente','prioridad',null,'',true,true,'','col-15',"enabPrioAten();");
 
