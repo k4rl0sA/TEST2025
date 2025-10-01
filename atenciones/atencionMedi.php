@@ -146,11 +146,9 @@ function get_atencionM(){
 		if ($total==1){		
 			$sql="SELECT concat(a.idpeople) id, b.tipo_doc, b.idpersona, concat_ws(' ',b.nombre1,b.nombre2,b.apellido1,b.apellido2) nombres,
 				b.fecha_nacimiento, b.sexo, b.genero, b.nacionalidad, a.id_factura, a.fecha_consulta fechaatencion, a.tipo_consulta, a.cod_cups codigocups, a.final_consul finalidadconsulta,
-				c.fecha_atencion, c.codigo_cups, c.finalidad_consulta, c.fuente, c.fecha_ingr fechaingreso,
-				c.letra1, c.rango1, c.diagnostico1, c.letra2, c.rango2, c.diagnostico2, c.letra3, c.rango3, c.diagnostico3,
+				c.fecha_ingr fechaingreso,c.fuente tipo_estrategia,c.letra1, c.rango1, c.diagnostico1, c.letra2, c.rango2, c.diagnostico2, c.letra3, c.rango3, c.diagnostico3,
 				c.vih, c.resul_vih, c.hb, c.resul_hb, c.trepo_sifil, c.resul_sifil, c.pru_embarazo, c.resul_emba,
-				c.pru_apetito, c.resul_apetito, c.laboratorios, c.medicamentos, c.n_superficie, c.n_placa_superf, c.resultado_placa,
-				c.psico_1, c.psico_2, c.psico_3
+				c.pru_apetito, c.resul_apetito, c.laboratorios, c.medicamentos
 				FROM adm_facturacion a
 				LEFT JOIN person b ON a.idpeople=b.idpeople
 				LEFT JOIN eac_atencion c ON a.idpeople=c.idpeople AND a.id_factura=c.id_factura
