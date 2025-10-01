@@ -1610,6 +1610,10 @@ function riskPlacaAtenOdon() {
 		errors("El valor de Superficie debe estar entre 1 y 112.");
 		return;
 	}
+	if (placa < 1 || placa > 112) {
+		errors("El valor de Superficies con placa no  debe estar entre 1 y 112.");
+		return;
+	}
 	let indice = (placa / superficie) * 100;
 	let riesgo;
 	if (indice < 20) {
