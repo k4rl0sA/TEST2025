@@ -609,12 +609,9 @@ WHERE g.id_ruteo = {$id[0]} AND g.estado_ruteo IS NULL or g.estado_ruteo = ''";
 }
 
 function men_reasignar(){
- $rta="";
- if(acceso('reasigRut')){
-	 $rta.="<li title='Reasignar Ruteo' onclick=\"mostrar('reasignar','pro',event,'','lib.php',7,'Reasignar Ruteo');\"><i class='fa-solid fa-route ico'></i></li>";
- }
+	$rta=cap_menus('reasignar','pro');
  return $rta;
-}
+ }
 
 function cmp_reasignar(){
  $rta="";
