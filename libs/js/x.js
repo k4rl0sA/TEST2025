@@ -1606,7 +1606,7 @@ function riskPlacaAtenOdon() {
 		document.getElementById('riesgo').value = '';
 		return;
 	}
-	if (superficie < 1 && superficie > 112) {
+	if (superficie < 1 || superficie > 112) {
 		errors("El valor de Superficie debe estar entre 1 y 112.");
 		return;
 	}
