@@ -561,7 +561,20 @@ LEFT JOIN eac_ruteo er ON g.idruteo=er.id_ruteo
 }
 
 /***************************************************************************/
-
+function final($id) {
+    $id = divide($id);
+    $sql = "SELECT COUNT(*) AS agenda from eac_ruteo_ges g
+LEFT JOIN eac_ruteo er ON g.idruteo=er.id_ruteo 
+	LEFT JOIN usuarios u ON er.actividad1=u.id_usuario
+	WHERE idruteo=$id[0] and (estado_agenda=1 or estado_agenda=6 or estado_agenda=9 or estado_agenda=11 or estado_agenda=12) and estado_llamada=1 and u.perfil IN ('AUXHOG','ADM');";
+    $info = datos_mysql($sql);
+	// var_dump($sql);
+	if(intval($info['responseResult'][0]["agenda"])>0){
+		return true;
+	}else{
+		return false;
+	}
+}
 /***************************************************************************/
 function formato_dato($a,$b,$c,$d){
  $b=strtolower($b);
