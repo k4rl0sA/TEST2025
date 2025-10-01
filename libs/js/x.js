@@ -1615,5 +1615,5 @@ function riskPlacaAtenOdon() {
 	} else {
 		riesgo = 6;
 	}
-	document.getElementById('riesgo_placa').value = riesgo;
+	document.getElementById('riesgo').value = riesgo;
 }
