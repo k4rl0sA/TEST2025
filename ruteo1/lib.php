@@ -564,7 +564,7 @@ LEFT JOIN eac_ruteo er ON g.idruteo=er.id_ruteo
 function EnabFin($id) {
 	$id = divide($id);
 	$sql = "SELECT COUNT(*) AS agenda FROM eac_ruteo g
-WHERE g.id_ruteo = {$id[0]} AND g.estado_ruteo IS NULL";
+WHERE g.id_ruteo = {$id[0]} AND g.estado_ruteo IS NULL or g.estado_ruteo = ''";
 	$info = datos_mysql($sql);
 	return intval($info['responseResult'][0]["agenda"]) > 0;
 }
