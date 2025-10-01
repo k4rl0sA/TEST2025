@@ -190,10 +190,10 @@ function cmp_rute(){
  $c[]=new cmp($o,'e',null,'PROCESO DE GESTIÓN',$w);
  $c[]=new cmp('estado_agenda','s',2,'',$w.' sTA '.$o,'Estado','estado_agenda',null,null,true,false,'','col-4','enabRutAgen();enabRutOthSub();enabRutRech();');//
  $c[]=new cmp('motivo_estado','s','3','',$w.' ReC '.$o,'Motivo del Rechazado','motivo_estado',null,null,false,false,'','col-4');//
- $c[]=new cmp('fecha_gestion','d','10','',$w.' AGe '.$o,'Fecha de Agenda','fecha_gestion',null,null,false,false,'','col-2',"validDate(this,$days,30);");
- $c[]=new cmp('docu_confirm','nu','999999999999999999','',$w.' AGe '.$o,'Documento Confirmado  del Usuario','docu_confirm',null,null,false,false,'','col-2');
-  $c[]=new cmp('perfil_gest','s',3,'',$w.' AGe '.$o,'Perfil que Gestiona','perfil_gest',null,'',false,false,'','col-2',"selectDepend('perfil_gest','usuario_gest','lib.php');");
- $c[]=new cmp('usuario_gest','s','10','',$w.' AGe '.$o,'Usuario que Gestiona','usuario_gest',null,null,false,false,'','col-2');
+ $c[]=new cmp('fecha_gestion','h','10','',$w.' AGe '.$o,'Fecha de Agenda','fecha_gestion',null,null,false,false,'','col-2',"validDate(this,$days,30);");
+ $c[]=new cmp('docu_confirm','h','999999999999999999','',$w.' AGe '.$o,'Documento Confirmado  del Usuario','docu_confirm',null,null,false,false,'','col-2');
+  $c[]=new cmp('perfil_gest','h',3,'',$w.' AGe '.$o,'Perfil que Gestiona','perfil_gest',null,'',false,false,'','col-2',"selectDepend('perfil_gest','usuario_gest','lib.php');");
+ $c[]=new cmp('usuario_gest','h','10','',$w.' AGe '.$o,'Usuario que Gestiona','usuario_gest',null,null,false,false,'','col-2');
 
  $o='gesgeo';
  $c[]=new cmp($o,'e',null,'DATOS GEOGRAFICOS',$w);
