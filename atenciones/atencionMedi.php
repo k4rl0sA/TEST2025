@@ -28,7 +28,7 @@ function cmp_atencionM(){
 	$x="";
 	if ($d==""){$d=$t;}
 	$u=($d['idpersona']=='')?true:false;
-	$w='atencion';		
+	$w='atencionM';		
 	$o='datos';
 
 	$fecha_actual = new DateTime();
