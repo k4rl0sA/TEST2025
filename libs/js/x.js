@@ -1602,6 +1602,10 @@ function riskPlacaAtenOdon() {
 		errors("Los valores ingresados en las Acciones De Odontologia, no son válidos.");
 		return;
 	}
+	if(placa =='' && superficie==''){
+		document.getElementById('riesgo').value = '';
+		return;
+	}
 	if (superficie < 1 && superficie > 112) {
 		errors("El valor de Superficie debe estar entre 1 y 112.");
 		return;
