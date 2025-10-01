@@ -90,8 +90,8 @@ function cmp_rutclasif(){
  $c[]=new cmp('docu_confirm','nu','999999999999999999','',$w.' AGe '.$o,'Documento Confirmado  del Usuario','docu_confirm',null,null,false,true,'','col-2');
  //$c[]=new cmp('perfil_gest','s',3,'',$w.' AGe '.$o,'Perfil que Gestiona','perfil_gest',null,'',false,true,'','col-2',"selectDepend('perfil_gest','usuario_gest','clasifica.php');");
  //$c[]=new cmp('usuario_gest','s','10','',$w.' AGe '.$o,'Usuario que Gestiona','usuario_gest',null,null,false,true,'','col-2');
- $c[]=new cmp('perfil','s','90','',$w.' dir '.$o,'Perfil A Asignar','perfil',null,null,false,false,'','col-25',"selectDepend('perfil','nombre','clasifica.php');");
- $c[]=new cmp('nombre','s','6',$d['profesional'],$w.' dir '.$o,'Profesional Asignado','doc_asignado',null,null,false,false,'','col-25');
+ $c[]=new cmp('perfil','s','90','',$w.' dir '.$o,'Perfil A Asignar','perfil',null,null,false,true,'','col-25',"selectDepend('perfil','nombre','clasifica.php');");
+ $c[]=new cmp('nombre','s','6',$d['profesional'],$w.' dir '.$o,'Profesional Asignado','doc_asignado',null,null,false,true,'','col-25');
 
  for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
  return $rta;
