@@ -28,7 +28,7 @@ function cmp_validPerson(){
 	$c[]=new cmp('idp','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
 	$c[]=new cmp('idpersona','nu','9999999999999999',$t['idpersona'],$w.' '.$o,'Identificación <a href="https://www.adres.gov.co/consulte-su-eps" target="_blank">     Abrir ADRES</a>','idpersona',null,null,true,true,'','col-3');
 	$c[]=new cmp('tipo_doc','s','3',$t['tipo_doc'],$w.' '.$o,'Tipo documento','tipo_doc',null,null,true,true,'','col-3');
-	$c[]=new cmp('fecha_nacimiento','d','',$t['fecha_nacimiento'],$w.' '.$o,'Fecha de nacimiento (dd/mm/aaaa)','fecha_nacimiento',null,null,true,true,'','col-2',"validDate(this,-43800,0);");
+	$c[]=new cmp('fecha_nacimiento','d','',$t['fecha_nacimiento'],$w.' '.$o,'Fecha de nacimiento (mm/dd/aaaa)','fecha_nacimiento',null,null,true,true,'','col-2',"validDate(this,-43800,0);");
 	$c[]=new cmp('sexo','s','3',$t['sexo'],$w.' '.$o,'Sexo','sexo',null,null,true,true,'','col-2');
     for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
