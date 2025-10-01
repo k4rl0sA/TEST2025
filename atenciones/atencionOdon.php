@@ -366,6 +366,10 @@ function gra_atencionO() {
         }
     }
 
+	if($_POST['n_superficie'] < 1 || $_POST['n_superficie'] > 112){
+		return "msj['Error: El campo 'N° Superficies' debe ser mayor a 0 y menor o igual a 112.']";
+	}
+
     $params = [];
     $cols = [];
     
