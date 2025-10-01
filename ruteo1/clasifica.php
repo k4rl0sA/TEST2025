@@ -83,6 +83,14 @@ function cmp_rutclasif(){
  $c[]=new cmp($o,'e',null,'RIESGO ALTO',$w);
  $c[]=new cmp('perfil','s','90','',$w.' dir '.$o,'Perfil A Asignar','perfil',null,null,false,false,'','col-25',"selectDepend('perfil','nombre','clasifica.php');");
  $c[]=new cmp('nombre','s','6',$d['profesional'],$w.' dir '.$o,'Profesional Asignado','doc_asignado',null,null,false,false,'','col-25');
+
+ $o='gesefc';
+ $c[]=new cmp($o,'e',null,'PROCESO DE GESTIÓN',$w);
+ $c[]=new cmp('fecha_gestion','h','10','',$w.' AGe '.$o,'Fecha de Agenda','fecha_gestion',null,null,false,false,'','col-2',"validDate(this,$days,30);");
+ $c[]=new cmp('docu_confirm','nu','999999999999999999','',$w.' AGe '.$o,'Documento Confirmado  del Usuario','docu_confirm',null,null,false,false,'','col-2');
+ $c[]=new cmp('perfil_gest','s',3,'',$w.' AGe '.$o,'Perfil que Gestiona','perfil_gest',null,'',false,false,'','col-2',"selectDepend('perfil_gest','usuario_gest','clasifica.php');");
+ $c[]=new cmp('usuario_gest','s','10','',$w.' AGe '.$o,'Usuario que Gestiona','usuario_gest',null,null,false,false,'','col-2');
+
  for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
  return $rta;
 }
@@ -145,7 +153,23 @@ function opc_pre_clasifclasificacion($id=''){
       return json_encode($info['responseResult']);
   }
 }
+ function opc_perfil_gest($id=''){
+	return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=218 and estado="A" AND descripcion=(select perfil from usuarios where id_usuario='.$_SESSION['us_sds'].') ORDER BY 1',$id);
+	}
+  function opc_perfil_gestusuario_gest($id=''){
+    if($_REQUEST['id']!=''){	
+            $sql = "SELECT id_usuario id,CONCAT(id_usuario,'-',nombre) usuario FROM usuarios right join apro_terr at ON id_usuario=at.doc_asignado WHERE 
+            perfil=(select descripcion from catadeta c where idcatalogo=218 and idcatadeta='{$_REQUEST['id']}' and estado='A') 
+            and id_usuario ='{$_SESSION['us_sds']}' ORDER BY nombre";
+            $info = datos_mysql($sql);		
+		 //return json_encode($sql);	
+           return json_encode($info['responseResult']);	
+        }
+}
 
+function opc_usuario_gest($id=''){
+	// return opc_sql("SELECT id_usuario id,CONCAT(id_usuario,'-',nombre) usuario FROM usuarios WHERE estado = 'A'",$id);
+}
 function opc_rta($id=''){
 return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=170 and estado="A" ORDER BY 1',$id);
 }
