@@ -562,17 +562,12 @@ LEFT JOIN eac_ruteo er ON g.idruteo=er.id_ruteo
 
 /***************************************************************************/
 function EnabFin($id) {
-    $id = divide($id);
-    $sql = "SELECT COUNT(*) AS agenda from eac_ruteo_ges g
-LEFT JOIN eac_ruteo er 
-	WHERE idruteo=$id[0] and estado_ruteo IS NOT NULL";
-    $info = datos_mysql($sql);
-	// var_dump($sql);
-	if(intval($info['responseResult'][0]["agenda"])>0){
-		return true;
-	}else{
-		return false;
-	}
+	$id = divide($id);
+	$sql = "SELECT COUNT(*) AS agenda FROM eac_ruteo_ges g
+LEFT JOIN eac_ruteo er ON g.idruteo = er.id_ruteo
+WHERE g.idruteo = {$id[0]} AND g.estado_ruteo IS NULL";
+	$info = datos_mysql($sql);
+	return intval($info['responseResult'][0]["agenda"]) > 0;
 }
 /***************************************************************************/
 function formato_dato($a,$b,$c,$d){
