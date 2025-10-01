@@ -356,7 +356,7 @@ function gra_atencionO() {
     if (count($id) != 1 || empty($id[0])) return "Error: idpeople es obligatorio y no puede ser nulo.";
     
     // Validar campos obligatorios (campos NOT NULL en la tabla)
-    $obligatorios = ['idf', 'fechaatencion', 'tipo_consulta', 'codigocups', 'finalidadconsulta', 'fechaingreso', 'letra1', 'rango1', 'diagnostico1'];
+    $obligatorios = ['idf', 'fechaatencion','tipo_estrategia', 'tipo_consulta', 'codigocups', 'finalidadconsulta', 'fechaingreso', 'letra1', 'rango1', 'diagnostico1'];
     foreach ($obligatorios as $campo) {
         $valor = $_POST[$campo] ?? null;
         if ($valor === null || $valor === '') {
