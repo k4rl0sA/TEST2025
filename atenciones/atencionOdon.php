@@ -40,6 +40,8 @@ function cmp_atencionO(){
 	$meno = ($edad<5) ? true : false;
 	$gest = (($edad>=10 && $edad <= 54) && $d['sexo'] == 'M') ? true : false;
 	
+	$days=fechas_app('vivienda');
+	
 	$c[]=new cmp($o,'e',null,'Datos atención medica usuario',$w);
 	$c[]=new cmp('ida','h',15,$d['id'],$w.' '.$o,'ida','ida',null,'####',false,false,'col-1');
 	$c[]=new cmp('tipodoc','t','20',$d['tipo_doc'],$w.' '.$o,'Tipo','tipodoc',null,'',false,false,'','col-1');
