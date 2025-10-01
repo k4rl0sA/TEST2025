@@ -41,7 +41,7 @@ function cmp_atencionO(){
 	$gest = (($edad>=10 && $edad <= 54) && $d['sexo'] == 'M') ? true : false;
 	
 	$days=fechas_app('vivienda');
-	
+
 	$c[]=new cmp($o,'e',null,'Datos atención medica usuario',$w);
 	$c[]=new cmp('ida','h',15,$d['id'],$w.' '.$o,'ida','ida',null,'####',false,false,'col-1');
 	$c[]=new cmp('tipodoc','t','20',$d['tipo_doc'],$w.' '.$o,'Tipo','tipodoc',null,'',false,false,'','col-1');
@@ -74,8 +74,8 @@ function cmp_atencionO(){
 
 	$o='Odontologia';
 	$c[]=new cmp($o,'e',null,'Acciones Odontologia',$w);
-	$c[]=new cmp('n_superficie','nu',3,$x,$w.' lab '.$o,'N° Superficies','solicitud',null,'',false,true,'','col-2','riskPlacaAtenOdon();');
-	$c[]=new cmp('n_placa_superf','nu',3,$x,$w.' med '.$o,'N° Superficies con Placa','medicamentos',null,'',false,true,'','col-2','riskPlacaAtenOdon();');
+	$c[]=new cmp('n_superficie','nu',3,$x,$w.' lab '.$o,'N° Superficies','solicitud',null,'',true,true,'','col-2','riskPlacaAtenOdon();');
+	$c[]=new cmp('n_placa_superf','nu',3,$x,$w.' med '.$o,'N° Superficies con Placa','medicamentos',null,'',true,true,'','col-2','riskPlacaAtenOdon();');
 	$c[]=new cmp('riesgo','s',3,$x,$w.' med '.$o,'Riesgo','riesgoOdon',null,'',false,false,'','col-2');	
 
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
@@ -358,7 +358,7 @@ function gra_atencionO() {
     if (count($id) != 1 || empty($id[0])) return "Error: idpeople es obligatorio y no puede ser nulo.";
     
     // Validar campos obligatorios (campos NOT NULL en la tabla)
-    $obligatorios = ['idf', 'fechaatencion','tipo_estrategia', 'tipo_consulta', 'codigocups', 'finalidadconsulta', 'fechaingreso', 'letra1', 'rango1', 'diagnostico1'];
+    $obligatorios = ['idf', 'fechaatencion','tipo_estrategia', 'tipo_consulta', 'codigocups', 'finalidadconsulta', 'fechaingreso', 'letra1', 'rango1', 'diagnostico1','n_superficie', 'n_placa_superf'];
     foreach ($obligatorios as $campo) {
         $valor = $_POST[$campo] ?? null;
         if ($valor === null || $valor === '') {
