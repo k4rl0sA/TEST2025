@@ -658,6 +658,20 @@ function gra_reasignar(){
 	$rta = mysql_prepd($sql, $params);
 	return $rta;
 }
+
+ function opc_perfil_gest($id=''){
+	return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=218 and estado="A" AND descripcion=(select perfil from usuarios where id_usuario='.$_SESSION['us_sds'].') ORDER BY 1',$id);
+	}
+  function opc_perfil_gestusuario_gest($id=''){
+    if($_REQUEST['id']!=''){	
+            $sql = "SELECT id_usuario id,CONCAT(id_usuario,'-',nombre) usuario FROM usuarios right join apro_terr at ON id_usuario=at.doc_asignado WHERE 
+            perfil=(select descripcion from catadeta c where idcatalogo=218 and idcatadeta='{$_REQUEST['id']}' and estado='A') 
+            and id_usuario ='{$_SESSION['us_sds']}' ORDER BY nombre";
+            $info = datos_mysql($sql);		
+		 //return json_encode($sql);	
+           return json_encode($info['responseResult']);	
+        }
+}
 /***************************************************************************/
 function formato_dato($a,$b,$c,$d){
  $b=strtolower($b);
