@@ -706,7 +706,7 @@ if ($a=='rute' && $b=='acciones'){
 			$rta .= acceso('reasigRut') ? "<li title='Reasignar Ruteo' onclick=\"mostrar('reasignar','pro',event,'','lib.php',7,'Reasignar Ruteo');\"><i class='fa-solid fa-route ico' id='{$c['ACCIONES']}'></i></li>" : "";
 		}
 		if (EnabFin($c['ACCIONES'])) {
-			$rta .= acceso('seguiremot') ? "<li title='Seguimiento remoto' onclick=\"mostrar('seguiremoto','pro',event,'','lib.php',7,'Seguimiento Remoto');\"><i class='fa-solid fa-house-laptop ico' id='{$c['ACCIONES']}'></i></li>" : "";
+			$rta .= acceso('seguiremoto') ? "<li title='Seguimiento remoto' onclick=\"mostrar('seguiremoto','pro',event,'','lib.php',7,'Seguimiento Remoto');\"><i class='fa-solid fa-house-laptop ico' id='{$c['ACCIONES']}'></i></li>" : "";
 		}
 
 		
