@@ -65,10 +65,10 @@ function cmp_rutclasif(){
  $c[]=new cmp('desc_accion3','s','3',$d['desc_accion3'],$w.' '.$o,'Descripcion Accion 3','desc_accion3',null,null,false,$u,'','col-5');
  
  $c[]=new cmp($o,'l',null,'Servicios',$w);
- $c[]=new cmp('fecha','d','10',$d['fecha'],$w.' '.$o,'Fecha Proximo Seguimiento','fecha',null,null,false,false,'','col-2',"validDate(this,$days,20);");
- $c[]=new cmp('solici_agenda','s',3,$d['solic_agend'],$w.' AGe '.$o,'Solicito Servicio Agendamiento','rta',null,'',true,$u,'','col-2');
- $c[]=new cmp('activa_ruta','s','10',$d['ruta'],$w.' AGe '.$o,'Activó Ruta','rta',null,null,true,$u,'','col-2','rutRute();');
- $c[]=new cmp('accion','s','10',$d['accion'],$w.' '.$o,'Definir Acción','accion',null,null,true,true,'','col-5');
+ $c[]=new cmp('fecha','d','10',$d['fecha'],$w.' '.$o,'Fecha Proximo Seguimiento','fecha',null,null,false,false,'','col-25',"validDate(this,$days,20);");
+ $c[]=new cmp('solici_agenda','s',3,$d['solic_agend'],$w.' AGe '.$o,'Solicito Servicio Agendamiento','rta',null,'',true,$u,'','col-25');
+ $c[]=new cmp('activa_ruta','s','10',$d['ruta'],$w.' AGe '.$o,'Activó Ruta','rta',null,null,true,$u,'','col-25','rutRute();');
+ $c[]=new cmp('accion','s','10',$d['accion'],$w.' '.$o,'Definir Acción','accion',null,null,true,true,'','col-25');
 
  $cl='ruta';
  $c[]=new cmp($cl,'l',null,'ACTIVACIÓN DE RUTA',$w);
