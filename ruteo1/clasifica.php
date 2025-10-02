@@ -37,7 +37,7 @@ function cap_menus($a,$b='cap',$con='con') {
 
 function cmp_rutclasif(){
  $rta="";
- $t=['id_rutclas'=>'','idrutges'=>'','preclasif'=>'','clasifica'=>'','riesgo'=>'','accion'=>'','fecha'=>'','accion1'=>'','desc_accion1'=>'','accion2'=>'','desc_accion2'=>'','accion3'=>'','desc_accion3'=>'','profesional'=>'','solic_agend'=>'','ruta'=>'','sectorial'=>'','intsectorial'=>'','entornos'=>'','aseguram'=>''];
+ $t=['id_rutclas'=>'','idrutges'=>'','preclasif'=>'','clasifica'=>'','riesgo'=>'','tiposeg'=>,'accion'=>'','fecha'=>'','accion1'=>'','desc_accion1'=>'','accion2'=>'','desc_accion2'=>'','accion3'=>'','desc_accion3'=>'','profesional'=>'','solic_agend'=>'','ruta'=>'','sectorial'=>'','intsectorial'=>'','entornos'=>'','aseguram'=>''];
  $w='rutclasif';
  $d=get_rutclasif();
  if ($d=="") {$d=$t;}
