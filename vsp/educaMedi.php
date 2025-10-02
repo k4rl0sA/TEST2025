@@ -20,13 +20,13 @@ else {
 }
 
 
-function focus_otroprio(){
-  return 'otroprio';
+function focus_educaMedi(){
+  return 'educaMedi';
  }
  
  
- function men_otroprio(){
-  $rta=cap_menus('otroprio','pro');
+ function men_educaMedi(){
+  $rta=cap_menus('educaMedi','pro');
   return $rta;
  }
  
@@ -34,27 +34,27 @@ function focus_otroprio(){
  function cap_menus($a,$b='cap',$con='con') {
    $rta = "";
    $acc=rol($a);
- if ($a=='otroprio'  && isset($acc['crear']) && $acc['crear']=='SI'){  
+ if ($a=='educaMedi'  && isset($acc['crear']) && $acc['crear']=='SI'){  
 	 $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
     }
   return $rta;
  }
 
 
- FUNCTION lis_otroprio(){
+ FUNCTION lis_educaMedi(){
 	// var_dump($_POST['id']);
-	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['id_otroprio']) ? divide($_POST['id_otroprio']) : null);
-  $info=datos_mysql("SELECT COUNT(*) total FROM vsp_otroprio A LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
+	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['id_educaMedi']) ? divide($_POST['id_educaMedi']) : null);
+  $info=datos_mysql("SELECT COUNT(*) total FROM vsp_educaMedi A LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
   WHERE A.estado = 'A' AND A.idpeople='".$id[0]."'");
 	$total=$info['responseResult'][0]['total'];
 	$regxPag=4;
-  $pag=(isset($_POST['pag-otroprio']))? ($_POST['pag-otroprio']-1)* $regxPag:0;
+  $pag=(isset($_POST['pag-educaMedi']))? ($_POST['pag-educaMedi']-1)* $regxPag:0;
 
   
-	$sql="SELECT `id_otroprio` ACCIONES, id_otroprio 'Cod Registro',
+	$sql="SELECT `id_educaMedi` ACCIONES, id_educaMedi 'Cod Registro',
 P.tipo_doc,P.idpersona,fecha_seg Fecha,numsegui Seguimiento,FN_CATALOGODESC(87,evento) EVENTO,FN_CATALOGODESC(73,estado_s) estado,cierre_caso Cierra,
 fecha_cierre 'Fecha de Cierre',nombre Creó 
-FROM vsp_otroprio A
+FROM vsp_educaMedi A
 	LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
   LEFT JOIN   person P ON A.idpeople=P.idpeople";
 	$sql.=" WHERE A.estado = 'A' AND A.idpeople='".$id[0]; 
@@ -62,14 +62,14 @@ FROM vsp_otroprio A
 	$sql.=' LIMIT '.$pag.','.$regxPag;
 	// echo $sql;
 	$datos=datos_mysql($sql);
-	return create_table($total,$datos["responseResult"],"otroprio",$regxPag,'../vsp/otroprio.php');
+	return create_table($total,$datos["responseResult"],"educaMedi",$regxPag,'../vsp/educaMedi.php');
    }
 
 
-function cmp_otroprio(){
+function cmp_educaMedi(){
 	$rta="<div class='encabezado'>TABLA SEGUIMIENTOS</div>
-	<div class='contenido' id='otroprio-lis'>".lis_otroprio()."</div></div>";
-	$w='otroprio';
+	<div class='contenido' id='educaMedi-lis'>".lis_educaMedi()."</div></div>";
+	$w='educaMedi';
   $d='';
 	$o='inf';
 // $nb='disa oculto';
@@ -83,7 +83,7 @@ function cmp_otroprio(){
   $days=fechas_app('vsp');
   
 
-	$c[]=new cmp('id_otroprio','h','50',$_POST['id'],$w.' '.$o,'','id_otroprio',null,null,false,true,'','col-2');
+	$c[]=new cmp('id_educaMedi','h','50',$_POST['id'],$w.' '.$o,'','id_educaMedi',null,null,false,true,'','col-2');
   $c[]=new cmp('fecha_seg','d','10',$d,$w.' '.$o,'Fecha Seguimiento','fecha_seg',null,null,true,true,'','col-2',"validDate(this,$days,0);");
   $c[]=new cmp('numsegui','s','3',$d,$w.' '.$o,'Seguimiento N°','numsegui',null,null,true,true,'','col-2',"staEfe('numsegui','sta');EnabEfec(this,['hab','acc'],['Ob'],['nO'],['bL'])");
   $c[]=new cmp('evento','s','3',$ev,$w.' '.$o,'Evento','evento',null,null,false,false,'','col-2');
@@ -207,8 +207,8 @@ function opc_equ(){
 }
 
 
-function gra_otroprio(){
-  $id = divide($_POST['id_otroprio']);
+function gra_educaMedi(){
+  $id = divide($_POST['id_educaMedi']);
   $eq = opc_equ();
   $smbin = null;
   if (($smbina = $_POST['fusers_bina'] ?? null) && is_array($smbina)) {
@@ -250,10 +250,10 @@ function gra_otroprio(){
       }
     }
     $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_update
-    $sql = "UPDATE vsp_otroprio SET "
+    $sql = "UPDATE vsp_educaMedi SET "
       . implode(' = ?, ', $set) . " = ?, usu_update = ?, fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR) "
-      . "WHERE id_otroprio = ?";
-    $params[] = ['type' => 's', 'value' => $id[0]]; // id_otroprio
+      . "WHERE id_educaMedi = ?";
+    $params[] = ['type' => 's', 'value' => $id[0]]; // id_educaMedi
     $rta = mysql_prepd($sql, $params);
 
   } else if(count($id)==3){
@@ -285,27 +285,27 @@ function gra_otroprio(){
       }
     }
     $placeholders = implode(', ', array_fill(0, count($params), '?'));
-    $sql = "INSERT INTO vsp_otroprio (
-      id_otroprio, " . implode(', ', $campos) . "
+    $sql = "INSERT INTO vsp_educaMedi (
+      id_educaMedi, " . implode(', ', $campos) . "
     ) VALUES (
       NULL, $placeholders
     )";
     $rta = mysql_prepd($sql, $params);
   } else {
-    $rta = "Error: id_otroprio inválido";
+    $rta = "Error: id_educaMedi inválido";
   }
   return $rta;
 }
 
-  function get_otroprio(){
+  function get_educaMedi(){
     if($_REQUEST['id']==''){
       return "";
     }else{
       $id=divide($_REQUEST['id']);
-      $sql="SELECT concat_ws('_',id_otroprio,idpeople,numsegui,evento),
+      $sql="SELECT concat_ws('_',id_educaMedi,idpeople,numsegui,evento),
       fecha_seg,numsegui,evento,estado_s,motivo_estado,estrategia_1,estrategia_2,acciones_1,desc_accion1,acciones_2,desc_accion2,acciones_3,desc_accion3,activa_ruta,ruta,novedades,signos_covid,caso_afirmativo,otras_condiciones,observaciones,cierre_caso,motivo_cierre,fecha_cierre,redu_riesgo_cierre,users_bina
-      FROM vsp_otroprio
-      WHERE id_otroprio ='{$id[0]}'";
+      FROM vsp_educaMedi
+      WHERE id_educaMedi ='{$id[0]}'";
       // echo $sql;
       // print_r($id);
       $info=datos_mysql($sql);
@@ -319,9 +319,9 @@ function formato_dato($a,$b,$c,$d){
 // $rta=iconv('UTF-8','ISO-8859-1',$rta);
 // var_dump($a);
 // var_dump($rta);
-	if ($a=='otroprio' && $b=='acciones'){//a mnombre del modulo
+	if ($a=='educaMedi' && $b=='acciones'){//a mnombre del modulo
 		$rta="<nav class='menu right'>";	
-    $rta.="<li class='icono editar' title='Editar' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getData,500,'otroprio',event,this,['fecha_seg','numsegui','evento','estado_s','motivo_estado','cierre_caso'],'../vsp/otroprio.php');\"></li>";
+    $rta.="<li class='icono editar' title='Editar' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getData,500,'educaMedi',event,this,['fecha_seg','numsegui','evento','estado_s','motivo_estado','cierre_caso'],'../vsp/educaMedi.php');\"></li>";
 	}
 	
  return $rta;
