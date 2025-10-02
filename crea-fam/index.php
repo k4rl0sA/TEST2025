@@ -175,7 +175,8 @@ function grabar(tb='',ev){
   'riesgomental':'../tamizajes/riesgomental.php',
   'laboratorios':'../servicios_complem/laboratorios.php',
   'unidadeshs': '../soporte/unidades.php',
-  'resultLab': '../servicios_complem/laboratorios.php'
+  'resultLab': '../servicios_complem/laboratorios.php',
+  'seguiremot': '../servicios_complem/seguiRemoto.php'
  	};
    let ruta_app = rutaMap[tb] || 'lib.php';
   if(tb=='sesion2'){
