@@ -82,21 +82,21 @@ function cmp_rutclasif(){
  
  $o='colectivas';
  $c[]=new cmp($o,'e',null,'ACCIONES COLECTIVAS',$w);
- $c[]=new cmp('fecha_gestion','d','10','',$w.' AGe '.$o,'Fecha de Agenda','fecha_gestion',null,null,false,false,'','col-2',"validDate(this,$days,30);");
+ $c[]=new cmp('fecha_gestion','d','10','',$w.' CoLE '.$o,'Fecha de Agenda','fecha_gestion',null,null,false,false,'','col-2',"validDate(this,$days,30);");
  
- $c[]=new cmp('perfil','s','90','',$w.' dir '.$o,'Perfil A Asignar','perfil',null,null,false,false,'','col-25',"selectDepend('perfil','nombre','clasifica.php');");
- $c[]=new cmp('nombre','s','6',$d['profesional'],$w.' dir '.$o,'Profesional Asignado','doc_asignado',null,null,false,false,'','col-25');
- $c[]=new cmp('accion1','s','10',$d['accion1'],$w.'  '.$o,'Definir Acción','colectiv',null,null,false,false,'','col-25');
+ $c[]=new cmp('perfil','s','90','',$w.' CoLE '.$o,'Perfil A Asignar','perfil',null,null,false,false,'','col-25',"selectDepend('perfil','nombre','clasifica.php');");
+ $c[]=new cmp('nombre','s','6',$d['profesional'],$w.' CoLE '.$o,'Profesional Asignado','doc_asignado',null,null,false,false,'','col-25');
+ $c[]=new cmp('accion1','s','10',$d['accion1'],$w.' CoLE '.$o,'Definir Acción','colectiv',null,null,false,false,'','col-25');
 
  /*$c[]=new cmp('perfil','s','90','',$w.' dir '.$o,'Perfil A Asignar','perfil',null,null,false,false,'','col-25',"selectDepend('perfil','nombre','clasifica.php');");
  $c[]=new cmp('nombre','s','6',$d['profesional'],$w.' dir '.$o,'Profesional Asignado','doc_asignado',null,null,false,false,'','col-25'); */
 
  $o='individual';
  $c[]=new cmp($o,'e',null,'ACCIONES INDIVIDUALES',$w); 
- $c[]=new cmp('fecha_gestion','d','10','',$w.' AGe '.$o,'Fecha de Agenda','fecha_gestion',null,null,false,false,'','col-2',"validDate(this,$days,30);");
- $c[]=new cmp('perfil1','s','90','',$w.' dir '.$o,'Perfil A Asignar','perfil',null,null,false,false,'','col-25',"selectDepend('perfil1','nombre1','clasifica.php');");
- $c[]=new cmp('nombre1','s','6',$d['profesional'],$w.' dir '.$o,'Profesional Asignado','doc_asignado',null,null,false,false,'','col-25');
- $c[]=new cmp('accion2','s','10',$d['accion2'],$w.' '.$o,'Definir Acción','indivi',null,null,false,false,'','col-25');
+ $c[]=new cmp('fecha_gestion','d','10','',$w.' INdi '.$o,'Fecha de Agenda','fecha_gestion',null,null,false,false,'','col-2',"validDate(this,$days,30);");
+ $c[]=new cmp('perfil1','s','90','',$w.' INdi '.$o,'Perfil A Asignar','perfil',null,null,false,false,'','col-25',"selectDepend('perfil1','nombre1','clasifica.php');");
+ $c[]=new cmp('nombre1','s','6',$d['profesional'],$w.' INdi '.$o,'Profesional Asignado','doc_asignado',null,null,false,false,'','col-25');
+ $c[]=new cmp('accion2','s','10',$d['accion2'],$w.' INdi '.$o,'Definir Acción','indivi',null,null,false,false,'','col-25');
 
 
 

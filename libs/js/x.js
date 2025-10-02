@@ -1092,8 +1092,6 @@ function enabPrioEtn() {
 		{ value: '9', classes: ['mE5'] },
 		{ value: '27', classes: ['mE5'] },
 	];
-	
-	
 	conditions.forEach(condition => {
 		const isConditionMet = prioridad === condition.value;
 		if (isConditionMet) {
@@ -1618,4 +1616,31 @@ function enabTipSegRuteo(){
 		{ id: 'tiposeg',value:'1', compare: true }
 	];
 	EnabDepeDynamic(['SeG'], conditions);
+}
+// Función para habilitar/deshabilitar campos dependiendo de un valor del campo es 1 una clase y si es 2 otra clase,si es 3 las dos clases anteriores con enabDepeDynamic y si es otro valor las dos clases bloqueadas
+function enabPrioEtn() {
+	const prioridad = document.getElementById('prioridad').value;
+	const enabledClasses = {};
+	const conditions = [
+		{value: '1', classes: ['CoLE']},
+		{value: '2', classes: ['INdi']},
+		{value: '3', classes: ['CoLE','INdi']}
+	];
+	conditions.forEach(condition => {
+		const isConditionMet = prioridad === condition.value;
+		if (isConditionMet) {
+			condition.classes.forEach(cls => {
+				enabledClasses[cls] = true;
+			});
+		}
+	});
+	conditions.forEach(condition => {
+		condition.classes.forEach(cls => {
+			const selector = `select.${cls}, input.${cls}, textarea.${cls}`;
+			const elements = document.querySelectorAll(selector);
+			elements.forEach(element => {
+				enaFie(element, !enabledClasses[cls]);
+			});
+		});
+	});
 }
