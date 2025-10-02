@@ -109,10 +109,6 @@ function focus_reasignar(){
  return 'reasignar';
 }
 
-function focus_seguiremoto(){
- return 'reasignar';
-}
-
 function men_rute(){
  $rta=cap_menus('rute','pro');
  return $rta;
@@ -710,7 +706,7 @@ if ($a=='rute' && $b=='acciones'){
 			$rta .= acceso('reasigRut') ? "<li title='Reasignar Ruteo' onclick=\"mostrar('reasignar','pro',event,'','lib.php',7,'Reasignar Ruteo');\"><i class='fa-solid fa-route ico' id='{$c['ACCIONES']}'></i></li>" : "";
 		}
 		if (EnabFin($c['ACCIONES'])) {
-			$rta .= acceso('seguiRemoto') ? "<li title='Seguimiento remoto' onclick=\"mostrar('seguiremoto','pro',event,'','seguiRemoto.php',7,'Seguimiento Remoto');\"><i class='fa-solid fa-house-laptop ico' id='{$c['ACCIONES']}'></i></li>" : "";
+			$rta .= acceso('seguiremoto') ? "<li title='Seguimiento remoto' onclick=\"mostrar('seguiremoto','pro',event,'','lib.php',7,'Seguimiento Remoto');\"><i class='fa-solid fa-house-laptop ico' id='{$c['ACCIONES']}'></i></li>" : "";
 		}
 
 		
