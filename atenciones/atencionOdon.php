@@ -59,8 +59,8 @@ function cmp_atencionO(){
 	$c[]=new cmp('tipo_consulta','s',3,$x,$w.' '.$o,'Tipo de Consulta','tipo_consulta',null,'',true,false,'','col-15');
 	$c[]=new cmp('codigocups','s',3,$x,$w.' '.$o,'Código CUPS','cups',null,'',true,false,'','col-2');
 	$c[]=new cmp('finalidadconsulta','s',3,$x,$w.' '.$o,'Finalidad de la Consulta','consultamedica',null,'',true,false,'','col-2');
-	$c[]=new cmp('fechaingreso','d',20,$x,$w.' '.$o,'Fecha del Ingreso','fechaingreso',null,'',true,true,'','col-15',"validDate(this,$days,0);");
-	$c[]=new cmp('tipo_estrategia','s',3,$x,$w.' eSt '.$o,'Fuente','prioridad',null,'',true,true,'','col-15');
+	$c[]=new cmp('fechaingreso','d',20,$x,$w.' '.$o,'Fecha del Ingreso','fechaingreso',null,'',true,false,'','col-15',"validDate(this,$days,0);");
+	$c[]=new cmp('tipo_estrategia','s',3,$x,$w.' eSt '.$o,'Fuente','prioridad',null,'',true,false,'','col-15');
 
 	$c[]=new cmp('letra1','s','3',$x,$w.' '.$o,'Letra CIE(1)','letra1',null,null,true,true,'','col-1',"valPyd(this,'tipo_consulta');valResol('tipo_consulta','letra1','../atenciones/atencionOdon.php');selectDepend('letra1','rango1','../atenciones/atencionOdon.php');");//,['rango1']
  	$c[]=new cmp('rango1','s','3',$x,$w.' '.$o,'Tipo1','rango1',null,null,true,true,'','col-45',"selectDepend('rango1','diagnostico1','../atenciones/atencionOdon.php');");
