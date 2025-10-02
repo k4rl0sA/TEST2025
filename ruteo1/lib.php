@@ -109,6 +109,10 @@ function focus_reasignar(){
  return 'reasignar';
 }
 
+function focus_seguiremoto(){
+ return 'reasignar';
+}
+
 function men_rute(){
  $rta=cap_menus('rute','pro');
  return $rta;
