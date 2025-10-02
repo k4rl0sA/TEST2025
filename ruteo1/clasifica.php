@@ -67,7 +67,7 @@ function cmp_rutclasif(){
  $o='servicios';
  $c[]=new cmp($o,'l',null,'Servicios',$w);
  $c[]=new cmp('fecha','d','10',$d['fecha'],$w.' '.$o,'Fecha Proximo Seguimiento','fecha',null,null,false,false,'','col-25',"validDate(this,$days,20);");
- $c[]=new cmp('docu_confirm','nu','999999999999999999','',$w.' AGe '.$o,'Documento Confirmado  del Usuario','docu_confirm',null,null,false,true,'','col-2');
+ $c[]=new cmp('docu_confirm','nu','999999999999999999','',$w.' AGe '.$o,'Documento Confirmado  del Usuario','docu_confirm',null,null,false,true,'','col-25');
  $c[]=new cmp('solici_agenda','s',3,$d['solic_agend'],$w.' AGe '.$o,'Solicito Servicio Agendamiento','rta',null,'',true,$u,'','col-25');
  $c[]=new cmp('accion','s','10',$d['accion'],$w.' '.$o,'Definir Acción','accion',null,null,true,true,'','col-25');
 
@@ -250,7 +250,7 @@ function opc_perfil_altousuario_alto($id=''){
       }
 }
 function opc_accion($id=''){
-return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=269 and estado="A" ORDER BY 1',$id);
+return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=295 and estado="A" ORDER BY 1',$id);
 }
 function opc_acciones_1($id=''){
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=22 and estado='A' ORDER BY 1",$id);
