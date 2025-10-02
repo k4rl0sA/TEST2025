@@ -72,11 +72,11 @@ function cmp_rutclasif(){
 
  $cl='ruta';
  $c[]=new cmp($cl,'l',null,'ACTIVACIÓN DE RUTA',$w);
- $c[]=new cmp('activa_ruta','s','10',$d['ruta'],$w.' AGe '.$o,'Activó Ruta','rta',null,null,true,$u,'','col-25','rutRute();');
- $c[]=new cmp('sectorial','s','2',$d['sectorial'],$w.' '.$cl,'¿Sectorial?','rta',null,null,true,false,'','col-25');
- $c[]=new cmp('intersectorial','s','2',$d['intsectorial'],$w.' '.$cl,'¿Intersectorial?','rta',null,null,true,false,'','col-25');
- $c[]=new cmp('entornos','s','2',$d['entornos'],$w.' '.$cl,'¿Entornos?','rta',null,null,true,false,'','col-25');
- $c[]=new cmp('aseguramiento','s','2',$d['aseguram'],$w.' '.$cl,'Aseguramiento','rta',null,null,true,false,'','col-25');
+ $c[]=new cmp('activa_ruta','s','10',$d['ruta'],$w.' AGe '.$o,'Activó Ruta','rta',null,null,true,$u,'','col-15','rutRute();');
+ $c[]=new cmp('sectorial','s','2',$d['sectorial'],$w.' '.$cl,'¿Sectorial?','rta',null,null,true,false,'','col-2');
+ $c[]=new cmp('intersectorial','s','2',$d['intsectorial'],$w.' '.$cl,'¿Intersectorial?','rta',null,null,true,false,'','col-2');
+ $c[]=new cmp('entornos','s','2',$d['entornos'],$w.' '.$cl,'¿Entornos?','rta',null,null,true,false,'','col-2');
+ $c[]=new cmp('aseguramiento','s','2',$d['aseguram'],$w.' '.$cl,'Aseguramiento','rta',null,null,true,false,'','col-2');
 
  
  $o='colectivas';
