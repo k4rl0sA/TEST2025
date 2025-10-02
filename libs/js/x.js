@@ -1618,7 +1618,7 @@ function enabTipSegRuteo(){
 	EnabDepeDynamic(['SeG'], conditions);
 }
 // Función para habilitar/deshabilitar campos dependiendo de un valor del campo es 1 una clase y si es 2 otra clase,si es 3 las dos clases anteriores con enabDepeDynamic y si es otro valor las dos clases bloqueadas
-function enabPrioEtn() {
+function enabTipoAccRuteo() {
 	const prioridad = document.getElementById('prioridad').value;
 	const enabledClasses = {};
 	const conditions = [
