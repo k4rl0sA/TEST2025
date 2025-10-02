@@ -92,8 +92,8 @@ function cmp_rutclasif(){
  $c[]=new cmp($o,'e',null,'ACCIONES INDIVIDUALES',$w); 
  $c[]=new cmp('fecha_gestion','d','10','',$w.' AGe '.$o,'Fecha de Agenda','fecha_gestion',null,null,false,true,'','col-2',"validDate(this,$days,30);");
  $c[]=new cmp('docu_confirm','nu','999999999999999999','',$w.' AGe '.$o,'Documento Confirmado  del Usuario','docu_confirm',null,null,false,true,'','col-2');
- $c[]=new cmp('perfil','s','90','',$w.' dir '.$o,'Perfil A Asignar','perfil',null,null,false,true,'','col-25',"selectDepend('perfil','nombre','clasifica.php');");
- $c[]=new cmp('nombre','s','6',$d['profesional'],$w.' dir '.$o,'Profesional Asignado','doc_asignado',null,null,false,true,'','col-25');
+ $c[]=new cmp('perfil1','s','90','',$w.' dir '.$o,'Perfil A Asignar','perfil',null,null,false,true,'','col-25',"selectDepend('perfil1','nombre1','clasifica.php');");
+ $c[]=new cmp('nombre1','s','6',$d['profesional'],$w.' dir '.$o,'Profesional Asignado','doc_asignado',null,null,false,true,'','col-25');
 
 
 
@@ -205,6 +205,16 @@ function opc_perfil($id=''){
     return opc_sql("SELECT `id_usuario`,nombre FROM `usuarios` WHERE  subred='{$com[2]}' ORDER BY 1",$id);//`perfil` IN('MED','ENF')
   }
 function opc_perfilnombre($id=''){
+  if($_REQUEST['id']!=''){	
+    $sql = "SELECT id_usuario id,CONCAT(id_usuario,'-',nombre) usuario FROM usuarios right join apro_terr at ON id_usuario=at.doc_asignado  WHERE 
+    perfil=(select descripcion from catadeta c where idcatalogo=218 and idcatadeta='{$_REQUEST['id']}' and estado='A') 
+    and subred=(SELECT subred FROM usuarios WHERE id_usuario ='{$_SESSION['us_sds']}')   ORDER BY nombre";
+    // var_dump($sql);
+    $info = datos_mysql($sql);		
+  return json_encode($info['responseResult']);	
+  }
+}
+function opc_perfil1nombre1($id=''){
   if($_REQUEST['id']!=''){	
     $sql = "SELECT id_usuario id,CONCAT(id_usuario,'-',nombre) usuario FROM usuarios right join apro_terr at ON id_usuario=at.doc_asignado  WHERE 
     perfil=(select descripcion from catadeta c where idcatalogo=218 and idcatadeta='{$_REQUEST['id']}' and estado='A') 
