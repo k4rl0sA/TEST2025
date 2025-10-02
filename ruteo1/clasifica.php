@@ -49,7 +49,8 @@ function cmp_rutclasif(){
  $c[]=new cmp('id','h','20',$mykey,$w.' '.$o,'','',null,null,true,$u,'','col-1');
  $c[]=new cmp('pre_clasif','s','10',$d['preclasif'],$w.' '.$o,'COHORTE DE RIESGO','pre_clasif',null,null,true,$u,'','col-25',"selectDepend('pre_clasif','clasificacion','clasifica.php');");
  $c[]=new cmp('clasificacion','s','10',$d['clasifica'],$w.' '.$o,'GRUPO DE POBLACION PRIORIZADA','clasificacion',null,null,true,$u,'','col-25');
- $c[]=new cmp('riesgo','s','10',$d['riesgo'],$w.' '.$o,'Riesgo','riesgo',null,null,true,$u,'','col-25','rutRiskHig();rutRisklow();');
+ $c[]=new cmp('riesgo','s','10',$d['riesgo'],$w.' '.$o,'Riesgo','riesgo',null,null,true,$u,'','col-25');
+ $c[]=new cmp('tiposeg','s','10',$d['tiposeg'],$w.' '.$o,'tipo de Seguimiento','tiposeg',null,null,true,$u,'','col-25');
 
 
  $o='ACC';
@@ -272,6 +273,9 @@ function opc_acciones_1($id=''){
   function opc_desc_accion3($id=''){
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=75 and estado='A' ORDER BY 1",$id);
   }
+  function opc_tiposeg($id=''){
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=294 and estado='A' ORDER BY 1",$id);
+    }
 function formato_dato($a,$b,$c,$d){
  $b=strtolower($b);
  $rta=$c[$d];
