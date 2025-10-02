@@ -1287,18 +1287,6 @@ function enabEmbSif() {
 	];
 	EnabDepeDynamic(['SiF'], conditions);
 }
-function rutRiskHig(){
-	const conditions = [
-		{ id: 'riesgo', value: '1', compare: true }
-	];
-	EnabDepeDynamic(['alto'], conditions);
-}
-function rutRisklow(){
-	const conditions = [
-		{ id: 'riesgo', value: '2', compare: true }
-	];
-	EnabDepeDynamic(['bajo'], conditions);
-}
 function rutRute(){
 	const conditions = [
 		{ id: 'activa_ruta', value: '1', compare: true }
@@ -1624,4 +1612,10 @@ function riskPlacaAtenOdon() {
 		riesgo = 6;
 	}
 	document.getElementById('riesgo').value = riesgo;
+}
+function enabTipSegRuteo(){
+	const conditions = [
+		{ id: 'tiposegue',value:'1', compare: true }
+	];
+	EnabDepeDynamic(['SeG'], conditions);
 }
