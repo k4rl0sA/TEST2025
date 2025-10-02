@@ -659,7 +659,7 @@ function gra_reasignar(){
 	return $rta;
 }
 
- function opc_perfil_gest($id=''){
+function opc_perfil_gest($id=''){
 	return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=218 and estado="A" AND descripcion=(select perfil from usuarios where id_usuario='.$_SESSION['us_sds'].') ORDER BY 1',$id);
 	}
   function opc_perfil_gestusuario_gest($id=''){
