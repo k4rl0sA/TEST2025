@@ -69,7 +69,7 @@ function cmp_rutclasif(){
  $c[]=new cmp('fecha','d','10',$d['fecha'],$w.' '.$o,'Fecha Proximo Seguimiento','fecha',null,null,false,false,'','col-25',"validDate(this,$days,20);");
  $c[]=new cmp('docu_confirm','nu','999999999999999999','',$w.' AGe '.$o,'Documento Confirmado  del Usuario','docu_confirm',null,null,false,true,'','col-25');
  $c[]=new cmp('solici_agenda','s',3,$d['solic_agend'],$w.' AGe '.$o,'Solicito Servicio Agendamiento','rta',null,'',true,$u,'','col-25');
- $c[]=new cmp('accion','s','10',$d['accion'],$w.' SeG '.$o,'Definir Acción','accion',null,null,false,false,'','col-25');
+ $c[]=new cmp('accion','s','10',$d['accion'],$w.' SeG '.$o,'Tipo de Acción','accion',null,null,false,false,'','col-25');
 
  $cl='ruta';
  $c[]=new cmp($cl,'l',null,'ACTIVACIÓN DE RUTA',$w);
@@ -86,7 +86,7 @@ function cmp_rutclasif(){
  
  $c[]=new cmp('perfil','s','90','',$w.' dir '.$o,'Perfil A Asignar','perfil',null,null,false,false,'','col-25',"selectDepend('perfil','nombre','clasifica.php');");
  $c[]=new cmp('nombre','s','6',$d['profesional'],$w.' dir '.$o,'Profesional Asignado','doc_asignado',null,null,false,false,'','col-25');
- $c[]=new cmp('accion','s','10',$d['accion'],$w.' SeG '.$o,'Definir Acción','accion',null,null,false,false,'','col-25');
+ $c[]=new cmp('accion1','s','10',$d['accion1'],$w.'  '.$o,'Definir Acción','colectiv',null,null,false,false,'','col-25');
 
  /*$c[]=new cmp('perfil','s','90','',$w.' dir '.$o,'Perfil A Asignar','perfil',null,null,false,false,'','col-25',"selectDepend('perfil','nombre','clasifica.php');");
  $c[]=new cmp('nombre','s','6',$d['profesional'],$w.' dir '.$o,'Profesional Asignado','doc_asignado',null,null,false,false,'','col-25'); */
@@ -96,7 +96,7 @@ function cmp_rutclasif(){
  $c[]=new cmp('fecha_gestion','d','10','',$w.' AGe '.$o,'Fecha de Agenda','fecha_gestion',null,null,false,false,'','col-2',"validDate(this,$days,30);");
  $c[]=new cmp('perfil1','s','90','',$w.' dir '.$o,'Perfil A Asignar','perfil',null,null,false,false,'','col-25',"selectDepend('perfil1','nombre1','clasifica.php');");
  $c[]=new cmp('nombre1','s','6',$d['profesional'],$w.' dir '.$o,'Profesional Asignado','doc_asignado',null,null,false,false,'','col-25');
- $c[]=new cmp('accion1','s','10',$d['accion1'],$w.' '.$o,'Definir Acción','accion',null,null,false,false,'','col-25');
+ $c[]=new cmp('accion2','s','10',$d['accion2'],$w.' '.$o,'Definir Acción','indivi',null,null,false,false,'','col-25');
 
 
 
@@ -252,6 +252,12 @@ function opc_perfil_altousuario_alto($id=''){
 function opc_accion($id=''){
 return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=295 and estado="A" ORDER BY 1',$id);
 }
+function opc_colectiv($id=''){
+  return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=295 and estado="A" ORDER BY 1',$id);
+  }
+  function opc_indivi($id=''){
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=295 and estado="A" ORDER BY 1',$id);
+    }
 function opc_acciones_1($id=''){
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=22 and estado='A' ORDER BY 1",$id);
   }
