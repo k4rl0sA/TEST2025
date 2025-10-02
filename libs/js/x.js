@@ -1615,7 +1615,7 @@ function riskPlacaAtenOdon() {
 }
 function enabTipSegRuteo(){
 	const conditions = [
-		{ id: 'tiposegue',value:'1', compare: true }
+		{ id: 'tiposeg',value:'1', compare: true }
 	];
 	EnabDepeDynamic(['SeG'], conditions);
 }
