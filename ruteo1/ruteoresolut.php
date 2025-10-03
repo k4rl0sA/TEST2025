@@ -42,7 +42,7 @@ function cmp_ruteresol(){
  $d=get_ruteresol(); 
  if ($d=="") {$d=$t;}
  $u=($d['fecha']== NULL)?true:false;
-//  var_dump($d);
+var_dump($d);
  $o='gesres';
  $days=fechas_app('ruteo');
  $c[]=new cmp($o,'e',null,'PROCESO GESTIÓN RESOLUTIVA',$w);
