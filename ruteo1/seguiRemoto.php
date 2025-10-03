@@ -38,20 +38,20 @@ function cap_menus($a,$b='cap',$con='con') {
 
  function lis_seguiremoto(){
 	// var_dump($_POST['id']);
-	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['id_adoleMas']) ? divide($_POST['id_adoleMas']) : null);
-  $info=datos_mysql("SELECT COUNT(*) total FROM vsp_adoleMas A LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
+	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['id_seguimiento']) ? divide($_POST['id_seguimiento']) : null);
+  $info=datos_mysql("SELECT COUNT(*) total FROM ruteo_remoto A LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
   WHERE A.estado = 'A' AND A.idpeople='".$id[0]."'");
 	$total=$info['responseResult'][0]['total'];
 	$regxPag=4;
-  $pag=(isset($_POST['pag-adoleMas']))? ($_POST['pag-adoleMas']-1)* $regxPag:0;
+  $pag=(isset($_POST['pag-seguiremoto']))? ($_POST['pag-seguiremoto']-1)* $regxPag:0;
 
 
   
   
-	$sql="SELECT `id_adoleMas` ACCIONES,id_adoleMas  'Cod Registro',
+	$sql="SELECT `id_seguimiento` ACCIONES,id_seguimiento  'Cod Registro',
 P.tipo_doc,P.idpersona,fecha_seg Fecha,numsegui Seguimiento,FN_CATALOGODESC(87,evento) EVENTO,FN_CATALOGODESC(73,estado_s) estado,cierre_caso Cierra,
 fecha_cierre 'Fecha de Cierre',nombre Creó 
-FROM vsp_adoleMas A
+FROM ruteo_remoto A
 	LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
   LEFT JOIN   person P ON A.idpeople=P.idpeople";
 	$sql.=" WHERE A.estado = 'A' AND A.idpeople='".$id[0]; 
