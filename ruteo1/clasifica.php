@@ -132,34 +132,47 @@ function get_rutclasif(){
 }
 
 function gra_rutclasif(){
-
-  $id=divide($_POST['id']);
-  $sql = "INSERT INTO eac_ruteo_clas VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),NULL,NULL,'A')";
+ $id = divide($_POST['id']);
+  $sql = "INSERT INTO eac_ruteo_clas (
+    idrutges, preclasif, clasifica, riesgo, tiposeg, accion1, desc_accion1, accion2, desc_accion2, accion3, desc_accion3,
+    fecha, docu_confirm, solic_agend, tipo, ruta, sectorial, intsectorial, entornos, aseguram, fecha_agenda, profesional,
+    accion_1, fecha_agenda1, profesional1, accion_2, usu_creo, fecha_create, estado
+  ) VALUES (
+    ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?
+  )";
   $params = [
-  ['type' => 's', 'value' => $id[0]],
-  ['type' => 's', 'value' => $_POST['pre_clasif']],
-  ['type' => 's', 'value' => $_POST['clasificacion']],
-  ['type' => 's', 'value' => $_POST['riesgo']],
-  ['type' => 's', 'value' => $_POST['accion']],
-  ['type' => 's', 'value' => $_POST['fecha']],
-  ['type' => 's', 'value' => $_POST['acciones_1']],
-  ['type' => 's', 'value' => $_POST['desc_accion1']],
-  ['type' => 's', 'value' => $_POST['acciones_2']],
-  ['type' => 's', 'value' => $_POST['desc_accion2']],
-  ['type' => 's', 'value' => $_POST['acciones_3']],
-  ['type' => 's', 'value' => $_POST['desc_accion3']],
-  ['type' => 's', 'value' => $_POST['nombre']],
-  ['type' => 's', 'value' => $_POST['solici_agenda']],
-  ['type' => 's', 'value' => $_POST['activa_ruta']],
-  ['type' => 's', 'value' => $_POST['sectorial']],
-  ['type' => 's', 'value' => $_POST['intersectorial']],
-  ['type' => 's', 'value' => $_POST['entornos']],
-  ['type' => 's', 'value' => $_POST['aseguramiento']],
-  ['type' => 'i', 'value' => $_SESSION['us_sds']]
+    ['type' => 's', 'value' => $id[0]], // idrutges
+    ['type' => 's', 'value' => $_POST['pre_clasif']], // preclasif
+    ['type' => 's', 'value' => $_POST['clasificacion']], // clasifica
+    ['type' => 's', 'value' => $_POST['riesgo']], // riesgo
+    ['type' => 's', 'value' => $_POST['tiposeg']], // tiposeg
+    ['type' => 's', 'value' => $_POST['acciones_1']], // accion1
+    ['type' => 's', 'value' => $_POST['desc_accion1']], // desc_accion1
+    ['type' => 's', 'value' => $_POST['acciones_2']], // accion2
+    ['type' => 's', 'value' => $_POST['desc_accion2']], // desc_accion2
+    ['type' => 's', 'value' => $_POST['acciones_3']], // accion3
+    ['type' => 's', 'value' => $_POST['desc_accion3']], // desc_accion3
+    ['type' => 's', 'value' => $_POST['fecha']], // fecha
+    ['type' => 's', 'value' => $_POST['docu_confirm']], // docu_confirm
+    ['type' => 's', 'value' => $_POST['solici_agenda']], // solic_agend
+    ['type' => 's', 'value' => $_POST['tipo_accion']], // tipo
+    ['type' => 's', 'value' => $_POST['ruta']], // ruta
+    ['type' => 's', 'value' => $_POST['sectorial']], // sectorial
+    ['type' => 's', 'value' => $_POST['intersectorial']], // intsectorial
+    ['type' => 's', 'value' => $_POST['entornos']], // entornos
+    ['type' => 's', 'value' => $_POST['aseguramiento']], // aseguram
+    ['type' => 's', 'value' => $_POST['fecha_gestion']], // fecha_agenda
+    ['type' => 's', 'value' => $_POST['nombre']], // profesional
+    ['type' => 's', 'value' => $_POST['accion1']], // accion_1
+    ['type' => 's', 'value' => $_POST['fecha_gestion1']], // fecha_agenda1
+    ['type' => 's', 'value' => $_POST['nombre1']], // profesional1
+    ['type' => 's', 'value' => $_POST['accion2']], // accion_2
+    ['type' => 's', 'value' => $_SESSION['us_sds']], // usu_creo
+    // fecha_create se calcula en SQL
+    ['type' => 's', 'value' => 'A'] // estado
   ];
   $rta = mysql_prepd($sql, $params);
   return $rta;
-
 }
 
 function opc_pre_clasifclasificacion($id=''){
