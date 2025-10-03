@@ -35,6 +35,34 @@ function cap_menus($a,$b='cap',$con='con') {
   return $rta;
 }
 
+
+ function lis_adoleMas(){
+	// var_dump($_POST['id']);
+	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['id_adoleMas']) ? divide($_POST['id_adoleMas']) : null);
+  $info=datos_mysql("SELECT COUNT(*) total FROM vsp_adoleMas A LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
+  WHERE A.estado = 'A' AND A.idpeople='".$id[0]."'");
+	$total=$info['responseResult'][0]['total'];
+	$regxPag=4;
+  $pag=(isset($_POST['pag-adoleMas']))? ($_POST['pag-adoleMas']-1)* $regxPag:0;
+
+
+  
+  
+	$sql="SELECT `id_adoleMas` ACCIONES,id_adoleMas  'Cod Registro',
+P.tipo_doc,P.idpersona,fecha_seg Fecha,numsegui Seguimiento,FN_CATALOGODESC(87,evento) EVENTO,FN_CATALOGODESC(73,estado_s) estado,cierre_caso Cierra,
+fecha_cierre 'Fecha de Cierre',nombre Creó 
+FROM vsp_adoleMas A
+	LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
+  LEFT JOIN   person P ON A.idpeople=P.idpeople";
+	$sql.=" WHERE A.estado = 'A' AND A.idpeople='".$id[0]; 
+	$sql.="' ORDER BY A.fecha_create";
+	$sql.=' LIMIT '.$pag.','.$regxPag;
+	// echo $sql;
+	$datos=datos_mysql($sql);
+	return create_table($total,$datos["responseResult"],"adoleMas",$regxPag,'../vsp/adolmasbien.php');
+   }
+
+
 function cmp_seguiremoto(){
 	$rta="<div class='encabezado'>TABLA SEGUIMIENTOS</div>
 	<div class='contenido' id='seguiremoto-lis'>".lis_seguiremoto()."</div></div>";
