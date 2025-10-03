@@ -616,7 +616,11 @@ function EnabFin($id) {
 	$sql = "SELECT COUNT(*) AS agenda FROM eac_ruteo g
 WHERE g.id_ruteo = {$id[0]} AND g.estado_ruteo IS NOT NULL or g.estado_ruteo != ''";
 	$info = datos_mysql($sql);
-	return intval($info['responseResult'][0]["agenda"]) > 0;
+	if (intval($info['responseResult'][0]["agenda"]) > 0){
+		return false;
+	}else{
+		return true;
+	}
 }
 
 function men_reasignar(){
