@@ -20,13 +20,13 @@ else {
 }
 
 
-function focus_condsuic(){
-  return 'condsuic';
+function focus_adoleMas(){
+  return 'adoleMas';
  }
  
  
- function men_condsuic(){
-  $rta=cap_menus('condsuic','pro');
+ function men_adoleMas(){
+  $rta=cap_menus('adoleMas','pro');
   return $rta;
  }
  
@@ -34,29 +34,29 @@ function focus_condsuic(){
  function cap_menus($a,$b='cap',$con='con') {
    $rta = ""; 
    $acc=rol($a);
-if ($a=='condsuic'  && isset($acc['crear']) && $acc['crear']=='SI'){  
+if ($a=='adoleMas'  && isset($acc['crear']) && $acc['crear']=='SI'){  
 	 $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
     }
   return $rta;
  }
 
 
- function lis_condsuic(){
+ function lis_adoleMas(){
 	// var_dump($_POST['id']);
-	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['id_condsuic']) ? divide($_POST['id_condsuic']) : null);
-  $info=datos_mysql("SELECT COUNT(*) total FROM vsp_condsuic A LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
+	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['id_adoleMas']) ? divide($_POST['id_adoleMas']) : null);
+  $info=datos_mysql("SELECT COUNT(*) total FROM vsp_adoleMas A LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
   WHERE A.estado = 'A' AND A.idpeople='".$id[0]."'");
 	$total=$info['responseResult'][0]['total'];
 	$regxPag=4;
-  $pag=(isset($_POST['pag-condsuic']))? ($_POST['pag-condsuic']-1)* $regxPag:0;
+  $pag=(isset($_POST['pag-adoleMas']))? ($_POST['pag-adoleMas']-1)* $regxPag:0;
 
 
   
   
-	$sql="SELECT `id_condsuic` ACCIONES,id_condsuic  'Cod Registro',
+	$sql="SELECT `id_adoleMas` ACCIONES,id_adoleMas  'Cod Registro',
 P.tipo_doc,P.idpersona,fecha_seg Fecha,numsegui Seguimiento,FN_CATALOGODESC(87,evento) EVENTO,FN_CATALOGODESC(73,estado_s) estado,cierre_caso Cierra,
 fecha_cierre 'Fecha de Cierre',nombre Creó 
-FROM vsp_condsuic A
+FROM vsp_adoleMas A
 	LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
   LEFT JOIN   person P ON A.idpeople=P.idpeople";
 	$sql.=" WHERE A.estado = 'A' AND A.idpeople='".$id[0]; 
@@ -64,14 +64,14 @@ FROM vsp_condsuic A
 	$sql.=' LIMIT '.$pag.','.$regxPag;
 	// echo $sql;
 	$datos=datos_mysql($sql);
-	return create_table($total,$datos["responseResult"],"condsuic",$regxPag,'../vsp/condsuic.php');
+	return create_table($total,$datos["responseResult"],"adoleMas",$regxPag,'../vsp/adolmasbien.php');
    }
 
 
-function cmp_condsuic(){
+function cmp_adoleMas(){
 	$rta="<div class='encabezado'>TABLA SEGUIMIENTOS</div>
-	<div class='contenido' id='condsuic-lis'>".lis_condsuic()."</div></div>";
-	$w='condsuic';
+	<div class='contenido' id='adoleMas-lis'>".lis_adoleMas()."</div></div>";
+	$w='adoleMas';
   $d='';
 	$o='inf';
   // $nb='disa oculto';
@@ -87,7 +87,7 @@ function cmp_condsuic(){
   $pu='PuE';
   $gp='GyP';
 
-  $c[]=new cmp('id_condsuic','h','50',$_POST['id'],$w.' '.$o,'','id_condsuic',null,null,false,true,'','col-2');
+  $c[]=new cmp('id_adoleMas','h','50',$_POST['id'],$w.' '.$o,'','id_adoleMas',null,null,false,true,'','col-2');
   $c[]=new cmp('fecha_seg','d','10',$d,$w.' '.$o,'Fecha Seguimiento','fecha_seg',null,null,true,true,'','col-2',"validDate(this,$days,0);");
   $c[]=new cmp('numsegui','s','3',$d,$w.' '.$o,'Seguimiento N°','numsegui',null,null,true,true,'','col-2',"staEfe('numsegui','sta');EnabEfec(this,['hab','acc'],['Ob'],['nO'],['bL'])");
   $c[]=new cmp('evento','s','3',$ev,$w.' '.$o,'Evento','evento',null,null,false,false,'','col-2');
@@ -294,8 +294,8 @@ function opc_equ(){
   return $info['responseResult'][0]['equipo'];
 }
 
-function gra_condsuic(){
-  $id = divide($_POST['id_condsuic']);
+function gra_adoleMas(){
+  $id = divide($_POST['id_adoleMas']);
   $eq = opc_equ();
   $smbin = null;
   if (($smbina = $_POST['fusers_bina'] ?? null) && is_array($smbina)) {
@@ -342,10 +342,10 @@ function gra_condsuic(){
       }
     }
     $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_update
-    $sql = "UPDATE vsp_condsuic SET "
+    $sql = "UPDATE vsp_adoleMas SET "
       . implode(' = ?, ', $set) . " = ?, usu_update = ?, fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR) "
-      . "WHERE id_condsuic = ?";
-    $params[] = ['type' => 's', 'value' => $id[0]]; // id_condsuic
+      . "WHERE id_adoleMas = ?";
+    $params[] = ['type' => 's', 'value' => $id[0]]; // id_adoleMas
     $rta = mysql_prepd($sql, $params);
 
   } else if(count($id)==3){
@@ -375,27 +375,27 @@ function gra_condsuic(){
       }
     }
     $placeholders = implode(', ', array_fill(0, count($params), '?'));
-    $sql = "INSERT INTO vsp_condsuic (
-      id_condsuic, " . implode(', ', $campos) . "
+    $sql = "INSERT INTO vsp_adoleMas (
+      id_adoleMas, " . implode(', ', $campos) . "
     ) VALUES (
       NULL, $placeholders
     )";
     $rta = mysql_prepd($sql, $params);
   } else {
-    $rta = "Error: id_condsuic inválido";
+    $rta = "Error: id_adoleMas inválido";
   }
   return $rta;
 }
 
-  function get_condsuic(){
+  function get_adoleMas(){
     if($_REQUEST['id']==''){
       return "";
     }else{
       $id=divide($_REQUEST['id']);
-      $sql="SELECT concat_ws('_',id_condsuic,idpeople,numsegui,evento),
+      $sql="SELECT concat_ws('_',id_adoleMas,idpeople,numsegui,evento),
       fecha_seg,numsegui,evento,estado_s,motivo_estado,tipo_caso,etapa,sema_gest,asis_ctrpre,exam_lab,esqu_vacuna,cons_micronutr,fecha_obstetrica,edad_gesta,resul_gest,meto_fecunda,cual,peso_nacer,asiste_control,vacuna_comple,lacmate_exclu,persis_morir,proce_eapb,otra_conduc,cual_conduc,conduc_otrofam,tam_cope,total_afron,total_evita,estrategia_1,estrategia_2,acciones_1,desc_accion1,acciones_2,desc_accion2,acciones_3,desc_accion3,activa_ruta,ruta,novedades,signos_covid,caso_afirmativo,otras_condiciones,observaciones,cierre_caso,motivo_cierre,fecha_cierre,aplica_tamiz,liker_dificul,liker_emocion,liker_decision,cope_afronta,cope_evitacion,incremen_afron,incremen_evita,redu_riesgo_cierre
-      FROM vsp_condsuic
-      WHERE id_condsuic ='{$id[0]}'";
+      FROM vsp_adoleMas
+      WHERE id_adoleMas ='{$id[0]}'";
       // echo $sql;
       // print_r($id);
       $info=datos_mysql($sql);
@@ -410,9 +410,9 @@ function formato_dato($a,$b,$c,$d){
 // $rta=iconv('UTF-8','ISO-8859-1',$rta);
 // var_dump($a);
 // var_dump($rta);
-	if ($a=='condsuic' && $b=='acciones'){//a mnombre del modulo
+	if ($a=='adoleMas' && $b=='acciones'){//a mnombre del modulo
 		$rta="<nav class='menu right'>";	
-    $rta.="<li class='icono editar' title='Editar' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getData,500,'condsuic',event,this,['fecha_seg','numsegui','evento','estado_s','motivo_estado','cierre_caso'],'../vsp/condsuic.php');\"></li>";
+    $rta.="<li class='icono editar' title='Editar' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getData,500,'adoleMas',event,this,['fecha_seg','numsegui','evento','estado_s','motivo_estado','cierre_caso'],'../vsp/adolmasbien.php');\"></li>";
 	}
  return $rta;
 }
