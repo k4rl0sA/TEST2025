@@ -105,6 +105,11 @@ function opc_sexo($id=''){
 
 function opc_evento($id=''){
   $d=get_persona();
+
+   if($d['anos'] > 11 && $d['anos'] < 18 && ($d['sexo']=='M' || $d['sexo']=='H')){
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,3,6) and estado='A' ORDER BY 2",$id);
+  }
+  
   if($d['sexo']=='M'){
     if($d['anos']<6){
       return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,1,2,3) and estado='A' ORDER BY 2",$id);
