@@ -36,7 +36,6 @@ function cap_menus($a,$b='cap',$con='con') {
 }
 
 function cmp_seguiremoto(){
- function cmp_adoleMas(){
 	$rta="<div class='encabezado'>TABLA SEGUIMIENTOS</div>
 	<div class='contenido' id='adoleMas-lis'>".lis_adoleMas()."</div></div>";
 	$w='adoleMas';
