@@ -140,6 +140,19 @@ function gra_rutclasif(){
   ) VALUES (
     ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?
   )";
+
+ if ($_POST['riesgo'] == '1') {
+    $proxFecha = date('Y-m-d', strtotime('+6 months'));
+  } elseif ($_POST['riesgo'] == '2') {
+    $proxFecha = date('Y-m-d', strtotime('+4 months'));
+  } elseif ($_POST['riesgo'] == '3') {
+    $proxFecha = date('Y-m-d', strtotime('+3 months'));
+  }else{
+    return "msj['Error: No se ha seleccionado un nivel de riesgo válido.']";
+  }
+
+
+  $proxFecha=$_POST['riesgo']=='29601'?fechas_app('ruteo'):null
   $params = [
     ['type' => 's', 'value' => $id[0]], // idrutges
     ['type' => 's', 'value' => $_POST['pre_clasif']], // preclasif
@@ -152,7 +165,7 @@ function gra_rutclasif(){
     ['type' => 's', 'value' => $_POST['desc_accion2']], // desc_accion2
     ['type' => 's', 'value' => $_POST['acciones_3']], // accion3
     ['type' => 's', 'value' => $_POST['desc_accion3']], // desc_accion3
-    ['type' => 's', 'value' => $_POST['fecha']], // fecha
+    ['type' => 's', 'value' => $proxFecha], // fecha
     ['type' => 's', 'value' => $_POST['docu_confirm']], // docu_confirm
     ['type' => 's', 'value' => $_POST['solici_agenda']], // solic_agend
     ['type' => 's', 'value' => $_POST['tipo_accion']], // tipo
