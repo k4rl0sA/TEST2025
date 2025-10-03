@@ -36,7 +36,7 @@ function cap_menus($a,$b='cap',$con='con') {
 }
 
 
- function lis_seguiremoto(){
+function lis_seguiremoto(){
 	// var_dump($_POST['id']);
 	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['id_seguimiento']) ? divide($_POST['id_seguimiento']) : null);
   $info=datos_mysql("SELECT COUNT(*) total FROM ruteo_remoto A LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
@@ -55,7 +55,7 @@ function cap_menus($a,$b='cap',$con='con') {
 	// echo $sql;
 	$datos=datos_mysql($sql);
 	return create_table($total,$datos["responseResult"],"adoleMas",$regxPag,'../vsp/adolmasbien.php');
-   }
+}
 
 
 function cmp_seguiremoto(){
