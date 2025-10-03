@@ -1,5 +1,5 @@
 <?php
-require_once "../libs/seguiremot.php";
+require_once "../libs/gestion.php";
 ini_set('display_errors','1');
 if (!isset($_SESSION['us_sds'])) die("<script>window.top.location.href='/';</script>");
 else {
