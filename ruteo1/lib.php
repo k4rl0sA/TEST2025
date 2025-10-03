@@ -599,6 +599,17 @@ LEFT JOIN eac_ruteo er ON g.idruteo=er.id_ruteo
 	}
 }
 
+
+function EnabRemot(){
+	$id = divide($id);
+	$sql = "SELECT COUNT(*) AS agenda FROM eac_ruteo_clas c WHERE idrutges=$id[0]";
+	$info = datos_mysql($sql);
+	if (intval($info['responseResult'][0]["agenda"]) > 0){
+		return true;
+	}else{
+		return false;
+	}
+}
 /***************************************************************************/
 function EnabFin($id) {
 	$id = divide($id);
@@ -705,7 +716,7 @@ if ($a=='rute' && $b=='acciones'){
 		 if (EnabFin($c['ACCIONES'])) {
 			$rta .= acceso('reasigRut') ? "<li title='Reasignar Ruteo' onclick=\"mostrar('reasignar','pro',event,'','lib.php',7,'Reasignar Ruteo');\"><i class='fa-solid fa-route ico' id='{$c['ACCIONES']}'></i></li>" : "";
 		}
-		if (EnabFin($c['ACCIONES'])) {
+		if (EnabRemot($c['ACCIONES'])) {
 			$rta .= acceso('seguiRemoto') ? "<li title='Seguimiento remoto' onclick=\"mostrar('seguiremoto','pro',event,'','seguiRemoto.php',7,'Seguimiento Remoto');\"><i class='fa-solid fa-house-laptop ico' id='{$c['ACCIONES']}'></i></li>" : "";
 		} 
 
