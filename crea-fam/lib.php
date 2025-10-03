@@ -787,7 +787,7 @@ function eventAsign($key) {
     );
     $eve = '';
     foreach ($rta as $evento) {
-		print_r($rta);
+		// print_r($rta);
         $id = $evento['eve'];
         if (isset($eventos[$id])) {
             $icono = $eventos[$id]['icono'];
