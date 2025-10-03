@@ -45,9 +45,6 @@ function cap_menus($a,$b='cap',$con='con') {
 	$regxPag=4;
   $pag=(isset($_POST['pag-seguiremoto']))? ($_POST['pag-seguiremoto']-1)* $regxPag:0;
 
-
-  
-  
 	$sql="SELECT `id_seguimiento` ACCIONES,id_seguimiento  'Cod Registro',P.tipo_doc,P.idpersona,fecha_seg Fecha,numsegui Seguimiento,FN_CATALOGODESC(87,evento) EVENTO,FN_CATALOGODESC(73,estado_s) estado,cierre_caso Cierra,fecha_cierre 'Fecha de Cierre',nombre Creó 
   FROM ruteo_remoto A
 	LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
