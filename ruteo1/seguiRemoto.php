@@ -37,8 +37,8 @@ function cap_menus($a,$b='cap',$con='con') {
 
 function cmp_seguiremoto(){
 	$rta="<div class='encabezado'>TABLA SEGUIMIENTOS</div>
-	<div class='contenido' id='adoleMas-lis'>".lis_adoleMas()."</div></div>";
-	$w='adoleMas';
+	<div class='contenido' id='seguiremoto-lis'>".lis_seguiremoto()."</div></div>";
+	$w='seguiremoto';
   $d='';
 	$o='inf';
   // $nb='disa oculto';
@@ -54,7 +54,6 @@ function cmp_seguiremoto(){
   $pu='PuE';
   $gp='GyP';
 
-  $c[]=new cmp('id_adoleMas','h','50',$_POST['id'],$w.' '.$o,'','id_adoleMas',null,null,false,true,'','col-2');
   $c[]=new cmp('fecha_seg','d','10',$d,$w.' '.$o,'Fecha Seguimiento','fecha_seg',null,null,true,true,'','col-2',"validDate(this,$days,0);");
   $c[]=new cmp('numsegui','s','3',$d,$w.' '.$o,'Seguimiento N°','numsegui',null,null,true,true,'','col-2',"staEfe('numsegui','sta');EnabEfec(this,['hab','acc'],['Ob'],['nO'],['bL'])");
   $c[]=new cmp('evento','s','3',$ev,$w.' '.$o,'Evento','evento',null,null,false,false,'','col-2');
