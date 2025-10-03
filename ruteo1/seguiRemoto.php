@@ -37,25 +37,67 @@ function cap_menus($a,$b='cap',$con='con') {
 
 function cmp_seguiremoto(){
  $rta="";
- $t=['id_rutclas'=>'','idrutges'=>'','preclasif'=>'','clasifica'=>'','riesgo'=>'','accion'=>'','fecha'=>'','accion1'=>'','desc_accion1'=>'','accion2'=>'','desc_accion2'=>'','accion3'=>'','desc_accion3'=>'','profesional'=>'','solic_agend'=>'','ruta'=>'','sectorial'=>'','intsectorial'=>'','entornos'=>'','aseguram'=>''];
+ $t=['id_rutclas'=>'', 'id_seguimiento'=>'','fecha_seguimiento'=>'','prioridad'=>'','tipo_prioridad'=>'','num_seguimiento'=>'','estado_seg'=>'','motivo_estado'=>'','nov_pri_fam1'=>'','nov_pri_fam2'=>'','nov_pri_fam3'=>'','gestante_cpn'=>'','inasistente_12m'=>'','inasistente_6_12m'=>'','menor5_rpms'=>'','menor5_riesgo'=>'','vacunacion_incompleta'=>'','acepta_vacunacion'=>'','barrera_salud'=>'','agendamiento'=>'','activacion_ruta'=>'','sin_afiliacion'=>'','acepta_afiliacion'=>'','sujeto_abordaje'=>'','acepta_abordaje'=>'','deriva_perfil1'=>'','asignado_a1'=>'','sujeto_concertacion'=>'','acepta_plan'=>'','deriva_perfil2'=>'','asignado_a2'=>'','accion1'=>'','desc_accion1'=>'','accion2'=>'','desc_accion2'=>'','accion3'=>'','desc_accion3'=>'','observaciones'=>'','continua_seguimiento'=>'','fecha_prox_seguimiento'=>'','motivo_no_continuidad'=>''];
  $w='seguiremot';
  $d=get_seguiremot();
  if ($d=="") {$d=$t;}
  $u=($d['idrutges']== NULL || $d['idrutges']== '')?true:false;
  $days=fechas_app('ruteo');
- $o='gescla';
+ $o='seguimiento';
  $mykey=$_POST['id'].'_'.$d['id_rutclas'];
- $c[]=new cmp($o,'e',null,'PROCESO DE CLASIFICACIÓN',$w);
+ $c[]=new cmp($o,'e',null,'SEGUIMIENTOS REMOTO',$w);
  $c[]=new cmp('id','h','20',$mykey,$w.' '.$o,'','',null,null,true,$u,'','col-1');
- $c[]=new cmp('pre_clasif','s','10',$d['preclasif'],$w.' '.$o,'COHORTE DE RIESGO','pre_clasif',null,null,true,$u,'','col-25',"selectDepend('pre_clasif','clasificacion','clasifica.php');");
- $c[]=new cmp('clasificacion','s','10',$d['clasifica'],$w.' '.$o,'GRUPO DE POBLACION PRIORIZADA','clasificacion',null,null,true,$u,'','col-25');
- $c[]=new cmp('riesgo','s','10',$d['riesgo'],$w.' '.$o,'Riesgo','riesgo',null,null,true,$u,'','col-25','rutRiskHig();rutRisklow();');
+  $c[] = new cmp('fecha_seguimiento','d','10',$d['fecha_seguimiento'],$w.' fecha','Fecha de Seguimiento','fecha_seguimiento',null,null,true,$u,'','col-3');
+  $c[] = new cmp('prioridad','s','3',$d['prioridad'],$w.' prioridad','Prioridad','prioridad',null,null,true,$u,'','col-3');
+  $c[] = new cmp('tipo_prioridad','s','3',$d['tipo_prioridad'],$w.' tipo_prioridad','Tipo Prioridad','tipo_prioridad',null,null,true,$u,'','col-3');
+  $c[] = new cmp('num_seguimiento','nu','11',$d['num_seguimiento'],$w.' num_seguimiento','N° Seguimiento','num_seguimiento',null,null,true,$u,'','col-3');
+  $c[] = new cmp('estado_seg','s','3',$d['estado_seg'],$w.' estado_seg','Estado Seguimiento','estado_seg',null,null,true,$u,'','col-3');
+  $c[] = new cmp('motivo_estado','s','3',$d['motivo_estado'],$w.' motivo_estado','Motivo Estado','motivo_estado',null,null,false,$u,'','col-3');
 
+  $o='novedades';
+  $c[]=new cmp($o,'e',null,'NOVEDADES',$w);
+  $c[] = new cmp('nov_pri_fam1','s','3',$d['nov_pri_fam1'],$w.' nov_pri_fam1','Novedad Prioridad Familiar 1','nov_pri_fam1',null,null,false,$u,'','col-3');
+  $c[] = new cmp('nov_pri_fam2','s','3',$d['nov_pri_fam2'],$w.' nov_pri_fam2','Novedad Prioridad Familiar 2','nov_pri_fam2',null,null,false,$u,'','col-3');
+  $c[] = new cmp('nov_pri_fam3','s','3',$d['nov_pri_fam3'],$w.' nov_pri_fam3','Novedad Prioridad Familiar 3','nov_pri_fam3',null,null,false,$u,'','col-3');
+  $c[] = new cmp('gestante_cpn','s','3',$d['gestante_cpn'],$w.' gestante_cpn','Gestante CPN','gestante_cpn',null,null,false,$u,'','col-3');
+  $c[] = new cmp('inasistente_12m','s','3',$d['inasistente_12m'],$w.' inasistente_12m','Inasistente 12 meses','inasistente_12m',null,null,false,$u,'','col-3');
+  $c[] = new cmp('inasistente_6_12m','s','3',$d['inasistente_6_12m'],$w.' inasistente_6_12m','Inasistente 6-12 meses','inasistente_6_12m',null,null,false,$u,'','col-3');
+  $c[] = new cmp('menor5_rpms','s','3',$d['menor5_rpms'],$w.' menor5_rpms','Menor 5 RPMS','menor5_rpms',null,null,false,$u,'','col-3');
+  $c[] = new cmp('menor5_riesgo','s','3',$d['menor5_riesgo'],$w.' menor5_riesgo','Menor 5 Riesgo','menor5_riesgo',null,null,false,$u,'','col-3');
+  $c[] = new cmp('vacunacion_incompleta','s','3',$d['vacunacion_incompleta'],$w.' vacunacion_incompleta','Vacunación Incompleta','vacunacion_incompleta',null,null,false,$u,'','col-3');
+  $c[] = new cmp('acepta_vacunacion','s','3',$d['acepta_vacunacion'],$w.' acepta_vacunacion','Acepta Vacunación','acepta_vacunacion',null,null,false,$u,'','col-3');
+  $c[] = new cmp('barrera_salud','s','3',$d['barrera_salud'],$w.' barrera_salud','Barrera Salud','barrera_salud',null,null,false,$u,'','col-3');
+  $c[] = new cmp('agendamiento','s','3',$d['agendamiento'],$w.' agendamiento','Agendamiento','agendamiento',null,null,false,$u,'','col-3');
+  $c[] = new cmp('activacion_ruta','s','3',$d['activacion_ruta'],$w.' activacion_ruta','Activación Ruta','activacion_ruta',null,null,false,$u,'','col-3');
+  $c[] = new cmp('sin_afiliacion','s','3',$d['sin_afiliacion'],$w.' sin_afiliacion','Sin Afiliación','sin_afiliacion',null,null,false,$u,'','col-3');
+  $c[] = new cmp('acepta_afiliacion','s','3',$d['acepta_afiliacion'],$w.' acepta_afiliacion','Acepta Afiliación','acepta_afiliacion',null,null,false,$u,'','col-3');
+  $c[] = new cmp('sujeto_abordaje','s','3',$d['sujeto_abordaje'],$w.' sujeto_abordaje','Sujeto Abordaje','sujeto_abordaje',null,null,false,$u,'','col-3');
+  $c[] = new cmp('acepta_abordaje','s','3',$d['acepta_abordaje'],$w.' acepta_abordaje','Acepta Abordaje','acepta_abordaje',null,null,false,$u,'','col-3');
+  $c[] = new cmp('deriva_perfil1','s','3',$d['deriva_perfil1'],$w.' deriva_perfil1','Deriva Perfil 1','deriva_perfil1',null,null,false,$u,'','col-3');
+  $c[] = new cmp('asignado_a1','s','3',$d['asignado_a1'],$w.' asignado_a1','Asignado a 1','asignado_a1',null,null,false,$u,'','col-3');
+  $c[] = new cmp('sujeto_concertacion','s','3',$d['sujeto_concertacion'],$w.' sujeto_concertacion','Sujeto Concertación','sujeto_concertacion',null,null,false,$u,'','col-3');
+  $c[] = new cmp('acepta_plan','s','3',$d['acepta_plan'],$w.' acepta_plan','Acepta Plan','acepta_plan',null,null,false,$u,'','col-3');
+  $c[] = new cmp('deriva_perfil2','s','3',$d['deriva_perfil2'],$w.' deriva_perfil2','Deriva Perfil 2','deriva_perfil2',null,null,false,$u,'','col-3');
+  $c[] = new cmp('asignado_a2','s','3',$d['asignado_a2'],$w.' asignado_a2','Asignado a 2','asignado_a2',null,null,false,$u,'','col-3');
 
- $o='ACC';
+$o='acciones';
  $c[]=new cmp($o,'e',null,'ACCIONES Y ESTRATEGIAS',$w);
+  $c[] = new cmp('accion1','s','3',$d['accion1'],$w.' accion1','Acción 1','accion1',null,null,false,$u,'','col-3');
+  $c[] = new cmp('desc_accion1','s','3',$d['desc_accion1'],$w.' desc_accion1','Descripción Acción 1','desc_accion1',null,null,false,$u,'','col-3');
+  $c[] = new cmp('accion2','s','3',$d['accion2'],$w.' accion2','Acción 2','accion2',null,null,false,$u,'','col-3');
+  $c[] = new cmp('desc_accion2','s','3',$d['desc_accion2'],$w.' desc_accion2','Descripción Acción 2','desc_accion2',null,null,false,$u,'','col-3');
+  $c[] = new cmp('accion3','s','3',$d['accion3'],$w.' accion3','Acción 3','accion3',null,null,false,$u,'','col-3');
+  $c[] = new cmp('desc_accion3','s','3',$d['desc_accion3'],$w.' desc_accion3','Descripción Acción 3','desc_accion3',null,null,false,$u,'','col-3');
+  $c[] = new cmp('observaciones','s','7000',$d['observaciones'],$w.' observaciones','Observaciones','observaciones',null,null,false,$u,'','col-12');
+  $c[] = new cmp('continua_seguimiento','s','3',$d['continua_seguimiento'],$w.' continua_seguimiento','¿Continúa Seguimiento?','continua_seguimiento',null,null,false,$u,'','col-3');
+  $c[] = new cmp('fecha_prox_seguimiento','d','10',$d['fecha_prox_seguimiento'],$w.' fecha_prox_seguimiento','Fecha Próximo Seguimiento','fecha_prox_seguimiento',null,null,false,$u,'','col-3');
+  $c[] = new cmp('motivo_no_continuidad','s','3',$d['motivo_no_continuidad'],$w.' motivo_no_continuidad','Motivo No Continuidad','motivo_no_continuidad',null,null,false,$u,'','col-3');
+
+
+
+ 
  /* $c[]=new cmp('accion','s','10',$d['accion'],$w.' '.$o,'Definir Acción','clasificacion',null,null,true,false,'','col-5');
- $c[]=new cmp('fecha','d','10',$d['fecha'],$w.' '.$o,'Fecha de Programación','fecha',null,null,true,false,'','col-5','validDate(this,-2,0);'); */
+ $c[]=new cmp('fecha','d','10',$d['fecha'],$w.' '.$o,'Fecha de Programación','fecha',null,null,true,false,'','col-5','validDate(this,-2,0);'); 
  $c[]=new cmp('acciones_1','s','3',$d['accion1'],$w.' '.$o,'Accion 1','acciones_1',null,null,true,$u,'','col-5',"selectDepend('acciones_1','desc_accion1','clasifica.php');");
  $c[]=new cmp('desc_accion1','s','3',$d['desc_accion1'],$w.' '.$o,'Descripcion Accion 1','desc_accion1',null,null,true,$u,'','col-5');
  $c[]=new cmp('acciones_2','s','3',$d['accion2'],$w.' '.$o,'Accion 2','acciones_2',null,null,false,$u,'','col-5',"selectDepend('acciones_2','desc_accion2','clasifica.php');");
@@ -82,7 +124,7 @@ function cmp_seguiremoto(){
  $c[]=new cmp($o,'e',null,'RIESGO ALTO',$w); 
 //  $c[]=new cmp('perfil','s','90','',$w.' dir '.$o,'Perfil A Asignar','perfil',null,null,false,false,'','col-25',"selectDepend('perfil','nombre','clasifica.php');");
 //  $c[]=new cmp('nombre','s','6',$d['profesional'],$w.' dir '.$o,'Profesional Asignado','doc_asignado',null,null,false,false,'','col-25');
-*/
+
 
  $o='gesefc';
  $c[]=new cmp($o,'e',null,'PROCESO DE GESTIÓN',$w);
@@ -93,6 +135,9 @@ function cmp_seguiremoto(){
  //$c[]=new cmp('usuario_gest','s','10','',$w.' AGe '.$o,'Usuario que Gestiona','usuario_gest',null,null,false,true,'','col-2');
  $c[]=new cmp('perfil','s','90','',$w.' dir '.$o,'Perfil A Asignar','perfil',null,null,false,true,'','col-25',"selectDepend('perfil','nombre','clasifica.php');");
  $c[]=new cmp('nombre','s','6',$d['profesional'],$w.' dir '.$o,'Profesional Asignado','doc_asignado',null,null,false,true,'','col-25');
+
+ $o='acciones';
+ $c[]=new cmp($o,'e',null,'ACCIONES Y ESTRATEGIAS',$w);*/
 
  for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
  return $rta;
