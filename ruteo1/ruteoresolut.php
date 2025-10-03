@@ -41,7 +41,7 @@ function cmp_ruteresol(){
  $w='ruteresol';
  $d=get_ruteresol(); 
  if ($d=="") {$d=$t;}
- $u=($d['fecha']== NULL)?true:false;
+ $u=($d['fecha']== NULL || $d['fecha']== '0000-00-00' )?true:false;
 var_dump($d);
  $o='gesres';
  $days=fechas_app('ruteo');
