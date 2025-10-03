@@ -1287,7 +1287,7 @@ function enabEmbSif() {
 }
 function rutRute(){
 	const conditions = [
-		{ id: 'activa_ruta', value: '1', compare: true }
+		{ id: 'ruta', value: '1', compare: true }
 	];
 	EnabDepeDynamic(['ruta'], conditions);
 }
