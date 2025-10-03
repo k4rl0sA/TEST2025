@@ -152,7 +152,6 @@ function gra_rutclasif(){
   }
 
 
-  $proxFecha=$_POST['riesgo']=='29601'?fechas_app('ruteo'):null
   $params = [
     ['type' => 's', 'value' => $id[0]], // idrutges
     ['type' => 's', 'value' => $_POST['pre_clasif']], // preclasif
