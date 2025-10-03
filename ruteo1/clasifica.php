@@ -67,13 +67,13 @@ function cmp_rutclasif(){
  $o='servicios';
  $c[]=new cmp($o,'l',null,'Servicios',$w);
  $c[]=new cmp('fecha','d','10',$d['fecha'],$w.' '.$o,'Fecha Proximo Seguimiento Remoto','fecha',null,null,false,false,'','col-25',"validDate(this,$days,20);");
- $c[]=new cmp('docu_confirm','nu','999999999999999999','',$w.' AGe '.$o,'Documento Confirmado  del Usuario','docu_confirm',null,null,true,true,'','col-25');
+ $c[]=new cmp('docu_confirm','nu','999999999999999999',$d['docu_confirm'],$w.' AGe '.$o,'Documento Confirmado  del Usuario','docu_confirm',null,null,true,true,'','col-25');
  $c[]=new cmp('solici_agenda','s',3,$d['solic_agend'],$w.' AGe '.$o,'Solicito Servicio Agendamiento','rta',null,'',true,$u,'','col-25');
- $c[]=new cmp('accion','s','10',$d['accion'],$w.' SeG '.$o,'Tipo de Acción','accion',null,null,false,false,'','col-25',"enabTipoAccRuteo();");
+ $c[]=new cmp('tipo_accion','s','10',$d['tipo'],$w.' SeG '.$o,'Tipo de Acción','accion',null,null,false,false,'','col-25',"enabTipoAccRuteo();");
 
  $cl='ruta';
  $c[]=new cmp($cl,'l',null,'ACTIVACIÓN DE RUTA',$w);
- $c[]=new cmp('activa_ruta','s','10',$d['ruta'],$w.' AGe '.$o,'Activó Ruta','rta',null,null,true,$u,'','col-2','rutRute();');
+ $c[]=new cmp('ruta','s','10',$d['ruta'],$w.' AGe '.$o,'Activó Ruta','rta',null,null,true,$u,'','col-2','rutRute();');
  $c[]=new cmp('sectorial','s','2',$d['sectorial'],$w.' '.$cl,'¿Sectorial?','rta',null,null,true,false,'','col-2');
  $c[]=new cmp('intersectorial','s','2',$d['intsectorial'],$w.' '.$cl,'¿Intersectorial?','rta',null,null,true,false,'','col-2');
  $c[]=new cmp('entornos','s','2',$d['entornos'],$w.' '.$cl,'¿Entornos?','rta',null,null,true,false,'','col-2');
@@ -82,21 +82,22 @@ function cmp_rutclasif(){
  
  $o='colectivas';
  $c[]=new cmp($o,'e',null,'ACCIONES COLECTIVAS',$w);
- $c[]=new cmp('fecha_gestion','d','10','',$w.' CoLE '.$o,'Fecha de Agenda','fecha_gestion',null,null,false,false,'','col-2',"validDate(this,$days,30);");
+ $c[]=new cmp('fecha_gestion','d','10',$d['fecha_agenda'],$w.' CoLE '.$o,'Fecha de Agenda','fecha_gestion',null,null,false,false,'','col-2',"validDate(this,$days,30);");
  
  $c[]=new cmp('perfil','s','90','',$w.' CoLE '.$o,'Perfil A Asignar','perfil',null,null,false,false,'','col-25',"selectDepend('perfil','nombre','clasifica.php');");
  $c[]=new cmp('nombre','s','6',$d['profesional'],$w.' CoLE '.$o,'Profesional Asignado','doc_asignado',null,null,false,false,'','col-25');
- $c[]=new cmp('accion1','s','10',$d['accion1'],$w.' CoLE '.$o,'Definir Acción','colectiv',null,null,false,false,'','col-25');
+ $c[]=new cmp('accion1','s','10',$d['accion_1'],$w.' CoLE '.$o,'Definir Acción','colectiv',null,null,false,false,'','col-25');
 
  /*$c[]=new cmp('perfil','s','90','',$w.' dir '.$o,'Perfil A Asignar','perfil',null,null,false,false,'','col-25',"selectDepend('perfil','nombre','clasifica.php');");
  $c[]=new cmp('nombre','s','6',$d['profesional'],$w.' dir '.$o,'Profesional Asignado','doc_asignado',null,null,false,false,'','col-25'); */
 
  $o='individual';
  $c[]=new cmp($o,'e',null,'ACCIONES INDIVIDUALES',$w); 
- $c[]=new cmp('fecha_gestion','d','10','',$w.' INdi '.$o,'Fecha de Agenda','fecha_gestion',null,null,false,false,'','col-2',"validDate(this,$days,30);");
- $c[]=new cmp('perfil1','s','90','',$w.' INdi '.$o,'Perfil A Asignar','perfil',null,null,false,false,'','col-25',"selectDepend('perfil1','nombre1','clasifica.php');");
- $c[]=new cmp('nombre1','s','6',$d['profesional'],$w.' INdi '.$o,'Profesional Asignado','doc_asignado',null,null,false,false,'','col-25');
- $c[]=new cmp('accion2','s','10',$d['accion2'],$w.' INdi '.$o,'Definir Acción','indivi',null,null,false,false,'','col-25');
+ $c[]=new cmp('fecha_gestion1','d','10',$d['fecha_agenda1'],$w.' INdi '.$o,'Fecha de Agenda','fecha_gestion',null,null,false,false,'','col-2',"validDate(this,$days,30);");
+ $c[]=new cmp('perfil1','s','90','',$w.' INdi '.$o,'Perfil A Asignar','perfil',null,null,false,false,'','col-25',"selectDepe1nd('perfil1','nombre1','cla1
+ fica.php');");
+ $c[]=new cmp('nombre1','s','6',$d['profesional1'],$w.' INdi '.$o,'Profesional Asignado','doc_asignado',null,null,false,false,'','col-25');
+ $c[]=new cmp('accion2','s','10',$d['accion_2'],$w.' INdi '.$o,'Definir Acción','indivi',null,null,false,false,'','col-25');
 
 
 
