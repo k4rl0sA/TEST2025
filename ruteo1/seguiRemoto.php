@@ -48,10 +48,8 @@ function cap_menus($a,$b='cap',$con='con') {
 
   
   
-	$sql="SELECT `id_seguimiento` ACCIONES,id_seguimiento  'Cod Registro',
-P.tipo_doc,P.idpersona,fecha_seg Fecha,numsegui Seguimiento,FN_CATALOGODESC(87,evento) EVENTO,FN_CATALOGODESC(73,estado_s) estado,cierre_caso Cierra,
-fecha_cierre 'Fecha de Cierre',nombre Creó 
-FROM ruteo_remoto A
+	$sql="SELECT `id_seguimiento` ACCIONES,id_seguimiento  'Cod Registro',P.tipo_doc,P.idpersona,fecha_seg Fecha,numsegui Seguimiento,FN_CATALOGODESC(87,evento) EVENTO,FN_CATALOGODESC(73,estado_s) estado,cierre_caso Cierra,fecha_cierre 'Fecha de Cierre',nombre Creó 
+  FROM ruteo_remoto A
 	LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
   LEFT JOIN   person P ON A.idpeople=P.idpeople";
 	$sql.=" WHERE A.estado = 'A' AND A.idpeople='".$id[0]; 
