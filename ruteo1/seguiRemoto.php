@@ -96,7 +96,7 @@ function get_seguiremot(){
 	if($_POST['id']=='0'){
 		return "";
 	}else{
-		$id=divide($_POST['id']);
+	/* 	$id=divide($_POST['id']);
 		// var_dump($id);
 		$sql="SELECT id_rutclas,idrutges,preclasif,clasifica,riesgo,accion,fecha,accion1,desc_accion1,accion2,desc_accion2,accion3,desc_accion3,profesional,solic_agend,ruta,sectorial,intsectorial,entornos,aseguram
 		 FROM `eac_ruteo_clas` WHERE  idrutges='{$id[0]}'";
@@ -106,7 +106,7 @@ function get_seguiremot(){
         return $info['responseResult'][0];
       }else {
         return '';
-      }
+      } */
 	} 
 }
 
