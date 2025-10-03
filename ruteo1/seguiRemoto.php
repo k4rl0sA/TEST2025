@@ -36,60 +36,87 @@ function cap_menus($a,$b='cap',$con='con') {
 }
 
 function cmp_seguiremoto(){
- $rta="";
- $w='seguiremot';
- $u=($d['idrutges']== NULL || $d['idrutges']== '')?true:false;
- $days=fechas_app('ruteo');
- $o='seguimiento';
- $mykey=$_POST['id'].'_'.$d['id_rutclas'];
- $c[]=new cmp('id_adoleMas','h','50',$mykey,$w.' '.$o,'','id_adoleMas',null,null,false,true,'','col-2');
- $c[]=new cmp('fecha_seg','d','10',$d,$w.' '.$o,'Fecha Seguimiento','fecha_seg',null,null,true,true,'','col-2',"validDate(this,$days,0);");
- $c[]=new cmp('numsegui','s','3',$d,$w.' '.$o,'Seguimiento N°','numsegui',null,null,true,true,'','col-2',"staEfe('numsegui','sta');EnabEfec(this,['hab','acc'],['Ob'],['nO'],['bL'])");
- $c[]=new cmp('evento','s','3',$ev,$w.' '.$o,'Evento','evento',null,null,false,false,'','col-2');
- $c[]=new cmp('estado_s','s','3',$d,$w.' sTa '.$o,'Estado','estado_s',null,null,true,true,'','col-2',"enabFielSele(this,true,['motivo_estado'],['3']);EnabEfec(this,['hab','acc'],['Ob'],['nO'],['bL']);");
- $c[]=new cmp('motivo_estado','s','3',$d,$w.' '.$o,'Motivo de Estado','motivo_estado',null,null,false,$x,'','col-2');
+ function cmp_adoleMas(){
+	$rta="<div class='encabezado'>TABLA SEGUIMIENTOS</div>
+	<div class='contenido' id='adoleMas-lis'>".lis_adoleMas()."</div></div>";
+	$w='adoleMas';
+  $d='';
+	$o='inf';
+  // $nb='disa oculto';
+  $ob='Ob';
+  $no='nO';
+  $bl='bL';
+  $x=false;
+   $block=['hab','acc'];
+  $event=divide($_POST['id']);
+  $ev=$event[2];
+  $days=fechas_app('vsp');
+  $ge='pRe';
+  $pu='PuE';
+  $gp='GyP';
 
-  $o='novedades';
-  $c[]=new cmp($o,'e',null,'NOVEDADES',$w);
-  $c[] = new cmp('nov_pri_fam1','s','3',$d['nov_pri_fam1'],$w.' nov_pri_fam1','Novedad Prioridad Familiar 1','nov_pri_fam1',null,null,false,$u,'','col-3');
-  $c[] = new cmp('nov_pri_fam2','s','3',$d['nov_pri_fam2'],$w.' nov_pri_fam2','Novedad Prioridad Familiar 2','nov_pri_fam2',null,null,false,$u,'','col-3');
-  $c[] = new cmp('nov_pri_fam3','s','3',$d['nov_pri_fam3'],$w.' nov_pri_fam3','Novedad Prioridad Familiar 3','nov_pri_fam3',null,null,false,$u,'','col-3');
-  $c[] = new cmp('gestante_cpn','s','3',$d['gestante_cpn'],$w.' gestante_cpn','Gestante CPN','gestante_cpn',null,null,false,$u,'','col-3');
-  $c[] = new cmp('inasistente_12m','s','3',$d['inasistente_12m'],$w.' inasistente_12m','Inasistente 12 meses','inasistente_12m',null,null,false,$u,'','col-3');
-  $c[] = new cmp('inasistente_6_12m','s','3',$d['inasistente_6_12m'],$w.' inasistente_6_12m','Inasistente 6-12 meses','inasistente_6_12m',null,null,false,$u,'','col-3');
-  $c[] = new cmp('menor5_rpms','s','3',$d['menor5_rpms'],$w.' menor5_rpms','Menor 5 RPMS','menor5_rpms',null,null,false,$u,'','col-3');
-  $c[] = new cmp('menor5_riesgo','s','3',$d['menor5_riesgo'],$w.' menor5_riesgo','Menor 5 Riesgo','menor5_riesgo',null,null,false,$u,'','col-3');
-  $c[] = new cmp('vacunacion_incompleta','s','3',$d['vacunacion_incompleta'],$w.' vacunacion_incompleta','Vacunación Incompleta','vacunacion_incompleta',null,null,false,$u,'','col-3');
-  $c[] = new cmp('acepta_vacunacion','s','3',$d['acepta_vacunacion'],$w.' acepta_vacunacion','Acepta Vacunación','acepta_vacunacion',null,null,false,$u,'','col-3');
-  $c[] = new cmp('barrera_salud','s','3',$d['barrera_salud'],$w.' barrera_salud','Barrera Salud','barrera_salud',null,null,false,$u,'','col-3');
-  $c[] = new cmp('agendamiento','s','3',$d['agendamiento'],$w.' agendamiento','Agendamiento','agendamiento',null,null,false,$u,'','col-3');
-  $c[] = new cmp('activacion_ruta','s','3',$d['activacion_ruta'],$w.' activacion_ruta','Activación Ruta','activacion_ruta',null,null,false,$u,'','col-3');
-  $c[] = new cmp('sin_afiliacion','s','3',$d['sin_afiliacion'],$w.' sin_afiliacion','Sin Afiliación','sin_afiliacion',null,null,false,$u,'','col-3');
-  $c[] = new cmp('acepta_afiliacion','s','3',$d['acepta_afiliacion'],$w.' acepta_afiliacion','Acepta Afiliación','acepta_afiliacion',null,null,false,$u,'','col-3');
-  $c[] = new cmp('sujeto_abordaje','s','3',$d['sujeto_abordaje'],$w.' sujeto_abordaje','Sujeto Abordaje','sujeto_abordaje',null,null,false,$u,'','col-3');
-  $c[] = new cmp('acepta_abordaje','s','3',$d['acepta_abordaje'],$w.' acepta_abordaje','Acepta Abordaje','acepta_abordaje',null,null,false,$u,'','col-3');
-  $c[] = new cmp('deriva_perfil1','s','3',$d['deriva_perfil1'],$w.' deriva_perfil1','Deriva Perfil 1','deriva_perfil1',null,null,false,$u,'','col-3');
-  $c[] = new cmp('asignado_a1','s','3',$d['asignado_a1'],$w.' asignado_a1','Asignado a 1','asignado_a1',null,null,false,$u,'','col-3');
-  $c[] = new cmp('sujeto_concertacion','s','3',$d['sujeto_concertacion'],$w.' sujeto_concertacion','Sujeto Concertación','sujeto_concertacion',null,null,false,$u,'','col-3');
-  $c[] = new cmp('acepta_plan','s','3',$d['acepta_plan'],$w.' acepta_plan','Acepta Plan','acepta_plan',null,null,false,$u,'','col-3');
-  $c[] = new cmp('deriva_perfil2','s','3',$d['deriva_perfil2'],$w.' deriva_perfil2','Deriva Perfil 2','deriva_perfil2',null,null,false,$u,'','col-3');
-  $c[] = new cmp('asignado_a2','s','3',$d['asignado_a2'],$w.' asignado_a2','Asignado a 2','asignado_a2',null,null,false,$u,'','col-3');
-
-$o='acciones';
- $c[]=new cmp($o,'e',null,'ACCIONES Y ESTRATEGIAS',$w);
-  $c[] = new cmp('accion1','s','3',$d['accion1'],$w.' accion1','Acción 1','accion1',null,null,false,$u,'','col-3');
-  $c[] = new cmp('desc_accion1','s','3',$d['desc_accion1'],$w.' desc_accion1','Descripción Acción 1','desc_accion1',null,null,false,$u,'','col-3');
-  $c[] = new cmp('accion2','s','3',$d['accion2'],$w.' accion2','Acción 2','accion2',null,null,false,$u,'','col-3');
-  $c[] = new cmp('desc_accion2','s','3',$d['desc_accion2'],$w.' desc_accion2','Descripción Acción 2','desc_accion2',null,null,false,$u,'','col-3');
-  $c[] = new cmp('accion3','s','3',$d['accion3'],$w.' accion3','Acción 3','accion3',null,null,false,$u,'','col-3');
-  $c[] = new cmp('desc_accion3','s','3',$d['desc_accion3'],$w.' desc_accion3','Descripción Acción 3','desc_accion3',null,null,false,$u,'','col-3');
-  $c[] = new cmp('observaciones','s','7000',$d['observaciones'],$w.' observaciones','Observaciones','observaciones',null,null,false,$u,'','col-12');
-  $c[] = new cmp('continua_seguimiento','s','3',$d['continua_seguimiento'],$w.' continua_seguimiento','¿Continúa Seguimiento?','continua_seguimiento',null,null,false,$u,'','col-3');
-  $c[] = new cmp('fecha_prox_seguimiento','d','10',$d['fecha_prox_seguimiento'],$w.' fecha_prox_seguimiento','Fecha Próximo Seguimiento','fecha_prox_seguimiento',null,null,false,$u,'','col-3');
-  $c[] = new cmp('motivo_no_continuidad','s','3',$d['motivo_no_continuidad'],$w.' motivo_no_continuidad','Motivo No Continuidad','motivo_no_continuidad',null,null,false,$u,'','col-3');
-
- for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
- return $rta; 
+  $c[]=new cmp('id_adoleMas','h','50',$_POST['id'],$w.' '.$o,'','id_adoleMas',null,null,false,true,'','col-2');
+  $c[]=new cmp('fecha_seg','d','10',$d,$w.' '.$o,'Fecha Seguimiento','fecha_seg',null,null,true,true,'','col-2',"validDate(this,$days,0);");
+  $c[]=new cmp('numsegui','s','3',$d,$w.' '.$o,'Seguimiento N°','numsegui',null,null,true,true,'','col-2',"staEfe('numsegui','sta');EnabEfec(this,['hab','acc'],['Ob'],['nO'],['bL'])");
+  $c[]=new cmp('evento','s','3',$ev,$w.' '.$o,'Evento','evento',null,null,false,false,'','col-2');
+  $c[]=new cmp('estado_s','s','3',$d,$w.' sTa '.$o,'Estado','estado_s',null,null,true,true,'','col-2',"enabFielSele(this,true,['motivo_estado'],['3']);EnabEfec(this,['hab','acc'],['Ob'],['nO'],['bL']);");
+  $c[]=new cmp('motivo_estado','s','3',$d,$w.' '.$o,'Motivo de Estado','motivo_estado',null,null,false,$x,'','col-2');
+  $c[]=new cmp('tipo_caso','s','2',$d,$w.' hab '.$o,'Tipo de Población','tipo_caso',null,null,false,$x,'','col-2',"enbValsCls('tipo_caso',['{$ge}','{$pu}']);"); //enabOthSi('tipo_caso','GyP');
+  $c[]=new cmp('etapa','s','3',$d,$w.' GyP Tp '.$o,'Etapa','etapa',null,null,false,$x,'','col-2');//enbValsCls('etapa',['{$ge}','{$pu}','{$pu}']);enabEtap('etapa',['pRe','PuE']);
+  
+ 
+  $o='hab';
+  $c[]=new cmp($o,'e',null,'ADOLESCENTES ENTRE 12 Y 17 AÑOS, DISFUNCIÓN FAMILIAR Y CONSUMO DE SPA',$w);
+  $c[]=new cmp('asis_ctrpre','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$gp.' '.$o,'Entrevista motivacional','rta',null,null,false,$x,'','col-2');
+  $c[]=new cmp('exam_lab','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$o,'Apropiación de prácticas saludables','rta',null,null,false,$x,'','col-2');
+  $c[]=new cmp('esqu_vacuna','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$o,'Involucramiento parental','rta',null,null,false,$x,'','col-2');
+  $c[]=new cmp('cons_micronutr','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$o,'Fortalecimiento de autonomía Reproductiva','rta',null,null,false,$x,'','col-2');
+  $c[]=new cmp('cons_micronutr','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$o,'Se identifica avance en el fortalecimiento de habilidades socio emocionales.','rta',null,null,false,$x,'','col-2');
+   
+    $o='hab';
+    $c[]=new cmp($o,'e',null,'ADOLESCENTES ENTRE 12 Y 17 AÑOS, DISFUNCIÓN FAMILIAR Y PREVENCIÓN EN SSR',$w);
+    $c[]=new cmp('asiste_control','s','2',$d,$w.' Rg '.$bl.' '.$pu.' '.$gp.' '.$o,'Educación integral para la sexualidad en el adolescente','rta',null,null,false,$x,'','col-3');
+    $c[]=new cmp('vacuna_comple','s','2',$d,$w.' Rg '.$bl.' '.$pu.' '.$gp.' '.$o,'Dialogo interfamiliar ','rta',null,null,false,$x,'','col-3');
+    $c[]=new cmp('lacmate_exclu','s','2',$d,$w.' Rg '.$bl.' '.$pu.' '.$gp.' '.$o,'Fortalecimiento de autonomía Reproductiva','rta',null,null,false,$x,'','col-2');
+    $c[]=new cmp('lacmate_exclu','s','2',$d,$w.' Rg '.$bl.' '.$pu.' '.$gp.' '.$o,'Seguimiento a acceso a método de planificación familiar ','rta',null,null,false,$x,'','col-2');
+    $c[]=new cmp('lacmate_exclu','s','2',$d,$w.' Rg '.$bl.' '.$pu.' '.$gp.' '.$o,'Se identifican otros riesgos en SM','rta',null,null,false,$x,'','col-2');
+    
+    
+    $o='acc';
+    $c[]=new cmp($o,'e',null,'INFORMACIÓN ACCIONES',$w);
+    $c[]=new cmp('estrategia_1','s','3',$d,$w.' '.$o,'Estrategia PF_1','estrategia_1',null,null,false,$x,'','col-5');
+    $c[]=new cmp('estrategia_2','s','3',$d,$w.' '.$no.' '.$o,'Estrategia PF_2','estrategia_2',null,null,false,$x,'','col-5');
+    $c[]=new cmp('acciones_1','s','3',$d,$w.' '.$o,'Accion 1','acciones_1',null,null,false,$x,'','col-5','selectDepend(\'acciones_1\',\'desc_accion1\',\'../vsp/acompsic.php\');');
+    $c[]=new cmp('desc_accion1','s','3',$d,$w.' '.$o,'Descripcion Accion 1','desc_accion1',null,null,false,$x,'','col-5');
+    $c[]=new cmp('acciones_2','s','3',$d,$w.' '.$no.' '.$o,'Accion 2','acciones_2',null,null,false,$x,'','col-5','selectDepend(\'acciones_2\',\'desc_accion2\',\'../vsp/acompsic.php\');');
+    $c[]=new cmp('desc_accion2','s','3',$d,$w.' '.$no.' '.$o,'Descripcion Accion 2','desc_accion2',null,null,false,$x,'','col-5');
+    $c[]=new cmp('acciones_3','s','3',$d,$w.' '.$no.' '.$o,'Accion 3','acciones_3',null,null,false,$x,'','col-5','selectDepend(\'acciones_3\',\'desc_accion3\',\'../vsp/acompsic.php\');');
+    $c[]=new cmp('desc_accion3','s','3',$d,$w.' '.$no.' '.$o,'Descripcion Accion 3','desc_accion3',null,null,false,$x,'','col-5');
+    $c[]=new cmp('activa_ruta','s','2',$d,$w.' '.$o,'Ruta Activada','rta',null,null,false,$x,'','col-3','enabRuta(this,\'rt\');');
+    $c[]=new cmp('ruta','s','3',$d,$w.' '.$no.' rt '.$bl.' '.$o,'Ruta','ruta',null,null,false,$x,'','col-35');
+    $c[]=new cmp('novedades','s','3',$d,$w.' '.$no.' '.$o,'Novedades','novedades',null,null,false,$x,'','col-35');
+    $c[]=new cmp('signos_covid','s','2',$d,$w.' '.$o,'¿Signos y Síntomas para Covid19?','rta',null,null,false,$x,'','col-2','enabCovid(this,\'cv\');');
+    $c[]=new cmp('caso_afirmativo','t','500',$d,$w.' cv '.$bl.' '.$no.' '.$o,'Relacione Cuales signos y sintomas, Y Atención Recibida Hasta el Momento','caso_afirmativo',null,null,false,$x,'','col-4');
+    $c[]=new cmp('otras_condiciones','t','500',$d,$w.' cv '.$bl.' '.$no.' '.$o,'Otras Condiciones de Riesgo que Requieren una Atención Complementaria.','otras_condiciones',null,null,false,$x,'','col-4');
+    $c[]=new cmp('observaciones','a','1500',$d,$w.' '.$ob.' '.$o,'Observaciones','observaciones',null,null,true,true,'','col-10');
+    $c[]=new cmp('cierre_caso','s','2',$d,$w.' '.$ob.' '.$o,'Cierre de Caso','rta',null,null,true,true,'','col-2',"enabOthSi('cierre_caso','cc');");//disaOthNo('cierre_caso','Lk');disaOthNo('cierre_caso','cO');
+    //igual
+    $c[]=new cmp('motivo_cierre','s','2',$d,$w.' cc '.$bl.' '.$no.' '.$o,'Motivo Cierre','motivo_cierre',null,null,false,$x,'','col-55');    
+    $c[]=new cmp('fecha_cierre','d','10',$d,$w.' cc '.$bl.' '.$no.' '.$o,'Fecha de Cierre','fecha_cierre',null,null,false,$x,'','col-15',"validDate(this,$days,0);");
+    $c[]=new cmp('aplica_tamiz','s','2',$d,$w.' cc '.$bl.' '.$o,'Aplica Tamizaje Cope','rta',null,null,false,$x,'','col-15',"enabOthSi('aplica_tamiz','cO');disaOthNo('aplica_tamiz','Lk');");
+    $c[]=new cmp('liker_dificul','s','3',$d,$w.' Lk '.$bl.' '.$no.' '.$o,'Liker de Dificultades','liker_dificul',null,null,false,$x,'','col-2');
+    $c[]=new cmp('liker_emocion','s','3',$d,$w.' Lk '.$bl.' '.$no.' '.$o,'Liker de Emociones','liker_emocion',null,null,false,$x,'','col-2');
+    $c[]=new cmp('liker_decision','s','3',$d,$w.' Lk '.$bl.' '.$no.' '.$o,'Liker de Decisiones','liker_decision',null,null,false,$x,'','col-2');
+    
+    $c[]=new cmp('cope_afronta','s','3',$d,$w.' cO '.$bl.' '.$no.' '.$o,'Total Afrontamiento','cope_afronta',null,null,false,$x,'','col-2');
+    $c[]=new cmp('cope_evitacion','s','3',$d,$w.' cO '.$bl.' '.$no.' '.$o,'Total Evitación','cope_evitacion',null,null,false,$x,'','col-2');
+    $c[]=new cmp('incremen_afron','s','3',$d,$w.' cO '.$bl.' '.$no.' '.$o,'Se Evidencia Incremento Estrategias de Afrontamiento','incremen_afron',null,null,false,$x,'','col-2');
+    $c[]=new cmp('incremen_evita','s','3',$d,$w.' cO '.$bl.' '.$no.' '.$o,'Se Evidencia Decremento Estrategias de Evitacion','incremen_evita',null,null,false,$x,'','col-2');
+    $c[]=new cmp('redu_riesgo_cierre','s','2',$d,$w.' cc '.$bl.' '.$no.' '.$o,'¿Reduccion del riesgo?','rta',null,null,false,$x,'','col-2');
+    $c[]=new cmp('users_bina[]','m','60',$d,$w.' '.$ob.' '.$o,'Usuarios Equipo','bina',null,null,false,true,'','col-5');
+    
+	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
+	return $rta;
 }
 
 function get_seguiremot(){
