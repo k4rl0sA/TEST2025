@@ -93,7 +93,7 @@ function cmp_adoleMas(){
   $c[]=new cmp('evento','s','3',$ev,$w.' '.$o,'Evento','evento',null,null,false,false,'','col-2');
   $c[]=new cmp('estado_s','s','3',$d,$w.' sTa '.$o,'Estado','estado_s',null,null,true,true,'','col-2',"enabFielSele(this,true,['motivo_estado'],['3']);EnabEfec(this,['hab','acc'],['Ob'],['nO'],['bL']);");
   $c[]=new cmp('motivo_estado','s','3',$d,$w.' '.$o,'Motivo de Estado','motivo_estado',null,null,false,$x,'','col-2');
-  $c[]=new cmp('tipo_caso','s','2',$d,$w.' hab '.$o,'Tipo de Población','tipo_caso',null,null,false,$x,'','col-2',"enbValsCls('etapa',['{$ge}','{$pu}']);"); //enabOthSi('tipo_caso','GyP');
+  $c[]=new cmp('tipo_caso','s','2',$d,$w.' hab '.$o,'Tipo de Población','tipo_caso',null,null,false,$x,'','col-2',"enbValsCls('tipo_caso',['{$ge}','{$pu}']);"); //enabOthSi('tipo_caso','GyP');
   $c[]=new cmp('etapa','s','3',$d,$w.' GyP Tp '.$o,'Etapa','etapa',null,null,false,$x,'','col-2');//enbValsCls('etapa',['{$ge}','{$pu}','{$pu}']);enabEtap('etapa',['pRe','PuE']);
   
  
