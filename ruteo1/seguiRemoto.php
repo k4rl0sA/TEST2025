@@ -36,7 +36,7 @@ function cap_menus($a,$b='cap',$con='con') {
 }
 
 
- function lis_adoleMas(){
+ function lis_seguiremoto(){
 	// var_dump($_POST['id']);
 	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['id_adoleMas']) ? divide($_POST['id_adoleMas']) : null);
   $info=datos_mysql("SELECT COUNT(*) total FROM vsp_adoleMas A LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
