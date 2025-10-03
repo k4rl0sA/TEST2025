@@ -38,7 +38,6 @@ function cap_menus($a,$b='cap',$con='con') {
 function cmp_seguiremoto(){
  $rta="";
  $w='seguiremot';
- $d=get_seguiremot();
  $u=($d['idrutges']== NULL || $d['idrutges']== '')?true:false;
  $days=fechas_app('ruteo');
  $o='seguimiento';
