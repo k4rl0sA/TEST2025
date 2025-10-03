@@ -46,7 +46,7 @@ function cmp_seguiremoto(){
   $no='nO';
   $bl='bL';
   $x=false;
-   $block=['hab','acc'];
+  $block=['hab','acc'];
   $event=divide($_POST['id']);
   $ev=$event[2];
   $days=fechas_app('vsp');
