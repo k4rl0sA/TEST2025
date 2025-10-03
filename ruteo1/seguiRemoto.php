@@ -1,6 +1,7 @@
 <?php
 require_once "../libs/gestion.php";
 ini_set('display_errors','1');
+if ($_POST['a']!='opc') $perf=perfil($_POST['tb']);
 if (!isset($_SESSION['us_sds'])) die("<script>window.top.location.href='/';</script>");
 else {
   $rta="";
@@ -17,7 +18,6 @@ else {
 	else echo $rta;
   }   
 }
-
 function focus_seguiremot(){
  return 'seguiremot';
 }
