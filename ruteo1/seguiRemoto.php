@@ -36,7 +36,7 @@ function cap_menus($a,$b='cap',$con='con') {
 }
 
 function cmp_seguiremoto(){
- $rta="";
+ /* $rta="";
  $w='seguiremot';
  $u=($d['idrutges']== NULL || $d['idrutges']== '')?true:false;
  $days=fechas_app('ruteo');
@@ -89,7 +89,7 @@ $o='acciones';
   $c[] = new cmp('motivo_no_continuidad','s','3',$d['motivo_no_continuidad'],$w.' motivo_no_continuidad','Motivo No Continuidad','motivo_no_continuidad',null,null,false,$u,'','col-3');
 
  for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
- return $rta;
+ return $rta; */
 }
 
 function get_seguiremot(){
