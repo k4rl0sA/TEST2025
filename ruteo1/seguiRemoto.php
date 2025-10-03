@@ -47,7 +47,8 @@ function cmp_seguiremoto(){
  $mykey=$_POST['id'].'_'.$d['id_rutclas'];
  $c[]=new cmp($o,'e',null,'SEGUIMIENTOS REMOTO',$w);
  $c[]=new cmp('id','h','20',$mykey,$w.' '.$o,'','',null,null,true,$u,'','col-1');
-  $c[] = new cmp('fecha_seguimiento','d','10',$d['fecha_seguimiento'],$w.' fecha','Fecha de Seguimiento','fecha_seguimiento',null,null,true,$u,'','col-3');
+
+ /*  $c[] = new cmp('fecha_seguimiento','d','10',$d['fecha_seguimiento'],$w.' fecha','Fecha de Seguimiento','fecha_seguimiento',null,null,true,$u,'','col-3');
   $c[] = new cmp('prioridad','s','3',$d['prioridad'],$w.' prioridad','Prioridad','prioridad',null,null,true,$u,'','col-3');
   $c[] = new cmp('tipo_prioridad','s','3',$d['tipo_prioridad'],$w.' tipo_prioridad','Tipo Prioridad','tipo_prioridad',null,null,true,$u,'','col-3');
   $c[] = new cmp('num_seguimiento','nu','11',$d['num_seguimiento'],$w.' num_seguimiento','N° Seguimiento','num_seguimiento',null,null,true,$u,'','col-3');
@@ -92,7 +93,7 @@ $o='acciones';
   $c[] = new cmp('continua_seguimiento','s','3',$d['continua_seguimiento'],$w.' continua_seguimiento','¿Continúa Seguimiento?','continua_seguimiento',null,null,false,$u,'','col-3');
   $c[] = new cmp('fecha_prox_seguimiento','d','10',$d['fecha_prox_seguimiento'],$w.' fecha_prox_seguimiento','Fecha Próximo Seguimiento','fecha_prox_seguimiento',null,null,false,$u,'','col-3');
   $c[] = new cmp('motivo_no_continuidad','s','3',$d['motivo_no_continuidad'],$w.' motivo_no_continuidad','Motivo No Continuidad','motivo_no_continuidad',null,null,false,$u,'','col-3');
-
+ */
 
 
  
