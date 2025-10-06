@@ -971,7 +971,7 @@ function formato_dato($a,$b,$c,$d){
 // var_dump($c);
 	if ($a=='homes' && $b=='acciones'){
 		$rta="<nav class='menu right'>";		
-		$rta.="<li title='Caracterización del Hogar'  Onclick=\"mostrar('homes1','fix',event,'','lib.php',0,'homes1');hideFix('person1','fix');Color('homes-lis');\"><i class='fa-solid fa-house-user ico' id='".$c['ACCIONES']."'></i></li>";//setTimeout(mostrar('person1','fix',event,'','lib.php',0,'person1'),500);
+		$rta.="<li title='Mostrar Familias del Predio'  Onclick=\"mostrar('homes1','fix',event,'','lib.php',0,'homes1');hideFix('person1','fix');Color('homes-lis');\"><i class='fa-solid fa-house-user ico' id='".$c['ACCIONES']."'></i></li>";//setTimeout(mostrar('person1','fix',event,'','lib.php',0,'person1'),500);
 		$rta.="<li title='Crear Ubicación de la Familia'  Onclick=\"mostrar('homes','pro',event,'','lib.php',7,'homes');Color('homes-lis');\"><i class='fa-solid fa-circle-plus ico' id='".$c['ACCIONES']."'></i></li>";//setTimeout(DisableUpdate,300,'fechaupd','hid');
 		$rta .= acceso('unidadeshs') ? "<li title='Unidades Habitacionales'  Onclick=\"mostrar('unidadeshs','pro',event,'','../soporte/unidades.php',3,'unidadeshs');Color('homes-lis');\"><i class='fa-solid fa-building-un color-soporte ico' id='".$c['ACCIONES']."'></i></li>" : "";
 	}
