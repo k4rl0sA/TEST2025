@@ -201,7 +201,7 @@ function cmp_rute(){
  $c[]=new cmp('fecha_gestion','h','10','',$w.' '.$o,'Fecha de Agenda','fecha_gestion',null,null,false,false,'','col-2',"validDate(this,$days,30);");
  $c[]=new cmp('docu_confirm','h','999999999999999999','',$w.'  '.$o,'Documento Confirmado  del Usuario','docu_confirm',null,null,false,false,'','col-2');
   $c[]=new cmp('perfil_gest','h',3,'',$w.' '.$o,'Perfil que Gestiona','perfil_gest',null,'',false,false,'','col-2',"selectDepend('perfil_gest','usuario_gest','lib.php');");
- $c[]=new cmp('usuario_gest','h','10','',$w.'  '.$o,'Usuario que Gestiona','usuario_gest',null,null,false,false,'','col-2');
+ $c[]=new cmp('usuario_gest','h','10','',$w.' '.$o,'Usuario que Gestiona','usuario_gest',null,null,false,false,'','col-2');
 
  $o='gesgeo';
  $c[]=new cmp($o,'e',null,'DATOS GEOGRAFICOS',$w);
