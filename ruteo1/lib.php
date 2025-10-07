@@ -602,7 +602,7 @@ LEFT JOIN eac_ruteo er ON g.idruteo=er.id_ruteo
 
 function EnabRemot($id){
 	$id = divide($id);
-	$sql = "SELECT  tiposeg AS remoto FROM eac_ruteo_clas c WHERE idrutges=$id[0]";
+	$sql = "SELECT tiposeg AS remoto FROM eac_ruteo_clas c WHERE idrutges=$id[0]";
 	$info = datos_mysql($sql);
 	if (intval($info['responseResult'][0]['remoto']) == 2){
 		return true;
