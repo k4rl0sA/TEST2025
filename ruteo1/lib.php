@@ -606,7 +606,7 @@ function EnabRemot($id){
 	$info = datos_mysql($sql);
 	$remoto=intval($info['responseResult'][0]['remoto']);
 	var_dump($remoto);
-	if ($remoto == 2){
+	if ($remoto === 2){
 		return true;
 	}else{
 		return false;
