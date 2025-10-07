@@ -38,13 +38,13 @@ function cap_menus($a,$b='cap',$con='con') {
 
 function lis_seguiremoto(){
 	// var_dump($_POST['id']);
-	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['id_seguimiento']) ? divide($_POST['id_seguimiento']) : null);
+	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['idruteoclas']) ? divide($_POST['idruteoclas']) : null);
   $info=datos_mysql("SELECT COUNT(*) total FROM ruteo_remoto A LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario WHERE A.estado ='A' AND A.id_ruteoremoto='".$id[0]."'");
 	$total=$info['responseResult'][0]['total'];
 	$regxPag=4;
   $pag=(isset($_POST['pag-seguiremoto']))? ($_POST['pag-seguiremoto']-1)* $regxPag:0;
 
-	$sql="SELECT `id_seguimiento` ACCIONES,id_seguimiento  'Cod Registro',P.tipo_doc,P.idpersona,fecha_seg Fecha,numsegui Seguimiento,FN_CATALOGODESC(87,evento) EVENTO,FN_CATALOGODESC(73,estado_s) estado,cierre_caso Cierra,fecha_cierre 'Fecha de Cierre',nombre Creó 
+	$sql="SELECT `id_ruteoremoto` ACCIONES,id_ruteoremoto  'Cod Registro',P.tipo_doc,P.idpersona,fecha_seg Fecha,numsegui Seguimiento,FN_CATALOGODESC(87,evento) EVENTO,FN_CATALOGODESC(73,estado_s) estado,cierre_caso Cierra,fecha_cierre 'Fecha de Cierre',nombre Creó 
   FROM ruteo_remoto A
 	LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario ";
 	$sql.=" WHERE A.estado = 'A' AND A.id_ruteoremoto='".$id[0]; 
@@ -58,7 +58,7 @@ function lis_seguiremoto(){
 
 function cmp_seguiremoto(){
 	 $rta="<div class='encabezado'>TABLA SEGUIMIENTOS</div><div class='contenido' id='seguiremoto-lis'>".lis_seguiremoto()."</div></div>";
-	/*$w='seguiremoto';
+	$w='seguiremoto';
   $d='';
 	$o='inf';
   // $nb='disa oculto';
@@ -130,7 +130,7 @@ function cmp_seguiremoto(){
   $c[] = new cmp('fecha_prox_seguimiento','d','10',$d,''$w.' '.$o,'fecha_prox_seguimiento','Fecha Próximo Seguimiento','fecha_prox_seguimiento',null,null,false,$u,'','col-2');
   $c[] = new cmp('motivo_no_continuidad','s','100',$d,''$w.' '.$o,'motivo_no_continuidad','Motivo No Continuidad','motivo_no_continuidad',null,null,false,$u,'','col-2');
     
-	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put(); */
+	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
 }
 
