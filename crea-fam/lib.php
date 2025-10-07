@@ -987,7 +987,7 @@ function formato_dato($a,$b,$c,$d){
 		}
 		$rta.=(acceso('ambient')) ? "<li title='Riesgo Ambiental' Onclick=\"mostrar('ambient','pro',event,'','amb.php',7);Color('famili-lis');\"><i class='fa-solid fa-tree-city ico' id='".$c['Cod_Familiar']."' ></i></li>":'';
 
-		$rta.="<li title='Interlocales' Onclick=\"mostrar('trasladint','pro',event,'','../soporte/interloc.php',4,'Interlocales');Color('datos-lis');\"><i class='fa-solid fa-reply-all color-soporte ico' id='".$c['Cod_Familiar']."'></i> </li>";//soporte traslados
+		$rta.=acceso('trasladint')? "<li title='Interlocales' Onclick=\"mostrar('trasladint','pro',event,'','../soporte/interloc.php',4,'Interlocales');Color('datos-lis');\"><i class='fa-solid fa-reply-all color-soporte ico' id='".$c['Cod_Familiar']."'></i> </li>":'';//soporte traslados
 	}
 	if ($a=='datos-lis' && $b=='acciones'){
 
