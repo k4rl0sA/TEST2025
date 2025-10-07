@@ -35,7 +35,6 @@ function cap_menus($a,$b='cap',$con='con') {
   return $rta;
 }
 
-
 function lis_seguiremoto(){
 	// var_dump($_POST['id']);
 	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['idruteoclas']) ? divide($_POST['idruteoclas']) : null);
@@ -54,7 +53,6 @@ function lis_seguiremoto(){
 	$datos=datos_mysql($sql);
 	return create_table($total,$datos["responseResult"],"adoleMas",$regxPag,'../vsp/adolmasbien.php');
 }
-
 
 function cmp_seguiremoto(){
 	 $rta="<div class='encabezado'>TABLA SEGUIMIENTOS</div><div class='contenido' id='seguiremoto-lis'>".lis_seguiremoto()."</div></div>";
