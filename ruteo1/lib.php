@@ -604,7 +604,7 @@ function EnabRemot($id){
 	$id = divide($id);
 	$sql = "SELECT  tiposeg AS remoto FROM eac_ruteo_clas c WHERE idrutges=$id[0]";
 	$info = datos_mysql($sql);
-	if (intval($info['responseResult'][0]["remoto"]) == '2'){
+	if (intval($info['responseResult'][0]["remoto"]) == 2){
 		return true;
 	}else{
 		return false;
