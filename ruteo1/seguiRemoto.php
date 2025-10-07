@@ -59,8 +59,8 @@ function lis_seguiremoto(){
 
 
 function cmp_seguiremoto(){
-	$rta="<div class='encabezado'>TABLA SEGUIMIENTOS</div><div class='contenido' id='seguiremoto-lis'>".lis_seguiremoto()."</div></div>";
-	$w='seguiremoto';
+	 $rta="<div class='encabezado'>TABLA SEGUIMIENTOS</div><div class='contenido' id='seguiremoto-lis'>".lis_seguiremoto()."</div></div>";
+	/*$w='seguiremoto';
   $d='';
 	$o='inf';
   // $nb='disa oculto';
@@ -132,7 +132,7 @@ function cmp_seguiremoto(){
   $c[] = new cmp('fecha_prox_seguimiento','d','10',$d,''$w.' '.$o,'fecha_prox_seguimiento','Fecha Próximo Seguimiento','fecha_prox_seguimiento',null,null,false,$u,'','col-2');
   $c[] = new cmp('motivo_no_continuidad','s','100',$d,''$w.' '.$o,'motivo_no_continuidad','Motivo No Continuidad','motivo_no_continuidad',null,null,false,$u,'','col-2');
     
-	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
+	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put(); */
 	return $rta;
 }
 
