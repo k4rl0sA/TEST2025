@@ -28,7 +28,7 @@ function men_seguiremot(){
 }
 
 function cap_menus($a,$b='cap',$con='con') {
-  $rta = ""; 
+  $rta = "";
   if ($a=='seguiremot'){  
 	$rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>"; //~ openModal();
   }
