@@ -55,8 +55,8 @@ function lis_seguiremoto(){
 }
 
 function cmp_seguiremoto(){
-/*	 $rta="<div class='encabezado'>TABLA SEGUIMIENTOS</div><div class='contenido' id='seguiremoto-lis'>".lis_seguiremoto()."</div></div>";
-	$w='seguiremoto';
+	 $rta="<div class='encabezado'>TABLA SEGUIMIENTOS</div><div class='contenido' id='seguiremoto-lis'>".lis_seguiremoto()."</div></div>";
+/*	$w='seguiremoto';
   $d='';
 	$o='inf';
   // $nb='disa oculto';
