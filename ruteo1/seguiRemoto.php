@@ -71,7 +71,7 @@ function cmp_seguiremoto(){
   $ge='pRe';
   $pu='PuE';
   $gp='GyP';
-
+/* 
   $days=fechas_app('vsp');
   $c[]=new cmp('idruteoclas','h','11',$_POST['id'],$w.'idruteoclas','ID Ruteo Clasificado','idruteoclas',null,null,false,$u,'','col-2');
   $c[]=new cmp('fecha_seg','d','10',$d,$w.' '.$o,'Fecha Seguimiento','fecha_seg',null,null,true,true,'','col-2',"validDate(this,$days,0);");
@@ -127,7 +127,7 @@ function cmp_seguiremoto(){
   $c[] = new cmp('continua_seguimiento','s','3',$d,''$w.' '.$o,'continua_seguimiento','¿Continúa Seguimiento?','continua_seguimiento',null,null,true,$u,'','col-2');
   $c[] = new cmp('fecha_prox_seguimiento','d','10',$d,''$w.' '.$o,'fecha_prox_seguimiento','Fecha Próximo Seguimiento','fecha_prox_seguimiento',null,null,false,$u,'','col-2');
   $c[] = new cmp('motivo_no_continuidad','s','100',$d,''$w.' '.$o,'motivo_no_continuidad','Motivo No Continuidad','motivo_no_continuidad',null,null,false,$u,'','col-2');
-    
+     */
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
 }
