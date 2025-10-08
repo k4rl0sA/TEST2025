@@ -97,8 +97,8 @@ function cmp_seguiremoto(){
   $c[] = new cmp('menor5_riesgo','s','3',$d,$w.' '.$o,'Menor 5 Riesgo','menor5_riesgo',null,null,false,$u,'','col-2');
   $c[] = new cmp('nov_pri_fam3','s','50',$d,$w.' '.$o,'Novedad Prioridad Familiar 3','nov_pri_fam3',null,null,false,$u,'','col-2');
   $c[] = new cmp('inasistente_12m','s','3',$d,$w.' '.$o,'Inasistente 12 meses','inasistente_12m',null,null,false,$u,'','col-2');
-  /*$c[] = new cmp('inasistente_6_12m','s','3',$d,$w.' '.$o,'Inasistente 6-12 meses','inasistente_6_12m',null,null,false,$u,'','col-2');
-  $c[] = new cmp('persona_mayor','s','3',$d,$w.' '.$o,'Persona Mayor','persona_mayor',null,null,false,$u,'','col-2');
+  $c[] = new cmp('inasistente_6_12m','s','3',$d,$w.' '.$o,'Inasistente 6-12 meses','inasistente_6_12m',null,null,false,$u,'','col-2');
+  /*$c[] = new cmp('persona_mayor','s','3',$d,$w.' '.$o,'Persona Mayor','persona_mayor',null,null,false,$u,'','col-2');
   $c[] = new cmp('persona_discapacidad','s','3',$d,$w.' '.$o,'Persona con discapacidad','persona_discapacidad',null,null,false,$u,'','col-2');
   $c[] = new cmp('salud_mental','s','3',$d,$w.' '.$o,'Salud Mental','salud_mental',null,null,false,$u,'','col-2');
   $c[] = new cmp('nuevo_diagnostico','s','3',$d,$w.' '.$o,'Nuevo Diagnóstico','nuevo_diagnostico',null,null,false,$u,'','col-2');
