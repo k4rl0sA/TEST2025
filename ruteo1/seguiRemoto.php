@@ -179,10 +179,9 @@ $id = divide($_POST['id']);
         continua_seguimiento, fecha_prox_seguimiento, motivo_no_continuidad, usu_creo, fecha_create, estado
     ) VALUES (
         ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
-        ?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?
-    )";
+        ?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?)";
 
-    /* $params = [
+     $params = [
         ['type' => 'i', 'value' => $id[0]], // idruteoclas
         ['type' => 's', 'value' => post_or_null('fecha_seg')],
         ['type' => 'i', 'value' => post_or_null('numsegui')],
@@ -233,7 +232,7 @@ $id = divide($_POST['id']);
         ['type' => 's', 'value' => $_SESSION['us_sds']], // usu_creo
         // fecha_create (DATE_SUB(NOW(),INTERVAL 5 HOUR))
         ['type' => 's', 'value' => 'A'] // estado
-    ]; */
+    ];
 
     $rta = mysql_prepd($sql, $params);
     return $rta;
