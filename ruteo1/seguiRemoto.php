@@ -136,7 +136,7 @@ function cmp_seguiremoto(){
 	return $rta;
 }
 
-function get_seguiremot(){
+function get_seguiremoto(){
 	if($_POST['id']=='0'){
 		return "";
 	}else{
@@ -154,7 +154,7 @@ function get_seguiremot(){
 	} 
 }
 
-function gra_seguiremot(){
+function gra_seguiremoto(){
 
   $id=divide($_POST['id']);
   $sql = "INSERT INTO eac_ruteo_clas VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),NULL,NULL,'A')";
