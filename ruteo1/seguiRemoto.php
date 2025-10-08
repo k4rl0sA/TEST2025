@@ -294,7 +294,7 @@ function opc_accion1($id=''){
     }
   
   
-  function opc_acciones_1desc_accion1($id=''){
+  function opc_accion1desc_accion1($id=''){
   if($_REQUEST['id']!=''){
         $id=divide($_REQUEST['id']);
         $sql="SELECT idcatadeta ,descripcion  FROM `catadeta` WHERE idcatalogo='75' and estado='A' and valor='".$id[0]."' ORDER BY LENGTH(idcatadeta), idcatadeta;";
@@ -302,7 +302,7 @@ function opc_accion1($id=''){
         return json_encode($info['responseResult']);
       }
   }
-  function opc_acciones_2desc_accion2($id=''){
+  function opc_accion2desc_accion2($id=''){
     if($_REQUEST['id']!=''){
           $id=divide($_REQUEST['id']);
           $sql="SELECT idcatadeta,descripcion  FROM `catadeta` WHERE idcatalogo='75' and estado='A' and valor='".$id[0]."' ORDER BY LENGTH(idcatadeta), idcatadeta;";
@@ -310,7 +310,7 @@ function opc_accion1($id=''){
           return json_encode($info['responseResult']);
         }
     }
-    function opc_acciones_3desc_accion3($id=''){
+    function opc_accion3desc_accion3($id=''){
       if($_REQUEST['id']!=''){
             $id=divide($_REQUEST['id']);
             $sql="SELECT idcatadeta 'id',descripcion 'asc' FROM `catadeta` WHERE idcatalogo='75' and estado='A' and valor='".$id[0]."' ORDER BY LENGTH(idcatadeta), idcatadeta;";
