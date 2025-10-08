@@ -117,8 +117,8 @@ function cmp_seguiremoto(){
   
   
   
-  $c[] = new cmp('acepta_afiliacion','s','3',$d,$w.' '.$o,'Acepta Afiliación','rta',null,null,false,$u,'','col-2');
-  $c[] = new cmp('sujeto_abordaje','s','3',$d,$w.' '.$o,'Sujeto Abordaje','rta',null,null,false,$u,'','col-2');
+  
+  
   $c[] = new cmp('acepta_abordaje','s','3',$d,$w.' '.$o,'Acepta Abordaje','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('deriva_perfil1','s','50',$d,$w.' '.$o,'Perfil Derivado 1','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('asignado_a1','s','50',$d,$w.' '.$o,'Asignado a 1','rta',null,null,false,$u,'','col-2');
@@ -135,7 +135,8 @@ function cmp_seguiremoto(){
   $c[] = new cmp('agendamiento','s','3',$d,$w.' '.$o,'Se realiza agendamiento','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('activacion_ruta','s','3',$d,$w.' '.$o,'Se realiza activación de ruta a EAPB a traves del SIRC','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('sin_afiliacion','s','3',$d,$w.' '.$o,'Algun integrante de la familia se encuentra sin afiliacion al SGSS y cumple con criterios para afiliacion por oficio','rta',null,null,false,$u,'','col-2');
-
+  $c[] = new cmp('acepta_afiliacion','s','3',$d,$w.' '.$o,'Acepta que lo contacten para realizar el tramite de afiliación por oficio','rta',null,null,false,$u,'','col-2');
+  $c[] = new cmp('sujeto_abordaje','s','3',$d,$w.' '.$o,'Familia sujeto de abordaje presencial por gestor de Bienestar','rta',null,null,false,$u,'','col-2');
 
   $o='acc';
   $c[]=new cmp($o,'e',null,'INFORMACIÓN ACCIONES',$w);
