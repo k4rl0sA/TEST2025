@@ -130,7 +130,7 @@ function cmp_seguiremoto(){
   $c[] = new cmp('observaciones','s','7000',$d,$w.' '.$o,'Observaciones','observaciones',null,null,true,$u,'','col-12');
   $c[] = new cmp('continua_seguimiento','s','3',$d,$w.' '.$o,'¿Continúa Seguimiento?','continua_seguimiento',null,null,true,$u,'','col-2');
   $c[] = new cmp('fecha_prox_seguimiento','d','10',$d,$w.' '.$o,'Fecha Próximo Seguimiento','fecha_prox_seguimiento',null,null,false,$u,'','col-2');
-  $c[] = new cmp('motivo_no_continuidad','s','100',$d,$w.' '.$o,'Motivo No Continuidad','motivo_no_continuidad',null,null,false,$u,'','col-2');*/
+  $c[] = new cmp('motivo_no_continuidad','s','100',$d,$w.' '.$o,'Motivo No Continuidad','motivo_no_continuidad',null,null,false,$u,'','col-2');
      
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
