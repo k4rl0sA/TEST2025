@@ -101,11 +101,11 @@ function cmp_seguiremoto(){
   $c[] = new cmp('persona_mayor','s','3',$d,$w.' '.$o,'Persona Mayor','persona_mayor',null,null,false,$u,'','col-2');
   $c[] = new cmp('persona_discapacidad','s','3',$d,$w.' '.$o,'Persona con discapacidad','persona_discapacidad',null,null,false,$u,'','col-2');
   $c[] = new cmp('salud_mental','s','3',$d,$w.' '.$o,'Salud Mental','salud_mental',null,null,false,$u,'','col-2');
-  /*$c[] = new cmp('nuevo_diagnostico','s','3',$d,$w.' '.$o,'Nuevo Diagnóstico','nuevo_diagnostico',null,null,false,$u,'','col-2');
+  $c[] = new cmp('nuevo_diagnostico','s','3',$d,$w.' '.$o,'Nuevo Diagnóstico','nuevo_diagnostico',null,null,false,$u,'','col-2');
   $c[] = new cmp('ningun_diagnostico','s','3',$d,$w.' '.$o,'Ningún Diagnóstico','ningun_diagnostico',null,null,false,$u,'','col-2');
   $c[] = new cmp('vacunacion_incompleta','s','3',$d,$w.' '.$o,'Vacunación Incompleta','vacunacion_incompleta',null,null,false,$u,'','col-2');
   $c[] = new cmp('acepta_vacunacion','s','3',$d,$w.' '.$o,'Acepta Vacunación','acepta_vacunacion',null,null,false,$u,'','col-2');
-  $c[] = new cmp('barrera_salud','s','3',$d,$w.' '.$o,'Barrera Salud','barrera_salud',null,null,false,$u,'','col-2');
+  /*$c[] = new cmp('barrera_salud','s','3',$d,$w.' '.$o,'Barrera Salud','barrera_salud',null,null,false,$u,'','col-2');
   $c[] = new cmp('agendamiento','s','3',$d,$w.' '.$o,'Agendamiento','agendamiento',null,null,false,$u,'','col-2');
   $c[] = new cmp('activacion_ruta','s','3',$d,$w.' '.$o,'Activación Ruta','activacion_ruta',null,null,false,$u,'','col-2');
   $c[] = new cmp('sin_afiliacion','s','3',$d,$w.' '.$o,'Sin Afiliación','sin_afiliacion',null,null,false,$u,'','col-2');
