@@ -167,34 +167,81 @@ function get_seguiremoto(){
 }
 
 function gra_seguiremoto(){
+$id = divide($_POST['id']);
+    $sql = "INSERT INTO ruteo_remoto (
+        idruteoclas, fecha_seg, numsegui, estado_s, motivo_estado, gestante, menor5, cronico, general,
+        nov_pri_fam1, gestante_cpn, nov_pri_fam2, menor5_rpms, menor5_riesgo, nov_pri_fam3,
+        inasistente_12m, inasistente_6_12m, persona_mayor, persona_discapacidad, salud_mental,
+        nuevo_diagnostico, ningun_diagnostico, vacunacion_incompleta, acepta_vacunacion, barrera_salud,
+        agendamiento, activacion_ruta, sin_afiliacion, acepta_afiliacion, sujeto_abordaje, acepta_abordaje,
+        deriva_perfil1, asignado_a1, sujeto_concertacion, acepta_plan, deriva_perfil2, asignado_a2,
+        accion1, desc_accion1, accion2, desc_accion2, accion3, desc_accion3, observaciones,
+        continua_seguimiento, fecha_prox_seguimiento, motivo_no_continuidad, usu_creo, fecha_create, estado
+    ) VALUES (
+        ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
+        ?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?
+    )";
 
-  $id=divide($_POST['id']);
-  $sql = "INSERT INTO eac_ruteo_clas VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),NULL,NULL,'A')";
-  $params = [
-  ['type' => 's', 'value' => $id[0]],
-  ['type' => 's', 'value' => $_POST['pre_clasif']],
-  ['type' => 's', 'value' => $_POST['clasificacion']],
-  ['type' => 's', 'value' => $_POST['riesgo']],
-  ['type' => 's', 'value' => $_POST['accion']],
-  ['type' => 's', 'value' => $_POST['fecha']],
-  ['type' => 's', 'value' => $_POST['acciones_1']],
-  ['type' => 's', 'value' => $_POST['desc_accion1']],
-  ['type' => 's', 'value' => $_POST['acciones_2']],
-  ['type' => 's', 'value' => $_POST['desc_accion2']],
-  ['type' => 's', 'value' => $_POST['acciones_3']],
-  ['type' => 's', 'value' => $_POST['desc_accion3']],
-  ['type' => 's', 'value' => $_POST['nombre']],
-  ['type' => 's', 'value' => $_POST['solici_agenda']],
-  ['type' => 's', 'value' => $_POST['activa_ruta']],
-  ['type' => 's', 'value' => $_POST['sectorial']],
-  ['type' => 's', 'value' => $_POST['intersectorial']],
-  ['type' => 's', 'value' => $_POST['entornos']],
-  ['type' => 's', 'value' => $_POST['aseguramiento']],
-  ['type' => 'i', 'value' => $_SESSION['us_sds']]
-  ];
-  $rta = mysql_prepd($sql, $params);
-  return $rta;
+    $params = [
+        ['type' => 'i', 'value' => $id[0]], // idruteoclas
+        ['type' => 's', 'value' => post_or_null('fecha_seg')],
+        ['type' => 'i', 'value' => post_or_null('numsegui')],
+        ['type' => 's', 'value' => post_or_null('estado_s')],
+        ['type' => 's', 'value' => post_or_null('motivo_estado')],
+        ['type' => 's', 'value' => post_or_null('gestante')],
+        ['type' => 's', 'value' => post_or_null('menor5')],
+        ['type' => 's', 'value' => post_or_null('cronico')],
+        ['type' => 's', 'value' => post_or_null('general')],
+        ['type' => 's', 'value' => post_or_null('nov_pri_fam1')],
+        ['type' => 's', 'value' => post_or_null('gestante_cpn')],
+        ['type' => 's', 'value' => post_or_null('nov_pri_fam2')],
+        ['type' => 's', 'value' => post_or_null('menor5_rpms')],
+        ['type' => 's', 'value' => post_or_null('menor5_riesgo')],
+        ['type' => 's', 'value' => post_or_null('nov_pri_fam3')],
+        ['type' => 's', 'value' => post_or_null('inasistente_12m')],
+        ['type' => 's', 'value' => post_or_null('inasistente_6_12m')],
+        ['type' => 's', 'value' => post_or_null('persona_mayor')],
+        ['type' => 's', 'value' => post_or_null('persona_discapacidad')],
+        ['type' => 's', 'value' => post_or_null('salud_mental')],
+        ['type' => 's', 'value' => post_or_null('nuevo_diagnostico')],
+        ['type' => 's', 'value' => post_or_null('ningun_diagnostico')],
+        ['type' => 's', 'value' => post_or_null('vacunacion_incompleta')],
+        ['type' => 's', 'value' => post_or_null('acepta_vacunacion')],
+        ['type' => 's', 'value' => post_or_null('barrera_salud')],
+        ['type' => 's', 'value' => post_or_null('agendamiento')],
+        ['type' => 's', 'value' => post_or_null('activacion_ruta')],
+        ['type' => 's', 'value' => post_or_null('sin_afiliacion')],
+        ['type' => 's', 'value' => post_or_null('acepta_afiliacion')],
+        ['type' => 's', 'value' => post_or_null('sujeto_abordaje')],
+        ['type' => 's', 'value' => post_or_null('acepta_abordaje')],
+        ['type' => 's', 'value' => post_or_null('deriva_perfil1')],
+        ['type' => 's', 'value' => post_or_null('asignado_a1')],
+        ['type' => 's', 'value' => post_or_null('sujeto_concertacion')],
+        ['type' => 's', 'value' => post_or_null('acepta_plan')],
+        ['type' => 's', 'value' => post_or_null('deriva_perfil2')],
+        ['type' => 's', 'value' => post_or_null('asignado_a2')],
+        ['type' => 's', 'value' => post_or_null('accion1')],
+        ['type' => 's', 'value' => post_or_null('desc_accion1')],
+        ['type' => 's', 'value' => post_or_null('accion2')],
+        ['type' => 's', 'value' => post_or_null('desc_accion2')],
+        ['type' => 's', 'value' => post_or_null('accion3')],
+        ['type' => 's', 'value' => post_or_null('desc_accion3')],
+        ['type' => 's', 'value' => post_or_null('observaciones')],
+        ['type' => 's', 'value' => post_or_null('continua_seguimiento')],
+        ['type' => 's', 'value' => post_or_null('fecha_prox_seguimiento')],
+        ['type' => 's', 'value' => post_or_null('motivo_no_continuidad')],
+        ['type' => 's', 'value' => $_SESSION['us_sds']], // usu_creo
+        // fecha_create (DATE_SUB(NOW(),INTERVAL 5 HOUR))
+        ['type' => 's', 'value' => 'A'] // estado
+    ];
 
+    $rta = mysql_prepd($sql, $params);
+    return $rta;
+
+}
+
+function post_or_null($key) {
+  return isset($_POST[$key]) && $_POST[$key] !== '' ? $_POST[$key] : null;
 }
 
 function opc_pre_clasifclasificacion($id=''){
