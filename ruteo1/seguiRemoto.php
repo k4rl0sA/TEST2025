@@ -207,6 +207,9 @@ function opc_pre_clasifclasificacion($id=''){
            return json_encode($info['responseResult']);	
         }
 }
+function opc_estado_s($id=''){
+return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=73 and estado='A' ORDER BY 1",$id);
+}
 function opc_numsegui($id=''){
 return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=76 and estado='A' ORDER BY LENGTH(idcatadeta), idcatadeta",$id);
 }
