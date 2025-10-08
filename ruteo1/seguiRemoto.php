@@ -18,18 +18,18 @@ else {
 	else echo $rta;
   }   
 }
-function focus_seguiremot(){
- return 'seguiremot';
+function focus_seguiremoto(){
+ return 'seguiremoto';
 }
 
 function men_seguiremoto(){
- $rta=cap_menus('seguiremot','pro');
+ $rta=cap_menus('seguiremoto','pro');
  return $rta;
 }
 
 function cap_menus($a,$b='cap',$con='con') {
   $rta = "";
-  if ($a=='seguiremot'){  
+  if ($a=='seguiremoto'){  
 	$rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>"; //~ openModal();
   }
   return $rta;
