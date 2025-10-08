@@ -22,7 +22,7 @@ function focus_seguiremot(){
  return 'seguiremot';
 }
 
-function men_seguiremot(){
+function men_seguiremoto(){
  $rta=cap_menus('seguiremot','pro');
  return $rta;
 }
