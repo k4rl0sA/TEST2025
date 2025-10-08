@@ -84,15 +84,18 @@ function cmp_seguiremoto(){
   
  
   $o='hab';
-  $c[]=new cmp($o,'e',null,'SEGUIMIENTO REMOTO',$w);
+  $c[]=new cmp($o,'e',null,'CONDICIONES',$w);
   $c[] = new cmp('gestante','s','3',$d,$w.' '.$o,'Gestante','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('menor5','s','3',$d,$w.' '.$o,'Menor de 5 años','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('cronico','s','3',$d,$w.' '.$o,'Usuario crónico','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('general','s','3',$d,$w.' '.$o,'Usuario general','rta',null,null,false,$u,'','col-2');
+
+  $c[]=new cmp($o,'e',null,'SEGUIMIENTO REMOTO',$w);
   $c[] = new cmp('nov_pri_fam1','s','50',$d,$w.' '.$o,'Novedad Prioridad Familiar 1','novedad1',null,null,false,$u,'','col-2');
   $c[] = new cmp('gestante_cpn','s','3',$d,$w.' '.$o,'Gestante asiste a CPN','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('nov_pri_fam2','s','50',$d,$w.' '.$o,'Novedad Prioridad Familiar 2','novedad2',null,null,false,$u,'','col-2');
   
+
   $c[] = new cmp('menor5_rpms','s','3',$d,$w.' '.$o,'Menor 5 RPMS','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('menor5_riesgo','s','3',$d,$w.' '.$o,'Menor 5 Riesgo','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('nov_pri_fam3','s','50',$d,$w.' '.$o,'Novedad Prioridad Familiar 3','novedad3',null,null,false,$u,'','col-2');
@@ -127,6 +130,8 @@ function cmp_seguiremoto(){
   $c[] = new cmp('desc_accion2','s','50',$d,$w.' '.$o,'Descripción Acción 2','desc_accion2',null,null,false,$u,'','col-5');
   $c[] = new cmp('accion3','s','50',$d,$w.' '.$o,'Acción 3','accion3',null,null,false,$u,'','col-5','selectDepend(\'accion3\',\'desc_accion3\',\'../ruteo1/seguiRemoto.php\');');
   $c[] = new cmp('desc_accion3','s','50',$d,$w.' '.$o,'Descripción Acción 3','desc_accion3',null,null,false,$u,'','col-5');
+
+  $c[]=new cmp($o,'e',null,'INFORMACIÓN SEGUIMIENTO',$w);
   $c[] = new cmp('observaciones','a','7000',$d,$w.' '.$o,'Observaciones','observaciones',null,null,true,$u,'','col-12');
   $c[] = new cmp('continua_seguimiento','s','3',$d,$w.' '.$o,'¿Continúa Seguimiento?','rta',null,null,true,$u,'','col-2');
   $c[] = new cmp('fecha_prox_seguimiento','d','10',$d,$w.' '.$o,'Fecha Próximo Seguimiento','fecha_prox_seguimiento',null,null,false,$u,'','col-2');
