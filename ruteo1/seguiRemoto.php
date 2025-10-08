@@ -95,7 +95,7 @@ function cmp_seguiremoto(){
   $c[] = new cmp('gestante_cpn','s','3',$d,$w.' GeS '.$o,'Gestante asiste a CPN','rta',null,null,false,$u,'','col-2');
   
   $c[]=new cmp($o,'l',null,'MENOR DE 5 AÑOS',$w);
-  $c[] = new cmp('nov_pri_fam2','s','50',$d,$w.' GeS '.$o,'Novedad Prioridad Menor de 5 años','novedad2',null,null,false,$u,'','col-2');
+  $c[] = new cmp('nov_pri_fam2','s','50',$d,$w.' m5A '.$o,'Novedad Prioridad Menor de 5 años','novedad2',null,null,false,$u,'','col-2');
   $c[] = new cmp('menor5_rpms','s','3',$d,$w.' m5A '.$o,'Menor de 5 años asiste a controles de la RPMS','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('menor5_riesgo','s','3',$d,$w.' m5A '.$o,'Menor de 5 años con alteración nutricional asiste a controles de la Ruta de riesgo','rta',null,null,false,$u,'','col-2');
   
