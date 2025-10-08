@@ -105,11 +105,11 @@ function cmp_seguiremoto(){
   $c[] = new cmp('inasistente_6_12m','s','3',$d,$w.' CRo '.$o,'Usuario inasistente a controles entre 6 y 12  meses','rta',null,null,false,$u,'','col-2');
 
   $c[]=new cmp($o,'l',null,'POBLACION GENERAL',$w);
-  $c[] = new cmp('persona_mayor','s','3',$d,$w.' '.$o,'Persona Mayor','rta',null,null,false,$u,'','col-2');
-  $c[] = new cmp('persona_discapacidad','s','3',$d,$w.' '.$o,'Persona con discapacidad','rta',null,null,false,$u,'','col-2');
-  $c[] = new cmp('salud_mental','s','3',$d,$w.' '.$o,'Salud Mental','rta',null,null,false,$u,'','col-2');
-  $c[] = new cmp('nuevo_diagnostico','s','3',$d,$w.' '.$o,'Nuevo Diagnóstico','rta',null,null,false,$u,'','col-2');
-  $c[] = new cmp('ningun_diagnostico','s','3',$d,$w.' '.$o,'Ningún Diagnóstico','rta',null,null,false,$u,'','col-2');
+  $c[] = new cmp('persona_mayor','s','3',$d,$w.' GRl '.$o,'Persona Mayor','rta',null,null,false,$u,'','col-2');
+  $c[] = new cmp('persona_discapacidad','s','3',$d,$w.' GRl '.$o,'Persona con discapacidad','rta',null,null,false,$u,'','col-2');
+  $c[] = new cmp('salud_mental','s','3',$d,$w.' GRl '.$o,'Salud Mental','rta',null,null,false,$u,'','col-2');
+  $c[] = new cmp('nuevo_diagnostico','s','3',$d,$w.' GRl '.$o,'Nuevo Diagnóstico','rta',null,null,false,$u,'','col-2');
+  $c[] = new cmp('ningun_diagnostico','s','3',$d,$w.' GRl '.$o,'Ningún Diagnóstico','rta',null,null,false,$u,'','col-2');
   
   $c[]=new cmp($o,'e',null,'INFORMACIÓN ADICIONAL',$w);
   $c[] = new cmp('vacunacion_incompleta','s','3',$d,$w.' '.$o,'Algun integrante de la familia se encuentren con esquema de vacunacion  incompleto','rta',null,null,false,$u,'','col-2');

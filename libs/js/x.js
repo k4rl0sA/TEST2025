@@ -1644,3 +1644,27 @@ function enabTipoAccRuteo() {
 		});
 	});
 }
+function enbRutRmtGes(){
+	const conditions = [
+		{ id: 'gestante', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['GeS'], conditions);
+}
+function enbRutRmtMen(){
+	const conditions = [
+		{ id: 'menor5', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['m5A'], conditions);
+}
+function enbRutRmtCro(){
+	const conditions = [
+		{ id: 'cronico', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['CRo'], conditions);
+}
+function enbRutRmtGrl(){
+	const conditions = [
+		{ id: 'general', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['GRl'], conditions);
+}
