@@ -51,7 +51,7 @@ function lis_seguiremoto(){
 	left join eac_ruteo_clas  C ON A.idruteoclas=C.id_rutclas 
   left join eac_ruteo_ges G ON C.idrutges=G.id_rutges 
 	LEFT JOIN eac_ruteo R ON G.idruteo=R.id_ruteo ";
-	$sql.=" WHERE A.estado = 'A' AND A.idruteoclas='".$id[0]."'"; 
+	$sql.=" WHERE A.estado = 'A' AND A.idruteoclas='".$id[0]; 
 	$sql.="' ORDER BY A.fecha_create";
 	$sql.=' LIMIT '.$pag.','.$regxPag;
 	// echo $sql;
