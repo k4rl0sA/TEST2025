@@ -91,17 +91,17 @@ function cmp_seguiremoto(){
   $c[] = new cmp('general','s','3',$d,$w.' '.$o,'Usuario general','rta',null,null,false,$u,'','col-2');
 
   $c[]=new cmp($o,'l',null,'GESTANTE',$w);
-  $c[] = new cmp('nov_pri_fam1','s','50',$d,$w.' GeS '.$o,'Novedad Prioridad Familiar 1','novedad1',null,null,false,$u,'','col-2');
+  $c[] = new cmp('nov_pri_fam1','s','50',$d,$w.' GeS '.$o,'Novedad Prioridad Gestante','novedad1',null,null,false,$u,'','col-2');
   $c[] = new cmp('gestante_cpn','s','3',$d,$w.' GeS '.$o,'Gestante asiste a CPN','rta',null,null,false,$u,'','col-2');
-  $c[] = new cmp('nov_pri_fam2','s','50',$d,$w.' GeS '.$o,'Novedad Prioridad Familiar 2','novedad2',null,null,false,$u,'','col-2');
   
   $c[]=new cmp($o,'l',null,'MENOR DE 5 AÑOS',$w);
-  $c[] = new cmp('nov_pri_fam3','s','50',$d,$w.' m5A '.$o,'Novedad Prioridad Familiar 3','novedad3',null,null,false,$u,'','col-2');
+  $c[] = new cmp('nov_pri_fam2','s','50',$d,$w.' GeS '.$o,'Novedad Prioridad Menor de 5 años','novedad2',null,null,false,$u,'','col-2');
   $c[] = new cmp('menor5_rpms','s','3',$d,$w.' m5A '.$o,'Menor de 5 años asiste a controles de la RPMS','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('menor5_riesgo','s','3',$d,$w.' m5A '.$o,'Menor de 5 años con alteración nutricional asiste a controles de la Ruta de riesgo','rta',null,null,false,$u,'','col-2');
   
 
   $c[]=new cmp($o,'l',null,'CRONICOS',$w);
+  $c[] = new cmp('nov_pri_fam3','s','50',$d,$w.' m5A '.$o,'Novedad Prioridad Cronico','novedad3',null,null,false,$u,'','col-2');
   $c[] = new cmp('inasistente_12m','s','3',$d,$w.' CRo '.$o,'Inasistente 12 meses','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('inasistente_6_12m','s','3',$d,$w.' CRo '.$o,'Inasistente 6-12 meses','rta',null,null,false,$u,'','col-2');
 
