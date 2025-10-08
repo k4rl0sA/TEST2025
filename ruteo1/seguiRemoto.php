@@ -38,15 +38,20 @@ function cap_menus($a,$b='cap',$con='con') {
 function lis_seguiremoto(){
 	// var_dump($_POST['id']);
 	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['idruteoclas']) ? divide($_POST['idruteoclas']) : null);
-  $info=datos_mysql("SELECT COUNT(*) total FROM ruteo_remoto A LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario WHERE A.estado ='A' AND A.id_ruteoremoto='".$id[0]."'");
+  $info=datos_mysql("SELECT COUNT(*) total FROM ruteo_remoto A FROM ruteo_remoto A
+	left join eac_ruteo_clas  C ON A.idruteoclas=C.id_rutclas 
+  left join eac_ruteo_ges G ON C.idrutges=G.id_rutges 
+	LEFT JOIN eac_ruteo R ON G.idruteo=R.id_ruteo WHERE A.estado = 'A' AND A.idruteoclas='".$id[0]."'");
 	$total=$info['responseResult'][0]['total'];
 	$regxPag=4;
   $pag=(isset($_POST['pag-seguiremoto']))? ($_POST['pag-seguiremoto']-1)* $regxPag:0;
 
-	$sql="SELECT `id_ruteoremoto` ACCIONES,id_ruteoremoto  'Cod Registro',P.tipo_doc,P.idpersona,fecha_seg Fecha,numsegui Seguimiento,FN_CATALOGODESC(87,evento) EVENTO,FN_CATALOGODESC(73,estado_s) estado,cierre_caso Cierra,fecha_cierre 'Fecha de Cierre',nombre Creó 
+	$sql="SELECT `id_ruteoremoto` ACCIONES,id_ruteoremoto  'Cod Registro',R.documento ,R.nombres,fecha_seg Fecha,numsegui Seguimiento,FN_CATALOGODESC(73,estado_s) estado,continua_seguimiento Cierra
   FROM ruteo_remoto A
-	LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario ";
-	$sql.=" WHERE A.estado = 'A' AND A.id_ruteoremoto='".$id[0]; 
+	left join eac_ruteo_clas  C ON A.idruteoclas=C.id_rutclas 
+  left join eac_ruteo_ges G ON C.idrutges=G.id_rutges 
+	LEFT JOIN eac_ruteo R ON G.idruteo=R.id_ruteo ";
+	$sql.=" WHERE A.estado = 'A' AND A.idruteoclas='".$id[0]."'"; 
 	$sql.="' ORDER BY A.fecha_create";
 	$sql.=' LIMIT '.$pag.','.$regxPag;
 	// echo $sql;
