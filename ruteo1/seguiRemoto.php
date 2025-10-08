@@ -38,7 +38,7 @@ function cap_menus($a,$b='cap',$con='con') {
 function lis_seguiremoto(){
 	// var_dump($_POST['id']);
 	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['idruteoclas']) ? divide($_POST['idruteoclas']) : null);
-  $info=datos_mysql("SELECT COUNT(*) total FROM ruteo_remoto A FROM ruteo_remoto A
+  $info=datos_mysql("SELECT COUNT(*) total FROM ruteo_remoto A 
 	left join eac_ruteo_clas  C ON A.idruteoclas=C.id_rutclas 
   left join eac_ruteo_ges G ON C.idrutges=G.id_rutges 
 	LEFT JOIN eac_ruteo R ON G.idruteo=R.id_ruteo WHERE A.estado = 'A' AND A.idruteoclas='".$id[0]."'");
