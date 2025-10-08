@@ -120,7 +120,7 @@ function cmp_seguiremoto(){
   $c[] = new cmp('asignado_a2','s','50',$d,$w.' '.$o,'Asignado a 2','asignado_a2',null,null,false,$u,'','col-2');
 
   
-  /*
+  
   $o='acc';
   $c[]=new cmp($o,'e',null,'INFORMACIÓN ACCIONES',$w);
   $c[] = new cmp('accion1','s','50',$d,$w.' '.$o,'accion1','Acción 1','accion1',null,null,false,$u,'','col-2');
@@ -132,7 +132,7 @@ function cmp_seguiremoto(){
   $c[] = new cmp('observaciones','s','7000',$d,$w.' '.$o,'observaciones','Observaciones','observaciones',null,null,true,$u,'','col-12');
   $c[] = new cmp('continua_seguimiento','s','3',$d,$w.' '.$o,'continua_seguimiento','¿Continúa Seguimiento?','continua_seguimiento',null,null,true,$u,'','col-2');
   $c[] = new cmp('fecha_prox_seguimiento','d','10',$d,$w.' '.$o,'fecha_prox_seguimiento','Fecha Próximo Seguimiento','fecha_prox_seguimiento',null,null,false,$u,'','col-2');
-  $c[] = new cmp('motivo_no_continuidad','s','100',$d,$w.' '.$o,'motivo_no_continuidad','Motivo No Continuidad','motivo_no_continuidad',null,null,false,$u,'','col-2');*/
+  $c[] = new cmp('motivo_no_continuidad','s','100',$d,$w.' '.$o,'motivo_no_continuidad','Motivo No Continuidad','motivo_no_continuidad',null,null,false,$u,'','col-2');
      
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
