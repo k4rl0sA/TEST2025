@@ -84,7 +84,7 @@ function cmp_seguiremoto(){
   $c[]=new cmp('estado_s','s','3',$d,$w.' sTa '.$o,'Estado','estado_s',null,null,true,true,'','col-2',"enabFielSele(this,true,['motivo_estado'],['3']);EnabEfec(this,['hab','acc'],['Ob'],['nO'],['bL']);");//
   $c[]=new cmp('motivo_estado','s','3',$d,$w.' '.$o,'Motivo de Estado','motivo_estado',null,null,false,$x,'','col-2');
   
- 
+ /*
   $o='hab';
   $c[]=new cmp($o,'e',null,'SEGUIMIENTO REMOTO',$w);
   $c[] = new cmp('gestante','s','3',$d,''$w.' '.$o,'gestante','Gestante','gestante',null,null,false,$u,'','col-2');
@@ -120,7 +120,7 @@ function cmp_seguiremoto(){
   $c[] = new cmp('deriva_perfil2','s','50',$d,''$w.' '.$o,'deriva_perfil2','Perfil Derivado 2','deriva_perfil2',null,null,false,$u,'','col-2');
   $c[] = new cmp('asignado_a2','s','50',$d,''$w.' '.$o,'asignado_a2','Asignado a 2','asignado_a2',null,null,false,$u,'','col-2');
 
-  /*
+  
   $o='acc';
   $c[]=new cmp($o,'e',null,'INFORMACIÓN ACCIONES',$w);
   $c[] = new cmp('accion1','s','50',$d,''$w.' '.$o,'accion1','Acción 1','accion1',null,null,false,$u,'','col-2');
