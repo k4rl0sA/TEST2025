@@ -1668,3 +1668,27 @@ function enbRutRmtGrl(){
 	];
 	EnabDepeDynamic(['GRl'], conditions);
 }
+function enabRutRmtBar(){
+	const conditions = [
+		{ id: 'barrera_salud', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['BaS'], conditions);
+}
+function enabRutRmtAfi(){
+	const conditions = [
+		{ id: 'sin_afiliacion', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['SaF'], conditions);
+}
+function enbRutRmtAboSi(){
+	const conditions = [
+		{ id: 'abordaje_situacion', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['FaP'], conditions);
+}
+function enbRutRmtPln(){
+	const conditions = [
+		{ id: 'sujeto_concertacion', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['ApB'], conditions);
+}
