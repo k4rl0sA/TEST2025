@@ -95,7 +95,7 @@ function cmp_seguiremoto(){
   $c[] = new cmp('gestante_cpn','s','3',$d,$w.' '.$o,'Gestante asiste a CPN','gestante_cpn',null,null,false,$u,'','col-2');
   $c[] = new cmp('nov_pri_fam2','s','50',$d,$w.' '.$o,'Novedad Prioridad Familiar 2','nov_pri_fam2',null,null,false,$u,'','col-2');
   
-  /*$c[] = new cmp('menor5_rpms','s','3',$d,$w.' '.$o,'Menor 5 RPMS','menor5_rpms',null,null,false,$u,'','col-2');
+  $c[] = new cmp('menor5_rpms','s','3',$d,$w.' '.$o,'Menor 5 RPMS','menor5_rpms',null,null,false,$u,'','col-2');
   $c[] = new cmp('menor5_riesgo','s','3',$d,$w.' '.$o,'Menor 5 Riesgo','menor5_riesgo',null,null,false,$u,'','col-2');
   $c[] = new cmp('nov_pri_fam3','s','50',$d,$w.' '.$o,'Novedad Prioridad Familiar 3','nov_pri_fam3',null,null,false,$u,'','col-2');
   $c[] = new cmp('inasistente_12m','s','3',$d,$w.' '.$o,'Inasistente 12 meses','inasistente_12m',null,null,false,$u,'','col-2');
