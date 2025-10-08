@@ -115,8 +115,8 @@ function cmp_seguiremoto(){
   
   
   
-  $c[] = new cmp('activacion_ruta','s','3',$d,$w.' '.$o,'Activación Ruta','rta',null,null,false,$u,'','col-2');
-  $c[] = new cmp('sin_afiliacion','s','3',$d,$w.' '.$o,'Sin Afiliación','rta',null,null,false,$u,'','col-2');
+  
+  
   $c[] = new cmp('acepta_afiliacion','s','3',$d,$w.' '.$o,'Acepta Afiliación','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('sujeto_abordaje','s','3',$d,$w.' '.$o,'Sujeto Abordaje','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('acepta_abordaje','s','3',$d,$w.' '.$o,'Acepta Abordaje','rta',null,null,false,$u,'','col-2');
@@ -133,6 +133,9 @@ function cmp_seguiremoto(){
   $c[] = new cmp('acepta_vacunacion','s','3',$d,$w.' '.$o,'Acepta abordaje presencial para vacunacion','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('barrera_salud','s','3',$d,$w.' '.$o,'Algun integrante de la familia presenta barrera para acceso a servicios de salud','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('agendamiento','s','3',$d,$w.' '.$o,'Se realiza agendamiento','rta',null,null,false,$u,'','col-2');
+  $c[] = new cmp('activacion_ruta','s','3',$d,$w.' '.$o,'Se realiza activación de ruta a EAPB a traves del SIRC','rta',null,null,false,$u,'','col-2');
+  $c[] = new cmp('sin_afiliacion','s','3',$d,$w.' '.$o,'Algun integrante de la familia se encuentra sin afiliacion al SGSS y cumple con criterios para afiliacion por oficio','rta',null,null,false,$u,'','col-2');
+
 
   $o='acc';
   $c[]=new cmp($o,'e',null,'INFORMACIÓN ACCIONES',$w);
