@@ -85,10 +85,10 @@ function cmp_seguiremoto(){
  
   $o='hab';
   $c[]=new cmp($o,'e',null,'CONDICIONES',$w);
-  $c[] = new cmp('gestante','s','3',$d,$w.' '.$o,'Gestante','rta',null,null,false,$u,'','col-2');
-  $c[] = new cmp('menor5','s','3',$d,$w.' '.$o,'Menor de 5 años','rta',null,null,false,$u,'','col-2');
-  $c[] = new cmp('cronico','s','3',$d,$w.' '.$o,'Usuario crónico','rta',null,null,false,$u,'','col-2');
-  $c[] = new cmp('general','s','3',$d,$w.' '.$o,'Usuario general','rta',null,null,false,$u,'','col-2');
+  $c[] = new cmp('gestante','s','3',$d,$w.' '.$o,'Gestante','rta',null,null,false,$u,'','col-2',"enbRutRmtGes();");
+  $c[] = new cmp('menor5','s','3',$d,$w.' '.$o,'Menor de 5 años','rta',null,null,false,$u,'','col-2',"enbRutRmtMen();");
+  $c[] = new cmp('cronico','s','3',$d,$w.' '.$o,'Usuario crónico','rta',null,null,false,$u,'','col-2',"enbRutRmtCro();");
+  $c[] = new cmp('general','s','3',$d,$w.' '.$o,'Usuario general','rta',null,null,false,$u,'','col-2',"enbRutRmtGrl();");
 
   $c[]=new cmp($o,'l',null,'GESTANTE',$w);
   $c[] = new cmp('nov_pri_fam1','s','50',$d,$w.' GeS '.$o,'Novedad Prioridad Gestante','novedad1',null,null,false,$u,'','col-2');
