@@ -240,8 +240,8 @@ $id = divide($_POST['id']);
 
 }
 
-function Is_null($key) {
-  return isset($_POST[$key]) && $_POST[$key] !== '' ? $_POST[$key] : null;
+function Is_null($campo) {
+  return isset($_POST[$campo]) && $_POST[$campo] !== '' ? $_POST[$campo] : null;
 }
 
 function opc_pre_clasifclasificacion($id=''){
