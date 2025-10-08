@@ -207,7 +207,9 @@ function opc_pre_clasifclasificacion($id=''){
            return json_encode($info['responseResult']);	
         }
 }
-
+function opc_numsegui($id=''){
+return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=76 and estado='A' ORDER BY LENGTH(idcatadeta), idcatadeta",$id);
+}
 function opc_usuario_gest($id=''){
 	// return opc_sql("SELECT id_usuario id,CONCAT(id_usuario,'-',nombre) usuario FROM usuarios WHERE estado = 'A'",$id);
 }
