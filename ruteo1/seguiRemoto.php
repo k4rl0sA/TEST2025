@@ -222,6 +222,18 @@ function opc_usuario_gest($id=''){
 function opc_rta($id=''){
 return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=170 and estado="A" ORDER BY 1',$id);
 }
+function opc_novedad1($id=''){
+return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=297 and estado="A" ORDER BY 1',$id);
+}
+function opc_novedad2($id=''){
+return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=298 and estado="A" ORDER BY 1',$id);
+}
+function opc_novedad3($id=''){
+return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=299 and estado="A" ORDER BY 1',$id);
+}
+function opc_motivo_no_remoto($id=''){
+return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=300 and estado="A" ORDER BY 1',$id);
+}
 function opc_riesgo($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=273 and estado='A' ORDER BY 1",$id);
 }
