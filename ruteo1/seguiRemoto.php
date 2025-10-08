@@ -86,9 +86,7 @@ function cmp_seguiremoto(){
   $o='hab';
   $c[]=new cmp($o,'e',null,'SEGUIMIENTO REMOTO',$w);
   $c[] = new cmp('gestante','s','3',$d,$w.' '.$o,'Gestante','rta',null,null,false,$u,'','col-2');
-  
-
-  $c[] = new cmp('menor5','s','3',$d,$w.' '.$o,'Menor de 5 años','menor5',null,null,false,$u,'','col-2');
+  /*$c[] = new cmp('menor5','s','3',$d,$w.' '.$o,'Menor de 5 años','menor5',null,null,false,$u,'','col-2');
   $c[] = new cmp('cronico','s','3',$d,$w.' '.$o,'Usuario crónico','cronico',null,null,false,$u,'','col-2');
   $c[] = new cmp('general','s','3',$d,$w.' '.$o,'Usuario general','general',null,null,false,$u,'','col-2');
   $c[] = new cmp('nov_pri_fam1','s','50',$d,$w.' '.$o,'Novedad Prioridad Familiar 1','nov_pri_fam1',null,null,false,$u,'','col-2');
