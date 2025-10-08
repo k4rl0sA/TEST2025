@@ -102,8 +102,8 @@ function cmp_seguiremoto(){
 
   $c[]=new cmp($o,'l',null,'CRONICOS',$w);
   $c[] = new cmp('nov_pri_fam3','s','50',$d,$w.' m5A '.$o,'Novedad Prioridad Cronico','novedad3',null,null,false,$u,'','col-2');
-  $c[] = new cmp('inasistente_12m','s','3',$d,$w.' CRo '.$o,'Inasistente 12 meses','rta',null,null,false,$u,'','col-2');
-  $c[] = new cmp('inasistente_6_12m','s','3',$d,$w.' CRo '.$o,'Inasistente 6-12 meses','rta',null,null,false,$u,'','col-2');
+  $c[] = new cmp('inasistente_12m','s','3',$d,$w.' CRo '.$o,'Usuario inasistente a controles mayor a 12 meses','rta',null,null,false,$u,'','col-2');
+  $c[] = new cmp('inasistente_6_12m','s','3',$d,$w.' CRo '.$o,'Usuario inasistente a controles entre 6 y 12  meses','rta',null,null,false,$u,'','col-2');
 
   $c[]=new cmp($o,'l',null,'POBLACION GENERAL',$w);
   $c[] = new cmp('persona_mayor','s','3',$d,$w.' '.$o,'Persona Mayor','rta',null,null,false,$u,'','col-2');
