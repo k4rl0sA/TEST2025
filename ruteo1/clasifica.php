@@ -83,7 +83,6 @@ function cmp_rutclasif(){
  $o='colectivas';
  $c[]=new cmp($o,'e',null,'ACCIONES COLECTIVAS',$w);
  $c[]=new cmp('fecha_gestion','d','10',$d['fecha_agenda'],$w.' CoLE '.$o,'Fecha de Agenda','fecha_gestion',null,null,false,false,'','col-2',"validDate(this,$days,30);");
- 
  $c[]=new cmp('perfil','s','90','',$w.' CoLE '.$o,'Perfil A Asignar','perfil',null,null,false,false,'','col-25',"selectDepend('perfil','nombre','clasifica.php');");
  $c[]=new cmp('nombre','s','6',$d['profesional'],$w.' CoLE '.$o,'Profesional Asignado','doc_asignado',null,null,false,false,'','col-25');
  $c[]=new cmp('accion1','s','10',$d['accion_1'],$w.' CoLE '.$o,'Definir Acción','colectiv',null,null,false,false,'','col-25');

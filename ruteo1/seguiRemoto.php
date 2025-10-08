@@ -112,22 +112,6 @@ function cmp_seguiremoto(){
   $c[] = new cmp('nuevo_diagnostico','s','3',$d,$w.' '.$o,'Nuevo Diagnóstico','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('ningun_diagnostico','s','3',$d,$w.' '.$o,'Ningún Diagnóstico','rta',null,null,false,$u,'','col-2');
   
-  
-  
-  
-  
-  
-  
-  
-  $c[] = new cmp('acepta_abordaje','s','3',$d,$w.' '.$o,'Acepta Abordaje','rta',null,null,false,$u,'','col-2');
-  $c[] = new cmp('deriva_perfil1','s','50',$d,$w.' '.$o,'Perfil Derivado 1','rta',null,null,false,$u,'','col-2');
-  $c[] = new cmp('asignado_a1','s','50',$d,$w.' '.$o,'Asignado a 1','rta',null,null,false,$u,'','col-2');
-  $c[] = new cmp('sujeto_concertacion','s','3',$d,$w.' '.$o,'Sujeto Concertación','rta',null,null,false,$u,'','col-2');
-  $c[] = new cmp('acepta_plan','s','3',$d,$w.' '.$o,'Acepta Plan','rta',null,null,false,$u,'','col-2');
-  $c[] = new cmp('deriva_perfil2','s','50',$d,$w.' '.$o,'Perfil Derivado 2','rta',null,null,false,$u,'','col-2');
-  $c[] = new cmp('asignado_a2','s','50',$d,$w.' '.$o,'Asignado a 2','rta',null,null,false,$u,'','col-2');
-
-
   $c[]=new cmp($o,'e',null,'INFORMACIÓN ADICIONAL',$w);
   $c[] = new cmp('vacunacion_incompleta','s','3',$d,$w.' '.$o,'Algun integrante de la familia se encuentren con esquema de vacunacion  incompleto','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('acepta_vacunacion','s','3',$d,$w.' '.$o,'Acepta abordaje presencial para vacunacion','rta',null,null,false,$u,'','col-2');
@@ -137,9 +121,16 @@ function cmp_seguiremoto(){
   $c[] = new cmp('sin_afiliacion','s','3',$d,$w.' '.$o,'Algun integrante de la familia se encuentra sin afiliacion al SGSS y cumple con criterios para afiliacion por oficio','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('acepta_afiliacion','s','3',$d,$w.' '.$o,'Acepta que lo contacten para realizar el tramite de afiliación por oficio','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('sujeto_abordaje','s','3',$d,$w.' '.$o,'Familia sujeto de abordaje presencial por gestor de Bienestar','rta',null,null,false,$u,'','col-2');
+  $c[] = new cmp('acepta_abordaje','s','3',$d,$w.' '.$o,'La familia acepta el abordaje presencial por gestor de Bienestar','rta',null,null,false,$u,'','col-2');
+  $c[] = new cmp('deriva_perfil1','s','50',$d,$w.' '.$o,'Perfil al que se deriva','rta',null,null,false,$u,'','col-2');
+  $c[] = new cmp('asignado_a1','s','50',$d,$w.' '.$o,'Asignado A','rta',null,null,false,$u,'','col-2');
+  $c[] = new cmp('sujeto_concertacion','s','3',$d,$w.' '.$o,'Familia sujeto de concertación de plan de bienestar','rta',null,null,false,$u,'','col-2');
+  $c[] = new cmp('acepta_plan','s','3',$d,$w.' '.$o,'La familia acepta el Plan de Bienestar','rta',null,null,false,$u,'','col-2');
+  $c[] = new cmp('deriva_perfil2','s','50',$d,$w.' '.$o,'Perfil Derivado 2','rta',null,null,false,$u,'','col-2');
+  $c[] = new cmp('asignado_a2','s','50',$d,$w.' '.$o,'Asignado a 2','rta',null,null,false,$u,'','col-2');
 
   $o='acc';
-  $c[]=new cmp($o,'e',null,'INFORMACIÓN ACCIONES',$w);
+  $c[]=new cmp($o,'e',null,'ACCIONES',$w);
   $c[] = new cmp('accion1','s','50',$d,$w.' '.$o,'Acción 1','accion1',null,null,false,$u,'','col-5','selectDepend(\'accion1\',\'desc_accion1\',\'../ruteo1/seguiRemoto.php\');');
   $c[] = new cmp('desc_accion1','s','50',$d,$w.' '.$o,'Descripción Acción 1','desc_accion1',null,null,false,$u,'','col-5');
   $c[] = new cmp('accion2','s','50',$d,$w.' '.$o,'Acción 2','accion2',null,null,false,$u,'','col-5','selectDepend(\'accion2\',\'desc_accion2\',\'../ruteo1/seguiRemoto.php\');');
@@ -148,10 +139,10 @@ function cmp_seguiremoto(){
   $c[] = new cmp('desc_accion3','s','50',$d,$w.' '.$o,'Descripción Acción 3','desc_accion3',null,null,false,$u,'','col-5');
 
   $c[]=new cmp($o,'e',null,'INFORMACIÓN SEGUIMIENTO',$w);
-  $c[] = new cmp('observaciones','a','7000',$d,$w.' '.$o,'Observaciones','observaciones',null,null,true,$u,'','col-12');
-  $c[] = new cmp('continua_seguimiento','s','3',$d,$w.' '.$o,'¿Continúa Seguimiento?','rta',null,null,true,$u,'','col-2');
-  $c[] = new cmp('fecha_prox_seguimiento','d','10',$d,$w.' '.$o,'Fecha Próximo Seguimiento','fecha_prox_seguimiento',null,null,false,$u,'','col-2');
-  $c[] = new cmp('motivo_no_continuidad','s','100',$d,$w.' '.$o,'Motivo No Continuidad','motivo_no_remoto',null,null,false,$u,'','col-2');
+  $c[] = new cmp('observaciones','a','7000',$d,$w.' '.$o,'Observaciones','observaciones',null,null,true,$u,'','col-10');
+  $c[] = new cmp('continua_seguimiento','s','3',$d,$w.' '.$o,'¿Continua con seguimiento Remoto?','rta',null,null,true,$u,'','col-2');
+  $c[] = new cmp('fecha_prox_seguimiento','d','10',$d,$w.' '.$o,'Fecha estimada para el seguiente seguimiento remoto','fecha_prox_seguimiento',null,null,false,$u,'','col-2');
+  $c[] = new cmp('motivo_no_continuidad','s','100',$d,$w.' '.$o,'Motivo de la no continuidad de seguimientos remotos','motivo_no_remoto',null,null,false,$u,'','col-2');
      
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
