@@ -286,7 +286,7 @@ function opc_perfil_altousuario_alto($id=''){
 function opc_accion($id=''){
 return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=269 and estado="A" ORDER BY 1',$id);
 }
-function opc_acciones_1($id=''){
+function opc_accion1($id=''){
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=22 and estado='A' ORDER BY 1",$id);
   }
   function opc_desc_accion1($id=''){
