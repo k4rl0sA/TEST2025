@@ -141,7 +141,7 @@ function cmp_seguiremoto(){
   $c[]=new cmp($o,'e',null,'INFORMACIÓN SEGUIMIENTO',$w);
   $c[] = new cmp('observaciones','a','7000',$d,$w.' '.$o,'Observaciones','observaciones',null,null,true,$u,'','col-10');
   $c[] = new cmp('continua_seguimiento','s','3',$d,$w.' '.$o,'¿Continua con seguimiento Remoto?','rta',null,null,true,$u,'','col-2');
-  $c[] = new cmp('fecha_prox_seguimiento','d','10',$d,$w.' '.$o,'Fecha estimada para el seguiente seguimiento remoto','fecha_prox_seguimiento',null,null,false,$u,'','col-2');
+  $c[] = new cmp('fecha_prox_seguimiento','d','10',$d,$w.' '.$o,'Fecha estimada para el siguiente seguimiento remoto','fecha_prox_seguimiento',null,null,false,$u,'','col-2');
   $c[] = new cmp('motivo_no_continuidad','s','100',$d,$w.' '.$o,'Motivo de la no continuidad de seguimientos remotos','motivo_no_remoto',null,null,false,$u,'','col-2');
      
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
