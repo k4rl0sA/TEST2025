@@ -85,39 +85,42 @@ function cmp_seguiremoto(){
  
   $o='hab';
   $c[]=new cmp($o,'e',null,'SEGUIMIENTO REMOTO',$w);
-  $c[] = new cmp('gestante','s','3',$d,$w.' '.$o,'gestante','Gestante','gestante',null,null,false,$u,'','col-2');
-  $c[] = new cmp('menor5','s','3',$d,$w.' '.$o,'menor5','Menor de 5 años','menor5',null,null,false,$u,'','col-2');
-  $c[] = new cmp('cronico','s','3',$d,$w.' '.$o,'cronico','Usuario crónico','cronico',null,null,false,$u,'','col-2');
-  $c[] = new cmp('general','s','3',$d,$w.' '.$o,'general','Usuario general','general',null,null,false,$u,'','col-2');
-  $c[] = new cmp('nov_pri_fam1','s','50',$d,$w.' '.$o,'nov_pri_fam1','Novedad Prioridad Familiar 1','nov_pri_fam1',null,null,false,$u,'','col-2');
-  $c[] = new cmp('gestante_cpn','s','3',$d,$w.' '.$o,'gestante_cpn','Gestante asiste a CPN','gestante_cpn',null,null,false,$u,'','col-2');
-  $c[] = new cmp('nov_pri_fam2','s','50',$d,$w.' '.$o,'nov_pri_fam2','Novedad Prioridad Familiar 2','nov_pri_fam2',null,null,false,$u,'','col-2');
+  $c[] = new cmp('gestante','s','3',$d,$w.' '.$o,'Gestante','gestante',null,null,false,$u,'','col-2');
   
-  /*$c[] = new cmp('menor5_rpms','s','3',$d,$w.' '.$o,'menor5_rpms','Menor 5 RPMS','menor5_rpms',null,null,false,$u,'','col-2');
-  $c[] = new cmp('menor5_riesgo','s','3',$d,$w.' '.$o,'menor5_riesgo','Menor 5 Riesgo','menor5_riesgo',null,null,false,$u,'','col-2');
-  $c[] = new cmp('nov_pri_fam3','s','50',$d,$w.' '.$o,'nov_pri_fam3','Novedad Prioridad Familiar 3','nov_pri_fam3',null,null,false,$u,'','col-2');
-  $c[] = new cmp('inasistente_12m','s','3',$d,$w.' '.$o,'inasistente_12m','Inasistente 12 meses','inasistente_12m',null,null,false,$u,'','col-2');
-  $c[] = new cmp('inasistente_6_12m','s','3',$d,$w.' '.$o,'inasistente_6_12m','Inasistente 6-12 meses','inasistente_6_12m',null,null,false,$u,'','col-2');
-  $c[] = new cmp('persona_mayor','s','3',$d,$w.' '.$o,'persona_mayor','Persona Mayor','persona_mayor',null,null,false,$u,'','col-2');
-  $c[] = new cmp('persona_discapacidad','s','3',$d,$w.' '.$o,'persona_discapacidad','Persona con discapacidad','persona_discapacidad',null,null,false,$u,'','col-2');
-  $c[] = new cmp('salud_mental','s','3',$d,$w.' '.$o,'salud_mental','Salud Mental','salud_mental',null,null,false,$u,'','col-2');
-  $c[] = new cmp('nuevo_diagnostico','s','3',$d,$w.' '.$o,'nuevo_diagnostico','Nuevo Diagnóstico','nuevo_diagnostico',null,null,false,$u,'','col-2');
-  $c[] = new cmp('ningun_diagnostico','s','3',$d,$w.' '.$o,'ningun_diagnostico','Ningún Diagnóstico','ningun_diagnostico',null,null,false,$u,'','col-2');
-  $c[] = new cmp('vacunacion_incompleta','s','3',$d,$w.' '.$o,'vacunacion_incompleta','Vacunación Incompleta','vacunacion_incompleta',null,null,false,$u,'','col-2');
-  $c[] = new cmp('acepta_vacunacion','s','3',$d,$w.' '.$o,'acepta_vacunacion','Acepta Vacunación','acepta_vacunacion',null,null,false,$u,'','col-2');
-  $c[] = new cmp('barrera_salud','s','3',$d,$w.' '.$o,'barrera_salud','Barrera Salud','barrera_salud',null,null,false,$u,'','col-2');
-  $c[] = new cmp('agendamiento','s','3',$d,$w.' '.$o,'agendamiento','Agendamiento','agendamiento',null,null,false,$u,'','col-2');
-  $c[] = new cmp('activacion_ruta','s','3',$d,$w.' '.$o,'activacion_ruta','Activación Ruta','activacion_ruta',null,null,false,$u,'','col-2');
-  $c[] = new cmp('sin_afiliacion','s','3',$d,$w.' '.$o,'sin_afiliacion','Sin Afiliación','sin_afiliacion',null,null,false,$u,'','col-2');
-  $c[] = new cmp('acepta_afiliacion','s','3',$d,$w.' '.$o,'acepta_afiliacion','Acepta Afiliación','acepta_afiliacion',null,null,false,$u,'','col-2');
-  $c[] = new cmp('sujeto_abordaje','s','3',$d,$w.' '.$o,'sujeto_abordaje','Sujeto Abordaje','sujeto_abordaje',null,null,false,$u,'','col-2');
-  $c[] = new cmp('acepta_abordaje','s','3',$d,$w.' '.$o,'acepta_abordaje','Acepta Abordaje','acepta_abordaje',null,null,false,$u,'','col-2');
-  $c[] = new cmp('deriva_perfil1','s','50',$d,$w.' '.$o,'deriva_perfil1','Perfil Derivado 1','deriva_perfil1',null,null,false,$u,'','col-2');
-  $c[] = new cmp('asignado_a1','s','50',$d,$w.' '.$o,'asignado_a1','Asignado a 1','asignado_a1',null,null,false,$u,'','col-2');
-  $c[] = new cmp('sujeto_concertacion','s','3',$d,$w.' '.$o,'sujeto_concertacion','Sujeto Concertación','sujeto_concertacion',null,null,false,$u,'','col-2');
-  $c[] = new cmp('acepta_plan','s','3',$d,$w.' '.$o,'acepta_plan','Acepta Plan','acepta_plan',null,null,false,$u,'','col-2');
-  $c[] = new cmp('deriva_perfil2','s','50',$d,$w.' '.$o,'deriva_perfil2','Perfil Derivado 2','deriva_perfil2',null,null,false,$u,'','col-2');
-  $c[] = new cmp('asignado_a2','s','50',$d,$w.' '.$o,'asignado_a2','Asignado a 2','asignado_a2',null,null,false,$u,'','col-2');
+  $c[]=new cmp('autocono','s','2',$d,$w.' hL '.$o,'Autoconocimiento','rta',null,null,false,$x,'','col-2');
+
+  $c[] = new cmp('menor5','s','3',$d,$w.' '.$o,'Menor de 5 años','menor5',null,null,false,$u,'','col-2');
+  $c[] = new cmp('cronico','s','3',$d,$w.' '.$o,'Usuario crónico','cronico',null,null,false,$u,'','col-2');
+  $c[] = new cmp('general','s','3',$d,$w.' '.$o,'Usuario general','general',null,null,false,$u,'','col-2');
+  $c[] = new cmp('nov_pri_fam1','s','50',$d,$w.' '.$o,'Novedad Prioridad Familiar 1','nov_pri_fam1',null,null,false,$u,'','col-2');
+  $c[] = new cmp('gestante_cpn','s','3',$d,$w.' '.$o,'Gestante asiste a CPN','gestante_cpn',null,null,false,$u,'','col-2');
+  $c[] = new cmp('nov_pri_fam2','s','50',$d,$w.' '.$o,'Novedad Prioridad Familiar 2','nov_pri_fam2',null,null,false,$u,'','col-2');
+  
+  /*$c[] = new cmp('menor5_rpms','s','3',$d,$w.' '.$o,'Menor 5 RPMS','menor5_rpms',null,null,false,$u,'','col-2');
+  $c[] = new cmp('menor5_riesgo','s','3',$d,$w.' '.$o,'Menor 5 Riesgo','menor5_riesgo',null,null,false,$u,'','col-2');
+  $c[] = new cmp('nov_pri_fam3','s','50',$d,$w.' '.$o,'Novedad Prioridad Familiar 3','nov_pri_fam3',null,null,false,$u,'','col-2');
+  $c[] = new cmp('inasistente_12m','s','3',$d,$w.' '.$o,'Inasistente 12 meses','inasistente_12m',null,null,false,$u,'','col-2');
+  $c[] = new cmp('inasistente_6_12m','s','3',$d,$w.' '.$o,'Inasistente 6-12 meses','inasistente_6_12m',null,null,false,$u,'','col-2');
+  $c[] = new cmp('persona_mayor','s','3',$d,$w.' '.$o,'Persona Mayor','persona_mayor',null,null,false,$u,'','col-2');
+  $c[] = new cmp('persona_discapacidad','s','3',$d,$w.' '.$o,'Persona con discapacidad','persona_discapacidad',null,null,false,$u,'','col-2');
+  $c[] = new cmp('salud_mental','s','3',$d,$w.' '.$o,'Salud Mental','salud_mental',null,null,false,$u,'','col-2');
+  $c[] = new cmp('nuevo_diagnostico','s','3',$d,$w.' '.$o,'Nuevo Diagnóstico','nuevo_diagnostico',null,null,false,$u,'','col-2');
+  $c[] = new cmp('ningun_diagnostico','s','3',$d,$w.' '.$o,'Ningún Diagnóstico','ningun_diagnostico',null,null,false,$u,'','col-2');
+  $c[] = new cmp('vacunacion_incompleta','s','3',$d,$w.' '.$o,'Vacunación Incompleta','vacunacion_incompleta',null,null,false,$u,'','col-2');
+  $c[] = new cmp('acepta_vacunacion','s','3',$d,$w.' '.$o,'Acepta Vacunación','acepta_vacunacion',null,null,false,$u,'','col-2');
+  $c[] = new cmp('barrera_salud','s','3',$d,$w.' '.$o,'Barrera Salud','barrera_salud',null,null,false,$u,'','col-2');
+  $c[] = new cmp('agendamiento','s','3',$d,$w.' '.$o,'Agendamiento','agendamiento',null,null,false,$u,'','col-2');
+  $c[] = new cmp('activacion_ruta','s','3',$d,$w.' '.$o,'Activación Ruta','activacion_ruta',null,null,false,$u,'','col-2');
+  $c[] = new cmp('sin_afiliacion','s','3',$d,$w.' '.$o,'Sin Afiliación','sin_afiliacion',null,null,false,$u,'','col-2');
+  $c[] = new cmp('acepta_afiliacion','s','3',$d,$w.' '.$o,'Acepta Afiliación','acepta_afiliacion',null,null,false,$u,'','col-2');
+  $c[] = new cmp('sujeto_abordaje','s','3',$d,$w.' '.$o,'Sujeto Abordaje','sujeto_abordaje',null,null,false,$u,'','col-2');
+  $c[] = new cmp('acepta_abordaje','s','3',$d,$w.' '.$o,'Acepta Abordaje','acepta_abordaje',null,null,false,$u,'','col-2');
+  $c[] = new cmp('deriva_perfil1','s','50',$d,$w.' '.$o,'Perfil Derivado 1','deriva_perfil1',null,null,false,$u,'','col-2');
+  $c[] = new cmp('asignado_a1','s','50',$d,$w.' '.$o,'Asignado a 1','asignado_a1',null,null,false,$u,'','col-2');
+  $c[] = new cmp('sujeto_concertacion','s','3',$d,$w.' '.$o,'Sujeto Concertación','sujeto_concertacion',null,null,false,$u,'','col-2');
+  $c[] = new cmp('acepta_plan','s','3',$d,$w.' '.$o,'Acepta Plan','acepta_plan',null,null,false,$u,'','col-2');
+  $c[] = new cmp('deriva_perfil2','s','50',$d,$w.' '.$o,'Perfil Derivado 2','deriva_perfil2',null,null,false,$u,'','col-2');
+  $c[] = new cmp('asignado_a2','s','50',$d,$w.' '.$o,'Asignado a 2','asignado_a2',null,null,false,$u,'','col-2');
 
   
   $o='acc';
