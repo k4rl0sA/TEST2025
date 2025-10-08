@@ -940,7 +940,7 @@ function validUser($id) {
 
 function medicamAtenci($id) {
     $id = divide($id);
-    $sql = "SELECT COUNT(*) AS total FROM eac_atencion WHERE idpeople='".$id[0]."' AND medicamentos = '1'";
+    $sql = "SELECT COUNT(*) AS total FROM eac_atencion WHERE idpeople='".$id[0]."' AND medicamentos = 'SI'";
     $info = datos_mysql($sql);
 	//var_dump($sql);
 	if(isset($info['responseResult'][0]['total']) && intval($info['responseResult'][0]['total']) > 0) {
