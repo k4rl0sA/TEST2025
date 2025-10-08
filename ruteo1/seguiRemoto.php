@@ -117,9 +117,10 @@ function cmp_seguiremoto(){
   $c[] = new cmp('sujeto_concertacion','s','3',$d,$w.' '.$o,'Sujeto Concertación','sujeto_concertacion',null,null,false,$u,'','col-2');
   $c[] = new cmp('acepta_plan','s','3',$d,$w.' '.$o,'Acepta Plan','acepta_plan',null,null,false,$u,'','col-2');
   $c[] = new cmp('deriva_perfil2','s','50',$d,$w.' '.$o,'Perfil Derivado 2','deriva_perfil2',null,null,false,$u,'','col-2');
-  /*$c[] = new cmp('asignado_a2','s','50',$d,$w.' '.$o,'Asignado a 2','asignado_a2',null,null,false,$u,'','col-2');
+  $c[] = new cmp('asignado_a2','s','50',$d,$w.' '.$o,'Asignado a 2','asignado_a2',null,null,false,$u,'','col-2');
 
   
+  /*
   $o='acc';
   $c[]=new cmp($o,'e',null,'INFORMACIÓN ACCIONES',$w);
   $c[] = new cmp('accion1','s','50',$d,$w.' '.$o,'accion1','Acción 1','accion1',null,null,false,$u,'','col-2');
