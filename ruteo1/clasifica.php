@@ -278,10 +278,10 @@ function opc_accion($id=''){
 return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=295 and estado="A" ORDER BY 1',$id);
 }
 function opc_colectiv($id=''){
-  return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=295 and estado="A" ORDER BY 1',$id);
+  return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=309 and estado="A" ORDER BY 1',$id);
   }
   function opc_indivi($id=''){
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=295 and estado="A" ORDER BY 1',$id);
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=310 and estado="A" ORDER BY 1',$id);
     }
 function opc_acciones_1($id=''){
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=22 and estado='A' ORDER BY 1",$id);
