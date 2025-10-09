@@ -173,7 +173,11 @@ function get_seguiremoto(){
     return "";
   }else{
     $id=divide($_POST['id']);
-    $sql="SELECT  id_ruteoremoto,idruteoclas,fecha_seg,numsegui,estado_s,motivo_estado,gestante,menor5,cronico,general,nov_pri_fam1,gestante_cpn,nov_pri_fam2,menor5_rpms,menor5_riesgo,nov_pri_fam3,inasistente_12m,inasistente_6_12m,persona_mayor,persona_discapacidad,salud_mental,nuevo_diagnostico,ningun_diagnostico,vacunacion_incompleta,acepta_vacunacion,barrera_salud,agendamiento,activacion_ruta,sin_afiliacion,acepta_afiliacion,sujeto_abordaje,acepta_abordaje,deriva_perfil1,asignado_a1,sujeto_concertacion,acepta_plan,deriva_perfil2,asignado_a2,accion1,desc_accion1,accion2,desc_accion2,accion3,desc_accion3,observaciones,continua_seguimiento,fecha_prox_seguimiento,motivo_no_continuidad FROM ruteo_remoto WHERE id_ruteoremoto='{$id[0]}' AND estado='A'";
+     $sql="SELECT rm.id_ruteoremoto,rm.idruteoclas,rm.fecha_seg,rm.numsegui,rm.estado_s,rm.motivo_estado,rm.gestante,rm.menor5,rm.cronico,rm.general,rm.nov_pri_fam1,rm.gestante_cpn,rm.nov_pri_fam2,rm.menor5_rpms,rm.menor5_riesgo,rm.nov_pri_fam3,rm.inasistente_12m,rm.inasistente_6_12m,rm.persona_mayor,rm.persona_discapacidad,rm.salud_mental,rm.nuevo_diagnostico,rm.ningun_diagnostico,rm.vacunacion_incompleta,rm.acepta_vacunacion,rm.barrera_salud,rm.agendamiento,rm.activacion_ruta,rm.sin_afiliacion,rm.acepta_afiliacion,rm.sujeto_abordaje,rm.acepta_abordaje,rm.deriva_perfil1,rm.asignado_a1,rm.sujeto_concertacion,rm.acepta_plan,rm.deriva_perfil2,rm.asignado_a2,rm.accion1,rm.desc_accion1,rm.accion2,rm.desc_accion2,rm.accion3,rm.desc_accion3,rm.observaciones,rm.continua_seguimiento,rm.fecha_prox_seguimiento,rm.motivo_no_continuidad,r.priorizacion,r.tipo_prior
+        FROM ruteo_remoto rm
+        LEFT JOIN eac_ruteo_clas rc ON rm.idruteoclas = rc.id_rutclas
+        LEFT JOIN eac_ruteo r ON rc.idrutges = r.id_ruteo
+        WHERE rm.id_ruteoremoto='{$id[0]}'";
     $info=datos_mysql($sql);
     if(!empty($info['responseResult'])){
       return $info['responseResult'][0];
