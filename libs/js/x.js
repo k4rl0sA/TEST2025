@@ -1692,3 +1692,15 @@ function enbRutRmtPln(){
 	];
 	EnabDepeDynamic(['ApB'], conditions);
 }
+function enabRutRmtConSi(){
+	const conditions = [
+		{ id: 'continua_seguimiento', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['SsC'], conditions);
+}
+function enabRutRmtConNo(){
+	const conditions = [
+		{ id: 'continua_seguimiento', value: '2', compare: true }
+	];
+	EnabDepeDynamic(['SnC'], conditions);
+}
