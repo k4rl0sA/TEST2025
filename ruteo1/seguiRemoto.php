@@ -292,6 +292,17 @@ function opc_pre_clasifclasificacion($id=''){
            return json_encode($info['responseResult']);	
         }
 }
+function opc_nombre($id=''){
+	if(!empty($_REQUEST['perfil'])){
+		$perfil = $_REQUEST['perfil'];
+		$sql = "SELECT id_usuario, CONCAT(id_usuario, ' - ', nombre) as descripcion 
+				FROM usuarios 
+				WHERE perfil = '$perfil' AND estado = 'A' 
+				ORDER BY nombre";
+		return opc_sql($sql, $id);
+	}
+	return "";
+}
 function opc_motivo_estado($id=''){
 return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=74 and estado='A' ORDER BY 1",$id);
 }
