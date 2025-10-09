@@ -189,17 +189,17 @@ function gra_seguiremoto(){
   var_dump($_POST);
 $id = divide($_POST['id']);
      $sql = "INSERT INTO ruteo_remoto (
-    idruteoclas, fecha_seg, numsegui, estado_s, motivo_estado, gestante, menor5, cronico, general,
-    nov_pri_fam1, gestante_cpn, nov_pri_fam2, menor5_rpms, menor5_riesgo, nov_pri_fam3,
-    inasistente_12m, inasistente_6_12m, persona_mayor, persona_discapacidad, salud_mental,
-    nuevo_diagnostico, ningun_diagnostico, vacunacion_incompleta, acepta_vacunacion, barrera_salud,
-    agendamiento, activacion_ruta, sin_afiliacion, acepta_afiliacion, sujeto_abordaje, acepta_abordaje,
-    deriva_perfil1, asignado_a1, sujeto_concertacion, acepta_plan, deriva_perfil2, asignado_a2,
-    accion1, desc_accion1, accion2, desc_accion2, accion3, desc_accion3, observaciones,
-    continua_seguimiento, fecha_prox_seguimiento, motivo_no_continuidad, usu_creo, estado
-) VALUES (
-    ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
-)";
+        idruteoclas, fecha_seg, numsegui, estado_s, motivo_estado, gestante, menor5, cronico, general,
+        nov_pri_fam1, gestante_cpn, nov_pri_fam2, menor5_rpms, menor5_riesgo, nov_pri_fam3,
+        inasistente_12m, inasistente_6_12m, persona_mayor, persona_discapacidad, salud_mental,
+        nuevo_diagnostico, ningun_diagnostico, vacunacion_incompleta, acepta_vacunacion, barrera_salud,
+        agendamiento, activacion_ruta, sin_afiliacion, acepta_afiliacion, sujeto_abordaje, acepta_abordaje,
+        deriva_perfil1, asignado_a1, sujeto_concertacion, acepta_plan, deriva_perfil2, asignado_a2,
+        accion1, desc_accion1, accion2, desc_accion2, accion3, desc_accion3, observaciones,
+        continua_seguimiento, fecha_prox_seguimiento, motivo_no_continuidad, usu_creo, fecha_create, estado
+    ) VALUES (
+        ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_ADD(NOW(), INTERVAL 5 HOUR),?
+    )";
      $params = [
         ['type' => 'i', 'value' => $id[0]], // idruteoclas
         ['type' => 's', 'value' => post_or_null('fecha_seg')],
