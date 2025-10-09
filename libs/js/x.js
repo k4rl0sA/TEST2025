@@ -1704,3 +1704,15 @@ function enabRutRmtConNo(){
 	];
 	EnabDepeDynamic(['SnC'], conditions);
 }
+function enbRutRmtPlan(){
+	const conditions = [
+		{ id: 'acepta_plan', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['ApS'], conditions);
+}
+function enbRutRmtAbo(){
+	const conditions = [
+		{ id: 'acepta_abordaje', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['FaS'], conditions);
+}

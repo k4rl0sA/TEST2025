@@ -124,13 +124,13 @@ function cmp_seguiremoto(){
   $c[] = new cmp('sin_afiliacion','s','3',$d,$w.' '.$o,'Algun integrante de la familia se encuentra sin afiliacion al SGSS y cumple con criterios para afiliacion por oficio','rta',null,null,false,$u,'','col-45',"enabRutRmtAfi();");
   $c[] = new cmp('acepta_afiliacion','s','3',$d,$w.' SaF '.$o,'Acepta que lo contacten para realizar el tramite de afiliación por oficio','rta',null,null,false,$u,'','col-3');
   $c[] = new cmp('sujeto_abordaje','s','3',$d,$w.' '.$o,'Familia sujeto de abordaje presencial por gestor de Bienestar','rta',null,null,false,$u,'','col-25',"enbRutRmtAboSi();");
-  $c[] = new cmp('acepta_abordaje','s','3',$d,$w.' FaP '.$o,'La familia acepta el abordaje presencial por gestor de Bienestar','rta',null,null,false,$u,'','col-25');
-  $c[] = new cmp('deriva_perfil1','s','50',$d,$w.' FaP '.$o,'Perfil al que se deriva','perfil',null,null,false,$u,'','col-2');
-  $c[] = new cmp('asignado_a1','s','50',$d,$w.' FaP '.$o,'Asignado A:','nombre',null,null,false,$u,'','col-3');
+  $c[] = new cmp('acepta_abordaje','s','3',$d,$w.' FaP '.$o,'La familia acepta el abordaje presencial por gestor de Bienestar','rta',null,null,false,$u,'','col-25',"enbRutRmtAbo();");
+  $c[] = new cmp('deriva_perfil1','s','50',$d,$w.' FaS '.$o,'Perfil al que se deriva','perfil',null,null,false,$u,'','col-2');
+  $c[] = new cmp('asignado_a1','s','50',$d,$w.' FaS '.$o,'Asignado A:','nombre',null,null,false,$u,'','col-3');
   $c[] = new cmp('sujeto_concertacion','s','3',$d,$w.' '.$o,'Familia sujeto de concertación de plan de bienestar','rta',null,null,false,$u,'','col-25',"enbRutRmtPln();");
-  $c[] = new cmp('acepta_plan','s','3',$d,$w.' ApB '.$o,'La familia acepta el Plan de Bienestar','rta',null,null,false,$u,'','col-25');
-  $c[] = new cmp('deriva_perfil2','s','50',$d,$w.' ApB '.$o,'Perfil al que se deriva','perfil',null,null,false,$u,'','col-2');
-  $c[] = new cmp('asignado_a2','s','50',$d,$w.' ApB '.$o,'Asignado A:','nombre',null,null,false,$u,'','col-3');
+  $c[] = new cmp('acepta_plan','s','3',$d,$w.' ApB '.$o,'La familia acepta el Plan de Bienestar','rta',null,null,false,$u,'','col-25',"enbRutRmtPlan();");
+  $c[] = new cmp('deriva_perfil2','s','50',$d,$w.' ApS '.$o,'Perfil al que se deriva','perfil',null,null,false,$u,'','col-2');
+  $c[] = new cmp('asignado_a2','s','50',$d,$w.' ApS '.$o,'Asignado A:','nombre',null,null,false,$u,'','col-3');
 
   $o='acc';
   $c[]=new cmp($o,'e',null,'ACCIONES',$w);
