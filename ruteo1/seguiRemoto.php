@@ -78,7 +78,7 @@ function cmp_seguiremoto(){
  $e=get_ruteo();
  if ($e=="") {$e=$t;}
   $days=fechas_app('vsp');
-  $c[]=new cmp('idruteoclas','h','11',$_POST['id'],$w.'idruteoclas','ID Ruteo Clasificado','idruteoclas',null,null,false,$u,'','col-2');
+  $c[]=new cmp('id','h','11',$_POST['id'],$w.'idruteoclas','ID Ruteo Clasificado','idruteoclas',null,null,false,$u,'','col-2');
   $c[]=new cmp('priorizacion','s','3',$e['priorizacion'],$w.' '.$o,'COHORTE DE RIESGO','priorizacion',null,null,false,false,'','col-3');
   $c[]=new cmp('tipo_prior','s','3',$e['tipo_prior'],$w.' '.$o,'GRUPO DE POBLACION PRIORIZADA','tipo_prior',null,null,false,false,'','col-4');
   $c[]=new cmp('fecha_seg','d','10',$d,$w.' '.$o,'Fecha Seguimiento','fecha_seg',null,null,true,true,'','col-15',"validDate(this,$days,0);");
