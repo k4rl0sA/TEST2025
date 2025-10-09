@@ -616,12 +616,12 @@ function EnabRemot($id){
 function EnabFin($id) {
 	$id = divide($id);
 	$sql = "SELECT COUNT(*) AS agenda FROM eac_ruteo g
-WHERE g.id_ruteo = {$id[0]} AND g.estado_ruteo IS NOT NULL or g.estado_ruteo != ''";
+WHERE g.id_ruteo = {$id[0]} AND (g.estado_ruteo IS NULL or g.estado_ruteo = '')";
 	$info = datos_mysql($sql);
 	if (intval($info['responseResult'][0]["agenda"]) > 0){
-		return false;
-	}else{
 		return true;
+	}else{
+		return false;
 	}
 }
 
