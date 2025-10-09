@@ -186,6 +186,7 @@ function get_seguiremoto(){
 }
 
 function gra_seguiremoto(){
+  var_dump($_POST);
 $id = divide($_POST['id']);
     $sql = "INSERT INTO ruteo_remoto (
         idruteoclas, fecha_seg, numsegui, estado_s, motivo_estado, gestante, menor5, cronico, general,
