@@ -119,8 +119,8 @@ function cmp_seguiremoto(){
   $c[] = new cmp('vacunacion_incompleta','s','3',$d,$w.' '.$o,'Algun integrante de la familia se encuentren con esquema de vacunacion  incompleto','rta',null,null,false,$u,'','col-4');
   $c[] = new cmp('acepta_vacunacion','s','3',$d,$w.' '.$o,'Acepta abordaje presencial para vacunacion','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('barrera_salud','s','3',$d,$w.' '.$o,'Algun integrante de la familia presenta barrera para acceso a servicios de salud','rta',null,null,false,$u,'','col-4',"enabRutRmtBar();");
-  $c[] = new cmp('agendamiento','s','3',$d,$w.' BaS '.$o,'Se realiza agendamiento','rta',null,null,false,$u,'','col-15');
-  $c[] = new cmp('activacion_ruta','s','3',$d,$w.' BaS '.$o,'Se realiza activación de ruta a EAPB a traves del SIRC','rta',null,null,false,$u,'','col-25');
+  $c[] = new cmp('agendamiento','s','3',$d,$w.' BaS '.$o,'Se realiza agendamiento','rta',null,null,false,$u,'','col-25');
+  $c[] = new cmp('activacion_ruta','s','3',$d,$w.' BaS '.$o,'Se realiza activación de ruta a EAPB a traves del SIRC','rta',null,null,false,$u,'','col-35');
   $c[] = new cmp('sin_afiliacion','s','3',$d,$w.' '.$o,'Algun integrante de la familia se encuentra sin afiliacion al SGSS y cumple con criterios para afiliacion por oficio','rta',null,null,false,$u,'','col-45',"enabRutRmtAfi();");
   $c[] = new cmp('acepta_afiliacion','s','3',$d,$w.' SaF '.$o,'Acepta que lo contacten para realizar el tramite de afiliación por oficio','rta',null,null,false,$u,'','col-25');
   $c[] = new cmp('sujeto_abordaje','s','3',$d,$w.' '.$o,'Familia sujeto de abordaje presencial por gestor de Bienestar','rta',null,null,false,$u,'','col-2',"enbRutRmtAboSi();");
