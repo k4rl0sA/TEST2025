@@ -177,7 +177,7 @@ function get_seguiremoto(){
        FROM ruteo_remoto rm
         LEFT JOIN eac_ruteo r ON rm.idruteoclas=r.id_ruteo  
         WHERE rm.id_ruteoremoto='{$id[0]}'";
-        var_dump($sql);
+        // var_dump($sql);
     $info=datos_mysql($sql);
     if(!empty($info['responseResult'])){
       return $info['responseResult'][0];
