@@ -720,7 +720,7 @@ if ($a=='rute' && $b=='acciones'){
 		if (fin($c['ACCIONES'])) {
 			$rta.="<li class='icono efectividadAgenda' title='GESTIÓN FINAL' id='".$c['ACCIONES']."' Onclick=\"mostrar('ruteresol','pro',event,'','ruteoresolut.php',7,'ruteresol');\"></li>";
 		}
-		var_dump(EnabFin($c['ACCIONES']));
+	var_dump(EnabFin($c['ACCIONES']));
 		 if (EnabFin($c['ACCIONES'])) {
 			$rta .= acceso('reasigRut') ? "<li title='Reasignar Ruteo' onclick=\"mostrar('reasignar','pro',event,'','lib.php',7,'Reasignar Ruteo');\"><i class='fa-solid fa-route ico' id='{$c['ACCIONES']}'></i></li>" : "";
 		}
