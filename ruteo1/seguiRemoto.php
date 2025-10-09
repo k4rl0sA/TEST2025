@@ -47,10 +47,8 @@ function lis_seguiremoto(){
   $pag=(isset($_POST['pag-seguiremoto']))? ($_POST['pag-seguiremoto']-1)* $regxPag:0;
 
 	$sql="SELECT `id_ruteoremoto` ACCIONES,id_ruteoremoto  'Cod Registro',R.documento ,R.nombres,fecha_seg Fecha,numsegui 'N° Seguimiento',FN_CATALOGODESC(73,estado_s) estado,FN_CATALOGODESC(170,continua_seguimiento) Cierra
-  FROM ruteo_remoto A
-	left join eac_ruteo_clas  C ON A.idruteoclas=C.id_rutclas 
-  left join eac_ruteo_ges G ON C.idrutges=G.id_rutges 
-	LEFT JOIN eac_ruteo R ON G.idruteo=R.id_ruteo ";
+  FROM ruteo_remoto A 
+	LEFT JOIN eac_ruteo R ON A.idruteoclas=R.id_ruteo";
 	$sql.=" WHERE A.estado = 'A' AND A.idruteoclas='".$id[0]; 
 	$sql.="' ORDER BY A.fecha_create";
 	$sql.=' LIMIT '.$pag.','.$regxPag;
