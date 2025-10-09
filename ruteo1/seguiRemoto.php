@@ -441,9 +441,9 @@ function formato_dato($a,$b,$c,$d){
  $b=strtolower($b);
  $rta=$c[$d];
 // $rta=iconv('UTF-8','ISO-8859-1',$rta);
-// var_dump($a);
-// var_dump($rta);
+var_dump($a);
 var_dump($rta);
+var_dump($b);
 if ($a=='seguiremoto-lis' && $b=='acciones'){
 	$rta="<nav class='menu right'>";
 	$rta.="<li title='Ver Seguimiento'><i class='fa-solid fa-eye ico' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getDataFetch,500,'seguiremoto',event,this,'seguiRemoto.php',['fecha_seg','numsegui','estado_s','motivo_estado','gestante','menor5','cronico','general','nov_pri_fam1','gestante_cpn','nov_pri_fam2','menor5_rpms','menor5_riesgo','nov_pri_fam3','inasistente_12m','inasistente_6_12m','persona_mayor','persona_discapacidad','salud_mental','nuevo_diagnostico','ningun_diagnostico','vacunacion_incompleta','acepta_vacunacion','barrera_salud','agendamiento','activacion_ruta','sin_afiliacion','acepta_afiliacion','sujeto_abordaje','acepta_abordaje','deriva_perfil1','asignado_a1','sujeto_concertacion','acepta_plan','deriva_perfil2','asignado_a2','accion1','desc_accion1','accion2','desc_accion2','accion3','desc_accion3','observaciones','continua_seguimiento','fecha_prox_seguimiento','motivo_no_continuidad']);\"></i></li>"; 
