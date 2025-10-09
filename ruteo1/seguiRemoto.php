@@ -136,10 +136,10 @@ function cmp_seguiremoto(){
   $c[]=new cmp($o,'e',null,'ACCIONES',$w);
   $c[] = new cmp('accion1','s','50',$d,$w.' '.$o,'Acción 1','accion1',null,null,false,$u,'','col-5','selectDepend(\'accion1\',\'desc_accion1\',\'../ruteo1/seguiRemoto.php\');');
   $c[] = new cmp('desc_accion1','s','50',$d,$w.' '.$o,'Descripción Acción 1','desc_accion1',null,null,false,false,'','col-5');
-  $c[] = new cmp('accion2','s','50',$d,$w.' '.$o,'Acción 2','accion2',null,null,false,false,'','col-5','selectDepend(\'accion2\',\'desc_accion2\',\'../ruteo1/seguiRemoto.php\');');
-  $c[] = new cmp('desc_accion2','s','50',$d,$w.' '.$o,'Descripción Acción 2','desc_accion2',null,null,false,false,'','col-5');
-  $c[] = new cmp('accion3','s','50',$d,$w.' '.$o,'Acción 3','accion3',null,null,false,false,'','col-5','selectDepend(\'accion3\',\'desc_accion3\',\'../ruteo1/seguiRemoto.php\');');
-  $c[] = new cmp('desc_accion3','s','50',$d,$w.' '.$o,'Descripción Acción 3','desc_accion3',null,null,false,false,'','col-5');
+  $c[] = new cmp('accion2','s','50',$d,$w.' '.$no.' '.$o,'Acción 2','accion2',null,null,false,false,'','col-5','selectDepend(\'accion2\',\'desc_accion2\',\'../ruteo1/seguiRemoto.php\');');
+  $c[] = new cmp('desc_accion2','s','50',$d,$w.' '.$no.' '.$o,'Descripción Acción 2','desc_accion2',null,null,false,false,'','col-5');
+  $c[] = new cmp('accion3','s','50',$d,$w.' '.$no.' '.$o,'Acción 3','accion3',null,null,false,false,'','col-5','selectDepend(\'accion3\',\'desc_accion3\',\'../ruteo1/seguiRemoto.php\');');
+  $c[] = new cmp('desc_accion3','s','50',$d,$w.' '.$no.' '.$o,'Descripción Acción 3','desc_accion3',null,null,false,false,'','col-5');
 
   $c[]=new cmp($o,'e',null,'INFORMACIÓN SEGUIMIENTO',$w);
   $c[] = new cmp('observaciones','a','7000',$d,$w.' '.$o,'Observaciones','observaciones',null,null,true,$u,'','col-10');
