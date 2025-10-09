@@ -186,7 +186,7 @@ function get_seguiremoto(){
 }
 
 function gra_seguiremoto(){
-  var_dump($_POST);
+  // var_dump($_POST);
 $id = divide($_POST['id']);
 
 if($_POST['gestante']=='2' && $_POST['menor5']=='2' && $_POST['cronico']=='2' && $_POST['general']=='2'){
