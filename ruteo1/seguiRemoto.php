@@ -167,22 +167,20 @@ function get_ruteo(){
 	} 
 }
 
+
 function get_seguiremoto(){
-	if($_POST['id']=='0'){
-		return "";
-	}else{
-	 	$id=divide($_POST['id']);
-		// var_dump($id);
-		$sql="SELECT id_rutclas,idrutges,preclasif,clasifica,riesgo,accion,fecha,accion1,desc_accion1,accion2,desc_accion2,accion3,desc_accion3,profesional,solic_agend,ruta,sectorial,intsectorial,entornos,aseguram
-		 FROM `eac_ruteo_clas` WHERE  idrutges='{$id[0]}'";
-		$info=datos_mysql($sql);
-    	// var_dump($info['responseResult'][0]);
-      if(!empty($info['responseResult'])){
-        return $info['responseResult'][0];
-      }else {
-        return '';
-      } 
-	} 
+  if($_POST['id']=='0'){
+    return "";
+  }else{
+    $id=divide($_POST['id']);
+    $sql="SELECT  id_ruteoremoto,idruteoclas,fecha_seg,numsegui,estado_s,motivo_estado,gestante,menor5,cronico,general,nov_pri_fam1,gestante_cpn,nov_pri_fam2,menor5_rpms,menor5_riesgo,nov_pri_fam3,inasistente_12m,inasistente_6_12m,persona_mayor,persona_discapacidad,salud_mental,nuevo_diagnostico,ningun_diagnostico,vacunacion_incompleta,acepta_vacunacion,barrera_salud,agendamiento,activacion_ruta,sin_afiliacion,acepta_afiliacion,sujeto_abordaje,acepta_abordaje,deriva_perfil1,asignado_a1,sujeto_concertacion,acepta_plan,deriva_perfil2,asignado_a2,accion1,desc_accion1,accion2,desc_accion2,accion3,desc_accion3,observaciones,continua_seguimiento,fecha_prox_seguimiento,motivo_no_continuidad FROM ruteo_remoto WHERE id_ruteoremoto='{$id[0]}' AND estado='A'";
+    $info=datos_mysql($sql);
+    if(!empty($info['responseResult'])){
+      return $info['responseResult'][0];
+    }else{
+      return '';
+    }
+  }
 }
 
 function gra_seguiremoto(){
