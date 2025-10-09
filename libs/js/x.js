@@ -1682,7 +1682,7 @@ function enabRutRmtAfi(){
 }
 function enbRutRmtAboSi(){
 	const conditions = [
-		{ id: 'abordaje_situacion', value: '1', compare: true }
+		{ id: 'sujeto_abordaje', value: '1', compare: true }
 	];
 	EnabDepeDynamic(['FaP'], conditions);
 }
