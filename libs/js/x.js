@@ -1714,5 +1714,5 @@ function enbRutRmtAbo(){
 	const conditions = [
 		{ id: 'acepta_abordaje', value: '1', compare: true }
 	];
-	EnabDepeDynamic(['FaS'], conditions);
+	EnabDepeDynamic(['FaY'], conditions);
 }
