@@ -120,9 +120,9 @@ function cmp_seguiremoto(){
   $c[] = new cmp('acepta_vacunacion','s','3',$d,$w.' '.$o,'Acepta abordaje presencial para vacunacion','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('barrera_salud','s','3',$d,$w.' '.$o,'Algun integrante de la familia presenta barrera para acceso a servicios de salud','rta',null,null,false,$u,'','col-35',"enabRutRmtBar();");
   $c[] = new cmp('agendamiento','s','3',$d,$w.' BaS '.$o,'Se realiza agendamiento','rta',null,null,false,$u,'','col-1');
-  $c[] = new cmp('activacion_ruta','s','3',$d,$w.' BaS '.$o,'Se realiza activación de ruta a EAPB a traves del SIRC','rta',null,null,false,$u,'','col-35');
+  $c[] = new cmp('activacion_ruta','s','3',$d,$w.' BaS '.$o,'Se realiza activación de ruta a EAPB a traves del SIRC','rta',null,null,false,$u,'','col-25');
   $c[] = new cmp('sin_afiliacion','s','3',$d,$w.' '.$o,'Algun integrante de la familia se encuentra sin afiliacion al SGSS y cumple con criterios para afiliacion por oficio','rta',null,null,false,$u,'','col-45',"enabRutRmtAfi();");
-  $c[] = new cmp('acepta_afiliacion','s','3',$d,$w.' SaF '.$o,'Acepta que lo contacten para realizar el tramite de afiliación por oficio','rta',null,null,false,$u,'','col-25');
+  $c[] = new cmp('acepta_afiliacion','s','3',$d,$w.' SaF '.$o,'Acepta que lo contacten para realizar el tramite de afiliación por oficio','rta',null,null,false,$u,'','col-3');
   $c[] = new cmp('sujeto_abordaje','s','3',$d,$w.' '.$o,'Familia sujeto de abordaje presencial por gestor de Bienestar','rta',null,null,false,$u,'','col-2',"enbRutRmtAboSi();");
   $c[] = new cmp('acepta_abordaje','s','3',$d,$w.' FaP '.$o,'La familia acepta el abordaje presencial por gestor de Bienestar','rta',null,null,false,$u,'','col-2');
   $c[] = new cmp('deriva_perfil1','s','50',$d,$w.' FaP '.$o,'Perfil al que se deriva','rta',null,null,false,$u,'','col-2');
