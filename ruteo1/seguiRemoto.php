@@ -56,7 +56,7 @@ function lis_seguiremoto(){
 	$sql.=' LIMIT '.$pag.','.$regxPag;
 	// echo $sql;
 	$datos=datos_mysql($sql);
-	return create_table($total,$datos["responseResult"],"adoleMas",$regxPag,'../ruteo1/seguiRemoto.php');
+	return create_table($total,$datos["responseResult"],"seguiremoto",$regxPag,'../ruteo1/seguiRemoto.php');
 }
 
 function cmp_seguiremoto(){
