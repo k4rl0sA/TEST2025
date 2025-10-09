@@ -261,7 +261,12 @@ $id = divide($_POST['id']);
 function post_or_null($key) {
   return isset($_POST[$key]) && $_POST[$key] !== '' ? $_POST[$key] : null;
 }
-
+function opc_priorizacion($id=''){
+	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=191 and estado='A' ORDER BY 1",$id);
+}
+function opc_tipo_prior($id=''){
+	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=235 and estado='A' ORDER BY 1",$id);
+}
 function opc_pre_clasifclasificacion($id=''){
   if($_REQUEST['id']!=''){
       $id=divide($_REQUEST['id']);
