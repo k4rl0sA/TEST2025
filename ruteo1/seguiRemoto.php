@@ -74,9 +74,13 @@ function cmp_seguiremoto(){
   $ge='pRe';
   $pu='PuE';
   $gp='GyP';
- 
+  $t=['priorizacion'=>'','tipo_prior'=>''];
+ $e=get_ruteo();
+ if ($e=="") {$e=$t;}
   $days=fechas_app('vsp');
   $c[]=new cmp('idruteoclas','h','11',$_POST['id'],$w.'idruteoclas','ID Ruteo Clasificado','idruteoclas',null,null,false,$u,'','col-2');
+  $c[]=new cmp('priorizacion','s','3',$e['priorizacion'],$w.' '.$o,'COHORTE DE RIESGO','priorizacion',null,null,false,false,'','col-3');
+  $c[]=new cmp('tipo_prior','s','3',$e['tipo_prior'],$w.' '.$o,'GRUPO DE POBLACION PRIORIZADA','tipo_prior',null,null,false,false,'','col-3');
   $c[]=new cmp('fecha_seg','d','10',$d,$w.' '.$o,'Fecha Seguimiento','fecha_seg',null,null,true,true,'','col-2',"validDate(this,$days,0);");
   $c[]=new cmp('numsegui','s','3',$d,$w.' '.$o,'Seguimiento N°','numsegui',null,null,true,true,'','col-2',"staEfe('numsegui','sta');EnabEfec(this,['hab','acc'],['Ob'],['nO'],['bL'])");
   $c[]=new cmp('estado_s','s','3',$d,$w.' sTa '.$o,'Estado','estado_s',null,null,true,true,'','col-2',"enabFielSele(this,true,['motivo_estado'],['3']);EnabEfec(this,['hab','acc'],['Ob'],['nO'],['bL']);");//
@@ -145,6 +149,22 @@ function cmp_seguiremoto(){
      
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
+}
+
+function get_ruteo(){
+	if($_POST['id']=='0'){
+		return "";
+	}else{
+		$id=divide($_POST['id']);
+		$sql="SELECT `priorizacion`,tipo_prior
+ 		FROM `eac_ruteo` R 
+ 		WHERE id_ruteo='{$id[0]}'";
+		$info=datos_mysql($sql);
+		if (!$info['responseResult']) {
+			return '';
+		}
+	return $info['responseResult'][0];
+	} 
 }
 
 function get_seguiremoto(){
