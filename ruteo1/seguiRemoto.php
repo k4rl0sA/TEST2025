@@ -188,6 +188,10 @@ function get_seguiremoto(){
 function gra_seguiremoto(){
   var_dump($_POST);
 $id = divide($_POST['id']);
+
+if($_POST['gestante']=='2' && $_POST['menor5']=='2' && $_POST['cronico']=='2' && $_POST['general']=='2'){
+  return "msj['Error: Debe seleccionar al menos una condicion.']";
+}
      $sql = "INSERT INTO ruteo_remoto (
         idruteoclas, fecha_seg, numsegui, estado_s, motivo_estado, gestante, menor5, cronico, general,
         nov_pri_fam1, gestante_cpn, nov_pri_fam2, menor5_rpms, menor5_riesgo, nov_pri_fam3,
