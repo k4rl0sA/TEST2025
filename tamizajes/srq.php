@@ -252,7 +252,7 @@ function formato_dato($a,$b,$c,$d){
     $rta=$c[$d];
     if ($a=='tamsrq' && $b=='acciones'){
         $rta="<nav class='menu right'>";        
-        $rta.="<li class='icono editar' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('tamsrq','pro',event,'','lib.php',7,'tamsrq');\"></li>";
+        $rta.="<li class='icono editar' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('tamsrq','pro',event,'','../tamizajes/srq.php',7,'tamsrq');\"></li>";
     }
     return $rta;
 }

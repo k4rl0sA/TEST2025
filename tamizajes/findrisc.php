@@ -389,7 +389,7 @@ function gra_tamfindrisc(){
 	   // var_dump($rta);
 		   if ($a=='tamfindrisc' && $b=='acciones'){
 			$rta="<nav class='menu right'>";																	//getDatForm('find','person','datos');setTimeout(hiddxedad,500,'edad','prufin');
-				$rta.="<li title='Ver'><i class='fa-solid fa-eye ico' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getDataFetch,500,'find',,'person','datos',event,this,'../findrisc/lib.php',['puntaje','descripcion']);\"></i></li>";  //act_lista(f,this);setTimeout(hiddxedad,1000,'edad','prufin');
+				$rta.="<li title='Ver'><i class='fa-solid fa-eye ico' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getDataFetch,500,'find',,'person','datos',event,this,'../tamizajes/findrisc.php',['puntaje','descripcion']);\"></i></li>";  //act_lista(f,this);setTimeout(hiddxedad,1000,'edad','prufin');
 			}
 		return $rta;
 	   }

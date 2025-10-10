@@ -363,7 +363,7 @@ if (isset($_POST['fam_comprobl']) && $_POST['fam_comprobl'] !== '' || isset($_PO
 	   // var_dump($rta);
 		   if ($a=='tamApgar' && $b=='acciones'){
 			$rta="<nav class='menu right'>";
-				$rta.="<li title='Ver Apgar'  Onclick=\"mostrar('tamApgar','pro',event,'','lib.php',7,'tamApgar');setTimeout(hiddxedad,300,'edad','cuestionario1','cuestionario2');\"><i class='fa-solid fa-eye ico' id='".$c['ACCIONES']."'></i></li>";  //act_lista(f,this);
+				$rta.="<li title='Ver Apgar'  Onclick=\"mostrar('tamApgar','pro',event,'','../tamizajes/apgar.php',7,'tamApgar');setTimeout(hiddxedad,300,'edad','cuestionario1','cuestionario2');\"><i class='fa-solid fa-eye ico' id='".$c['ACCIONES']."'></i></li>";  //act_lista(f,this);
 			}
 			if ($a=='apgar-lis' && $b=='acciones'){
 				$rta="<nav class='menu right'>";		

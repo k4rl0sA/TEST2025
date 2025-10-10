@@ -193,7 +193,7 @@ function opc_opcion($id=''){
 	   // var_dump($rta);
 		   if ($a=='tamvalories' && $b=='acciones'){
 			$rta="<nav class='menu right'>";		
-				$rta.="<li class='icono editar ' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('tamvalories','pro',event,'','lib.php',7,'tamvalories');\"></li>";  //act_lista(f,this);
+				$rta.="<li class='icono editar ' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('tamvalories','pro',event,'','../tamizajes/valoriesg.php',7,'tamvalories');\"></li>";  //act_lista(f,this);
 			}
 		return $rta;
 	   }

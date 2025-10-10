@@ -316,7 +316,7 @@ function gra_tamzarit(){
 	   // var_dump($rta);
 		   if ($a=='tamzarit' && $b=='acciones'){
 			$rta="<nav class='menu right'>";		
-				$rta.="<li class='icono editar ' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('tamzarit','pro',event,'','lib.php',7,'tamzarit');\"></li>";  //act_lista(f,this);
+				$rta.="<li class='icono editar ' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('tamzarit','pro',event,'','../tamizajes/zarit.php',7,'tamzarit');\"></li>";  //act_lista(f,this);
 			}
 		return $rta;
 	   }

@@ -300,7 +300,7 @@ $des=$info['responseResult'][0]['clasificacion'];
 		   if ($a=='tamoms' && $b=='acciones'){
 			$rta="<nav class='menu right'>";
 			$rta.="<li title='Ver'><i class='fa-solid fa-eye ico' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getDataFetch,500,'find',,'person','datos',event,this,'../findrisc/lib.php',['puntaje','descripcion']);\"></i></li>";
-				$rta.="<li class='icono editar ' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('tamoms','pro',event,'','lib.php',7,'tamoms');setTimeout(hiddxedad,300,'edad','prufin');\"></li>";  //act_lista(f,this);
+				$rta.="<li class='icono editar ' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('tamoms','pro',event,'','../tamizajes/oms.php',7,'tamoms');setTimeout(hiddxedad,300,'edad','prufin');\"></li>";  //act_lista(f,this);
 			}
 		return $rta;
 	   }

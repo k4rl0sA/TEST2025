@@ -476,7 +476,7 @@ function opc_rta($id=''){
 	//    var_dump($rta);
 		   if ($a=='tamassist' && $b=='acciones'){
 			$rta="<nav class='menu right'>";		
-				$rta.="<li class='icono editar ' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('tamassist','pro',event,'','lib.php',7,'tamassist');\"></li>";  //act_lista(f,this);
+				$rta.="<li class='icono editar ' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('tamassist','pro',event,'','../tamizajes/assist.php',7,'tamassist');\"></li>";  //act_lista(f,this);
 			}
 		return $rta;
 	   }

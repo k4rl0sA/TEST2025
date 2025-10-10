@@ -163,7 +163,7 @@ function formato_dato($a,$b,$c,$d){
     $rta=$c[$d];
     if ($a=='tamrqc' && $b=='acciones'){
         $rta="<nav class='menu right'>";        
-        $rta.="<li class='icono editar' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('tamrqc','pro',event,'','lib.php',7,'tamrqc');\"></li>";
+        $rta.="<li class='icono editar' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('tamrqc','pro',event,'','../tamizajes/rqc.php',7,'tamrqc');\"></li>";
     }
     return $rta;
 }

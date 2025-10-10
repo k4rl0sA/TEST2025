@@ -202,7 +202,7 @@ function formato_dato($a,$b,$c,$d){
     $rta=$c[$d];
     if ($a=='riesgomental' && $b=='acciones'){
         $rta="<nav class='menu right'>";   
-        $rta.="<li class='icono editar ' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('riesgomental','pro',event,'','lib.php',7,'riesgomental');\"></li>";
+        $rta.="<li class='icono editar ' title='Editar' id='".$c['ACCIONES']."' Onclick=\"mostrar('riesgomental','pro',event,'','../tamizajes/riesgomental.php',7,'riesgomental');\"></li>";
     }
     return $rta;
 }
