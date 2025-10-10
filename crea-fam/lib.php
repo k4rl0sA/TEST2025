@@ -806,7 +806,7 @@ function get_Tamiz($fec) {
 	$edad = isset($info['responseResult'][0]['ano']) ? intval($info['responseResult'][0]['ano']) : 0;
 	$tamiz = [];
 	// Apgar: menores de 6 años
-	if ($edad <=7) {
+	if ($edad =>7) {
 		$tamiz[] = 'tamApgar';
 	}
 	// RQC: 5 a 15 años
