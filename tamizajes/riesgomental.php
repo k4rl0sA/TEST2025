@@ -122,10 +122,10 @@ function gra_riesgomental() {
     $id = divide($_POST['id']);
     $idpeople = isset($id[0]) ? intval($id[0]) : 0;
     if (!isset($_POST['edad']) || !is_numeric($_POST['edad'])) {
-        return "Edad no proporcionada o inválida.";
+        return "msj['Error: Edad no proporcionada o inválida.']";
     }
     if ($idpeople <= 0) {
-        return "ID de persona no válido.";
+        return "msj['Error: ID de persona no válido.']";
     }
     // Campos de preguntas (ajustar según tabla)
     $campos = ['exprsent','optideci','trisirri','nervans','perdsep','famsuic','ideasui','diagmen','antefam','probdom','apoyfam','exptrau','estrtrab','desemple','probsust','concent','acoso','somat','enfcron','discrim','medprot','cambhorm','ocupsalud','gestante'];
