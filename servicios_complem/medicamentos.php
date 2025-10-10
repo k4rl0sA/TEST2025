@@ -280,9 +280,9 @@ if ($total_entregado > $prescrita) {
     $info=datos_mysql($sql);
     $prescrita = isset($info['responseResult'][0]['prescrita']) ? intval($info['responseResult'][0]['prescrita']) : intval($_POST['cantidad_prescrita']);
 
-    var_dump($entregadas);
-    var_dump($prescrita);
-    var_dump($cantidad_entregada);
+    // var_dump($entregadas);
+    // var_dump($prescrita);
+    // var_dump($cantidad_entregada);
   $pendiente_entregar = $prescrita-($cantidad_entregada+$entregadas);
   
   if (count($id) == 1) {
