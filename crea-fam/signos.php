@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors','0');
+ini_set('display_errors','1');
 require_once "../libs/gestion.php";
 $perf=perfil($_POST['tb']);
 if (!isset($_SESSION['us_sds'])) die("<script>window.top.location.href='/';</script>");
@@ -149,6 +149,7 @@ function cmp_signos(){
 	}
  
    function lis_signos(){
+	var_dump($_POST);
 	$id=divide($_POST['id']);
     $total = "SELECT COUNT(*) AS total FROM (
 		SELECT S.id_signos AS Cod_Registro, S.peso, S.talla, S.imc, S.zscore, U.nombre AS Colaborador, S.fecha_toma,S.fecha_create Creo ,U.perfil AS Perfil 
