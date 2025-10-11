@@ -48,6 +48,8 @@ function whe_soporte() {
         $sql .= " AND (usu_creo='" . cleanTx($_POST['fdigita']) . "' OR aprueba = 'PROAPO')";
     if (!empty($_POST['fest'])) 
         $sql .= " AND estado = '" . intval($_POST['fest']) . "'";
+    if(!empty($_POST['fsubred']))
+        $sql .= " AND U1.subred = '" . cleanTx($_POST['fsubred']) . "'";
     return $sql;
 }
 
