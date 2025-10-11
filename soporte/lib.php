@@ -24,7 +24,7 @@ function lis_soporte() {
     $total = $info['responseResult'][0]['total'];
     $regxPag = 12;
     $pag = (isset($_POST['pag-soporte'])) ? ($_POST['pag-soporte']-1) * $regxPag : 0;
-    $sql = "SELECT	idsoporte AS ACCIONES,idsoporte AS Ticket,	idpeople AS 'Cod Persona',	documento,	tipo_doc AS Tipo,	sexo,	fecha_nacio AS Nacio,	cod_predio AS Predio,	cod_familia AS Familia,	cod_registro AS Registro,	FN_CATALOGODESC(286,formulario) AS Accion,	error,	ok,	prioridad,	observaciones, aprueba,	s.usu_creo AS Creo,u.subred,s.fecha_create AS 'Fecha Creo',	FN_CATALOGODESC(285,s.estado) AS Estado
+    $sql = "SELECT	idsoporte AS ACCIONES,idsoporte AS Ticket,	idpeople AS 'Cod Persona',	documento,	tipo_doc AS Tipo,	sexo,	fecha_nacio AS Nacio,	cod_predio AS Predio,	cod_familia AS Familia,	cod_registro AS Registro,	FN_CATALOGODESC(286,formulario) AS Accion,	error,	ok,	prioridad,	observaciones, aprueba,	s.usu_creo AS Creo,u.subred AS Subred,s.fecha_create AS 'Fecha Creo',FN_CATALOGODESC(285,s.estado) AS Estado
     FROM	soporte s
 	LEFT JOIN usuarios u ON s.aprueba = u.perfil
 WHERE 1";
