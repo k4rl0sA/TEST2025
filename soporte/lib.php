@@ -28,7 +28,7 @@ function lis_soporte() {
     FROM	soporte s
 	LEFT JOIN usuarios u ON s.aprueba = u.perfil
     LEFT JOIN usuarios U1 ON s.usu_creo = U1.id_usuario
-WHERE 1";
+    WHERE 1";
     $sql .= whe_soporte();
     $sql .= " ORDER BY fecha_create DESC LIMIT $pag, $regxPag";
 	var_dump($sql);
