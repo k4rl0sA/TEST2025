@@ -227,6 +227,7 @@ $digitadores=opc_sql("SELECT `id_usuario`,nombre FROM `usuarios` ORDER BY 2 ASC"
         <select class="captura" id="fsubred" name="fsubred" OnChange="actualizar();">
             <?php echo opc_sql("SELECT DISTINCT subred FROM usuarios WHERE subred<>'' ORDER BY 1 ASC",''); ?>
         </select>
+</div>
 	
 </div>
 <div class='col-8 panel' id='<?php echo $mod; ?>'>
