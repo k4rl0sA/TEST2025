@@ -27,7 +27,7 @@ function lis_soporte() {
     $sql = "SELECT	idsoporte AS ACCIONES,idsoporte AS Ticket,	idpeople AS 'Cod Persona',	documento,	tipo_doc AS Tipo,	sexo,	fecha_nacio AS Nacio,	cod_predio AS Predio,	cod_familia AS Familia,	cod_registro AS Registro,	FN_CATALOGODESC(286,formulario) AS Accion,	error,	ok,	prioridad,	observaciones, aprueba,	s.usu_creo AS Creo,U1.subred AS Subred,s.fecha_create AS 'Fecha Creo',FN_CATALOGODESC(285,s.estado) AS Estado
     FROM	soporte s
 	LEFT JOIN usuarios u ON s.aprueba = u.perfil
-    LEFT JOIN usuarios U1 ON s.usu_creo = U1.usuario
+    LEFT JOIN usuarios U1 ON s.usu_creo = U1.id_usuario
 WHERE 1";
     $sql .= whe_soporte();
     $sql .= " ORDER BY fecha_create DESC LIMIT $pag, $regxPag";
