@@ -192,10 +192,10 @@ $ya = new DateTime();
 // $localidades=opc_sql("select idcatadeta,descripcion from catadeta where idcatalogo=2 and estado='A' order by 1",'');
 $estados=opc_sql("select idcatadeta,descripcion from catadeta where idcatalogo=284 and estado='A' order by 1",'');
 $digitadores=opc_sql("SELECT `id_usuario`,nombre FROM `usuarios` ORDER BY 2 ASC",$_SESSION["us_sds"]);
-$sql="SELECT  subred FROM usuarios WHERE id_usuario=$_SESSION['us_sds']";
+$sql="SELECT  subred FROM usuarios WHERE id_usuario=".$_SESSION['us_sds'];
 $info = datos_mysql($sql);
 $subredActual=$info['responseResult'][0]['subred'];
-$subredes=opc_sql("SELECT DISTINCT subred FROM usuarios WHERE subred IS NOT NULL AND subred <> '' ORDER BY subred ASC",'');
+$subredes=opc_sql("SELECT DISTINCT subred FROM usuarios WHERE subred IS NOT NULL AND subred <> '' ORDER BY subred ASC",$subredActual);
 ?>
 <form method='post' id='fapp' >
 <div class="col-2 menu-filtro" id='<?php echo$mod; ?>-fil'>
