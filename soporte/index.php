@@ -195,7 +195,7 @@ $digitadores=opc_sql("SELECT `id_usuario`,nombre FROM `usuarios` ORDER BY 2 ASC"
 $sql="SELECT  subred FROM usuarios WHERE id_usuario=".$_SESSION['us_sds'];
 $info = datos_mysql($sql);
 $subredActual=$info['responseResult'][0]['subred'];
-$subredes=opc_sql("SELECT DISTINCT subred FROM usuarios WHERE subred IS NOT NULL AND subred <> '' ORDER BY subred ASC",'');
+$subredes=opc_sql("SELECT DISTINCT subred FROM usuarios WHERE subred<>'' ORDER BY 1 ASC",'');
 ?>
 <form method='post' id='fapp' >
 <div class="col-2 menu-filtro" id='<?php echo$mod; ?>-fil'>
