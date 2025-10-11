@@ -20,7 +20,7 @@ else {
 }
 
 function lis_soporte() {
-    $info = datos_mysql("SELECT COUNT(*) total FROM soporte LEFT JOIN usuarios u ON s.aprueba = u.perfil
+    $info = datos_mysql("SELECT COUNT(*) total FROM soporte s LEFT JOIN usuarios u ON s.aprueba = u.perfil
     LEFT JOIN usuarios U1 ON s.usu_creo = U1.id_usuario WHERE 1 " . whe_soporte());
     $total = $info['responseResult'][0]['total'];
     $regxPag = 12;
