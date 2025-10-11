@@ -190,7 +190,7 @@ if (!isset($_SESSION["us_sds"])){ die("<script>window.top.location.href = '/';</
 $mod='soporte';
 $ya = new DateTime();
 // $localidades=opc_sql("select idcatadeta,descripcion from catadeta where idcatalogo=2 and estado='A' order by 1",'');
-$estados=opc_sql("select idcatadeta,descripcion from catadeta where idcatalogo=284 and estado='A' order by 1",'');
+$estados=opc_sql("select idcatadeta,descripcion from catadeta where idcatalogo=285 and estado='A' order by 1",'');
 $digitadores=opc_sql("SELECT `id_usuario`,nombre FROM `usuarios` ORDER BY 2 ASC",$_SESSION["us_sds"]);
 $sql="SELECT  subred FROM usuarios WHERE id_usuario=".$_SESSION['us_sds'];
 $info = datos_mysql($sql);
