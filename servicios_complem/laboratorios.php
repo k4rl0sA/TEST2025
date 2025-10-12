@@ -283,7 +283,7 @@ function cmp_resultLab(){
       var_dump($_REQUEST);
       // var_dump($_POST);
       // var_dump($_GET);
-        $id=divide($_REQUEST['id']);
+        $id=divide($_POST['idrta']);
         $sql="SELECT  cuenta_resul, fecha_resul, dato_crit, gestion, gest_cump, obs
 FROM hog_laboratorios 
               LEFT JOIN person P ON hog_laboratorios.idpeople=P.idpeople
