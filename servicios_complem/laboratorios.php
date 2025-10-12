@@ -138,22 +138,31 @@ function gra_laboratorios(){
     $id = divide($_POST['id']);
     if (count($id) == 1) {
         // Actualización
- /*  $sql = "UPDATE hog_laboratorios SET lab_tomado=?, fecha_toma=?, cuenta_resul=?, fecha_resul=?, dato_crit=?, gestion=?, gest_cump=?, obs=?, usu_update= {$_SESSION['us_sds']}, fecha_update=SUB_DATE(NOW(),INTERVAL 5 HOUR) WHERE id_lab=?"; */
-  $sql = "UPDATE hog_laboratorios SET fecha_toma=?, obs=?, usu_update= ?, fecha_update=NOW() WHERE id_lab=?";
-        $params = [
-            ['type' => 's', 'value' => trim($_POST['fecha_toma'] ?? NULL)],
-            /* ['type' => 's', 'value' => trim($_POST['cuenta_resul'] ?? '')],
-            ['type' => 's', 'value' => trim($_POST['fecha_resul'] ?? null)],
-            ['type' => 'i', 'value' => intval($_POST['dato_crit'] ?? 0)],
-            ['type' => 's', 'value' => trim($_POST['gestion'] ?? '')],
-            ['type' => 's', 'value' => trim($_POST['gest_cump'] ?? '')], */
+$sql="SELECT lab_tomado FROM hog_laboratorios WHERE id_lab='{$id[0]}';";
+$info=datos_mysql($sql);
+$lab_tomado_anterior=$info['responseResult'][0]['lab_tomado'];
+if($lab_tomado_anterior=='1'){
+  $sql = "UPDATE hog_laboratorios SET  obs=?, usu_update= ?, fecha_update=NOW() WHERE id_lab=?";
+  $params = [
             ['type' => 's', 'value' => trim($_POST['obs'] ?? NULL)],
             ['type' => 's', 'value' => intval(($_SESSION['us_sds']) ?? 0)],
             ['type' => 'i', 'value' => intval($id[0])]
         ];
+}else{
+  $sql = "UPDATE hog_laboratorios SET lab_tomado=?,fecha_toma=?, obs=?, usu_update= ?, fecha_update=NOW() WHERE id_lab=?";
+  $params = [
+            ['type' => 's', 'value' => trim($_POST['lab_tomado'] ?? NULL)],
+            ['type' => 's', 'value' => trim($_POST['fecha_toma'] ?? NULL)],
+            ['type' => 's', 'value' => trim($_POST['obs'] ?? NULL)],
+            ['type' => 's', 'value' => intval(($_SESSION['us_sds']) ?? 0)],
+            ['type' => 'i', 'value' => intval($id[0])]
+        ];
+}
+ /*  $sql = "UPDATE hog_laboratorios SET lab_tomado=?, fecha_toma=?, cuenta_resul=?, fecha_resul=?, dato_crit=?, gestion=?, gest_cump=?, obs=?, usu_update= {$_SESSION['us_sds']}, fecha_update=SUB_DATE(NOW(),INTERVAL 5 HOUR) WHERE id_lab=?"; */
+  // $sql = "UPDATE hog_laboratorios SET lab_tomado=?,fecha_toma=?, obs=?, usu_update= ?, fecha_update=NOW() WHERE id_lab=?";
     // Mostrar la consulta generada para depuración
-    $debug_sql = show_sql($sql, $params);
-    log_error('SQL DEBUG: ' . $debug_sql);
+    // $debug_sql = show_sql($sql, $params);
+    // log_error('SQL DEBUG: ' . $debug_sql);
     } else if (count($id) == 2) {
         // Inserción
         $sql = "INSERT INTO hog_laboratorios VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,?)";
