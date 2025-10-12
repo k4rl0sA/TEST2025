@@ -262,7 +262,6 @@ function cmp_resultLab(){
   $t=['cuenta_resul'=>'','fecha_resul'=>'','dato_crit'=>'','gestion'=>'','gest_cump'=>'','obs'=>''];
   $d=get_respuesta();
   if ($d==""){$d=$t;}
-  
   $days=fechas_app('vivienda');
   $c[]=new cmp($o,'e',null,'RESULTADO DE LABORATORIO',$w);
   // Cambiar $_POST['idr'] por $_POST['id'] o $_REQUEST['id']
