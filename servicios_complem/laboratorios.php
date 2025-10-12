@@ -280,8 +280,8 @@ function cmp_resultLab(){
     if($_REQUEST['id']==''){
         return "";
     } else {
-      // var_dump($_REQUEST);
-      var_dump($_POST);
+      var_dump($_REQUEST);
+      // var_dump($_POST);
       var_dump($_GET);
         $id=divide($_REQUEST['id']);
         $sql="SELECT  cuenta_resul, fecha_resul, dato_crit, gestion, gest_cump, obs
