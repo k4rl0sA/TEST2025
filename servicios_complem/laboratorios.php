@@ -255,29 +255,27 @@ function men_resultLab(){
 function cmp_resultLab(){
   $rta ="";
   $w="resultados";
-      $o='accide';
-      $e="";
-      $key='pln';
-      $o='resultLab';
-    //   var_dump($_POST);
-      $t=['compromiso'=>''];
-	$d=get_respuesta();
-	if ($d==""){$d=$t;}
-  // var_dump($_POST);
-  // var_dump($_GET);
-  // var_dump($_REQUEST);
-	$days=fechas_app('vivienda');
-      $c[]=new cmp($o,'e',null,'PLAN DE CUIDADO FAMILIAR CONCERTADO',$w);
-      $c[]=new cmp('idrta','h',15,$_POST['idr'],$w.' '.$key.' '.$o,'id','id',null,'####',false,false);
-      $c[]=new cmp('cuenta_resul','s',3,$e,$w.' ToM '.$o,'¿Cuenta con resultado?','cuenta_resul',null,'',true,true,'','col-5',"enabFechaResulLab();");    
-      $c[]=new cmp('fecha_resul','d',10,$e,$w.' RTa  '.$o,'Fecha de Resultado','fecha_resul',null,'',false,false,'','col-5',"validDate(this,-30,0);");
-      $c[]=new cmp('dato_crit','s',10,$e,$w.' ToM '.$o,'Dato Crítico','dato_crit',null,'',true,true,'','col-4',"enabGestionLab();");
-      $c[]=new cmp('gestion','s',3,$e,$w.' dCR '.$o,'Cita de Control','gestion',null,'',false,false,'','col-3',"enabGestRtaLab();");
-      $c[]=new cmp('gest_cump','d',3,$e,$w.' FgE '.$o,'Fecha Gestión','gest_cump',null,'',false,false,'','col-3',"validDate(this,-30,0);");
+  $o='resultLab';
+  $e="";
+  $key='pln';
+  
+  $t=['cuenta_resul'=>'','fecha_resul'=>'','dato_crit'=>'','gestion'=>'','gest_cump'=>'','obs'=>''];
+  $d=get_respuesta();
+  if ($d==""){$d=$t;}
+  
+  $days=fechas_app('vivienda');
+  $c[]=new cmp($o,'e',null,'RESULTADO DE LABORATORIO',$w);
+  // Cambiar $_POST['idr'] por $_POST['id'] o $_REQUEST['id']
+  $c[]=new cmp('idrta','h',15,$_REQUEST['id'] ?? '',$w.' '.$key.' '.$o,'id','id',null,'####',false,false);
+  $c[]=new cmp('cuenta_resul','s',3,$d['cuenta_resul'] ?? '',$w.' ToM '.$o,'¿Cuenta con resultado?','cuenta_resul',null,'',true,true,'','col-5',"enabFechaResulLab();");    
+  $c[]=new cmp('fecha_resul','d',10,$d['fecha_resul'] ?? '',$w.' RTa  '.$o,'Fecha de Resultado','fecha_resul',null,'',false,false,'','col-5',"validDate(this,-30,0);");
+  $c[]=new cmp('dato_crit','s',10,$d['dato_crit'] ?? '',$w.' ToM '.$o,'Dato Crítico','dato_crit',null,'',true,true,'','col-4',"enabGestionLab();");
+  $c[]=new cmp('gestion','s',3,$d['gestion'] ?? '',$w.' dCR '.$o,'Cita de Control','gestion',null,'',false,false,'','col-3',"enabGestRtaLab();");
+  $c[]=new cmp('gest_cump','d',3,$d['gest_cump'] ?? '',$w.' FgE '.$o,'Fecha Gestión','gest_cump',null,'',false,false,'','col-3',"validDate(this,-30,0);");
 
-      for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
-      return $rta;
-  }
+  for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
+  return $rta;
+}
 
   function get_resultLab(){
     if($_REQUEST['id']==''){
