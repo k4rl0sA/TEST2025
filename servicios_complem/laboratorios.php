@@ -263,6 +263,8 @@ function cmp_resultLab(){
       $t=['compromiso'=>''];
 	$d=get_respuesta();
 	if ($d==""){$d=$t;}
+  var_dump($_POST);
+  var_dump($_GET);
 	$days=fechas_app('vivienda');
       $c[]=new cmp($o,'e',null,'PLAN DE CUIDADO FAMILIAR CONCERTADO',$w);
       $c[]=new cmp('idrta','h',15,$_POST['id'],$w.' '.$key.' '.$o,'id','id',null,'####',false,false);
