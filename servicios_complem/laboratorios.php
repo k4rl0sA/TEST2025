@@ -277,10 +277,10 @@ function cmp_resultLab(){
   return $rta;
 }
 
-  function get_respuesta(){
+function get_respuesta(){
     // Cambiar de 'idrta' a 'id' para que coincida con getData
     if(empty($_REQUEST['id'])){
-        return "";
+        return [];  // Retornar array vacío en lugar de string
     } else {
         $id = divide($_REQUEST['id']);
         $sql = "SELECT cuenta_resul, fecha_resul, dato_crit, gestion, gest_cump, obs
@@ -289,9 +289,9 @@ function cmp_resultLab(){
         $info = datos_mysql($sql);
         
         if (empty($info['responseResult'])) {
-            return "";
+            return [];  // Retornar array vacío
         }
-        return $info['responseResult'][0]; // Retornar array, no JSON
+        return $info['responseResult'][0];
     }
 }
 
