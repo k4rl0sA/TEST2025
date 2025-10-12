@@ -277,6 +277,23 @@ function cmp_resultLab(){
   return $rta;
 }
 
+function get_resultLab(){
+    if(empty($_REQUEST['id'])){
+        return json_encode([]);
+    } else {
+        $id = divide($_REQUEST['id']);
+        $sql = "SELECT '{$id[0]}' as idrta, cuenta_resul, fecha_resul, dato_crit, gestion, gest_cump, obs
+                FROM hog_laboratorios 
+                WHERE id_lab='{$id[0]}'";
+        $info = datos_mysql($sql);
+        
+        if (empty($info['responseResult'])) {
+            return json_encode([]);
+        }
+        return json_encode($info['responseResult'][0]);
+    }
+}
+
 function get_respuesta(){
     // Cambiar de 'idrta' a 'id' para que coincida con getData
     if(empty($_REQUEST['id'])){
