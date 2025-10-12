@@ -279,21 +279,37 @@ function cmp_resultLab(){
       return $rta;
   }
 
- function get_respuesta(){
+  function get_resultLab(){
     if($_REQUEST['id']==''){
         return "";
     } else {
-      var_dump($_REQUEST);
-      var_dump($_POST);
-      var_dump($_GET);
-        $id=divide($_POST['idrta']);
-        $sql="SELECT  cuenta_resul, fecha_resul, dato_crit, gestion, gest_cump, obs
-FROM hog_laboratorios 
-              LEFT JOIN person P ON hog_laboratorios.idpeople=P.idpeople
-              WHERE id_lab='{$id[0]}'";
+        $id=divide($_REQUEST['id']);
+        $sql="SELECT '{$id[0]}' as idrta, cuenta_resul, fecha_resul, dato_crit, gestion, gest_cump, obs
+                FROM hog_laboratorios 
+                WHERE id_lab='{$id[0]}'";
         $info=datos_mysql($sql);
+        if (empty($info['responseResult'])) {
+            return json_encode(['error' => 'No se encontraron datos']);
+        }
         return json_encode($info['responseResult'][0]);
     } 
+}
+
+ function get_respuesta(){
+     if(empty($_REQUEST['idrta'])){
+        return json_encode(['error' => 'ID no proporcionado']);
+    } else {
+        $id = divide($_REQUEST['idrta']);
+        $sql = "SELECT cuenta_resul, fecha_resul, dato_crit, gestion, gest_cump, obs
+                FROM hog_laboratorios 
+                WHERE id_lab='{$id[0]}'";
+        $info = datos_mysql($sql);
+        
+        if (empty($info['responseResult'])) {
+            return json_encode(['error' => 'No se encontraron datos']);
+        }
+        return json_encode($info['responseResult'][0]);
+    }
 }
 
   function gra_resultLab(){
@@ -341,8 +357,11 @@ function formato_dato($a, $b, $c, $d) {
   $rta = $c[$d];
   if ($a == 'laboratorios' && $b == 'cod laboratorio') {
     $rta = "<nav class='menu right'>";
-    $rta .= "<li class='icono editar' title='Editar' id='{$c['Cod Laboratorio']}' onclick=\"setTimeout(getData,500,'laboratorios',event,this,['cod_admision','tipo_lab','otro_lab','fecha_orden','fecha_toma','cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump'],'../servicios_complem/laboratorios.php');\"></li>";
-     $rta .= $c['Tomado']=='SI' ? "<li><i class='fa-solid fa-file-waveform ico' title='Resultado de laboratorios' idr='{$c['Cod Laboratorio']}' Onclick=\"mostrar('resultLab','pro',event,'','../servicios_complem/laboratorios.php',3,'Resultado de laboratorios');setTimeout(getData,1000,'respuesta',event,this,['cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump'],'../servicios_complem/laboratorios.php');\"></i></li>":'';
+
+     $rta .= "<li class='icono editar' title='Editar' id='{$c['Cod Laboratorio']}' onclick=\"setTimeout(getData,500,'laboratorios',event,this,['cod_admision','tipo_lab','otro_lab','fecha_orden','fecha_toma','cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump'],'../servicios_complem/laboratorios.php');\"></li>";
+    $rta .= $c['Tomado']=='SI' ? "<li><i class='fa-solid fa-file-waveform ico' title='Resultado de laboratorios' id='{$c['Cod Laboratorio']}' Onclick=\"mostrar('resultLab','pro',event,'','../servicios_complem/laboratorios.php',3,'Resultado de laboratorios').then(() => {setTimeout(() => {getData('resultLab',{type:'click',target:{id:'{$c['Cod Laboratorio']}'}},{id:'{$c['Cod Laboratorio']}'},['idrta'],'../servicios_complem/laboratorios.php');},500);});\"></i></li>":'';
+    /* $rta .= "<li class='icono editar' title='Editar' id='{$c['Cod Laboratorio']}' onclick=\"setTimeout(getData,500,'laboratorios',event,this,['cod_admision','tipo_lab','otro_lab','fecha_orden','fecha_toma','cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump'],'../servicios_complem/laboratorios.php');\"></li>";
+     $rta .= $c['Tomado']=='SI' ? "<li><i class='fa-solid fa-file-waveform ico' title='Resultado de laboratorios' id='{$c['Cod Laboratorio']}' Onclick=\"mostrar('resultLab','pro',event,'','../servicios_complem/laboratorios.php',3,'Resultado de laboratorios');setTimeout(getData,1000,'respuesta',event,this,['cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump'],'../servicios_complem/laboratorios.php');\"></i></li>":''; */
     $rta .= "</nav>";
   }
   return $rta;
