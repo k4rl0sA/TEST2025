@@ -203,7 +203,7 @@ function get_laboratorios(){
     'AÑOS= ', TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()),
     ' MESES= ', TIMESTAMPDIFF(MONTH, fecha_nacimiento, CURDATE())-(TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) * 12),
     ' DIAS= ', DATEDIFF(CURDATE(),DATE_ADD(fecha_nacimiento, INTERVAL TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) YEAR)) % 30
-  ) AS edad,idatencion,tipo_lab, otro_lab, fecha_orden, lab_tomado, fecha_toma, cuenta_resul, fecha_resul, dato_crit, gestion, gest_cump, obs
+  ) AS edad,idatencion,tipo_lab, otro_lab, fecha_orden, lab_tomado, fecha_toma, obs
 FROM hog_laboratorios 
               LEFT JOIN person P ON hog_laboratorios.idpeople=P.idpeople
               WHERE id_lab='{$id[0]}'";
