@@ -268,7 +268,7 @@ function cmp_resultLab(){
   var_dump($_REQUEST);
 	$days=fechas_app('vivienda');
       $c[]=new cmp($o,'e',null,'PLAN DE CUIDADO FAMILIAR CONCERTADO',$w);
-      $c[]=new cmp('idrta','h',15,$_POST['id'],$w.' '.$key.' '.$o,'id','id',null,'####',false,false);
+      $c[]=new cmp('idrta','h',15,$_POST['idr'],$w.' '.$key.' '.$o,'id','id',null,'####',false,false);
       $c[]=new cmp('cuenta_resul','s',3,$e,$w.' ToM '.$o,'¿Cuenta con resultado?','cuenta_resul',null,'',true,true,'','col-5',"enabFechaResulLab();");    
       $c[]=new cmp('fecha_resul','d',10,$e,$w.' RTa  '.$o,'Fecha de Resultado','fecha_resul',null,'',false,false,'','col-5',"validDate(this,-30,0);");
       $c[]=new cmp('dato_crit','s',10,$e,$w.' ToM '.$o,'Dato Crítico','dato_crit',null,'',true,true,'','col-4',"enabGestionLab();");
@@ -342,7 +342,7 @@ function formato_dato($a, $b, $c, $d) {
   if ($a == 'laboratorios' && $b == 'cod laboratorio') {
     $rta = "<nav class='menu right'>";
     $rta .= "<li class='icono editar' title='Editar' id='{$c['Cod Laboratorio']}' onclick=\"setTimeout(getData,500,'laboratorios',event,this,['cod_admision','tipo_lab','otro_lab','fecha_orden','fecha_toma','cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump'],'../servicios_complem/laboratorios.php');\"></li>";
-     $rta .= $c['Tomado']=='SI' ? "<li><i class='fa-solid fa-file-waveform ico' title='Resultado de laboratorios' id='{$c['Cod Laboratorio']}' Onclick=\"mostrar('resultLab','pro',event,'','../servicios_complem/laboratorios.php',3,'Resultado de laboratorios');setTimeout(getData,500,'respuesta',event,this,['cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump'],'../servicios_complem/laboratorios.php');\"></i></li>":'';
+     $rta .= $c['Tomado']=='SI' ? "<li><i class='fa-solid fa-file-waveform ico' title='Resultado de laboratorios' idr='{$c['Cod Laboratorio']}' Onclick=\"mostrar('resultLab','pro',event,'','../servicios_complem/laboratorios.php',3,'Resultado de laboratorios');setTimeout(getData,500,'respuesta',event,this,['cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump'],'../servicios_complem/laboratorios.php');\"></i></li>":'';
     $rta .= "</nav>";
   }
   return $rta;
