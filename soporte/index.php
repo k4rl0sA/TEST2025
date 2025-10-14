@@ -196,6 +196,7 @@ $sql="SELECT  subred FROM usuarios WHERE id_usuario=".$_SESSION['us_sds'];
 $info = datos_mysql($sql);
 $subredActual=$info['responseResult'][0]['subred'];
 $subredes=opc_sql("SELECT numero,CASE numero WHEN 1 THEN 'Norte' WHEN 2 THEN 'Sur' WHEN 3 THEN 'Centro Oriente' WHEN 4 THEN 'Sur Occidente' END AS direccion FROM (VALUES (1), (2), (3), (4)) AS T(numero);",$subredActual);
+$acciones=opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=286 AND estado='A' ORDER BY 1",'');
 ?>
 <form method='post' id='fapp' >
 <div class="col-2 menu-filtro" id='<?php echo$mod; ?>-fil'>
@@ -227,10 +228,16 @@ $subredes=opc_sql("SELECT numero,CASE numero WHEN 1 THEN 'Norte' WHEN 2 THEN 'Su
 		</select>
 	</div>
 
+<div class="campo"><div>Acciones</div>
+    <select class="captura" id="facc" name="facc" OnChange="actualizar();">
+        <?php echo $acciones; ?>
+    </select>
+</div>
+
 <div class="campo"><div>Subred</div>
-        <select class="captura" id="fsubred" name="fsubred" OnChange="actualizar();">
-            <?php echo $subredes; ?>
-        </select>
+    <select class="captura" id="fsubred" name="fsubred" OnChange="actualizar();">
+        <?php echo $subredes; ?>
+    </select>
 </div>
 	
 </div>

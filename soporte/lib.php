@@ -50,7 +50,9 @@ function whe_soporte() {
     if (!empty($_POST['fest'])) 
         $sql .= " AND s.estado = '" . intval($_POST['fest']) . "'";
     if(!empty($_POST['fsubred']))
-        $sql .= " AND U1.subred = '" . intval($_POST['fsubred']) . "'";
+        $sql .= " AND U1.subred = '" . intval($_POST['fsubred']). "'";
+    if(!empty($_POST['facc']))
+        $sql .= " AND s.formulario = '".intval($_POST['facc']). "'";
     return $sql;
 }
 
