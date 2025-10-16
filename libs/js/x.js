@@ -1613,8 +1613,11 @@ function riskPlacaAtenOdon() {
 	}
 	document.getElementById('riesgo').value = riesgo;
 	}else{
-		document.getElementById('riesgo').value = '';
-		errors("Los valores ingresados en las Acciones De Odontologia, no son válidos.");
+		if(placa==''){
+			placa.focus();
+		}else{
+			superficie.focus();
+		}		
 	}
 }
 function enabTipSegRuteo(){
