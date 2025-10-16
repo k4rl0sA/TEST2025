@@ -94,7 +94,7 @@ function gra_trasladint() {
 
 
     // Insertar en soporte con formulario=3
-    $sql = "INSERT INTO soporte (idsoporte, idpeople, cod_familia, formulario,ok,prioridad,aprueba, usu_creo, fecha_create, estado) VALUES (NULL, ?,?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO soporte (idsoporte, idpeople, cod_familia, formulario,prioridad,ok,aprueba, usu_creo, fecha_create, estado) VALUES (NULL, ?,?, ?, ?, ?, ?, ?, ?, ?)";
     $params = [
         ['type' => 'i', 'value' => $familia],  // cod_familia    
         ['type' => 'i', 'value' => $id[0]],    // idpeople
