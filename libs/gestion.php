@@ -988,7 +988,11 @@ function saniti($value) {
 }
 
 function input_num($a){
-  $name = saniti($a->n);$label = ($a->l);$value = is_numeric($a->d) ? $a->d : '';$title = saniti($a->tt);$x = saniti($a->x);
+  $name = saniti($a->n);
+  $label = ($a->l);
+  $value = is_numeric($a->d) ? $a->d : '';
+  $title = saniti($a->tt);
+  $x = saniti($a->x);
   $a->w = $a->w ?? '';
   $a->ww = $a->ww ?? '';
   $a->s = is_numeric($a->s) ? $a->s : ''; // max
@@ -1006,15 +1010,15 @@ function input_num($a){
   $rta .= " class='" . saniti($a->w) . " " . ($a->v ? 'valido' : '') . " " . ($a->u ? 'captura' : 'bloqueo') . " " . ($a->t == 't' ? '' : 'txt-right') . "'";
   $rta .= " title='{$title}'";
   $rta .= " oninput=\"this.value = this.value.replace(/[eE]/g, '')\"";
-  $rta .= "\" onblur=\"";
-  if ($a->v) $rta .= "if(valido(this))";
-  if ($a->x) $rta .= "solo_reg(this," . saniti($a->x) . ");"; // Sanitizando la expresión regular
-  if ($a->vc) $rta .= saniti($a->vc);
+  $rta .= " onblur=\"";
+  if ($a->v) $rta .= "if(valido(this));";
+  if ($a->x) $rta .= "solo_reg(this," . saniti($a->x) . ");";
+  if ($a->vc !== '') $rta .= "{$a->vc}(this);";
   $rta .= "\"";
-  if ($a->so !== '')$rta .= " onchange=\"" . saniti($a->so) . "\"";
+  if ($a->so !== '') $rta .= " onchange=\"" . saniti($a->so) . "\"";
   if (!$a->u) $rta .= " readonly";
   if ($value !== '') $rta .= " value='" . saniti($value) . "'";
-  $rta .= "></div>"; // Cerrar el div
+  $rta .= "></div>";
   return $rta;
 }
 
