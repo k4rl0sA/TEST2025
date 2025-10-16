@@ -1084,7 +1084,6 @@ function formato_dato($a,$b,$c,$d){
 
 			$rta.="<li title='Barreras' Onclick=\"mostrar('barreras','pro',event,'','../tamizajes/barreras.php',7,'barreras');Color('datos-lis');\"><i class='fa-solid f-road-barrier color-soporte ico' id='".$c['ACCIONES']."'></i> </li>";
 
-			$rta.="<li title='Trasladar Usuario' Onclick=\"mostrar('traslados','pro',event,'','../soporte/trasladloc.php',4,'traslados');Color('datos-lis');\"><i class='fa-solid fa-reply-all color-soporte ico' id='".$c['ACCIONES']."'></i> </li>";
 
 			if (is_array($tamiz) && in_array('tamvalories', $tamiz)) {
 				$rta .= acceso('tamvalories') ? "<li title='Valoración del Riesgo' onclick=\"mostrar('tamvalories','pro',event,'','../tamizajes/valoriesg.php',7,'Valoración del Riesgo');Color('datos-lis');\"><i class='fa-solid fa-skull-crossbones ico' id='{$c['ACCIONES']}'></i></li>":"";
@@ -1098,6 +1097,7 @@ function formato_dato($a,$b,$c,$d){
 			if (is_array($tamiz) && in_array('riesgomental', $tamiz)) {
 				$rta .= acceso('riesgomental') ? "<li title='Tamizaje Riesgo Mental' onclick=\"mostrar('riesgomental','pro',event,'','../tamizajes/riesgomental.php',7,'Riesgo Mental');Color('datos-lis');\"><i class='fas fa-brain ico' id='{$c['ACCIONES']}'></i></li>":"";
 			}
+			$rta.="<li title='Trasladar Usuario' Onclick=\"mostrar('traslados','pro',event,'','../soporte/trasladloc.php',4,'traslados');Color('datos-lis');\"><i class='fa-solid fa-reply-all color-soporte ico' id='".$c['ACCIONES']."'></i> </li>";
 		}
 	}
 		if($a=='atencion' && $b=='acciones'){
