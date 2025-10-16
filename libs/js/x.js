@@ -1600,7 +1600,6 @@ function riskPlacaAtenOdon() {
         } else {
             superficieElement.focus();
         }
-        errors("Por favor, complete ambos campos en Acciones De Odontología.");
         return;
     }
     // Convertir a números
