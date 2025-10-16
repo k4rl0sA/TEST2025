@@ -33,7 +33,7 @@ function lis_adm(){
 	FROM `adm_facturacion` F WHERE idpeople ='{$id[0]}' and estado!='I' ";
 	$sql.=" ORDER BY F.fecha_create";
 	$sql.=' LIMIT '.$pag.','.$regxPag;
-	echo $sql;
+	//  echo $sql;
 	$datos=datos_mysql($sql);
 	return create_table($total,$datos["responseResult"],"adm",$regxPag,'lib.php');
 }
@@ -53,7 +53,7 @@ function lis_admision(){
 	$sql.=whe_admision();
 	$sql.=" ORDER BY A.fecha_create";
 	$sql.=' LIMIT '.$pag.','.$regxPag;
-	//  echo $sql;
+	 echo $sql;
 		$datos=datos_mysql($sql);
 	return create_table($total,$datos["responseResult"],"admision",$regxPag);
 	}
