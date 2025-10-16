@@ -19,8 +19,6 @@ else {
   }   
 }
 
-
-
 function lis_adm(){
 	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['id_factura']) ? divide($_POST['id_factura']) : null);
 	// $id=divide($_POST['id']);
