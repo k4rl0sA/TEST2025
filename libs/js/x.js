@@ -1584,6 +1584,8 @@ function enabPrioAten(){
 function riskPlacaAtenOdon() {
 	const placa = Number(document.getElementById('n_placa_superf').value);
 	const superficie = Number(document.getElementById('n_superficie').value);
+	//si placa o superficie no son numeros no ejecuta
+	if(placa === '' || superficie === '') {
 	if (isNaN(placa) || isNaN(superficie)) {
 		errors("Los valores ingresados en las Acciones De Odontologia, no son válidos.");
 		return;
@@ -1610,6 +1612,10 @@ function riskPlacaAtenOdon() {
 		riesgo = 6;
 	}
 	document.getElementById('riesgo').value = riesgo;
+	}else{
+		document.getElementById('riesgo').value = '';
+		errors("Los valores ingresados en las Acciones De Odontologia, no son válidos.");
+	}
 }
 function enabTipSegRuteo(){
 	const conditions = [
