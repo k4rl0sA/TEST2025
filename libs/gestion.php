@@ -1009,8 +1009,8 @@ function input_num($a){
   $rta .= "\" onblur=\"";
   if ($a->v) $rta .= "if(valido(this))";
   if ($a->x) $rta .= "solo_reg(this," . saniti($a->x) . ");"; // Sanitizando la expresión regular
+  if ($a->vc !== '') $rta .=saniti($a->vc);
   $rta .= "\"";
-  if ($a->vc !== '')$rta .= " onfocus=\"" . saniti($a->vc) . "\"";
   if ($a->so !== '')$rta .= " onchange=\"" . saniti($a->so) . "\"";
   if (!$a->u) $rta .= " readonly";
   if ($value !== '') $rta .= " value='" . saniti($value) . "'";
