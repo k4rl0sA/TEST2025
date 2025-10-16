@@ -1581,45 +1581,66 @@ function enabPrioAten(){
 	];
 	EnabDepeDynamic(['PRi'], conditions);
 }
+
 function riskPlacaAtenOdon() {
-	const placa = Number(document.getElementById('n_placa_superf').value);
-	const superficie = Number(document.getElementById('n_superficie').value);
-	//si placa o superficie no son numeros no ejecuta
-	if(placa === '' || superficie === '') {
-	if (isNaN(placa) || isNaN(superficie)) {
-		errors("Los valores ingresados en las Acciones De Odontologia, no son válidos.");
-		return;
-	}
-	if(placa =='' && superficie==''){
-		document.getElementById('riesgo').value = '';
-		return;
-	}
-	if (superficie < 1 || superficie > 112) {
-		errors("El valor de Superficie debe estar entre 1 y 112.");
-		return;
-	}
-	if (placa < 1 || placa > 112) {
-		errors("El valor de Superficies con placa no  debe estar entre 1 y 112.");
-		return;
-	}
-	let indice = (placa / superficie) * 100;
-	let riesgo;
-	if (indice < 20) {
-		riesgo = 2;
-	} else if (indice <= 40) {
-		riesgo = 4;
-	} else {
-		riesgo = 6;
-	}
-	document.getElementById('riesgo').value = riesgo;
-	}else{
-		if(placa==''){
-			placa.focus();
-		}else{
-			superficie.focus();
-		}		
-	}
+    const placaElement = document.getElementById('n_placa_superf');
+    const superficieElement = document.getElementById('n_superficie');
+    const riesgoElement = document.getElementById('riesgo');
+    const placa = placaElement.value.trim();
+    const superficie = superficieElement.value.trim();
+    // Si ambos campos están vacíos
+    if (placa === '' && superficie === '') {
+        riesgoElement.value = '';
+        return;
+    }
+    // Si alguno de los campos está vacío
+    if (placa === '' || superficie === '') {
+        if (placa === '') {
+            placaElement.focus();
+        } else {
+            superficieElement.focus();
+        }
+        errors("Por favor, complete ambos campos en Acciones De Odontología.");
+        return;
+    }
+    // Convertir a números
+    const placaNum = Number(placa);
+    const superficieNum = Number(superficie);
+    // Validar que sean números válidos
+    if (isNaN(placaNum) || isNaN(superficieNum)) {
+        errors("Los valores ingresados en las Acciones De Odontología no son válidos.");
+        return;
+    }
+    // Validar rangos
+    if (superficieNum < 1 || superficieNum > 112) {
+        errors("El valor de Superficie debe estar entre 1 y 112.");
+        superficieElement.focus();
+        return;
+    }
+    if (placaNum < 1 || placaNum > 112) {
+        errors("El valor de Superficies con placa debe estar entre 1 y 112.");
+        placaElement.focus();
+        return;
+    }
+    // Validar que placa no sea mayor que superficie
+    if (placaNum > superficieNum) {
+        errors("Las superficies con placa no pueden ser mayores que el total de superficies.");
+        placaElement.focus();
+        return;
+    }
+    // Calcular índice de riesgo
+    let indice = (placaNum / superficieNum) * 100;
+    let riesgo;
+    if (indice < 20) {
+        riesgo = 2;
+    } else if (indice <= 40) {
+        riesgo = 4;
+    } else {
+        riesgo = 6;
+    }
+    riesgoElement.value = riesgo;
 }
+
 function enabTipSegRuteo(){
 	const conditions = [
 		{ id: 'tiposeg',value:'1', compare: true }
