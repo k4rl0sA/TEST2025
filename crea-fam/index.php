@@ -247,7 +247,7 @@ function grabar(tb='',ev){
 		// resetFrm();
 	}
   }
-  setTimeout(function(){act_lista(tb, null, ruta_app);}, 800);
+  // setTimeout(function(){act_lista(tb, null, ruta_app);}, 800);
 }  
 
  let currentOpenMenu = null;
