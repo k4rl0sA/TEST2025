@@ -416,6 +416,7 @@ function gra_atencionO() {
     )";
     
     $rta = mysql_prepd($sql, $params);
+	show_sql($sql, $params);
     return $rta;
 }
 
