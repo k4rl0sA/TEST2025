@@ -47,11 +47,11 @@ function lis_admision(){
 	FROM `adm_facturacion` A 
 	LEFT JOIN person P ON A.idpeople=P.idpeople
 	left JOIN usuarios U ON A.usu_creo = U.id_usuario
-	WHERE U.subred IN (select subred from usuarios where id_usuario='{$_SESSION['us_sds']}') AND componente=(select componente from usuarios where id_usuario='{$_SESSION['us_sds']}') AND soli_admis='SI' ";
+	WHERE U.subred IN (select subred from usuarios where id_usuario='{$_SESSION['us_sds']}')  AND soli_admis='SI' ";//AND componente=(select componente from usuarios where id_usuario='{$_SESSION['us_sds']}') 2025-10-16 OSCAR
 	$sql.=whe_admision();
 	$sql.=" ORDER BY A.fecha_create";
 	$sql.=' LIMIT '.$pag.','.$regxPag;
-	 echo $sql;
+	//  echo $sql;
 		$datos=datos_mysql($sql);
 	return create_table($total,$datos["responseResult"],"admision",$regxPag);
 	}
