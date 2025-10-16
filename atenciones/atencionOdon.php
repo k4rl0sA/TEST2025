@@ -74,7 +74,7 @@ function cmp_atencionO(){
 
 	$o='Odontologia';
 	$c[]=new cmp($o,'e',null,'Acciones Odontologia',$w);
-	$c[]=new cmp('n_superficie','nu',3,$x,$w.' lab '.$o,'N° Superficies','solicitud',null,'',true,true,'','col-2','riskPlacaAtenOdon();');
+	$c[]=new cmp('n_superficie','nu',3,$x,$w.' lab '.$o,'N° Superficies','solicitud',null,'',true,true,'','col-2');
 	$c[]=new cmp('n_placa_superf','nu',3,$x,$w.' med '.$o,'N° Superficies con Placa','medicamentos',null,'',true,true,'','col-2','riskPlacaAtenOdon();');
 	$c[]=new cmp('riesgo','s',3,$x,$w.' med '.$o,'Riesgo','riesgoOdon',null,'',false,false,'','col-2');	
 
