@@ -148,7 +148,7 @@ function post_or_null($key) {
 function opc_rta($id=''){
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=170 and estado='A' ORDER BY 1",$id);
 }
-function opc_geo_dificultad_acudir_cual($id=''){
+/* function opc_geo_dificultad_acudir_cual($id=''){
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=301 and estado='A' ORDER BY 1",$id);
 }
 function opc_fis_dispositivo_asistencia_cual($id=''){
@@ -183,7 +183,7 @@ function opc_fis_usa_dispositivo_asistencia($id=''){
 }
 function opc_fis_usa_dispositivo_asistencia($id=''){
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=311 and estado='A' ORDER BY 1",$id);
-} 
+} */ 
 // Menú y encabezado
 function focus_barreras(){
     return 'barreras';
