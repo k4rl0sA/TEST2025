@@ -54,7 +54,7 @@ function cmp_barreras(){
     $c[]=new cmp($o,'e',null,'Barreras Físicas',$w);
     $c[]=new cmp('fis_limitacion_movilidad','s','3','',$w.' '.$o,'Tiene alguna limitación Física para movilizarse?','rta',null,null,true,true,'','col-10',"enabYes('fis_limitacion_movilidad','DEv');");
     $c[]=new cmp('fis_usa_dispositivo_asistencia','s','3','',$w.' DEv '.$o,'Utiliza algún dispositivo de asistencia para la movilidad?','rta',null,null,true,false,'','col-10',"enabYes('fis_usa_dispositivo_asistencia','WhA');");
-    $c[]=new cmp('fis_dispositivo_asistencia_cual','s','3','',$w.' WhA '.$o,'Cual','fis_dispositivo_asistencia_cual',null,null,true,true,'','col-10');
+    $c[]=new cmp('fis_dispositivo_asistencia_cual','s','3','',$w.' WhA '.$o,'Cual','fis_dispositivo_asistencia_cual',null,null,true,false,'','col-10');
 
     $o='economicas';
     $c[]=new cmp($o,'e',null,'Barreras Económicas',$w);
@@ -64,16 +64,16 @@ function cmp_barreras(){
 
     $o='administrativas';
     $c[]=new cmp($o,'e',null,'Barreras Administrativas',$w);
-    $c[]=new cmp('adm_estado_afiliacion','s','3','',$w.' '.$o,'Estado de afiliación al SS en estos momentos','adm_estado_afiliacion',null,null,true,true,'','col-10');
-    $c[]=new cmp('adm_demora_autorizacion','s','3','',$w.' '.$o,'Ha presentado demoras al tramitar autorizaciones','rta',null,null,true,true,'','col-10');
-    $c[]=new cmp('adm_demora_autorizacion_desc','a','255','',$w.' '.$o,'Cual','adm_demora_autorizacion_desc',null,null,true,true,'','col-10');
-    $c[]=new cmp('adm_dificultad_citas','s','3','',$w.' '.$o,'Ha presentado dificultades en la asignación de citas?','rta',null,null,true,true,'','col-10');
-    $c[]=new cmp('adm_dificultad_citas_cual','s','3','',$w.' '.$o,'Cual','adm_dificultad_citas_cual',null,null,true,true,'','col-10');
+    $c[]=new cmp('adm_estado_afiliacion','s','3','',$w.' '.$o,'Estado de afiliación al SS en estos momentos','adm_estado_afiliacion',null,null,true,true,'','col-10',"enabYes('adm_estado_afiliacion','STa');");
+    $c[]=new cmp('adm_demora_autorizacion','s','3','',$w.' STa '.$o,'Ha presentado demoras al tramitar autorizaciones','rta',null,null,true,true,'','col-10',"enabYes('adm_demora_autorizacion','LaT');");
+    $c[]=new cmp('adm_demora_autorizacion_desc','a','255','',$w.' LaT '.$o,'Cual','adm_demora_autorizacion_desc',null,null,true,true,'','col-10');
+    $c[]=new cmp('adm_dificultad_citas','s','3','',$w.' '.$o,'Ha presentado dificultades en la asignación de citas?','rta',null,null,true,true,'','col-10',"enabYes('adm_dificultad_citas','AsS');");
+    $c[]=new cmp('adm_dificultad_citas_cual','s','3','',$w.' AsS '.$o,'Cual','adm_dificultad_citas_cual',null,null,true,true,'','col-10');
 
     $o='psicosociales';
     $c[]=new cmp($o,'e',null,'Barreras Psicosociales',$w);
-    $c[]=new cmp('psi_trastorno_emocional','s','3','',$w.' '.$o,'Ha presentado transtornos emocionales?','rta',null,null,true,true,'','col-10');
-    $c[]=new cmp('psi_trastorno_emocional_tipo','s','255','',$w.' '.$o,'Tipo de transtorno','psi_trastorno_emocional_tipo',null,null,true,true,'','col-10');
+    $c[]=new cmp('psi_trastorno_emocional','s','3','',$w.' '.$o,'Ha presentado transtornos emocionales?','rta',null,null,true,true,'','col-10',"enabYes('psi_trastorno_emocional','EMt');");
+    $c[]=new cmp('psi_trastorno_emocional_tipo','s','255','',$w.' EMt '.$o,'Tipo de transtorno','psi_trastorno_emocional_tipo',null,null,true,true,'','col-10');
     
     $o='culturales';
     $c[]=new cmp($o,'e',null,'Barreras Culturales',$w);
