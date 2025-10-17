@@ -359,7 +359,7 @@ function disaOthNo(a,b){
 }
 
 function enabOthSi(a,b){
-	const ele = document.querySelectorAll('select.'+b+',input.'+b+'textarea.'+b);
+	const ele = document.querySelectorAll('select.'+b+',input.'+b+',textarea.'+b);
 	const act=document.getElementById(a);
 	for (i=0; i<ele.length;i++) {
 		if(act.value=='1'){
