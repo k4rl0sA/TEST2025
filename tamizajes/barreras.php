@@ -65,15 +65,15 @@ function cmp_barreras(){
     $o='administrativas';
     $c[]=new cmp($o,'e',null,'Barreras Administrativas',$w);
     $c[]=new cmp('adm_estado_afiliacion','s','3','',$w.' '.$o,'Estado de afiliación al SS en estos momentos','adm_estado_afiliacion',null,null,true,true,'','col-10',"enabOthSi('adm_estado_afiliacion','STa');");
-    $c[]=new cmp('adm_demora_autorizacion','s','3','',$w.' STa '.$o,'Ha presentado demoras al tramitar autorizaciones','rta',null,null,true,true,'','col-10',"enabOthSi('adm_demora_autorizacion','LaT');");
-    $c[]=new cmp('adm_demora_autorizacion_desc','a','255','',$w.' LaT '.$o,'Cual','adm_demora_autorizacion_desc',null,null,true,true,'','col-10');
+    $c[]=new cmp('adm_demora_autorizacion','s','3','',$w.' STa '.$o,'Ha presentado demoras al tramitar autorizaciones','rta',null,null,true,false,'','col-10',"enabOthSi('adm_demora_autorizacion','LaT');");
+    $c[]=new cmp('adm_demora_autorizacion_desc','a','255','',$w.' LaT '.$o,'Cual','adm_demora_autorizacion_desc',null,null,true,false,'','col-10');
     $c[]=new cmp('adm_dificultad_citas','s','3','',$w.' '.$o,'Ha presentado dificultades en la asignación de citas?','rta',null,null,true,true,'','col-10',"enabOthSi('adm_dificultad_citas','AsS');");
-    $c[]=new cmp('adm_dificultad_citas_cual','s','3','',$w.' AsS '.$o,'Cual','adm_dificultad_citas_cual',null,null,true,true,'','col-10');
+    $c[]=new cmp('adm_dificultad_citas_cual','s','3','',$w.' AsS '.$o,'Cual','adm_dificultad_citas_cual',null,null,true,false,'','col-10');
 
     $o='psicosociales';
     $c[]=new cmp($o,'e',null,'Barreras Psicosociales',$w);
     $c[]=new cmp('psi_trastorno_emocional','s','3','',$w.' '.$o,'Ha presentado transtornos emocionales?','rta',null,null,true,true,'','col-10',"enabOthSi('psi_trastorno_emocional','EMt');");
-    $c[]=new cmp('psi_trastorno_emocional_tipo','s','255','',$w.' EMt '.$o,'Tipo de transtorno','psi_trastorno_emocional_tipo',null,null,true,true,'','col-10');
+    $c[]=new cmp('psi_trastorno_emocional_tipo','s','255','',$w.' EMt '.$o,'Tipo de transtorno','psi_trastorno_emocional_tipo',null,null,true,false,'','col-10');
     
     $o='culturales';
     $c[]=new cmp($o,'e',null,'Barreras Culturales',$w);
