@@ -169,6 +169,9 @@ function opc_adm_estado_afiliacion($id=''){
 function opc_adm_dificultad_citas_cual($id=''){
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=312 and estado='A' ORDER BY 1",$id);
 }
+function opc_psi_trastorno_emocional_tipo($id=''){
+    return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=313 and estado='A' ORDER BY 1",$id);
+}
 
 // Menú y encabezado
 function focus_barreras(){
