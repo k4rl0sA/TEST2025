@@ -38,46 +38,46 @@ function cmp_barreras(){
     $c[]=new cmp($o,'e',null,'DATOS DE IDENTIFICACIÓN',$w);
     $c[]=new cmp('id','h',15,$_POST['id'],$w.' '.$o,'','',null,'####',false,false);
     $c[]=new cmp('idpersona','n','20',$d['idpersona'],$w.' '.$o,'N° Identificación','idpersona',null,'',false,false,'','col-2');
-	$c[]=new cmp('tipodoc','s','3',$d['tipodoc'],$w.' '.$o,'Tipo Identificación','tipodoc',null,'',false,false,'','col-2','getDatForm(\'srch\',\'person\',[\'datos\']);');
+	$c[]=new cmp('tipodoc','s','3',$d['tipodoc'],$w.' '.$o,'Tipo Identificación','tipodoc',null,'',false,false,'','col-2');
 	$c[]=new cmp('nombre','t','50',$d['nombre'],$w.' '.$o,'nombres','nombre',null,'',false,false,'','col-3');
 	$c[]=new cmp('fechanacimiento','d','10',$d['fechanacimiento'],$w.' '.$o,'fecha nacimiento','fechanacimiento',null,'',false,false,'','col-2');
     $c[]=new cmp('edad','n','3',$d['edad'],$w.' '.$o,'edad','edad',null,'',true,false,'','col-1');
 	$c[]=new cmp('fecha_toma','d','10','',$w.' '.$o,'fecha de la Toma','fecha_toma',null,'',true,true,'','col-2',"validDate(this,$days,0);");
+
     $o='geograficas';
     $c[]=new cmp($o,'e',null,'Barreras Geográficas',$w);
     $c[]=new cmp('geo_centro_cercano','s','3','',$w.' '.$o,'El centro de atención en salud está ubicado en la misma localidad de su vivienda?','rta',null,null,true,true,'','col-10');
-    $c[]=new cmp('geo_dificultad_salir','s','3','',$w.' '.$o,'Dificultad para salir de la vivienda','geo_dificultad_salir',null,null,true,true,'','col-10');
-    $c[]=new cmp('geo_dificultad_acudir','s','3','',$w.' '.$o,'Dificultad para acudir a servicios de salud','geo_dificultad_acudir',null,null,true,true,'','col-10');
-    $c[]=new cmp('geo_dificultad_acudir_cual','s','3','',$w.' '.$o,'Razón de la dificultad para acudir','geo_dificultad_acudir_cual',null,null,true,true,'','col-10');
+    $c[]=new cmp('geo_dificultad_salir','s','3','',$w.' '.$o,'Tiene dificultades para salir de su vivienda para acudir a los servicios de salud?','rta',null,null,true,true,'','col-10');
+    $c[]=new cmp('geo_dificultad_acudir','s','3','',$w.' '.$o,'Dificultades para acudir a los servicios de salud','geo_dificultad_acudir',null,null,true,true,'','col-10');
 
     $o='fisicas';
     $c[]=new cmp($o,'e',null,'Barreras Físicas',$w);
-    $c[]=new cmp('fis_limitacion_movilidad','s','3','',$w.' '.$o,'Limitación física para movilizarse','fis_limitacion_movilidad',null,null,true,true,'','col-10');
-    $c[]=new cmp('fis_usa_dispositivo_asistencia','s','3','',$w.' '.$o,'Utiliza dispositivo de asistencia','fis_usa_dispositivo_asistencia',null,null,true,true,'','col-10');
-    $c[]=new cmp('fis_dispositivo_asistencia_cual','s','3','',$w.' '.$o,'Tipo de dispositivo de asistencia','fis_dispositivo_asistencia_cual',null,null,true,true,'','col-10');
+    $c[]=new cmp('fis_limitacion_movilidad','s','3','',$w.' '.$o,'Tiene alguna limitación Física para movilizarse?','rta',null,null,true,true,'','col-10');
+    $c[]=new cmp('fis_usa_dispositivo_asistencia','s','3','',$w.' '.$o,'Utiliza algún dispositivo de asistencia para la movilidad?','rta',null,null,true,true,'','col-10');
+    $c[]=new cmp('fis_dispositivo_asistencia_cual','s','3','',$w.' '.$o,'Cual','fis_dispositivo_asistencia_cual',null,null,true,true,'','col-10');
 
     $o='economicas';
     $c[]=new cmp($o,'e',null,'Barreras Económicas',$w);
-    $c[]=new cmp('eco_limitacion_costovida','s','3','',$w.' '.$o,'Limitaciones en el costo de vida','eco_limitacion_costovida',null,null,true,true,'','col-10');
-    $c[]=new cmp('eco_limitacion_cual','s','3','',$w.' '.$o,'Razón de la limitación económica','eco_limitacion_cual',null,null,true,true,'','col-10');
-    $c[]=new cmp('eco_dependencia_terceros','s','3','',$w.' '.$o,'Dependencia económica de terceros','eco_dependencia_terceros',null,null,true,true,'','col-10');
+    $c[]=new cmp('eco_limitacion_costovida','s','3','',$w.' '.$o,'Presenta limitaciones en el costo de vida?','rta',null,null,true,true,'','col-10');
+    $c[]=new cmp('eco_limitacion_cual','s','3','',$w.' '.$o,'Cual limitación presenta','eco_limitacion_cual',null,null,true,true,'','col-10');
+    $c[]=new cmp('eco_dependencia_terceros','s','3','',$w.' '.$o,'Depende económicamente de terceros?','rta',null,null,true,true,'','col-10');
 
     $o='administrativas';
     $c[]=new cmp($o,'e',null,'Barreras Administrativas',$w);
-    $c[]=new cmp('adm_estado_afiliacion','s','3','',$w.' '.$o,'Estado de afiliación al SS','adm_estado_afiliacion',null,null,true,true,'','col-10');
-    $c[]=new cmp('adm_demora_autorizacion','s','3','',$w.' '.$o,'Demoras en autorizaciones','adm_demora_autorizacion',null,null,true,true,'','col-10');
-    $c[]=new cmp('adm_demora_autorizacion_desc','t','255','',$w.' '.$o,'Descripción de la demora','adm_demora_autorizacion_desc',null,null,true,true,'','col-10');
-    $c[]=new cmp('adm_dificultad_citas','s','3','',$w.' '.$o,'Dificultad en asignación de citas','adm_dificultad_citas',null,null,true,true,'','col-10');
-    $c[]=new cmp('adm_dificultad_citas_cual','s','3','',$w.' '.$o,'Razón de la dificultad con citas','adm_dificultad_citas_cual',null,null,true,true,'','col-10');
+    $c[]=new cmp('adm_estado_afiliacion','s','3','',$w.' '.$o,'Estado de afiliación al SS en estos momentos','adm_estado_afiliacion',null,null,true,true,'','col-10');
+    $c[]=new cmp('adm_demora_autorizacion','s','3','',$w.' '.$o,'Ha presentado demoras al tramitar autorizaciones','rta',null,null,true,true,'','col-10');
+    $c[]=new cmp('adm_demora_autorizacion_desc','a','255','',$w.' '.$o,'Cual','adm_demora_autorizacion_desc',null,null,true,true,'','col-10');
+    $c[]=new cmp('adm_dificultad_citas','s','3','',$w.' '.$o,'Ha presentado dificultades en la asignación de citas?','rta',null,null,true,true,'','col-10');
+    $c[]=new cmp('adm_dificultad_citas_cual','s','3','',$w.' '.$o,'Cual','adm_dificultad_citas_cual',null,null,true,true,'','col-10');
 
     $o='psicosociales';
     $c[]=new cmp($o,'e',null,'Barreras Psicosociales',$w);
-    $c[]=new cmp('psi_trastorno_emocional','s','3','',$w.' '.$o,'Trastornos emocionales','psi_trastorno_emocional',null,null,true,true,'','col-10');
-    $c[]=new cmp('psi_trastorno_emocional_tipo','t','255','',$w.' '.$o,'Tipo de trastorno emocional','psi_trastorno_emocional_tipo',null,null,true,true,'','col-10');
+    $c[]=new cmp('psi_trastorno_emocional','s','3','',$w.' '.$o,'Ha presentado transtornos emocionales?','rta',null,null,true,true,'','col-10');
+    $c[]=new cmp('psi_trastorno_emocional_tipo','t','255','',$w.' '.$o,'Tipo de transtorno','psi_trastorno_emocional_tipo',null,null,true,true,'','col-10');
     
     $o='culturales';
     $c[]=new cmp($o,'e',null,'Barreras Culturales',$w);
-    $c[]=new cmp('cul_discriminacion','s','3','',$w.' '.$o,'Discriminación percibida','cul_discriminacion',null,null,true,true,'','col-10');
+    $c[]=new cmp('cul_discriminacion','s','3','',$w.' '.$o,'Ha percibido discriminación - actitud negativa o desconfianza por parte de los demás frente a la enfermedad?','rta',null,null,true,true,'','col-10');
     for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
     return $rta;
 }
