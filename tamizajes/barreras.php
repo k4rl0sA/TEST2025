@@ -136,7 +136,7 @@ function gra_barreras(){
     ];
    show_sql($sql, $params);
     // $rta = mysql_prepd($sql, $params);
-    // return $rta;
+     return $rta;
 }
 
 function post_or_null($key) {
