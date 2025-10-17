@@ -148,6 +148,12 @@ function post_or_null($key) {
 function opc_rta($id=''){
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=170 and estado='A' ORDER BY 1",$id);
 }
+function opc_tipodoc($id=''){
+		return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 1",$id);
+	}
+	function opc_sexo($id=''){
+		return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=21 and estado='A' ORDER BY 1",$id);
+	}
 /* function opc_geo_dificultad_acudir_cual($id=''){
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=301 and estado='A' ORDER BY 1",$id);
 }
