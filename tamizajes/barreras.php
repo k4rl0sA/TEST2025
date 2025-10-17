@@ -139,6 +139,7 @@ function gra_barreras(){
     return $rta;
 }
 
+
 function post_or_null($key) {
   return isset($_POST[$key]) && $_POST[$key] !== '' ? $_POST[$key] : null;
 }
