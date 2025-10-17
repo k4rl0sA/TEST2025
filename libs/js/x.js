@@ -1138,21 +1138,18 @@ function enCroGes(){
 		});
 	});
 }
-
 function diagCroEtn() {
 	const conditions = [
 		{ id: 'diag_cronico', value: '4', compare: true }
 	];
 	EnabDepeDynamic(['dAG'], conditions);
 }
-
 function ftlc() {
 	const conditions = [
 		{ id: 'ftlc_apme', value: '1', compare: true }
 	];
 	EnabDepeDynamic(['Ftl'], conditions);
 }
-
 function enabNV() {
 	const conditions = [
 		{ id: 'resul_gest', value: '1', compare: true }
