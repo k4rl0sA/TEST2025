@@ -85,7 +85,7 @@ function cmp_barreras(){
 }
 
 function get_barreras(){
-    if($_POST['id']==0){
+   /*  if($_POST['id']==0){
         return "";
     }else{
         $id=divide($_POST['id']);
@@ -96,7 +96,7 @@ function get_barreras(){
         }else{
             return "";
         }
-    }
+    } */
 }
 
 function gra_barreras(){
