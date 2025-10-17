@@ -90,6 +90,10 @@ function cmp_educaMedi(){
   $c[]=new cmp('estado_s','s','3',$d,$w.' sTa '.$o,'Estado','estado_s',null,null,true,true,'','col-2',"enabFielSele(this,true,['motivo_estado'],['3']);EnabEfec(this,['hab','acc'],['Ob'],['nO'],['bL']);");
   $c[]=new cmp('motivo_estado','s','3',$d,$w.' '.$o,'Motivo de Estado','motivo_estado',null,null,false,$x,'','col-2');
   
+    $o='hab';
+    $c[]=new cmp($o,'e',null,'INFORMACIÓN',$w);
+    $c[]=new cmp('poblacion','s','3',$d,$w.' '.$o,'Población Objeto','evento',null,null,false,$x,'','col-5');
+
     $o='acc';
     $c[]=new cmp($o,'e',null,'INFORMACIÓN ACCIONES',$w);
     $c[]=new cmp('estrategia_1','s','3',$d,$w.' '.$o,'Estrategia PF_1','estrategia_1',null,null,false,$x,'','col-5');
