@@ -157,13 +157,13 @@ function opc_sexo($id=''){
 function opc_geo_dificultad_acudir($id=''){
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=309 and estado='A' ORDER BY 1",$id);
 }
-
-/* function opc_geo_dificultad_acudir_cual($id=''){
-    return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=301 and estado='A' ORDER BY 1",$id);
-}
 function opc_fis_dispositivo_asistencia_cual($id=''){
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=302 and estado='A' ORDER BY 1",$id);
 }
+/* function opc_geo_dificultad_acudir_cual($id=''){
+    return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=301 and estado='A' ORDER BY 1",$id);
+}
+
 function opc_eco_limitacion_cual($id=''){
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=303 and estado='A' ORDER BY 1",$id);
 }
