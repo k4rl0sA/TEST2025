@@ -87,7 +87,7 @@ function get_barreras(){
 		return "";
 	}else{
 		 $id=divide($_POST['id']);
-		print_r($_POST);
+		// print_r($_POST);
 		$sql="SELECT P.idpeople,P.idpersona idpersona,P.tipo_doc tipodoc,
         concat_ws(' ',P.nombre1,P.nombre2,P.apellido1,P.apellido2) nombre,P.fecha_nacimiento fechanacimiento,
         TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, CURDATE()) AS edad
