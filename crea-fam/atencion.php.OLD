@@ -520,7 +520,7 @@ function opc_estrategia($id=''){
     $cols[] = 'estado';
 
     $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_creo
-    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')]; // fecha_create
+    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))]; // fecha_create
     $params[] = ['type' => 'z', 'value' => null]; // usu_update
     $params[] = ['type' => 'z', 'value' => null]; // fecha_update
     $params[] = ['type' => 's', 'value' => 'A']; // estado
@@ -589,7 +589,7 @@ function gra_atencion() {
     $cols[] = 'estado';
 
     $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_creo
-    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')]; // fecha_create
+    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))]; // fecha_create
     $params[] = ['type' => 'z', 'value' => null]; // usu_update
     $params[] = ['type' => 'z', 'value' => null]; // fecha_update
     $params[] = ['type' => 's', 'value' => 'A']; // estado

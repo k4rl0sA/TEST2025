@@ -60,7 +60,7 @@ function gra_trasladint() {
     $doc = $_POST['docum'];
     $tipo = $_POST['tip_doc'];
     $usu_creo = $_SESSION['us_sds'];
-    $creo = date('Y-m-d H:i:s', strtotime('+5 hours'));
+    $creo = date('Y-m-d H:i:s', strtotime('-5 hours'));
     $estado = 3;
 
     //Obtener subred del usuario de la sesión

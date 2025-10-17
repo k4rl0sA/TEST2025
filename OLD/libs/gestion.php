@@ -138,8 +138,8 @@ function usuSess(){
   return $usu = isset($_SESSION['us_sds']) ? $_SESSION['us_sds'] : 'Usuario Desconocido';
 }
 function log_error($message) {
-  $timestamp = date('Y-m-d H:i:s');
-  $marca = date('Y-m-d H:i:s'); 
+  $timestamp = date('Y-m-d H:i:s', strtotime('-5 hours'));
+  $marca = date('Y-m-d H:i:s', strtotime('-5 hours')); 
   $logMessage = "[$marca] - ".usuSess()." = $message" . PHP_EOL;
   try {
       file_put_contents(__DIR__ . '/../logs/file.log', $logMessage, FILE_APPEND);

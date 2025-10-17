@@ -465,7 +465,7 @@ function gra_ambient() {
             $params[] = ['type' => 's', 'value' => $_POST[$campo] ?? null];
         }
         $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_creo
-        $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')]; // fecha_create
+        $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))]; // fecha_create
         $params[] = ['type' => 'z', 'value' => null]; // usu_update
         $params[] = ['type' => 'z', 'value' => null]; // fecha_update
         $params[] = ['type' => 's', 'value' => 'A']; // estado
@@ -488,7 +488,7 @@ function gra_ambient() {
         $set[] = "usu_update = ?";
         $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
         $set[] = "fecha_update = ?";
-        $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')];
+        $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))];
         $sql = "UPDATE hog_amb SET " . implode(', ', $set) . " WHERE idamb = ?";
         $params[] = ['type' => 's', 'value' => $id[0]];
         $rta = mysql_prepd($sql, $params);

@@ -141,7 +141,7 @@ function gra_routing(){
         'estado' => 'A'
     );
         $data['usu_create'] = $_SESSION['us_sds'];
-        $data['fecha_create'] = date('Y-m-d H:i:s');
+        $data['fecha_create'] = date('Y-m-d H:i:s', strtotime('-5 hours'));
         $columns = implode(", ", array_keys($data));
         $values = "'" . implode("', '", array_values($data)) . "'";
         $sql = "INSERT INTO eac_ruteo ($columns) VALUES ($values)";

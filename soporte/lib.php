@@ -137,7 +137,7 @@ function gra_soporte() {
             ['type' => 's', 'value' => $_POST['observaciones']],
             ['type' => 'i', 'value' => $_POST['rta']],
             ['type' => 's', 'value' => $_SESSION['us_sds']],
-            ['type' => 's', 'value' => date('Y-m-d H:i:s')],
+            ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))],
             ['type' => 'i', 'value' => $_POST['estado']]
         ];
         $rta = mysql_prepd($sql, $params);
@@ -164,7 +164,7 @@ function gra_soporte() {
             ['type' => 's', 'value' => $_POST['observaciones']],
             ['type' => 'i', 'value' => $_POST['rta']],
             ['type' => 's', 'value' => $_SESSION['us_sds']],
-            ['type' => 's', 'value' => date('Y-m-d H:i:s')],
+            ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))],
             ['type' => 'i', 'value' => $_POST['estado']],
             ['type' => 'i', 'value' => $id]
         ];

@@ -276,7 +276,7 @@ function gra_saludoral(){
       } elseif ($campo == 'usu_update' || $campo == 'fecha_update') {
         $params[] = ['type' => 'z', 'value' => null];
       } elseif ($campo == 'fecha_create') {
-        $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s')];
+        $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))];
       } elseif ($campo == 'estado') {
         $params[] = ['type' => 's', 'value' => 'A'];
       } elseif (in_array($campo, $campos_fecha_null)) {
