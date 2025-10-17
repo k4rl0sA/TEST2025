@@ -108,7 +108,7 @@ function gra_barreras(){
             adm_estado_afiliacion, adm_demora_autorizacion, adm_demora_autorizacion_desc,
             adm_dificultad_citas, adm_dificultad_citas_cual,
             psi_trastorno_emocional, psi_trastorno_emocional_tipo,
-            cul_discriminacion, usu_creo, estado
+            cul_discriminacion, usu_creo,fecha_create,estado
         ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     $params = [
         ['type' => 'i', 'value' => $id[0]],
