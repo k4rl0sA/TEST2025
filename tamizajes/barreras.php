@@ -41,29 +41,39 @@ function cmp_barreras(){
     $c[]=new cmp('id','h',15,$_POST['id'],$w.' '.$o,'','',null,'####',false,false);
     $c[]=new cmp('idpeople','t','20',$d['idpeople'],$w.' '.$o,'N° Identificación','idpeople',null,'',false,false,'','col-2');
     $c[]=new cmp('fecha_toma','d','10',$d['fecha_toma'],$w.' '.$o,'Fecha de la Toma','fecha_toma',null,'',true,true,'','col-2',"validDate(this,$days,0);");
-    $o='Barreras';
+    $o='geograficas';
     $c[]=new cmp($o,'e',null,'Barreras Geográficas',$w);
     $c[]=new cmp('geo_centro_cercano','s','3',$d['geo_centro_cercano'],$w.' '.$o,'Centro de atención en la misma localidad','geo_centro_cercano',null,null,true,true,'','col-10');
     $c[]=new cmp('geo_dificultad_salir','s','3',$d['geo_dificultad_salir'],$w.' '.$o,'Dificultad para salir de la vivienda','geo_dificultad_salir',null,null,true,true,'','col-10');
     $c[]=new cmp('geo_dificultad_acudir','s','3',$d['geo_dificultad_acudir'],$w.' '.$o,'Dificultad para acudir a servicios de salud','geo_dificultad_acudir',null,null,true,true,'','col-10');
     $c[]=new cmp('geo_dificultad_acudir_cual','s','3',$d['geo_dificultad_acudir_cual'],$w.' '.$o,'Razón de la dificultad para acudir','geo_dificultad_acudir_cual',null,null,true,true,'','col-10');
+
+    $o='fisicas';
     $c[]=new cmp($o,'e',null,'Barreras Físicas',$w);
     $c[]=new cmp('fis_limitacion_movilidad','s','3',$d['fis_limitacion_movilidad'],$w.' '.$o,'Limitación física para movilizarse','fis_limitacion_movilidad',null,null,true,true,'','col-10');
     $c[]=new cmp('fis_usa_dispositivo_asistencia','s','3',$d['fis_usa_dispositivo_asistencia'],$w.' '.$o,'Utiliza dispositivo de asistencia','fis_usa_dispositivo_asistencia',null,null,true,true,'','col-10');
     $c[]=new cmp('fis_dispositivo_asistencia_cual','s','3',$d['fis_dispositivo_asistencia_cual'],$w.' '.$o,'Tipo de dispositivo de asistencia','fis_dispositivo_asistencia_cual',null,null,true,true,'','col-10');
+
+    $o='economicas';
     $c[]=new cmp($o,'e',null,'Barreras Económicas',$w);
     $c[]=new cmp('eco_limitacion_costovida','s','3',$d['eco_limitacion_costovida'],$w.' '.$o,'Limitaciones en el costo de vida','eco_limitacion_costovida',null,null,true,true,'','col-10');
     $c[]=new cmp('eco_limitacion_cual','s','3',$d['eco_limitacion_cual'],$w.' '.$o,'Razón de la limitación económica','eco_limitacion_cual',null,null,true,true,'','col-10');
     $c[]=new cmp('eco_dependencia_terceros','s','3',$d['eco_dependencia_terceros'],$w.' '.$o,'Dependencia económica de terceros','eco_dependencia_terceros',null,null,true,true,'','col-10');
+
+    $o='administrativas';
     $c[]=new cmp($o,'e',null,'Barreras Administrativas',$w);
     $c[]=new cmp('adm_estado_afiliacion','s','3',$d['adm_estado_afiliacion'],$w.' '.$o,'Estado de afiliación al SS','adm_estado_afiliacion',null,null,true,true,'','col-10');
     $c[]=new cmp('adm_demora_autorizacion','s','3',$d['adm_demora_autorizacion'],$w.' '.$o,'Demoras en autorizaciones','adm_demora_autorizacion',null,null,true,true,'','col-10');
     $c[]=new cmp('adm_demora_autorizacion_desc','t','255',$d['adm_demora_autorizacion_desc'],$w.' '.$o,'Descripción de la demora','adm_demora_autorizacion_desc',null,null,true,true,'','col-10');
     $c[]=new cmp('adm_dificultad_citas','s','3',$d['adm_dificultad_citas'],$w.' '.$o,'Dificultad en asignación de citas','adm_dificultad_citas',null,null,true,true,'','col-10');
     $c[]=new cmp('adm_dificultad_citas_cual','s','3',$d['adm_dificultad_citas_cual'],$w.' '.$o,'Razón de la dificultad con citas','adm_dificultad_citas_cual',null,null,true,true,'','col-10');
+
+    $o='psicosociales';
     $c[]=new cmp($o,'e',null,'Barreras Psicosociales',$w);
     $c[]=new cmp('psi_trastorno_emocional','s','3',$d['psi_trastorno_emocional'],$w.' '.$o,'Trastornos emocionales','psi_trastorno_emocional',null,null,true,true,'','col-10');
     $c[]=new cmp('psi_trastorno_emocional_tipo','t','255',$d['psi_trastorno_emocional_tipo'],$w.' '.$o,'Tipo de trastorno emocional','psi_trastorno_emocional_tipo',null,null,true,true,'','col-10');
+    
+    $o='culturales';
     $c[]=new cmp($o,'e',null,'Barreras Culturales',$w);
     $c[]=new cmp('cul_discriminacion','s','3',$d['cul_discriminacion'],$w.' '.$o,'Discriminación percibida','cul_discriminacion',null,null,true,true,'','col-10');
     for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
