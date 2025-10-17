@@ -134,7 +134,7 @@ function gra_barreras(){
         ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))],
         ['type' => 's', 'value' => 'A']
     ];
-   show_sql($sql, $params);
+   return show_sql($sql, $params);
     $rta = mysql_prepd($sql, $params);
      return $rta;
 }
