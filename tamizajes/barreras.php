@@ -30,7 +30,7 @@ function cmp_barreras(){
     $rta="<div class='encabezado barreras'>BARRERAS DE ACCESO A LA SALUD</div><div class='contenido' id='barreras-lis'>".lis_barreras()."</div></div>";
     $t=['idpeople'=>'','fecha_toma'=>'','geo_centro_cercano'=>'','geo_dificultad_salir'=>'','geo_dificultad_acudir'=>'','geo_dificultad_acudir_cual'=>'','fis_limitacion_movilidad'=>'','fis_usa_dispositivo_asistencia'=>'','fis_dispositivo_asistencia_cual'=>'','eco_limitacion_costovida'=>'','eco_limitacion_cual'=>'','eco_dependencia_terceros'=>'','adm_estado_afiliacion'=>'','adm_demora_autorizacion'=>'','adm_demora_autorizacion_desc'=>'','adm_dificultad_citas'=>'','adm_dificultad_citas_cual'=>'','psi_trastorno_emocional'=>'','psi_trastorno_emocional_tipo'=>'','cul_discriminacion'=>''];
     $w='barreras';
-    // $d=get_barreras(); 
+    $d=get_barreras(); 
     $d="";
     if ($d=="") {$d=$t;}
     $o='datos';
@@ -84,19 +84,21 @@ function cmp_barreras(){
 }
 
 function get_barreras(){
-   /*  if($_POST['id']==0){
-        return "";
-    }else{
-        $id=divide($_POST['id']);
-        $sql="SELECT * FROM barreras_acceso_salud WHERE idpeople='".$id[0]."' ORDER BY fecha_create DESC LIMIT 1";
-        $info=datos_mysql($sql);
-        if(!empty($info['responseResult'])){
-            return $info['responseResult'][0];
-        }else{
-            return "";
-        }
-    } */
-}
+	if($_POST['id']==0){
+		return "";
+	}else{
+		 $id=divide($_POST['id']);
+		// print_r($_POST);
+		$sql="SELECT P.idpeople,P.idpersona idpersona,P.tipo_doc tipodoc,
+        concat_ws(' ',P.nombre1,P.nombre2,P.apellido1,P.apellido2) nombre,P.fecha_nacimiento fechanacimiento,
+        TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, CURDATE()) AS edad
+		FROM person P
+		WHERE P.idpeople ='{$id[0]}'";
+		// echo $sql; 
+		$info=datos_mysql($sql);
+				return $info['responseResult'][0];
+		}
+	} 
 
 function gra_barreras(){
     $id=divide($_POST['id']);
