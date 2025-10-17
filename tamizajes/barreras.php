@@ -30,7 +30,8 @@ function cmp_barreras(){
     $rta="<div class='encabezado barreras'>BARRERAS DE ACCESO A LA SALUD</div><div class='contenido' id='barreras-lis'>".lis_barreras()."</div></div>";
     $t=['idpeople'=>'','fecha_toma'=>'','geo_centro_cercano'=>'','geo_dificultad_salir'=>'','geo_dificultad_acudir'=>'','geo_dificultad_acudir_cual'=>'','fis_limitacion_movilidad'=>'','fis_usa_dispositivo_asistencia'=>'','fis_dispositivo_asistencia_cual'=>'','eco_limitacion_costovida'=>'','eco_limitacion_cual'=>'','eco_dependencia_terceros'=>'','adm_estado_afiliacion'=>'','adm_demora_autorizacion'=>'','adm_demora_autorizacion_desc'=>'','adm_dificultad_citas'=>'','adm_dificultad_citas_cual'=>'','psi_trastorno_emocional'=>'','psi_trastorno_emocional_tipo'=>'','cul_discriminacion'=>''];
     $w='barreras';
-    $d=get_barreras(); 
+    // $d=get_barreras(); 
+    $d="";
     if ($d=="") {$d=$t;}
     $o='datos';
     $days=fechas_app('psicologia');
