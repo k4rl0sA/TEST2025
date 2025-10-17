@@ -73,7 +73,7 @@ function cmp_barreras(){
     $o='psicosociales';
     $c[]=new cmp($o,'e',null,'Barreras Psicosociales',$w);
     $c[]=new cmp('psi_trastorno_emocional','s','3','',$w.' '.$o,'Ha presentado transtornos emocionales?','rta',null,null,true,true,'','col-10');
-    $c[]=new cmp('psi_trastorno_emocional_tipo','t','255','',$w.' '.$o,'Tipo de transtorno','psi_trastorno_emocional_tipo',null,null,true,true,'','col-10');
+    $c[]=new cmp('psi_trastorno_emocional_tipo','s','255','',$w.' '.$o,'Tipo de transtorno','psi_trastorno_emocional_tipo',null,null,true,true,'','col-10');
     
     $o='culturales';
     $c[]=new cmp($o,'e',null,'Barreras Culturales',$w);
