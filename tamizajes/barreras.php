@@ -135,7 +135,7 @@ function gra_barreras(){
         ['type' => 's', 'value' => 'A']
     ];
    show_sql($sql, $params);
-    // $rta = mysql_prepd($sql, $params);
+    $rta = mysql_prepd($sql, $params);
      return $rta;
 }
 
