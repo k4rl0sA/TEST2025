@@ -20,10 +20,10 @@ else {
 }
 
 function lis_barreras(){
-    $id=divide($_POST['id']);
+   /*  $id=divide($_POST['id']);
     $sql="SELECT id_barrera 'Cod Registro',fecha_toma,geo_centro_cercano,geo_dificultad_salir,geo_dificultad_acudir,fis_limitacion_movilidad,eco_limitacion_costovida,adm_estado_afiliacion,psi_trastorno_emocional,cul_discriminacion,usu_creo,fecha_create FROM barreras_acceso_salud WHERE idpeople='".$id[0]."' ORDER BY fecha_create DESC";
     $datos=datos_mysql($sql);
-    return panel_content($datos["responseResult"],"barreras-lis",5);
+    return panel_content($datos["responseResult"],"barreras-lis",5); */
 }
 
 function cmp_barreras(){
@@ -100,7 +100,7 @@ function get_barreras(){
 }
 
 function gra_barreras(){
-    $id=divide($_POST['id']);
+  /*   $id=divide($_POST['id']);
     $sql = "INSERT INTO barreras_acceso_salud (
         idpeople, fecha_toma, geo_centro_cercano, geo_dificultad_salir, geo_dificultad_acudir, geo_dificultad_acudir_cual,
         fis_limitacion_movilidad, fis_usa_dispositivo_asistencia, fis_dispositivo_asistencia_cual,
@@ -138,7 +138,7 @@ function gra_barreras(){
         ['type' => 's', 'value' => 'A']
     ];
     $rta = mysql_prepd($sql, $params);
-    return $rta;
+    return $rta; */
 }
 
 function post_or_null($key) {
