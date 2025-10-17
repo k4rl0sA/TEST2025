@@ -155,6 +155,9 @@ function opc_psi_trastorno_emocional_tipo($id=''){
  function opc_geo_centro_cercano($id=''){
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=307 and estado='A' ORDER BY 1",$id);
 }
+function opc_geo_dificultad_salir($id=''){
+    return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=308 and estado='A' ORDER BY 1",$id);
+}
 // Menú y encabezado
 function focus_barreras(){
     return 'barreras';
