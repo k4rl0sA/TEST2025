@@ -166,15 +166,16 @@ function opc_eco_limitacion_cual($id=''){
 function opc_adm_estado_afiliacion($id=''){
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=304 and estado='A' ORDER BY 1",$id);
 }
+function opc_adm_dificultad_citas_cual($id=''){
+    return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=305 and estado='A' ORDER BY 1",$id);
+}
 /* function opc_geo_dificultad_acudir_cual($id=''){
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=301 and estado='A' ORDER BY 1",$id);
 }
 
 
 
-function opc_adm_dificultad_citas_cual($id=''){
-    return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=305 and estado='A' ORDER BY 1",$id);
-}
+
 function opc_psi_trastorno_emocional_tipo($id=''){
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=306 and estado='A' ORDER BY 1",$id);
 }
