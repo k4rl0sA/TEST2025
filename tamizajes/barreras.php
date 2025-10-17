@@ -169,32 +169,7 @@ function opc_adm_estado_afiliacion($id=''){
 function opc_adm_dificultad_citas_cual($id=''){
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=305 and estado='A' ORDER BY 1",$id);
 }
-/* function opc_geo_dificultad_acudir_cual($id=''){
-    return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=301 and estado='A' ORDER BY 1",$id);
-}
 
-
-
-
-function opc_psi_trastorno_emocional_tipo($id=''){
-    return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=306 and estado='A' ORDER BY 1",$id);
-}
- function opc_geo_centro_cercano($id=''){
-    return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=307 and estado='A' ORDER BY 1",$id);
-}
-function opc_geo_dificultad_salir($id=''){
-    return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=308 and estado='A' ORDER BY 1",$id);
-}
-
-function opc_fis_limitacion_movilidad($id=''){
-    return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=310 and estado='A' ORDER BY 1",$id);
-}
-function opc_fis_usa_dispositivo_asistencia($id=''){
-    return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=311 and estado='A' ORDER BY 1",$id);
-}
-function opc_fis_usa_dispositivo_asistencia($id=''){
-    return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=311 and estado='A' ORDER BY 1",$id);
-} */ 
 // Menú y encabezado
 function focus_barreras(){
     return 'barreras';
