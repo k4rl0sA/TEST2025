@@ -45,7 +45,7 @@ function cmp_barreras(){
 	$c[]=new cmp('fecha_toma','d','10','',$w.' '.$o,'fecha de la Toma','fecha_toma',null,'',true,true,'','col-2',"validDate(this,$days,0);");
     $o='geograficas';
     $c[]=new cmp($o,'e',null,'Barreras Geográficas',$w);
-    $c[]=new cmp('geo_centro_cercano','s','3','',$w.' '.$o,'Centro de atención en la misma localidad','geo_centro_cercano',null,null,true,true,'','col-10');
+    $c[]=new cmp('geo_centro_cercano','s','3','',$w.' '.$o,'El centro de atención en salud está ubicado en la misma localidad de su vivienda?','rta',null,null,true,true,'','col-10');
     $c[]=new cmp('geo_dificultad_salir','s','3','',$w.' '.$o,'Dificultad para salir de la vivienda','geo_dificultad_salir',null,null,true,true,'','col-10');
     $c[]=new cmp('geo_dificultad_acudir','s','3','',$w.' '.$o,'Dificultad para acudir a servicios de salud','geo_dificultad_acudir',null,null,true,true,'','col-10');
     $c[]=new cmp('geo_dificultad_acudir_cual','s','3','',$w.' '.$o,'Razón de la dificultad para acudir','geo_dificultad_acudir_cual',null,null,true,true,'','col-10');
