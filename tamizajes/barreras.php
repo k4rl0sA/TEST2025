@@ -37,8 +37,8 @@ function cmp_barreras(){
     $c=[];
     $c[]=new cmp($o,'e',null,'DATOS DE IDENTIFICACIÓN',$w);
     $c[]=new cmp('id','h',15,$_POST['id'],$w.' '.$o,'','',null,'####',false,false);
-    $c[]=new cmp('idpersona','n','20',$d['idpersona'],$w.' '.$o.' '.$key,'N° Identificación','idpersona',null,'',false,false,'','col-2');
-	$c[]=new cmp('tipodoc','s','3',$d['tipodoc'],$w.' '.$o.' '.$key,'Tipo Identificación','tipodoc',null,'',false,false,'','col-2','getDatForm(\'srch\',\'person\',[\'datos\']);');
+    $c[]=new cmp('idpersona','n','20',$d['idpersona'],$w.' '.$o,'N° Identificación','idpersona',null,'',false,false,'','col-2');
+	$c[]=new cmp('tipodoc','s','3',$d['tipodoc'],$w.' '.$o,'Tipo Identificación','tipodoc',null,'',false,false,'','col-2','getDatForm(\'srch\',\'person\',[\'datos\']);');
 	$c[]=new cmp('nombre','t','50',$d['nombre'],$w.' '.$o,'nombres','nombre',null,'',false,false,'','col-3');
 	$c[]=new cmp('fechanacimiento','d','10',$d['fechanacimiento'],$w.' '.$o,'fecha nacimiento','fechanacimiento',null,'',false,false,'','col-2');
     $c[]=new cmp('edad','n','3',$d['edad'],$w.' '.$o,'edad','edad',null,'',true,false,'','col-1');
