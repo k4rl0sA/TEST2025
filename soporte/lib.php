@@ -234,7 +234,7 @@ function formato_dato($a, $b, $c, $d) {
                     'icono' => 'fa-solid fa-thumbs-up',
                     'clase' => 'ico',
                     'title' => 'Aprobar Interlocal',
-                    'permiso' => acceso('soporte'),
+                    'permiso' => acceso('interlocal'),
                     'hash' => myhash($c['ACCIONES']),
                     'evento' => '',
                 ],
