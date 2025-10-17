@@ -100,7 +100,7 @@ function get_barreras(){
 }
 
 function gra_barreras(){
-  /*   $id=divide($_POST['id']);
+    $id=divide($_POST['id']);
     $sql = "INSERT INTO barreras_acceso_salud (
         idpeople, fecha_toma, geo_centro_cercano, geo_dificultad_salir, geo_dificultad_acudir, geo_dificultad_acudir_cual,
         fis_limitacion_movilidad, fis_usa_dispositivo_asistencia, fis_dispositivo_asistencia_cual,
@@ -138,7 +138,7 @@ function gra_barreras(){
         ['type' => 's', 'value' => 'A']
     ];
     $rta = mysql_prepd($sql, $params);
-    return $rta; */
+    return $rta;
 }
 
 function post_or_null($key) {
