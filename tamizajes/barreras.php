@@ -167,6 +167,9 @@ function opc_fis_limitacion_movilidad($id=''){
 function opc_fis_usa_dispositivo_asistencia($id=''){
     return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=311 and estado='A' ORDER BY 1",$id);
 }
+function opc_fis_usa_dispositivo_asistencia($id=''){
+    return opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=311 and estado='A' ORDER BY 1",$id);
+} 
 // Menú y encabezado
 function focus_barreras(){
     return 'barreras';
