@@ -199,7 +199,7 @@ if (!isset($_SESSION["us_sds"])){ die("<script>window.top.location.href = '/';</
 $mod='agendamiento';
 $ya = new DateTime();
 $estados=opc_sql("select idcatadeta,descripcion from catadeta where idcatalogo=276 and estado='A' order by 1",'');
-$digitadores=opc_sql("SELECT `id_usuario`,nombre FROM `usuarios` WHERE`perfil`='DIGITADOR' AND estado='A' AND subred=(select subred from usuarios where id_usuario='{$_SESSION['us_sds']}') ORDER BY 1",$_SESSION["us_sds"]); 
+$digitadores=opc_sql("SELECT `id_usuario`,nombre FROM `usuarios` WHERE `perfil`IN ('DIGITADOR','GLINE') AND estado='A' AND subred=(select subred from usuarios where id_usuario='{$_SESSION['us_sds']}') ORDER BY 1",$_SESSION["us_sds"]); 
 ?>
 
 <form method='post' id='fapp' >
