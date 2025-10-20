@@ -218,9 +218,10 @@ function men_tamsoledad(){
 function cap_menus($a,$b='cap',$con='con') {
     $rta = ""; 
     $acc=rol($a);
-    if ($a=='tamsoledad'  && isset($acc['crear']) && $acc['crear']=='SI'){  
+    $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
+    /* if ($a=='tamsoledad'  && isset($acc['crear']) && $acc['crear']=='SI'){  
      $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
-    }
+    } */
     return $rta;
 }
    
