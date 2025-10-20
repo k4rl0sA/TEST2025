@@ -287,7 +287,7 @@ function opc_tipo_doc($id=''){
 }
 
 function opc_respuesta_soledad($id=''){
-    return opc_sql("SELECT `valor`,descripcion FROM `catadeta` WHERE idcatalogo=171 and estado='A' ORDER BY 1",$id);
+    return opc_sql("SELECT `valor`,descripcion FROM `catadeta` WHERE idcatalogo=173 and estado='A' ORDER BY 1",$id);
 }
 
 function opc_tiempo_aislamiento($id=''){
