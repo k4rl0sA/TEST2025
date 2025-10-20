@@ -1680,17 +1680,27 @@ LEFT JOIN usuarios U1 ON A.usu_update = U1.id_usuario WHERE 1 ";
 }
 
 function lis_atencion($txt){
-	$sql="SELECT 
-G.subred AS Subred, G.localidad AS Localidad, G.territorio AS 'Cod Territorio', FN_CATALOGODESC(283,G.territorio) AS 'Nombre Territorio', G.idgeo AS Cod_predio, F.id_fam AS Cod_Familia,
-P.idpeople AS Cod_Persona, P.tipo_doc AS Tipo_Documento, P.idpersona AS N°_Docuumento, CONCAT(P.nombre1, ' ', P.nombre2) AS Nombres_Usuario,CONCAT(P.apellido1, ' ', P.apellido2) AS Apellidos_Usuario,P.fecha_nacimiento AS Fecha_Nacimiento,FN_CATALOGODESC(21,P.sexo) AS Sexo, FN_CATALOGODESC(30,P.nacionalidad) AS Nacionalidad, FN_CATALOGODESC(16,P.etnia) AS Etnia,FN_CATALOGODESC(15,P.pueblo) AS Pueblo_Etnia, FN_CATALOGODESC(14,P.discapacidad) AS Tipo_Discapacidad, FN_CATALOGODESC(17,P.regimen) AS Regimen, FN_CATALOGODESC(18,P.eapb) AS Eapb,
-A.id_aten AS Cod_Registro, A.id_factura AS Cod_Admision, A.fecha_atencion AS Fecha_Consulta, FN_CATALOGODESC(182,A.tipo_consulta) AS Tipo_Consulta, FN_CATALOGODESC(126,A.codigo_cups) AS Codigo_CUPS, FN_CATALOGODESC(127,A.finalidad_consulta) AS Finalidad_Consulta, FN_DESC(3,A.diagnostico1) AS DX1,FN_DESC(3,A.diagnostico2) AS DX2, FN_DESC(3,A.diagnostico3) AS DX3, A.fertil AS '¿Mujer_Edad_Fertil?', A.preconcepcional AS '¿Consulta_Preconsecional?', A.metodo AS '¿Metodo_Planificacion?', FN_CATALOGODESC(129,A.anticonceptivo) AS '¿Cua_Metodo?', A.planificacion AS Planificacion,A.mestruacion AS Fur,
-A.vih AS Prueba_VIH, FN_CATALOGODESC(187,A.resul_vih) AS Resultado_VIH, A.hb AS Prueba_HB, FN_CATALOGODESC(188,A.resul_hb) AS Resultado_HB, A.trepo_sifil AS Trepomina_Sifilis, FN_CATALOGODESC(188,A.resul_sifil) AS Resultado_Trepo_Sifilis, A.pru_embarazo AS Prueba_Embarazo, FN_CATALOGODESC(88,A.resul_emba) AS Resultado_Embarazo, A.pru_apetito AS Prueba_Apetito, A.resul_apetito AS Resultado_Apetito,
-A.orden_psicologia AS Orden_Psicologia, A.relevo AS Aplica_Relevo, FN_CATALOGODESC(203,A.estrategia) AS Estrategia, FN_CATALOGODESC(236,A.motivo_estrategia) AS Motivo_Estrategia,
-A.usu_creo AS Cod_Usuario, U.nombre AS Nombre_Usuario, U.perfil AS Perfil_Usuario, A.fecha_create AS Fecha_Creacion, A.estado AS Estado_Registro
-
-FROM `eac_atencion` A
+	$sql="SELECT   G.subred AS Subred,G.localidad AS Localidad,G.idgeo AS Cod_predio,F.id_fam AS Cod_Familia,P.idpeople AS Cod_Persona,P.tipo_doc AS Tipo_Documento,P.idpersona AS N°_Documento,CONCAT(P.nombre1, ' ', P.nombre2) AS Nombres_Usuario,CONCAT(P.apellido1, ' ', P.apellido2) AS Apellidos_Usuario,P.fecha_nacimiento AS Fecha_Nacimiento,FN_CATALOGODESC(21, P.sexo) AS Sexo,FN_CATALOGODESC(30, P.nacionalidad) AS Nacionalidad,FN_CATALOGODESC(16, P.etnia) AS Etnia,FN_CATALOGODESC(15, P.pueblo) AS Pueblo_Etnia,FN_CATALOGODESC(14, P.discapacidad) AS Tipo_Discapacidad,FN_CATALOGODESC(17, P.regimen) AS Regimen,FN_CATALOGODESC(18, P.eapb) AS Eapb,A.id_aten AS Cod_Registro,A.id_factura AS Cod_Factura,A.fecha_atencion AS Fecha_Consulta,FN_CATALOGODESC(182, A.tipo_consulta) AS Tipo_Consulta,FN_CATALOGODESC(126, A.codigo_cups) AS Codigo_CUPS,FN_CATALOGODESC(127, A.finalidad_consulta) AS Finalidad_Consulta,A.fecha_ingr AS Fecha_Ingreso,FN_CATALOGODESC(236, A.fuente)AS Fuente,FN_DESC(3, A.diagnostico1) AS DX1,FN_DESC(3, A.diagnostico2) AS DX2,FN_DESC(3, A.diagnostico3) AS DX3,A.vih AS Prueba_VIH,FN_CATALOGODESC(187, A.resul_vih) AS Resultado_VIH,A.hb AS Prueba_HB,FN_CATALOGODESC(188, A.resul_hb) AS Resultado_HB,A.trepo_sifil AS Trepomina_Sifilis,FN_CATALOGODESC(188, A.resul_sifil) AS Resultado_Trepo_Sifilis,
+   A.pru_embarazo AS Prueba_Embarazo,
+   FN_CATALOGODESC(88, A.resul_emba) AS Resultado_Embarazo,
+   A.pru_apetito AS Prueba_Apetito,
+   A.resul_apetito AS Resultado_Apetito,
+   A.laboratorios AS Laboratorios,
+   A.medicamentos AS Medicamentos,
+   A.n_superficie AS N_Superficie,
+   A.n_placa_superf AS N_Placa_Superficie,
+   A.resultado_placa AS Resultado_Placa,
+   A.psico_1 AS Psico_1,
+   A.psico_2 AS Psico_2,
+   A.psico_3 AS Psico_3,
+   A.usu_creo AS Cod_Usuario,
+   U.nombre AS Nombre_Usuario,
+   U.perfil AS Perfil_Usuario,
+   U.componente AS Componente,
+   A.fecha_create AS Fecha_Creacion
+FROM eac_atencion A
 LEFT JOIN person P ON A.idpeople = P.idpeople
-LEFT JOIN hog_fam F ON P.vivipersona =  F.id_fam
+LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
 LEFT JOIN hog_geo G ON F.idpre = G.idgeo
 LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario WHERE 1 ";
 	if (perfilUsu()!=='ADM')	$sql.=whe_subred12();
