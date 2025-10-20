@@ -195,7 +195,7 @@ function opc_tdocit($id=''){
 		[0, 5, 1],
 		[6, 11, 2],
 		[12, 17, 3],
-		[21, 26, 5],
+		[18, 28, 5],
 		[29, 59, 4],
 		[60, 999, 6]
 	];
@@ -214,8 +214,13 @@ function opc_tdocit($id=''){
 		if ($edad >= 0 && $edad <18) $categorias[] = 24;
 		if ($edad >= 50)$categorias[] = 16;
 		if ($edad > 18)$categorias[] = 20;
-	  if ($edad >=10 && $edad <= 59)$categorias[] = 11;
-		
+	  	if ($edad >=10 && $edad <= 59)$categorias[] = 11;
+		if($edad<=18){
+			$categorias[] = 45;
+			$categorias[] = 46;
+		}
+
+
 	  if ($sexo === 'M') { // Mujer
 		if ($edad >= 25 && $edad <= 69) $categorias[] = 14;
 		if ($edad >= 50 && $edad <= 69) $categorias[] = 12;
@@ -229,7 +234,7 @@ function opc_tdocit($id=''){
 		if ($edad >= 50 && $edad <= 75) $categorias[] = 13;
 	  }
 		
-		$categorias_comunes = [9,10,15,17,18,21,22,23,25,26,27,28,29,31,32,33,34,37,38,39,40,41,42,43,44];
+		$categorias_comunes = [9,10,15,17,18,21,22,23,25,26,27,28,29,31,32,33,34,37,38,39,40,41,42,43,44,47];
 	$categorias = array_unique(array_merge($categorias, $categorias_comunes));
 	$lista = implode(',', $categorias);
 	$sql = "SELECT idcatadeta, descripcion
