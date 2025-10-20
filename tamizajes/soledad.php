@@ -285,11 +285,9 @@ function gra_tamsoledad(){
 function opc_tipo_doc($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 1",$id);
 }
-
 function opc_respuesta_soledad($id=''){
     return opc_sql("SELECT `valor`,descripcion FROM `catadeta` WHERE idcatalogo=173 and estado='A' ORDER BY 1",$id);
 }
-
 function opc_tiempo_aislamiento($id=''){
     return opc_sql("SELECT `valor`,descripcion FROM `catadeta` WHERE idcatalogo=172 and estado='A' ORDER BY 1",$id);
 }
