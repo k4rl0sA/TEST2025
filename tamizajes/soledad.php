@@ -75,7 +75,7 @@ function lis_soledad(){
 
 function cmp_tamsoledad(){
     $rta="<div class='encabezado soledad'>TABLA SOLEDAD</div><div class='contenido' id='tasoledad-lis'>".lis_soledad()."</div></div>";
-    $a=['id_soledad'=>'','soledad'=>'','confianza'=>'','compañia'=>'','vacio'=>'','amistades'=>'','conversacion'=>'','insatisfaccion'=>'','apoyo'=>'','integracion'=>'','pertenencia'=>'','reconocimiento'=>'','valoracion'=>'','aislamiento'=>'','puntaje_total'=>'','descripcion'=>''];
+    $a=['id_soledad'=>'','soledad'=>'','confianza'=>'','compania'=>'','vacio'=>'','amistades'=>'','conversacion'=>'','insatisfaccion'=>'','apoyo'=>'','integracion'=>'','pertenencia'=>'','reconocimiento'=>'','valoracion'=>'','aislamiento'=>'','puntaje_total'=>'','descripcion'=>''];
     $p=['id_soledad'=>'','idpersona'=>'','tipo_doc'=>'','nombre'=>'','fechanacimiento'=>'','edad'=>'','puntaje_total'=>'','descripcion'=>''];
     $w='tamsoledad';
     $d=get_tsoledad();
@@ -98,7 +98,7 @@ function cmp_tamsoledad(){
     $c[]=new cmp($o,'e',null,'TAMIZAJE DE SOLEDAD - DIMENSIÓN ÍNTIMA',$w);
     $c[]=new cmp('soledad','s','3','',$w.' '.$o,'Me siento solo/a aunque esté acompañado/a','respuesta_soledad',null,null,true,true,'','col-12');
     $c[]=new cmp('confianza','s','3','',$w.' '.$o,'Siento que no tengo a alguien con quien hablar de mis sentimientos o preocupaciones','respuesta_soledad',null,null,true,true,'','col-12');
-    $c[]=new cmp('compañia','s','3','',$w.' '.$o,'Echo de menos la compañía de personas cercanas','respuesta_soledad',null,null,true,true,'','col-12');
+    $c[]=new cmp('compania','s','3','',$w.' '.$o,'Echo de menos la compañía de personas cercanas','respuesta_soledad',null,null,true,true,'','col-12');
     $c[]=new cmp('vacio','s','3','',$w.' '.$o,'Me siento vacío/a emocionalmente','respuesta_soledad',null,null,true,true,'','col-12');
 
     $o=' cuestionario2';
@@ -140,7 +140,7 @@ function get_tamsoledad() {
             P.fecha_nacimiento AS fechanacimiento,
             YEAR(CURDATE()) - YEAR(P.fecha_nacimiento) AS edad,
             A.fecha_toma, 
-            A.soledad,A.confianza,A.compañia,A.vacio,A.amistades,A.conversacion,A.insatisfaccion,A.apoyo,A.integracion,A.pertenencia,A.reconocimiento,A.valoracion,A.aislamiento,
+            A.soledad,A.confianza,A.compania,A.vacio,A.amistades,A.conversacion,A.insatisfaccion,A.apoyo,A.integracion,A.pertenencia,A.reconocimiento,A.valoracion,A.aislamiento,
             A.puntaje_total, A.descripcion
             FROM hog_tam_soledad A
             LEFT JOIN person P ON A.idpeople = P.idpeople
@@ -160,7 +160,7 @@ function get_tamsoledad() {
     ];
 
     $camposSoledad = [
-        'soledad','confianza','compañia','vacio','amistades','conversacion','insatisfaccion','apoyo','integracion','pertenencia','reconocimiento','valoracion','aislamiento','puntaje_total','descripcion'
+        'soledad','confianza','compania','vacio','amistades','conversacion','insatisfaccion','apoyo','integracion','pertenencia','reconocimiento','valoracion','aislamiento','puntaje_total','descripcion'
     ];
     foreach ($camposSoledad as $campo) {
         $baseData[$campo] = $data[$campo];
@@ -174,7 +174,7 @@ function get_tsoledad(){
     }else{
          $id=divide($_POST['id']);
         $sql="SELECT id_soledad,O.idpeople,
-        soledad,confianza,compañia,vacio,amistades,conversacion,insatisfaccion,apoyo,integracion,pertenencia,reconocimiento,valoracion,aislamiento,puntaje_total,descripcion,
+        soledad,confianza,compania,vacio,amistades,conversacion,insatisfaccion,apoyo,integracion,pertenencia,reconocimiento,valoracion,aislamiento,puntaje_total,descripcion,
         O.estado,P.idpersona,P.tipo_doc,P.sexo,concat_ws(' ',P.nombre1,P.nombre2,P.apellido1,P.apellido2) nombre,P.fecha_nacimiento fechanacimiento,YEAR(CURDATE())-YEAR(P.fecha_nacimiento) edad
         FROM `hog_tam_soledad` O
         LEFT JOIN person P ON O.idpeople = P.idpeople
@@ -230,7 +230,7 @@ function gra_tamsoledad(){
         return "No es posible actualizar el tamizaje";
     }else{
         // Calcular puntaje para cada dimensión
-        $intima = intval($_POST['soledad']) + intval($_POST['confianza']) + intval($_POST['compañia']) + intval($_POST['vacio']);
+        $intima = intval($_POST['soledad']) + intval($_POST['confianza']) + intval($_POST['compania']) + intval($_POST['vacio']);
         $relacional = intval($_POST['amistades']) + intval($_POST['conversacion']) + intval($_POST['insatisfaccion']) + intval($_POST['apoyo']);
         $colectiva = intval($_POST['integracion']) + intval($_POST['pertenencia']) + intval($_POST['reconocimiento']) + intval($_POST['valoracion']);
         $aislamiento_puntaje = intval($_POST['aislamiento']);
@@ -258,7 +258,7 @@ function gra_tamsoledad(){
             ['type' => 's', 'value' => $_POST['fecha_toma']], // fecha_toma
             ['type' => 's', 'value' => $_POST['soledad']], // soledad
             ['type' => 's', 'value' => $_POST['confianza']], // confianza
-            ['type' => 's', 'value' => $_POST['compañia']], // Compañia
+            ['type' => 's', 'value' => $_POST['compania']], // compania
             ['type' => 's', 'value' => $_POST['vacio']], // vacio
             ['type' => 's', 'value' => $_POST['amistades']], // amistades
             ['type' => 's', 'value' => $_POST['conversacion']], // conversacion
