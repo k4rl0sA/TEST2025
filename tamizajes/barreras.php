@@ -22,7 +22,7 @@ else {
 function lis_barreras(){
     $id=divide($_POST['id']);
     $sql="SELECT id_barrera 'Cod Registro',fecha_toma,`nombre` Creó,`fecha_create` 'fecha Creó' 
-    FROM hog_tam_barreras 
+    FROM hog_tam_barreras A 
     LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
     WHERE idpeople='".$id[0]."' ORDER BY fecha_create DESC";
     $datos=datos_mysql($sql);
