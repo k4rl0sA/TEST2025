@@ -101,16 +101,16 @@ function get_barreras(){
 
 function gra_barreras(){
     $id=divide($_POST['id']);
-       $sql = "INSERT INTO hog_tam_barreras (
+        $sql = "INSERT INTO hog_tam_barreras (
             idpeople, fecha_toma, geo_centro_cercano, geo_dificultad_salir, geo_dificultad_acudir,
             fis_limitacion_movilidad, fis_usa_dispositivo_asistencia, fis_dispositivo_asistencia_cual,
             eco_limitacion_costovida, eco_limitacion_cual, eco_dependencia_terceros,
             adm_estado_afiliacion, adm_demora_autorizacion, adm_demora_autorizacion_desc,
             adm_dificultad_citas, adm_dificultad_citas_cual,
             psi_trastorno_emocional, psi_trastorno_emocional_tipo,
-            cul_discriminacion, usu_creo,fecha_create,estado
-        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    $params = [
+            cul_discriminacion, usu_creo, fecha_create, estado
+        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+   $params = [
         ['type' => 'i', 'value' => $id[0]],
         ['type' => 's', 'value' => post_or_null('fecha_toma')],
         ['type' => 's', 'value' => post_or_null('geo_centro_cercano')],
