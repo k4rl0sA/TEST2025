@@ -21,7 +21,10 @@ else {
 
 function lis_barreras(){
     $id=divide($_POST['id']);
-    $sql="SELECT id_barrera 'Cod Registro',fecha_toma,geo_centro_cercano,geo_dificultad_salir,geo_dificultad_acudir,fis_limitacion_movilidad,eco_limitacion_costovida,adm_estado_afiliacion,psi_trastorno_emocional,cul_discriminacion,usu_creo,fecha_create FROM hog_tam_barreras WHERE idpeople='".$id[0]."' ORDER BY fecha_create DESC";
+    $sql="SELECT id_barrera 'Cod Registro',fecha_toma,`nombre` Creó,`fecha_create` 'fecha Creó' 
+    FROM hog_tam_barreras 
+    LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
+    WHERE idpeople='".$id[0]."' ORDER BY fecha_create DESC";
     $datos=datos_mysql($sql);
     return panel_content($datos["responseResult"],"barreras-lis",5);
 }
