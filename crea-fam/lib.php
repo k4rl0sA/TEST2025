@@ -845,6 +845,9 @@ function get_Tamiz($fec) {
 	if ($edad >= 40) {
 		$tamiz[] = 'tamepoc';
 	}
+	if($edad>=60){
+		$tamiz[] = 'tamsoledad';
+	}
 	return $tamiz;
 }
 
@@ -1083,6 +1086,10 @@ function formato_dato($a,$b,$c,$d){
 			$rta .= acceso('servagen') ? "<li title='Servicio de Agendamiento' onclick=\"mostrar('servagen','pro',event,'','../agendamient/serage.php',7,'Servicio de Agendamiento');Color('datos-lis');\"><i class=' fa-solid fa-square-phone ico' id='{$c['ACCIONES']}'></i></li>":"";
 
 			$rta .="<li title='Barreras' Onclick=\"mostrar('barreras','pro',event,'','../tamizajes/barreras.php',7,'barreras');Color('datos-lis');\"><i class='fa-solid fa-road-barrier ico' id='".$c['ACCIONES']."'></i> </li>";
+
+			if (is_array($tamiz) && in_array('tamsoledad', $tamiz)) {
+				$rta .= acceso('tamsoledad') ? "<li title='Soledad Social' onclick=\"mostrar('tamsoledad','pro',event,'','../tamizajes/soledad.php',7,'Soledad Social');Color('datos-lis');\"><i class='fa-solid fa-skull-crossbones ico' id='{$c['ACCIONES']}'></i></li>":"";
+			}
 
 			if (is_array($tamiz) && in_array('tamvalories', $tamiz)) {
 				$rta .= acceso('tamvalories') ? "<li title='Valoración del Riesgo' onclick=\"mostrar('tamvalories','pro',event,'','../tamizajes/valoriesg.php',7,'Valoración del Riesgo');Color('datos-lis');\"><i class='fa-solid fa-skull-crossbones ico' id='{$c['ACCIONES']}'></i></li>":"";
