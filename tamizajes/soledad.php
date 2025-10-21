@@ -289,14 +289,12 @@ function opc_tipo_doc($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 1",$id);
 }
 function opc_respuesta_soledad($id=''){
-    return opc_sql("SELECT `valor`,descripcion FROM `catadeta` WHERE idcatalogo=173 and estado='A' ORDER BY 1",$id);
+    return opc_sql("SELECT idcatadeta,descripcion FROM `catadeta` WHERE idcatalogo=173 and estado='A' ORDER BY 1",$id);
 }
 function opc_tiempo($id=''){
-    return opc_sql("SELECT `valor`,descripcion FROM `catadeta` WHERE idcatalogo=311 and estado='A' ORDER BY 1",$id);
+    return opc_sql("SELECT idcatadeta,descripcion FROM `catadeta` WHERE idcatalogo=311 and estado='A' ORDER BY 1",$id);
 }
-function opc_tiempo_aislamiento($id=''){
-    return opc_sql("SELECT `valor`,descripcion FROM `catadeta` WHERE idcatalogo=314 and estado='A' ORDER BY 1",$id);
-}
+
 
 function formato_dato($a,$b,$c,$d){
     $b=strtolower($b);
