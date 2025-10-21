@@ -234,7 +234,7 @@ function opc_tdocit($id=''){
 		if ($edad >= 50 && $edad <= 75) $categorias[] = 13;
 	  }
 		
-		$categorias_comunes = [9,10,15,17,18,21,22,23,25,26,27,28,29,31,32,33,34,37,38,39,40,41,42,43,44,47];
+		$categorias_comunes = [9,10,15,17,18,21,22,23,25,26,27,28,29,31,32,33,34,37,38,39,40,41,42,43,44,47,48];
 	$categorias = array_unique(array_merge($categorias, $categorias_comunes));
 	$lista = implode(',', $categorias);
 	$sql = "SELECT idcatadeta, descripcion
