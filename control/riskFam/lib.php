@@ -274,7 +274,7 @@ LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
 LEFT JOIN hog_geo G ON F.idpre = G.idgeo 
  WHERE P.idpersona = '$document' AND P.tipo_doc = '$tipo' LIMIT 1;";
 $res6 = datos_mysql($sql6);
-$puntaje = $res6['responseResult'][0]['CD_Valor_0_100'];
+$puntajedemo = $res6['responseResult'][0]['CD_Valor_0_100'];
 $genero=$res6['responseResult'][0]['Genero'];
 $nacionalidad = $res6['responseResult'][0]['Nacionalidad'];
 $etnia = $res6['responseResult'][0]['Etnia'];
@@ -295,7 +295,7 @@ FROM `person` P
 LEFT JOIN hog_alert A ON P.idpeople = A.idpeople
 WHERE P.idpersona = '$document' AND P.tipo_doc = '$tipo' LIMIT 1;";
 $res7 = datos_mysql($sql7);
-$puntaje = $res7['responseResult'][0]['Puntaje_Total_0_100'];
+$puntajeindiv = $res7['responseResult'][0]['Puntaje_Total_0_100'];
 $gestante = $res7['responseResult'][0]['gestante']===1 ? 'SI' : 'NO';
 $ges_sinctrl = $res7['responseResult'][0]['ges_sinctrl']===1 ? 'SI' : 'NO';
 $cronico = $res7['responseResult'][0]['cronico']===1 ? 'SI' : 'NO';
@@ -367,7 +367,7 @@ $riesgos = [
     ],
     "demographics" => [
         "name" => "Características Demográficas",
-        "value" => $puntaje,
+        "value" => $puntajedemo,
         "genero" => $genero ,
         "nacionalidad" => $nacionalidad,
         "etnia" => $etnia,
@@ -376,7 +376,7 @@ $riesgos = [
     ], 
     "individualConditions" => [
         "name" => "Condiciones Individuales",
-        "value" => $puntaje,
+        "value" => $puntajeindiv,
         "gestante" => $gestante,
         "Gestante Sin Control" => $ges_sinctrl,
         "cronico" => $cronico,
@@ -391,7 +391,7 @@ if (!empty($document)) {
     $sqlInsert = "INSERT INTO riskfam_eval (fecha_evaluacion,idpersona, socioeconomico, estrato, ingreso, estructura_familiar, apgar, vulnerabilidad_social, poblaciondif,inclusion,
      acceso_salud,puntaje_regimen_salud, entorno_habitacional,zona,tipovivienda,tenencia,actividadeco,energia,gas,acueducto,
      alcantarillado,basuras,pozo,aljibe,traficopesado,sinpavimentar,zonasverdes,contaminantes,conseralimentos,manipulaagua,
-     medicamentos,quimicos,residuossolid,demograficas,genero,nacionalidad,etnia,usu_create, estado
+     medicamentos,quimicos,residuossolid,demograficas,genero,nacionalidad,etnia,individualpuntaje,gestante,gestante_sinctrl,cronico,cronico_sinctrl,menor5,usu_create, estado
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
     $params = [
         ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))],//fecha_evaluacion
@@ -427,10 +427,16 @@ if (!empty($document)) {
         ['type' => 's', 'value' => $facamb7],//medicamentos
         ['type' => 's', 'value' => $facamb8],//quimicos
         ['type' => 's', 'value' => $facamb9],//residuossolid
-        ['type' => 's', 'value' => $puntaje],//demograficas
+        ['type' => 's', 'value' => $puntajedemo],//demograficas
         ['type' => 's', 'value' => $genero],//genero
         ['type' => 's', 'value' => $nacionalidad],//nacionalidad
         ['type' => 's', 'value' => $etnia],//etnia
+        ['type' => 's', 'value' => $puntajeindiv],//individualpuntaje
+        ['type' => 's', 'value' => $gestante],//gestante
+        ['type' => 's', 'value' => $ges_sinctrl],//gestante_sinctrl
+        ['type' => 's', 'value' => $cronico],//cronico
+        ['type' => 's', 'value' => $cro_sinctrl],//cronico_sinctrl
+        ['type' => 's', 'value' => $menor5],//menor5
         ['type' => 's', 'value' => $usu_create],//usu_create
         ['type' => 's', 'value' => 'A']//estado
     ];
