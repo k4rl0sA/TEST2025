@@ -44,7 +44,7 @@ function whe_soporte() {
     if (!empty($_POST['fuser']))   
         $sql .= " AND s.idpeople = '" . cleanTx($_POST['fuser']) . "'";
     if (!empty($_POST['fdigita']))	
-        $sql .= " AND (s.usu_creo='" . cleanTx($_POST['fdigita']) . "' OR s.aprueba IN ('PROAPO','ADM'))";
+        $sql .= " AND (s.usu_creo='" . cleanTx($_POST['fdigita']) . "' OR s.aprueba = 'PROAPO')";
     if (!empty($_POST['fest'])) 
         $sql .= " AND s.estado = '" . intval($_POST['fest']) . "'";
     if(!empty($_POST['fsubred']))
@@ -270,11 +270,11 @@ function formato_dato($a, $b, $c, $d) {
             ];
         foreach ($accionesDisponibles as $key => $accion) {
             if ($accion['condicion'] && $accion['permiso']) {
-                if (subred($c['ACCIONES'])) {
+                // if (subred($c['ACCIONES'])) {
                     limpiar_hashes();
                     $_SESSION['hash'][$accion['hash'] . '_' . $key] = $c['ACCIONES'];
                     $acciones[] = "<li title='{$accion['title']}'><i class='{$accion['icono']} {$accion['clase']}' id='{$accion['hash']}' data-acc='{$key}'></i></li>";
-			    }
+			    // }
             
             }
         }
