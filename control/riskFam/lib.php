@@ -406,7 +406,7 @@ if (!empty($document)) {
         ['type' => 's', 'value' => $poblacionDif],//poblaciondif
         ['type' => 's', 'value' => $inclusionOficio],//inclusion
         ['type' => 's', 'value' => $accesoSaludPorcentaje],//acceso_salud
-        ['type' => 's', 'value' => $regimen],//puntaje_regimen_salud
+        ['type' => 's', 'value' => $puntajeRegimenSalud],//puntaje_regimen_salud
         ['type' => 's', 'value' => $EH_Valor],//entorno_habitacional
         ['type' => 's', 'value' => $zona],//zona
         ['type' => 's', 'value' => $tipoVivienda],//tipovivienda
