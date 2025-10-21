@@ -234,7 +234,8 @@ function subred($id) {
     $sql1="SELECT ok FROM soporte WHERE idsoporte='".$id[0]."'";;
     $info1=datos_mysql($sql1);
     $subred_fam=$info1['responseResult'][0]['ok'];
-
+    var_dump($subred_user);
+    var_dump($subred_fam);
     if($subred_user==$subred_fam){   
 		return true;
 	}else{
