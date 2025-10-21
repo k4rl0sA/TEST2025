@@ -26,7 +26,7 @@ function cmp_solicitudes(){
     $w = 'solicitudes';
     $o = 'inftrasint';
     $t = ['documento'=>'','tipo'=>''];
-    $c[] = new cmp($o,'e',null,'TRASLADO INTERLOCAL / ENTRE SUBREDES',$w);
+    $c[] = new cmp($o,'e',null,'SOLICITUDES APLICATIVO',$w);
     //incluir campos idpeople
     $c[]=new cmp('idfam','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
     $c[]=new cmp('docum','nu','99999999999',$t['documento'],$w.' '.$o,'Número de Documento','documento',null,'####',true,true,'','col-4');
