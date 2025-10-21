@@ -33,7 +33,6 @@ function actualizar(){
 }
 
 function grabar(tb='',ev){
-    if(document.getElementById('id').value=='0'){
         if (tb=='' && ev.target.classList.contains(proc)) tb=proc;
         var f=document.getElementsByClassName('valido '+tb);
         for (i=0;i<f.length;i++) {
@@ -44,12 +43,6 @@ function grabar(tb='',ev){
             myFetch(ruta_app,"a=gra&tb="+tb,mod);
             setTimeout(actualizar, 1000);
         }
-    }else{
-        const message = `La función de Editar no está habilitada en este momento`;
-        document.getElementById(mod+'-modal').innerHTML = message;
-        document.getElementById(mod+'-image').innerHTML = '<svg class="icon-popup" ><use xlink:href="#bad"/></svg>';
-        openModal();
-    }
 }
 
 
