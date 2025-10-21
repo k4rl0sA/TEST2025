@@ -294,7 +294,7 @@ function gra_tamsoledad(){
             ['type' => 's', 'value' => $_POST['valoracion']], // valoracion
             ['type' => 's', 'value' => $_POST['aislamiento']], // aislamiento
             ['type' => 's', 'value' => $puntaje_total], // puntaje_total
-            ['type' => 's', 'value' => $descripcion], // descripcion
+            ['type' => 's', 'value' => $nivel.' - '.$descripcion], // descripcion
             ['type' => 's', 'value' => $_SESSION['us_sds']], // usu_creo
             // fecha_create se establece automáticamente
             ['type' => 's', 'value' => NULL], // usu_update
