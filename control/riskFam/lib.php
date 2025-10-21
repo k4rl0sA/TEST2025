@@ -389,7 +389,9 @@ $riesgos = [
 if (!empty($document)) {
     $usu_create = isset($_SESSION['us_sds']) ? $_SESSION['us_sds'] : 'anon';
     $sqlInsert = "INSERT INTO riskfam_eval (fecha_evaluacion,idpersona, socioeconomico, estrato, ingreso, estructura_familiar, apgar, vulnerabilidad_social, poblaciondif,inclusion, acceso_salud,
-     puntaje_regimen_salud, entorno_habitacional, puntaje_entorno, usu_create, estado
+     puntaje_regimen_salud, entorno_habitacional,zona,tipovivienda,tenencia,actividadeco,energia,gas,acueducto,alcantarillado,basuras,
+     pozo,aljibe,traficopesado,sinpavimentar,zonasverdes,contaminantes,conseralimentos,manipulaagua,medicamentos,quimicos,
+     residuossolid,usu_create, estado
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $params = [
         ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))],//fecha_evaluacion
@@ -403,9 +405,28 @@ if (!empty($document)) {
         ['type' => 's', 'value' => $poblacionDif],//poblaciondif
         ['type' => 's', 'value' => $inclusionOficio],//inclusion
         ['type' => 's', 'value' => $accesoSaludPorcentaje],//acceso_salud
-        ['type' => 'i', 'value' => $puntajeRegimenSalud],//puntaje_regimen_salud
+        ['type' => 'i', 'value' => $regimen],//puntaje_regimen_salud
         ['type' => 's', 'value' => $EH_Valor],//entorno_habitacional
-        ['type' => 'i', 'value' => $entornoHab['Puntaje_EH_Bruto'] ?? 0],//puntaje_entorno
+        ['type' => 's', 'value' => $zona],//zona
+        ['type' => 's', 'value' => $tipoVivienda],//tipovivienda
+        ['type' => 's', 'value' => $tenencia],//tenencia
+        ['type' => 's', 'value' => $actividadEconomica],//actividadeco
+        ['type' => 's', 'value' => $energia],//energia
+        ['type' => 's', 'value' => $gas],//gas
+        ['type' => 's', 'value' => $acueducto],//acueducto
+        ['type' => 's', 'value' => $alcantarillado],//alcantarillado
+        ['type' => 's', 'value' => $basuras],//basuras
+        ['type' => 's', 'value' => $pozo],//pozo
+        ['type' => 's', 'value' => $aljibe],//aljibe
+        ['type' => 's', 'value' => $facamb1],//traficopesado
+        ['type' => 's', 'value' => $facamb2],//sinpavimentar
+        ['type' => 's', 'value' => $facamb3],//zonasverdes
+        ['type' => 's', 'value' => $facamb4],//contaminantes
+        ['type' => 's', 'value' => $facamb5],//conseralimentos
+        ['type' => 's', 'value' => $facamb6],//manipulaagua
+        ['type' => 's', 'value' => $facamb7],//medicamentos
+        ['type' => 's', 'value' => $facamb8],//quimicos
+        ['type' => 's', 'value' => $facamb9],//residuossolid
         ['type' => 's', 'value' => $usu_create],//usu_create
         ['type' => 's', 'value' => 'A']//estado
     ];
