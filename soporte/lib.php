@@ -48,7 +48,7 @@ function whe_soporte() {
     if (!empty($_POST['fest'])){
         $sql .= " AND s.estado = '" . intval($_POST['fest']) . "'";
     }else{
-        AND s.estado!=1;
+        AND s.estado!='1';
     }
     if(!empty($_POST['fsubred']))
         $sql .= " AND U1.subred = '" . intval($_POST['fsubred']). "'";
