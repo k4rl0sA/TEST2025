@@ -230,7 +230,12 @@ function subred($id) {
     $sql = "SELECT subred FROM usuarios WHERE id_usuario='".$_SESSION['us_sds']."'";;
     $info = datos_mysql($sql); 
     $subred_user=$info['responseResult'][0]['subred'];
-    if($subred_user==$id[1]){   
+
+    $sql1="SELECT ok FROM soporte WHERE idsoporte='".$id[0]."'";;
+    $info1=datos_mysql($sql1);
+    $subred_fam=$info1['responseResult'][0]['ok'];
+
+    if($subred_user==$subred_fam){   
 		return true;
 	}else{
 		return false;
