@@ -28,9 +28,8 @@ function cmp_solicitudes(){
     $t = ['documento'=>'','tipo'=>''];
     $c[] = new cmp($o,'e',null,'SOLICITUDES APLICATIVO',$w);
     //incluir campos idpeople
-    $c[]=new cmp('idfam','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
-    $c[]=new cmp('docum','nu','99999999999',$t['documento'],$w.' '.$o,'Número de Documento','documento',null,'####',true,true,'','col-4');
-    $c[]=new  cmp('tip_doc','s',2,$t['tipo'],$w.' '.$o,'Tipo de Documento','tipo',null,null,true,true,'','col-4');
+    $c[]=new cmp('solicitud','s',3,'',$w.' '.$o,'Tipo de Solicitud','solicitud',null,'####',true,true,'','col-4');
+    $c[]=new  cmp('descripcion','a',2,'',$w.' '.$o,'Descripción','tipo',null,null,true,true,'','col-4');
     for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
     return $rta;
 }
