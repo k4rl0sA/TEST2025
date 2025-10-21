@@ -79,8 +79,8 @@ function gra_solicitudes() {
     $params = [
         ['type' => 'i', 'value' => 7],           // formulario (7 para aplicativo)
         ['type' => 's', 'value' => $prioridad],         // prioridad
-        ['type' => 'i', 'value' => $descripcion],         // ok
-        ['type' => 's', 'value' => $usu_creo],   // usu_creo
+        ['type' => 's', 'value' => $descripcion],         // ok
+        ['type' => 'i', 'value' => $usu_creo],   // usu_creo
         ['type' => 's', 'value' => $creo],       // fecha_create
         ['type' => 'i', 'value' => $estado]      // estado
     ];
