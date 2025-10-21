@@ -236,22 +236,43 @@ function gra_tamsoledad(){
         $intima = intval($_POST['soledad']) + 1 +intval($_POST['confianza']) + 1 + intval($_POST['compania']) + 1 + intval($_POST['vacio'])+1;
         $relacional = intval($_POST['amistades']) + 1 +intval($_POST['conversacion']) + 1 + intval($_POST['insatisfaccion']) + 1 + intval($_POST['apoyo'])+1;
         $colectiva = intval($_POST['integracion']) + 1 +intval($_POST['pertenencia']) + 1 + intval($_POST['reconocimiento']) + 1 + intval($_POST['valoracion'])+1;
-        $aislamiento_puntaje = intval($_POST['aislamiento']);
         
-        $puntaje_total = $intima + $relacional + $colectiva + $aislamiento_puntaje;
+        $puntaje_total = $intima + $relacional + $colectiva;
+
+        $horas_soledad = isset($_POST['aislamiento']) ? intval($_POST['aislamiento']) : 0;
 
         // Determinar descripción según puntaje total
-        if ($puntaje_total >= 0 && $puntaje_total <= 15) {
-            $descripcion = 'SIN RIESGO DE SOLEDAD';
-        } elseif ($puntaje_total >= 16 && $puntaje_total <= 30) {
-            $descripcion = 'RIESGO LEVE DE SOLEDAD';
-        } elseif ($puntaje_total >= 31 && $puntaje_total <= 45) {
-            $descripcion = 'RIESGO MODERADO DE SOLEDAD';
-        } elseif ($puntaje_total >= 46 && $puntaje_total <= 52) {
-            $descripcion = 'RIESGO ALTO DE SOLEDAD';
-        } else {
-            $descripcion = 'Error en el rango, por favor valide';
+     if ($puntaje_total >= 12 && $puntaje_total <= 23) {
+        $nivel = 'Bajo';
+        $descripcion = 'Percibe suficiente compañía y apoyo.';
+        if ($horas_soledad >= 4) {
+            $nivel = 'Medio';
+            $descripcion = 'Limitaciones moderadas en vínculos emocionales, relacionales o colectivos.';
         }
+    } elseif ($puntaje_total >= 24 && $puntaje_total <= 35) {
+        $nivel = 'Medio';
+        $descripcion = 'Limitaciones moderadas en vínculos emocionales, relacionales o colectivos.';
+        if ($horas_soledad >= 3) {
+            $nivel = 'Alto';
+            $descripcion = 'Frecuentes sentimientos de soledad y redes de apoyo débiles.';
+        }
+    } elseif ($puntaje_total >= 36 && $puntaje_total <= 47) {
+        $nivel = 'Alto';
+        $descripcion = 'Frecuentes sentimientos de soledad y redes de apoyo débiles.';
+        if ($horas_soledad >= 3) {
+            $nivel = 'Muy alto';
+            $descripcion = 'Soledad severa en varias dimensiones. Requiere intervención prioritaria.';
+        }
+    } elseif ($puntaje_total >= 48 && $puntaje_total <= 60) {
+        $nivel = 'Muy alto';
+        $descripcion = 'Soledad severa en varias dimensiones. Requiere intervención prioritaria.';
+        if ($horas_soledad >= 5) {
+            $descripcion .= ' Se confirma “riesgo crítico”.';
+        }
+    } else {
+        $nivel = 'Error';
+        $descripcion = 'Error en el rango, por favor valide';
+    }
         
         $sql = "INSERT INTO hog_tam_soledad VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(),INTERVAL 5 HOUR), ?, ?, ?)";
 
