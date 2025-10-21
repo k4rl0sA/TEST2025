@@ -36,7 +36,7 @@ function lis_soporte() {
 }
 
 function whe_soporte() {
-    $sql = "";
+    $sql = " ";
     if (!empty($_POST['ftic'])) 
         $sql .= " AND s.idsoporte LIKE '%" . cleanTx($_POST['ftic']) . "%'";
     if (!empty($_POST['fpredio']))   
@@ -45,8 +45,11 @@ function whe_soporte() {
         $sql .= " AND s.idpeople = '" . cleanTx($_POST['fuser']) . "'";
     if (!empty($_POST['fdigita']))	
         $sql .= " AND (s.usu_creo='" . cleanTx($_POST['fdigita']) . "' OR s.aprueba = 'PROAPO')";
-    if (!empty($_POST['fest'])) 
+    if (!empty($_POST['fest'])){
         $sql .= " AND s.estado = '" . intval($_POST['fest']) . "'";
+    }else{
+        AND s.estado!=1;
+    }
     if(!empty($_POST['fsubred']))
         $sql .= " AND U1.subred = '" . intval($_POST['fsubred']). "'";
     if(!empty($_POST['facc']))
