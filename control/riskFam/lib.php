@@ -392,7 +392,7 @@ if (!empty($document)) {
      acceso_salud,puntaje_regimen_salud, entorno_habitacional,zona,tipovivienda,tenencia,actividadeco,energia,gas,acueducto,
      alcantarillado,basuras,pozo,aljibe,traficopesado,sinpavimentar,zonasverdes,contaminantes,conseralimentos,manipulaagua,
      medicamentos,quimicos,residuossolid,demograficas,genero,nacionalidad,etnia,individualpuntaje,gestante,gestante_sinctrl,cronico,cronico_sinctrl,menor5,usu_create, estado
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $params = [
         ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))],//fecha_evaluacion
         ['type' => 's', 'value' => $document],//idpersona
@@ -427,16 +427,18 @@ if (!empty($document)) {
         ['type' => 's', 'value' => $facamb7],//medicamentos
         ['type' => 's', 'value' => $facamb8],//quimicos
         ['type' => 's', 'value' => $facamb9],//residuossolid
+
         ['type' => 's', 'value' => $puntajedemo],//demograficas
         ['type' => 's', 'value' => $genero],//genero
         ['type' => 's', 'value' => $nacionalidad],//nacionalidad
         ['type' => 's', 'value' => $etnia],//etnia
-        ['type' => 's', 'value' => $puntajeindiv],//individualpuntaje
+        ['type' => 'i', 'value' => $puntajeindiv],//individualpuntaje
         ['type' => 's', 'value' => $gestante],//gestante
         ['type' => 's', 'value' => $ges_sinctrl],//gestante_sinctrl
         ['type' => 's', 'value' => $cronico],//cronico
         ['type' => 's', 'value' => $cro_sinctrl],//cronico_sinctrl
         ['type' => 's', 'value' => $menor5],//menor5
+
         ['type' => 's', 'value' => $usu_create],//usu_create
         ['type' => 's', 'value' => 'A']//estado
     ];
