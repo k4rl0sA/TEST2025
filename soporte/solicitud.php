@@ -75,7 +75,7 @@ function gra_solicitudes() {
     $estado = 2;
 
     // Insertar en soporte con formulario=3
-    $sql = "INSERT INTO soporte (idsoporte, formulario,prioridad,observaciones,usu_creo,fecha_create,estado) VALUES (NULL, ?,?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO soporte (idsoporte, formulario,prioridad,observaciones,usu_creo,fecha_create,estado) VALUES (NULL, ?, ?, ?, ?, ?, ?)";
     $params = [
         ['type' => 'i', 'value' => 7],           // formulario (7 para aplicativo)
         ['type' => 's', 'value' => $prioridad],         // prioridad
