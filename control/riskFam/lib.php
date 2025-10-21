@@ -441,6 +441,7 @@ if (!empty($document)) {
         ['type' => 's', 'value' => $usu_create],//usu_create
         ['type' => 's', 'value' => 'A']//estado
     ];
-    mysql_prepd($sqlInsert, $params);
+    return show_sql($sqlInsert, $params);
+    // mysql_prepd($sqlInsert, $params);
 }
 echo json_encode(array_merge($datos, ["riskFactors" => $riesgos]));
