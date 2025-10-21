@@ -14,7 +14,6 @@ $subred = $_POST['subred'] ?? '';
 $territorio = $_POST['territorio'] ?? '';
 $localidad = $_POST['localidad'] ?? '';
 
-
 function build_where($params, $alias, $campo_fecha = null) {
     $where = [];
     if ($campo_fecha && $params['fechadesde'] && $params['fechahasta']) {
