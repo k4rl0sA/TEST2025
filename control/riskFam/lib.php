@@ -388,10 +388,10 @@ $riesgos = [
 ];
 if (!empty($document)) {
     $usu_create = isset($_SESSION['us_sds']) ? $_SESSION['us_sds'] : 'anon';
-    $sqlInsert = "INSERT INTO riskfam_eval (
-        idpersona, socioeconomico, estrato, ingreso, estructura_familiar, apgar, vulnerabilidad_social, poblaciondif,inclusion, acceso_salud, puntaje_regimen_salud, entorno_habitacional, puntaje_entorno, usu_create, estado
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sqlInsert = "INSERT INTO riskfam_eval (fecha_evaluacion,idpersona, socioeconomico, estrato, ingreso, estructura_familiar, apgar, vulnerabilidad_social, poblaciondif,inclusion, acceso_salud, puntaje_regimen_salud, entorno_habitacional, puntaje_entorno, usu_create, estado
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,? , ?, ?, ?, ?)";
     $params = [
+        ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))],
         ['type' => 's', 'value' => $document],
         ['type' => 's', 'value' => $socioEcono],
         ['type' => 's', 'value' => $estrato],
