@@ -33,11 +33,16 @@ function actualizar(){
 }
 
 function grabar(tb='',ev){
+    
         if (tb=='' && ev.target.classList.contains(proc)) tb=proc;
         var f=document.getElementsByClassName('valido '+tb);
         for (i=0;i<f.length;i++) {
             if (!valido(f[i])) {f[i].focus(); return};
         }
+        const rutaMap = {
+		'solicitudes':'solicitud.php'
+        };
+        let ruta_app = rutaMap[tb] || 'lib.php';
         var res = confirm("¿Desea guardar la información? Recuerda que no se podrá editar posteriormente.");
         if(res==true){
             myFetch(ruta_app,"a=gra&tb="+tb,mod);
