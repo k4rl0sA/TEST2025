@@ -63,8 +63,8 @@ function whe_tamsoledad() {
 
 function lis_soledad(){
     $id=divide($_POST['id']);
-    $sql="SELECT id_soledad ACCIONES,
-    id_soledad 'Cod Registro',fecha_toma,descripcion,`nombre` Creó,`fecha_create` 'fecha Creó'
+    $sql="SELECT id_soledad 'Cod Registro',
+    fecha_toma,puntaje_total 'Puntaje',descripcion,`nombre` Creó,`fecha_create` 'fecha Creó'
     FROM hog_tam_soledad A
     LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario ";
     $sql.="WHERE idpeople='".$id[0];
