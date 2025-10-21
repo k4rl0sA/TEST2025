@@ -223,6 +223,20 @@ function limpiar_hashes($max = 500) {
         $_SESSION['hash'] = array_slice($_SESSION['hash'], -$max, $max, true);
     }
 }    
+
+function subred($id) {
+    $id = divide($id);
+    //consultar si el usuario es de la subred igual al del campo ok
+    $sql = "SELECT subred FROM usuarios WHERE id_usuario='".$_SESSION['us_sds']."'";;
+    $info = datos_mysql($sql); 
+    $subred_user=$info['responseResult'][0]['subred'];
+    if($subred_user==$id[1]){   
+		return true;
+	}else{
+		return false;
+	}
+}
+
 function formato_dato($a, $b, $c, $d) {
     $b = strtolower($b);
     $rta = $c[$d];
@@ -251,9 +265,12 @@ function formato_dato($a, $b, $c, $d) {
             ];
         foreach ($accionesDisponibles as $key => $accion) {
             if ($accion['condicion'] && $accion['permiso']) {
-                limpiar_hashes();
-                $_SESSION['hash'][$accion['hash'] . '_' . $key] = $c['ACCIONES'];
-                $acciones[] = "<li title='{$accion['title']}'><i class='{$accion['icono']} {$accion['clase']}' id='{$accion['hash']}' data-acc='{$key}'></i></li>";
+                if (subred($c['ACCIONES'])) {
+                    limpiar_hashes();
+                    $_SESSION['hash'][$accion['hash'] . '_' . $key] = $c['ACCIONES'];
+                    $acciones[] = "<li title='{$accion['title']}'><i class='{$accion['icono']} {$accion['clase']}' id='{$accion['hash']}' data-acc='{$key}'></i></li>";
+			    }
+            
             }
         }
         if (count($acciones)) {
