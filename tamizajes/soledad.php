@@ -232,10 +232,10 @@ function gra_tamsoledad(){
     if(count($id)!==2){
         return "No es posible actualizar el tamizaje";
     }else{
-        // Calcular puntaje para cada dimensión
-        $intima = intval($_POST['soledad']) + intval($_POST['confianza']) + intval($_POST['compania']) + intval($_POST['vacio']);
-        $relacional = intval($_POST['amistades']) + intval($_POST['conversacion']) + intval($_POST['insatisfaccion']) + intval($_POST['apoyo']);
-        $colectiva = intval($_POST['integracion']) + intval($_POST['pertenencia']) + intval($_POST['reconocimiento']) + intval($_POST['valoracion']);
+        // Calcular puntaje para cada dimensión, tener en cuenta que el valor de cada puntaje aumenta + 1 por cada respuesta seleccionada
+        $intima = intval($_POST['soledad']) + 1 +intval($_POST['confianza']) + 1 + intval($_POST['compania']) + 1 + intval($_POST['vacio'])+1;
+        $relacional = intval($_POST['amistades']) + 1 +intval($_POST['conversacion']) + 1 + intval($_POST['insatisfaccion']) + 1 + intval($_POST['apoyo'])+1;
+        $colectiva = intval($_POST['integracion']) + 1 +intval($_POST['pertenencia']) + 1 + intval($_POST['reconocimiento']) + 1 + intval($_POST['valoracion'])+1;
         $aislamiento_puntaje = intval($_POST['aislamiento']);
         
         $puntaje_total = $intima + $relacional + $colectiva + $aislamiento_puntaje;
