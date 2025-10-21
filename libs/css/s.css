@@ -127,7 +127,7 @@ input[type=checkbox]{visibility: hidden;}
 input:disabled{background:#CCC;cursor:not-allowed;}
 textarea:disabled{background:#CCC;cursor:not-allowed;}
 input:focus {background-color:#EAF2F8 ;}
-textarea {font-size:12px;border:0px;max-width:240px;text-transform:uppercase;margin:2px;text-align:left;padding-left:4px;}
+textarea {font-size:12px;border:0px;text-transform:uppercase;margin:2px;text-align:left;padding-left:4px;}
 iframe{width:100%;resize:vertical;min-height:50vh;height:90vh;}
 header {background:#0f04ff;color:white;width:100%;font-weight:bold;height:28px;}
 header span {color:#FFF;margin:5px;font-size:12px;font-weight:bold;float:left;}
