@@ -7,6 +7,10 @@ error_reporting(E_ALL);
 // Cargar config y funciones necesarias
 require_once __DIR__ . '/../../libs/gestion.php';
 
+if (!acceso('dashboard')) { // Cambia 'ajustes' por el módulo
+    error_response('No tienes permisos para acceder a este módulo', 403);
+}
+
 // Obtener y sanitizar parámetros
 $fechadesde = $_POST['fecha_inicio'] ?? '';
 $fechahasta = $_POST['fecha_fin'] ?? '';
