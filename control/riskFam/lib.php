@@ -388,11 +388,11 @@ $riesgos = [
 ];
 if (!empty($document)) {
     $usu_create = isset($_SESSION['us_sds']) ? $_SESSION['us_sds'] : 'anon';
-    $sqlInsert = "INSERT INTO riskfam_eval (fecha_evaluacion,idpersona, socioeconomico, estrato, ingreso, estructura_familiar, apgar, vulnerabilidad_social, poblaciondif,inclusion, acceso_salud,
-     puntaje_regimen_salud, entorno_habitacional,zona,tipovivienda,tenencia,actividadeco,energia,gas,acueducto,alcantarillado,basuras,
-     pozo,aljibe,traficopesado,sinpavimentar,zonasverdes,contaminantes,conseralimentos,manipulaagua,medicamentos,quimicos,
-     residuossolid,usu_create, estado
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sqlInsert = "INSERT INTO riskfam_eval (fecha_evaluacion,idpersona, socioeconomico, estrato, ingreso, estructura_familiar, apgar, vulnerabilidad_social, poblaciondif,inclusion,
+     acceso_salud,puntaje_regimen_salud, entorno_habitacional,zona,tipovivienda,tenencia,actividadeco,energia,gas,acueducto,
+     alcantarillado,basuras,pozo,aljibe,traficopesado,sinpavimentar,zonasverdes,contaminantes,conseralimentos,manipulaagua,
+     medicamentos,quimicos,residuossolid,usu_create, estado
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
     $params = [
         ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))],//fecha_evaluacion
         ['type' => 's', 'value' => $document],//idpersona
