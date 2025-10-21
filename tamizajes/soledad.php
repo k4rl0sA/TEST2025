@@ -117,7 +117,7 @@ function cmp_tamsoledad(){
 
     $o=' cuestionario4';
     $c[]=new cmp($o,'e',null,'AISLAMIENTO SOCIAL',$w);
-    $c[]=new cmp('aislamiento','s','3','',$w.' '.$o,'En promedio, ¿cuánto tiempo pasa usted solo/a en un día típico, sin interacción presencial o virtual significativa con otras personas?','respuesta_soledad',null,null,true,true,'','col-12');
+    $c[]=new cmp('aislamiento','s','3','',$w.' '.$o,'En promedio, ¿cuánto tiempo pasa usted solo/a en un día típico, sin interacción presencial o virtual significativa con otras personas?','tiempo',null,null,true,true,'','col-12');
     
     //$c[]=new cmp('aislamiento','s','3','',$w.' '.$o,'En promedio, ¿cuánto tiempo pasa usted solo/a en un día típico, sin interacción presencial o virtual significativa con otras personas?','tiempo_aislamiento',null,null,true,true,'','col-12');
 
@@ -290,6 +290,9 @@ function opc_tipo_doc($id=''){
 }
 function opc_respuesta_soledad($id=''){
     return opc_sql("SELECT `valor`,descripcion FROM `catadeta` WHERE idcatalogo=173 and estado='A' ORDER BY 1",$id);
+}
+function opc_tiempo($id=''){
+    return opc_sql("SELECT `valor`,descripcion FROM `catadeta` WHERE idcatalogo=314 and estado='A' ORDER BY 1",$id);
 }
 function opc_tiempo_aislamiento($id=''){
     return opc_sql("SELECT `valor`,descripcion FROM `catadeta` WHERE idcatalogo=314 and estado='A' ORDER BY 1",$id);
