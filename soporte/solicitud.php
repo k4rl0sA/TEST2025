@@ -55,13 +55,6 @@ function cap_menus($a,$b='cap',$con='con') {
 }
 // Guardar traslado interlocalidad/subred
 function gra_solicitudes() {
-    $id = divide($_POST['idfam']);
-    $doc = $_POST['docum'];
-    $tipo = $_POST['tip_doc'];
-    $usu_creo = $_SESSION['us_sds'];
-    $creo = date('Y-m-d H:i:s', strtotime('-5 hours'));
-    $estado = 2;
-
     $solicitud = $_POST['solicitud'];
     if($solicitud == ''){
         return "Error: El campo Tipo de Solicitud es obligatorio.";
@@ -77,16 +70,16 @@ function gra_solicitudes() {
         }
     }
     $descripcion = $_POST['descripcion'];
-
-
+    $usu_creo = $_SESSION['us_sds'];
+    $creo = date('Y-m-d H:i:s', strtotime('-5 hours'));
+    $estado = 2;
 
     // Insertar en soporte con formulario=3
     $sql = "INSERT INTO soporte (idsoporte, formulario,prioridad,observaciones,usu_creo,fecha_create,estado) VALUES (NULL, ?,?, ?, ?, ?, ?, ?, ?, ?)";
     $params = [
         ['type' => 'i', 'value' => 7],           // formulario (7 para aplicativo)
         ['type' => 's', 'value' => $prioridad],         // prioridad
-        ['type' => 'i', 'value' => intval($subred_fam)],         // ok
-        ['type' => 's', 'value' => 'PROAPO'],//aprueba
+        ['type' => 'i', 'value' => $descripcion],         // ok
         ['type' => 's', 'value' => $usu_creo],   // usu_creo
         ['type' => 's', 'value' => $creo],       // fecha_create
         ['type' => 'i', 'value' => $estado]      // estado
