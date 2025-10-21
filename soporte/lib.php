@@ -44,7 +44,7 @@ function whe_soporte() {
     if (!empty($_POST['fuser']))   
         $sql .= " AND s.idpeople = '" . cleanTx($_POST['fuser']) . "'";
     if (!empty($_POST['fdigita']))	
-        $sql .= " AND (s.usu_creo='" . cleanTx($_POST['fdigita']) . "' OR s.aprueba = 'PROAPO')";
+        $sql .= " AND (s.usu_creo='" . cleanTx($_POST['fdigita']) . "' OR s.aprueba IN ('PROAPO','ADM'))";
     if (!empty($_POST['fest'])) 
         $sql .= " AND s.estado = '" . intval($_POST['fest']) . "'";
     if(!empty($_POST['fsubred']))
