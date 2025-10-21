@@ -117,7 +117,9 @@ function cmp_tamsoledad(){
 
     $o=' cuestionario4';
     $c[]=new cmp($o,'e',null,'AISLAMIENTO SOCIAL',$w);
-    $c[]=new cmp('aislamiento','s','3','',$w.' '.$o,'En promedio, ¿cuánto tiempo pasa usted solo/a en un día típico, sin interacción presencial o virtual significativa con otras personas?','tiempo_aislamiento',null,null,true,true,'','col-12');
+    $c[]=new cmp('aislamiento','s','3','',$w.' '.$o,'En promedio, ¿cuánto tiempo pasa usted solo/a en un día típico, sin interacción presencial o virtual significativa con otras personas?','respuesta_soledad',null,null,true,true,'','col-12');
+    
+    //$c[]=new cmp('aislamiento','s','3','',$w.' '.$o,'En promedio, ¿cuánto tiempo pasa usted solo/a en un día típico, sin interacción presencial o virtual significativa con otras personas?','tiempo_aislamiento',null,null,true,true,'','col-12');
 
     $o='totalresul';
     $c[]=new cmp($o,'e',null,'TOTAL',$w);
@@ -218,10 +220,10 @@ function men_tamsoledad(){
 function cap_menus($a,$b='cap',$con='con') {
     $rta = ""; 
     $acc=rol($a);
-    $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
-    /* if ($a=='tamsoledad'  && isset($acc['crear']) && $acc['crear']=='SI'){  
+    // $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
+    if ($a=='tamsoledad'  && isset($acc['crear']) && $acc['crear']=='SI'){  
      $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
-    } */
+    }
     return $rta;
 }
    
