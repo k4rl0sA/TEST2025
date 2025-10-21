@@ -123,8 +123,8 @@ function cmp_tamsoledad(){
 
     $o='totalresul';
     $c[]=new cmp($o,'e',null,'TOTAL',$w);
-    $c[]=new cmp('puntaje_total','t','4','',$w.' '.$o,'Puntaje Total','puntaje_total',null,null,false,false,'','col-5');
-    $c[]=new cmp('descripcion','t','30','',$w.' '.$o,'Descripción','descripcion',null,null,false,false,'','col-5');
+    $c[]=new cmp('puntaje_total','t','4','',$w.' '.$o,'Puntaje Total','puntaje_total',null,null,false,false,'','col-1');
+    $c[]=new cmp('descripcion','t','30','',$w.' '.$o,'Descripción','descripcion',null,null,false,false,'','col-9');
 
     for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
     
