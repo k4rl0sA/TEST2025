@@ -47,6 +47,9 @@
                                     "SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo = 2 ORDER BY 1",
                                     $_POST['localidad'] ?? ''
                                 );
+                                if (!acceso('dashboard')) { // Cambia 'ajustes' por el módulo
+                                    error_response('No tienes permisos para acceder a este módulo', 403);
+                                }
                             ?>
                         </select>
                     </div>
