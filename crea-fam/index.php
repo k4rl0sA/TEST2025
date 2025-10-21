@@ -177,7 +177,8 @@ function grabar(tb='',ev){
   'unidadeshs': '../soporte/unidades.php',
   'resultLab': '../servicios_complem/laboratorios.php',
   'seguiremot': '../servicios_complem/seguiRemoto.php',
-  'barreras':'../tamizajes/barreras.php'
+  'barreras':'../tamizajes/barreras.php',
+  'tamsoledad':'../tamizajes/soledad.php'
  	};
    let ruta_app = rutaMap[tb] || 'lib.php';
   if(tb=='sesion2'){
