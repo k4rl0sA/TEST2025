@@ -388,25 +388,26 @@ $riesgos = [
 ];
 if (!empty($document)) {
     $usu_create = isset($_SESSION['us_sds']) ? $_SESSION['us_sds'] : 'anon';
-    $sqlInsert = "INSERT INTO riskfam_eval (fecha_evaluacion,idpersona, socioeconomico, estrato, ingreso, estructura_familiar, apgar, vulnerabilidad_social, poblaciondif,inclusion, acceso_salud, puntaje_regimen_salud, entorno_habitacional, puntaje_entorno, usu_create, estado
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,? , ?, ?, ?, ?)";
+    $sqlInsert = "INSERT INTO riskfam_eval (fecha_evaluacion,idpersona, socioeconomico, estrato, ingreso, estructura_familiar, apgar, vulnerabilidad_social, poblaciondif,inclusion, acceso_salud,
+     puntaje_regimen_salud, entorno_habitacional, puntaje_entorno, usu_create, estado
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $params = [
-        ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))],
-        ['type' => 's', 'value' => $document],
-        ['type' => 's', 'value' => $socioEcono],
-        ['type' => 's', 'value' => $estrato],
-        ['type' => 's', 'value' => $ingreso],
-        ['type' => 's', 'value' => $estruFamil],
-        ['type' => 's', 'value' => $apgar],
-        ['type' => 's', 'value' => $vulnSocial],
-        ['type' => 's', 'value' => $poblacionDif],
-        ['type' => 's', 'value' => $inclusionOficio],
-        ['type' => 's', 'value' => $accesoSaludPorcentaje],
-        ['type' => 'i', 'value' => $puntajeRegimenSalud],
-        ['type' => 's', 'value' => $EH_Valor],
-        ['type' => 'i', 'value' => $entornoHab['Puntaje_EH_Bruto'] ?? 0],
-        ['type' => 's', 'value' => $usu_create],
-        ['type' => 's', 'value' => 'A']
+        ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))],//fecha_evaluacion
+        ['type' => 's', 'value' => $document],//idpersona
+        ['type' => 's', 'value' => $socioEcono],//socioeconomico
+        ['type' => 's', 'value' => $estrato],//estrato
+        ['type' => 's', 'value' => $ingreso],//ingreso
+        ['type' => 's', 'value' => $estruFamil],//estructura_familiar
+        ['type' => 's', 'value' => $apgar],//apgar
+        ['type' => 's', 'value' => $vulnSocial],//vulnerabilidad_social
+        ['type' => 's', 'value' => $poblacionDif],//poblaciondif
+        ['type' => 's', 'value' => $inclusionOficio],//inclusion
+        ['type' => 's', 'value' => $accesoSaludPorcentaje],//acceso_salud
+        ['type' => 'i', 'value' => $puntajeRegimenSalud],//puntaje_regimen_salud
+        ['type' => 's', 'value' => $EH_Valor],//entorno_habitacional
+        ['type' => 'i', 'value' => $entornoHab['Puntaje_EH_Bruto'] ?? 0],//puntaje_entorno
+        ['type' => 's', 'value' => $usu_create],//usu_create
+        ['type' => 's', 'value' => 'A']//estado
     ];
     mysql_prepd($sqlInsert, $params);
 }
