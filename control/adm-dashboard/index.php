@@ -49,6 +49,9 @@
                                 );
                                 if (!acceso('dashboard')) { // Cambia 'ajustes' por el módulo
                                     error_response('No tienes permisos para acceder a este módulo', 403);
+                                    return;
+                                    exit;
+                                    die();
                                 }
                             ?>
                         </select>
