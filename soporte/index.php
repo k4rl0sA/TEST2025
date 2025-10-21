@@ -249,7 +249,7 @@ $acciones=opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=
 			
 			<!-- <li class='icono casa'       title='Interlocales'     Onclick="mostrar('trasladint','pro',event,'','interloc.php',7,'Interlocales');"></li> -->
 			<li class='icono lupa' title='Consultar Predio' Onclick="mostrar('predios','pro',event,'','../consultar/consulpred.php',7);">
-            <li class='icono crear'       title='Crear Solicitud Aplicativo'     Onclick="mostrar('trasladint','pro',event,'','../soporte/solicitud.php',7);">
+            <li class='icono crear'       title='Crear Solicitud Aplicativo'     Onclick="mostrar('solicitudes','pro',event,'','../soporte/solicitud.php',7);">
 		</nav>
 		<nav class='menu right' >
 			<li class='icono ayuda'      title='Necesitas Ayuda'            Onclick=" window.open('https://sites.google.com/', '_blank');"></li>
