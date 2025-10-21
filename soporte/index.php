@@ -246,7 +246,7 @@ $acciones=opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=
 		<nav class='menu left' >
 			<li class='icono actualizar'    title='Actualizar'      Onclick="actualizar();">
 			<li class='icono filtros'    title='Filtros'      Onclick="showFil(mod);">
-			<!-- <li class='icono crear'       title='Crear'     Onclick="mostrar(mod,'pro');"></li> setTimeout(load,500); -->
+			<li class='icono crear'       title='Crear'     Onclick="mostrar(mod,'pro');"></li> setTimeout(load,500);
 			<!-- <li class='icono casa'       title='Interlocales'     Onclick="mostrar('trasladint','pro',event,'','interloc.php',7,'Interlocales');"></li> -->
 			<li class='icono lupa' title='Consultar Predio' Onclick="mostrar('predios','pro',event,'','../consultar/consulpred.php',7);">
 		</nav>
