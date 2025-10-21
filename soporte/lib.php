@@ -45,10 +45,10 @@ function whe_soporte() {
         $sql .= " AND s.idpeople = '" . cleanTx($_POST['fuser']) . "'";
     if (!empty($_POST['fdigita']))	
         $sql .= " AND (s.usu_creo='" . cleanTx($_POST['fdigita']) . "' OR s.aprueba = 'PROAPO')";
-    if (!empty($_POST['fest'])){
+    if (isset($_POST['fest']) && $_POST['fest'] !== '') {
         $sql .= " AND s.estado = '" . intval($_POST['fest']) . "'";
-    }else{
-        AND s.estado!='1';
+    } else {
+        $sql .= " AND s.estado!='1'";
     }
     if(!empty($_POST['fsubred']))
         $sql .= " AND U1.subred = '" . intval($_POST['fsubred']). "'";
