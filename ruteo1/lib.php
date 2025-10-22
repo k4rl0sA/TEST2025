@@ -33,7 +33,7 @@ function lis_rute(){
     $regxPag = 10;
     $pag = (isset($_POST['pag-rute'])) ? ($_POST['pag-rute'] - 1) * $regxPag : 0;
 
-    $sql = "SELECT er.id_ruteo AS ACCIONES, er.idgeo AS Cod_Predio, 
+    $sql = "SELECT er.id_ruteo AS ACCIONES,er.id_ruteo 'Cod Ruteo',er.idgeo AS 'Cod Predio', 
                 FN_CATALOGODESC(235, tipo_prior) AS Grupo_Poblacion_Priorizada, 
                 er.documento AS Documento_Usuario, er.nombres AS Nombre_Usuario, 
                 FN_CATALOGODESC(218, er.perfil1) AS Interviene, 
