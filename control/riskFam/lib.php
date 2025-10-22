@@ -388,6 +388,16 @@ $riesgos = [
 ];
 if (!empty($document)) {
     $usu_create = isset($_SESSION['us_sds']) ? $_SESSION['us_sds'] : 'anon';
+
+    // Calcular el puntaje total ponderado
+    $puntaje_total = ($socioEcono * 0.08) + 
+                     ($estruFamil * 0.11) + 
+                     ($vulnSocial * 0.05) + 
+                     ($accesoSaludPorcentaje * 0.07) + 
+                     ($EH_Valor * 0.10) + 
+                     ($puntajedemo * 0.04) + 
+                     ($puntajeindiv * 0.58);
+                     
     $sqlInsert = "INSERT INTO riskfam_eval (
         idpersona, fecha_evaluacion, socioeconomico, estrato, ingreso, 
         estructura_familiar, apgar, vulnerabilidad_social, poblaciondif, inclusion,
@@ -397,7 +407,7 @@ if (!empty($document)) {
         sinpavimentar, zonasverdes, contaminantes, conseralimentos, manipulaagua,
         medicamentos, quimicos, residuossolid, demograficas, genero,
         nacionalidad, etnia, puntajeindiv, gestante, gestante_sinctrl,
-        cronico, cronico_sinctrl, menor5, usu_create, estado
+        cronico, cronico_sinctrl, menor5,pts_total, usu_create, estado
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $params = [
         ['type' => 's', 'value' => $document], // idpersona
@@ -443,6 +453,7 @@ if (!empty($document)) {
         ['type' => 's', 'value' => $cronico], // cronico
         ['type' => 's', 'value' => $cro_sinctrl], // cronico_sinctrl
         ['type' => 's', 'value' => $menor5], // menor5
+        ['type' => 'd', 'value' => floatval($puntaje_total)], // pts_total (decimal)
         ['type' => 's', 'value' => $usu_create], // usu_create
         ['type' => 's', 'value' => 'A'] // estado
     ];
