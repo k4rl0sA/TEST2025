@@ -462,7 +462,7 @@ if (!empty($document)) {
 
     // Verificar si la inserción fue exitosa
     if ($resultado === false) {
-        error_log("Error en inserción de riskfam_eval para documento: " . $document);
+        log_error("Error en inserción de riskfam_eval para documento: " . $document);
     }
 }
 echo json_encode(array_merge($datos, ["riskFactors" => $riesgos]));
