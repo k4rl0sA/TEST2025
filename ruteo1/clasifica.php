@@ -48,7 +48,7 @@ function cmp_rutclasif(){
  $c[]=new cmp($o,'e',null,'PROCESO DE CLASIFICACIÓN',$w);
  $c[]=new cmp('id','h','20',$mykey,$w.' '.$o,'','',null,null,true,$u,'','col-1');
  $c[]=new cmp('pre_clasif','s','10',$d['preclasif'],$w.' '.$o,'COHORTE DE RIESGO','pre_clasif',null,null,true,$u,'','col-25',"selectDepend('pre_clasif','clasificacion','clasifica.php');");
- $c[]=new cmp('clasificacion','s','10',$d['clasifica'],$w.' '.$o,'GRUPO DE POBLACION PRIORIZADA','clasificacion',null,null,true,$u,'','col-25');
+ $c[]=new cmp('clasificacion','s','10',$d['clasifica'],$w.' '.$o,'GRUPO DE POBLACION PRIORIZADA','clasificaci',null,null,true,$u,'','col-25');
  $c[]=new cmp('riesgo','s','10',$d['riesgo'],$w.' '.$o,'Riesgo','riesgo',null,null,true,$u,'','col-25');
  $c[]=new cmp('tiposeg','s','10',$d['tiposeg'],$w.' '.$o,'tipo de Seguimiento','tiposeg',null,null,true,$u,'','col-25',"enabTipSegRuteo();");
 
@@ -218,7 +218,7 @@ return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=170
 function opc_riesgo($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=296 and estado='A' ORDER BY 1",$id);
 }
-function opc_clasificacion($id=''){
+function opc_clasificaci($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=235 and estado='A' ORDER BY 1",$id);
 }
 function opc_pre_clasif($id=''){
