@@ -19,16 +19,16 @@ else {
 }
 
 function lis_rute(){
-	$info = datos_mysql("SELECT perfil FROM usuarios  where id_usuario='".$_SESSION['us_sds']."';" );
-	$perfil = $info['responseResult'][0]['perfil'];
+	//$info = datos_mysql("SELECT perfil FROM usuarios  where id_usuario='".$_SESSION['us_sds']."';" );
+	//$perfil = $info['responseResult'][0]['perfil'];
 // var_dump($perfil);
 	// $jAproTerr = ($_SESSION['us_sds'] != '80811594') ? "LEFT JOIN apro_terr A ON G.territorio = A.territorio" : ""; // Condiciona el JOIN
-	$jAproTerr = ($perfil != 'ADM' && $perfil != 'SUPHOG') ? " LEFT JOIN apro_terr A ON G.territorio = A.territorio" : ""; // Condiciona el JOIN
+	//$jAproTerr = ($perfil != 'ADM' && $perfil != 'SUPHOG') ? " LEFT JOIN apro_terr A ON G.territorio = A.territorio" : ""; // Condiciona el JOIN
 
 
     $info = datos_mysql("SELECT COUNT(*) total FROM eac_ruteo er 
 	LEFT JOIN hog_geo G ON er.idgeo = G.idgeo 
-        $jAproTerr " . whe_rute());
+         " . whe_rute());
     $total = $info['responseResult'][0]['total'];
     $regxPag = 10;
     $pag = (isset($_POST['pag-rute'])) ? ($_POST['pag-rute'] - 1) * $regxPag : 0;
@@ -41,7 +41,7 @@ function lis_rute(){
                 er.estado
             FROM eac_ruteo er  
             LEFT JOIN hog_geo G ON er.idgeo = G.idgeo 
-            $jAproTerr " . whe_rute();
+             " . whe_rute();
     
     $sql .= " ORDER BY er.fecha_create";
     $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
@@ -54,12 +54,13 @@ function lis_rute(){
     RG.fecha_llamada AS 'Fecha Contacto Telefonico', FN_CATALOGODESC(270,RG.estado_llamada) AS 'Estado Contacto Telefonico', FN_CATALOGODESC(271,RG.estado_agenda) AS 'Estado Gestion'
 	FROM eac_ruteo R
 	LEFT JOIN hog_geo G ON R.idgeo = G.idgeo
-	LEFT JOIN apro_terr A ON G.territorio = A.territorio AND R.actividad1 = A.doc_asignado
 	LEFT JOIN eac_ruteo_ges RG ON R.id_ruteo = RG.idruteo
-	WHERE A.doc_asignado ='".$_SESSION['us_sds']."'";
+	WHERE R.actividad1 ='".$_SESSION['us_sds']."'";
+	//LEFT JOIN apro_terr A ON G.territorio = A.territorio AND R.actividad1 = A.doc_asignado
 		
 		// $tot="SELECT  COUNT(*) as total	FROM eac_ruteo R LEFT JOIN hog_geo G ON R.idgeo = G.idgeo LEFT JOIN apro_terr A ON R.idgeo = A.idgeo AND R.actividad1 = A.doc_asignado	WHERE A.doc_asignado ='R LEFT JOIN hog_geo G ON R.idgeo = G.idgeo LEFT JOIN apro_terr A ON R.idgeo = A.idgeo AND R.actividad1 = A.doc_asignado	WHERE A.doc_asignado ='".$_SESSION['us_sds']."'";
-		$tot="SELECT  COUNT(*) AS total FROM eac_ruteo R LEFT JOIN hog_geo G ON R.idgeo = G.idgeo LEFT JOIN apro_terr A ON G.territorio = A.territorio AND R.actividad1 = A.doc_asignado LEFT JOIN eac_ruteo_ges RG ON R.id_ruteo = RG.idruteo	WHERE A.doc_asignado ='".$_SESSION['us_sds']."';";
+		$tot="SELECT  COUNT(*) AS total FROM eac_ruteo R LEFT JOIN hog_geo G ON R.idgeo = G.idgeo 
+		 LEFT JOIN eac_ruteo_ges RG ON R.id_ruteo = RG.idruteo	WHERE R.actividad1 ='".$_SESSION['us_sds']."';";
 		// echo $sql;
 		$_SESSION['sql_rute']=$sql1;
 		$_SESSION['tot_rute']=$tot;
@@ -76,9 +77,9 @@ function whe_rute() {
     // Agregar condición de apro_terr solo si el perfil no es 'ADM'
 	$info = datos_mysql("SELECT perfil FROM usuarios  where id_usuario='".$_SESSION['us_sds']."';" );
 	$perfil = $info['responseResult'][0]['perfil'];
-    if ($perfil != 'ADM'  && $perfil != 'SUPHOG') {
-        $sql1 .= " AND A.doc_asignado = " . intval($doc_asignado);
-    }
+    /*if ($perfil != 'ADM'  && $perfil != 'SUPHOG') {
+        $sql1 .= " AND R.actividad1 = " . intval($doc_asignado);
+    }*/
     if ($_POST['frut']) {
         $sql1 .= " AND id_ruteo ='" . $_POST['frut'] . "'";
     } elseif ($_POST['fusu']) {
@@ -254,10 +255,11 @@ function lis_gestion(){ //revisar
   	return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=1 and estado="A" ORDER BY 1',$id);
   }
 
-/* function opc_perfil($id=''){
-    return opc_sql("SELECT idcatadeta, descripcion FROM `catadeta` WHERE idcatalogo = 218 AND estado = 'A'",$id);
+/*
+function opc_perfil($id=''){
+    return opc_sql("SELECT idcatadeta, descripcion FROM `catadeta` WHERE idcatalogo = 218 AND estado = 'A' and valor=3",$id);
 }
- */
+*/
 function opc_pre_clasif($id=''){
 	// return opc_sql("SELECT id_usuario id,CONCAT(id_usuario,'-',nombre) usuario FROM usuarios WHERE estado = 'A'",$id);
 }
@@ -420,7 +422,7 @@ function opc_motivo_estado($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=272 and estado='A' ORDER BY 1",$id);
 }
 function opc_perfil($id=''){
-	return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=218 and estado="A" ORDER BY 1',$id);
+	return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=218 and estado="A" and valor=3 ORDER BY 1',$id);
 }
 
 function opc_nombre($id=''){
@@ -682,8 +684,9 @@ function opc_perfil_gest($id=''){
 	}
   function opc_perfil_gestusuario_gest($id=''){
     if($_REQUEST['id']!=''){	
-            $sql = "SELECT id_usuario id,CONCAT(id_usuario,'-',nombre) usuario FROM usuarios 
-			WHERE perfil=(select descripcion from catadeta c where idcatalogo=218 and idcatadeta='{$_REQUEST['id']}' and estado='A') 
+            $sql = "SELECT id_usuario id,CONCAT(id_usuario,'-',nombre) usuario 
+            FROM usuarios 
+            WHERE perfil=(select descripcion from catadeta c where idcatalogo=218 and idcatadeta='{$_REQUEST['id']}' and estado='A') 
             and id_usuario ='{$_SESSION['us_sds']}' ORDER BY nombre";
             $info = datos_mysql($sql);		
 		 //return json_encode($sql);	
@@ -692,9 +695,9 @@ function opc_perfil_gest($id=''){
 }
 function opc_perfilnombre($id=''){
   if($_REQUEST['id']!=''){	
-    $sql = "SELECT id_usuario id,CONCAT(id_usuario,'-',nombre) usuario FROM usuarios right join apro_terr at ON id_usuario=at.doc_asignado  WHERE 
-    perfil=(select descripcion from catadeta c where idcatalogo=218 and idcatadeta='{$_REQUEST['id']}' and estado='A') 
-    and subred=(SELECT subred FROM usuarios WHERE id_usuario ='{$_SESSION['us_sds']}')   ORDER BY nombre";
+    $sql = "SELECT id_usuario id,CONCAT(id_usuario,'-',nombre) usuario FROM usuarios 
+    WHERE perfil=(select descripcion from catadeta c where idcatalogo=218 and idcatadeta='{$_REQUEST['id']}' and estado='A') 
+    and subred=(SELECT subred FROM usuarios WHERE id_usuario ='{$_SESSION['us_sds']}') ORDER BY nombre";
     // var_dump($sql);
     $info = datos_mysql($sql);		
   return json_encode($info['responseResult']);	
