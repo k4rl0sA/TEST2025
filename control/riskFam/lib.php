@@ -397,7 +397,7 @@ if (!empty($document)) {
                      ($EH_Valor * 0.10) + 
                      ($puntajedemo * 0.04) + 
                      ($puntajeindiv * 0.58);
-                     
+
     $sqlInsert = "INSERT INTO riskfam_eval (
         idpersona, fecha_evaluacion, socioeconomico, estrato, ingreso, 
         estructura_familiar, apgar, vulnerabilidad_social, poblaciondif, inclusion,
@@ -408,7 +408,7 @@ if (!empty($document)) {
         medicamentos, quimicos, residuossolid, demograficas, genero,
         nacionalidad, etnia, puntajeindiv, gestante, gestante_sinctrl,
         cronico, cronico_sinctrl, menor5,pts_total, usu_create, estado
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $params = [
         ['type' => 's', 'value' => $document], // idpersona
         ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))], // fecha_evaluacion
