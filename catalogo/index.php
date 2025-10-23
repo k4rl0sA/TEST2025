@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../lib/config/config.php';
-if (!isset($_SESSION['nombre'])) {
+if (!isset($_SESSION['us_sds'])) {
     header('Location: ../index.php');
     exit();
 }
