@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../src/gestion.php';
+require_once __DIR__ . '/../lib/config/config.php';
+require_once __DIR__ . '/../lib/php/gestion.php';
 $perf = perfil($_POST['tb']);
-if (!isset($_SESSION['documento'])) {
-    log_error("Error 20: Usuario No Autorizado.".$_SESSION['documento']);
+if (!isset($_SESSION['us_sds'])) {
+    log_error("Error 20: Usuario No Autorizado.".$_SESSION['us_sds']);
     http_response_code(401);
     echo json_encode(['redirect' => '/']);
     exit();
