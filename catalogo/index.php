@@ -43,7 +43,7 @@ if (isset($acc['exportar']) && $acc['exportar'] == 'SI') {
 			badgeFilter(mod);
 		}
 	</script>
-    <?php include __DIR__.'/../src/nav.php'; ?>
+    <?php include __DIR__.'/../php/nav.php'; ?>
 </head>
 <body Onload="actualizar();">
 	<div class="wrapper main" id='<?php echo $mod; ?>-main'>
