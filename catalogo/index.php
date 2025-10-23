@@ -4,7 +4,7 @@ if (!isset($_SESSION['us_sds'])) {
     header('Location: ../index.php');
     exit();
 }
-require_once __DIR__.'/../src/gestion.php';
+require_once __DIR__.'/../lib/php/gestion.php';
 $mod='catalogo';
 $ya = new DateTime();
 $catalogos=opc_sql("SELECT `idcatalogo`,concat(idcatalogo,' - ',nombre) FROM `catalogo` ORDER BY 1",'');
