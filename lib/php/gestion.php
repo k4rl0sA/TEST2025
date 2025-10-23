@@ -8,7 +8,7 @@ require 'PHPMailer/PHPMailer.php';
 require 'PHPMailer/SMTP.php';
 //Funcion para cerrar la sesion
 function usuSess(){
-  return $usu = isset($_SESSION['documento']) ? $_SESSION['documento'] : 'Usuario Desconocido';
+  return $usu = isset($_SESSION['us_sds']) ? $_SESSION['us_sds'] : 'Usuario Desconocido';
 }
 //Funcion conectar a BD
 function db_connect() {
@@ -36,7 +36,7 @@ function verificarUsuario($usuario, $password) {
         $stmt->fetch();
         if (password_verify($password, $clave)) {
           $_SESSION['nombre'] = $nombre;
-          $_SESSION['documento'] = $documento;
+          $_SESSION['us_sds'] = $documento;
           return true;
       }    
     }
@@ -63,8 +63,8 @@ function log_error($message) {
 //Funcion para crear elementos btn de accion, basado en una consulta por rol
 function acceBtns($a) {
   $rta = [];
-  $perfil = obtenerPerfil($_SESSION['documento']);
-  $componente = obtenerComponente($_SESSION['documento']);
+  $perfil = obtenerPerfil($_SESSION['us_sds']);
+  $componente = obtenerComponente($_SESSION['us_sds']);
   if ($perfil !== null && $componente !== null) {
       $sql = "SELECT perfil, area, crear, editar, consultar, exportar, importar FROM adm_roles WHERE modulo = ? AND perfil = ? AND area = ? AND estado = 'A'";
       $params = [$a, $perfil, $componente];$types = "sss";
@@ -82,7 +82,7 @@ function acceBtns($a) {
 function perfil($a){
 	$perf=rol($a);
 	if (empty($perf['perfil']) || $perf['perfil'] === array()){
-    if(!$_SESSION['documento']){
+    if(!$_SESSION['us_sds']){
       log_error(' = Error 9: Inicio de la función perfil con parámetro: ' . $a);
       http_response_code(401);
     exit();
@@ -108,7 +108,7 @@ function rol($a) {
           if ($data !== null && isset($data[0])) { // Verificar si $data no es null y tiene al menos un elemento
               $rta = $data[0];
           } else {
-            if(!$_SESSION['documento']){
+            if(!$_SESSION['us_sds']){
               log_error("rol: No se encontraron datos para el modulo: ".$a." Perfil: ".$perfil." area: ".$componente." SQL: ".$sql);
               http_response_code(401);
             exit();
