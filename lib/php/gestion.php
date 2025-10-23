@@ -66,7 +66,7 @@ function acceBtns($a) {
   $perfil = obtenerPerfil($_SESSION['us_sds']);
   $componente = obtenerComponente($_SESSION['us_sds']);
   if ($perfil !== null && $componente !== null) {
-      $sql = "SELECT perfil, componente, crear, editar, consultar, exportar, importar FROM adm_roles WHERE modulo = ? AND perfil = ? AND componente = ? AND estado = 'A'";
+      $sql = "SELECT perfil, componente, crear, editar, consultar, ajustar, importar FROM adm_roles WHERE modulo = ? AND perfil = ? AND componente = ? AND estado = 'A'";
       $params = [$a, $perfil, $componente];$types = "sss";
       $data = exec_sql($sql, $params, $types);
       if ($data !== null && isset($data[0])) { 
@@ -102,7 +102,7 @@ function rol($a) {
       $perfil = obtenerPerfil($documento);
       $componente = obtenerComponente($documento);
       if ($perfil !== null && $componente !== null) {
-          $sql = "SELECT perfil, componente, crear, editar, consultar, exportar, importar FROM adm_roles WHERE modulo = ? AND perfil = ? AND componente = ? AND estado = 'A'";
+          $sql = "SELECT perfil, componente, crear, editar, consultar, ajustar, importar FROM adm_roles WHERE modulo = ? AND perfil = ? AND componente = ? AND estado = 'A'";
           $params = [$a, $perfil, $componente];$types = "sss";
           $data = exec_sql($sql, $params, $types); 
           if ($data !== null && isset($data[0])) { // Verificar si $data no es null y tiene al menos un elemento
