@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../lib/config/config.php';
 if (!isset($_SESSION['nombre'])) {
     header('Location: ../index.php');
     exit();
