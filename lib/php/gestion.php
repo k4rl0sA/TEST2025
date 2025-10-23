@@ -66,16 +66,16 @@ function acceBtns($a) {
   $perfil = obtenerPerfil($_SESSION['us_sds']);
   $componente = obtenerComponente($_SESSION['us_sds']);
   if ($perfil !== null && $componente !== null) {
-      $sql = "SELECT perfil, area, crear, editar, consultar, exportar, importar FROM adm_roles WHERE modulo = ? AND perfil = ? AND area = ? AND estado = 'A'";
+      $sql = "SELECT perfil, componente, crear, editar, consultar, exportar, importar FROM adm_roles WHERE modulo = ? AND perfil = ? AND componente = ? AND estado = 'A'";
       $params = [$a, $perfil, $componente];$types = "sss";
       $data = exec_sql($sql, $params, $types);
       if ($data !== null && isset($data[0])) { 
           $rta = $data[0];
       } else {
-          log_error("acceBtns: No se encontraron datos para el modulo: ".$a." Perfil: ".$perfil." area: ".$componente." SQL: ".$sql);
+          log_error("acceBtns: No se encontraron datos para el modulo: ".$a." Perfil: ".$perfil." componente: ".$componente." SQL: ".$sql);
       }
   } else {
-      log_error("acceBtns: No se encontraron perfil o area.");
+      log_error("acceBtns: No se encontraron perfil o componente.");
   }
   return $rta;
 }
@@ -102,20 +102,20 @@ function rol($a) {
       $perfil = obtenerPerfil($documento);
       $componente = obtenerComponente($documento);
       if ($perfil !== null && $componente !== null) {
-          $sql = "SELECT perfil, area, crear, editar, consultar, exportar, importar FROM adm_roles WHERE modulo = ? AND perfil = ? AND area = ? AND estado = 'A'";
+          $sql = "SELECT perfil, componente, crear, editar, consultar, exportar, importar FROM adm_roles WHERE modulo = ? AND perfil = ? AND componente = ? AND estado = 'A'";
           $params = [$a, $perfil, $componente];$types = "sss";
           $data = exec_sql($sql, $params, $types); 
           if ($data !== null && isset($data[0])) { // Verificar si $data no es null y tiene al menos un elemento
               $rta = $data[0];
           } else {
             if(!$_SESSION['us_sds']){
-              log_error("rol: No se encontraron datos para el modulo: ".$a." Perfil: ".$perfil." area: ".$componente." SQL: ".$sql);
+              log_error("rol: No se encontraron datos para el modulo: ".$a." Perfil: ".$perfil." componente: ".$componente." SQL: ".$sql);
               http_response_code(401);
             exit();
             }
           }
       } else {
-          log_error('rol: No se encontró perfil o area para el usuario: ' . $documento . " Perfil: " . var_export($perfil,true) . " area: " . var_export($componente,true));
+          log_error('rol: No se encontró perfil o componente para el usuario: ' . $documento . " Perfil: " . var_export($perfil,true) . " componente: " . var_export($componente,true));
       }
   } else {
       log_error('rol: Intento de acceder a rol sin documento de usuario: ' . $a);
@@ -130,9 +130,9 @@ function obtenerPerfil($documento) {
   return exec_sql($sql, $params, $types, false);
 }
 function obtenerComponente($documento) {
-  $sql = "SELECT area
+  $sql = "SELECT componente
         FROM usuarios
-        WHERE id_usuario = ? AND estado = '1'";
+        WHERE id_usuario = ? AND estado = 'A'";
   $params = [$documento];
   $types = "i";
   return exec_sql($sql, $params, $types, false);
@@ -142,7 +142,7 @@ function obtenerMenu($usuario) {
   $stmt = $conn->prepare("SELECT m.id, m.link, m.icono, m.enlace, m.menu, m.contenedor FROM adm_menu m 
                           JOIN adm_menuusuarios mu ON m.id = mu.idmenu 
                           JOIN usuarios u ON mu.perfil = u.perfil 
-                          WHERE u.id_usuario = ? AND m.estado = 'A' AND u.estado = '1' ORDER BY m.id ASC");
+                          WHERE u.id_usuario = ? AND m.estado = 'A' AND u.estado = 'A' ORDER BY m.id ASC");
   $stmt->bind_param("s", $usuario);
   $stmt->execute();
   $result = $stmt->get_result();
