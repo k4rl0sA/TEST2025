@@ -180,7 +180,8 @@ function formato_dato($a, $b, $c, $d) {
                 'permiso' => acceso('th'),
                 'hash' => myhash($c['ACCIONES']),
                 'evento' => "mostrar('th','{$c['ACCIONES']}',this,'lib.php');"
-            ],
+            ]
+			/* ,
             'ver' => [
                 'icono' => 'fa-solid fa-eye',
                 'clase' => 'ico',
@@ -188,7 +189,7 @@ function formato_dato($a, $b, $c, $d) {
                 'permiso' => acceso('th'),
                 'hash' => myhash($c['ACCIONES']),
                 'evento' => "mostrar('th','{$c['ACCIONES']}',this,'lib.php',1);"
-            ]
+            ] */
         ];
         
         foreach ($accionesDisponibles as $key => $accion) {
