@@ -71,8 +71,7 @@ function cap_menus($a,$b='cap',$con='con') {
 }
 
 function cmp_th(){
- $rta .="<div class='encabezado vivienda'>CREAR COLABORADOR</div>
-	<div class='contenido' id='gestion-lis' >".lis_gestion()."</div></div>";
+ $rta .="<div class='encabezado vivienda'>CREAR COLABORADOR</div>";
 
  $t=['id'=>'', 'idgeo'=>'', 'id_tho'=>'','fecha_asig'=>'','fuente'=>'','priorizacion'=>'','tipo_prior'=>'','tipo_doc'=>'','documento'=>'','nombres'=>'','sexo'=>'',
  'direccion'=>'','telefono1'=>'','telefono2'=>'','telefono3'=>'', 'subred'=>'','localidad'=>'','upz'=>'','barrio'=>'', 'sector_catastral'=>'','nummanzana'=>'',
@@ -91,34 +90,34 @@ function cmp_th(){
 // var_dump($d);
  $o='segrep';
  $c[]=new cmp($o,'e',null,'CASO REPORTADO',$w);
- $c[]=new cmp('id','h','20',$d['id_tho'],$w.' '.$o,'','',null,null,true,false,'','col-1');
- $c[]=new cmp('fecha_asig','d','10',$d['fecha_asig'],$w.' '.$o,'FECHA ASIGNACIÓN','fecha_asig',null,null,false,false,'','col-15');
- $c[]=new cmp('fuente','s','3',$d['fuente'],$w.' '.$o,'FUENTE O REMITENTE','fuente',null,null,false,false,'','col-25');
- $c[]=new cmp('priorizacion','s','3',$d['priorizacion'],$w.' '.$o,'COHORTE DE RIESGO','priorizacion',null,null,false,false,'','col-3');
- $c[]=new cmp('tipo_prior','s','3',$d['tipo_prior'],$w.' '.$o,'GRUPO DE POBLACION PRIORIZADA','tipo_prior',null,null,false,false,'','col-3');
+ $c[]=new cmp('id','h','20','',$w.' '.$o,'','',null,null,true,false,'','col-1');
+ $c[]=new cmp('fecha_asig','d','10','',$w.' '.$o,'FECHA ASIGNACIÓN','fecha_asig',null,null,false,false,'','col-15');
+ $c[]=new cmp('fuente','s','3','',$w.' '.$o,'FUENTE O REMITENTE','fuente',null,null,false,false,'','col-25');
+ $c[]=new cmp('priorizacion','s','3','',$w.' '.$o,'COHORTE DE RIESGO','priorizacion',null,null,false,false,'','col-3');
+ $c[]=new cmp('tipo_prior','s','3','',$w.' '.$o,'GRUPO DE POBLACION PRIORIZADA','tipo_prior',null,null,false,false,'','col-3');
 
- $c[]=new cmp('tipo_doc','s','3',$d['tipo_doc'],$w.' '.$o,'TIPO DE DOCUMENTO','tipo_doc',null,null,false,false,'','col-2');
- $c[]=new cmp('documento','nu','999999999999999999',$d['documento'],$w.' '.$o,'NÚMERO DE DOCUMENTO','documento',null,null,false,false,'','col-2');
- $c[]=new cmp('nombres','t','80',$d['nombres'],$w.' '.$o,'NOMBRES Y APELLIDOS DEL USUARIO','nombres',null,null,false,false,'','col-4');
- $c[]=new cmp('sexo','s','3',$d['sexo'],$w.' '.$o,'SEXO','sexo',null,null,false,false,'','col-2');
+ $c[]=new cmp('tipo_doc','s','3','',$w.' '.$o,'TIPO DE DOCUMENTO','tipo_doc',null,null,false,false,'','col-2');
+ $c[]=new cmp('documento','nu','999999999999999999','',$w.' '.$o,'NÚMERO DE DOCUMENTO','documento',null,null,false,false,'','col-2');
+ $c[]=new cmp('nombres','t','80','',$w.' '.$o,'NOMBRES Y APELLIDOS DEL USUARIO','nombres',null,null,false,false,'','col-4');
+ $c[]=new cmp('sexo','s','3','',$w.' '.$o,'SEXO','sexo',null,null,false,false,'','col-2');
  
  $o='datcon';
  //$c[]=new cmp($o,'e',null,'DATOS DE CONTACTO',$w);
- $c[]=new cmp('direccion','t','90',$d['direccion'],$w.' '.$o,'Direccion','direccion',null,null,false,false,'','col-4');
- $c[]=new cmp('telefono1','n','10',$d['telefono1'],$w.' '.$o,'Telefono 1','telefono1',null,null,false,false,'','col-2');
- $c[]=new cmp('telefono2','n','10',$d['telefono2'],$w.' '.$o,'Telefono 2','telefono2',null,null,false,false,'','col-2');
- $c[]=new cmp('telefono3','n','10',$d['telefono3'],$w.' '.$o,'Telefono 3','telefono3',null,null,false,false,'','col-2');
+ $c[]=new cmp('direccion','t','90','',$w.' '.$o,'Direccion','direccion',null,null,false,false,'','col-4');
+ $c[]=new cmp('telefono1','n','10','',$w.' '.$o,'Telefono 1','telefono1',null,null,false,false,'','col-2');
+ $c[]=new cmp('telefono2','n','10','',$w.' '.$o,'Telefono 2','telefono2',null,null,false,false,'','col-2');
+ $c[]=new cmp('telefono3','n','10','',$w.' '.$o,'Telefono 3','telefono3',null,null,false,false,'','col-2');
 
- $c[]=new cmp('subred_report','s','3',$d['subred'],$w.' '.$o,'Subred','subred_report',null,null,false,false,'','col-3');
- $c[]=new cmp('localidad','s','3',$d['localidad'],$w.' '.$o,'Localidad','localidad',null,null,false,false,'','col-2');
- $c[]=new cmp('upz','s','3',$d['upz'],$w.' '.$o,'Upz','upz',null,null,false,false,'','col-2');
- $c[]=new cmp('barrio','s','5',$d['barrio'],$w.' '.$o,'Barrio','barrio',null,null,false,false,'','col-3');
- $c[]=new cmp('sector_catastral','n','6',$d['sector_catastral'],$w.' '.$o,'Sector Catastral (6)','sector_catastral',null,null,false,false,'','col-25');
- $c[]=new cmp('nummanzana','n','3',$d['nummanzana'],$w.' '.$o,'Nummanzana (3)','nummanzana',null,null,false,false,'','col-25');
- $c[]=new cmp('predio_num','n','3',$d['predio_num'],$w.' '.$o,'Predio de Num (3)','predio_num',null,null,false,false,'','col-25');
- $c[]=new cmp('unidad_habit','n','4',$d['unidad_habit'],$w.' '.$o,'Unidad habitacional (3)','unidad_habit',null,null,false,false,'','col-25');
- $c[]=new cmp('cordx','t','15',$d['cordx'],$w.' '.$o,'Cordx','cordx',null,null,false,false,'','col-5');
- $c[]=new cmp('cordy','t','15',$d['cordy'],$w.' '.$o,'Cordy','cordy',null,null,false,false,'','col-5');
+ $c[]=new cmp('subred_report','s','3','',$w.' '.$o,'Subred','subred_report',null,null,false,false,'','col-3');
+ $c[]=new cmp('localidad','s','3','',$w.' '.$o,'Localidad','localidad',null,null,false,false,'','col-2');
+ $c[]=new cmp('upz','s','3','',$w.' '.$o,'Upz','upz',null,null,false,false,'','col-2');
+ $c[]=new cmp('barrio','s','5','',$w.' '.$o,'Barrio','barrio',null,null,false,false,'','col-3');
+ $c[]=new cmp('sector_catastral','n','6','',$w.' '.$o,'Sector Catastral (6)','sector_catastral',null,null,false,false,'','col-25');
+ $c[]=new cmp('nummanzana','n','3','',$w.' '.$o,'Nummanzana (3)','nummanzana',null,null,false,false,'','col-25');
+ $c[]=new cmp('predio_num','n','3','',$w.' '.$o,'Predio de Num (3)','predio_num',null,null,false,false,'','col-25');
+ $c[]=new cmp('unidad_habit','n','4','',$w.' '.$o,'Unidad habitacional (3)','unidad_habit',null,null,false,false,'','col-25');
+ $c[]=new cmp('cordx','t','15','',$w.' '.$o,'Cordx','cordx',null,null,false,false,'','col-5');
+ $c[]=new cmp('cordy','t','15','',$w.' '.$o,'Cordy','cordy',null,null,false,false,'','col-5');
  
 
 //  $c[]=new cmp('observacion','a',50,$d['obse'],$w.' '.$o,'Observacion','observacion',null,null,true,true,'','col-10');
