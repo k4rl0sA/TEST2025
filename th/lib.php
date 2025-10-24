@@ -39,9 +39,9 @@ function whe_th() {
 	$info=datos_mysql($sql2);
     $subred = $info['responseResult'][0]['subred'];
 	//var_dump($sql2);
-    $sql1 .= " T.subred = " . intval($subred);
+    $sql .= " T.subred = " . intval($subred);
     if ($_POST['fusu']) {
-        $sql1 .= " AND n_documento ='" . $_POST['fusu'] . "'";
+        $sql .= " AND n_documento ='" . $_POST['fusu'] . "'";
     }
 	//var_dump($sql1);
 	return $sql1;
@@ -74,7 +74,7 @@ function cmp_th(){
 $rta="";
  $w='th';
  $o='infobasica';
- $c[]=new cmp($o,'e',null,'DATOS DE IDENTIFICACIÓN',$w);
+ $c[]=new cmp($o,'l',null,'',$w);
  $c[]=new cmp('id','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
  $c[]=new cmp('tipo_doc','t','3','',$w.' '.$o,'Tipo documento','tipo_doc',null,null,true,false,'','col-4');
  $c[]=new cmp('documento','nu','999999999999999999','',$w.' '.$o,'NÚMERO DE DOCUMENTO','documento',null,null,false,false,'','col-2');
