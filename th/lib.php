@@ -49,7 +49,25 @@ $info = datos_mysql("SELECT COUNT(*) total FROM th T
 	return create_table($total,$datos["responseResult"],"rute",$regxPag);
 }
 
-
+function whe_rute() {
+	$us_sds = $_SESSION['us_sds'] ?? '';
+    $doc_asignado = $_SESSION['us_sds'] ?? 0;
+    $perfil = perfil1();
+    $sql1 = " WHERE T.subred = '" . $us_sds . "')";
+    // Agregar condición de apro_terr solo si el perfil no es 'ADM'
+	$info = datos_mysql("SELECT perfil FROM usuarios  where id_usuario='".$_SESSION['us_sds']."';" );
+	$perfil = $info['responseResult'][0]['perfil'];
+    /*if ($perfil != 'ADM'  && $perfil != 'SUPHOG') {
+        $sql1 .= " AND R.actividad1 = " . intval($doc_asignado);
+    }*/
+    if ($_POST['fusu']) {
+        $sql1 .= " AND n_documento ='" . $_POST['fusu'] . "'";
+    } else {
+        $sql1 .= " AND 0";
+    }
+	// var_dump($sql1);
+	return $sql1;
+}
 
 
 function focus_rute(){
