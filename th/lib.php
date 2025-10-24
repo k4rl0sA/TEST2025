@@ -32,7 +32,7 @@ $info = datos_mysql("SELECT COUNT(*) total FROM th T" . whe_th());
 	var_dump($sql);
 
 	$sql1="SELECT  T.tipo_doc AS 'Tipo Documento', T.n_documento AS 'N° Documento', concat (T.nombre1, ' ', T.nombre2, ' ', T.apellido1, ' ', T.apellido2) AS 'Nombres y Apellidos del Colaborador', T.n_contacto AS 'N° Contacto', T.estado AS 'Estado Usuario' 	
-		   FROM th T ";
+		   FROM th T WHERE ";
 	
 	$tot="SELECT  COUNT(*) AS total FROM th T  WHERE ;";
 		// echo $sql;
