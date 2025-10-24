@@ -74,9 +74,11 @@ function cmp_th(){
 $rta="";
  $w='th';
  $o='infobasica';
+ $c[]=new cmp($o,'e',null,'DATOS DE IDENTIFICACIÓN',$w);
  $c[]=new cmp('id','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
  $c[]=new cmp('tipo_doc','t','3','',$w.' '.$o,'Tipo documento','tipo_doc',null,null,true,false,'','col-4');
  $c[]=new cmp('documento','nu','999999999999999999','',$w.' '.$o,'NÚMERO DE DOCUMENTO','documento',null,null,false,false,'','col-2');
+ $c[]=new cmp($o,'e',null,'DATOS DE IDENTIFICACIÓN',$w);
  $c[]=new cmp('nombre1','t','30','',$w.' '.$o,'Primer Nombre','nombre1',null,null,true,true,'','col-25');
  $c[]=new cmp('nombre2','t','30','',$w.' '.$o,'Segundo Nombre','nombre2',null,null,false,true,'','col-25');
  $c[]=new cmp('apellido1','t','30','',$w.' '.$o,'Primer Apellido','apellido1',null,null,true,true,'','col-25');
