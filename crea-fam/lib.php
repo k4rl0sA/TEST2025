@@ -784,7 +784,7 @@ function eventAsign($key) {
 	  28 => ['icono' => 'condu1', 'titulo' => 'CONDUCTA SUICIDA (INTENTO)', 'modulo' => 'condsuic'],
 	  29 => ['icono' => 'otrca1', 'titulo' => 'EDUCACIÓN MEDICO', 'modulo' => 'educaMedi'],
 	  30 => ['icono' => 'adoles', 'titulo' => 'ADOLESCENCIA CON MAS BIENESTAR', 'modulo' => 'adoleMas'],
-	  31 => ['icono' => 'discap', 'titulo' => 'MAS COMPAÑIA MAS BIENESTAR', 'modulo' => 'discapacidad']
+	  31 => ['icono' => 'vihge1', 'titulo' => 'MAS COMPAÑIA MAS BIENESTAR', 'modulo' => 'discapacidad']
     );
     $eve = '';
     foreach ($rta as $evento) {
