@@ -95,20 +95,15 @@ function cap_menus($a,$b='cap',$con='con') {
 }
 
 function cmp_th(){
- $rta="";
-	$rta .="<div class='encabezado vivienda'>TABLA DE LLAMADAS REALIZADAS</div>
+ $rta="9999";
+/*	$rta .="<div class='encabezado vivienda'>TABLA DE LLAMADAS REALIZADAS</div>
 	<div class='contenido' id='gestion-lis' >".lis_gestion()."</div></div>";
 
  $t=['id'=>'', 'idgeo'=>'', 'id_tho'=>'','fecha_asig'=>'','fuente'=>'','priorizacion'=>'','tipo_prior'=>'','tipo_doc'=>'','documento'=>'','nombres'=>'','sexo'=>'',
  'direccion'=>'','telefono1'=>'','telefono2'=>'','telefono3'=>'', 'subred'=>'','localidad'=>'','upz'=>'','barrio'=>'', 'sector_catastral'=>'','nummanzana'=>'',
  'predio_num'=>'','unidad_habit'=>'','cordx'=>'','cordy'=>''];
  
- /* 'fecha_consulta'=>'',
- 'cod_cups'=>'','per_consul'=>'','subred_report'=>'',,'fecha_gestion'=>'','fecha_gest'=>'','estado_g'=>'',
- 'motivo_estado'=>'','direccion_nueva'=>'','sect'=>'', 'manz'=>'','pred'=>'', 'obse'=>'','dir_new'=>'','sector'=>'', 'manzana'=>'','predio'=>'','usu_creo'=>'', 'fecha_create'=>'', 'usu_update'=>'', 
- 'fecha_update'=>'', 'estado'=>'']; */
 
- //'nacionalidad'=>'','etnia'=>'','regimen'=>'','eapb'=>'','tipo_doc_acu'=>'','documento_acu'=>'','nombres_acu'=>'',
  $w='th';
  $d=get_tho();
 //  var_dump($d);
@@ -150,35 +145,10 @@ function cmp_th(){
  $c[]=new cmp('cordx','t','15',$d['cordx'],$w.' '.$o,'Cordx','cordx',null,null,false,false,'','col-5');
  $c[]=new cmp('cordy','t','15',$d['cordy'],$w.' '.$o,'Cordy','cordy',null,null,false,false,'','col-5');
  
- $o='gesefc';
- $c[]=new cmp($o,'e',null,'CONTACTO TELEFONICO',$w);
- $c[]=new cmp('fecha_llamada','d','10','',$w.' pRe '.$o,'Fecha de Primer Contacto Telefonico','fecha_gestion',null,null,true,true,'','col-2',"validDate(this,$days,0);");
- $c[]=new cmp('estado_llamada','s',2,'',$w.' pRe '.$o,'Estado Primer Contacto','estado_g',null,null,true,true,'','col-4','enabRutGest();enabRutVisit();');//
- $c[]=new cmp('observacion','a',7000,'',$w.' '.$o,'Observacion','observacion',null,null,true,true,'','col-10');
 
-/* $o='gesefc';
- $c[]=new cmp($o,'e',null,'PROCESO DE GESTIÓN',$w);
- $c[]=new cmp('estado_agenda','s',2,'',$w.' pRe '.$o,'Estado','estado_agenda',null,null,true,$x,'','col-4',"enabFielSele(this,['motivo_estado']);");//
- $c[]=new cmp('motivo_estado','s','3','',$w.' sTA '.$o,'motivo_estado','motivo_estado',null,null,false,false,'','col-4','validState(this);');
- */
- $o='gesefc';
- $c[]=new cmp($o,'e',null,'PROCESO DE GESTIÓN',$w);
- $c[]=new cmp('estado_agenda','s',2,'',$w.' sTA '.$o,'Estado','estado_agenda',null,null,true,false,'','col-4','enabRutOthSub();enabRutRech();');//enabRutAgen();
- $c[]=new cmp('motivo_estado','s','3','',$w.' ReC '.$o,'Motivo del Rechazado','motivo_estado',null,null,false,false,'','col-4');//
- $c[]=new cmp('fecha_gestion','h','10','',$w.' '.$o,'Fecha de Agenda','fecha_gestion',null,null,false,false,'','col-2',"validDate(this,$days,30);");
- $c[]=new cmp('docu_confirm','h','999999999999999999','',$w.'  '.$o,'Documento Confirmado  del Usuario','docu_confirm',null,null,false,false,'','col-2');
-  $c[]=new cmp('perfil_gest','h',3,'',$w.' '.$o,'Perfil que Gestiona','perfil_gest',null,'',false,false,'','col-2',"selectDepend('perfil_gest','usuario_gest','lib.php');");
- $c[]=new cmp('usuario_gest','h','10','',$w.' '.$o,'Usuario que Gestiona','usuario_gest',null,null,false,false,'','col-2');
-
- $o='gesgeo';
- $c[]=new cmp($o,'e',null,'DATOS GEOGRAFICOS',$w);
- $c[]=new cmp('direccion_nueva_v','t','90','',$w.' dir '.$o,'Direccion Nueva <a href="https://mapas.bogota.gov.co/#" target="_blank">Abrir MAPAS Bogotá</a>','direccion_nueva_v',null,null,false,false,'','col-25');
- $c[]=new cmp('sector_catastral_v','n','6','',$w.' dir '.$o,'Sector Catastral (6)','sector_catastral_v',null,null,false,false,'','col-25');
- $c[]=new cmp('nummanzana_v','n','3','',$w.' dir '.$o,'Nummanzana (3)','nummanzana_v',null,null,false,false,'','col-25');
- $c[]=new cmp('predio_num_v','n','3','',$w.' dir '.$o,'Predio de Num (3)','predio_num_v',null,null,false,false,'','col-25');
 //  $c[]=new cmp('observacion','a',50,$d['obse'],$w.' '.$o,'Observacion','observacion',null,null,true,true,'','col-10');
   
- for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
+ for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();¨*/
  return $rta;
 }
 
