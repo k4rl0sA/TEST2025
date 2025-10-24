@@ -182,7 +182,7 @@ function formato_dato($a, $b, $c, $d) {
                 'evento' => "mostrar('th','{$c['ACCIONES']}',this,'lib.php');"
             ],
             'ver' => [
-                'icono' => 'fa-solid fa-person-chalkboard',
+                'icono' => 'fa-solid fa-clipboard-list',
                 'clase' => 'ico',
                 'title' => 'Ver Detalles',
                 'permiso' => acceso('th'),
