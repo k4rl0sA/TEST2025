@@ -14,7 +14,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
 <script src="../libs/js/d.js"></script>
 <script src="../libs/js/popup.js"></script>
 <script>
-var mod='rute';
+var mod='th';
 var ruta_app='lib.php';
 function csv(b){
 		var myWindow = window.open("../../libs/gestion.php?a=exportar&b="+b,"Descargar archivo");
@@ -61,7 +61,7 @@ function grabar(tb='',ev){
 	require_once "../libs/gestion.php";
 if (!isset($_SESSION["us_sds"])){ die("<script>window.top.location.href = '/';</script>");}
 
-$mod='rute';
+$mod='th';
 $ya = new DateTime();
 $grupos=opc_sql("select idcatadeta,descripcion from catadeta where idcatalogo=191 and estado='A' order by 1",'');
 // $fuentes=opc_sql("select idcatadeta,descripcion from catadeta where idcatalogo=33 and estado='A' order by 1",'');
