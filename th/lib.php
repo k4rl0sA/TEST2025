@@ -71,8 +71,7 @@ function cap_menus($a,$b='cap',$con='con') {
 }
 
 function cmp_th(){
- $rta="9999";
-/*	$rta .="<div class='encabezado vivienda'>TABLA DE LLAMADAS REALIZADAS</div>
+ $rta .="<div class='encabezado vivienda'>CREAR COLABORADOR</div>
 	<div class='contenido' id='gestion-lis' >".lis_gestion()."</div></div>";
 
  $t=['id'=>'', 'idgeo'=>'', 'id_tho'=>'','fecha_asig'=>'','fuente'=>'','priorizacion'=>'','tipo_prior'=>'','tipo_doc'=>'','documento'=>'','nombres'=>'','sexo'=>'',
