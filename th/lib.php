@@ -19,31 +19,17 @@ else {
 }
 
 function lis_rute(){
-	//$info = datos_mysql("SELECT perfil FROM usuarios  where id_usuario='".$_SESSION['us_sds']."';" );
-	//$perfil = $info['responseResult'][0]['perfil'];
-// var_dump($perfil);
-	// $jAproTerr = ($_SESSION['us_sds'] != '80811594') ? "LEFT JOIN apro_terr A ON G.territorio = A.territorio" : ""; // Condiciona el JOIN
-	//$jAproTerr = ($perfil != 'ADM' && $perfil != 'SUPHOG') ? " LEFT JOIN apro_terr A ON G.territorio = A.territorio" : ""; // Condiciona el JOIN
-
-
-    $info = datos_mysql("SELECT COUNT(*) total FROM eac_ruteo er 
-	LEFT JOIN hog_geo G ON er.idgeo = G.idgeo 
-         " . whe_rute());
+$info = datos_mysql("SELECT COUNT(*) total FROM th T 
+	         " . whe_rute());
     $total = $info['responseResult'][0]['total'];
     $regxPag = 10;
     $pag = (isset($_POST['pag-rute'])) ? ($_POST['pag-rute'] - 1) * $regxPag : 0;
 
-    $sql = "SELECT er.id_ruteo AS ACCIONES,er.id_ruteo 'Cod Ruteo',er.idgeo AS 'Cod Predio', 
-                FN_CATALOGODESC(235, tipo_prior) AS Grupo_Poblacion_Priorizada, 
-                er.documento AS Documento_Usuario, er.nombres AS Nombre_Usuario, 
-                FN_CATALOGODESC(218, er.perfil1) AS Interviene, 
-                FN_CATALOGODESC(269, er.actividad1) AS Realizar, 
-                er.estado
-            FROM eac_ruteo er  
-            LEFT JOIN hog_geo G ON er.idgeo = G.idgeo 
-             " . whe_rute();
+    $sql = "SELECT T.
+            FROM th T  
+            " . whe_rute();
     
-    $sql .= " ORDER BY er.fecha_create";
+    $sql .= " ORDER BY T.fecha_create";
     $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
 	// var_dump($sql);
 
