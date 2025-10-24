@@ -29,7 +29,7 @@ $info = datos_mysql("SELECT COUNT(*) total FROM th T WHERE " . whe_th());
             WHERE " . whe_th();    
     $sql .= " ORDER BY T.fecha_create";
     $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
-	var_dump($sql);
+	/* var_dump($sql); */
 		$datos=datos_mysql($sql);
 	return create_table($total,$datos["responseResult"],"th",$regxPag);
 }
