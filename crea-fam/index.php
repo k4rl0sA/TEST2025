@@ -178,7 +178,8 @@ function grabar(tb='',ev){
   'resultLab': '../servicios_complem/laboratorios.php',
   'seguiremot': '../servicios_complem/seguiRemoto.php',
   'barreras':'../tamizajes/barreras.php',
-  'tamsoledad':'../tamizajes/soledad.php'
+  'tamsoledad':'../tamizajes/soledad.php',
+  'educaMedi':'../vsp/educaMedi.php'
  	};
    let ruta_app = rutaMap[tb] || 'lib.php';
   if(tb=='sesion2'){
