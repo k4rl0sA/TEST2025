@@ -182,7 +182,7 @@ function formato_dato($a, $b, $c, $d) {
                 'evento' => "mostrar('th','{$c['ACCIONES']}',this,'lib.php');"
             ],
             'ver' => [
-                'icono' => 'fa-solid fa-eye',
+                'icono' => 'fa-file-invoice-dollar',
                 'clase' => 'ico',
                 'title' => 'Ver Detalles',
                 'permiso' => acceso('th'),
@@ -190,7 +190,7 @@ function formato_dato($a, $b, $c, $d) {
                 'evento' => "mostrar('th','{$c['ACCIONES']}',this,'lib.php',1);"
             ],
             'ver' => [
-                'icono' => 'fa-solid fa-eye',
+                'icono' => '<fa-solid fa-clipboard-list',
                 'clase' => 'ico',
                 'title' => 'Ver Detalles',
                 'permiso' => acceso('th'),
