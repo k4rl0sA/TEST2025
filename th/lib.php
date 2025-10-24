@@ -19,7 +19,7 @@ else {
 }
 
 function lis_th(){
-$info = datos_mysql("SELECT COUNT(*) total FROM th T 
+/*$info = datos_mysql("SELECT COUNT(*) total FROM th T 
 	         " . whe_th());
     $total = $info['responseResult'][0]['total'];
     $regxPag = 10;
@@ -44,9 +44,9 @@ $info = datos_mysql("SELECT COUNT(*) total FROM th T
 		$_SESSION['tot_th']=$tot;
 		// /* echo json_encode($rta); 
 		$datos=datos_mysql($sql);
-	return create_table($total,$datos["responseResult"],"th",$regxPag);
+	return create_table($total,$datos["responseResult"],"th",$regxPag);*/
 }
-/*
+
 function whe_th() {
 	$us_sds = $_SESSION['us_sds'] ?? '';
     $doc_asignado = $_SESSION['us_sds'] ?? 0;
@@ -57,7 +57,7 @@ function whe_th() {
 	$perfil = $info['responseResult'][0]['perfil'];
     /*if ($perfil != 'ADM'  && $perfil != 'SUPHOG') {
         $sql1 .= " AND R.actividad1 = " . intval($doc_asignado);
-    }
+    }*/
     if ($_POST['fusu']) {
         $sql1 .= " AND n_documento ='" . $_POST['fusu'] . "'";
     } else {
@@ -66,7 +66,7 @@ function whe_th() {
 	// var_dump($sql1);
 	return $sql1;
 }
-*/
+
 
 function focus_th(){
  return 'th';
