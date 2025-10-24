@@ -24,7 +24,7 @@ $info = datos_mysql("SELECT COUNT(*) total FROM th T WHERE " . whe_th());
     $regxPag = 20;
     $pag = (isset($_POST['pag-th'])) ? ($_POST['pag-th'] - 1) * $regxPag : 0;
 
-    $sql = "SELECT T.tipo_doc AS 'Tipo Documento', T.n_documento AS 'N° Documento', concat (T.nombre1, ' ', T.nombre2, ' ', T.apellido1, ' ', T.apellido2) AS 'Nombres y Apellidos del Colaborador', T.n_contacto AS 'N° Contacto', T.estado AS 'Estado Usuario' 
+    $sql = "SELECT T.id_th AS Acciones, T.tipo_doc AS 'Tipo Documento', T.n_documento AS 'N° Documento', concat (T.nombre1, ' ', T.nombre2, ' ', T.apellido1, ' ', T.apellido2) AS 'Nombres y Apellidos del Colaborador', T.n_contacto AS 'N° Contacto', T.estado AS 'Estado Usuario' 
 	        FROM th T  
             WHERE " . whe_th();    
     $sql .= " ORDER BY T.fecha_create";
