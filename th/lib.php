@@ -189,7 +189,7 @@ function formato_dato($a, $b, $c, $d) {
                 'hash' => myhash($c['ACCIONES']),
                 'evento' => "mostrar('th','{$c['ACCIONES']}',this,'lib.php',1);"
             ],
-            'ver' => [
+            'rev' => [
                 'icono' => 'fa-regular fa-calendar-check',
                 'clase' => 'ico',
                 'title' => 'Ver Detalles',
