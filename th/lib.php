@@ -72,7 +72,7 @@ function cap_menus($a,$b='cap',$con='con') {
 
 function cmp_th(){
  $rta ="<div class='encabezado vivienda'>CREAR COLABORADOR</div>";
- $w='th';
+/*  $w='th';
  $o='segrep';
  $c[]=new cmp('id','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
  $c[]=new cmp('tipo_doc','s','3','',$w.' '.$o,'TIPO DE DOCUMENTO','tipo_doc',null,null,false,false,'','col-2');
@@ -85,7 +85,7 @@ function cmp_th(){
  $c[]=new cmp('sexo','s','3','',$w.' '.$o,'Sexo','sexo',null,null,true,false,'','col-2');
  $c[]=new cmp('contacto','n','10','',$w.' '.$o,'N° Contacto','contacto',null,null,false,false,'','col-2');
  $c[]=new cmp('email','n','10','',$w.' '.$o,'Correo Electronico','email',null,null,false,false,'','col-2');
- for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
+ for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put(); */
  return $rta;
 }
 
