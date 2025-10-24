@@ -90,7 +90,7 @@ function cmp_th(){
 }
 
 
-function get_th(){
+/* function get_th(){
 	if($_POST['id']=='0'){
 		return "";
 	}else{
@@ -158,7 +158,7 @@ function gra_th(){
 	// return $rta3;
 	return $rta;
 }
-
+ */
 /***************************************************************************/
 function formato_dato($a,$b,$c,$d){
  $b=strtolower($b);
