@@ -39,7 +39,7 @@ function whe_th() {
 	$info=datos_mysql($sql2);
     $subred = $info['responseResult'][0]['subred'];
 	//var_dump($sql2);
-    $sql1 .= " AND T.subred = " . intval($subred);
+    $sql1 .= " T.subred = " . intval($subred);
     if ($_POST['fusu']) {
         $sql1 .= " AND n_documento ='" . $_POST['fusu'] . "'";
     } else {
