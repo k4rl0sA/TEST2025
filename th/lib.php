@@ -79,7 +79,7 @@ function cmp_th(){
  */
 
  $w='th';
- $d=get_tho();
+ $d=get_th();
 //  var_dump($d);
  if ($d=="") {$d=$t;}
  $days=fechas_app('agendamiento');
