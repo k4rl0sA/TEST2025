@@ -44,7 +44,7 @@ function whe_th() {
         $sql .= " AND n_documento ='" . $_POST['fusu'] . "'";
     }
 	//var_dump($sql1);
-	return $sql1;
+	return $sql;
 }
 
 
