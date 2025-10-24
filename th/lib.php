@@ -71,7 +71,7 @@ function cap_menus($a,$b='cap',$con='con') {
 }
 
 function cmp_th(){
- $rta .="<div class='encabezado vivienda'>CREAR COLABORADOR</div>";
+ $rta ="<div class='encabezado vivienda'>CREAR COLABORADOR</div>";
  $w='th';
  $o='segrep';
  $c[]=new cmp('id','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
