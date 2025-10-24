@@ -59,10 +59,13 @@ function gra_unidadeshs() {
     $usu_creo = $_SESSION['us_sds']; // usuario que crea
     $creo = date('Y-m-d H:i:s', strtotime('-5 hours')); // fecha creación ajustada
     //validar numeros positivos $_POST['unidades']
-    if (!isset($_POST['unidades']) || !is_numeric($_POST['unidades']) || intval($_POST['unidades']) < 0) {
-        return "Error: msj['El número de unidades debe ser un valor numérico positivo.']";
+    if (!isset($_POST['unidades']) || !is_numeric($_POST['unidades']) || intval($_POST['unidades']) < 0 || intval($_POST['unidades']> 2500)) {
+        return "Error: msj['El número de unidades debe ser un valor numérico positivo o menor o igual a 2500.']";
     }   
-    $unidades = intval($_POST['unidades']);
+    /* $unidades = intval($_POST['unidades']);
+       if ($unidades > 2500) {
+        return "Error: msj['El número de unidades no puede ser mayor a 2500.']";
+    } */
     $estado = 2;
 
    
