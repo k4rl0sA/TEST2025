@@ -169,19 +169,39 @@ function opc_sexo($id=''){
 	    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=21 and estado='A' ORDER BY CAST(idcatadeta AS UNSIGNED)",$id);
 	}	
 /***************************************************************************/
-function formato_dato($a,$b,$c,$d){
- $b=strtolower($b);
- $rta=$c[$d];
-// $rta=iconv('UTF-8','ISO-8859-1',$rta);
-// var_dump($c);
-// var_dump($a);
-if ($a=='th-lis' && $b=='acciones'){
-	$rta="<nav class='menu right'>";
-	$rta.="<li title='Ver Registro'><i class='fa-solid fa-eye ico' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getDataFetch,500,'rute',event,this,'lib.php',['fecha_llamada','estado_llamada','observacion']);\"></i></li>"; 
+function formato_dato($a, $b, $c, $d) {
+    $b = strtolower($b);
+    $rta = $c[$d];
+        if ($a == 'th' && $b == 'acciones') {
+            $acciones=[];
+            // Definición de acciones posibles
+            $accionesDisponibles = [
+                    'icono' => 'fa-solid fa-thumbs-up',
+                    'clase' => 'ico',
+                    'title' => 'Editar',
+                    'permiso' => acceso('th'),
+                    'hash' => myhash($c['ACCIONES']),
+                    'evento' => '',
+                ]
+            ];
+        foreach ($accionesDisponibles as $key => $accion) {
+            if ( $accion['permiso']) {
+                if (subred($c['ACCIONES'])) {
+                    limpiar_hashes();
+                    $_SESSION['hash'][$accion['hash'] . '_' . $key] = $c['ACCIONES'];
+                    $acciones[] = "<li title='{$accion['title']}'><i class='{$accion['icono']} {$accion['clase']}' id='{$accion['hash']}' data-acc='{$key}'></i></li>";
+			    }
+            
+            }
+        }
+        if (count($acciones)) {
+            $rta = "<nav class='menu right'>" . implode('', $acciones) . "</nav>";
+        } else {
+            $rta = "";
+        }
+    }
+    return $rta;
 }
- return $rta;
-}
-
 function bgcolor($a,$c,$f='c'){
  $rta="";
  return $rta;
