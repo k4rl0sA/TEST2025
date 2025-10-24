@@ -96,24 +96,24 @@ function cmp_tamsoledad(){
 
     $o=' cuestionario1';
     $c[]=new cmp($o,'e',null,'TAMIZAJE DE SOLEDAD - DIMENSIÓN ÍNTIMA',$w);
-    $c[]=new cmp('soledad','s','3','',$w.' '.$o,'Me siento solo/a aunque esté acompañado/a','respuesta_soledad',null,null,true,true,'','col-12');
-    $c[]=new cmp('confianza','s','3','',$w.' '.$o,'Siento que no tengo a alguien con quien hablar de mis sentimientos o preocupaciones','respuesta_soledad',null,null,true,true,'','col-12');
-    $c[]=new cmp('compania','s','3','',$w.' '.$o,'Echo de menos la compañía de personas cercanas','respuesta_soledad',null,null,true,true,'','col-12');
-    $c[]=new cmp('vacio','s','3','',$w.' '.$o,'Me siento vacío/a emocionalmente','respuesta_soledad',null,null,true,true,'','col-12');
+    $c[]=new cmp('soledad','s','3','',$w.' '.$o,'1. Me siento solo/a aunque esté acompañado/a','respuesta_soledad',null,null,true,true,'','col-12');
+    $c[]=new cmp('confianza','s','3','',$w.' '.$o,'2. Siento que no tengo a alguien con quien hablar de mis sentimientos o preocupaciones','respuesta_soledad',null,null,true,true,'','col-12');
+    $c[]=new cmp('compania','s','3','',$w.' '.$o,'3. Echo de menos la compañía de personas cercanas','respuesta_soledad',null,null,true,true,'','col-12');
+    $c[]=new cmp('vacio','s','3','',$w.' '.$o,'4. Me siento vacío/a emocionalmente','respuesta_soledad',null,null,true,true,'','col-12');
 
     $o=' cuestionario2';
     $c[]=new cmp($o,'e',null,'DIMENSIÓN RELACIONAL',$w);
-    $c[]=new cmp('amistades','s','3','',$w.' '.$o,'Siento que no cuento con suficientes amistades en quienes confiar','respuesta_soledad',null,null,true,true,'','col-12');
-    $c[]=new cmp('conversacion','s','3','',$w.' '.$o,'Paso largos periodos sin conversar con alguien de manera significativa','respuesta_soledad',null,null,true,true,'','col-12');
-    $c[]=new cmp('insatisfaccion','s','3','',$w.' '.$o,'Percibo que mis relaciones actuales no satisfacen mis necesidades de compañía','respuesta_soledad',null,null,true,true,'','col-12');
-    $c[]=new cmp('apoyo','s','3','',$w.' '.$o,'Me gustaría recibir más apoyo de mis familiares o amigos','respuesta_soledad',null,null,true,true,'','col-12');
+    $c[]=new cmp('amistades','s','3','',$w.' '.$o,'5. Siento que no cuento con suficientes amistades en quienes confiar','respuesta_soledad',null,null,true,true,'','col-12');
+    $c[]=new cmp('conversacion','s','3','',$w.' '.$o,'6. Paso largos periodos sin conversar con alguien de manera significativa','respuesta_soledad',null,null,true,true,'','col-12');
+    $c[]=new cmp('insatisfaccion','s','3','',$w.' '.$o,'7. Percibo que mis relaciones actuales no satisfacen mis necesidades de compañía','respuesta_soledad',null,null,true,true,'','col-12');
+    $c[]=new cmp('apoyo','s','3','',$w.' '.$o,'8. Me gustaría recibir más apoyo de mis familiares o amigos','respuesta_soledad',null,null,true,true,'','col-12');
 
     $o=' cuestionario3';
     $c[]=new cmp($o,'e',null,'DIMENSIÓN COLECTIVA',$w);
-    $c[]=new cmp('integracion','s','3','',$w.' '.$o,'Me siento poco integrado/a en actividades comunitarias o sociales','respuesta_soledad',null,null,true,true,'','col-12');
-    $c[]=new cmp('pertenencia','s','3','',$w.' '.$o,'Creo que no formo parte activa de ningún grupo, red o colectivo','respuesta_soledad',null,null,true,true,'','col-12');
-    $c[]=new cmp('reconocimiento','s','3','',$w.' '.$o,'Siento que no tengo un lugar reconocido en la comunidad','respuesta_soledad',null,null,true,true,'','col-12');
-    $c[]=new cmp('valoracion','s','3','',$w.' '.$o,'Percibo que la sociedad no me valora ni tiene en cuenta mi voz','respuesta_soledad',null,null,true,true,'','col-12');
+    $c[]=new cmp('integracion','s','3','',$w.' '.$o,'9. Me siento poco integrado/a en actividades comunitarias o sociales','respuesta_soledad',null,null,true,true,'','col-12');
+    $c[]=new cmp('pertenencia','s','3','',$w.' '.$o,'10. Creo que no formo parte activa de ningún grupo, red o colectivo','respuesta_soledad',null,null,true,true,'','col-12');
+    $c[]=new cmp('reconocimiento','s','3','',$w.' '.$o,'11. Siento que no tengo un lugar reconocido en la comunidad','respuesta_soledad',null,null,true,true,'','col-12');
+    $c[]=new cmp('valoracion','s','3','',$w.' '.$o,'12. Percibo que la sociedad no me valora ni tiene en cuenta mi voz','respuesta_soledad',null,null,true,true,'','col-12');
 
     $o=' cuestionario4';
     $c[]=new cmp($o,'e',null,'AISLAMIENTO SOCIAL',$w);
