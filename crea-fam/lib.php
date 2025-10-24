@@ -1088,7 +1088,7 @@ function formato_dato($a,$b,$c,$d){
 			$rta .="<li title='Barreras' Onclick=\"mostrar('barreras','pro',event,'','../tamizajes/barreras.php',7,'barreras');Color('datos-lis');\"><i class='fa-solid fa-road-barrier ico' id='".$c['ACCIONES']."'></i> </li>";
 
 			if (is_array($tamiz) && in_array('tamsoledad', $tamiz)) {
-				$rta .= acceso('tamsoledad') ? "<li title='Soledad Social' onclick=\"mostrar('tamsoledad','pro',event,'','../tamizajes/soledad.php',7,'Soledad Social');Color('datos-lis');\"><i class='fa-solid fa-users-slash ico' id='{$c['ACCIONES']}'></i></li>":"";
+				$rta .= acceso('tamsoledad') ? "<li title='Soledad Social' onclick=\"mostrar('tamsoledad','pro',event,'','../tamizajes/soledad.php',7,'Soledad Social');Color('datos-lis');\"><i class='fa-solid fa-square-person-confined ico' id='{$c['ACCIONES']}'></i></li>":"";
 			}
 
 			if (is_array($tamiz) && in_array('tamvalories', $tamiz)) {
