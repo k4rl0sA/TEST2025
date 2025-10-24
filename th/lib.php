@@ -26,16 +26,10 @@ $info = datos_mysql("SELECT COUNT(*) total FROM th T" . whe_th());
 
     $sql = "SELECT T.tipo_doc AS 'Tipo Documento', T.n_documento AS 'N° Documento', concat (T.nombre1, ' ', T.nombre2, ' ', T.apellido1, ' ', T.apellido2) AS 'Nombres y Apellidos del Colaborador', T.n_contacto AS 'N° Contacto', T.estado AS 'Estado Usuario' 
 	        FROM th T  
-            " . whe_th();    
+            WHERE " . whe_th();    
     $sql .= " ORDER BY T.fecha_create";
     $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
 	var_dump($sql);
-
-	$sql1="SELECT  T.tipo_doc AS 'Tipo Documento', T.n_documento AS 'N° Documento', concat (T.nombre1, ' ', T.nombre2, ' ', T.apellido1, ' ', T.apellido2) AS 'Nombres y Apellidos del Colaborador', T.n_contacto AS 'N° Contacto', T.estado AS 'Estado Usuario' 	
-		   FROM th T WHERE ";
-	
-	$tot="SELECT  COUNT(*) AS total FROM th T  WHERE ;";
-		// echo $sql;
 		$datos=datos_mysql($sql);
 	return create_table($total,$datos["responseResult"],"th",$regxPag);
 }
