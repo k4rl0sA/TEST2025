@@ -81,7 +81,7 @@ $prioridad=opc_sql("select idcatadeta,descripcion from catadeta where idcatalogo
 	<div class="campo"><div>Documento Usuario</div><input class="captura" type="number" size=20 id="fusu" name="fusu" OnChange="actualizar();"></div>
 </div>
 <div class='col-8 panel' id='<?php echo $mod; ?>'>
-      <div class='titulo' > RUTEO
+      <div class='titulo' > GESTION DEL TH MAS BIENESTAR EN TU HOGAR
 		<nav class='menu left' >
 			<!-- <li class='icono listado' title='Ver Listado' onclick="desplegar(mod+'-lis');" ></li> -->
 			<li class='icono actualizar'    title='Actualizar'      Onclick="actualizar();">
