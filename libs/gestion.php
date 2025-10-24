@@ -693,6 +693,15 @@ function myhash($a){
     return $hash;
 }
 
+function limpiar_hashes($max = 500) {
+    if (!isset($_SESSION['hash']) || !is_array($_SESSION['hash'])) return;
+    // Si hay más de $max hashes, elimina los más antiguos
+    if (count($_SESSION['hash']) > $max) {
+        // Mantén solo los últimos $max elementos
+        $_SESSION['hash'] = array_slice($_SESSION['hash'], -$max, $max, true);
+    }
+}  
+
 
 /*COMPONENTES*/
 class cmp { //ntwplcsdxhvuf
