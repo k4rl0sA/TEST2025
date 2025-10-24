@@ -64,9 +64,6 @@ function cap_menus($a,$b='cap',$con='con') {
 	$rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>"; //~ openModal();
 	// $rta .= "<li class='icono $a actualizar'    title='Actualizar'      Onclick=\"act_lista('$a',this);\"></li>";
   }
-  if ($a=='reasignar'){  
-	$rta .= "<li class='icono $a grabar'      title='Reasignar'       OnClick=\"grabar('$a',this);\"></li>";
-  }
   return $rta;
 }
 
