@@ -31,7 +31,7 @@ $info = datos_mysql("SELECT COUNT(*) total FROM th T
     
     $sql .= " ORDER BY T.fecha_create";
     $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
-	// var_dump($sql);
+	var_dump($sql);
 
 	$sql1="SELECT  T.tipo_doc AS 'Tipo Documento', T.n_documento AS 'N° Documento', concat (T.nombre1, ' ', T.nombre2, ' ', T.apellido1, ' ', T.apellido2) AS 'Nombres y Apellidos del Colaborador', T.n_contacto AS 'N° Contacto', T.estado AS 'Estado Usuario' 	
 		   FROM th T
@@ -40,9 +40,6 @@ $info = datos_mysql("SELECT COUNT(*) total FROM th T
 	
 	$tot="SELECT  COUNT(*) AS total FROM th T  WHERE ;";
 		// echo $sql;
-		$_SESSION['sql_th']=$sql1;
-		$_SESSION['tot_th']=$tot;
-		// /* echo json_encode($rta); 
 		$datos=datos_mysql($sql);
 	return create_table($total,$datos["responseResult"],"th",$regxPag);
 }
@@ -61,7 +58,7 @@ function whe_th() {
     } else {
         $sql1 .= " AND 0";
     }
-	// var_dump($sql1);
+	var_dump($sql1);
 	return $sql1;
 }
 
