@@ -25,24 +25,22 @@ $info = datos_mysql("SELECT COUNT(*) total FROM th T
     $regxPag = 10;
     $pag = (isset($_POST['pag-rute'])) ? ($_POST['pag-rute'] - 1) * $regxPag : 0;
 
-    $sql = "SELECT * 
-            FROM th T  
+    $sql = "SELECT T.tipo_doc AS 'Tipo Documento', T.n_documento AS 'N° Documento', concat (T.nombre1, ' ', T.nombre2, ' ', T.apellido1, ' ', T.apellido2) AS 'Nombres y Apellidos del Colaborador', T.n_contacto AS 'N° Contacto', T.estado AS 'Estado Usuario' 
+	        FROM th T  
             " . whe_rute();
     
     $sql .= " ORDER BY T.fecha_create";
     $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
 	// var_dump($sql);
 
-	$sql1="SELECT  *
-	
-	FROM th T
+	$sql1="SELECT  T.tipo_doc AS 'Tipo Documento', T.n_documento AS 'N° Documento', concat (T.nombre1, ' ', T.nombre2, ' ', T.apellido1, ' ', T.apellido2) AS 'Nombres y Apellidos del Colaborador', T.n_contacto AS 'N° Contacto', T.estado AS 'Estado Usuario' 	
+		   FROM th T
 	
 	WHERE R.actividad1 ='".$_SESSION['us_sds']."'";
 	//LEFT JOIN apro_terr A ON G.territorio = A.territorio AND R.actividad1 = A.doc_asignado
 		
 		// $tot="SELECT  COUNT(*) as total	FROM eac_ruteo R LEFT JOIN hog_geo G ON R.idgeo = G.idgeo LEFT JOIN apro_terr A ON R.idgeo = A.idgeo AND R.actividad1 = A.doc_asignado	WHERE A.doc_asignado ='R LEFT JOIN hog_geo G ON R.idgeo = G.idgeo LEFT JOIN apro_terr A ON R.idgeo = A.idgeo AND R.actividad1 = A.doc_asignado	WHERE A.doc_asignado ='".$_SESSION['us_sds']."'";
-		$tot="SELECT  COUNT(*) AS total FROM eac_ruteo R LEFT JOIN hog_geo G ON R.idgeo = G.idgeo 
-		 LEFT JOIN eac_ruteo_ges RG ON R.id_ruteo = RG.idruteo	WHERE R.actividad1 ='".$_SESSION['us_sds']."';";
+		$tot="SELECT  COUNT(*) AS total FROM th T  WHERE R.actividad1 ='".$_SESSION['us_sds']."';";
 		// echo $sql;
 		$_SESSION['sql_rute']=$sql1;
 		$_SESSION['tot_rute']=$tot;
