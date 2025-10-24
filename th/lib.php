@@ -19,16 +19,14 @@ else {
 }
 
 function lis_th(){
-$info = datos_mysql("SELECT COUNT(*) total FROM th T 
-	         " . whe_th());
+$info = datos_mysql("SELECT COUNT(*) total FROM th T" . whe_th());
     $total = $info['responseResult'][0]['total'];
     $regxPag = 10;
     $pag = (isset($_POST['pag-th'])) ? ($_POST['pag-th'] - 1) * $regxPag : 0;
 
     $sql = "SELECT T.tipo_doc AS 'Tipo Documento', T.n_documento AS 'N° Documento', concat (T.nombre1, ' ', T.nombre2, ' ', T.apellido1, ' ', T.apellido2) AS 'Nombres y Apellidos del Colaborador', T.n_contacto AS 'N° Contacto', T.estado AS 'Estado Usuario' 
 	        FROM th T  
-            " . whe_th();
-    
+            " . whe_th();    
     $sql .= " ORDER BY T.fecha_create";
     $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
 	var_dump($sql);
@@ -58,7 +56,7 @@ function whe_th() {
     } else {
         $sql1 .= " AND 0";
     }
-	var_dump($sql1);
+	//var_dump($sql1);
 	return $sql1;
 }
 
