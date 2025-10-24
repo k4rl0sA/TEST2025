@@ -53,7 +53,7 @@ function whe_rute() {
 	$us_sds = $_SESSION['us_sds'] ?? '';
     $doc_asignado = $_SESSION['us_sds'] ?? 0;
     $perfil = perfil1();
-    $sql1 = " WHERE G.subred = (SELECT subred FROM usuarios WHERE id_usuario = '" . $us_sds . "')";
+    $sql1 = " WHERE T.subred = '" . $us_sds . "')";
     // Agregar condición de apro_terr solo si el perfil no es 'ADM'
 	$info = datos_mysql("SELECT perfil FROM usuarios  where id_usuario='".$_SESSION['us_sds']."';" );
 	$perfil = $info['responseResult'][0]['perfil'];
