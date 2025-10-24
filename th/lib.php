@@ -18,16 +18,16 @@ else {
   }   
 }
 
-function lis_rute(){
+function lis_th(){
 $info = datos_mysql("SELECT COUNT(*) total FROM th T 
-	         " . whe_rute());
+	         " . whe_th());
     $total = $info['responseResult'][0]['total'];
     $regxPag = 10;
-    $pag = (isset($_POST['pag-rute'])) ? ($_POST['pag-rute'] - 1) * $regxPag : 0;
+    $pag = (isset($_POST['pag-th'])) ? ($_POST['pag-th'] - 1) * $regxPag : 0;
 
     $sql = "SELECT T.tipo_doc AS 'Tipo Documento', T.n_documento AS 'N° Documento', concat (T.nombre1, ' ', T.nombre2, ' ', T.apellido1, ' ', T.apellido2) AS 'Nombres y Apellidos del Colaborador', T.n_contacto AS 'N° Contacto', T.estado AS 'Estado Usuario' 
 	        FROM th T  
-            " . whe_rute();
+            " . whe_th();
     
     $sql .= " ORDER BY T.fecha_create";
     $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
@@ -37,19 +37,17 @@ $info = datos_mysql("SELECT COUNT(*) total FROM th T
 		   FROM th T
 	
 	WHERE ";
-	//LEFT JOIN apro_terr A ON G.territorio = A.territorio AND R.actividad1 = A.doc_asignado
-		
-		// $tot="SELECT  COUNT(*) as total	FROM eac_ruteo R LEFT JOIN hog_geo G ON R.idgeo = G.idgeo LEFT JOIN apro_terr A ON R.idgeo = A.idgeo AND R.actividad1 = A.doc_asignado	WHERE A.doc_asignado ='R LEFT JOIN hog_geo G ON R.idgeo = G.idgeo LEFT JOIN apro_terr A ON R.idgeo = A.idgeo AND R.actividad1 = A.doc_asignado	WHERE A.doc_asignado ='".$_SESSION['us_sds']."'";
-		$tot="SELECT  COUNT(*) AS total FROM th T  WHERE ;";
+	
+	$tot="SELECT  COUNT(*) AS total FROM th T  WHERE ;";
 		// echo $sql;
 		$_SESSION['sql_th']=$sql1;
 		$_SESSION['tot_th']=$tot;
 		// /* echo json_encode($rta); */
 		$datos=datos_mysql($sql);
-	return create_table($total,$datos["responseResult"],"rute",$regxPag);
+	return create_table($total,$datos["responseResult"],"th",$regxPag);
 }
 
-function whe_rute() {
+function whe_th() {
 	$us_sds = $_SESSION['us_sds'] ?? '';
     $doc_asignado = $_SESSION['us_sds'] ?? 0;
     $perfil = perfil1();
@@ -70,23 +68,23 @@ function whe_rute() {
 }
 
 
-function focus_rute(){
- return 'rute';
+function focus_th(){
+ return 'th';
 }
 
 function focus_reasignar(){
  return 'reasignar';
 }
 
-function men_rute(){
- $rta=cap_menus('rute','pro');
+function men_th(){
+ $rta=cap_menus('th','pro');
  return $rta;
 }
 
 
 function cap_menus($a,$b='cap',$con='con') {
   $rta = ""; 
-  if ($a=='rute'){  
+  if ($a=='th'){  
 	$rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>"; //~ openModal();
 	// $rta .= "<li class='icono $a actualizar'    title='Actualizar'      Onclick=\"act_lista('$a',this);\"></li>";
   }
@@ -96,12 +94,12 @@ function cap_menus($a,$b='cap',$con='con') {
   return $rta;
 }
 
-function cmp_rute(){
+function cmp_th(){
  $rta="";
 	$rta .="<div class='encabezado vivienda'>TABLA DE LLAMADAS REALIZADAS</div>
 	<div class='contenido' id='gestion-lis' >".lis_gestion()."</div></div>";
 
- $t=['id'=>'', 'idgeo'=>'', 'id_ruteo'=>'','fecha_asig'=>'','fuente'=>'','priorizacion'=>'','tipo_prior'=>'','tipo_doc'=>'','documento'=>'','nombres'=>'','sexo'=>'',
+ $t=['id'=>'', 'idgeo'=>'', 'id_tho'=>'','fecha_asig'=>'','fuente'=>'','priorizacion'=>'','tipo_prior'=>'','tipo_doc'=>'','documento'=>'','nombres'=>'','sexo'=>'',
  'direccion'=>'','telefono1'=>'','telefono2'=>'','telefono3'=>'', 'subred'=>'','localidad'=>'','upz'=>'','barrio'=>'', 'sector_catastral'=>'','nummanzana'=>'',
  'predio_num'=>'','unidad_habit'=>'','cordx'=>'','cordy'=>''];
  
@@ -111,8 +109,8 @@ function cmp_rute(){
  'fecha_update'=>'', 'estado'=>'']; */
 
  //'nacionalidad'=>'','etnia'=>'','regimen'=>'','eapb'=>'','tipo_doc_acu'=>'','documento_acu'=>'','nombres_acu'=>'',
- $w='rute';
- $d=get_ruteo();
+ $w='th';
+ $d=get_tho();
 //  var_dump($d);
  if ($d=="") {$d=$t;}
  $days=fechas_app('agendamiento');
@@ -123,7 +121,7 @@ function cmp_rute(){
 // var_dump($d);
  $o='segrep';
  $c[]=new cmp($o,'e',null,'CASO REPORTADO',$w);
- $c[]=new cmp('id','h','20',$d['id_ruteo'],$w.' '.$o,'','',null,null,true,false,'','col-1');
+ $c[]=new cmp('id','h','20',$d['id_tho'],$w.' '.$o,'','',null,null,true,false,'','col-1');
  $c[]=new cmp('fecha_asig','d','10',$d['fecha_asig'],$w.' '.$o,'FECHA ASIGNACIÓN','fecha_asig',null,null,false,false,'','col-15');
  $c[]=new cmp('fuente','s','3',$d['fuente'],$w.' '.$o,'FUENTE O REMITENTE','fuente',null,null,false,false,'','col-25');
  $c[]=new cmp('priorizacion','s','3',$d['priorizacion'],$w.' '.$o,'COHORTE DE RIESGO','priorizacion',null,null,false,false,'','col-3');
@@ -183,118 +181,7 @@ function cmp_rute(){
  for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
  return $rta;
 }
-function lis_gestion(){ //revisar
-	// var_dump($_POST);
-	$id=divide($_POST['id']);
-	$info=datos_mysql("SELECT COUNT(*) total from eac_ruteo_ges 
-	where idruteo=$id[0]");
-	$total=$info['responseResult'][0]['total'];
-	$regxPag=5;
-	$pag=(isset($_POST['pag-gestion']))? ($_POST['pag-gestion']-1)* $regxPag:0;
-		
-		$sql="SELECT id_rutges ACCIONES,id_rutges 'Cod Registro',erg.fecha_llamada 'Fecha',FN_CATALOGODESC(270,estado_llamada) 'Estado de la LLamada',
-		FN_CATALOGODESC(271,estado_agenda) 'Estado de la Agenda',erg.usuario_gest 'Asignado A', fecha_create 'Creó',erg.estado 'Estado'
- FROM eac_ruteo_ges erg 
- WHERE idruteo=$id[0] and estado='A' ";
-		$sql.=" ORDER BY fecha_create";
-		// echo $sql;
-		$_SESSION['sql_person']=$sql;
-			$datos=datos_mysql($sql);
-		return panel_content($datos["responseResult"],"gestion-lis",10);
-}
 
-/* function lis_rute(){
-	$info=datos_mysql("SELECT COUNT(*) total from eac_ruteo 
-	where 1 ".whe_rute());
-	$total=$info['responseResult'][0]['total'];
-	$regxPag=5;
-	$pag=(isset($_POST['pag-rute']))? ($_POST['pag-rute']-1)* $regxPag:0;
-	$sql="SELECT er.id_ruteo AS ACCIONES, er.idgeo AS Cod_Predio, FN_CATALOGODESC(235,tipo_prior) AS Grupo_Poblacion_Priorizada, er.documento AS Documento_Usuario,er.nombres AS Nombre_Usuario,FN_CATALOGODESC(218,er.perfil1) AS Interviene, FN_CATALOGODESC(269,er.actividad1) AS Realizar ,er.estado
-  FROM eac_ruteo er 
-  WHERE 1 ".whe_rute();
-	$sql.="ORDER BY fecha_create";
-	$sql.=' LIMIT '.$pag.','.$regxPag;
-	//echo($sql);
-		$datos=datos_mysql($sql);
-	return create_table($total,$datos["responseResult"],"rute",$regxPag);
-} */
- 
-  function opc_clasificacion($id=''){
-  	return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=1 and estado="A" ORDER BY 1',$id);
-  }
-
-/*
-function opc_perfil($id=''){
-    return opc_sql("SELECT idcatadeta, descripcion FROM `catadeta` WHERE idcatalogo = 218 AND estado = 'A' and valor=3",$id);
-}
-*/
-function opc_pre_clasif($id=''){
-	// return opc_sql("SELECT id_usuario id,CONCAT(id_usuario,'-',nombre) usuario FROM usuarios WHERE estado = 'A'",$id);
-}
-function opc_usuario_gest($id=''){
-	// return opc_sql("SELECT id_usuario id,CONCAT(id_usuario,'-',nombre) usuario FROM usuarios WHERE estado = 'A'",$id);
-}
-function opc_gestion($id=''){
-	return opc_sql("SELECT `idcatadeta`, descripcion FROM `catadeta` WHERE idcatalogo=222 AND estado='A' ORDER BY 1", $id);
-}
-function opc_estado_agenda($id=''){
-	return opc_sql("SELECT `idcatadeta`, descripcion FROM `catadeta` WHERE idcatalogo=271 AND estado='A' ORDER BY cast(idcatadeta as SIGNED)", $id);
-}
-function opc_idgeo($a){
-	$id=divide($a);
-	$sql="SELECT concat_ws('_',sector_catastral,nummanzana,predio_num,unidad_habit) cod
-		 FROM `eac_ruteo` WHERE  id_ruteo='{$id[0]}'";
-		 $info=datos_mysql($sql);
-		 $cod= $info['responseResult'][0]['cod'];
-		 return $cod;
-		 /* return	opc_sql("SELECT CONCAT_WS('_',idgeo,estado_v),FN_CATALOGODESC(44,estado_v)
-			from hog_geo where 
-			sector_catastral='$co[0]' AND nummanzana='$co[1]' AND predio_num='$co[2]' AND unidad_habit='$co[3]' AND estado_v>3",$id);  */
-}
-function opc_estado($id=''){
-	$id=opc_idgeo($_REQUEST['id']);
-		$co=divide($id);
-		return	opc_sql("SELECT idgeo,FN_CATALOGODESC(44,estado_v)
-			from hog_geo where 
-			sector_catastral='$co[0]' AND nummanzana='$co[1]' AND predio_num='$co[2]' AND unidad_habit='$co[3]' AND estado_v>3",$id); 
-			// var_dump($id);
-}
-
-function opc_estadofamili(){
-	if($_REQUEST['id']!=''){
-		$id=divide($_REQUEST['id']);
-		$sql="SELECT id_fam 'id',concat(id_fam,' - ','FAMILIA ',numfam) FROM hog_fam hv where idpre={$id[0]} ORDER BY 1";
-		$info=datos_mysql($sql);
-		// print_r($sql);
-		return json_encode($info['responseResult']);
-	} 
-}
-function opc_famili($id=''){
-	// return opc_sql("SELECT `idcatadeta`, descripcion FROM `catadeta` WHERE idcatalogo=0 AND estado='A' ORDER BY 1", $id);
-}
-function opc_usuario($id=''){
-	// return opc_sql("SELECT `idcatadeta`, descripcion FROM `catadeta` WHERE idcatalogo=0 AND estado='A' ORDER BY 1", $id);
-}
-
-
-
-/* function opc_usuariocod_admin(){
-	// var_dump($_REQUEST['id']);
-	if($_REQUEST['id']!=''){
-		$id=divide($_REQUEST['id']);
-		$sql="SELECT f.cod_admin cod,concat_ws('-',f.cod_admin,FN_CATALOGODESC(127,f.final_consul)) FROM adm_facturacion f WHERE f.tipo_doc='{$id[0]}' AND f.documento='{$id[1]}' ORDER BY 1";
-		$info=datos_mysql($sql);
-		// print_r($sql);
-		return json_encode($info['responseResult']);
-	} 					
-} */
-
-function opc_cod_admin($id=''){
-	// return opc_sql("SELECT `idcatadeta`, descripcion FROM `catadeta` WHERE idcatalogo=0 AND estado='A' ORDER BY 1", $id);
-}
-function opc_fuente($id=''){
-	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=33 and estado='A' ORDER BY 1",$id);
-}
 function opc_subred_report($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=72 and estado='A' ORDER BY 1",$id);
 }
@@ -337,92 +224,8 @@ function opc_upz($id=''){
 function opc_barrio($id=''){
 	return opc_sql("SELECT `idcatadeta`,CONCAT(idcatadeta,'-',descripcion) FROM `catadeta` WHERE idcatalogo=20 and estado='A' ORDER BY 1",$id);
 }
-/* function opc_estado_g($id=''){
-	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=270 and estado='A' ORDER BY 1",$id);
-} */
-function opc_estado_g_filtrado($idruteo, $id = ''){
-	global $con;
-    $sqlEstados = "SELECT estado_llamada FROM eac_ruteo_ges WHERE idruteo = $idruteo";
-    $estadosExistentes = [];
-    if ($con->multi_query($sqlEstados)) {
-        do {
-            if ($con->errno == 0) {
-                $rs = $con->store_result();
-                if ($rs !== false) {
-                    while ($r = $rs->fetch_array(MYSQLI_NUM)) {
-                        $estadosExistentes[] = $r[0]; 
-                    }
-                }
-                $rs->free();
-            }
-        } while ($con->more_results() && $con->next_result());
-    }
-    if (empty($estadosExistentes)) {
-        $estadosPermitidos = [1, 2,6];
-    } else {
-        $estadosPermitidos = [1,6];
-        if (in_array(2, $estadosExistentes)) {
-            if (in_array(3, $estadosExistentes)) {
-                if (in_array(4, $estadosExistentes)) {
-                    $estadosPermitidos[] = 5;
-                } else {
-                    $estadosPermitidos[] = 4;
-                }
-            } else {
-                $estadosPermitidos[] = 3;
-            }
-        } else {
-            $estadosPermitidos[] = 2; // ningUn NO CONTACTADO Mostrar NO CONTACTADO 1
-        }
-    }
-    $sqlEstadosDisponibles = "SELECT idcatadeta, descripcion FROM catadeta 
-                              WHERE idcatalogo = 270 AND estado = 'A' 
-                              AND idcatadeta IN (" . implode(',', $estadosPermitidos) . ") 
-                              ORDER BY idcatadeta";
-    return opc_sql($sqlEstadosDisponibles, $id);
-}
-function opc_estado_g($id='') {
-	$idruteo = divide($_POST['id'])[0] ?? 0;
-    return opc_estado_g_filtrado($idruteo, $id);
-}
 
-function opc_motivo_estado($id=''){
-	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=272 and estado='A' ORDER BY 1",$id);
-}
-function opc_perfil($id=''){
-	return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=218 and estado="A" and valor=3 ORDER BY 1',$id);
-}
-
-function opc_nombre($id=''){
-	if(!empty($_REQUEST['perfil'])){
-		$perfil = $_REQUEST['perfil'];
-		$sql = "SELECT id_usuario, CONCAT(id_usuario, ' - ', nombre) as descripcion 
-				FROM usuarios 
-				WHERE perfil = '$perfil' AND estado = 'A' 
-				ORDER BY nombre";
-		return opc_sql($sql, $id);
-	}
-	return "";
-}
-function opc_doc_asignado($id=''){
-	$co=datos_mysql("select FN_USUARIO(".$_SESSION['us_sds'].") as co;");
-	$com=divide($co['responseResult'][0]['co']);
-	return opc_sql("SELECT `id_usuario`,nombre FROM `usuarios` WHERE  subred='{$com[2]}' ORDER BY 1",$id);//`perfil` IN('MED','ENF')
-}
-function opc_familiusuario(){
-	if($_REQUEST['id']!=''){
-		$id=divide($_REQUEST['id']);
-		$sql="SELECT idpeople, CONCAT(idpersona, ' - ', CONCAT_WS(' ', nombre1, nombre2, apellido1, apellido2)) 
-              FROM hog_fam hf 
-              LEFT JOIN person p ON hf.id_fam=p.vivipersona 
-              WHERE hf.id_fam={$id[0]} 
-              ORDER BY 1";
-		$info=datos_mysql($sql);
-		// return json_encode($sql);
-		return json_encode($info['responseResult']);
-	} 					
-}
-function get_ruteo(){
+function get_th(){
 	if($_POST['id']=='0'){
 		return "";
 	}else{
@@ -439,57 +242,7 @@ function get_ruteo(){
 	} 
 }
 
-function get_gest(){
-	if($_POST['id']=='0'){
-		return "";
-	}else{
-		$id=divide($_POST['id']);
-		$sql="SELECT `id_ruteo`, `fecha_llamada`, `estado_llamada`, `observacion`, `estado_agenda`, `motivo_estado`
-		 FROM `eac_ruteo_ges` R
-		 WHERE  id_ruteo='{$id[0]}'";
-		$info=datos_mysql($sql);
-		if (!$info['responseResult']) {
-			return '';
-		}
-	return $info['responseResult'][0];
-	} 
-}
-
-function get_reasignar(){
-	if(!isset($_POST['id']) || $_POST['id']=='0'){
-		return "";
-	}else{
-		$id=divide($_POST['id']);
-		if (empty($id) || !is_numeric($id[0])) {
-			return '';
-		}
-		$sql="SELECT id_ruteo as id, perfil1 as perfil, actividad1 as nombre
-		 FROM eac_ruteo 
-		 WHERE id_ruteo='{$id[0]}'";
-		$info=datos_mysql($sql);
-		if (!$info['responseResult'] || empty($info['responseResult'])) {
-			return '';
-		}
-	return $info['responseResult'][0];
-	} 
-}
-
-function get_rute(){
-	if (empty($_REQUEST['id'])) {
-        return "";
-    }
-    $id = divide($_REQUEST['id']);
-    $sql = "SELECT id_ruteo, fecha_asig, fuente, priorizacion, tipo_prior, tipo_doc , documento ,nombres, sexo , er.direccion ,telefono1 ,telefono2 ,telefono3, hg.subred, localidad, upz , barrio, sector_catastral, nummanzana, predio_num, unidad_habit, cordx, cordy, fecha_llamada, estado_llamada, erg.observaciones, estado_agenda, motivo_estado, fecha_gestion, docu_confirm ,''perfil_gest,usuario_gest, direccion_n, sector_n, manzana_n,predio_n
-	FROM eac_ruteo_ges erg 
-	left join eac_ruteo er ON erg.idruteo = er.id_ruteo 
-	LEFT JOIN hog_geo hg ON er.idgeo = hg.idgeo
-	WHERE erg.id_rutges='{$id[0]}'";
-    $info = datos_mysql($sql);
-    $data = $info['responseResult'][0];
-    return json_encode($data);
-}
-
-function gra_rute(){
+function gra_th(){
 	$id=divide($_POST['id'] ?? '');
 	if (($rtaFec = validFecha('ruteo', $_POST['fecha_llamada'] ?? '')) !== true) {
 		return $rtaFec;
@@ -541,136 +294,6 @@ function gra_rute(){
 	return $rta;
 }
 
-function agend($id) {
-    $id = divide($id);
-    $sql = "SELECT COUNT(*) AS agenda from eac_ruteo_ges g
-LEFT JOIN eac_ruteo er ON g.idruteo=er.id_ruteo 
-	LEFT JOIN usuarios u ON er.actividad1=u.id_usuario
-	WHERE idruteo=$id[0] and (estado_agenda=1 or estado_agenda=6 or estado_agenda=9 or estado_agenda=11) and estado_llamada=1 and u.perfil IN ('AUXHOG','ADM','GLINE','ENFERMERIA');";
-    $info = datos_mysql($sql);
-	// var_dump($sql);
-	if(intval($info['responseResult'][0]["agenda"])>0){
-		return true;
-	}else{
-		return false;
-	}
-}
-function fin($id) {
-    $id = divide($id);
-    $sql = "SELECT COUNT(*) AS estado from eac_ruteo_ges g
-LEFT JOIN eac_ruteo er ON g.idruteo=er.id_ruteo 
-	WHERE idruteo=$id[0] and (g.estado_agenda=1 or g.estado_agenda=9)";
-    $info = datos_mysql($sql);
-	// var_dump($info);
-	if(intval($info['responseResult'][0]["estado"])>0){
-		return true;
-	}else{
-		return false;
-	}
-}
-
-
-function EnabRemot($id){
-	$id = divide($id);
-	$sql = "SELECT tiposeg AS remoto FROM eac_ruteo_clas c WHERE idrutges=$id[0]";
-	$info = datos_mysql($sql);
-	$remoto=intval($info['responseResult'][0]['remoto']);
-	// var_dump($remoto);
-	if ($remoto === 2){
-		return true;
-	}else{
-		return false;
-	}
-}
-/***************************************************************************/
-function EnabFin($id) {
-	$id = divide($id);
-	$sql = "SELECT COUNT(*) AS agenda FROM eac_ruteo g
-WHERE g.id_ruteo = {$id[0]} AND (g.estado_ruteo IS NULL or g.estado_ruteo = '')";
-	$info = datos_mysql($sql);
-	//var_dump($info['responseResult'][0]["agenda"]);
-	if (intval($info['responseResult'][0]["agenda"]) > 0){
-		return true;
-	}else{
-		return false;
-	}
-}
-
-function men_reasignar(){
-	$rta=cap_menus('reasignar','pro');
- return $rta;
- }
-
-function cmp_reasignar(){
- $rta="";
- $t=['id'=>'', 'perfil'=>'', 'nombre'=>''];
- $w='reasignar';
- $d=get_reasignar();
- if ($d=="") {$d=$t;}
- 
- $o='reasig';
- $c[]=new cmp($o,'e',null,'REASIGNAR RUTEO',$w);
- $c[]=new cmp('id','h','20',$d['id'],$w.' '.$o,'','',null,null,true,false,'','col-1');
- $c[]=new cmp('perfil','s','3',$d['perfil'],$w.' '.$o,'Perfil A Asignar','perfil',null,null,true,true,'','col-3',"selectDepend('perfil','nombre','lib.php');");
- $c[]=new cmp('nombre','s','10',$d['nombre'],$w.' '.$o,'Profesional Asignado','nombre',null,null,true,true,'','col-4');
- 
- for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
- return $rta;
-}
-
-function gra_reasignar(){
-	$id = divide($_POST['id'] ?? '');
-	if (empty($id) || !is_numeric($id[0])) {
-		return "Error: ID de ruteo inválido";
-	}
-	
-	// Validar campos obligatorios
-	if (empty($_POST['perfil']) || empty($_POST['nombre'])) {
-		return "Error: Perfil y Profesional son campos obligatorios";
-	}
-	
-	$sql = "UPDATE eac_ruteo SET 
-			perfil1 = ?, 
-			actividad1 = ?, 
-			usu_update = ?, 
-			fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR)
-			WHERE id_ruteo = ?";
-	
-	$params = [
-		['type' => 's', 'value' => $_POST['perfil']],
-		['type' => 'i', 'value' => $_POST['nombre']],
-		['type' => 's', 'value' => $_SESSION['us_sds']],
-		['type' => 'i', 'value' => $id[0]]
-	];
-	
-	$rta = mysql_prepd($sql, $params);
-	return $rta;
-}
-
-function opc_perfil_gest($id=''){
-	return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=218 and estado="A" AND descripcion=(select perfil from usuarios where id_usuario='.$_SESSION['us_sds'].') ORDER BY 1',$id);
-	}
-  function opc_perfil_gestusuario_gest($id=''){
-    if($_REQUEST['id']!=''){	
-            $sql = "SELECT id_usuario id,CONCAT(id_usuario,'-',nombre) usuario 
-            FROM usuarios 
-            WHERE perfil=(select descripcion from catadeta c where idcatalogo=218 and idcatadeta='{$_REQUEST['id']}' and estado='A') 
-            and id_usuario ='{$_SESSION['us_sds']}' ORDER BY nombre";
-            $info = datos_mysql($sql);		
-		 //return json_encode($sql);	
-           return json_encode($info['responseResult']);	
-        }
-}
-function opc_perfilnombre($id=''){
-  if($_REQUEST['id']!=''){	
-    $sql = "SELECT id_usuario id,CONCAT(id_usuario,'-',nombre) usuario FROM usuarios 
-    WHERE perfil=(select descripcion from catadeta c where idcatalogo=218 and idcatadeta='{$_REQUEST['id']}' and estado='A') 
-    and subred=(SELECT subred FROM usuarios WHERE id_usuario ='{$_SESSION['us_sds']}') ORDER BY nombre";
-    // var_dump($sql);
-    $info = datos_mysql($sql);		
-  return json_encode($info['responseResult']);	
-  }
-}
 /***************************************************************************/
 function formato_dato($a,$b,$c,$d){
  $b=strtolower($b);
