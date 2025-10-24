@@ -77,7 +77,6 @@ $prioridad=opc_sql("select idcatadeta,descripcion from catadeta where idcatalogo
 		</select>
 	</div> -->
 	
-	<div class="campo"><div>Codigo del Ruteo</div><input class="captura" type="number" size=10 id="frut" name="frut" OnChange="actualizar();"></div>
 	<div class="campo"><div>Documento Usuario</div><input class="captura" type="number" size=20 id="fusu" name="fusu" OnChange="actualizar();"></div>
 </div>
 <div class='col-8 panel' id='<?php echo $mod; ?>'>
