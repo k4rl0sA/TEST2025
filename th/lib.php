@@ -188,6 +188,14 @@ function formato_dato($a, $b, $c, $d) {
                 'permiso' => acceso('th'),
                 'hash' => myhash($c['ACCIONES']),
                 'evento' => "mostrar('th','{$c['ACCIONES']}',this,'lib.php',1);"
+            ],
+            'ver' => [
+                'icono' => 'fa-solid fa-eye',
+                'clase' => 'ico',
+                'title' => 'Ver Detalles',
+                'permiso' => acceso('th'),
+                'hash' => myhash($c['ACCIONES']),
+                'evento' => "mostrar('th','{$c['ACCIONES']}',this,'lib.php',1);"
             ]
         ];
         
