@@ -84,7 +84,7 @@ $rta="";
  $c[]=new cmp('apellido1','t','30','',$w.' '.$o,'Primer Apellido','apellido1',null,null,true,true,'','col-25');
  $c[]=new cmp('apellido2','t','30','',$w.' '.$o,'Segundo Apellido','apellido2',null,null,false,true,'','col-25');
  $c[]=new cmp('fecha_nacimiento','d','','',$w.' '.$o,'Fecha de nacimiento','fecha_nacimiento',null,null,false,true,'','col-25');
- $c[]=new cmp('sexo','mu','3','',$w.' '.$o,'Sexo','sexo',null,null,true,false,'','col-25');
+ $c[]=new cmp('sexo','s','3','',$w.' '.$o,'Sexo','sexo',null,null,true,false,'','col-25');
  $c[]=new cmp('contacto','nu','10','',$w.' '.$o,'N° Contacto','contacto',null,null,false,true,'','col-25');
  $c[]=new cmp('email','em','10','',$w.' '.$o,'Correo Electronico','email',null,null,false,true,'','col-25'); 
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
@@ -165,6 +165,9 @@ function gra_th(){
 function opc_tipo_doc($id=''){
 	    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 2",$id);
     }
+function opc_sexo($id=''){
+	    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=21 and estado='A' ORDER BY CAST(idcatadeta AS UNSIGNED)",$id);
+	}	
 /***************************************************************************/
 function formato_dato($a,$b,$c,$d){
  $b=strtolower($b);
