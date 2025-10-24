@@ -25,7 +25,7 @@ $info = datos_mysql("SELECT COUNT(*) total FROM th T
     $regxPag = 10;
     $pag = (isset($_POST['pag-rute'])) ? ($_POST['pag-rute'] - 1) * $regxPag : 0;
 
-    $sql = "SELECT T.
+    $sql = "SELECT * 
             FROM th T  
             " . whe_rute();
     
@@ -33,14 +33,10 @@ $info = datos_mysql("SELECT COUNT(*) total FROM th T
     $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
 	// var_dump($sql);
 
-	$sql1="SELECT  
-	R.id_ruteo AS Codigo_Registro, FN_CATALOGODESC(33,R.fuente) AS 'FUENTE O REMITENTE', R.fecha_asig AS 'FECHA ASIGNACIÓN', FN_CATALOGODESC(191,R.priorizacion) AS 'COHORTE DE RIESGO', FN_CATALOGODESC(235,R.tipo_prior) AS 'GRUPO DE POBLACION PRIORIZADA', 
-    R.tipo_doc AS 'TIPO DE DOCUMENTO', R.documento AS 'NÚMERO DE DOCUMENTO', R.nombres AS 'NOMBRES Y APELLIDOS DEL USUARIO', FN_CATALOGODESC(21,R.sexo) AS 'Sexo',
-	G.idgeo AS Cod_Predio, G.direccion AS Direccion, R.telefono1 AS Telefono_1, R.telefono2 AS Telefono_2, R.telefono3 AS Telefono_3,
-    RG.fecha_llamada AS 'Fecha Contacto Telefonico', FN_CATALOGODESC(270,RG.estado_llamada) AS 'Estado Contacto Telefonico', FN_CATALOGODESC(271,RG.estado_agenda) AS 'Estado Gestion'
-	FROM eac_ruteo R
-	LEFT JOIN hog_geo G ON R.idgeo = G.idgeo
-	LEFT JOIN eac_ruteo_ges RG ON R.id_ruteo = RG.idruteo
+	$sql1="SELECT  *
+	
+	FROM th T
+	
 	WHERE R.actividad1 ='".$_SESSION['us_sds']."'";
 	//LEFT JOIN apro_terr A ON G.territorio = A.territorio AND R.actividad1 = A.doc_asignado
 		
