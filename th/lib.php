@@ -73,14 +73,8 @@ function cap_menus($a,$b='cap',$con='con') {
 function cmp_th(){
  $rta .="<div class='encabezado vivienda'>CREAR COLABORADOR</div>";
  $w='th';
- $d=get_th();
 //  var_dump($d);
- $days=fechas_app('agendamiento');
- $u=($d['idgeo']=='0')?true:false;
-//  var_dump($d['estado_g']);
- $x=($d['idgeo']=='0')?true:false;
-// var_dump($_REQUEST);
-// var_dump($d);
+
  $o='segrep';
  $c[]=new cmp('id','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
  $c[]=new cmp('tipo_doc','s','3','',$w.' '.$o,'TIPO DE DOCUMENTO','tipo_doc',null,null,false,false,'','col-2');
