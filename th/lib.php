@@ -43,6 +43,7 @@ $info = datos_mysql("SELECT COUNT(*) total FROM th T" . whe_th());
 function whe_th() {
     $sql2 = " SELECT subred FROM usuarios where id_usuario='" . $_SESSION['us_sds'] . "')";
     $subred = $info['responseResult'][0]['subred'];
+	var_dump($subred);
     $sql1 .= " AND T.subred = " . intval($subred);
     if ($_POST['fusu']) {
         $sql1 .= " AND n_documento ='" . $_POST['fusu'] . "'";
