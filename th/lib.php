@@ -72,16 +72,9 @@ function cap_menus($a,$b='cap',$con='con') {
 
 function cmp_th(){
  $rta .="<div class='encabezado vivienda'>CREAR COLABORADOR</div>";
-
- /*$t=['id'=>'', 'idgeo'=>'', 'id_tho'=>'','fecha_asig'=>'','fuente'=>'','priorizacion'=>'','tipo_prior'=>'','tipo_doc'=>'','documento'=>'','nombres'=>'','sexo'=>'',
- 'direccion'=>'','telefono1'=>'','telefono2'=>'','telefono3'=>'', 'subred'=>'','localidad'=>'','upz'=>'','barrio'=>'', 'sector_catastral'=>'','nummanzana'=>'',
- 'predio_num'=>'','unidad_habit'=>'','cordx'=>'','cordy'=>''];
- */
-
  $w='th';
  $d=get_th();
 //  var_dump($d);
- if ($d=="") {$d=$t;}
  $days=fechas_app('agendamiento');
  $u=($d['idgeo']=='0')?true:false;
 //  var_dump($d['estado_g']);
