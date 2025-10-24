@@ -84,9 +84,9 @@ $rta="";
  $c[]=new cmp('apellido1','t','30','',$w.' '.$o,'Primer Apellido','apellido1',null,null,true,true,'','col-25');
  $c[]=new cmp('apellido2','t','30','',$w.' '.$o,'Segundo Apellido','apellido2',null,null,false,true,'','col-25');
  $c[]=new cmp('fecha_nacimiento','d','','',$w.' '.$o,'Fecha de nacimiento','fecha_nacimiento',null,null,true,false,'','col-25');
- $c[]=new cmp('sexo','t','3','',$w.' '.$o,'Sexo','sexo',null,null,true,false,'','col-25');
+ $c[]=new cmp('sexo','mu','3','',$w.' '.$o,'Sexo','sexo',null,null,true,false,'','col-25');
  $c[]=new cmp('contacto','nu','10','',$w.' '.$o,'N° Contacto','contacto',null,null,false,true,'','col-25');
- $c[]=new cmp('email','n','10','',$w.' '.$o,'Correo Electronico','email',null,null,false,true,'','col-25'); 
+ $c[]=new cmp('email','em','10','',$w.' '.$o,'Correo Electronico','email',null,null,false,true,'','col-25'); 
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
 }
