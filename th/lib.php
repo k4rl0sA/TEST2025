@@ -42,8 +42,6 @@ function whe_th() {
     $sql1 .= " T.subred = " . intval($subred);
     if ($_POST['fusu']) {
         $sql1 .= " AND n_documento ='" . $_POST['fusu'] . "'";
-    } else {
-        $sql1 .= " AND 0";
     }
 	//var_dump($sql1);
 	return $sql1;
