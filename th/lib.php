@@ -175,36 +175,10 @@ function formato_dato($a,$b,$c,$d){
 // $rta=iconv('UTF-8','ISO-8859-1',$rta);
 // var_dump($c);
 // var_dump($a);
-if ($a=='gestion-lis' && $b=='acciones'){
+if ($a=='th-lis' && $b=='acciones'){
 	$rta="<nav class='menu right'>";
-	$rta.="<li title='Ver Registro '><i class='fa-solid fa-eye ico' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getDataFetch,500,'rute',event,this,'lib.php',['fecha_llamada','estado_llamada','observacion']);\"></i></li>"; 
+	$rta.="<li title='Ver Registro'><i class='fa-solid fa-eye ico' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getDataFetch,500,'rute',event,this,'lib.php',['fecha_llamada','estado_llamada','observacion']);\"></i></li>"; 
 }
-if ($a=='rute' && $b=='acciones'){
-		$rta="<nav class='menu right'>";		
-		$rta.="<li class='icono mapa' title='Ruteo' id='".$c['ACCIONES']."' Onclick=\"mostrar('rute','pro',event,'','lib.php',7);\"></li>";
-		if (agend($c['ACCIONES'])) {
-			$rta.="<li class='icono  editarAgenda' title='CLASIFICACIÓN' id='".$c['ACCIONES']."' Onclick=\"mostrar('rutclasif','pro',event,'','clasifica.php',7,'clasifica');\"></li>";
-		}
-		if (fin($c['ACCIONES'])) {
-			$rta.="<li class='icono efectividadAgenda' title='GESTIÓN FINAL' id='".$c['ACCIONES']."' Onclick=\"mostrar('ruteresol','pro',event,'','ruteoresolut.php',7,'ruteresol');\"></li>";
-		}
-		
-		if (EnabRemot($c['ACCIONES'])) {
-			$rta .= acceso('seguiRemoto') ? "<li title='Seguimiento remoto' onclick=\"mostrar('seguiremoto','pro',event,'','seguiRemoto.php',7,'Seguimiento Remoto');\"><i class='fa-solid fa-house-laptop ico' id='{$c['ACCIONES']}'></i></li>" : "";
-			
-		}
-		if (EnabFin($c['ACCIONES'])) {
-			$rta .= acceso('reasigRut') ? "<li title='Reasignar Ruteo' onclick=\"mostrar('reasignar','pro',event,'','lib.php',7,'Reasignar Ruteo');\"><i class='fa-solid fa-route ico' id='{$c['ACCIONES']}'></i></li>" : "";
-			
-		}
-		// $rta.="<li title='Reasignar Ruteo' onclick=\"mostrar('reasignar','pro',event,'','lib.php',7,'Reasignar Ruteo');\"><i class='fa-solid fa-route ico' id='{$c['ACCIONES']}'></i></li>"; 
-		
-		// $rta.="<li class='icono  editarAgenda' title='CLASIFICACIÓN' id='".$c['ACCIONES']."' Onclick=\"mostrar('rutclasif','pro',event,'','clasifica.php',7,'clasifica');\"></li>";
-		//$rta.="<li class='icono efectividadAgenda' title='GESTIÓN' id='".$c['ACCIONES']."' Onclick=\"mostrar('ruteresol','pro',event,'','ruteoresolut.php',7,'ruteresol');\"></li>";
-		// if($c['Gestionado']== '1' || $c['Gestionado']=='2'){
-		// }
-	}
-	log_error($rta);
  return $rta;
 }
 
