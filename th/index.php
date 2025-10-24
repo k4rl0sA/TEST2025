@@ -16,10 +16,6 @@ include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
 <script>
 var mod='th';
 var ruta_app='lib.php';
-function csv(b){
-		var myWindow = window.open("../../libs/gestion.php?a=exportar&b="+b,"Descargar archivo");
-}
-
 document.onkeyup=function(ev) {
 	ev=ev||window.event;
 	if (ev.ctrlKey && ev.keyCode==46) ev.target.value='';
@@ -36,13 +32,6 @@ function grabar(tb='',ev){
    for (i=0;i<f.length;i++) {
      if (!valido(f[i])) {f[i].focus(); return};
   }
-  var rutaMap = {
-			'ruteresol':'ruteoresolut.php',
-			'rutclasif':'clasifica.php',
-			'routing':'cargaRuteo.php',
-			'seguiremoto':'seguiRemoto.php'
-		};
-		var ruta_app = rutaMap[tb] || 'lib.php';
 	myFetch(ruta_app,"a=gra&tb="+tb,mod);
 	if (document.getElementById(mod+'-modal').innerHTML.includes('Correctamente')){
 		document.getElementById(mod+'-image').innerHTML='<svg class="icon-popup" ><use xlink:href="#ok"/></svg>';
