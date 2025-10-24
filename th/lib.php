@@ -60,10 +60,8 @@ function whe_rute() {
     /*if ($perfil != 'ADM'  && $perfil != 'SUPHOG') {
         $sql1 .= " AND R.actividad1 = " . intval($doc_asignado);
     }*/
-    if ($_POST['frut']) {
-        $sql1 .= " AND id_ruteo ='" . $_POST['frut'] . "'";
-    } elseif ($_POST['fusu']) {
-        $sql1 .= " AND documento ='" . $_POST['fusu'] . "'";
+    if ($_POST['fusu']) {
+        $sql1 .= " AND n_documento ='" . $_POST['fusu'] . "'";
     } else {
         $sql1 .= " AND 0";
     }
