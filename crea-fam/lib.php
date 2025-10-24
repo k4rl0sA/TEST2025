@@ -824,7 +824,7 @@ function get_Tamiz($fec) {
 	// Assist y Riesgo Mental: 16 a 17 años
 	if ($edad >= 16 && $edad <= 17) {
 		$tamiz[] = 'tamassist';
-		//$tamiz[] = 'riesgomental';
+		$tamiz[] = 'riesgomental';
 	}
 	// SRQ: 16 años en adelante
 	if ($edad >= 16) {
