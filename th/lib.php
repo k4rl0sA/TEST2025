@@ -19,7 +19,7 @@ else {
 }
 
 function lis_th(){
-$info = datos_mysql("SELECT COUNT(*) total FROM th T 
+/*$info = datos_mysql("SELECT COUNT(*) total FROM th T 
 	         " . whe_th());
     $total = $info['responseResult'][0]['total'];
     $regxPag = 10;
@@ -42,9 +42,9 @@ $info = datos_mysql("SELECT COUNT(*) total FROM th T
 		// echo $sql;
 		$_SESSION['sql_th']=$sql1;
 		$_SESSION['tot_th']=$tot;
-		// /* echo json_encode($rta); */
+		// /* echo json_encode($rta); 
 		$datos=datos_mysql($sql);
-	return create_table($total,$datos["responseResult"],"th",$regxPag);
+	return create_table($total,$datos["responseResult"],"th",$regxPag);*/
 }
 
 function whe_th() {
