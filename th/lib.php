@@ -74,7 +74,7 @@ function cmp_th(){
  $rta ="<div class='encabezado vivienda'>CREAR COLABORADOR</div>";
  $w='th';
  $o='segrep';
- /* $c[]=new cmp('id','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
+ $c[]=new cmp('id','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
  $c[]=new cmp('tipo_doc','s','3','',$w.' '.$o,'TIPO DE DOCUMENTO','tipo_doc',null,null,false,false,'','col-2');
  $c[]=new cmp('documento','nu','999999999999999999','',$w.' '.$o,'NÚMERO DE DOCUMENTO','documento',null,null,false,false,'','col-2');
  $c[]=new cmp('nombre1','t','30','',$w.' '.$o,'Primer Nombre','nombre1',null,null,true,true,'','col-2');
@@ -84,7 +84,7 @@ function cmp_th(){
  $c[]=new cmp('fecha_nacimiento','d','','',$w.' '.$o,'Fecha de nacimiento','fecha_nacimiento',null,null,true,false,'','col-2');
  $c[]=new cmp('sexo','s','3','',$w.' '.$o,'Sexo','sexo',null,null,true,false,'','col-2');
  $c[]=new cmp('contacto','n','10','',$w.' '.$o,'N° Contacto','contacto',null,null,false,false,'','col-2');
- $c[]=new cmp('email','n','10','',$w.' '.$o,'Correo Electronico','email',null,null,false,false,'','col-2'); */
+ $c[]=new cmp('email','n','10','',$w.' '.$o,'Correo Electronico','email',null,null,false,false,'','col-2');
  for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
  return $rta;
 }
