@@ -19,7 +19,7 @@ else {
 }
 
 function lis_th(){
-/*$info = datos_mysql("SELECT COUNT(*) total FROM th T 
+$info = datos_mysql("SELECT COUNT(*) total FROM th T 
 	         " . whe_th());
     $total = $info['responseResult'][0]['total'];
     $regxPag = 10;
@@ -44,7 +44,7 @@ function lis_th(){
 		$_SESSION['tot_th']=$tot;
 		// /* echo json_encode($rta); 
 		$datos=datos_mysql($sql);
-	return create_table($total,$datos["responseResult"],"th",$regxPag);*/
+	return create_table($total,$datos["responseResult"],"th",$regxPag);
 }
 
 function whe_th() {
@@ -52,9 +52,7 @@ function whe_th() {
     $doc_asignado = $_SESSION['us_sds'] ?? 0;
     $perfil = perfil1();
     $sql1 = " WHERE T.subred = '" . $us_sds . "')";
-    // Agregar condición de apro_terr solo si el perfil no es 'ADM'
-	$info = datos_mysql("SELECT perfil FROM usuarios  where id_usuario='".$_SESSION['us_sds']."';" );
-	$perfil = $info['responseResult'][0]['perfil'];
+    $perfil = $info['responseResult'][0]['perfil'];
     /*if ($perfil != 'ADM'  && $perfil != 'SUPHOG') {
         $sql1 .= " AND R.actividad1 = " . intval($doc_asignado);
     }*/
