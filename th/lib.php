@@ -119,7 +119,7 @@ function gra_th(){
 	$info_subred = datos_mysql($sql_subred);
 	$subred = $info_subred['responseResult'][0]['subred'];
 	
-	if($id[0] == '0') {
+	if($id[0] == '' ) {
 		// INSERT - Nuevo registro
 		$sql = "INSERT INTO th (tipo_doc, n_documento, nombre1, nombre2, apellido1, apellido2, fecha_nacimiento, sexo, n_contacto, correo, subred, usu_create, fecha_create, estado) 
 		        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), 'A')";
