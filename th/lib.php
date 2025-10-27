@@ -76,18 +76,18 @@ if ($d==""){$d=$t;}
  $o='infobasica';
  $c[]=new cmp($o,'l',null,'',$w);
  $c[]=new cmp('id','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
- $c[]=new cmp('tipo_doc','s','3',$d['tipo_doc'],$w.' '.$o,'Tipo documento','tipo_doc',null,null,false,true,'','col-4');
- $c[]=new cmp('documento','nu','999999999999999999',$d['documento'],$w.' '.$o,'NÚMERO DE DOCUMENTO','documento',null,null,false,true,'','col-3');
+ $c[]=new cmp('tipo_doc','s','3',$d['tipo_doc'],$w.' '.$o,'Tipo documento','tipo_doc',null,null,true,true,'','col-4');
+ $c[]=new cmp('documento','nu','999999999999999999',$d['documento'],$w.' '.$o,'NÚMERO DE DOCUMENTO','documento',null,null,true,true,'','col-3');
 
  $c[]=new cmp($o,'l',null,'',$w);
  $c[]=new cmp('nombre1','t','30',$d['nombre1'],$w.' '.$o,'Primer Nombre','nombre1',null,null,true,true,'','col-25');
  $c[]=new cmp('nombre2','t','30',$d['nombre2'],$w.' '.$o,'Segundo Nombre','nombre2',null,null,false,true,'','col-25');
  $c[]=new cmp('apellido1','t','30',$d['apellido1'],$w.' '.$o,'Primer Apellido','apellido1',null,null,true,true,'','col-25');
  $c[]=new cmp('apellido2','t','30',$d['apellido2'],$w.' '.$o,'Segundo Apellido','apellido2',null,null,false,true,'','col-25');
- $c[]=new cmp('fecha_nacimiento','d','',$d['fecha_nacimiento'],$w.' '.$o,'Fecha de nacimiento','fecha_nacimiento',null,null,false,true,'','col-25',"validDate(this,-43800,0);");
+ $c[]=new cmp('fecha_nacimiento','d','',$d['fecha_nacimiento'],$w.' '.$o,'Fecha de nacimiento','fecha_nacimiento',null,null,true,true,'','col-25',"validDate(this,-43800,0);");
  $c[]=new cmp('sexo','s','3',$d['sexo'],$w.' '.$o,'Sexo','sexo',null,null,true,true,'','col-25');
- $c[]=new cmp('contacto','nu','9999999999',$d['contacto'],$w.' '.$o,'N° Contacto','contacto',null,null,false,true,'','col-25');
- $c[]=new cmp('email','em','50',$d['email'],$w.' '.$o,'Correo Electronico','email',null,null,false,true,'','col-25'); 
+ $c[]=new cmp('contacto','nu','9999999999',$d['contacto'],$w.' '.$o,'N° Contacto','contacto',null,null,true,true,'','col-25');
+ $c[]=new cmp('email','em','50',$d['email'],$w.' '.$o,'Correo Electronico','email',null,null,true,true,'','col-25'); 
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
 }
