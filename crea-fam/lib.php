@@ -753,6 +753,11 @@ function eventAsign($key) {
     // print_r($id);
     $info = datos_mysql($sql);
     $rta = $info['responseResult'];
+    
+    // Obtener perfil del usuario para lógica condicional
+    $perfil = datos_mysql("SELECT perfil FROM usuarios WHERE id_usuario='" . $_SESSION["us_sds"] . "'");
+    $perfilUsuario = (!empty($perfil['responseResult'])) ? $perfil['responseResult'][0]['perfil'] : '';
+    
     $eventos = array(
       1 => ['icono' => 'siges1', 'titulo' => 'SIFILIS GESTACIONAL', 'modulo' => 'sifigest'],
 	  2 => ['icono' => 'hbges1', 'titulo' => 'HB GESTACIONAL', 'modulo' => 'hbgest'],
@@ -784,7 +789,7 @@ function eventAsign($key) {
 	  28 => ['icono' => 'condu1', 'titulo' => 'CONDUCTA SUICIDA (INTENTO)', 'modulo' => 'condsuic'],
 	  29 => ['icono' => 'otrca1', 'titulo' => 'EDUCACIÓN MEDICO', 'modulo' => 'educaMedi'],
 	  30 => ['icono' => 'adoles', 'titulo' => 'ADOLESCENCIA CON MAS BIENESTAR', 'modulo' => 'adoleMas'],
-	  31 => ['icono' => 'vihge1', 'titulo' => 'MAS COMPAÑIA MAS BIENESTAR', 'modulo' => 'discapacidad']
+	  31 => ['icono' => 'vihge1', 'titulo' => 'MAS COMPAÑIA MAS BIENESTAR', 'modulo' => ($perfilUsuario == 'AUXREL') ? 'discapacidad1' : 'discapacidad']
     );
     $eve = '';
     foreach ($rta as $evento) {
