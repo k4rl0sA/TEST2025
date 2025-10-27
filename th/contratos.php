@@ -206,7 +206,6 @@ function gra_contratos(){
             ['type' => 'i', 'value' => $real_id]
         ];
     }
-    
     $rta = mysql_prepd($sql, $params);
     return $rta;
 }
