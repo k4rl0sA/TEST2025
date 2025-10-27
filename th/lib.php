@@ -89,75 +89,78 @@ $rta="";
 }
 
 
-/* function get_th(){
+function get_th(){
 	if($_POST['id']=='0'){
 		return "";
 	}else{
 		$id=divide($_POST['id']);
-		$sql="SELECT `id_ruteo`,R.`idgeo`,`fuente`,`fecha_asig`,`priorizacion`,tipo_prior, `tipo_doc`, `documento`, `nombres`, `sexo`, R.direccion,`telefono1`, `telefono2`, `telefono3`, G.`subred`, G.`localidad`, G.`upz`, G.`barrio`, G.sector_catastral, G.nummanzana, G.predio_num, G.unidad_habit, G.`cordx`, G.`cordy` 
- 		FROM `eac_ruteo` R 
- 		LEFT JOIN hog_geo G ON R.idgeo=G.idgeo 
- 		WHERE id_ruteo='{$id[0]}'";
+		$sql="SELECT `id_th`, `tipo_doc`, `n_documento`, `nombre1`, `nombre2`, `apellido1`, `apellido2`, `fecha_nacimiento`, `sexo`, `n_contacto`, `correo`, `subred`, `estado`
+ 		FROM `th` 
+ 		WHERE id_th='{$id[0]}'";
 		$info=datos_mysql($sql);
 		if (!$info['responseResult']) {
 			return '';
 		}
-	return $info['responseResult'][0];
+		// Mapear campos para el formulario
+		$row = $info['responseResult'][0];
+		$row['documento'] = $row['n_documento'];
+		$row['contacto'] = $row['n_contacto'];
+		$row['email'] = $row['correo'];
+		return $row;
 	} 
 }
 
 function gra_th(){
-	$id=divide($_POST['id'] ?? '');
-	if (($rtaFec = validFecha('ruteo', $_POST['fecha_llamada'] ?? '')) !== true) {
-		return $rtaFec;
-	  }
+	$id = divide($_POST['id'] ?? '');
 	$usu = $_SESSION['us_sds'];
-		// $equ=datos_mysql("select equipo from usuarios where id_usuario=".$_SESSION['us_sds']);
-	 $bina = isset($_POST['fequi'])?(is_array($_POST['fequi'])?implode("-", $_POST['fequi']):implode("-",array_map('trim',explode(",",str_replace("'","",$_POST['fequi']))))):'';
-		$sql = "INSERT INTO eac_ruteo_ges VALUES(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),NULL,NULL,'A')";
-	$params = [
-		['type' => 'i', 'value' => $id[0]],
-		['type' => 's', 'value' => $_POST['fecha_llamada'] ?? ''],
-		['type' => 'i', 'value' => $_POST['estado_llamada']?? ''],
-		['type' => 's', 'value' => $_POST['observacion']?? ''],
-		['type' => 'i', 'value' => $_POST['estado_agenda']?? ''],
-		['type' => empty($_POST['motivo_estado']) ? 'z' : 'i', 'value' => empty($_POST['motivo_estado']) ? '' : $_POST['motivo_estado']],
-		['type' => empty($_POST['fecha_gestion']) ? 'z' : 's', 'value' => empty($_POST['fecha_gestion']) ? null : $_POST['fecha_gestion']],
-		['type' => empty($_POST['docu_confirm']) ? 'z' : 'i', 'value' => empty($_POST['docu_confirm']) ? null : $_POST['docu_confirm']],
-		['type' => empty($_POST['usuario_gest']) ? 'z' : 'i', 'value' => empty($_POST['usuario_gest']) ? null : $_POST['usuario_gest']],
-		['type' => empty($_POST['direccion_nueva_v']) ? 'z' : 's', 'value' => empty($_POST['direccion_nueva_v']) ? null : $_POST['direccion_nueva_v']],
-		['type' => empty($_POST['sector_catastral_v']) ? 'z' : 'i', 'value' => empty($_POST['sector_catastral_v']) ? null : $_POST['sector_catastral_v']],
-		['type' => empty($_POST['nummanzana_v']) ? 'z' : 'i', 'value' => empty($_POST['nummanzana_v']) ? null : $_POST['nummanzana_v']],
-		['type' => empty($_POST['predio_num_v']) ? 'z' : 'i', 'value' => empty($_POST['predio_num_v']) ? null : $_POST['predio_num_v']],
-		['type' => 's', 'value' => $bina],
-		['type' => 's', 'value' => $usu]
+	
+	// Obtener subred del usuario
+	$sql_subred = "SELECT subred FROM usuarios WHERE id_usuario = '$usu'";
+	$info_subred = datos_mysql($sql_subred);
+	$subred = $info_subred['responseResult'][0]['subred'];
+	
+	if($id[0] == '0') {
+		// INSERT - Nuevo registro
+		$sql = "INSERT INTO th (tipo_doc, n_documento, nombre1, nombre2, apellido1, apellido2, fecha_nacimiento, sexo, n_contacto, correo, subred, usu_create, fecha_create, estado) 
+		        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), 'A')";
+		$params = [
+			['type' => 's', 'value' => $_POST['tipo_doc'] ?? ''],
+			['type' => 'i', 'value' => $_POST['documento'] ?? ''],
+			['type' => 's', 'value' => $_POST['nombre1'] ?? ''],
+			['type' => 's', 'value' => $_POST['nombre2'] ?? ''],
+			['type' => 's', 'value' => $_POST['apellido1'] ?? ''],
+			['type' => 's', 'value' => $_POST['apellido2'] ?? ''],
+			['type' => 's', 'value' => $_POST['fecha_nacimiento'] ?? ''],
+			['type' => 's', 'value' => $_POST['sexo'] ?? ''],
+			['type' => 's', 'value' => $_POST['contacto'] ?? ''],
+			['type' => 's', 'value' => $_POST['email'] ?? ''],
+			['type' => 'i', 'value' => $subred],
+			['type' => 's', 'value' => $usu]
 		];
-	$rta = mysql_prepd($sql, $params);
-	// $rta = show_sql($sql, $params);
-	// var_dump($_POST);
-	if(!empty($_POST['fecha_gestion']) && !empty($_POST['usuario_gest'])){
-		$sql1 = "INSERT INTO geo_asig VALUES(NULL,?,?,?,?,NULL,NULL,'A')";
-		$sql="SELECT idgeo id from eac_ruteo where id_ruteo=".$_POST['frut']."";
-		$info=datos_mysql($sql);
-		$id=$info['responseResult'][0]['id'];
-		$params1 = array(
-		array('type' => 'i', 'value' =>$id ),
-		array('type' => 'i', 'value' => $_POST['usuario_gest']),
-		array('type' => 'i', 'value' => $_SESSION['us_sds']),
-		array('type' => 's', 'value' => date("Y-m-d H:i:s"))
-		);
-		// $rta3=show_sql($sql1, $params1);
-		$rta1 = mysql_prepd($sql1, $params1);
-		if (strpos($rta1, "correctamente") !== false){
-			$rta.= " Y Se ha asignado el predio";
-		}elseif(strpos($rta1, "Duplicate")){
-			$rta.= " Y El predio ya se encontraba asignado";
-		}
+	} else {
+		// UPDATE - Actualizar registro existente
+		$sql = "UPDATE th SET tipo_doc=?, n_documento=?, nombre1=?, nombre2=?, apellido1=?, apellido2=?, fecha_nacimiento=?, sexo=?, n_contacto=?, correo=?, usu_update=?, fecha_update=NOW() 
+		        WHERE id_th=?";
+		$params = [
+			['type' => 's', 'value' => $_POST['tipo_doc'] ?? ''],
+			['type' => 'i', 'value' => $_POST['documento'] ?? ''],
+			['type' => 's', 'value' => $_POST['nombre1'] ?? ''],
+			['type' => 's', 'value' => $_POST['nombre2'] ?? ''],
+			['type' => 's', 'value' => $_POST['apellido1'] ?? ''],
+			['type' => 's', 'value' => $_POST['apellido2'] ?? ''],
+			['type' => 's', 'value' => $_POST['fecha_nacimiento'] ?? ''],
+			['type' => 's', 'value' => $_POST['sexo'] ?? ''],
+			['type' => 's', 'value' => $_POST['contacto'] ?? ''],
+			['type' => 's', 'value' => $_POST['email'] ?? ''],
+			['type' => 's', 'value' => $usu],
+			['type' => 'i', 'value' => $id[0]]
+		];
 	}
-	// return $rta3;
+	
+	$rta = mysql_prepd($sql, $params);
 	return $rta;
 }
- */
+ 
 
 function opc_tipo_doc($id=''){
 	    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 2",$id);
