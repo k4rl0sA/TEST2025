@@ -32,6 +32,10 @@ function grabar(tb='',ev){
    for (i=0;i<f.length;i++) {
      if (!valido(f[i])) {f[i].focus(); return};
   }
+  const rutaMap = {
+  'contratos':'contratos.php'
+ 	};
+   let ruta_app = rutaMap[tb] || 'lib.php';
 	myFetch(ruta_app,"a=gra&tb="+tb,mod);
 	/* if (document.getElementById(mod+'-modal').innerHTML.includes('Correctamente')){
 		document.getElementById(mod+'-image').innerHTML='<svg class="icon-popup" ><use xlink:href="#ok"/></svg>';
