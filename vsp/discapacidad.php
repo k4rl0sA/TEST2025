@@ -324,8 +324,17 @@ return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo
 }
 
 function opc_cod_cuidador($id=''){
-return opc_sql("SELECT p.idpersona,concat_ws(' - ',p.tipo_doc,p.documento,p.nombre1) descripcion FROM person p 
+/* return opc_sql("SELECT p.idpersona,concat_ws(' - ',p.tipo_doc,p.documento,p.nombre1) descripcion FROM person p 
 WHERE p.estado='A' AND p.idpeople IN (SELECT DISTINCT idpeople FROM person WHERE estado='A') ORDER BY p.nombre1",$id);
+ */
+	// var_dump($_REQUEST);
+	$idp = trim($_REQUEST['id']);
+	$idp=divide($idp);
+	$idp = trim((string)$idp[0]);
+	// $id= trim((string)$idp);	
+		return	opc_sql("SELECT idpeople,concat_ws(' ',nombre1,nombre2,apellido1,apellido2) 'Nombres' 
+			from person 
+			where vivipersona=(select vivipersona from person where idpeople='$idp') and idpeople<>'$idp'",$id);
 }
 
 function opc_acciones_1desc_accion1($id=''){
