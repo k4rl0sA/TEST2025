@@ -98,7 +98,7 @@ function cmp_discapacidad(){
     $c[]=new cmp($o,'e',null,'INFORMACIÓN DE DISCAPACIDAD',$w);
     $c[]=new cmp('certificado','s','3',$d,$w.' '.$o,'Cuenta con certificado de discapacidad','rta',null,null,false,$x,'','col-2');
     $c[]=new cmp('requiere_ayudas_tec','s','3',$d,$w.' '.$o,'¿Requiere ayudas técnicas?','rta',null,null,false,$x,'','col-2',"enabOthSi('requiere_ayudas_tec','AyU');");
-    $c[]=new cmp('cat_ayudastec','s','3',$d,$w.' AyU '.$o,'Categoría de ayudas','cat_ayudastec',null,null,false,$x,'','col-2');
+    $c[]=new cmp('cat_ayudastec','s','3',$d,$w.' AyU '.$o,'Categoría de ayudas','cat_ayudastec',null,null,false,$x,'','col-2','selectDepend(\'cat_ayudastec\',\'ayuda_tecnica\',\'../vsp/discapacidad.php\');');
     $c[]=new cmp('ayuda_tecnica','s','3',$d,$w.' AyU '.$o,'Ayudas técnicas','ayuda_tecnica',null,null,false,$x,'','col-2');
     $c[]=new cmp('cuenta_ayuda','s','3',$d,$w.' AyU '.$o,'¿Cuenta con la ayuda técnica?','rta',null,null,false,$x,'','col-2');
     
@@ -334,6 +334,14 @@ WHERE p.estado='A' AND p.idpeople IN (SELECT DISTINCT idpeople FROM person WHERE
 		return	opc_sql("SELECT idpeople,concat_ws(' ',nombre1,nombre2,apellido1,apellido2) 'Nombres' 
 			from person 
 			where vivipersona=(select vivipersona from person where idpeople='$idp') and idpeople<>'$idp'",$id);
+}
+function opc_cat_ayudastecayuda_tecnica($id=''){
+    if($_REQUEST['id']!=''){
+        $id=divide($_REQUEST['id']);
+        $sql="SELECT idcatadeta ,descripcion  FROM `catadeta` WHERE idcatalogo='321' and estado='A' and valor='".$id[0]."' ORDER BY LENGTH(idcatadeta), idcatadeta;";
+        $info=datos_mysql($sql);        
+        return json_encode($info['responseResult']);
+    }
 }
 
 function opc_acciones_1desc_accion1($id=''){
