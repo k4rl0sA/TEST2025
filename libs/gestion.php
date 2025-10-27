@@ -701,11 +701,11 @@ function limpiar_hashes($max = 500) {
         $_SESSION['hash'] = array_slice($_SESSION['hash'], -$max, $max, true);
     }
 }  
-
+*/
 function post_or_null($key) {
   return isset($_POST[$key]) && $_POST[$key] !== '' ? $_POST[$key] : null;
 }
- */
+ 
 
 /*COMPONENTES*/
 class cmp { //ntwplcsdxhvuf
