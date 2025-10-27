@@ -97,10 +97,29 @@ function get_th(){
 	if($_POST['id']=='0'){
 		return "";
 	}else{
-		$id=divide($_POST['id']);
+		// Validar hash para editar
+		$hash = $_POST['id'] ?? '';
+		$real_id = null;
+		
+		// Buscar el ID real usando el hash
+		if (isset($_SESSION['hash'])) {
+			foreach ($_SESSION['hash'] as $key => $value) {
+				if (strpos($key, $hash . '_editar') !== false) {
+					$real_id = $value;
+					break;
+				}
+			}
+		}
+		
+		// Si no encontró el hash, intentar con el ID directo (modo compatibilidad)
+		if (!$real_id) {
+			$id = divide($_POST['id']);
+			$real_id = $id[0];
+		}
+		
 		$sql="SELECT `id_th`, `tipo_doc`, `n_documento`, `nombre1`, `nombre2`, `apellido1`, `apellido2`, `fecha_nacimiento`, `sexo`, `n_contacto`, `correo`, `subred`, `estado`
  		FROM `th` 
- 		WHERE id_th='{$id[0]}'";
+ 		WHERE id_th='$real_id'";
 		$info=datos_mysql($sql);
 		if (!$info['responseResult']) {
 			return '';
@@ -115,7 +134,6 @@ function get_th(){
 }
 
 function gra_th(){
-	$id = divide($_POST['id'] ?? '');
 	$usu = $_SESSION['us_sds'];
 	
 	// Obtener subred del usuario
@@ -123,7 +141,27 @@ function gra_th(){
 	$info_subred = datos_mysql($sql_subred);
 	$subred = $info_subred['responseResult'][0]['subred'];
 	
-	if($id[0] == '' ) {
+	// Validar si es inserción o actualización
+	$hash = $_POST['id'] ?? '';
+	$real_id = null;
+	
+	// Buscar el ID real usando el hash para actualización
+	if ($hash != '0' && isset($_SESSION['hash'])) {
+		foreach ($_SESSION['hash'] as $key => $value) {
+			if (strpos($key, $hash . '_editar') !== false) {
+				$real_id = $value;
+				break;
+			}
+		}
+	}
+	
+	// Si no encontró el hash y no es nuevo registro, intentar con el ID directo
+	if (!$real_id && $hash != '0') {
+		$id = divide($_POST['id']);
+		$real_id = $id[0];
+	}
+	
+	if($hash == '0' || !$real_id) {
 		// INSERT - Nuevo registro
 		$sql = "INSERT INTO th (tipo_doc, n_documento, nombre1, nombre2, apellido1, apellido2, fecha_nacimiento, sexo, n_contacto, correo, subred, usu_create, fecha_create, estado) 
 		        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), 'A')";
@@ -157,7 +195,7 @@ function gra_th(){
 			['type' => 's', 'value' => $_POST['contacto'] ?? ''],
 			['type' => 's', 'value' => $_POST['email'] ?? ''],
 			['type' => 's', 'value' => $usu],
-			['type' => 'i', 'value' => $id[0]]
+			['type' => 'i', 'value' => $real_id]
 		];
 	}
 	
