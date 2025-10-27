@@ -83,12 +83,12 @@ function cmp_discapacidad(){
     $c[]=new cmp($o,'e',null,'INFORMACIÓN DEL CUIDADOR',$w);
     $c[]=new cmp('cuidador','s','3',$d,$w.' '.$o,'¿Cuenta con un cuidador?','rta',null,null,false,$x,'','col-2',"enabOthSi('cuidador','CuI');");
     $c[]=new cmp('cuantos_cuidadores','s','3',$d,$w.' CuI '.$no.' '.$o,'Cuantas personas ejercen labor de cuidador?','cuantos_cuidadores',null,null,false,$x,'','col-2');
-    $c[]=new cmp('acep_relevo','s','3',$d,$w.' CuI '.$no.' '.$o,'¿el cuidador acepta el relevo?','rta',null,null,false,$x,'','col-2');
-    $c[]=new cmp('cod_cuidador','s','18',$d,$w.' CuI '.$no.' '.$o,'Código del cuidador','cod_cuidador',null,null,false,$x,'','col-2');
-    $c[]=new cmp('antece','s','3',$d,$w.' CuI '.$no.' '.$o,'Cuenta con antecedentes patológicos','rta',null,null,false,$x,'','col-2',"enabOthSi('antece','AnT');");
-    $c[]=new cmp('ante_cuidador','s','3',$d,$w.' AnT CuI '.$no.' '.$o,'Antecedente patológico','ante_cuidador',null,null,false,$x,'','col-2',"othePath(this,'ot');");
+    $c[]=new cmp('acep_relevo','s','3',$d,$w.' CuI '.$no.' '.$o,'¿el cuidador acepta el relevo?','rta',null,null,false,$x,'','col-2',"enabOthSi('acep_relevo','Arl');");
+    $c[]=new cmp('cod_cuidador','s','18',$d,$w.' Arl CuI '.$no.' '.$o,'Código del cuidador','cod_cuidador',null,null,false,$x,'','col-2');
+    $c[]=new cmp('antece','s','3',$d,$w.' CuI Arl '.$no.' '.$o,'Cuenta con antecedentes patológicos','rta',null,null,false,$x,'','col-2',"enabOthSi('antece','AnT');");
+    $c[]=new cmp('ante_cuidador','s','3',$d,$w.' Arl AnT CuI '.$no.' '.$o,'Antecedente patológico','ante_cuidador',null,null,false,$x,'','col-2',"othePath(this,'ot');");
     $c[]=new cmp('otro_ante','t','100',$d,$w.' ot AnT CuI '.$no.' '.$o,'Otro, ¿cuál?','otro_ante',null,null,false,$x,'','col-3');
-    $c[]=new cmp('pers_cuida','s','3',$d,$w.' CuI '.$no.' '.$o,'Tiene más personas al cuidado','rta',null,null,false,$x,'','col-2',"enabOthSi('pers_cuida','PerS');");
+    $c[]=new cmp('pers_cuida','s','3',$d,$w.' Arl CuI '.$no.' '.$o,'Tiene más personas al cuidado','rta',null,null,false,$x,'','col-2',"enabOthSi('pers_cuida','PerS');");
     $c[]=new cmp('num_pers','s','3',$d,$w.' PerS CuI '.$no.' '.$o,'Número de personas','num_pers',null,null,false,$x,'','col-2');
     $c[]=new cmp('descanso','s','3',$d,$w.' CuI '.$no.' '.$o,'¿Ha tenido tiempo para descansar o cuidar su salud?','rta',null,null,false,$x,'','col-3');
     $c[]=new cmp('apoyo_tec','s','3',$d,$w.' CuI '.$no.' '.$o,'¿Considera que requiere apoyo o capacitación en alguna técnica de cuidado?','rta',null,null,false,$x,'','col-4');
