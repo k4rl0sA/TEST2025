@@ -252,7 +252,7 @@ function opc_bina($id=''){
   return opc_sql("SELECT id_usuario, nombre  from usuarios u WHERE equipo=(select equipo from usuarios WHERE id_usuario='{$_SESSION['us_sds']}') and estado='A'  ORDER BY 2;",$id);
 }
 function opc_cuantos_cuidadores($id=''){
-	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=320 and estado='A' ORDER BY 1",$id);
+	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=91 and estado='A' AND valor =1 ORDER BY 1",$id);
 }
 function opc_ante_cuidador($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=321 and estado='A' ORDER BY 1",$id);
