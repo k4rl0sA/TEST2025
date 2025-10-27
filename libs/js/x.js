@@ -1743,12 +1743,20 @@ function enbRutRmtAbo(){
 	EnabDepeDynamic(['FaY'], conditions);
 }
 function enbCuidaDiscap(){
-	// console.log('enbCuidaDiscap ejecutándose...');
+	console.log('enbCuidaDiscap ejecutándose...');
  	const numseguiElement = document.getElementById('numsegui');
 	const estadoElement = document.getElementById('estado_s');
 	
+	console.log('Elementos encontrados:', {
+		numsegui: numseguiElement ? 'SÍ' : 'NO',
+		estado_s: estadoElement ? 'SÍ' : 'NO'
+	});
+	
 	if (!numseguiElement || !estadoElement) {
 		console.error('No se encontraron los elementos numsegui o estado_s');
+		console.log('Todos los elementos con ID en la página:');
+		const allIds = Array.from(document.querySelectorAll('[id]')).map(el => el.id);
+		console.log(allIds);
 		return;
 	}
 	
@@ -1761,5 +1769,15 @@ function enbCuidaDiscap(){
 		{ id: 'numsegui', value: '1', compare: false }, // numsegui debe ser diferente de '1'
 		{ id: 'estado_s', value: '1', compare: true }   // estado_s debe ser igual a '1'
 	];
+	
+	console.log('Condiciones a evaluar:', conditions);
+	console.log('Llamando EnabDepeDynamic...');
 	EnabDepeDynamic(['cuid'], conditions);
+	console.log('EnabDepeDynamic ejecutado');
+}
+
+// Función de prueba adicional
+function testEnbCuidaDiscap() {
+	console.log('=== PRUEBA DE FUNCIÓN enbCuidaDiscap ===');
+	enbCuidaDiscap();
 }
