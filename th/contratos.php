@@ -20,7 +20,7 @@ else {
 
 function lis_contratos(){
     $id_th = $_POST['id'] ?? '';
-    $info = datos_mysql("SELECT COUNT(*) total FROM th_contratos TC WHERE TC.id_th = '$id_th'");
+    $info = datos_mysql("SELECT COUNT(*) total FROM th_contratos TC WHERE TC.thcon = '$id_th'");
     $total = $info['responseResult'][0]['total'];
     $regxPag = 10;
     $pag = (isset($_POST['pag-contratos'])) ? ($_POST['pag-contratos'] - 1) * $regxPag : 0;
@@ -33,7 +33,7 @@ function lis_contratos(){
                    FN_CATALOGODESC(451, TC.perfil_profesional) AS 'Perfil Profesional',
                    TC.estado AS 'Estado'
             FROM th_contratos TC  
-            WHERE TC.id_th = '$id_th'";    
+            WHERE TC.id_thcon = '$id_th'";    
     $sql .= " ORDER BY TC.fecha_create DESC";
     $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
     $datos = datos_mysql($sql);
