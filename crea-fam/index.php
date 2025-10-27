@@ -179,7 +179,9 @@ function grabar(tb='',ev){
   'seguiremot': '../servicios_complem/seguiRemoto.php',
   'barreras':'../tamizajes/barreras.php',
   'tamsoledad':'../tamizajes/soledad.php',
-  'educaMedi':'../vsp/educaMedi.php'
+  'educaMedi':'../vsp/educaMedi.php',
+  'discapacidad':'../vsp/discapacidad.php',
+  'discapacidad1':'../vsp/discapacidad1.php'
  	};
    let ruta_app = rutaMap[tb] || 'lib.php';
   if(tb=='sesion2'){
