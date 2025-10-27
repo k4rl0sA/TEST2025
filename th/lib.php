@@ -72,12 +72,13 @@ $rta="";
 $t=['tipo_doc'=>'','documento'=>'','nombre1'=>'','nuc2'=>'','nombre2'=>'','apellido1'=>'','apellido2'=>'','fecha_nacimiento'=>'','sexo'=>'','contacto'=>'','email'=>''];
 $d = get_th();
 if ($d==""){$d=$t;}
+$edt = !empty($d) && isset($d['tipo_doc']) && $d['tipo_doc'] != '';
  $w='th';
  $o='infobasica';
  $c[]=new cmp($o,'l',null,'',$w);
  $c[]=new cmp('id','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
- $c[]=new cmp('tipo_doc','s','3',$d['tipo_doc'],$w.' '.$o,'Tipo documento','tipo_doc',null,null,true,true,'','col-4');
- $c[]=new cmp('documento','nu','999999999999999999',$d['documento'],$w.' '.$o,'NÚMERO DE DOCUMENTO','documento',null,null,true,true,'','col-3');
+ $c[]=new cmp('tipo_doc','s','3',$d['tipo_doc'],$w.' '.$o,'Tipo documento','tipo_doc',null,null,true,!$edt,'','col-4');
+ $c[]=new cmp('documento','nu','999999999999999999',$d['documento'],$w.' '.$o,'NÚMERO DE DOCUMENTO','documento',null,null,true,!$edt,'','col-3');
 
  $c[]=new cmp($o,'l',null,'',$w);
  $c[]=new cmp('nombre1','t','30',$d['nombre1'],$w.' '.$o,'Primer Nombre','nombre1',null,null,true,true,'','col-25');
