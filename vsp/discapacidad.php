@@ -255,10 +255,10 @@ function opc_cuantos_cuidadores($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=91 and estado='A' AND valor =1 ORDER BY 1",$id);
 }
 function opc_ante_cuidador($id=''){
-	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=321 and estado='A' ORDER BY 1",$id);
+	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=28 and estado='A' ORDER BY 1",$id);
 }
 function opc_num_pers($id=''){
-	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=322 and estado='A' ORDER BY 1",$id);
+	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=91 and estado='A' ORDER BY 1",$id);
 }
 function opc_cat_ayudastec($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=323 and estado='A' ORDER BY 1",$id);
@@ -287,7 +287,6 @@ function opc_esparcimiento($id=''){
 function opc_comunicacion($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=331 and estado='A' ORDER BY 1",$id);
 }
-
 // Funciones opc comunes (ya existentes en acompsic.php)
 function opc_motivo_cierre($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion,valor FROM `catadeta` WHERE idcatalogo=198 and estado='A'  ORDER BY 1 ",$id);
