@@ -74,12 +74,12 @@ function cmp_discapacidad(){
   $days=fechas_app('vsp');
   $c[]=new cmp('id_otroprio','h','50',$_POST['id'],$w.' '.$o,'Id de Discapacidad','id_otroprio',null,null,false,false,'','col-2');
   $c[]=new cmp('fecha_seg','d','10',$d,$w.' '.$o,'Fecha Seguimiento','fecha_seg',null,null,true,true,'','col-2',"validDate(this,$days,0);");
-  $c[]=new cmp('numsegui','s','3',$d,$w.' '.$o,'Seguimiento N°','numsegui',null,null,true,true,'','col-2',"staEfe('numsegui','sta');EnabEfec(this,['hab','acc'],['Ob'],['nO'],['bL'])");
+  $c[]=new cmp('numsegui','s','3',$d,$w.' '.$o,'Seguimiento N°','numsegui',null,null,true,true,'','col-2',"staEfe('numsegui','sta');EnabEfec(this,['cuid','disc','estado','hab','acc'],['Ob'],['nO'],['bL'])");
   $c[]=new cmp('evento','s','3',$ev,$w.' '.$o,'Evento','evento',null,null,false,false,'','col-2');
-  $c[]=new cmp('estado_s','s','3',$d,$w.' sTa '.$o,'Estado','estado_s',null,null,true,true,'','col-2',"enabFielSele(this,true,['motivo_estado'],['3']);EnabEfec(this,['hab','acc'],['Ob'],['nO'],['bL']);");
+  $c[]=new cmp('estado_s','s','3',$d,$w.' sTa '.$o,'Estado','estado_s',null,null,true,true,'','col-2',"enabFielSele(this,true,['motivo_estado'],['3']);EnabEfec(this,['cuid','disc','estado','hab','acc'],['Ob'],['nO'],['bL']);");
   $c[]=new cmp('motivo_estado','s','3',$d,$w.' '.$o,'Motivo de Estado','motivo_estado',null,null,false,$x,'','col-2');
 
-    $o='cuidador';
+    $o='cuid';
     $c[]=new cmp($o,'e',null,'INFORMACIÓN DEL CUIDADOR',$w);
     $c[]=new cmp('cuidador','s','3',$d,$w.' '.$o,'¿Cuenta con un cuidador?','rta',null,null,false,$x,'','col-2',"enabOthSi('cuidador','CuI');");
     $c[]=new cmp('cuantos_cuidadores','s','3',$d,$w.' CuI '.$o,'Cuantas personas ejercen labor de cuidador?','cuantos_cuidadores',null,null,false,$x,'','col-2');
@@ -94,7 +94,7 @@ function cmp_discapacidad(){
     $c[]=new cmp('apoyo_tec','s','3',$d,$w.' CuI '.$o,'¿Considera que requiere apoyo o capacitación en alguna técnica de cuidado?','rta',null,null,false,$x,'','col-4');
     $c[]=new cmp('alarma','s','3',$d,$w.' CuI '.$o,'¿Sabe identificar signos de alarma?','rta',null,null,false,$x,'','col-3');
     
-    $o='discapacidad';
+    $o='disc';
     $c[]=new cmp($o,'e',null,'INFORMACIÓN DE DISCAPACIDAD',$w);
     $c[]=new cmp('certificado','s','3',$d,$w.' '.$o,'Cuenta con certificado de discapacidad','rta',null,null,false,$x,'','col-2');
     $c[]=new cmp('requiere_ayudas_tec','s','3',$d,$w.' '.$o,'¿Requiere ayudas técnicas?','rta',null,null,false,$x,'','col-2',"enabOthSi('requiere_ayudas_tec','AyU');");
