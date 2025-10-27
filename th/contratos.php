@@ -150,6 +150,7 @@ function gra_contratos(){
     // Validar si es inserción o actualización
     $hash = $_POST['id'] ?? '';
     $real_id = null;
+    var_dump($_POST);
     
     // Buscar el ID real usando el hash para actualización
     if ($hash != '0' && isset($_SESSION['hash'])) {
