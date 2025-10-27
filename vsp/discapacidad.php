@@ -338,7 +338,7 @@ WHERE p.estado='A' AND p.idpeople IN (SELECT DISTINCT idpeople FROM person WHERE
 function opc_cat_ayudastecayuda_tecnica($id=''){
     if($_REQUEST['id']!=''){
         $id=divide($_REQUEST['id']);
-        $sql="SELECT idcatadeta ,descripcion  FROM `catadeta` WHERE idcatalogo='321' and estado='A' and valor='".$id[0]."' ORDER BY LENGTH(idcatadeta), idcatadeta;";
+        $sql="SELECT idcatadeta ,descripcion  FROM `catadeta` WHERE idcatalogo='322' and estado='A' and valor='".$id[0]."' ORDER BY LENGTH(idcatadeta), idcatadeta;";
         $info=datos_mysql($sql);        
         return json_encode($info['responseResult']);
     }
