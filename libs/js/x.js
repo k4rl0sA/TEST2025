@@ -1743,9 +1743,23 @@ function enbRutRmtAbo(){
 	EnabDepeDynamic(['FaY'], conditions);
 }
 function enbCuidaDiscap(){
+	// console.log('enbCuidaDiscap ejecutándose...');
+/* 	const numseguiElement = document.getElementById('numsegui');
+	const estadoElement = document.getElementById('estado_s');
+	
+	if (!numseguiElement || !estadoElement) {
+		console.error('No se encontraron los elementos numsegui o estado_s');
+		return;
+	}
+	 */
+	/* console.log('Valores actuales:', {
+		numsegui: numseguiElement.value,
+		estado_s: estadoElement.value
+	}); */
+	
 	const conditions = [
-		{ id: 'numsegui', value: '1', compare: false },
-		{ id: 'estado_s', value: '1', compare: true }
+		{ id: 'numsegui', value: '1', compare: false }, // numsegui debe ser diferente de '1'
+		{ id: 'estado_s', value: '1', compare: true }   // estado_s debe ser igual a '1'
 	];
 	EnabDepeDynamic(['cuid'], conditions);
 }
