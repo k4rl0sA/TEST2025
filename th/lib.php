@@ -235,22 +235,6 @@ function formato_dato($a, $b, $c, $d) {
                 'evento' => "mostrar('th','{$c['ACCIONES']}',this,'lib.php',1);"
             ],
             'rev' => [
-			Voy a revisar el archivo actual para entender el problema con la carga de datos al editar y el manejo del hash.
-			
-			Leer
-			
-			Veo el problema. El formato de la función mostrar() para el botón de editar no está manejando correctamente el hash. Necesito ajustar el evento y también asegurarme de que la función get_th() funcione correctamente con el manejo de hash. Voy a hacer los ajustes:
-			
-			lib.php+1-2
-			Ahora necesito ajustar la función get_th() para manejar correctamente el hash. Voy a verificar cómo se maneja en otras funciones similares del sistema:
-			
-			Texto buscado para function get_.*\(\){ (**/*.php), sin resultados
-			
-			Voy a revisar una función get_ que funcione correctamente para ver el patrón:
-			
-			Leer , líneas 230 a 250
-			
-			Ahora veo el patrón. La 
                 'icono' => 'fa-regular fa-calendar-check',
                 'clase' => 'ico',
                 'title' => 'Ver Detalles',
