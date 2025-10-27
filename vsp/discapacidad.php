@@ -302,10 +302,6 @@ WHERE p.estado='A' AND p.idpeople IN (SELECT DISTINCT idpeople FROM person WHERE
 			from person 
 			where vivipersona=(select vivipersona from person where idpeople='$idp') and idpeople<>'$idp'",$id);
 }
-function opc_cat_ayudastec($id=''){
-    return opc_sql("SELECT `idcatadeta`,descripcion  FROM `catadeta` WHERE idcatalogo='321' and estado='A' ORDER BY 1",$id);
-}
-
 function opc_cat_ayudastecayuda_tecnica($id=''){
     if($_REQUEST['id']!=''){
         $id=divide($_REQUEST['id']);
