@@ -63,7 +63,7 @@ function cmp_contratos(){
     $t = [
         'id_thcon' => '', 'n_contrato' => '', 'tipo_cont' => '', 'fecha_inicio' => '', 
         'fecha_fin' => '', 'valor_contrato' => '', 'perfil_profesional' => '', 
-        'perfil_contratado' => '', 'tipo_expe' => '', 'fecha_expe' => '', 'semestre' => ''
+        'perfil_contratado' => '', 'rol' => '', 'tipo_expe' => '', 'fecha_expe' => '', 'semestre' => ''
     ];
     
     $d = get_contratos();
@@ -90,8 +90,9 @@ function cmp_contratos(){
     // Perfiles profesionales
     $o2 = 'perfilinfo';
     $c[] = new cmp($o2,'l',null,'',$w);
-    $c[] = new cmp('perfil_profesional','s','3',$d['perfil_profesional'],$w.' '.$o2,'Perfil Profesional','perfil_profesional',null,null,true,true,'','col-5');
-    $c[] = new cmp('perfil_contratado','s','3',$d['perfil_contratado'],$w.' '.$o2,'Perfil Contratado Requerido','perfil_contratado',null,null,true,true,'','col-5');
+    $c[] = new cmp('perfil_profesional','s','3',$d['perfil_profesional'],$w.' '.$o2,'Perfil Profesional','perfil_profesional',null,null,true,true,'','col-35');
+    $c[] = new cmp('perfil_contratado','s','3',$d['perfil_contratado'],$w.' '.$o2,'Perfil Contratado Requerido','perfil_contratado',null,null,true,true,'','col-35');
+    $c[] = new cmp('rol','s','3',$d['rol'],$w.' '.$o2,'Rol Contratado','rol',null,null,true,true,'','col-3');
     
     // Experiencia
     $o3 = 'experiencia';
@@ -129,7 +130,7 @@ function get_contratos(){
         }
         
         $sql = "SELECT `id_thcon`,`n_contrato`, `tipo_cont`, `fecha_inicio`, `fecha_fin`, 
-                       `valor_contrato`, `perfil_profesional`, `perfil_contratado`, `tipo_expe`, 
+                       `valor_contrato`, `perfil_profesional`, `perfil_contratado`, `rol`,`tipo_expe`, 
                        `fecha_expe`, `semestre`, `estado`
                 FROM `th_contratos` 
                 WHERE id_thcon = '$real_id'";
@@ -168,8 +169,8 @@ function gra_contratos(){
     
     if($hash == '0' || !$real_id) {
         // INSERT - Nuevo contrato
-        $sql = "INSERT INTO th_contratos (id_th, n_contrato, tipo_cont, fecha_inicio, fecha_fin, valor_contrato, perfil_profesional, perfil_contratado, tipo_expe, fecha_expe, semestre, usu_create, fecha_create, estado) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), 'A')";
+        $sql = "INSERT INTO th_contratos (id_th, n_contrato, tipo_cont, fecha_inicio, fecha_fin, valor_contrato, perfil_profesional, perfil_contratado, rol, tipo_expe, fecha_expe, semestre, usu_create, fecha_create, estado) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), 'A')";
         $params = [
             ['type' => 'i', 'value' => $_POST['id_th'] ?? ''],
             ['type' => 'i', 'value' => $_POST['n_contrato'] ?? ''],
@@ -179,6 +180,7 @@ function gra_contratos(){
             ['type' => 'i', 'value' => $_POST['valor_contrato'] ?? ''],
             ['type' => 's', 'value' => $_POST['perfil_profesional'] ?? ''],
             ['type' => 's', 'value' => $_POST['perfil_contratado'] ?? ''],
+            ['type' => 's', 'value' => $_POST['rol'] ?? ''],
             ['type' => 's', 'value' => $_POST['tipo_expe'] ?? ''],
             ['type' => 's', 'value' => $_POST['fecha_expe'] ?? ''],
             ['type' => 'i', 'value' => $_POST['semestre'] ?? ''],
@@ -186,7 +188,7 @@ function gra_contratos(){
         ];
     } else {
         // UPDATE - Actualizar contrato existente
-        $sql = "UPDATE th_contratos SET n_contrato=?, tipo_cont=?, fecha_inicio=?, fecha_fin=?, valor_contrato=?, perfil_profesional=?, perfil_contratado=?, tipo_expe=?, fecha_expe=?, semestre=?, usu_update=?, fecha_update=NOW() 
+        $sql = "UPDATE th_contratos SET n_contrato=?, tipo_cont=?, fecha_inicio=?, fecha_fin=?, valor_contrato=?, perfil_profesional=?, perfil_contratado=?, rol=?, tipo_expe=?, fecha_expe=?, semestre=?, usu_update=?, fecha_update=NOW() 
                 WHERE id_thcon=?";
         $params = [
             ['type' => 'i', 'value' => $_POST['n_contrato'] ?? ''],
@@ -196,6 +198,7 @@ function gra_contratos(){
             ['type' => 'i', 'value' => $_POST['valor_contrato'] ?? ''],
             ['type' => 's', 'value' => $_POST['perfil_profesional'] ?? ''],
             ['type' => 's', 'value' => $_POST['perfil_contratado'] ?? ''],
+            ['type' => 's', 'value' => $_POST['rol'] ?? ''],
             ['type' => 's', 'value' => $_POST['tipo_expe'] ?? ''],
             ['type' => 's', 'value' => $_POST['fecha_expe'] ?? ''],
             ['type' => 'i', 'value' => $_POST['semestre'] ?? ''],
@@ -210,19 +213,23 @@ function gra_contratos(){
 
 // Funciones para opciones de selects
 function opc_tipo_cont($id=''){
-    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=450 and estado='A' ORDER BY 2",$id);
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=326 and estado='A' ORDER BY 2",$id);
 }
 
 function opc_perfil_profesional($id=''){
-    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=451 and estado='A' ORDER BY 2",$id);
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=323 and estado='A' ORDER BY 2",$id);
 }
 
 function opc_perfil_contratado($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=308 and estado='A' ORDER BY 2",$id);
+}s
+
+function opc_rol($id=''){
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=324 and estado='A' ORDER BY 2",$id);
 }
 
 function opc_tipo_expe($id=''){
-    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=453 and estado='A' ORDER BY 2",$id);
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=325 and estado='A' ORDER BY 2",$id);
 }
 
 function formato_dato($a, $b, $c, $d) {
