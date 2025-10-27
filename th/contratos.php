@@ -61,7 +61,7 @@ function cap_menus($a,$b='cap',$con='con') {
 function cmp_contratos(){
     $rta = "";
     $t = [
-        'id_th' => '', 'n_contrato' => '', 'tipo_cont' => '', 'fecha_inicio' => '', 
+        'id_thcon' => '', 'n_contrato' => '', 'tipo_cont' => '', 'fecha_inicio' => '', 
         'fecha_fin' => '', 'valor_contrato' => '', 'perfil_profesional' => '', 
         'perfil_contratado' => '', 'tipo_expe' => '', 'fecha_expe' => '', 'semestre' => ''
     ];
@@ -78,7 +78,7 @@ function cmp_contratos(){
     // Información del contrato
     $c[] = new cmp($o,'e',null,'INFORMACIÓN DEL CONTRATO',$w);
     $c[] = new cmp('id','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
-    $c[] = new cmp('id_th','h',15,$_POST['id_th'] ?? '',$w.' '.$o,'id_th','id_th',null,'####',false,false);
+    $c[] = new cmp('id_th','h',15,$_POST['id_thcon'] ?? '',$w.' '.$o,'id_th','id_th',null,'####',false,false);
     
     $c[] = new cmp('n_contrato','nu','11',$d['n_contrato'],$w.' '.$o,'N° Contrato','n_contrato',null,null,true,true,'','col-3');
     $c[] = new cmp('tipo_cont','s','3',$d['tipo_cont'],$w.' '.$o,'Tipo de Vinculación','tipo_cont',null,null,true,true,'','col-4');
@@ -127,7 +127,7 @@ function get_contratos(){
             $real_id = $id[0];
         }
         
-        $sql = "SELECT `id_thcon`, `id_th`, `n_contrato`, `tipo_cont`, `fecha_inicio`, `fecha_fin`, 
+        $sql = "SELECT `id_thcon`,`n_contrato`, `tipo_cont`, `fecha_inicio`, `fecha_fin`, 
                        `valor_contrato`, `perfil_profesional`, `perfil_contratado`, `tipo_expe`, 
                        `fecha_expe`, `semestre`, `estado`
                 FROM `th_contratos` 
