@@ -688,7 +688,7 @@ function fieldsRequired($elements, $except = ['observaciones']) {
   return true;
 }
 
-function myhash($a){
+/* function myhash($a){
     $hash = md5($a . $_SESSION['us_sds'] . 'D2AC5E5211884EA15F1E950D1445C5E8');
     return $hash;
 }
@@ -705,7 +705,7 @@ function limpiar_hashes($max = 500) {
 function post_or_null($key) {
   return isset($_POST[$key]) && $_POST[$key] !== '' ? $_POST[$key] : null;
 }
-
+ */
 
 /*COMPONENTES*/
 class cmp { //ntwplcsdxhvuf
