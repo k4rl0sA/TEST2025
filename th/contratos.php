@@ -81,7 +81,7 @@ function cmp_contratos(){
     $c[] = new cmp('id_th','h',15,$_POST['id_thcon'] ?? '',$w.' '.$o,'id_th','id_th',null,'####',false,false);
     
     $c[] = new cmp('n_contrato','nu','11',$d['n_contrato'],$w.' '.$o,'N° Contrato','n_contrato',null,null,true,true,'','col-3');
-    $c[] = new cmp('tipo_cont','s','3',$d['tipo_cont'],$w.' '.$o,'Tipo de Vinculación','tipo_cont',null,null,true,true,'','col-4');
+    $c[] = new cmp('tipo_cont','s','3',$d['tipo_cont'],$w.' '.$o,'Tipo de Contrato','tipo_cont',null,null,true,true,'','col-4');
     $c[] = new cmp('fecha_inicio','d','',$d['fecha_inicio'],$w.' '.$o,'Fecha Inicio','fecha_inicio',null,null,true,true,'','col-25',"validDate(this,-30,365);");
     $c[] = new cmp('fecha_fin','d','',$d['fecha_fin'],$w.' '.$o,'Fecha Fin','fecha_fin',null,null,true,true,'','col-25',"validDate(this,1,730);");
     $c[] = new cmp('valor_contrato','nu','11',$d['valor_contrato'],$w.' '.$o,'Valor Total Contrato','valor_contrato',null,null,true,true,'','col-3');
@@ -217,7 +217,7 @@ function opc_perfil_profesional($id=''){
 }
 
 function opc_perfil_contratado($id=''){
-    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=452 and estado='A' ORDER BY 2",$id);
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=308 and estado='A' ORDER BY 2",$id);
 }
 
 function opc_tipo_expe($id=''){
