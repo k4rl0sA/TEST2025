@@ -102,16 +102,6 @@ function cmp_discapacidad(){
     $c[]=new cmp('ayuda_tecnica','s','3',$d,$w.' AyU '.$o,'Ayudas técnicas','ayuda_tecnica',null,null,false,$x,'','col-2');
     $c[]=new cmp('cuenta_ayuda','s','3',$d,$w.' AyU '.$o,'¿Cuenta con la ayuda técnica?','rta',null,null,false,$x,'','col-2');
     
-    /* $o='estado';
-    $c[]=new cmp($o,'e',null,'ESTADO ACTUAL',$w);
-    $c[]=new cmp('encuentra','s','3',$d,$w.' '.$o,'¿Cómo se encuentra hoy?','encuentra',null,null,false,$x,'','col-2');
-    $c[]=new cmp('facial','s','3',$d,$w.' '.$o,'Estado de ánimo','facial',null,null,false,$x,'','col-2');
-    $c[]=new cmp('corporal','s','3',$d,$w.' '.$o,'Estado físico','corporal',null,null,false,$x,'','col-2');
-    $c[]=new cmp('respiracion','s','3',$d,$w.' '.$o,'Signos de respiración','respiracion',null,null,false,$x,'','col-2');
-    $c[]=new cmp('cuidado','s','3',$d,$w.' '.$o,'Autocuidado','cuidado',null,null,false,$x,'','col-2');
-    $c[]=new cmp('esparcimiento','s','3',$d,$w.' '.$o,'Esparcimiento','esparcimiento',null,null,false,$x,'','col-2');
-    $c[]=new cmp('comunicacion','s','3',$d,$w.' '.$o,'Comunicación','comunicacion',null,null,false,$x,'','col-2'); */
-
     $o='acc';
     $c[]=new cmp($o,'e',null,'INFORMACIÓN ACCIONES',$w);
     $c[]=new cmp('estrategia_1','s','3',$d,$w.' '.$o,'Estrategia PF_1','estrategia_1',null,null,false,$x,'','col-5');
@@ -152,7 +142,6 @@ function gra_discapacidad() {
         'cuidador', 'cuantos_cuidadores', 'acep_relevo', 'cod_cuidador', 'antece', 'ante_cuidador', 'otro_ante', 
         'pers_cuida', 'num_pers', 'descanso', 'apoyo_tec', 'alarma',
         'certificado', 'requiere_ayudas_tec', 'cat_ayudastec', 'ayuda_tecnica', 'cuenta_ayuda',
-        'encuentra', 'facial', 'corporal', 'respiracion', 'cuidado', 'esparcimiento', 'comunicacion',
         'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
         'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
         'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'redu_riesgo_cierre',
@@ -167,7 +156,6 @@ function gra_discapacidad() {
             'cuidador', 'cuantos_cuidadores', 'acep_relevo', 'cod_cuidador', 'antece', 'ante_cuidador', 'otro_ante', 
             'pers_cuida', 'num_pers', 'descanso', 'apoyo_tec', 'alarma',
             'certificado', 'requiere_ayudas_tec', 'cat_ayudastec', 'ayuda_tecnica', 'cuenta_ayuda',
-            'encuentra', 'facial', 'corporal', 'respiracion', 'cuidado', 'esparcimiento', 'comunicacion',
             'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
             'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
             'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'redu_riesgo_cierre',
@@ -239,7 +227,7 @@ function get_discapacidad(){
     }else{
       $id=divide($_REQUEST['id']);
       $sql="SELECT concat_ws('_',id_otroprio,idpeople,numsegui,evento),
-      fecha_seg,numsegui,evento,estado_s,motivo_estado,cuidador,cuantos_cuidadores,acep_relevo,cod_cuidador,antece,ante_cuidador,otro_ante,pers_cuida,num_pers,descanso,apoyo_tec,alarma,certificado,requiere_ayudas_tec,cat_ayudastec,ayuda_tecnica,cuenta_ayuda,encuentra,facial,corporal,respiracion,cuidado,esparcimiento,comunicacion,estrategia_1,estrategia_2,acciones_1,desc_accion1,acciones_2,desc_accion2,acciones_3,desc_accion3,activa_ruta,ruta,novedades,signos_covid,caso_afirmativo,otras_condiciones,observaciones,cierre_caso,motivo_cierre,fecha_cierre,redu_riesgo_cierre,users_bina
+      fecha_seg,numsegui,evento,estado_s,motivo_estado,cuidador,cuantos_cuidadores,acep_relevo,cod_cuidador,antece,ante_cuidador,otro_ante,pers_cuida,num_pers,descanso,apoyo_tec,alarma,certificado,requiere_ayudas_tec,cat_ayudastec,ayuda_tecnica,cuenta_ayuda,estrategia_1,estrategia_2,acciones_1,desc_accion1,acciones_2,desc_accion2,acciones_3,desc_accion3,activa_ruta,ruta,novedades,signos_covid,caso_afirmativo,otras_condiciones,observaciones,cierre_caso,motivo_cierre,fecha_cierre,redu_riesgo_cierre,users_bina
       FROM vsp_discapacidad
       WHERE id_otroprio ='{$id[0]}'";
       $info=datos_mysql($sql);
@@ -265,27 +253,6 @@ function opc_cat_ayudastec($id=''){
 }
 function opc_ayuda_tecnica($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=322 and estado='A' ORDER BY 1",$id);
-}
-function opc_encuentra($id=''){
-	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=316 and estado='A' ORDER BY 1",$id);
-}
-function opc_facial($id=''){
-	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=317 and estado='A' ORDER BY 1",$id);
-}
-function opc_corporal($id=''){
-	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=319 and estado='A' ORDER BY 1",$id);
-}
-function opc_respiracion($id=''){
-	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=320 and estado='A' ORDER BY 1",$id);
-}
-function opc_cuidado($id=''){
-	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=103 and estado='A' ORDER BY 1",$id);
-}
-function opc_esparcimiento($id=''){
-	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=194 and estado='A' ORDER BY 1",$id);
-}
-function opc_comunicacion($id=''){
-	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=157 and estado='A' ORDER BY 1",$id);
 }
 // Funciones opc comunes (ya existentes en acompsic.php)
 function opc_motivo_cierre($id=''){
