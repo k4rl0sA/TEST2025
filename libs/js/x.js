@@ -1742,3 +1742,10 @@ function enbRutRmtAbo(){
 	];
 	EnabDepeDynamic(['FaY'], conditions);
 }
+function enbCuidaDiscap(){
+	const conditions = [
+		{ id: 'numsegui', value: '1', compare: false },
+		{ id: 'estado_s', value: '1', compare: true }
+	];
+	EnabDepeDynamic(['cuid'], conditions);
+}
