@@ -222,7 +222,7 @@ function opc_perfil_profesional($id=''){
 
 function opc_perfil_contratado($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=308 and estado='A' ORDER BY 2",$id);
-}s
+}
 
 function opc_rol($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=324 and estado='A' ORDER BY 2",$id);
