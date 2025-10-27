@@ -87,7 +87,7 @@ if ($d==""){$d=$t;}
  $c[]=new cmp('fecha_nacimiento','d','',$d['fecha_nacimiento'],$w.' '.$o,'Fecha de nacimiento','fecha_nacimiento',null,null,true,true,'','col-25',"validDate(this,-43800,0);");
  $c[]=new cmp('sexo','s','3',$d['sexo'],$w.' '.$o,'Sexo','sexo',null,null,true,true,'','col-25');
  $c[]=new cmp('contacto','nu','9999999999',$d['contacto'],$w.' '.$o,'N° Contacto','contacto','rgxphone',null,true,true,'','col-25');
- $c[]=new cmp('email','em','50',$d['email'],$w.' '.$o,'Correo Electronico','email',null,null,true,true,'','col-25'); 
+ $c[]=new cmp('email','em','50',$d['email'],$w.' '.$o,'Correo Electronico','email','rgxmail',null,true,true,'','col-25'); 
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
 }
