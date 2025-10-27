@@ -217,21 +217,22 @@ function formato_dato($a, $b, $c, $d) {
     if ($a == 'th' && $b == 'acciones') {
         $acciones = [];
         // Definición de acciones posibles
+        $hash_id = myhash($c['ACCIONES']);
         $accionesDisponibles = [
             'editar' => [
                 'icono' => 'fa-solid fa-edit',
                 'clase' => 'ico',
                 'title' => 'Editar Colaborador',
                 'permiso' => acceso('th'),
-                'hash' => myhash($c['ACCIONES']),
-                'evento' => "mostrar('th','" . $c['ACCIONES'] . "',this,'','lib.php',7,'th');"
+                'hash' => $hash_id,
+                'evento' => "mostrar('th','pro',event,'','lib.php',7,'th','{$hash_id}');"
             ],
             'ver' => [
                 'icono' => 'fa-solid fa-clipboard-list',
                 'clase' => 'ico',
                 'title' => 'Ver Detalles',
                 'permiso' => acceso('th'),
-                'hash' => myhash($c['ACCIONES']),
+                'hash' => $hash_id,
                 'evento' => "mostrar('th','{$c['ACCIONES']}',this,'lib.php',1);"
             ],
             'rev' => [
@@ -239,7 +240,7 @@ function formato_dato($a, $b, $c, $d) {
                 'clase' => 'ico',
                 'title' => 'Ver Detalles',
                 'permiso' => acceso('th'),
-                'hash' => myhash($c['ACCIONES']),
+                'hash' => $hash_id,
                 'evento' => "mostrar('th','{$c['ACCIONES']}',this,'lib.php',1);"
             ]
         ];
