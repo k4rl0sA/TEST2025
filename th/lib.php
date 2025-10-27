@@ -69,21 +69,25 @@ function cap_menus($a,$b='cap',$con='con') {
 
 function cmp_th(){
 $rta="";
+$t=['tipo_doc'=>'','documento'=>'','nombre1'=>'','nuc2'=>'','nombre2'=>'','apellido1'=>'','apellido2'=>'','fecha_nacimiento'=>'','sexo'=>'','contacto'=>'','email'=>''];
+$d = get_th();
+if ($d==""){$d=$t;}
  $w='th';
  $o='infobasica';
  $c[]=new cmp($o,'l',null,'',$w);
  $c[]=new cmp('id','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
- $c[]=new cmp('tipo_doc','s','3','',$w.' '.$o,'Tipo documento','tipo_doc',null,null,false,true,'','col-4');
- $c[]=new cmp('documento','nu','999999999999999999','',$w.' '.$o,'NÚMERO DE DOCUMENTO','documento',null,null,false,true,'','col-3');
+ $c[]=new cmp('tipo_doc','s','3',$d['tipo_doc'],$w.' '.$o,'Tipo documento','tipo_doc',null,null,false,true,'','col-4');
+ $c[]=new cmp('documento','nu','999999999999999999',$d['documento'],$w.' '.$o,'NÚMERO DE DOCUMENTO','documento',null,null,false,true,'','col-3');
+
  $c[]=new cmp($o,'l',null,'',$w);
- $c[]=new cmp('nombre1','t','30','',$w.' '.$o,'Primer Nombre','nombre1',null,null,true,true,'','col-25');
- $c[]=new cmp('nombre2','t','30','',$w.' '.$o,'Segundo Nombre','nombre2',null,null,false,true,'','col-25');
- $c[]=new cmp('apellido1','t','30','',$w.' '.$o,'Primer Apellido','apellido1',null,null,true,true,'','col-25');
- $c[]=new cmp('apellido2','t','30','',$w.' '.$o,'Segundo Apellido','apellido2',null,null,false,true,'','col-25');
- $c[]=new cmp('fecha_nacimiento','d','','',$w.' '.$o,'Fecha de nacimiento','fecha_nacimiento',null,null,false,true,'','col-25',"validDate(this,-43800,0);");
- $c[]=new cmp('sexo','s','3','',$w.' '.$o,'Sexo','sexo',null,null,true,true,'','col-25');
- $c[]=new cmp('contacto','nu','9999999999','',$w.' '.$o,'N° Contacto','contacto',null,null,false,true,'','col-25');
- $c[]=new cmp('email','em','50','',$w.' '.$o,'Correo Electronico','email',null,null,false,true,'','col-25'); 
+ $c[]=new cmp('nombre1','t','30',$d['nombre1'],$w.' '.$o,'Primer Nombre','nombre1',null,null,true,true,'','col-25');
+ $c[]=new cmp('nombre2','t','30',$d['nombre2'],$w.' '.$o,'Segundo Nombre','nombre2',null,null,false,true,'','col-25');
+ $c[]=new cmp('apellido1','t','30',$d['apellido1'],$w.' '.$o,'Primer Apellido','apellido1',null,null,true,true,'','col-25');
+ $c[]=new cmp('apellido2','t','30',$d['apellido2'],$w.' '.$o,'Segundo Apellido','apellido2',null,null,false,true,'','col-25');
+ $c[]=new cmp('fecha_nacimiento','d','',$d['fecha_nacimiento'],$w.' '.$o,'Fecha de nacimiento','fecha_nacimiento',null,null,false,true,'','col-25',"validDate(this,-43800,0);");
+ $c[]=new cmp('sexo','s','3',$d['sexo'],$w.' '.$o,'Sexo','sexo',null,null,true,true,'','col-25');
+ $c[]=new cmp('contacto','nu','9999999999',$d['contacto'],$w.' '.$o,'N° Contacto','contacto',null,null,false,true,'','col-25');
+ $c[]=new cmp('email','em','50',$d['email'],$w.' '.$o,'Correo Electronico','email',null,null,false,true,'','col-25'); 
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
 }
@@ -179,10 +183,11 @@ function formato_dato($a, $b, $c, $d) {
             'editar' => [
                 'icono' => 'fa-solid fa-edit',
                 'clase' => 'ico',
-                'title' => 'Editar',
+                'title' => 'Editar Colaborador',
                 'permiso' => acceso('th'),
                 'hash' => myhash($c['ACCIONES']),
-                'evento' => "mostrar('th','{$c['ACCIONES']}',this,'lib.php');"
+                'evento' => "mostrar('th','pro',event,'','lib.php',7,'th');"
+				/*mostrar('homes','pro',event,'','lib.php',7,'homes');*/
             ],
             'ver' => [
                 'icono' => 'fa-solid fa-clipboard-list',
