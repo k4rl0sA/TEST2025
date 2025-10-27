@@ -234,7 +234,7 @@ function formato_dato($a, $b, $c, $d) {
                 'title' => 'Contratos',
                 'permiso' => acceso('th'),
                 'hash' => $hash_id,
-                'evento' => "mostrar('th','{$c['ACCIONES']}',this,'contratos.php',1);"
+                'evento' => "mostrar('contratos','pro',event,'','contratos.php',7,'contratos','0'); document.getElementById('id_th').value='{$c['ACCIONES']}';"
             ],
             'rev' => [
                 'icono' => 'fa-regular fa-calendar-check',
