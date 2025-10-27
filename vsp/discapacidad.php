@@ -86,8 +86,8 @@ function cmp_discapacidad(){
     $c[]=new cmp('acep_relevo','s','3',$d,$w.' CuI '.$no.' '.$o,'¿el cuidador acepta el relevo?','rta',null,null,false,$x,'','col-2');
     $c[]=new cmp('cod_cuidador','s','18',$d,$w.' CuI '.$no.' '.$o,'Código del cuidador','cod_cuidador',null,null,false,$x,'','col-2');
     $c[]=new cmp('antece','s','3',$d,$w.' CuI '.$no.' '.$o,'Cuenta con antecedentes patológicos','rta',null,null,false,$x,'','col-2',"enabOthSi('antece','AnT');");
-    $c[]=new cmp('ante_cuidador','s','3',$d,$w.' AnT CuI '.$no.' '.$o,'Antecedente patológico','ante_cuidador',null,null,false,$x,'','col-2',"enabOthSi('ante_cuidador','OtR');");
-    $c[]=new cmp('otro_ante','t','100',$d,$w.' OtR AnT CuI '.$no.' '.$o,'Otro, ¿cuál?','otro_ante',null,null,false,$x,'','col-3');
+    $c[]=new cmp('ante_cuidador','s','3',$d,$w.' AnT CuI '.$no.' '.$o,'Antecedente patológico','ante_cuidador',null,null,false,$x,'','col-2',"othePath(this,'ot');");
+    $c[]=new cmp('otro_ante','t','100',$d,$w.' ot AnT CuI '.$no.' '.$o,'Otro, ¿cuál?','otro_ante',null,null,false,$x,'','col-3');
     $c[]=new cmp('pers_cuida','s','3',$d,$w.' CuI '.$no.' '.$o,'Tiene más personas al cuidado','rta',null,null,false,$x,'','col-2',"enabOthSi('pers_cuida','PerS');");
     $c[]=new cmp('num_pers','s','3',$d,$w.' PerS CuI '.$no.' '.$o,'Número de personas','num_pers',null,null,false,$x,'','col-2');
     $c[]=new cmp('descanso','s','3',$d,$w.' CuI '.$no.' '.$o,'¿Ha tenido tiempo para descansar o cuidar su salud?','rta',null,null,false,$x,'','col-3');
