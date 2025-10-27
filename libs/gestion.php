@@ -702,6 +702,10 @@ function limpiar_hashes($max = 500) {
     }
 }  
 
+function post_or_null($key) {
+  return isset($_POST[$key]) && $_POST[$key] !== '' ? $_POST[$key] : null;
+}
+
 
 /*COMPONENTES*/
 class cmp { //ntwplcsdxhvuf
