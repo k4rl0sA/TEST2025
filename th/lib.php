@@ -228,13 +228,13 @@ function formato_dato($a, $b, $c, $d) {
                 'hash' => $hash_id,
                 'evento' => "mostrar('th','pro',event,'','lib.php',7,'th','{$hash_id}');"
             ],
-            'ver' => [
+            'contratos' => [
                 'icono' => 'fa-solid fa-clipboard-list',
                 'clase' => 'ico',
-                'title' => 'Ver Detalles',
+                'title' => 'Contratos',
                 'permiso' => acceso('th'),
                 'hash' => $hash_id,
-                'evento' => "mostrar('th','{$c['ACCIONES']}',this,'lib.php',1);"
+                'evento' => "mostrar('th','{$c['ACCIONES']}',this,'contratos.php',1);"
             ],
             'rev' => [
                 'icono' => 'fa-regular fa-calendar-check',
