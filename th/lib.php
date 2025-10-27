@@ -229,7 +229,7 @@ function formato_dato($a, $b, $c, $d) {
                 'evento' => "mostrar('th','pro',event,'','lib.php',7,'th','{$hash_id}');"
             ],
             'contratos' => [
-                'icono' => 'fa-solid fa-clipboard-list',
+                'icono' => 'fa-thin fa-id-badge',
                 'clase' => 'ico',
                 'title' => 'Contratos',
                 'permiso' => acceso('th'),
