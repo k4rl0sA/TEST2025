@@ -213,7 +213,7 @@ function gra_contratos(){
 
 // Funciones para opciones de selects
 function opc_tipo_cont($id=''){
-    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=326 and estado='A' ORDER BY 2",$id);
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=326 and estado='A' ORDER BY LENGTH(idcatadeta), idcatadeta",$id);
 }
 
 function opc_perfil_profesional($id=''){
