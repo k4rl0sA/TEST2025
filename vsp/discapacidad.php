@@ -325,7 +325,7 @@ return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo
 
 function opc_cod_cuidador($id=''){
 return opc_sql("SELECT p.idpersona,concat_ws(' - ',p.tipo_doc,p.num_doc,p.nombre) descripcion FROM person p 
-WHERE p.estado='A' AND p.idpeople IN (SELECT DISTINCT idpeople FROM vsp_cuidador WHERE estado='A') ORDER BY p.nombre",$id);
+WHERE p.estado='A' AND p.idpeople IN (SELECT DISTINCT idpeople FROM person WHERE estado='A') ORDER BY p.nombre",$id);
 }
 
 function opc_acciones_1desc_accion1($id=''){
