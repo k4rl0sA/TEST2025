@@ -33,11 +33,11 @@ function grabar(tb='',ev){
      if (!valido(f[i])) {f[i].focus(); return};
   }
 	myFetch(ruta_app,"a=gra&tb="+tb,mod);
-	if (document.getElementById(mod+'-modal').innerHTML.includes('Correctamente')){
+	/* if (document.getElementById(mod+'-modal').innerHTML.includes('Correctamente')){
 		document.getElementById(mod+'-image').innerHTML='<svg class="icon-popup" ><use xlink:href="#ok"/></svg>';
 	}else{
 		document.getElementById(mod+'-image').innerHTML='<svg class="icon-popup" ><use xlink:href="#bad"/></svg>';
-	}
+	} */
 	setTimeout(actualizar, 1000);
 	setTimeout(act_lista,1000,'gestion');
 	openModal();
