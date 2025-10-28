@@ -194,40 +194,6 @@ function opc_tipo_expe($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=325 and estado='A' ORDER BY 2",$id);
 }
 
-function formato_dato($a, $b, $c, $d) {
-    $b = strtolower($b);
-    $rta = $c[$d];
-    if ($a == 'contratos' && $b == 'acciones') {
-        $acciones = [];
-        $hash_id = myhash($c['ACCIONES']);
-        $accionesDisponibles = [
-            'editar' => [
-                'icono' => 'fa-solid fa-edit',
-                'clase' => 'ico',
-                'title' => 'Editar Contrato',
-                'permiso' => true,
-                'hash' => $hash_id,
-                'evento' => "mostrar('contratos','pro',event,'{$hash_id}','contratos.php',7);"
-            ]
-        ];
-        
-        foreach ($accionesDisponibles as $key => $accion) {
-            if ($accion['permiso']) {
-                limpiar_hashes();
-                $_SESSION['hash'][$accion['hash'] . '_contratos'] = $c['ACCIONES'];
-                $acciones[] = "<li title='{$accion['title']}'><i class='{$accion['icono']} {$accion['clase']}' id='{$accion['hash']}' onclick=\"{$accion['evento']}\" data-acc='{$key}'></i></li>";
-            }
-        }
-        
-        if (count($acciones)) {
-            $rta = "<nav class='menu right'>" . implode('', $acciones) . "</nav>";
-        } else {
-            $rta = "";
-        }
-    }
-    return $rta;
-}
-
 function bgcolor($a,$c,$f='c'){
     $rta="";
     return $rta;
