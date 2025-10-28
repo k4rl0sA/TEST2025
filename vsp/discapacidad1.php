@@ -126,9 +126,6 @@ function gra_discapacidad() {
     
     $campos = [
         'idpeople', 'fecha_seg', 'numsegui', 'evento', 'estado_s', 'motivo_estado',
-        'cuidador', 'cuantos_cuidadores', 'acep_relevo', 'cod_cuidador', 'antece', 'ante_cuidador', 'otro_ante', 
-        'pers_cuida', 'num_pers', 'descanso', 'apoyo_tec', 'alarma',
-        'certificado', 'requiere_ayudas_tec', 'cat_ayudastec', 'ayuda_tecnica', 'cuenta_ayuda',
         'encuentra', 'facial', 'corporal', 'respiracion', 'cuidado', 'esparcimiento', 'comunicacion',
         'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
         'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
@@ -141,9 +138,6 @@ function gra_discapacidad() {
 
     if (count($id) == 4) { // UPDATE
         $set = [
-            'cuidador', 'cuantos_cuidadores', 'acep_relevo', 'cod_cuidador', 'antece', 'ante_cuidador', 'otro_ante', 
-            'pers_cuida', 'num_pers', 'descanso', 'apoyo_tec', 'alarma',
-            'certificado', 'requiere_ayudas_tec', 'cat_ayudastec', 'ayuda_tecnica', 'cuenta_ayuda',
             'encuentra', 'facial', 'corporal', 'respiracion', 'cuidado', 'esparcimiento', 'comunicacion',
             'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
             'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
@@ -152,9 +146,7 @@ function gra_discapacidad() {
         ];
         $params = [];
         foreach ($set as $campo) {
-            if ($campo == 'users_bina') {
-                $params[] = ['type' => 's', 'value' => $smbin];
-            } elseif ($campo == 'equipo_bina') {
+            if ($campo == 'equipo_bina') {
                 $params[] = ['type' => 's', 'value' => $eq];
             } elseif (in_array($campo, $campos_fecha_null)) {
                 $val = $_POST[$campo] ?? null;
@@ -177,8 +169,6 @@ function gra_discapacidad() {
         foreach ($campos as $campo) {
             if ($campo == 'idpeople') {
                 $params[] = ['type' => 's', 'value' => $id[0]];
-            } elseif ($campo == 'users_bina') {
-                $params[] = ['type' => 's', 'value' => $smbin];
             } elseif ($campo == 'equipo_bina') {
                 $params[] = ['type' => 's', 'value' => $eq];
             } elseif ($campo == 'usu_creo') {
@@ -216,7 +206,7 @@ function get_discapacidad(){
     }else{
       $id=divide($_REQUEST['id']);
       $sql="SELECT concat_ws('_',id_otroprio,idpeople,numsegui,evento),
-      fecha_seg,numsegui,evento,estado_s,motivo_estado,cuidador,cuantos_cuidadores,acep_relevo,cod_cuidador,antece,ante_cuidador,otro_ante,pers_cuida,num_pers,descanso,apoyo_tec,alarma,certificado,requiere_ayudas_tec,cat_ayudastec,ayuda_tecnica,cuenta_ayuda,encuentra,facial,corporal,respiracion,cuidado,esparcimiento,comunicacion,estrategia_1,estrategia_2,acciones_1,desc_accion1,acciones_2,desc_accion2,acciones_3,desc_accion3,activa_ruta,ruta,novedades,signos_covid,caso_afirmativo,otras_condiciones,observaciones,cierre_caso,motivo_cierre,fecha_cierre,redu_riesgo_cierre,users_bina
+      fecha_seg,numsegui,evento,estado_s,motivo_estado,encuentra,facial,corporal,respiracion,cuidado,esparcimiento,comunicacion,estrategia_1,estrategia_2,acciones_1,desc_accion1,acciones_2,desc_accion2,acciones_3,desc_accion3,activa_ruta,ruta,novedades,signos_covid,caso_afirmativo,otras_condiciones,observaciones,cierre_caso,motivo_cierre,fecha_cierre,redu_riesgo_cierre,users_bina
       FROM vsp_discapacidad
       WHERE id_otroprio ='{$id[0]}'";
       $info=datos_mysql($sql);
@@ -225,7 +215,7 @@ function get_discapacidad(){
 }
 
 // Funciones opc para selects específicos de discapacidad
-function opc_bina($id=''){
+/* function opc_bina($id=''){
   return opc_sql("SELECT id_usuario, nombre  from usuarios u WHERE equipo=(select equipo from usuarios WHERE id_usuario='{$_SESSION['us_sds']}') and estado='A'  ORDER BY 2;",$id);
 }
 function opc_cuantos_cuidadores($id=''){
@@ -300,9 +290,9 @@ return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo
 }
 
 function opc_cod_cuidador($id=''){
-/* return opc_sql("SELECT p.idpersona,concat_ws(' - ',p.tipo_doc,p.documento,p.nombre1) descripcion FROM person p 
-WHERE p.estado='A' AND p.idpeople IN (SELECT DISTINCT idpeople FROM person WHERE estado='A') ORDER BY p.nombre1",$id);
- */
+//  return opc_sql("SELECT p.idpersona,concat_ws(' - ',p.tipo_doc,p.documento,p.nombre1) descripcion FROM person p 
+// WHERE p.estado='A' AND p.idpeople IN (SELECT DISTINCT idpeople FROM person WHERE estado='A') ORDER BY p.nombre1",$id);
+ 
 	// var_dump($_REQUEST);
 	$idp = trim($_REQUEST['id']);
 	$idp=divide($idp);
@@ -367,7 +357,7 @@ function opc_equ(){
   $sql="SELECT equipo FROM usuarios WHERE id_usuario='{$_SESSION['us_sds']}'";
   $info=datos_mysql($sql);		
   return $info['responseResult'][0]['equipo'];
-}
+} */
 
 function formato_dato($a,$b,$c,$d){
  $b=strtolower($b);
