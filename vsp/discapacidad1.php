@@ -111,7 +111,7 @@ function cmp_discapacidad1(){
     $c[]=new cmp('motivo_cierre','s','3',$d,$w.' cc '.$bl.' '.$no.' '.$o,'Motivo Cierre','motivo_cierre',null,null,false,$x,'','col-55');
     $c[]=new cmp('fecha_cierre','d','10',$d,$w.' cc '.$bl.' '.$no.' '.$o,'Fecha de Cierre','fecha_cierre',null,null,false,$x,'','col-25',"validDate(this,$days,0);");
     $c[]=new cmp('redu_riesgo_cierre','s','2',$d,$w.' cc '.$bl.' '.$no.' '.$o,'¿Reducción del riesgo?','rta',null,null,false,$x,'','col-15');
-    $c[]=new cmp('users_bina','s','18',$d,$w.' '.$ob.' '.$o,'Participo Agente de Cambio, Cual?','bina',null,null,false,true,'','col-5');
+    $c[]=new cmp('users_bina','s','18',$d,$w.' '.$ob.' '.$o,'Usuarios Equipo','bina',null,null,false,true,'','col-5');
 
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
@@ -309,6 +309,10 @@ function opc_equ(){
 function opc_motivo_cierre($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion,valor FROM `catadeta` WHERE idcatalogo=198 and estado='A'  ORDER BY 1 ",$id);
 }
+ function opc_bina($id=''){
+  return opc_sql("SELECT id_usuario, nombre  from usuarios u WHERE equipo=(select equipo from usuarios WHERE id_usuario='{$_SESSION['us_sds']}') and estado='A'  ORDER BY 2;",$id);
+}
+
 function opc_bina($id=''){
   return opc_sql("SELECT id_usuario, nombre  from usuarios u WHERE perfil='AGCAMBIO' and estado='A'  ORDER BY 2;",$id);
 }
