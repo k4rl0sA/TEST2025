@@ -189,8 +189,8 @@ function gra_discapacidad1() {
         ) VALUES (
             NULL, $placeholders
         )";
-        //$rta = mysql_prepd($sql, $params);
-        $rta= show_sql($sql, $params);
+        $rta = mysql_prepd($sql, $params);
+        //$rta= show_sql($sql, $params);
     } else {
         $rta = "Error: id_otroprio inválido";
     }
