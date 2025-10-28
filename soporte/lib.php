@@ -213,14 +213,6 @@ function IdHash($hash, $accion = '') {
     }
     return null;
 }
-function limpiar_hashes($max = 500) {
-    if (!isset($_SESSION['hash']) || !is_array($_SESSION['hash'])) return;
-    // Si hay más de $max hashes, elimina los más antiguos
-    if (count($_SESSION['hash']) > $max) {
-        // Mantén solo los últimos $max elementos
-        $_SESSION['hash'] = array_slice($_SESSION['hash'], -$max, $max, true);
-    }
-}    
 
 function subred($id) {
     $id = divide($id);
