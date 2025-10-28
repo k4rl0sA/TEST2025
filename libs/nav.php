@@ -42,7 +42,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/libs/gestion.php';
 $rtaMenu=datos_mysql($sql);
 // echo $sql;
 // print_r($rtaMenu);
-$sql1="SELECT nombre,perfil FROM usuarios WHERE id_usuario = '".$_SESSION["us_sds"]."'";
+$sql1="SELECT nombre,perfil,subred FROM usuarios WHERE id_usuario = '".$_SESSION["us_sds"]."'";
 $rta=datos_mysql($sql1);
 $nav='';
 $total=count($rtaMenu['responseResult']);
@@ -81,7 +81,7 @@ $nav.= '<a href="../logout.php">
 	<br>Salir</a>
   ';
 
-$nav.= '<div class="usuario">'.$rta['responseResult'][0]['nombre'].' - '.$rta['responseResult'][0]['perfil'].'_'.$vers.'</div>';
+$nav.= '<div class="usuario">'.$rta['responseResult'][0]['nombre'].' - '.$rta['responseResult'][0]['perfil'].'_'.$rta['responseResult'][0]['subred'].'</div>';
 $nav.='</div></div>';
 echo $nav;
 ?>
