@@ -310,6 +310,9 @@ function opc_equ(){
   $info=datos_mysql($sql);		
   return $info['responseResult'][0]['equipo'];
 }
+function opc_motivo_cierre($id=''){
+	return opc_sql("SELECT `idcatadeta`,descripcion,valor FROM `catadeta` WHERE idcatalogo=198 and estado='A'  ORDER BY 1 ",$id);
+}
 // Funciones opc para selects específicos de discapacidad
 /* function opc_bina($id=''){
   return opc_sql("SELECT id_usuario, nombre  from usuarios u WHERE equipo=(select equipo from usuarios WHERE id_usuario='{$_SESSION['us_sds']}') and estado='A'  ORDER BY 2;",$id);
@@ -333,9 +336,7 @@ function opc_ayuda_tecnica($id=''){
 
 
 // Funciones opc comunes (ya existentes en acompsic.php)
-function opc_motivo_cierre($id=''){
-	return opc_sql("SELECT `idcatadeta`,descripcion,valor FROM `catadeta` WHERE idcatalogo=198 and estado='A'  ORDER BY 1 ",$id);
-}
+
 
 function opc_tipo_doc($id=''){
 return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 1",$id);
