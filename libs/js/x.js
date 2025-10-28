@@ -1742,39 +1742,74 @@ function enbRutRmtAbo(){
 	];
 	EnabDepeDynamic(['FaY'], conditions);
 }
-/* function enbCuidaDiscap() {
-    const numsegui = document.getElementById('numsegui');
-    const estado = document.getElementById('estado_s');
-    const allElements = document.querySelectorAll('select.cuid, input.cuid, textarea.cuid, select.disc, input.disc, textarea.disc, select.acc, input.acc, textarea.acc');
-    const exceptElements = ['observaciones', 'users_bina'];
-    const processElements = (elements, shouldEnable) => {
-        elements.forEach(element => {
-            if (exceptElements.includes(element.id)) {
-                enaFie(element, false);
-                return;
-            }
-            if (element.classList.contains('bL')) {
-                lockeds(element, true);
-            } else if (element.classList.contains('nO')) {
-                noRequired(element, true);
-            } else {
-                enaFie(element, !shouldEnable);
-            }
-        });
-    };
-    const cuidElements = document.querySelectorAll('select.cuid, input.cuid, textarea.cuid');
-    if (numsegui.value === '1' && (estado.value === '1' || estado.value === '2')) {
-        processElements(allElements, true);
+function enbCuidaDiscap() {
+    EnabDepeDynami(
+        'numsegui',           // ID del campo numsegui
+        'estado_s',           // ID del campo estado
+        ['cuid', 'disc', 'acc'], // Clases a procesar
+        ['observaciones', 'users_bina'], // IDs excepcionales
+        '1',                  // Valor de numsegui para habilitar
+        ['1', '2']           // Estados válidos
+    );
+}
+
+function EnabDepeDynami(idNumsegui, idEstado, classes = [], exceptIds = [], numseguiValue = '1', estadosValidos = ['1', '2']) {
+    const numseguiElem = document.getElementById(idNumsegui);
+    const estadoElem = document.getElementById(idEstado);
+    if (!numseguiElem || !estadoElem) {
+        console.error('Elementos numsegui o estado no encontrados');
+        return;
     }
-    else if (numsegui.value !== '1' && (estado.value === '1' || estado.value === '2')) {
-        cuidElements.forEach(element => {
-            if (!exceptElements.includes(element.id)) {
+    const numsegui = numseguiElem.value;
+    const estado = estadoElem.value;
+    const classSelectors = classes.map(cls => `select.${cls}, input.${cls}, textarea.${cls}`).join(', ');
+    const allElements = document.querySelectorAll(classSelectors);
+    const firstClassSelector = `select.${classes[0]}, input.${classes[0]}, textarea.${classes[0]}`;
+    const firstClassElements = document.querySelectorAll(firstClassSelector);
+    /**
+     * Procesa un elemento aplicando las reglas según sus clases
+     * @param {HTMLElement} element - Elemento a procesar
+     * @param {boolean} shouldDisable - true para deshabilitar, false para habilitar
+     */
+    const processElement = (element, shouldDisable) => {
+        if (exceptIds.includes(element.id)) {
+            enaFie(element, false); // Siempre habilitado
+            return;
+        }
+        if (shouldDisable) {
+            enaFie(element, true);
+            return;
+        }
+        if (element.classList.contains('bL')) {
+            lockeds(element, true);
+        } else if (element.classList.contains('nO')) {
+            noRequired(element, true);
+        } else {
+            enaFie(element, false); // Habilitado normal
+        }
+    };
+    if (numsegui === numseguiValue && estadosValidos.includes(estado)) {
+        allElements.forEach(element => processElement(element, false));
+    }
+    else if (numsegui !== numseguiValue && estadosValidos.includes(estado)) {
+        firstClassElements.forEach(element => {
+            if (!exceptIds.includes(element.id)) {
                 enaFie(element, true);
             }
         });
-        processElements(allElements, true);
+        allElements.forEach(element => {
+            if (!element.classList.contains(classes[0])) {
+                processElement(element, false);
+            }
+        });
     }
     else {
-        processElements(allElements, false);
+        allElements.forEach(element => {
+            if (!exceptIds.includes(element.id)) {
+                enaFie(element, true);
+            } else {
+                enaFie(element, false);
+            }
+        });
     }
-} */
+}
