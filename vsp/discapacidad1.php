@@ -260,6 +260,42 @@ function opc_esparcimiento($id=''){
 function opc_comunicacion($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=157 and estado='A' ORDER BY 1",$id);
 }
+function opc_acciones_1desc_accion1($id=''){
+if($_REQUEST['id']!=''){
+		$id=divide($_REQUEST['id']);
+		$sql="SELECT idcatadeta ,descripcion  FROM `catadeta` WHERE idcatalogo='75' and estado='A' and valor='".$id[0]."' ORDER BY LENGTH(idcatadeta), idcatadeta;";
+		$info=datos_mysql($sql);		
+		return json_encode($info['responseResult']);
+    }
+}
+function opc_acciones_2desc_accion2($id=''){
+  if($_REQUEST['id']!=''){
+        $id=divide($_REQUEST['id']);
+        $sql="SELECT idcatadeta,descripcion  FROM `catadeta` WHERE idcatalogo='75' and estado='A' and valor='".$id[0]."' ORDER BY LENGTH(idcatadeta), idcatadeta;";
+        $info=datos_mysql($sql);		
+        return json_encode($info['responseResult']);
+      }
+  }
+  function opc_acciones_3desc_accion3($id=''){
+    if($_REQUEST['id']!=''){
+          $id=divide($_REQUEST['id']);
+          $sql="SELECT idcatadeta 'id',descripcion 'asc' FROM `catadeta` WHERE idcatalogo='75' and estado='A' and valor='".$id[0]."' ORDER BY LENGTH(idcatadeta), idcatadeta;";
+          $info=datos_mysql($sql);		
+          return json_encode($info['responseResult']);
+        }
+    }
+function opc_acciones_2($id=''){
+return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=22 and estado='A' ORDER BY 1",$id);
+}
+function opc_desc_accion2($id=''){
+return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=75 and estado='A' ORDER BY 1",$id);
+}
+function opc_acciones_3($id=''){
+return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=22 and estado='A' ORDER BY 1",$id);
+}
+function opc_desc_accion3($id=''){
+return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=75 and estado='A' ORDER BY 1",$id);
+}
 // Funciones opc para selects específicos de discapacidad
 /* function opc_bina($id=''){
   return opc_sql("SELECT id_usuario, nombre  from usuarios u WHERE equipo=(select equipo from usuarios WHERE id_usuario='{$_SESSION['us_sds']}') and estado='A'  ORDER BY 2;",$id);
@@ -319,42 +355,7 @@ function opc_cat_ayudastecayuda_tecnica($id=''){
     }
 }
 
-function opc_acciones_1desc_accion1($id=''){
-if($_REQUEST['id']!=''){
-		$id=divide($_REQUEST['id']);
-		$sql="SELECT idcatadeta ,descripcion  FROM `catadeta` WHERE idcatalogo='75' and estado='A' and valor='".$id[0]."' ORDER BY LENGTH(idcatadeta), idcatadeta;";
-		$info=datos_mysql($sql);		
-		return json_encode($info['responseResult']);
-    }
-}
-function opc_acciones_2desc_accion2($id=''){
-  if($_REQUEST['id']!=''){
-        $id=divide($_REQUEST['id']);
-        $sql="SELECT idcatadeta,descripcion  FROM `catadeta` WHERE idcatalogo='75' and estado='A' and valor='".$id[0]."' ORDER BY LENGTH(idcatadeta), idcatadeta;";
-        $info=datos_mysql($sql);		
-        return json_encode($info['responseResult']);
-      }
-  }
-  function opc_acciones_3desc_accion3($id=''){
-    if($_REQUEST['id']!=''){
-          $id=divide($_REQUEST['id']);
-          $sql="SELECT idcatadeta 'id',descripcion 'asc' FROM `catadeta` WHERE idcatalogo='75' and estado='A' and valor='".$id[0]."' ORDER BY LENGTH(idcatadeta), idcatadeta;";
-          $info=datos_mysql($sql);		
-          return json_encode($info['responseResult']);
-        }
-    }
-function opc_acciones_2($id=''){
-return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=22 and estado='A' ORDER BY 1",$id);
-}
-function opc_desc_accion2($id=''){
-return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=75 and estado='A' ORDER BY 1",$id);
-}
-function opc_acciones_3($id=''){
-return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=22 and estado='A' ORDER BY 1",$id);
-}
-function opc_desc_accion3($id=''){
-return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=75 and estado='A' ORDER BY 1",$id);
-}
+
 function opc_ruta($id=''){
 return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=79 and estado='A' ORDER BY 1",$id);
 }
