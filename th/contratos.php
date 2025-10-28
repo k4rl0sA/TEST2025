@@ -156,10 +156,7 @@ function gra_contratos(){
         $result = json_decode($check, true);
         
         if($result['responseResult'][0]['total'] > 0){
-            return json_encode([
-                'sql' => 'ERROR',
-                'mensaje' => 'Ya existe un contrato con ese número y tipo para este TH'
-            ]);
+            return "msj['Error: Ya existe un contrato con ese número y tipo para este TH']";
         }
         
         // INSERT - Nuevo contrato
