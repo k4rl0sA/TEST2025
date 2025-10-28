@@ -126,98 +126,6 @@ function cmp_discapacidad(){
     $c[]=new cmp('users_bina','s','18',$d,$w.' '.$ob.' '.$o,'Participo Agente de Cambio, Cual?','bina',null,null,false,true,'','col-5');
 
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
-	
-	// Script para depuración y ejecución automática de enbCuidaDiscap
-	$rta .= "
-	<script>
-		// Verificar que la función existe
-		if (typeof enbCuidaDiscap === 'function') {
-			console.log('Función enbCuidaDiscap encontrada');
-		} else {
-			console.error('Función enbCuidaDiscap NO encontrada');
-		}
-		
-		// Función para configurar los listeners
-		function setupEnbCuidaDiscapListeners() {
-			const numseguiElement = document.getElementById('numsegui');
-			const estadoElement = document.getElementById('estado_s');
-			
-			if (numseguiElement && estadoElement) {
-				console.log('Configurando listeners para enbCuidaDiscap...');
-				
-				// Listeners directos para ambos elementos
-				numseguiElement.addEventListener('change', function() {
-					console.log('Cambio detectado en numsegui:', this.value);
-					setTimeout(enbCuidaDiscap, 100);
-				});
-				
-				estadoElement.addEventListener('change', function() {
-					console.log('Cambio detectado en estado_s:', this.value);
-					setTimeout(enbCuidaDiscap, 100);
-				});
-				
-				// También agregar blur events
-				numseguiElement.addEventListener('blur', function() {
-					console.log('Blur detectado en numsegui:', this.value);
-					setTimeout(enbCuidaDiscap, 100);
-				});
-				
-				estadoElement.addEventListener('blur', function() {
-					console.log('Blur detectado en estado_s:', this.value);
-					setTimeout(enbCuidaDiscap, 100);
-				});
-				
-				console.log('Listeners configurados correctamente');
-				
-				// Ejecutar una vez al configurar
-				setTimeout(enbCuidaDiscap, 200);
-			} else {
-				console.warn('No se pudieron encontrar los elementos para configurar listeners');
-				// Reintentar después de un tiempo
-				setTimeout(setupEnbCuidaDiscapListeners, 500);
-			}
-		}
-		
-		// Observer para detectar cuando se agregan nuevos elementos
-		function observeForElements() {
-			const observer = new MutationObserver(function(mutations) {
-				mutations.forEach(function(mutation) {
-					if (mutation.type === 'childList') {
-						const numseguiAdded = Array.from(mutation.addedNodes).some(node => 
-							node.nodeType === 1 && (node.id === 'numsegui' || node.querySelector('#numsegui'))
-						);
-						const estadoAdded = Array.from(mutation.addedNodes).some(node => 
-							node.nodeType === 1 && (node.id === 'estado_s' || node.querySelector('#estado_s'))
-						);
-						
-						if (numseguiAdded || estadoAdded) {
-							console.log('Elementos detectados por observer, configurando listeners...');
-							setTimeout(setupEnbCuidaDiscapListeners, 100);
-						}
-					}
-				});
-			});
-			
-			observer.observe(document.body, {
-				childList: true,
-				subtree: true
-			});
-		}
-		
-		// Ejecutar cuando el documento esté listo
-		document.addEventListener('DOMContentLoaded', function() {
-			console.log('DOM loaded, configurando sistema enbCuidaDiscap...');
-			setupEnbCuidaDiscapListeners();
-			observeForElements();
-		});
-		
-		// También ejecutar cuando la página esté completamente cargada
-		window.addEventListener('load', function() {
-			console.log('Window loaded, verificando configuración enbCuidaDiscap...');
-			setTimeout(setupEnbCuidaDiscapListeners, 500);
-		});
-	</script>";
-	
 	return $rta;
 }
 
@@ -273,9 +181,7 @@ function gra_discapacidad() {
         foreach ($campos as $campo) {
             if ($campo == 'idpeople') {
                 $params[] = ['type' => 's', 'value' => $id[0]];
-            } elseif ($campo == 'users_bina') {
-                $params[] = ['type' => 's', 'value' => $smbin];
-            } elseif ($campo == 'equipo_bina') {
+            }elseif ($campo == 'equipo_bina') {
                 $params[] = ['type' => 's', 'value' => $eq];
             } elseif ($campo == 'usu_creo') {
                 $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
