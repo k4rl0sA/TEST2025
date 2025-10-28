@@ -224,7 +224,7 @@ function formato_dato($a, $b, $c, $d) {
             'rev' => [
                 'icono' => 'fa-regular fa-calendar-check',
                 'clase' => 'ico',
-                'title' => 'Ver Detalles',
+                'title' => 'Actividades',
                 'permiso' => acceso('th'),
                 'hash' => $hash_id,
                 'evento' => "mostrar('th','{$c['ACCIONES']}',this,'lib.php',1);"
