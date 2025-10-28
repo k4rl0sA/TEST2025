@@ -1810,3 +1810,9 @@ function EnabDepeDynami(idNumsegui, idEstado, classes = [], exceptIds = [], nums
         });
     }
 }
+function glineTH(){
+	const conditions = [
+		{ id: 'rol', value: '8', compare: true }
+	];
+	EnabDepeDynamic(['GlIn'], conditions);
+}

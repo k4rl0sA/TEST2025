@@ -81,11 +81,11 @@ function cmp_contratos(){
     $c[] = new cmp($o2,'l',null,'',$w);
     $c[] = new cmp('perfil_profesional','s','3',$d['perfil_profesional'],$w.' '.$o2,'Perfil Profesional','perfil_profesional',null,null,true,true,'','col-35');
     $c[] = new cmp('perfil_contratado','s','3',$d['perfil_contratado'],$w.' '.$o2,'Perfil Contratado Requerido','perfil_contratado',null,null,true,true,'','col-35');
-    $c[] = new cmp('rol','s','3',$d['rol'],$w.' '.$o2,'Rol Contratado','rol',null,null,true,true,'','col-3');
+    $c[] = new cmp('rol','s','3',$d['rol'],$w.' '.$o2,'Rol Contratado','rol',null,null,true,true,'','col-3',"glineTH();");
     
     $o3 = 'experiencia';
     $c[] = new cmp($o3,'l',null,'',$w);
-    $c[] = new cmp('tipo_expe','s','3',$d['tipo_expe'],$w.'  '.$o3,'¿Bachiller con experiencia o formación en salud/social?','tipo_expe',null,null,true,false,'','col-5');
+    $c[] = new cmp('tipo_expe','s','3',$d['tipo_expe'],$w.' GlIn '.$o3,'¿Bachiller con experiencia o formación en salud/social?','tipo_expe',null,null,true,false,'','col-5');
     $c[] = new cmp('fecha_expe','d','',$d['fecha_expe'],$w.' '.$o3,'Fecha del Certificado','fecha_expe',null,null,false,true,'','col-3',"validDate(this,-3650,0);");
     $c[] = new cmp('semestre','nu','1',$d['semestre'],$w.' '.$o3,'Semestres Cursados','semestre',null,null,false,true,'','col-2');
     
