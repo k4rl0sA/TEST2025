@@ -203,11 +203,6 @@ function get_documento_soporte(){
     return json_encode(['doc' => $doc]);
 }
 
-function myhash($a){
-    $hash = md5($a . $_SESSION['us_sds'] . 'D2AC5E5211884EA15F1E950D1445C5E8');
-    return $hash;
-}
-
 function IdHash($hash, $accion = '') {
     $key = $accion ? $hash . '_' . $accion : $hash;
     if (isset($_SESSION['hash'][$hash])) {
