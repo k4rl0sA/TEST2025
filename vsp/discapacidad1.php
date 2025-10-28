@@ -2,6 +2,7 @@
 require_once "../libs/gestion.php";
 //MOSTRAR TODOS LOS ERRORES Y WARNINGS 
 error_reporting(E_ALL);
+ini_set('display_startup_errors','1');
 ini_set('display_errors','1');
 if ($_POST['a']!='opc') $perf=perfil($_POST['tb']);
 if (!isset($_SESSION['us_sds'])) die("<script>window.top.location.href='/';</script>");
