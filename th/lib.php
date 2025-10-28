@@ -4,6 +4,7 @@ ini_set('display_errors','1');
 if (!isset($_SESSION['us_sds'])) die("<script>window.top.location.href='/';</script>");
 else {
   $rta="";
+  log_error("TH main switch: a={$_POST['a']}, tb={$_POST['tb']}, id=" . ($_POST['id'] ?? 'NO_SET'));
   switch ($_POST['a']){
   case 'csv': 
     header_csv ($_REQUEST['tb'].'.csv');
@@ -71,12 +72,18 @@ function cmp_th(){
 $rta="";
 $t=['tipo_doc'=>'','documento'=>'','nombre1'=>'','nombre2'=>'','apellido1'=>'','apellido2'=>'','fecha_nacimiento'=>'','sexo'=>'','contacto'=>'','email'=>''];
 $d = get_th();
-if ($d=="" || empty($d)){$d=$t;}
+log_error("TH cmp_th(): Datos obtenidos de get_th(): " . json_encode($d));
+if ($d=="" || empty($d)){
+	$d=$t;
+	log_error("TH cmp_th(): Usando plantilla vacía para nuevo registro");
+}else{
+	log_error("TH cmp_th(): Usando datos existentes para edición");
+}
 $edt = !empty($d) && isset($d['tipo_doc']) && $d['tipo_doc'] != '' && $_POST['id'] != '0' && !empty($_POST['id']);
  $w='th';
  $o='infobasica';
  $c[]=new cmp($o,'l',null,'',$w);
- $c[]=new cmp('id','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
+ $c[]=new cmp('id','h',15,($_POST['id'] ?? '0'),$w.' '.$o,'id','id',null,'####',false,false);
  $c[]=new cmp('tipo_doc','s','3',$d['tipo_doc'],$w.' '.$o,'Tipo documento','tipo_doc',null,null,true,!$edt,'','col-4');
  $c[]=new cmp('documento','nu','999999999999999999',$d['documento'],$w.' '.$o,'NÚMERO DE DOCUMENTO','documento',null,null,true,!$edt,'','col-3');
 
@@ -96,7 +103,9 @@ $edt = !empty($d) && isset($d['tipo_doc']) && $d['tipo_doc'] != '' && $_POST['id
 
 function get_th(){
 	// Verificar si es un nuevo registro (sin ID o ID vacío o ID='0')
+	log_error("TH get_th(): POST[id] = " . ($_POST['id'] ?? 'NO_SET'));
 	if(!isset($_POST['id']) || $_POST['id']=='' || $_POST['id']=='0'){
+		log_error("TH get_th(): Detectado como nuevo registro, retornando cadena vacía");
 		return "";
 	}else{
 		// Validar hash para editar
@@ -151,25 +160,37 @@ function gra_th(){
 	// Validar si es inserción o actualización
 	$hash = $_POST['id'] ?? '';
 	$real_id = null;
+	$is_new_record = false;
 	
-	// Buscar el ID real usando el hash para actualización
-	if ($hash != '0' && isset($_SESSION['hash'])) {
-		foreach ($_SESSION['hash'] as $key => $value) {
-			if (strpos($key, $hash . '_editar') !== false) {
-				$real_id = $value;
-				break;
+	// Verificar si es un nuevo registro
+	if (!isset($_POST['id']) || $_POST['id'] == '' || $_POST['id'] == '0') {
+		$is_new_record = true;
+	} else {
+		// Buscar el ID real usando el hash para actualización
+		if (isset($_SESSION['hash'])) {
+			foreach ($_SESSION['hash'] as $key => $value) {
+				if (strpos($key, $hash . '_editar') !== false) {
+					$real_id = $value;
+					break;
+				}
 			}
+		}
+		
+		// Si no encontró el hash, intentar con el ID directo (modo compatibilidad)
+		if (!$real_id) {
+			$id = divide($_POST['id']);
+			$real_id = $id[0] ?? null;
+		}
+		
+		// Si aún no hay ID válido, tratar como nuevo registro
+		if (!$real_id) {
+			$is_new_record = true;
 		}
 	}
 	
-	// Si no encontró el hash y no es nuevo registro, intentar con el ID directo
-	if (!$real_id && $hash != '0') {
-		$id = divide($_POST['id']);
-		$real_id = $id[0];
-	}
-	
-	if($hash == '0' || !$real_id) {
+	if($is_new_record) {
 		// INSERT - Nuevo registro
+		log_error("TH: Realizando INSERT para nuevo registro. POST[id]: " . ($_POST['id'] ?? 'NO_SET'));
 		$sql = "INSERT INTO th (tipo_doc, n_documento, nombre1, nombre2, apellido1, apellido2, fecha_nacimiento, sexo, n_contacto, correo, subred, usu_create, fecha_create, estado) 
 		        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), 'A')";
 		$params = [
@@ -188,6 +209,7 @@ function gra_th(){
 		];
 	} else {
 		// UPDATE - Actualizar registro existente
+		log_error("TH: Realizando UPDATE para registro existente ID: " . $real_id);
 		$sql = "UPDATE th SET tipo_doc=?, n_documento=?, nombre1=?, nombre2=?, apellido1=?, apellido2=?, fecha_nacimiento=?, sexo=?, n_contacto=?, correo=?, usu_update=?, fecha_update=NOW() 
 		        WHERE id_th=?";
 		$params = [
