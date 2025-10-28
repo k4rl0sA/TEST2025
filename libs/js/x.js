@@ -1742,7 +1742,7 @@ function enbRutRmtAbo(){
 	];
 	EnabDepeDynamic(['FaY'], conditions);
 }
-function enbCuidaDiscap() {
+/* function enbCuidaDiscap() {
     const numsegui = document.getElementById('numsegui');
     const estado = document.getElementById('estado_s');
     const allElements = document.querySelectorAll('select.cuid, input.cuid, textarea.cuid, select.disc, input.disc, textarea.disc, select.acc, input.acc, textarea.acc');
@@ -1777,4 +1777,4 @@ function enbCuidaDiscap() {
     else {
         processElements(allElements, false);
     }
-}
+} */
