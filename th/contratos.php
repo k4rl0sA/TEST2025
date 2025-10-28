@@ -81,7 +81,7 @@ function cmp_contratos(){
     $o2 = 'perfilinfo';
     $c[] = new cmp($o2,'l',null,'',$w);
     $c[] = new cmp('perfil_profesional','s','3',$d['perfil_profesional'],$w.' '.$o2,'Perfil Profesional','perfil_profesional',null,null,true,true,'','col-35');
-    $c[] = new cmp('perfil_contratado','s','3',$d['perfil_contratado'],$w.' '.$o2,'Perfil Contratado Requerido','perfil_contratado',null,null,true,true,'','col-35');
+    $c[] = new cmp('perfil_contratado','s','3',$d['perfil_contratado'],$w.' '.$o2,'Perfil Contratado Requerido','perfil_contratado',null,null,true,true,'','col-35',"selectDepend('perfil_contratado','rol','contratos.php');");
     $c[] = new cmp('rol','s','3',$d['rol'],$w.' '.$o2,'Rol Contratado','rol',null,null,true,true,'','col-3',"glineTH();");
     
     $o3 = 'experiencia';
@@ -174,6 +174,17 @@ function gra_contratos(){
     
     $rta = mysql_prepd($sql, $params);
     return $rta;
+}
+
+function opc_perfil_contratadorol($id=''){
+  if($_REQUEST['id']!=''){	
+    $sql="SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=324 and estado='A' and valor='{$_REQUEST['id']}' ORDER BY nombre";
+    /* $sql = "SELECT id_usuario id,CONCAT(id_usuario,'-',nombre) usuario FROM usuarios WHERE perfil=(select descripcion from catadeta c where idcatalogo=218 and idcatadeta='{$_REQUEST['id']}' and estado='A') 
+    and subred=(SELECT subred FROM usuarios WHERE id_usuario ='{$_SESSION['us_sds']}') ORDER BY nombre"; */
+    // var_dump($sql);
+    $info = datos_mysql($sql);		
+  return json_encode($info['responseResult']);	
+  }
 }
 
 function opc_tipo_cont($id=''){
