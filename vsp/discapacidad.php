@@ -174,7 +174,7 @@ function gra_discapacidad() {
         }
         $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_update
         $sql = "UPDATE vsp_discapacidad SET "
-            . implode(' = ?, ', $set) . " = ?, usu_update = ?, fecha_update = SUB_DATE(NOW(), INTERVAL 5 HOUR) "
+            . implode(' = ?, ', $set) . " = ?, usu_update = ?, fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR) "
             . "WHERE id_otroprio = ?";
         $params[] = ['type' => 's', 'value' => $id[0]]; // id_otroprio
         $rta = mysql_prepd($sql, $params);

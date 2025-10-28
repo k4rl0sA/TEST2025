@@ -290,7 +290,7 @@ if ($total_entregado > $prescrita) {
     // Actualización
    $sql = "UPDATE medicamentos_ctrl SET
   fecha_orden=?, cantidad_prescrita=?, fecha_entrega=?, num_entrega=?, cantidad_entregada=?,
-  pendiente_entregar=?, pos=?, cantidad_aprobar=?, observaciones=?, usu_update=?, fecha_update=SUB_DATE(NOW(), INTERVAL 5 HOUR) 
+  pendiente_entregar=?, pos=?, cantidad_aprobar=?, observaciones=?, usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
   WHERE idpeople=? AND num_entrega=? AND idatencion=? AND estado='A'";
 $params = [
   ['type' => 's', 'value' => $_POST['fecha_orden']],

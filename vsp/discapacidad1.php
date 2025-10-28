@@ -111,7 +111,7 @@ function cmp_discapacidad1(){
     $c[]=new cmp('motivo_cierre','s','3',$d,$w.' cc '.$bl.' '.$no.' '.$o,'Motivo Cierre','motivo_cierre',null,null,false,$x,'','col-55');
     $c[]=new cmp('fecha_cierre','d','10',$d,$w.' cc '.$bl.' '.$no.' '.$o,'Fecha de Cierre','fecha_cierre',null,null,false,$x,'','col-25',"validDate(this,$days,0);");
     $c[]=new cmp('redu_riesgo_cierre','s','2',$d,$w.' cc '.$bl.' '.$no.' '.$o,'¿Reducción del riesgo?','rta',null,null,false,$x,'','col-15');
-    $c[]=new cmp('users_bina[]','m','18',$d,$w.' '.$ob.' '.$o,'Usuarios Equipo','bina',null,null,false,true,'','col-5');
+    $c[]=new cmp('users_bina','s','18',$d,$w.' '.$ob.' '.$o,'Usuarios Equipo','bina',null,null,false,true,'','col-5');
 
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	return $rta;
@@ -120,11 +120,6 @@ function cmp_discapacidad1(){
 function gra_discapacidad1() {
     $id = divide($_POST['id_otroprio']);
     $eq = opc_equ();
-    $smbin = null;
-    if (($smbina = $_POST['fusers_bina'] ?? null) && is_array($smbina)) {
-        $smbin = implode(",", str_replace("'", "", $smbina));
-    }
-    
     $campos = [
         'idpeople', 'fecha_seg', 'numsegui', 'evento', 'estado_s', 'motivo_estado',
         'encuentra', 'facial', 'corporal', 'respiracion', 'cuidado', 'esparcimiento', 'comunicacion',
@@ -161,7 +156,7 @@ function gra_discapacidad1() {
         }
         $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']]; // usu_update
         $sql = "UPDATE vsp_discapacidad SET "
-            . implode(' = ?, ', $set) . " = ?, usu_update = ?, fecha_update = NOW() "
+            . implode(' = ?, ', $set) . " = ?, usu_update = ?, fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR) "
             . "WHERE id_otroprio = ?";
         $params[] = ['type' => 's', 'value' => $id[0]]; // id_otroprio
         $rta = mysql_prepd($sql, $params);
