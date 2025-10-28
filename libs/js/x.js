@@ -66,7 +66,7 @@ function valTalla(a){
 }
 function valPeso(a){
 	const pes=document.getElementById(a).value;
-	if(parseInt(pes)<0.50 || parseInt(pes)>150){
+	if(parseInt(pes)<0.50 || parseInt(pes)>180){
 	warnin('El Valor ingresado en el Peso, no cumple con el rango establecido');
 	return true;
 	}else{
