@@ -86,8 +86,8 @@ function cmp_contratos(){
     $o3 = 'experiencia';
     $c[] = new cmp($o3,'l',null,'',$w);
     $c[] = new cmp('tipo_expe','s','3',$d['tipo_expe'],$w.' GlIn '.$o3,'¿Bachiller con experiencia o formación en salud/social?','tipo_expe',null,null,false,false,'','col-5');
-    $c[] = new cmp('fecha_expe','d','',$d['fecha_expe'],$w.' '.$o3,'Fecha del Certificado','fecha_expe',null,null,false,true,'','col-3',"validDate(this,-3650,0);");
-    $c[] = new cmp('semestre','nu','1',$d['semestre'],$w.' '.$o3,'Semestres Cursados','semestre',null,null,false,true,'','col-2');
+    $c[] = new cmp('fecha_expe','d','',$d['fecha_expe'],$w.' GlIn '.$o3,'Fecha del Certificado','fecha_expe',null,null,false,true,'','col-3',"validDate(this,-3650,0);");
+    $c[] = new cmp('semestre','nu','1',$d['semestre'],$w.' GlIn '.$o3,'Semestres Cursados','semestre',null,null,false,true,'','col-2');
     
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
     return $rta;
@@ -166,6 +166,12 @@ function gra_contratos(){
         if(isset($result['responseResult'][0]['total']) && $result['responseResult'][0]['total'] > 0){
             return "msj['Error: Ya existe un contrato con ese número y tipo para este TH']";
         }
+
+        $sql_check = "SELECT COUNT(*) as total FROM hog_carac WHERE idfam = '{$id[0]}'";
+    	$info = datos_mysql($sql_check);
+    	$total = isset($info['responseResult'][0]['total']) ? intval($info['responseResult'][0]['total']) : 0;
+    	$motivoupd = ($total == 0) ? 1 : $total+1;
+
         
         $sql = "INSERT INTO th_contratos (idth, n_contrato, tipo_cont, fecha_inicio, fecha_fin, valor_contrato, perfil_profesional, perfil_contratado, rol, tipo_expe, fecha_expe, semestre, usu_create, fecha_create, estado) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR), 'A')";// INSERT - Nuevo contrato
