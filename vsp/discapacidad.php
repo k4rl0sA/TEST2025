@@ -237,7 +237,7 @@ function get_discapacidad(){
 
 // Funciones opc para selects específicos de discapacidad
 function opc_bina($id=''){
-  return opc_sql("SELECT id_usuario, nombre  from usuarios u WHERE equipo=(select equipo from usuarios WHERE id_usuario='{$_SESSION['us_sds']}') and estado='A'  ORDER BY 2;",$id);
+  return opc_sql("SELECT id_usuario, nombre  from usuarios u WHERE perfil='AGCAMBIO' and estado='A'  ORDER BY 2;",$id);
 }
 function opc_cuantos_cuidadores($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=91 and estado='A' AND valor =1 ORDER BY 1",$id);
