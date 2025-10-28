@@ -69,10 +69,10 @@ function cap_menus($a,$b='cap',$con='con') {
 
 function cmp_th(){
 $rta="";
-$t=['tipo_doc'=>'','documento'=>'','nombre1'=>'','nuc2'=>'','nombre2'=>'','apellido1'=>'','apellido2'=>'','fecha_nacimiento'=>'','sexo'=>'','contacto'=>'','email'=>''];
+$t=['tipo_doc'=>'','documento'=>'','nombre1'=>'','nombre2'=>'','apellido1'=>'','apellido2'=>'','fecha_nacimiento'=>'','sexo'=>'','contacto'=>'','email'=>''];
 $d = get_th();
-if ($d==""){$d=$t;}
-$edt = !empty($d) && isset($d['tipo_doc']) && $d['tipo_doc'] != '';
+if ($d=="" || empty($d)){$d=$t;}
+$edt = !empty($d) && isset($d['tipo_doc']) && $d['tipo_doc'] != '' && $_POST['id'] != '0' && !empty($_POST['id']);
  $w='th';
  $o='infobasica';
  $c[]=new cmp($o,'l',null,'',$w);
