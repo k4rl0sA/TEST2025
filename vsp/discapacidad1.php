@@ -312,10 +312,6 @@ function opc_motivo_cierre($id=''){
  function opc_bina($id=''){
   return opc_sql("SELECT id_usuario, nombre  from usuarios u WHERE equipo=(select equipo from usuarios WHERE id_usuario='{$_SESSION['us_sds']}') and estado='A'  ORDER BY 2;",$id);
 }
-
-function opc_bina($id=''){
-  return opc_sql("SELECT id_usuario, nombre  from usuarios u WHERE perfil='AGCAMBIO' and estado='A'  ORDER BY 2;",$id);
-}
 /*
 // Funciones opc para selects específicos de discapacidad
 
