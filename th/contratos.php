@@ -152,27 +152,7 @@ function gra_contratos(){
     $id_thcon = $_POST['id_thcon'] ?? '';// Determinar si es INSERT o UPDATE
     $es_nuevo = empty($id_thcon);
     
-    if($es_nuevo) {
-        $sql_check = "SELECT COUNT(*) as total FROM th_contratos WHERE idth = ? AND n_contrato = ? AND tipo_cont = ?";// Validar duplicado por BD
-        $params_check = [
-            ['type' => 'i', 'value' => intval($idth)],
-            ['type' => 'i', 'value' => intval($_POST['n_contrato'] ?? 0)],
-            ['type' => 's', 'value' => $_POST['tipo_cont'] ?? '']
-        ];
-        
-        $check = mysql_prepd($sql_check, $params_check);
-        $result = json_decode($check, true);
-        
-        if(isset($result['responseResult'][0]['total']) && $result['responseResult'][0]['total'] > 0){
-            return "msj['Error: Ya existe un contrato con ese número y tipo para este TH']";
-        }
-
-        $sql_check = "SELECT COUNT(*) as total FROM hog_carac WHERE idfam = '{$id[0]}'";
-    	$info = datos_mysql($sql_check);
-    	$total = isset($info['responseResult'][0]['total']) ? intval($info['responseResult'][0]['total']) : 0;
-    	$motivoupd = ($total == 0) ? 1 : $total+1;
-
-        
+    if($es_nuevo) {        
         $sql = "INSERT INTO th_contratos (idth, n_contrato, tipo_cont, fecha_inicio, fecha_fin, valor_contrato, perfil_profesional, perfil_contratado, rol, tipo_expe, fecha_expe, semestre, usu_create, fecha_create, estado) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR), 'A')";// INSERT - Nuevo contrato
         $params = [
