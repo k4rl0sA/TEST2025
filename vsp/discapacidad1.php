@@ -299,6 +299,17 @@ return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo
 function opc_rta($id=''){
 	return opc_sql("SELECT `idcatadeta`,descripcion,valor FROM `catadeta` WHERE idcatalogo=170 and estado='A'  ORDER BY 1 ",$id);
 }
+function opc_ruta($id=''){
+return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=79 and estado='A' ORDER BY 1",$id);
+}
+function opc_novedades($id=''){
+return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=77 and estado='A' ORDER BY 1",$id);
+}
+function opc_equ(){
+  $sql="SELECT equipo FROM usuarios WHERE id_usuario='{$_SESSION['us_sds']}'";
+  $info=datos_mysql($sql);		
+  return $info['responseResult'][0]['equipo'];
+}
 // Funciones opc para selects específicos de discapacidad
 /* function opc_bina($id=''){
   return opc_sql("SELECT id_usuario, nombre  from usuarios u WHERE equipo=(select equipo from usuarios WHERE id_usuario='{$_SESSION['us_sds']}') and estado='A'  ORDER BY 2;",$id);
@@ -357,17 +368,7 @@ function opc_cat_ayudastecayuda_tecnica($id=''){
 }
 
 
-function opc_ruta($id=''){
-return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=79 and estado='A' ORDER BY 1",$id);
-}
-function opc_novedades($id=''){
-return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=77 and estado='A' ORDER BY 1",$id);
-}
-function opc_equ(){
-  $sql="SELECT equipo FROM usuarios WHERE id_usuario='{$_SESSION['us_sds']}'";
-  $info=datos_mysql($sql);		
-  return $info['responseResult'][0]['equipo'];
-} */
+ */
 
 function formato_dato($a,$b,$c,$d){
  $b=strtolower($b);
