@@ -1742,42 +1742,39 @@ function enbRutRmtAbo(){
 	];
 	EnabDepeDynamic(['FaY'], conditions);
 }
-function enbCuidaDiscap(){
-	console.log('enbCuidaDiscap ejecutándose...');
- 	const numseguiElement = document.getElementById('numsegui');
-	const estadoElement = document.getElementById('estado_s');
-	
-	console.log('Elementos encontrados:', {
-		numsegui: numseguiElement ? 'SÍ' : 'NO',
-		estado_s: estadoElement ? 'SÍ' : 'NO'
-	});
-	
-	if (!numseguiElement || !estadoElement) {
-		console.error('No se encontraron los elementos numsegui o estado_s');
-		console.log('Todos los elementos con ID en la página:');
-		const allIds = Array.from(document.querySelectorAll('[id]')).map(el => el.id);
-		console.log(allIds);
-		return;
-	}
-	
-	console.log('Valores actuales:', {
-		numsegui: numseguiElement.value,
-		estado_s: estadoElement.value
-	}); 
-	
-	const conditions = [
-		{ id: 'numsegui', value: '1', compare: false }, // numsegui debe ser diferente de '1'
-		{ id: 'estado_s', value: '1', compare: true }   // estado_s debe ser igual a '1'
-	];
-	
-	console.log('Condiciones a evaluar:', conditions);
-	console.log('Llamando EnabDepeDynamic...');
-	EnabDepeDynamic(['cuid'], conditions);
-	console.log('EnabDepeDynamic ejecutado');
-}
-
-// Función de prueba adicional
-function testEnbCuidaDiscap() {
-	console.log('=== PRUEBA DE FUNCIÓN enbCuidaDiscap ===');
-	enbCuidaDiscap();
+function enbCuidaDiscap() {
+    const numsegui = document.getElementById('numsegui');
+    const estado = document.getElementById('estado_s');
+    const allElements = document.querySelectorAll('select.cuid, input.cuid, textarea.cuid, select.disc, input.disc, textarea.disc, select.acc, input.acc, textarea.acc');
+    const exceptElements = ['observaciones', 'users_bina'];
+    const processElements = (elements, shouldEnable) => {
+        elements.forEach(element => {
+            if (exceptElements.includes(element.id)) {
+                enaFie(element, false);
+                return;
+            }
+            if (element.classList.contains('bL')) {
+                lockeds(element, true);
+            } else if (element.classList.contains('nO')) {
+                noRequired(element, true);
+            } else {
+                enaFie(element, !shouldEnable);
+            }
+        });
+    };
+    const cuidElements = document.querySelectorAll('select.cuid, input.cuid, textarea.cuid');
+    if (numsegui.value === '1' && (estado.value === '1' || estado.value === '2')) {
+        processElements(allElements, true);
+    }
+    else if (numsegui.value !== '1' && (estado.value === '1' || estado.value === '2')) {
+        cuidElements.forEach(element => {
+            if (!exceptElements.includes(element.id)) {
+                enaFie(element, true);
+            }
+        });
+        processElements(allElements, true);
+    }
+    else {
+        processElements(allElements, false);
+    }
 }
