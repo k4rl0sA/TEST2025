@@ -132,11 +132,34 @@ function get_contratos(){
 }
 
 function gra_contratos(){
-    $usu = $_SESSION['us_sds'];
+       $usu = $_SESSION['us_sds'];
     
-    // Obtener el idth desde $_POST['id']
-    $idth = divide($_POST['id']);
-    $idth = $idth[0];
+    // Obtener el idth real desde el hash de sesión
+    $hash_id = $_POST['id'] ?? '';
+    $idth = null;
+    
+    // Buscar el ID real en la sesión
+    if (isset($_SESSION['hash'])) {
+        foreach ($_SESSION['hash'] as $key => $value) {
+            if (strpos($key, $hash_id) !== false && strpos($key, '_th') !== false) {
+                $idth = $value;
+                break;
+            }
+        }
+    }
+    
+    // Si no encontró en hash, intentar dividir
+    if (!$idth) {
+        $id_array = divide($hash_id);
+        if (is_array($id_array) && isset($id_array[0])) {
+            $idth = $id_array[0];
+        }
+    }
+    
+    // Validación final
+    if (!$idth || $idth == 0) {
+        return "msj['Error: No se pudo determinar el ID del TH. ID recibido: " . $hash_id . "']";
+    }
     
     // Determinar si es INSERT o UPDATE
     $id_thcon = $_POST['id_thcon'] ?? '';
@@ -155,7 +178,7 @@ function gra_contratos(){
         $check = mysql_prepd($sql_check, $params_check);
         $result = json_decode($check, true);
         
-        if($result['responseResult'][0]['total'] > 0){
+        if(isset($result['responseResult'][0]['total']) && $result['responseResult'][0]['total'] > 0){
             return "msj['Error: Ya existe un contrato con ese número y tipo para este TH']";
         }
         
@@ -173,8 +196,8 @@ function gra_contratos(){
             ['type' => 's', 'value' => $_POST['perfil_contratado'] ?? ''],
             ['type' => 's', 'value' => $_POST['rol'] ?? ''],
             ['type' => 's', 'value' => $_POST['tipo_expe'] ?? ''],
-            ['type' => 's', 'value' => ($_POST['fecha_expe'] ?? '') ?: null],
-            ['type' => 'i', 'value' => intval($_POST['semestre'] ?? 0)],
+            ['type' => 's', 'value' => !empty($_POST['fecha_expe']) ? $_POST['fecha_expe'] : null],
+            ['type' => 'i', 'value' => !empty($_POST['semestre']) ? intval($_POST['semestre']) : null],
             ['type' => 's', 'value' => $usu]
         ];
     } else {
@@ -191,15 +214,14 @@ function gra_contratos(){
             ['type' => 's', 'value' => $_POST['perfil_contratado'] ?? ''],
             ['type' => 's', 'value' => $_POST['rol'] ?? ''],
             ['type' => 's', 'value' => $_POST['tipo_expe'] ?? ''],
-            ['type' => 's', 'value' => ($_POST['fecha_expe'] ?? '') ?: null],
-            ['type' => 'i', 'value' => intval($_POST['semestre'] ?? 0)],
+            ['type' => 's', 'value' => !empty($_POST['fecha_expe']) ? $_POST['fecha_expe'] : null],
+            ['type' => 'i', 'value' => !empty($_POST['semestre']) ? intval($_POST['semestre']) : null],
             ['type' => 's', 'value' => $usu],
             ['type' => 'i', 'value' => intval($id_thcon)]
         ];
     }
     
-    // Para debugging (descomentar si necesitas ver la consulta)
-    // return json_encode(show_sql($sql, $params));
+    // return json_encode(['sql' => show_sql($sql, $params), 'idth' => $idth, 'hash' => $hash_id, 'session' => $_SESSION['hash']]);
     
     $rta = mysql_prepd($sql, $params);
     return $rta;
