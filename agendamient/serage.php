@@ -61,6 +61,10 @@ function lis_servicios(){
 	return create_table($total,$datos["responseResult"],"servicios",$regxPag,'servagen.php');
 }
 
+function lis_servicios(){
+  return "ok";
+}
+
 function cmp_servagen(){
 	$rta="<div class='encabezado medid'>TABLA DE SERVICIOS POR USUARIO</div>
 	<div class='contenido' id='eventos-lis'>".lis_servicios()."</div></div>";
