@@ -108,27 +108,10 @@ function get_th(){
 		log_error("TH get_th(): Detectado como nuevo registro, retornando cadena vacía");
 		return "";
 	}else{
-		// Validar hash para editar
-		$hash = $_POST['id'] ?? '';
-		$real_id = null;
+		// Usar la función global idReal para obtener el ID real
+		$real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_editar');
 		
-		// Buscar el ID real usando el hash
-		if (isset($_SESSION['hash'])) {
-			foreach ($_SESSION['hash'] as $key => $value) {
-				if (strpos($key, $hash . '_editar') !== false) {
-					$real_id = $value;
-					break;
-				}
-			}
-		}
-		
-		// Si no encontró el hash, intentar con el ID directo (modo compatibilidad)
-		if (!$real_id) {
-			$id = divide($_POST['id']);
-			$real_id = $id[0] ?? null;
-		}
-		
-		// Si aún no hay ID válido, devolver vacío
+		// Si no hay ID real, devolver vacío
 		if (!$real_id) {
 			return "";
 		}
@@ -157,36 +140,9 @@ function gra_th(){
 	$info_subred = datos_mysql($sql_subred);
 	$subred = $info_subred['responseResult'][0]['subred'];
 	
-	// Validar si es inserción o actualización
-	$hash = $_POST['id'] ?? '';
-	$real_id = null;
-	$is_new_record = false;
-	
-	// Verificar si es un nuevo registro
-	if (!isset($_POST['id']) || $_POST['id'] == '' || $_POST['id'] == '0') {
-		$is_new_record = true;
-	} else {
-		// Buscar el ID real usando el hash para actualización
-		if (isset($_SESSION['hash'])) {
-			foreach ($_SESSION['hash'] as $key => $value) {
-				if (strpos($key, $hash . '_editar') !== false) {
-					$real_id = $value;
-					break;
-				}
-			}
-		}
-		
-		// Si no encontró el hash, intentar con el ID directo (modo compatibilidad)
-		if (!$real_id) {
-			$id = divide($_POST['id']);
-			$real_id = $id[0] ?? null;
-		}
-		
-		// Si aún no hay ID válido, tratar como nuevo registro
-		if (!$real_id) {
-			$is_new_record = true;
-		}
-	}
+	// Usar la función global idReal para obtener el ID real
+	$real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_editar');
+	$is_new_record = ($real_id === null);
 	
 	if($is_new_record) {
 		// INSERT - Nuevo registro
@@ -293,5 +249,51 @@ function formato_dato($a, $b, $c, $d) {
 function bgcolor($a,$c,$f='c'){
  $rta="";
  return $rta;
+}
+
+/**
+ * Función global para obtener el ID real desde hash de sesión o dividir string
+ * @param string $postId - ID que puede ser hash o ID directo
+ * @param array $sessionHash - Array de hash de sesión
+ * @param string $suffix - Sufijo para buscar en hash (ej: '_contratos', '_th', '_editar')
+ * @return int|null - ID real o null si no se encuentra
+ */
+function idReal($postId, $sessionHash = [], $suffix = '') {
+    $hash_id = $postId ?? '';
+    $real_id = null;
+    
+    // Si es '0' o vacío, es un nuevo registro
+    if (empty($hash_id) || $hash_id === '0') {
+        return null;
+    }
+    
+    // Buscar el ID real en la sesión usando el hash
+    if (!empty($sessionHash)) {
+        foreach ($sessionHash as $key => $value) {
+            // Si se especifica sufijo, buscar con ese sufijo
+            if (!empty($suffix)) {
+                if (strpos($key, $hash_id . $suffix) !== false) {
+                    $real_id = $value;
+                    break;
+                }
+            } else {
+                // Búsqueda genérica por hash
+                if (strpos($key, $hash_id) !== false) {
+                    $real_id = $value;
+                    break;
+                }
+            }
+        }
+    }
+    
+    // Si no encontró en hash, intentar dividir el ID directo
+    if (!$real_id) {
+        $id_array = divide($hash_id);
+        if (is_array($id_array) && isset($id_array[0])) {
+            $real_id = $id_array[0];
+        }
+    }
+    
+    return $real_id ? intval($real_id) : null;
 }
 ?>

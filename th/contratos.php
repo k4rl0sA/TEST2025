@@ -1,5 +1,11 @@
 <?php
+/**
+ * Módulo de Contratos TH
+ * Utiliza la función global idReal() definida en lib.php para evitar duplicación de código
+ * en get_contratos() y gra_contratos()
+ */
 require_once "../libs/gestion.php";
+require_once "lib.php";
 ini_set('display_errors','1');
 if (!isset($_SESSION['us_sds'])) die("<script>window.top.location.href='/';</script>");
 else {
@@ -94,62 +100,33 @@ function cmp_contratos(){
 }
 
 function get_contratos(){
-    if($_POST['id'] == '0'){
+    // Usar la función global idReal para obtener el ID del contrato
+    $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_contratos');
+    
+    // Si no hay ID real, es un nuevo registro
+    if (!$real_id) {
         return "";
-    } else {
-        idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? []);
-        
-        $hash = $_POST['id'] ?? '';
-        $real_id = null;
-        
-        if (isset($_SESSION['hash'])) {// Buscar el ID real usando el hash
-            foreach ($_SESSION['hash'] as $key => $value) {
-                if (strpos($key, $hash) !== false) {
-                    $real_id = $value;
-                    break;
-                }
-            }
-        }
-        if (!$real_id) {// Si no encontró el hash, intentar con el ID directo
-            $id = divide($_POST['id']);
-            $real_id = $id[0];
-        }
-        $sql = "SELECT `id_thcon`,`n_contrato`, `tipo_cont`, `fecha_inicio`, `fecha_fin`,`valor_contrato`, `perfil_profesional`, `perfil_contratado`, `rol`,`tipo_expe`,`fecha_expe`, `semestre`, `estado`
-                FROM `th_contratos` WHERE id_thcon = '$real_id'";
-        $info = datos_mysql($sql);
-        if (!$info['responseResult']) {
-            return '';
-        }
-        return $info['responseResult'][0];
-    } 
-}
-
-function idReal($postId, $sessionHash) {
-     $hash_id = $postId ?? '';
-    $idth = null;
-    if (isset($sessionHash)) {// Buscar el ID real en la sesión
-        foreach ($sessionHash as $key => $value) {
-            if (strpos($key, $hash_id) !== false && strpos($key, '_th') !== false) {
-                $idth = $value;
-                break;
-            }
-        }
     }
-    if (!$idth) {// Si no encontró en hash, intentar dividir
-        $id_array = divide($hash_id);
-        if (is_array($id_array) && isset($id_array[0])) {
-            $idth = $id_array[0];
-        }
+    
+    $sql = "SELECT `id_thcon`,`n_contrato`, `tipo_cont`, `fecha_inicio`, `fecha_fin`,`valor_contrato`, `perfil_profesional`, `perfil_contratado`, `rol`,`tipo_expe`,`fecha_expe`, `semestre`, `estado`
+            FROM `th_contratos` WHERE id_thcon = ?";
+    
+    $params = [['type' => 'i', 'value' => $real_id]];
+    $info = mysql_prepd($sql, $params);
+    
+    if (!$info['responseResult']) {
+        return '';
     }
-    return $idth;
+    return $info['responseResult'][0];
 }
-
 function gra_contratos(){
-       $usu = $_SESSION['us_sds'];
-    // Obtener el idth real desde el hash de sesión
-    $id=idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? []);
-
-    $id_thcon = $_POST['id_thcon'] ?? '';// Determinar si es INSERT o UPDATE
+    $usu = $_SESSION['us_sds'];
+    
+    // Obtener el idth (ID del empleado) real desde el hash de sesión
+    $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_th');
+    
+    // Obtener el id_thcon (ID del contrato) para determinar si es INSERT o UPDATE
+    $id_thcon = $_POST['id_thcon'] ?? '';
     $es_nuevo = empty($id_thcon);
     
     if($es_nuevo) {        
@@ -197,14 +174,6 @@ function gra_contratos(){
     return $rta;
 }
 
-function opc_tipo_cont($id='') {
-      $hash_id = $_POST['id'] ?? '';
-    
-      return opc_estado_g_filtrado($idruteo, $id);
-
-	/* $idruteo = divide($_POST['id'])[0] ?? 0;
-    return opc_estado_g_filtrado($idruteo, $id); */
-}
 function opc_tipo_cont($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=326 and estado='A' ORDER BY LENGTH(idcatadeta), idcatadeta",$id);
 }
