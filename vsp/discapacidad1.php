@@ -19,31 +19,31 @@ else {
   }   
 }
 
-function focus_discapacidad(){
-  return 'discapacidad';
+function focus_discapacidad1(){
+  return 'discapacidad1';
 }
 
-function men_discapacidad(){
-  $rta=cap_menus('discapacidad','pro');
+function men_discapacidad1(){
+  $rta=cap_menus('discapacidad1','pro');
   return $rta;
 }
 
 function cap_menus($a,$b='cap',$con='con') {
    $rta = ""; 
    $acc=rol($a);
-   	if ($a=='discapacidad'  && isset($acc['crear']) && $acc['crear']=='SI'){  
+   	if ($a=='discapacidad1'  && isset($acc['crear']) && $acc['crear']=='SI'){  
 	 $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
     }
   return $rta;
 }
 
-FUNCTION lis_discapacidad(){
+FUNCTION lis_discapacidad1(){
 	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['id_otroprio']) ? divide($_POST['id_otroprio']) : null);
   $info=datos_mysql("SELECT COUNT(*) total FROM vsp_discapacidad A LEFT JOIN  usuarios U ON A.usu_creo=U.id_usuario 
   WHERE A.estado = 'A' AND A.idpeople='".$id[0]."'");
 	$total=$info['responseResult'][0]['total'];
 	$regxPag=4;
-  $pag=(isset($_POST['pag-discapacidad']))? ($_POST['pag-discapacidad']-1)* $regxPag:0;
+  $pag=(isset($_POST['pag-discapacidad1']))? ($_POST['pag-discapacidad1']-1)* $regxPag:0;
 
 	$sql="SELECT `id_otroprio` ACCIONES,id_otroprio 'Cod Registro',
   P.tipo_doc,P.idpersona,fecha_seg Fecha,numsegui Seguimiento,FN_CATALOGODESC(87,evento) EVENTO,FN_CATALOGODESC(73,estado_s) estado,cierre_caso Cierra, 
@@ -55,13 +55,13 @@ FROM vsp_discapacidad A
 	$sql.="' ORDER BY A.fecha_create";
 	$sql.=' LIMIT '.$pag.','.$regxPag;
 	$datos=datos_mysql($sql);
-	return create_table($total,$datos["responseResult"],"discapacidad",$regxPag,'../vsp/discapacidad.php');
+	return create_table($total,$datos["responseResult"],"discapacidad1",$regxPag,'../vsp/discapacidad1.php');
 }
 
-function cmp_discapacidad(){
+function cmp_discapacidad1(){
 	$rta="<div class='encabezado'>TABLA SEGUIMIENTOS DISCAPACIDAD</div>
-	<div class='contenido' id='discapacidad-lis'>".lis_discapacidad()."</div></div>";
-	$w='discapacidad';
+	<div class='contenido' id='discapacidad1-lis'>".lis_discapacidad1()."</div></div>";
+	$w='discapacidad1';
   $d='';
 	$o='inf';
   $ob='Ob';
@@ -93,11 +93,11 @@ function cmp_discapacidad(){
     $c[]=new cmp($o,'e',null,'INFORMACIÓN ACCIONES',$w);
     $c[]=new cmp('estrategia_1','s','3',$d,$w.' '.$o,'Estrategia PF_1','estrategia_1',null,null,false,$x,'','col-5');
     $c[]=new cmp('estrategia_2','s','3',$d,$w.' '.$no.' '.$o,'Estrategia PF_2','estrategia_2',null,null,false,$x,'','col-5');
-    $c[]=new cmp('acciones_1','s','3',$d,$w.' '.$o,'Acción 1','acciones_1',null,null,false,$x,'','col-5','selectDepend(\'acciones_1\',\'desc_accion1\',\'../vsp/discapacidad.php\');');
+    $c[]=new cmp('acciones_1','s','3',$d,$w.' '.$o,'Acción 1','acciones_1',null,null,false,$x,'','col-5','selectDepend(\'acciones_1\',\'desc_accion1\',\'../vsp/discapacidad1.php\');');
     $c[]=new cmp('desc_accion1','s','3',$d,$w.' '.$o,'Descripción Acción 1','desc_accion1',null,null,false,$x,'','col-5');
-    $c[]=new cmp('acciones_2','s','3',$d,$w.' '.$no.' '.$o,'Acción 2','acciones_2',null,null,false,$x,'','col-5','selectDepend(\'acciones_2\',\'desc_accion2\',\'../vsp/discapacidad.php\');');
+    $c[]=new cmp('acciones_2','s','3',$d,$w.' '.$no.' '.$o,'Acción 2','acciones_2',null,null,false,$x,'','col-5','selectDepend(\'acciones_2\',\'desc_accion2\',\'../vsp/discapacidad1.php\');');
     $c[]=new cmp('desc_accion2','s','3',$d,$w.' '.$no.' '.$o,'Descripción Acción 2','desc_accion2',null,null,false,$x,'','col-5');
-    $c[]=new cmp('acciones_3','s','3',$d,$w.' '.$no.' '.$o,'Acción 3','acciones_3',null,null,false,$x,'','col-5','selectDepend(\'acciones_3\',\'desc_accion3\',\'../vsp/discapacidad.php\');');
+    $c[]=new cmp('acciones_3','s','3',$d,$w.' '.$no.' '.$o,'Acción 3','acciones_3',null,null,false,$x,'','col-5','selectDepend(\'acciones_3\',\'desc_accion3\',\'../vsp/discapacidad1.php\');');
     $c[]=new cmp('desc_accion3','s','3',$d,$w.' '.$no.' '.$o,'Descripción Acción 3','desc_accion3',null,null,false,$x,'','col-5');
     $c[]=new cmp('activa_ruta','s','2',$d,$w.' '.$o,'Ruta Activada','rta',null,null,false,$x,'','col-3','enabRuta(this,\'rt\');');
     $c[]=new cmp('ruta','s','3',$d,$w.' '.$no.' rt '.$bl.' '.$o,'Ruta','ruta',null,null,false,$x,'','col-35');
@@ -116,7 +116,7 @@ function cmp_discapacidad(){
 	return $rta;
 }
 
-function gra_discapacidad() {
+function gra_discapacidad1() {
     $id = divide($_POST['id_otroprio']);
     $eq = opc_equ();
     $smbin = null;
@@ -200,7 +200,7 @@ function gra_discapacidad() {
     return $rta;
 }
 
-function get_discapacidad(){
+function get_discapacidad1(){
     if($_REQUEST['id']==''){
       return "";
     }else{
@@ -362,9 +362,9 @@ function opc_equ(){
 function formato_dato($a,$b,$c,$d){
  $b=strtolower($b);
  $rta=$c[$d];
-	if ($a=='discapacidad' && $b=='acciones'){
+	if ($a=='discapacidad1' && $b=='acciones'){
 		$rta="<nav class='menu right'>";	
-		$rta.="<li class='icono editar' title='Editar' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getData,500,'discapacidad',event,this,['fecha_seg','numsegui','evento','estado_s','motivo_estado','cierre_caso'],'../vsp/discapacidad.php');\"></li>";
+		$rta.="<li class='icono editar' title='Editar' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getData,500,'discapacidad1',event,this,['fecha_seg','numsegui','evento','estado_s','motivo_estado','cierre_caso'],'../vsp/discapacidad1.php');\"></li>";
 		$rta.="</nav>";
 	}
  return $rta;
