@@ -224,11 +224,6 @@ function cmp_discapacidad(){
 function gra_discapacidad() {
     $id = divide($_POST['id_otroprio']);
     $eq = opc_equ();
-    $smbin = null;
-    if (($smbina = $_POST['fusers_bina'] ?? null) && is_array($smbina)) {
-        $smbin = implode(",", str_replace("'", "", $smbina));
-    }
-    
     $campos = [
         'idpeople', 'fecha_seg', 'numsegui', 'evento', 'estado_s', 'motivo_estado',
         'cuidador', 'cuantos_cuidadores', 'acep_relevo', 'cod_cuidador', 'antece', 'ante_cuidador', 'otro_ante', 
@@ -255,9 +250,7 @@ function gra_discapacidad() {
         ];
         $params = [];
         foreach ($set as $campo) {
-            if ($campo == 'users_bina') {
-                $params[] = ['type' => 's', 'value' => $smbin];
-            } elseif ($campo == 'equipo_bina') {
+            if ($campo == 'equipo_bina') {
                 $params[] = ['type' => 's', 'value' => $eq];
             } elseif (in_array($campo, $campos_fecha_null)) {
                 $val = $_POST[$campo] ?? null;
@@ -306,12 +299,18 @@ function gra_discapacidad() {
         ) VALUES (
             NULL, $placeholders
         )";
-        // $rta = mysql_prepd($sql, $params);
-        $rta= show_sql($sql, $params);
+        $rta = mysql_prepd($sql, $params);
+        //$rta= show_sql($sql, $params);
     } else {
         $rta = "Error: id_otroprio inválido";
     }
     return $rta;
+
+    /*INSERT INTO vsp_discapacidad (
+            id_otroprio, idpeople, fecha_seg, numsegui, evento, estado_s, motivo_estado, cuidador, cuantos_cuidadores, acep_relevo, cod_cuidador, antece, ante_cuidador, otro_ante, pers_cuida, num_pers, descanso, apoyo_tec, alarma, certificado, requiere_ayudas_tec, cat_ayudastec, ayuda_tecnica, cuenta_ayuda, estrategia_1, estrategia_2, acciones_1, desc_accion1, acciones_2, desc_accion2, acciones_3, desc_accion3, activa_ruta, ruta, novedades, signos_covid, caso_afirmativo, otras_condiciones, observaciones, cierre_caso, motivo_cierre, fecha_cierre, redu_riesgo_cierre, users_bina, equipo_bina, usu_creo, usu_update, fecha_update, estado
+        ) VALUES (
+            NULL, '3', '2025-10-28', '1', '31', '1', '', '1', '2', '2', '', '', '', '54545', '', '5', '2', '1', '2', '2', '1', '1', '1', '2', '15', '12', '12', '229', '', '', '', '', '2', '', '', '2', '', '', 'fgjkhjlkñ', '2', '', , '', '', 'ADMSDS', '80811594', , , 'A'
+        )*/
 }
 
 function get_discapacidad(){
