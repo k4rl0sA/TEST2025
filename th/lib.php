@@ -245,37 +245,6 @@ function formato_dato($a, $b, $c, $d) {
             $rta = "";
         }
     }
-    
-    if ($a == 'contratos' && $b == 'acciones') {
-        $acciones = [];
-        // Definición de acciones posibles para contratos
-        $hash_id = myhash($c['ACCIONES']);
-        $accionesDisponibles = [
-            'editar' => [
-                'icono' => 'fa-solid fa-edit',
-                'clase' => 'ico',
-                'title' => 'Editar Contrato',
-                'permiso' => true,
-                'hash' => $hash_id,
-                'evento' => "mostrar('contratos','pro',event,'{$hash_id}','contratos.php',7);"
-            ]
-        ];
-        
-        foreach ($accionesDisponibles as $key => $accion) {
-            if ($accion['permiso']) {
-                limpiar_hashes();
-                $_SESSION['hash'][$accion['hash'] . '_contratos'] = $c['ACCIONES'];
-                $acciones[] = "<li title='{$accion['title']}'><i class='{$accion['icono']} {$accion['clase']}' id='{$accion['hash']}' onclick=\"{$accion['evento']}\" data-acc='{$key}'></i></li>";
-            }
-        }
-        
-        if (count($acciones)) {
-            $rta = "<nav class='menu right'>" . implode('', $acciones) . "</nav>";
-        } else {
-            $rta = "";
-        }
-    }
-    
     return $rta;
 }
 function bgcolor($a,$c,$f='c'){
@@ -283,49 +252,6 @@ function bgcolor($a,$c,$f='c'){
  return $rta;
 }
 
-/**
- * Función global para obtener el ID real desde hash de sesión o dividir string
- * @param string $postId - ID que puede ser hash o ID directo
- * @param array $sessionHash - Array de hash de sesión
- * @param string $suffix - Sufijo para buscar en hash (ej: '_contratos', '_th', '_editar')
- * @return int|null - ID real o null si no se encuentra
- */
-function idReal($postId, $sessionHash = [], $suffix = '') {
-    $hash_id = $postId ?? '';
-    $real_id = null;
-    
-    // Si es '0' o vacío, es un nuevo registro
-    if (empty($hash_id) || $hash_id === '0') {
-        return null;
-    }
-    
-    // Buscar el ID real en la sesión usando el hash
-    if (!empty($sessionHash)) {
-        foreach ($sessionHash as $key => $value) {
-            // Si se especifica sufijo, buscar con ese sufijo
-            if (!empty($suffix)) {
-                if (strpos($key, $hash_id . $suffix) !== false) {
-                    $real_id = $value;
-                    break;
-                }
-            } else {
-                // Búsqueda genérica por hash
-                if (strpos($key, $hash_id) !== false) {
-                    $real_id = $value;
-                    break;
-                }
-            }
-        }
-    }
-    
-    // Si no encontró en hash, intentar dividir el ID directo
-    if (!$real_id) {
-        $id_array = divide($hash_id);
-        if (is_array($id_array) && isset($id_array[0])) {
-            $real_id = $id_array[0];
-        }
-    }
-    
-    return $real_id ? intval($real_id) : null;
-}
+
+
 ?>

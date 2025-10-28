@@ -702,6 +702,40 @@ function limpiar_hashes($max = 500) {
     }
 }  
 
+function idReal($postId, $sessionHash = [], $suffix = '') {
+    $hash_id = $postId ?? '';
+    $real_id = null;
+    // Si es '0' o vacío, es un nuevo registro
+    if (empty($hash_id) || $hash_id === '0') {
+        return null;
+    }
+    // Buscar el ID real en la sesión usando el hash
+    if (!empty($sessionHash)) {
+        foreach ($sessionHash as $key => $value) {
+            // Si se especifica sufijo, buscar con ese sufijo
+            if (!empty($suffix)) {
+                if (strpos($key, $hash_id . $suffix) !== false) {
+                    $real_id = $value;
+                    break;
+                }
+            } else {
+                // Búsqueda genérica por hash
+                if (strpos($key, $hash_id) !== false) {
+                    $real_id = $value;
+                    break;
+                }
+            }
+        }
+    }
+    // Si no encontró en hash, intentar dividir el ID directo
+    if (!$real_id) {
+        $id_array = divide($hash_id);
+        if (is_array($id_array) && isset($id_array[0])) {
+            $real_id = $id_array[0];
+        }
+    }
+    return $real_id ? intval($real_id) : null;
+}
 /*
 function post_or_null($key) {
   return isset($_POST[$key]) && $_POST[$key] !== '' ? $_POST[$key] : null;
