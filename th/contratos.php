@@ -97,6 +97,8 @@ function get_contratos(){
     if($_POST['id'] == '0'){
         return "";
     } else {
+        idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? []);
+        
         $hash = $_POST['id'] ?? '';
         $real_id = null;
         
@@ -122,33 +124,31 @@ function get_contratos(){
     } 
 }
 
-function gra_contratos(){
-       $usu = $_SESSION['us_sds'];
-    // Obtener el idth real desde el hash de sesión
-    $hash_id = $_POST['id'] ?? '';
+function idReal($postId, $sessionHash) {
+     $hash_id = $postId ?? '';
     $idth = null;
-    
-    if (isset($_SESSION['hash'])) {// Buscar el ID real en la sesión
-        foreach ($_SESSION['hash'] as $key => $value) {
+    if (isset($sessionHash)) {// Buscar el ID real en la sesión
+        foreach ($sessionHash as $key => $value) {
             if (strpos($key, $hash_id) !== false && strpos($key, '_th') !== false) {
                 $idth = $value;
                 break;
             }
         }
     }
-
     if (!$idth) {// Si no encontró en hash, intentar dividir
         $id_array = divide($hash_id);
         if (is_array($id_array) && isset($id_array[0])) {
             $idth = $id_array[0];
         }
     }
-    
-    // Validación final
-    if (!$idth || $idth == 0) {
-        return "msj['Error: No se pudo determinar el ID del TH. ID recibido: " . $hash_id . "']";
-    }
-    
+    return $idth;
+}
+
+function gra_contratos(){
+       $usu = $_SESSION['us_sds'];
+    // Obtener el idth real desde el hash de sesión
+    $id=idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? []);
+
     $id_thcon = $_POST['id_thcon'] ?? '';// Determinar si es INSERT o UPDATE
     $es_nuevo = empty($id_thcon);
     
@@ -197,7 +197,14 @@ function gra_contratos(){
     return $rta;
 }
 
-// Funciones para opciones de selects
+function opc_tipo_cont($id='') {
+      $hash_id = $_POST['id'] ?? '';
+    
+      return opc_estado_g_filtrado($idruteo, $id);
+
+	/* $idruteo = divide($_POST['id'])[0] ?? 0;
+    return opc_estado_g_filtrado($idruteo, $id); */
+}
 function opc_tipo_cont($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=326 and estado='A' ORDER BY LENGTH(idcatadeta), idcatadeta",$id);
 }
