@@ -100,8 +100,7 @@ function get_contratos(){
         $hash = $_POST['id'] ?? '';
         $real_id = null;
         
-        // Buscar el ID real usando el hash
-        if (isset($_SESSION['hash'])) {
+        if (isset($_SESSION['hash'])) {// Buscar el ID real usando el hash
             foreach ($_SESSION['hash'] as $key => $value) {
                 if (strpos($key, $hash) !== false) {
                     $real_id = $value;
@@ -109,37 +108,27 @@ function get_contratos(){
                 }
             }
         }
-        
-        // Si no encontró el hash, intentar con el ID directo
-        if (!$real_id) {
+        if (!$real_id) {// Si no encontró el hash, intentar con el ID directo
             $id = divide($_POST['id']);
             $real_id = $id[0];
         }
-        
-        $sql = "SELECT `id_thcon`,`n_contrato`, `tipo_cont`, `fecha_inicio`, `fecha_fin`, 
-                       `valor_contrato`, `perfil_profesional`, `perfil_contratado`, `rol`,`tipo_expe`, 
-                       `fecha_expe`, `semestre`, `estado`
-                FROM `th_contratos` 
-                WHERE id_thcon = '$real_id'";
-        
+        $sql = "SELECT `id_thcon`,`n_contrato`, `tipo_cont`, `fecha_inicio`, `fecha_fin`,`valor_contrato`, `perfil_profesional`, `perfil_contratado`, `rol`,`tipo_expe`,`fecha_expe`, `semestre`, `estado`
+                FROM `th_contratos` WHERE id_thcon = '$real_id'";
         $info = datos_mysql($sql);
         if (!$info['responseResult']) {
             return '';
         }
-        
         return $info['responseResult'][0];
     } 
 }
 
 function gra_contratos(){
        $usu = $_SESSION['us_sds'];
-    
     // Obtener el idth real desde el hash de sesión
     $hash_id = $_POST['id'] ?? '';
     $idth = null;
     
-    // Buscar el ID real en la sesión
-    if (isset($_SESSION['hash'])) {
+    if (isset($_SESSION['hash'])) {// Buscar el ID real en la sesión
         foreach ($_SESSION['hash'] as $key => $value) {
             if (strpos($key, $hash_id) !== false && strpos($key, '_th') !== false) {
                 $idth = $value;
@@ -147,9 +136,8 @@ function gra_contratos(){
             }
         }
     }
-    
-    // Si no encontró en hash, intentar dividir
-    if (!$idth) {
+
+    if (!$idth) {// Si no encontró en hash, intentar dividir
         $id_array = divide($hash_id);
         if (is_array($id_array) && isset($id_array[0])) {
             $idth = $id_array[0];
@@ -161,14 +149,11 @@ function gra_contratos(){
         return "msj['Error: No se pudo determinar el ID del TH. ID recibido: " . $hash_id . "']";
     }
     
-    // Determinar si es INSERT o UPDATE
-    $id_thcon = $_POST['id_thcon'] ?? '';
+    $id_thcon = $_POST['id_thcon'] ?? '';// Determinar si es INSERT o UPDATE
     $es_nuevo = empty($id_thcon);
     
     if($es_nuevo) {
-        // Validar que no exista duplicado por clave primaria compuesta
-        $sql_check = "SELECT COUNT(*) as total FROM th_contratos 
-                      WHERE idth = ? AND n_contrato = ? AND tipo_cont = ?";
+        $sql_check = "SELECT COUNT(*) as total FROM th_contratos WHERE idth = ? AND n_contrato = ? AND tipo_cont = ?";// Validar duplicado por BD
         $params_check = [
             ['type' => 'i', 'value' => intval($idth)],
             ['type' => 'i', 'value' => intval($_POST['n_contrato'] ?? 0)],
@@ -182,9 +167,8 @@ function gra_contratos(){
             return "msj['Error: Ya existe un contrato con ese número y tipo para este TH']";
         }
         
-        // INSERT - Nuevo contrato
         $sql = "INSERT INTO th_contratos (idth, n_contrato, tipo_cont, fecha_inicio, fecha_fin, valor_contrato, perfil_profesional, perfil_contratado, rol, tipo_expe, fecha_expe, semestre, usu_create, fecha_create, estado) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR), 'A')";
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR), 'A')";// INSERT - Nuevo contrato
         $params = [
             ['type' => 'i', 'value' => intval($idth)],
             ['type' => 'i', 'value' => intval($_POST['n_contrato'] ?? 0)],
