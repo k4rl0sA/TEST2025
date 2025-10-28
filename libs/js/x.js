@@ -1766,64 +1766,42 @@ function EnabDepeDynami(idNumsegui, idEstado, classes = [], exceptIds = [], nums
     const allElements = document.querySelectorAll(classSelectors);
     const firstClassSelector = `select.${classes[0]}, input.${classes[0]}, textarea.${classes[0]}`;
     const firstClassElements = document.querySelectorAll(firstClassSelector);
-    /**
-     * Procesa un elemento aplicando las reglas según sus clases
-     * @param {HTMLElement} element - Elemento a procesar
-     * @param {boolean} shouldDisable - true para deshabilitar, false para habilitar
-     */
     const processElement = (element, shouldDisable) => {
-        // Skip si el elemento está en la lista de excepciones
         if (exceptIds.includes(element.id)) {
             enaFie(element, false); // Siempre habilitado
             return;
         }
-        // Si debe estar deshabilitado, aplicar bloqueo
-        if (shouldDisable) {
+        if (shouldDisable) {// Si debe estar deshabilitado, aplicar bloqueo
             enaFie(element, true);
             return;
         }
-        // Si debe estar habilitado, aplicar reglas especiales según clases adicionales
-        if (element.classList.contains('bL')) {
-            // Los campos con clase 'bL' (bloqueados) se bloquean con lockeds
+        if (element.classList.contains('bL')) {// Si debe estar habilitado, aplicar reglas especiales según clases adicionales
             lockeds(element, true);
-        } else if (element.classList.contains('nO')) {
-            // Los campos con clase 'nO' (no obligatorio) se habilitan pero sin validación requerida
+        } else if (element.classList.contains('nO')) {// Los campos con clase 'nO' (no obligatorio) se habilitan pero sin validación requerida
             enaFie(element, false); // Habilitar el campo
-            // Remover atributo required si existe
             element.removeAttribute('required');
-            // Quitar clase de validación si existe
             element.classList.remove('valido');
         } else {
-            // Campos normales se habilitan
             enaFie(element, false);
         }
     };
-    // CASO 1: numsegui es el valor especificado Y estado es válido (1 o 2)
     if (numsegui === numseguiValue && estadosValidos.includes(estado)) {
-        // Habilitar todos los elementos aplicando reglas especiales
         allElements.forEach(element => processElement(element, false));
     }
-    // CASO 2: numsegui diferente al valor especificado Y estado es válido (1 o 2)
     else if (numsegui !== numseguiValue && estadosValidos.includes(estado)) {
-        // Bloquear elementos de la primera clase (ej: 'cuid')
-        firstClassElements.forEach(element => {
+        firstClassElements.forEach(element => {// Bloquear elementos de la primera clase (ej: 'cuid')
             if (!exceptIds.includes(element.id)) {
                 enaFie(element, true);
             }
         });
-        
-        // Para el resto de elementos (disc, acc), aplicar reglas especiales
-        allElements.forEach(element => {
-            // Solo procesar si NO es de la primera clase
-            if (!element.classList.contains(classes[0])) {
+        allElements.forEach(element => {// Para el resto de elementos (disc, acc), aplicar reglas especiales
+            if (!element.classList.contains(classes[0])) {// Solo procesar si NO es de la primera clase
                 processElement(element, false);
             }
         });
     }
-    // CASO 3: estado NO es válido (diferente a 1 y 2)
     else {
-        // Bloquear todos los elementos excepto las excepciones
-        allElements.forEach(element => {
+        allElements.forEach(element => {// Bloquear todos los elementos excepto las excepciones
             if (!exceptIds.includes(element.id)) {
                 enaFie(element, true);
             } else {
