@@ -105,7 +105,7 @@ function cmp_discapacidad(){
     $o='acc';
     $c[]=new cmp($o,'e',null,'INFORMACIÓN ACCIONES',$w);
     $c[]=new cmp('estrategia_1','s','3',$d,$w.' '.$o,'Estrategia PF_1','estrategia_1',null,null,false,$x,'','col-5');
-    $c[]=new cmp('estrategia_2','s','3',$d,$w.' '.$no.' '.$o,'Estrategia PF_2','estrategia_2',null,null,false,$x,'','col-5');
+    $c[]=new cmp('estrategia_2','s','3',$d,$w.' '.$o,'Estrategia PF_2','estrategia_2',null,null,false,$x,'','col-5');
     $c[]=new cmp('acciones_1','s','3',$d,$w.' '.$o,'Acción 1','acciones_1',null,null,false,$x,'','col-5','selectDepend(\'acciones_1\',\'desc_accion1\',\'../vsp/discapacidad.php\');');
     $c[]=new cmp('desc_accion1','s','3',$d,$w.' '.$o,'Descripción Acción 1','desc_accion1',null,null,false,$x,'','col-5');
     $c[]=new cmp('acciones_2','s','3',$d,$w.' '.$no.' '.$o,'Acción 2','acciones_2',null,null,false,$x,'','col-5','selectDepend(\'acciones_2\',\'desc_accion2\',\'../vsp/discapacidad.php\');');
