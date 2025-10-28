@@ -95,7 +95,8 @@ $edt = !empty($d) && isset($d['tipo_doc']) && $d['tipo_doc'] != '';
 
 
 function get_th(){
-	if($_POST['id']=='0'){
+	// Verificar si es un nuevo registro (sin ID o ID vacío o ID='0')
+	if(!isset($_POST['id']) || $_POST['id']=='' || $_POST['id']=='0'){
 		return "";
 	}else{
 		// Validar hash para editar
@@ -115,7 +116,12 @@ function get_th(){
 		// Si no encontró el hash, intentar con el ID directo (modo compatibilidad)
 		if (!$real_id) {
 			$id = divide($_POST['id']);
-			$real_id = $id[0];
+			$real_id = $id[0] ?? null;
+		}
+		
+		// Si aún no hay ID válido, devolver vacío
+		if (!$real_id) {
+			return "";
 		}
 		
 		$sql="SELECT `id_th`, `tipo_doc`, `n_documento`, `nombre1`, `nombre2`, `apellido1`, `apellido2`, `fecha_nacimiento`, `sexo`, `n_contacto`, `correo`, `subred`, `estado`
