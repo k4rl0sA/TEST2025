@@ -108,15 +108,22 @@ function get_contratos(){
         return "";
     }
     
+    // Usar datos_mysql en lugar de mysql_prepd para consistencia
     $sql = "SELECT `id_thcon`,`n_contrato`, `tipo_cont`, `fecha_inicio`, `fecha_fin`,`valor_contrato`, `perfil_profesional`, `perfil_contratado`, `rol`,`tipo_expe`,`fecha_expe`, `semestre`, `estado`
-            FROM `th_contratos` WHERE id_thcon = ?";
+            FROM `th_contratos` WHERE id_thcon = '" . intval($real_id) . "'";
     
-    $params = [['type' => 'i', 'value' => $real_id]];
-    $info = mysql_prepd($sql, $params);
+    $info = datos_mysql($sql);
     
-    if (!$info['responseResult']) {
+    // Validar que la respuesta sea válida
+    if (!$info || !isset($info['responseResult']) || !is_array($info['responseResult'])) {
         return '';
     }
+    
+    // Verificar que hay resultados
+    if (empty($info['responseResult'])) {
+        return '';
+    }
+    
     return $info['responseResult'][0];
 }
 function gra_contratos(){
