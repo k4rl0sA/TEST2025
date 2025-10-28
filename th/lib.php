@@ -230,7 +230,6 @@ function formato_dato($a, $b, $c, $d) {
                 'evento' => "mostrar('th','{$c['ACCIONES']}',this,'lib.php',1);"
             ]
         ];
-        
         foreach ($accionesDisponibles as $key => $accion) {
             if ($accion['permiso']) {
                 limpiar_hashes();
