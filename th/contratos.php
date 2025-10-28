@@ -194,8 +194,4 @@ function opc_tipo_expe($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=325 and estado='A' ORDER BY 2",$id);
 }
 
-function bgcolor($a,$c,$f='c'){
-    $rta="";
-    return $rta;
-}
 ?>
