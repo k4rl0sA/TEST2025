@@ -90,7 +90,7 @@ function cmp_discapacidad1(){
     $c[]=new cmp('respiracion','s','3',$d,$w.' '.$o,'Signos de respiración','respiracion',null,null,false,$x,'','col-2');
     $c[]=new cmp('cuidado','s','3',$d,$w.' '.$o,'Autocuidado','cuidado',null,null,false,$x,'','col-2');
     $c[]=new cmp('esparcimiento','s','3',$d,$w.' '.$o,'Esparcimiento','esparcimiento',null,null,false,$x,'','col-2');
-    $c[]=new cmp('comunicacion','s','3',$d,$w.' '.$o,'Comunicación','comunicacion',null,null,false,$x,'','col-2'); */
+    $c[]=new cmp('comunicacion','s','3',$d,$w.' '.$o,'Comunicación','comunicacion',null,null,false,$x,'','col-2'); 
 
     $o='acc';
     $c[]=new cmp($o,'e',null,'INFORMACIÓN ACCIONES',$w);
