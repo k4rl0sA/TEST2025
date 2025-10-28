@@ -10,7 +10,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
 <!-- <link href="../libs/css/s.css" rel="stylesheet"> -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch&family=Chicle&family=Merienda&family=Rancho&family=Boogaloo&display=swap" rel="stylesheet">
-<script src="../libs/js/a.js?v=1"></script>
+<script src="../libs/js/a.js?v=10"></script>
 <script src="../libs/js/x.js"></script>
 <script src="../libs/js/d.js"></script>
 <script src="../libs/js/popup.js"></script>

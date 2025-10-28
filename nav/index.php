@@ -85,7 +85,7 @@
 
 
 
-<script src="../libs/js/a.js">
+<script src="../libs/js/a.js?v=10">
 </script>
 
 <!-- <iframe src="https://piensaendigital.es/" width="100%" height="700"></iframe> -->
