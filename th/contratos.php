@@ -51,11 +51,11 @@ function focus_contratos(){
 }
 
 function men_contratos(){
-    $rta = cap_menus('contratos','pro');
+    $rta = cap_menus_contratos('contratos','pro');
     return $rta;
 }
 
-function cap_menus($a,$b='cap',$con='con') {
+function cap_menus_contratos($a,$b='cap',$con='con') {
     $rta = ""; 
     $acc=rol($a);
     if ($a=='contratos'  && isset($acc['crear']) && $acc['crear']=='SI'){   
