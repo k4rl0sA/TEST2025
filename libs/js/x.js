@@ -1816,3 +1816,9 @@ function glineTH(){
 	];
 	EnabDepeDynamic(['GlIn'], conditions);
 }
+function certTH(){
+	const conditions = [
+		{ id: 'tipo_expe', value: '2', compare: true }
+	];
+	EnabDepeDynamic(['CeRt'], conditions);
+}
