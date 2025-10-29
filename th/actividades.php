@@ -38,11 +38,8 @@ function lis_actividades(){
     }
     
     // Si aún no hay ID válido, mostrar tabla vacía
-    if (empty($id_th)) {
-        return create_table(0, [], "actividades", 10, 'actividades.php');
-    }
-    
-    // Sanitizar el ID
+    if (!empty($id_th)) {
+        // Sanitizar el ID
     $id_th = intval($id_th);
     
     // Contar total de actividades
@@ -72,6 +69,7 @@ function lis_actividades(){
     
     $datos = datos_mysql($sql);
     return create_table($total, $datos["responseResult"], "actividades", $regxPag, 'actividades.php');
+    }
 }
 
 function focus_actividades(){
