@@ -201,9 +201,7 @@ function gra_contratos(){
             ['type' => 'i', 'value' => intval($id_thcon)]
         ];
     }
-    
     // return json_encode(['sql' => show_sql($sql, $params), 'idth' => $idth, 'hash' => $hash_id, 'session' => $_SESSION['hash']]);
-    
     $rta = mysql_prepd($sql, $params);
     return $rta;
 }
