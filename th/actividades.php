@@ -120,14 +120,14 @@ function cmp_actividades(){
     
     
     $o4 = 'horasvalor';
-    $c[] = new cmp($o4,'l',null,'',$w);
+    $c[] = new cmp($o4,'le',null,'PERIODO POR ACTIVIDAD',$w);
     
     $c[] = new cmp('per_ano','nu','9999',$d['per_ano'],$w.' '.$o4,'Año Período','per_ano',null,null,true,true,'','col-25');
     $c[] = new cmp('per_mes','nu','99',$d['per_mes'],$w.' '.$o4,'Mes Período','per_mes',null,null,true,true,'','col-25');
     $c[] = new cmp('can_act','nu','999',$d['can_act'],$w.' '.$o5,'Cantidad Realizada','can_act',null,null,true,true,'','col-3',"calcularTotales();");
     $o5 = 'cantidad';
     $c[] = new cmp($o5,'l',null,'',$w);    
-    $c[] = new cmp('total_horas','nu','9999.9',$d['total_horas'],$w.' '.$o5,'Total Horas','total_horas',null,null,false,false,'','col-3');
+    $c[] = new cmp('total_horas','nu','9999.9',$d['total_horas'],$w.' '.$o5,'Total Horas Realizadas','total_horas',null,null,false,false,'','col-3');
     $c[] = new cmp('total_valor','nu','99999999',$d['total_valor'],$w.' '.$o5,'Valor Total','total_valor',null,null,false,false,'','col-4');
     
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
