@@ -180,7 +180,7 @@ function get_actividades(){
 }
 
 function gra_actividades(){
-    $usu = $_SESSION['us_sds'];
+   /*  $usu = $_SESSION['us_sds'];
     
     // Obtener el idth (ID del empleado) real desde el hash de sesión
     $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_actividades');
@@ -249,11 +249,11 @@ function gra_actividades(){
     }
     
     $rta = mysql_prepd($sql, $params);
-    return $rta;
+    return $rta; */
 }
 
 // Funciones para opciones de select
-function per_mes(($id=''){
+/* function per_mes(($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=327 and estado='A' ORDER BY 1",$id);
 }
 
@@ -264,7 +264,7 @@ function opc_rol($id=''){
 function opc_perreq($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=308 and estado='A' ORDER BY 2",$id);
 }
-
+ */
 
 
 function formato_dato($a, $b, $c, $d){
