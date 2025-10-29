@@ -40,25 +40,6 @@ function lis_contratos(){
      
     // Sanitizar el ID
     $id_th = intval($id_th);
-    
-    $info = datos_mysql("SELECT COUNT(*) total FROM th_contratos TC WHERE TC.idth = '$id_th'");
-    $total = $info['responseResult'][0]['total'];
-    $regxPag = 10;
-    $pag = (isset($_POST['pag-contratos'])) ? ($_POST['pag-contratos'] - 1) * $regxPag : 0;
-    $sql = "SELECT TC.id_thcon AS ACCIONES, 
-                   TC.n_contrato AS 'N° Contrato', 
-                   FN_CATALOGODESC(326, TC.tipo_cont) AS 'Tipo Vinculación',
-                   TC.fecha_inicio AS 'Fecha Inicio', 
-                   TC.fecha_fin AS 'Fecha Fin',
-                   CONCAT('$ ', FORMAT(TC.valor_contrato, 0)) AS 'Valor Contrato',
-                   FN_CATALOGODESC(323, TC.perfil_profesional) AS 'Perfil Profesional',
-                   TC.estado AS 'Estado'
-            FROM th_contratos TC  
-            WHERE TC.idth = '$id_th'";    
-    $sql .= " ORDER BY TC.fecha_create DESC";
-    $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
-    $datos = datos_mysql($sql);
-    return create_table($total, $datos["responseResult"], "contratos", $regxPag, 'contratos.php');
     */
     // var_dump($_POST['id']);
 	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['id_acompsic']) ? divide($_POST['id_acompsic']) : null);
@@ -71,9 +52,9 @@ function lis_contratos(){
 
 	$sql="SELECT `TC.id_thcon` ACCIONES,TC.n_contrato AS 'N° Contrato',FN_CATALOGODESC(326, TC.tipo_cont) AS 'Tipo Vinculación',
     TC.fecha_inicio AS 'Fecha Inicio',TC.fecha_fin AS 'Fecha Fin',CONCAT('$ ', FORMAT(TC.valor_contrato, 0)) AS 'Valor Contrato'
-FROM th_contratos TC ";// CAMBIO AGREGAR ESTA LINEA
-	$sql.=" WHERE TC.estado = 'A' AND TC.idth='".$id[0];."'";// CAMBIO AGREGAR ESTA LINEA
-	$sql.=" ORDER BY TC.fecha_create DESC"; // CAMBIO  AGREGAR ESTA LINEA
+    FROM th_contratos TC ";
+	$sql.=" WHERE TC.estado = 'A' AND TC.idth='".$id[0];."'";
+	$sql.=" ORDER BY TC.fecha_create DESC";
 	$sql.=' LIMIT '.$pag.','.$regxPag;
 	echo $sql;
 	$datos=datos_mysql($sql);
