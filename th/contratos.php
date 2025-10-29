@@ -99,8 +99,8 @@ function cmp_contratos(){
     
     $o3 = 'experiencia';
     $c[] = new cmp($o3,'l',null,'',$w);
-    $c[] = new cmp('tipo_expe','s','3',$d['tipo_expe'],$w.' GlIn '.$o3,'¿Bachiller con experiencia o formación en salud/social?','tipo_expe',null,null,false,false,'','col-5');
-    $c[] = new cmp('fecha_expe','d','',$d['fecha_expe'],$w.' CeRt '.$o3,'Fecha del Certificado','fecha_expe',null,null,false,false,'','col-3',"validDate(this,-3650,0);certTH();");
+    $c[] = new cmp('tipo_expe','s','3',$d['tipo_expe'],$w.' GlIn '.$o3,'¿Bachiller con experiencia o formación en salud/social?','tipo_expe',null,null,false,false,'','col-5',"certTH();");
+    $c[] = new cmp('fecha_expe','d','',$d['fecha_expe'],$w.' CeRt '.$o3,'Fecha del Certificado','fecha_expe',null,null,false,false,'','col-3',"validDate(this,-3650,0);");
     $c[] = new cmp('semestre','nu','1',$d['semestre'],$w.' CeRt '.$o3,'Semestres Cursados','semestre',null,null,false,false,'','col-2');
     
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
