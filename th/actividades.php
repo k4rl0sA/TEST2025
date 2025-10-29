@@ -149,7 +149,7 @@ function cmp_actividades(){
     </script>";
     
     return $rta;
-
+}
 
 function get_actividades(){
     // Usar la función global idReal para obtener el ID de la actividad
@@ -178,6 +178,7 @@ function get_actividades(){
     
     return $info['responseResult'][0];
 }
+
 function gra_actividades(){
     $usu = $_SESSION['us_sds'];
     
