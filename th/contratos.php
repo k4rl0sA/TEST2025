@@ -1,5 +1,6 @@
 <?php
 require_once "../libs/gestion.php";
+require_once "lib.php";
 ini_set('display_errors','1');
 if (!isset($_SESSION['us_sds'])) die("<script>window.top.location.href='/';</script>");
 else {
@@ -19,9 +20,8 @@ else {
 }
 
 function lis_contratos(){
-    /*
-    // Obtener el ID del empleado (th) para filtrar contratos
-    $id_th = $_POST['id'] ?? '';    
+    // Obtener el ID del empleado (th) para filtrar contratos usando la función idReal
+    $id_th = $_POST['id'] ?? '';
     // Intentar obtener el ID real usando diferentes sufijos
     if (empty($id_th) || $id_th === '0') {
         $id_th = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_contratos');
@@ -32,33 +32,30 @@ function lis_contratos(){
             $id_th = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_editar');
         }
     }
-    
-     // Si aún no hay ID válido, no mostrar contratos
-    if (empty($id_th)) {
-        return create_table(0, [], "contratos", 10, 'contratos.php');
-    }
-     
     // Sanitizar el ID
     $id_th = intval($id_th);
-    */
-    // var_dump($_POST['id']);
-	$id = isset($_POST['id']) ? divide($_POST['id']) : (isset($_POST['id_acompsic']) ? divide($_POST['id_acompsic']) : null);
-  $info=datos_mysql("SELECT COUNT(*) total FROM th_contratos TC 
-  LEFT JOIN  usuarios U ON TC.usu_creo=U.id_usuario 
-  WHERE TC.estado = 'A' AND TC.idth='".$id[0]."'");
-	$total=$info['responseResult'][0]['total'];
-	$regxPag=5;
-  $pag=(isset($_POST['pag-contratos']))? ($_POST['pag-contratos']-1)* $regxPag:0;
+    // Contar total de contratos
+    $info = datos_mysql("SELECT COUNT(*) total FROM th_contratos TC WHERE TC.estado = 'A' AND TC.idth = '$id_th'");
+    $total = $info['responseResult'][0]['total'];
+    $regxPag = 10;
+    $pag = (isset($_POST['pag-contratos'])) ? ($_POST['pag-contratos'] - 1) * $regxPag : 0;
 
-	$sql="SELECT `TC.id_thcon` ACCIONES,TC.n_contrato AS 'N° Contrato',FN_CATALOGODESC(326, TC.tipo_cont) AS 'Tipo Vinculación',
-    TC.fecha_inicio AS 'Fecha Inicio',TC.fecha_fin AS 'Fecha Fin',CONCAT('$ ', FORMAT(TC.valor_contrato, 0)) AS 'Valor Contrato'
-    FROM th_contratos TC ";
-	$sql.=" WHERE TC.estado = 'A' AND TC.idth='".$id[0];."'";
-	$sql.=" ORDER BY TC.fecha_create DESC";
-	$sql.=' LIMIT '.$pag.','.$regxPag;
-	echo $sql;
-	$datos=datos_mysql($sql);
-	return create_table($total,$datos["responseResult"],"contratos",$regxPag,'contratos.php');
+    // SQL corregido para obtener los contratos
+    $sql = "SELECT TC.id_thcon AS ACCIONES, 
+                   TC.n_contrato AS 'N° Contrato', 
+                   FN_CATALOGODESC(326, TC.tipo_cont) AS 'Tipo Vinculación',
+                   TC.fecha_inicio AS 'Fecha Inicio', 
+                   TC.fecha_fin AS 'Fecha Fin',
+                   CONCAT('$ ', FORMAT(TC.valor_contrato, 0)) AS 'Valor Contrato',
+                   FN_CATALOGODESC(323, TC.perfil_profesional) AS 'Perfil Profesional',
+                   TC.estado AS 'Estado'
+            FROM th_contratos TC  
+            WHERE TC.estado = 'A' AND TC.idth = '$id_th'";
+    $sql .= " ORDER BY TC.fecha_create DESC";
+    $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
+    
+    $datos = datos_mysql($sql);
+    return create_table($total, $datos["responseResult"], "contratos", $regxPag, 'contratos.php');
 }
 
 function focus_contratos(){
