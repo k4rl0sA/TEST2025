@@ -19,9 +19,16 @@ else {
 }
 
 function lis_actividades(){
+    // Obtener el ID del empleado (th) para filtrar actividades
     $hash_id = $_POST['id'] ?? '';
+    $id_th = 0;
+    
+    // Buscar directamente en la sesión con el hash recibido
     $session_hash = $_SESSION['hash'] ?? [];
+    
+    // Probar diferentes sufijos en orden de prioridad
     $sufijos = ['_th', '_actividades', '_editar'];
+    
     foreach ($sufijos as $sufijo) {
         $key = $hash_id . $sufijo;
         if (isset($session_hash[$key])) {
@@ -29,28 +36,42 @@ function lis_actividades(){
             break;
         }
     }
+    
     // Si aún no hay ID válido, mostrar tabla vacía
-    if (!empty($id_th)) {
+    if (empty($id_th)) {
+        return create_table(0, [], "actividades", 10, 'actividades.php');
+    }
+    
+    // Sanitizar el ID
     $id_th = intval($id_th);
-    $info = datos_mysql("SELECT COUNT(*) total FROM th_actividades TC WHERE TC.estado = 'A' AND TC.idth = '$id_th'");
+    
+    // Contar total de actividades
+    $info = datos_mysql("SELECT COUNT(*) total FROM th_actividades TA WHERE TA.estado = 'A' AND TA.idth = '$id_th'");
     $total = $info['responseResult'][0]['total'];
     $regxPag = 10;
     $pag = (isset($_POST['pag-actividades'])) ? ($_POST['pag-actividades'] - 1) * $regxPag : 0;
-    $sql = "SELECT TC.id_thcon AS ACCIONES, 
-                   TC.n_contrato AS 'N° Contrato', 
-                   FN_CATALOGODESC(326, TC.tipo_cont) AS 'Tipo Vinculación',
-                   TC.fecha_inicio AS 'Fecha Inicio', 
-                   TC.fecha_fin AS 'Fecha Fin',
-                   CONCAT('$ ', FORMAT(TC.valor_contrato, 0)) AS 'Valor Contrato',
-                   FN_CATALOGODESC(323, TC.perfil_profesional) AS 'Perfil Profesional',
-                   TC.estado AS 'Estado'
-            FROM th_actividades TC  
-            WHERE TC.estado = 'A' AND TC.idth = '$id_th'";
-    $sql .= " ORDER BY TC.fecha_create DESC";
+
+    // SQL para obtener las actividades
+    $sql = "SELECT TA.id_thact AS ACCIONES, 
+                   FN_CATALOGODESC(327, TA.actividad) AS 'Actividad',
+                   FN_CATALOGODESC(324, TA.rol) AS 'Rol', 
+                   FN_CATALOGODESC(328, TA.acbi) AS 'Acción Bienestar',
+                   FN_CATALOGODESC(329, TA.sudacbi) AS 'Sub Acción Bienestar',
+                   SUBSTRING(TA.actbien, 1, 50) AS 'Descripción Actividad',
+                   TA.hora_act AS 'Horas Actividad',
+                   CONCAT('$ ', FORMAT(TA.hora_th, 0)) AS 'Valor Hora TH',
+                   CONCAT(TA.per_ano, '-', LPAD(TA.per_mes, 2, '0')) AS 'Período',
+                   TA.can_act AS 'Cantidad',
+                   TA.total_horas AS 'Total Horas',
+                   CONCAT('$ ', FORMAT(TA.total_valor, 0)) AS 'Valor Total',
+                   TA.estado AS 'Estado'
+            FROM th_actividades TA  
+            WHERE TA.estado = 'A' AND TA.idth = '$id_th'";
+    $sql .= " ORDER BY TA.fecha_create DESC";
     $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
+    
     $datos = datos_mysql($sql);
-    return create_table($total, $datos["responseResult"], "actividades", $regxPag, 'actividades.php');    
-    }
+    return create_table($total, $datos["responseResult"], "actividades", $regxPag, 'actividades.php');
 }
 
 function focus_actividades(){
@@ -58,11 +79,11 @@ function focus_actividades(){
 }
 
 function men_actividades(){
-    $rta = cap_menus('actividades','pro');
+    $rta = cap_menus_actividades('actividades','pro');
     return $rta;
 }
 
-function cap_menus($a,$b='cap',$con='con') {
+function cap_menus_actividades($a,$b='cap',$con='con') {
     $rta = ""; 
     $acc=rol($a);
     if ($a=='actividades'  && isset($acc['crear']) && $acc['crear']=='SI'){   
