@@ -112,9 +112,9 @@ function cmp_actividades(){
 
     $o = 'tipoactividad';
     $c[] = new cmp($o,'l',null,'',$w);
-    $c[] = new cmp('actividad','nu','999',$d['actividad'],$w.' aCT '.$o,'Actividad/Intervención','actividad',null,null,true,true,'','col-4',"getDatForm('aCT','activiValores',['tipoactividad'],this,'actividades.php');");
-    $c[] = new cmp('perreq','s','3',$d['perreq'],$w.' '.$o,'Perfil Requerido','perreq',null,null,false,false,'','col-5');
-    $c[] = new cmp('rol','s','3',$d['rol'],$w.' '.$o,'Rol','rol',null,null,false,false,'','col-5');
+    $c[] = new cmp('actividad','nu','999',$d['actividad'],$w.' aCT '.$o,'Actividad/Intervención','actividad',null,null,true,true,'','col-2',"getDatForm('aCT','activiValores',['tipoactividad'],this,'actividades.php');");
+    $c[] = new cmp('perreq','s','3',$d['perreq'],$w.' '.$o,'Perfil Requerido','perreq',null,null,false,false,'','col-4');
+    $c[] = new cmp('rol','s','3',$d['rol'],$w.' '.$o,'Rol','rol',null,null,false,false,'','col-4');
     $c[] = new cmp('acbi','nu','99',$d['acbi'],$w.' '.$o,'Acción de Bienestar','acbi',null,null,false,false,'','col-15');
     $c[] = new cmp('sudacbi','nu','99',$d['sudacbi'],$w.' '.$o,'Sub Acción de Bienestar','sudacbi',null,null,false,false,'','col-15');
     $c[] = new cmp('actbien','t','3000',$d['actbien'],$w.' '.$o,'Descripción de la Actividad','actbien',null,null,false,false,'','col-7');
