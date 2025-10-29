@@ -107,7 +107,7 @@ function cmp_actividades(){
     
     $o2 = 'tipoactividad';
     $c[] = new cmp($o2,'l',null,'',$w);
-    $c[] = new cmp('actividad','s','3',$d['actividad'],$w.' '.$o2,'Actividad/Intervención','actividad',null,null,true,true,'','col-4');
+    $c[] = new cmp('actividad','nu','3',$d['actividad'],$w.' '.$o2,'Actividad/Intervención','actividad',null,null,true,true,'','col-4');
     $c[] = new cmp('perreq','s','3',$d['perreq'],$w.' '.$o2,'Perfil Requerido','perreq',null,null,false,false,'','col-35');
     $c[] = new cmp('rol','s','3',$d['rol'],$w.' '.$o2,'Rol','rol',null,null,false,false,'','col-4');
     $c[] = new cmp('acbi','t','3',$d['acbi'],$w.' '.$o2,'Acción de Bienestar','acbi',null,null,false,false,'','col-4');
@@ -252,6 +252,9 @@ function gra_actividades(){
 }
 
 // Funciones para opciones de select
+function opc_actividad($id=''){
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=327 and estado='A' ORDER BY 1",$id);
+}
 /* function per_mes(($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=327 and estado='A' ORDER BY 1",$id);
 }
