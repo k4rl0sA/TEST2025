@@ -49,7 +49,7 @@ function lis_actividades(){
     $pag = (isset($_POST['pag-actividades'])) ? ($_POST['pag-actividades'] - 1) * $regxPag : 0;
 
     // SQL para obtener las actividades
-    $sql = "SELECT TA.id_thact AS ACCIONES, actividad,SUBSTRING(TA.actbien, 1, 50) AS 'Descripción Actividad',
+    $sql = "SELECT TA.id_thact AS ACCIONES, actividad Codigo,SUBSTRING(TA.actbien, 1, 50) AS 'Descripción Actividad',
                    TA.hora_act AS 'Horas Actividad',
                    CONCAT('$ ', FORMAT(TA.hora_th, 0)) AS 'Valor Hora TH',
                    FN_CATALOGODESC(328, TA.per_ano) AS 'Año',
