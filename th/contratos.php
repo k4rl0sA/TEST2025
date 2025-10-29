@@ -52,7 +52,7 @@ function lis_contratos(){
             WHERE TC.estado = 'A' AND TC.idth = '$id_th'";
     $sql .= " ORDER BY TC.fecha_create DESC";
     $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
-    
+    var_dump($sql);
     $datos = datos_mysql($sql);
     return create_table($total, $datos["responseResult"], "contratos", $regxPag, 'contratos.php');
 }
