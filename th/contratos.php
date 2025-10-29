@@ -78,7 +78,7 @@ function cap_menus_contratos($a,$b='cap',$con='con') {
 
 function cmp_contratos(){
     $rta = "";
-	$rta .="<div class='encabezado vivienda'>CONTRATOS REALIZADAS</div><div class='contenido' id='gestion-lis' >".lis_contratos()."</div></div>";
+	$rta .="<div class='encabezado vivienda'>CONTRATOS REALIZADOS</div><div class='contenido' id='gestion-lis' >".lis_contratos()."</div></div>";
     $t = ['id_thcon' => '', 'n_contrato' => '', 'tipo_cont' => '', 'fecha_inicio' => '','fecha_fin' => '', 'valor_contrato' => '', 'perfil_profesional' => '','perfil_contratado' => '', 'rol' => '', 'tipo_expe' => '', 'fecha_expe' => '', 'semestre' => ''];
     $d = get_contratos();
     if ($d == "") { $d = $t; }
