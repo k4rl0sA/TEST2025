@@ -148,7 +148,7 @@ function cmp_actividades(){
     </script>";
     
     return $rta;
-}
+
 
 function get_actividades(){
     // Usar la función global idReal para obtener el ID de la actividad
