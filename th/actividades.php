@@ -146,6 +146,7 @@ function cmp_actividades(){
     $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_actividades');
     $sql="SELECT cod_perreq perreq, cod_rol rol, cod_acbi acbi, sud_acbi sudacbi, actividad actbien, hora_act, hora_th  FROM th_acti_bien 
     WHERE id_actividad ='".$real_id."'";
+    var_dump($sql);
 	$info=datos_mysql($sql);
 	if (!$info['responseResult']) {
 		return json_encode (new stdClass);
