@@ -110,9 +110,9 @@ function cmp_actividades(){
     $c[] = new cmp('id','h',15,$_POST['id'] ?? '',$w.' '.$o,'id','id',null,'####',false,false);
     $c[] = new cmp('id_thact','h',15,$d['id_thact'] ?? '',$w.' '.$o,'id_thact','id_thact',null,'####',false,false);
     $c[] = new cmp('actividad','nu','999',$d['actividad'],$w.' aCT '.$o,'Actividad/Intervención','actividad',null,null,true,true,'','col-4',"getDatForm('aCT','activiValores',['tipoactividad'],this,'actividades.php');");
-
     $o = 'tipoactividad';
     $c[] = new cmp($o,'l',null,'',$w);
+    
     $c[] = new cmp('perreq','s','3',$d['perreq'],$w.' '.$o,'Perfil Requerido','perreq',null,null,false,false,'','col-5');
     $c[] = new cmp('rol','s','3',$d['rol'],$w.' '.$o,'Rol','rol',null,null,false,false,'','col-5');
     $c[] = new cmp('acbi','nu','99',$d['acbi'],$w.' '.$o,'Acción de Bienestar','acbi',null,null,false,false,'','col-15');
@@ -160,7 +160,7 @@ function cmp_actividades(){
  function get_activiValores(){
 	// print_r($_REQUEST);
     $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_actividades');
-    $sql="SELECT id_actividad, cod_perreq, cod_rol, cod_acbi, sud_acbi, actividad, hora_act, hora_th  FROM th_acti_bien 
+    $sql="SELECT cod_perreq perreq, cod_rol rol, cod_acbi acbi, sud_acbi sudacbi, actbien, hora_act, hora_th  FROM th_acti_bien 
     WHERE id_actividad ='".$real_id."'";
 	$info=datos_mysql($sql);
 	if (!$info['responseResult']) {
