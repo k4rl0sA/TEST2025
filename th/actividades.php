@@ -264,10 +264,6 @@ function opc_rol($id=''){
 /* function per_mes(($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=327 and estado='A' ORDER BY 1",$id);
 }
-
-
-
-
  */
 
 
