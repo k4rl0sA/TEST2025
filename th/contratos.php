@@ -19,64 +19,23 @@ else {
 }
 
 function lis_contratos(){
-    // Debug: mostrar qué datos llegan
-    echo "<pre>DEBUG lis_contratos():\n";
-    echo "POST[id]: " . ($_POST['id'] ?? 'NO_SET') . "\n";
-    echo "SESSION hash keys: " . print_r(array_keys($_SESSION['hash'] ?? []), true) . "\n";
-    echo "</pre>";
-    
-    // Obtener el ID del empleado (th) para filtrar contratos
     $hash_id = $_POST['id'] ?? '';
-    $id_th = 0;
-    
-    echo "<pre>Hash recibido: " . $hash_id . "</pre>";
-    
-    // Buscar directamente en la sesión con el hash recibido
     $session_hash = $_SESSION['hash'] ?? [];
-    
-    // Probar diferentes sufijos en orden de prioridad
     $sufijos = ['_th', '_contratos', '_editar'];
-    
     foreach ($sufijos as $sufijo) {
         $key = $hash_id . $sufijo;
-        echo "<pre>Buscando key: " . $key . "</pre>";
-        
         if (isset($session_hash[$key])) {
             $id_th = intval($session_hash[$key]);
-            echo "<pre>¡ENCONTRADO! Key: $key = $id_th</pre>";
             break;
-        } else {
-            echo "<pre>No encontrado: " . $key . "</pre>";
         }
     }
-    
-    // Si no se encontró con los sufijos, mostrar debug adicional
-    if ($id_th == 0) {
-        echo "<pre>DEBUGGING - Hash en sesión que coinciden:</pre>";
-        foreach ($session_hash as $key => $value) {
-            if (strpos($key, $hash_id) === 0) {
-                echo "<pre>  - $key = $value</pre>";
-            }
-        }
-    }
-
-    
-    // Si aún no hay ID válido, mostrar error para debugging
-    if (empty($id_th)) {
-        echo "<pre>ERROR: No se pudo obtener ID válido del empleado</pre>";
-        return create_table(0, [], "contratos", 10, 'contratos.php');
-    }
-    
-    // Sanitizar el ID
+    // Si aún no hay ID válido, mostrar tabla vacía
+    if (!empty($id_th)) {
     $id_th = intval($id_th);
-    echo "<pre>ID final usado: " . $id_th . "</pre>";
-    // Contar total de contratos
     $info = datos_mysql("SELECT COUNT(*) total FROM th_contratos TC WHERE TC.estado = 'A' AND TC.idth = '$id_th'");
     $total = $info['responseResult'][0]['total'];
     $regxPag = 10;
     $pag = (isset($_POST['pag-contratos'])) ? ($_POST['pag-contratos'] - 1) * $regxPag : 0;
-
-    // SQL corregido para obtener los contratos
     $sql = "SELECT TC.id_thcon AS ACCIONES, 
                    TC.n_contrato AS 'N° Contrato', 
                    FN_CATALOGODESC(326, TC.tipo_cont) AS 'Tipo Vinculación',
@@ -89,10 +48,9 @@ function lis_contratos(){
             WHERE TC.estado = 'A' AND TC.idth = '$id_th'";
     $sql .= " ORDER BY TC.fecha_create DESC";
     $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
-    
-    echo "<pre>SQL final: " . $sql . "</pre>";
     $datos = datos_mysql($sql);
-    return create_table($total, $datos["responseResult"], "contratos", $regxPag, 'contratos.php');
+    return create_table($total, $datos["responseResult"], "contratos", $regxPag, 'contratos.php');    
+    }
 }
 
 function focus_contratos(){
