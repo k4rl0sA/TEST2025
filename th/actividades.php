@@ -160,12 +160,8 @@ function cmp_actividades(){
  function get_activiValores(){
 	// print_r($_REQUEST);
     $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_actividades');
-    $sql="SELECT encuentra,idpersona,tipo_doc,nombre1,nombre2,apellido1,apellido2,fecha_nacimiento,
-		sexo,genero,oriensexual,nacionalidad,estado_civil,niveduca,abanesc,ocupacion,tiemdesem,vinculo_jefe,etnia,pueblo,idioma,discapacidad,regimen,eapb,
-		afiliaoficio,sisben,catgosisb,pobladifer,incluofici,cuidador,perscuidada,tiempo_cuidador,cuidador_unidad,vinculo,tiempo_descanso,
-		descanso_unidad,reside_localidad,localidad_vive,transporta
-		FROM `personas` 
-   	WHERE idpersona ='".$id[0]."' AND tipo_doc='".$id[1]."'";
+    $sql="SELECT id_actividad, cod_perreq, cod_rol, cod_acbi, sud_acbi, actividad, hora_act, hora_th  FROM th_acti_bien 
+    WHERE id_actividad ='".$real_id."'";
 	$info=datos_mysql($sql);
 	if (!$info['responseResult']) {
 		return json_encode (new stdClass);
