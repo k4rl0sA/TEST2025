@@ -107,11 +107,11 @@ function cmp_actividades(){
     
     $o2 = 'tipoactividad';
     $c[] = new cmp($o2,'l',null,'',$w);
-    $c[] = new cmp('actividad','nu','3',$d['actividad'],$w.' '.$o2,'Actividad/Intervención','actividad',null,null,true,true,'','col-4');
+    $c[] = new cmp('actividad','nu','999',$d['actividad'],$w.' '.$o2,'Actividad/Intervención','actividad',null,null,true,true,'','col-4');
     $c[] = new cmp('perreq','s','3',$d['perreq'],$w.' '.$o2,'Perfil Requerido','perreq',null,null,false,false,'','col-35');
     $c[] = new cmp('rol','s','3',$d['rol'],$w.' '.$o2,'Rol','rol',null,null,false,false,'','col-4');
-    $c[] = new cmp('acbi','t','3',$d['acbi'],$w.' '.$o2,'Acción de Bienestar','acbi',null,null,false,false,'','col-4');
-    $c[] = new cmp('sudacbi','t','3',$d['sudacbi'],$w.' '.$o2,'Sub Acción de Bienestar','sudacbi',null,null,false,false,'','col-4');
+    $c[] = new cmp('acbi','nu','99',$d['acbi'],$w.' '.$o2,'Acción de Bienestar','acbi',null,null,false,false,'','col-4');
+    $c[] = new cmp('sudacbi','nu','99',$d['sudacbi'],$w.' '.$o2,'Sub Acción de Bienestar','sudacbi',null,null,false,false,'','col-4');
     
     $o3 = 'descripcion';
     $c[] = new cmp($o3,'l',null,'',$w);
@@ -119,10 +119,10 @@ function cmp_actividades(){
     
     $o4 = 'horasvalor';
     $c[] = new cmp($o4,'l',null,'',$w);
-    $c[] = new cmp('hora_act','nu','999.9',$d['hora_act'],$w.' '.$o4,'Horas por Actividad','hora_act',null,null,false,false,'','col-25',"calcularTotales();");
+    $c[] = new cmp('hora_act','nu','99999',$d['hora_act'],$w.' '.$o4,'Horas por Actividad','hora_act',null,null,false,false,'','col-25',"calcularTotales();");
     $c[] = new cmp('hora_th','nu','999999',$d['hora_th'],$w.' '.$o4,'Valor Hora TH','hora_th',null,null,false,false,'','col-25',"calcularTotales();");
-    $c[] = new cmp('per_ano','nu','99',$d['per_ano'],$w.' '.$o4,'Año Período','per_ano',null,null,true,true,'','col-25');
-    $c[] = new cmp('per_mes','nu','12',$d['per_mes'],$w.' '.$o4,'Mes Período','per_mes',null,null,true,true,'','col-25');
+    $c[] = new cmp('per_ano','nu','9999',$d['per_ano'],$w.' '.$o4,'Año Período','per_ano',null,null,true,true,'','col-25');
+    $c[] = new cmp('per_mes','nu','99',$d['per_mes'],$w.' '.$o4,'Mes Período','per_mes',null,null,true,true,'','col-25');
     
     $o5 = 'cantidad';
     $c[] = new cmp($o5,'l',null,'',$w);
