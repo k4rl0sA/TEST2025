@@ -252,7 +252,7 @@ function gra_actividades(){
     return $rta;
 }
 
-// Funciones para dependencias de selects
+// Funciones para opciones de select
 function per_mes(($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=327 and estado='A' ORDER BY 1",$id);
 }
@@ -264,7 +264,7 @@ function opc_rol($id=''){
 function opc_perreq($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=308 and estado='A' ORDER BY 2",$id);
 }
-// Funciones para opciones de select
+
 
 
 function formato_dato($a, $b, $c, $d){
