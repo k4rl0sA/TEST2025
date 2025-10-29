@@ -76,7 +76,8 @@ function grabar(tb='',ev){
      if (!valido(f[i])) {f[i].focus(); return};
   }
   const rutaMap = {
-  'contratos':'contratos.php'
+  'contratos':'contratos.php',
+  'actividades':'actividades.php'
  	};
    let ruta_app = rutaMap[tb] || 'lib.php';
 	myFetch(ruta_app,"a=gra&tb="+tb,mod);
