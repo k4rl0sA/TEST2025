@@ -87,7 +87,8 @@ function grabar(tb='',ev){
 		document.getElementById(mod+'-image').innerHTML='<svg class="icon-popup" ><use xlink:href="#bad"/></svg>';
 	} */
 	setTimeout(actualizar, 1000);
-	setTimeout(act_lista,1000,'gestion');
+	setTimeout(act_lista,1000,'contratos');
+	setTimeout(act_lista,1000,'actividades');
 	openModal();
 }   
 
