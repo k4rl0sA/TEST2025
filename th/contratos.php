@@ -25,55 +25,41 @@ function lis_contratos(){
     echo "SESSION hash keys: " . print_r(array_keys($_SESSION['hash'] ?? []), true) . "\n";
     echo "</pre>";
     
-    // Obtener el ID del empleado (th) para filtrar contratos usando la función idReal
-    $id_th = $_POST['id'] ?? '';
+    // Obtener el ID del empleado (th) para filtrar contratos
+    $hash_id = $_POST['id'] ?? '';
+    $id_th = 0;
     
-    // Intentar obtener el ID real usando diferentes sufijos
-    if (empty($id_th) || $id_th === '0') {
-        // Verificar si la función idReal existe
-        if (function_exists('idReal')) {
-            echo "<pre>Función idReal() existe</pre>";
-            $id_th = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_contratos');
-            echo "<pre>idReal con _contratos: " . ($id_th ?? 'NULL') . "</pre>";
-            
-            if (!$id_th) {
-                $id_th = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_th');
-                echo "<pre>idReal con _th: " . ($id_th ?? 'NULL') . "</pre>";
-            }
-            if (!$id_th) {
-                $id_th = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_editar');
-                echo "<pre>idReal con _editar: " . ($id_th ?? 'NULL') . "</pre>";
-            }
+    echo "<pre>Hash recibido: " . $hash_id . "</pre>";
+    
+    // Buscar directamente en la sesión con el hash recibido
+    $session_hash = $_SESSION['hash'] ?? [];
+    
+    // Probar diferentes sufijos en orden de prioridad
+    $sufijos = ['_th', '_contratos', '_editar'];
+    
+    foreach ($sufijos as $sufijo) {
+        $key = $hash_id . $sufijo;
+        echo "<pre>Buscando key: " . $key . "</pre>";
+        
+        if (isset($session_hash[$key])) {
+            $id_th = intval($session_hash[$key]);
+            echo "<pre>¡ENCONTRADO! Key: $key = $id_th</pre>";
+            break;
         } else {
-            echo "<pre>ERROR: Función idReal() NO existe</pre>";
-            // Buscar manualmente en el hash
-            $hash_id = $_POST['id'] ?? '';
-            $session_hash = $_SESSION['hash'] ?? [];
-            
-            // Buscar con _th
-            $key_th = $hash_id . '_th';
-            if (isset($session_hash[$key_th])) {
-                $id_th = intval($session_hash[$key_th]);
-                echo "<pre>Búsqueda manual con _th: " . $id_th . "</pre>";
-            } else {
-                // Buscar con _contratos
-                $key_contratos = $hash_id . '_contratos';
-                if (isset($session_hash[$key_contratos])) {
-                    $id_th = intval($session_hash[$key_contratos]);
-                    echo "<pre>Búsqueda manual con _contratos: " . $id_th . "</pre>";
-                }
-            }
+            echo "<pre>No encontrado: " . $key . "</pre>";
         }
     }
     
-    // Si no funciona con idReal, intentar con divide() como fallback
-    if (!$id_th) {
-        $id_array = isset($_POST['id']) ? divide($_POST['id']) : null;
-        if ($id_array && isset($id_array[0])) {
-            $id_th = intval($id_array[0]);
-            echo "<pre>divide() resultado: " . $id_th . "</pre>";
+    // Si no se encontró con los sufijos, mostrar debug adicional
+    if ($id_th == 0) {
+        echo "<pre>DEBUGGING - Hash en sesión que coinciden:</pre>";
+        foreach ($session_hash as $key => $value) {
+            if (strpos($key, $hash_id) === 0) {
+                echo "<pre>  - $key = $value</pre>";
+            }
         }
     }
+
     
     // Si aún no hay ID válido, mostrar error para debugging
     if (empty($id_th)) {
