@@ -113,7 +113,7 @@ function cmp_actividades(){
 
     $o = 'tipoactividad';
     $c[] = new cmp($o,'l',null,'',$w);
-    $c[] = new cmp('nada','t','3','',$w.' '.$o,'Perfil Requerido','perreq',null,null,false,false,'','col-5');
+    $c[] = new cmp('nada','t','3','',$w.' '.$o,'.','perreq',null,null,false,false,'','col-1');
     $c[] = new cmp('perreq','s','3',$d['perreq'],$w.' '.$o,'Perfil Requerido','perreq',null,null,false,false,'','col-5');
     $c[] = new cmp('rol','s','3',$d['rol'],$w.' '.$o,'Rol','rol',null,null,false,false,'','col-5');
     $c[] = new cmp('acbi','nu','99',$d['acbi'],$w.' '.$o,'Acción de Bienestar','acbi',null,null,false,false,'','col-15');
