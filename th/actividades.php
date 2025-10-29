@@ -92,9 +92,9 @@ function cap_menus($a,$b='cap',$con='con') {
 }
 
 function cmp_actividades(){
-    $rta = "";
+/*    $rta = "";
 	$rta .="<div class='encabezado vivienda'>ACTIVIDADES REALIZADAS</div><div class='contenido' id='gestion-lis' >".lis_actividades()."</div></div>";
-    /* $t = ['id_thact' => '', 'actividad' => '','perreq' => '' ,'rol' => '', 'acbi' => '','sudacbi' => '', 'actbien' => '', 'hora_act' => '', 'hora_th' => '','per_ano' => '', 'per_mes' => '', 'can_act' => '', 'total_horas' => '', 'total_valor' => ''];
+     $t = ['id_thact' => '', 'actividad' => '','perreq' => '' ,'rol' => '', 'acbi' => '','sudacbi' => '', 'actbien' => '', 'hora_act' => '', 'hora_th' => '','per_ano' => '', 'per_mes' => '', 'can_act' => '', 'total_horas' => '', 'total_valor' => ''];
     // $d='';
     $d = get_actividades();
     if ($d == "") { $d = $t; }
