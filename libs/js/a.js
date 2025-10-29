@@ -1176,7 +1176,7 @@ function myFetch(b, c, d) {
    
     
   function getDatForm(clsKey, fun,clsCmp,cab,path=ruta_app) {
-	const c = document.querySelectorAll(`.${clsKey} input, .${clsKey} select`);
+	const c = document.querySelectorAll(`.${clsKey} input, .${clsKey} select, .${clsKey} textarea`);
 	let id = '';
 		for (let i = 0; i < c.length; i++) {
 		  const {value} = c[i];
@@ -1196,7 +1196,7 @@ function myFetch(b, c, d) {
 						return;
 					  }
 					  let dat=Object.values(data);
-					  let cmp=document.querySelectorAll(`.${clsCmp} input ,.${clsCmp} select`);
+					  let cmp=document.querySelectorAll(`.${clsCmp} input ,.${clsCmp} select, .${clsCmp} textarea`);
 					  for (i=1;i<cmp.length;i++) {
 						  if(cmp[i].type==='checkbox')cmp[i].checked=false;
 							  if (cmp[i].value=='SI' && cmp[i].type==='checkbox'){
