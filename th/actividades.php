@@ -20,7 +20,7 @@ else {
 
 function lis_actividades(){
     // Obtener el ID del empleado (th) para filtrar actividades
-    /* $hash_id = $_POST['id'] ?? '';
+    $hash_id = $_POST['id'] ?? '';
     $id_th = 0;
     
     // Buscar directamente en la sesión con el hash recibido
@@ -69,7 +69,7 @@ function lis_actividades(){
     
     $datos = datos_mysql($sql);
     return create_table($total, $datos["responseResult"], "actividades", $regxPag, 'actividades.php');
-    } */
+    }
 }
 
 function focus_actividades(){
@@ -94,7 +94,7 @@ function cap_menus($a,$b='cap',$con='con') {
 function cmp_actividades(){
     $rta = "";
 	$rta .="<div class='encabezado vivienda'>ACTIVIDADES REALIZADAS</div><div class='contenido' id='gestion-lis' >".lis_actividades()."</div></div>";
-    $t = ['id_thact' => '', 'actividad' => '', 'rol' => '', 'acbi' => '','sudacbi' => '', 'actbien' => '', 'hora_act' => '', 'hora_th' => '','per_ano' => '', 'per_mes' => '', 'can_act' => '', 'total_horas' => '', 'total_valor' => ''];
+    $t = ['id_thact' => '', 'actividad' => '','perreq' => '' ,'rol' => '', 'acbi' => '','sudacbi' => '', 'actbien' => '', 'hora_act' => '', 'hora_th' => '','per_ano' => '', 'per_mes' => '', 'can_act' => '', 'total_horas' => '', 'total_valor' => ''];
     $d = get_actividades();
     if ($d == "") { $d = $t; }
     $w = 'actividades';
