@@ -109,10 +109,10 @@ function cmp_actividades(){
     $c[] = new cmp($o,'l',null,'',$w);
     $c[] = new cmp('id','h',15,$_POST['id'] ?? '',$w.' '.$o,'id','id',null,'####',false,false);
     $c[] = new cmp('id_thact','h',15,$d['id_thact'] ?? '',$w.' '.$o,'id_thact','id_thact',null,'####',false,false);
-    $c[] = new cmp('actividad','nu','999',$d['actividad'],$w.' aCT '.$o,'Actividad/Intervención','actividad',null,null,true,true,'','col-4',"getDatForm('aCT','activiValores',['tipoactividad'],this,'actividades.php');");
+    
     $o = 'tipoactividad';
     $c[] = new cmp($o,'l',null,'',$w);
-    
+    $c[] = new cmp('actividad','nu','999',$d['actividad'],$w.' aCT '.$o,'Actividad/Intervención','actividad',null,null,true,true,'','col-4',"getDatForm('aCT','activiValores',['tipoactividad'],this,'actividades.php');");
     $c[] = new cmp('perreq','s','3',$d['perreq'],$w.' '.$o,'Perfil Requerido','perreq',null,null,false,false,'','col-5');
     $c[] = new cmp('rol','s','3',$d['rol'],$w.' '.$o,'Rol','rol',null,null,false,false,'','col-5');
     $c[] = new cmp('acbi','nu','99',$d['acbi'],$w.' '.$o,'Acción de Bienestar','acbi',null,null,false,false,'','col-15');
@@ -136,23 +136,7 @@ function cmp_actividades(){
     $c[] = new cmp('total_valor','nu','99999999',$d['total_valor'],$w.' '.$o,'Valor Total','total_valor',null,null,false,false,'','col-4');
     
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
-    
-    // Agregar JavaScript para cálculos automáticos
-    $rta .= "<script>
-    function calcularTotales() {
-        var hora_act = parseFloat(document.getElementById('hora_act').value) || 0;
-        var can_act = parseInt(document.getElementById('can_act').value) || 0;
-        var hora_th = parseInt(document.getElementById('hora_th').value) || 0;
         
-        var total_horas = hora_act * can_act;
-        var total_valor = total_horas * hora_th;
-        
-        document.getElementById('total_horas').value = total_horas.toFixed(1);
-        document.getElementById('total_valor').value = Math.round(total_valor);
-    }
-    </script>";
-
-     
     // $rta.="<div class='campo frecuencia percit col-10'><center><button style='background-color:#65cc67;border-radius:12px;color:white;padding:8px;text-align:center;cursor:pointer;' type='button' Onclick=\"grabar('frecuencia',this);\">Guardar</button></center></div>"; 
     return $rta;
 }
