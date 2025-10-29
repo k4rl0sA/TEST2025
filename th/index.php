@@ -9,6 +9,49 @@ include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
 <link href="../libs/css/stylePop.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch&family=Chicle&family=Merienda&family=Rancho&family=Boogaloo&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<style>
+.search-wrapper {
+    position: relative;
+    width: 300px;
+}
+
+.number-input-svg {
+    width: 100%;
+    padding: 12px 50px 12px 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.number-input-svg:focus {
+    border-color: #007bff;
+}
+
+.search-btn-svg {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.search-btn-svg:hover {
+    background: #f8f9fa;
+}
+
+.search-icon-svg {
+    width: 20px;
+    height: 20px;
+    fill: #666;
+}
+</style>
 <script src="../libs/js/a.js?v=10"></script>
 <script src="../libs/js/x.js?v=31.0"></script>
 <script src="../libs/js/d.js"></script>
