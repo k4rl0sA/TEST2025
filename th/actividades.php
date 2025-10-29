@@ -19,7 +19,7 @@ else {
 }
 
 function lis_actividades(){
-    // Obtener el ID del empleado (th) para filtrar actividades
+    /* // Obtener el ID del empleado (th) para filtrar actividades
     $hash_id = $_POST['id'] ?? '';
     $id_th = 0;
     
@@ -69,7 +69,7 @@ function lis_actividades(){
     
     $datos = datos_mysql($sql);
     return create_table($total, $datos["responseResult"], "actividades", $regxPag, 'actividades.php');
-    }
+    } */
 }
 
 function focus_actividades(){
