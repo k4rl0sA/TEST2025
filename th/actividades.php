@@ -77,11 +77,11 @@ function focus_actividades(){
 }
 
 function men_actividades(){
-    $rta = cap_menus_actividades('actividades','pro');
+    $rta = cap_menus('actividades','pro');
     return $rta;
 }
 
-function cap_menus_actividades($a,$b='cap',$con='con') {
+function cap_menus($a,$b='cap',$con='con') {
     $rta = ""; 
     $acc=rol($a);
     if ($a=='actividades'  && isset($acc['crear']) && $acc['crear']=='SI'){   
