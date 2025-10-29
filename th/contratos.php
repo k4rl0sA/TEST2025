@@ -19,20 +19,48 @@ else {
 }
 
 function lis_contratos(){
+    // Debug: mostrar qué datos llegan
+    echo "<pre>DEBUG lis_contratos():\n";
+    echo "POST[id]: " . ($_POST['id'] ?? 'NO_SET') . "\n";
+    echo "SESSION hash keys: " . print_r(array_keys($_SESSION['hash'] ?? []), true) . "\n";
+    echo "</pre>";
+    
     // Obtener el ID del empleado (th) para filtrar contratos usando la función idReal
     $id_th = $_POST['id'] ?? '';
+    
     // Intentar obtener el ID real usando diferentes sufijos
     if (empty($id_th) || $id_th === '0') {
         $id_th = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_contratos');
+        echo "<pre>idReal con _contratos: " . ($id_th ?? 'NULL') . "</pre>";
+        
         if (!$id_th) {
             $id_th = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_th');
+            echo "<pre>idReal con _th: " . ($id_th ?? 'NULL') . "</pre>";
         }
         if (!$id_th) {
             $id_th = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_editar');
+            echo "<pre>idReal con _editar: " . ($id_th ?? 'NULL') . "</pre>";
         }
     }
+    
+    // Si no funciona con idReal, intentar con divide() como fallback
+    if (!$id_th) {
+        $id_array = isset($_POST['id']) ? divide($_POST['id']) : null;
+        if ($id_array && isset($id_array[0])) {
+            $id_th = intval($id_array[0]);
+            echo "<pre>divide() resultado: " . $id_th . "</pre>";
+        }
+    }
+    
+    // Si aún no hay ID válido, mostrar error para debugging
+    if (empty($id_th)) {
+        echo "<pre>ERROR: No se pudo obtener ID válido del empleado</pre>";
+        return create_table(0, [], "contratos", 10, 'contratos.php');
+    }
+    
     // Sanitizar el ID
     $id_th = intval($id_th);
+    echo "<pre>ID final usado: " . $id_th . "</pre>";
     // Contar total de contratos
     $info = datos_mysql("SELECT COUNT(*) total FROM th_contratos TC WHERE TC.estado = 'A' AND TC.idth = '$id_th'");
     $total = $info['responseResult'][0]['total'];
@@ -52,7 +80,8 @@ function lis_contratos(){
             WHERE TC.estado = 'A' AND TC.idth = '$id_th'";
     $sql .= " ORDER BY TC.fecha_create DESC";
     $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
-    var_dump($sql);
+    
+    echo "<pre>SQL final: " . $sql . "</pre>";
     $datos = datos_mysql($sql);
     return create_table($total, $datos["responseResult"], "contratos", $regxPag, 'contratos.php');
 }
