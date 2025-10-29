@@ -215,7 +215,7 @@ function gra_actividades(){
         $info_horas=datos_mysql($sql1);
 
         if($info_horas['responseResult'][0]['totalh'] + intval($_POST['total_horas'] ?? 0) > 184){
-            return "Error: msj[ La suma de horas totales excede el límite permitido de 184 horas para el período seleccionado.]";
+            return "msj[La suma de horas totales excede el límite permitido de 184 horas para el período seleccionado.]";
         }
 
         $sql = "INSERT INTO th_actividades (idth, actividad, rol, acbi, sudacbi, actbien, hora_act, hora_th, per_ano, per_mes, can_act, total_horas, total_valor, usu_create, fecha_create, estado)
