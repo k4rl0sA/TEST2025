@@ -261,39 +261,8 @@ function opc_rol($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=324 and estado='A' ORDER BY 2",$id);
 }
 
-
-
-
-function opc_actividad_rol($id=''){
-  if($_REQUEST['id']!=''){	
-    $sql="SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=324 and estado='A' and valor='{$_REQUEST['id']}' ORDER BY 1";
-    $info = datos_mysql($sql);		
-  return json_encode($info['responseResult']);	
-  }
-}
-
-function opc_acbi_sudacbi($id=''){
-  if($_REQUEST['id']!=''){	
-    $sql="SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=329 and estado='A' and valor='{$_REQUEST['id']}' ORDER BY 1";
-    $info = datos_mysql($sql);		
-  return json_encode($info['responseResult']);	
-  }
-}
-
 // Funciones para opciones de select
-function opc_actividad($id=''){
-    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=327 and estado='A' ORDER BY 2",$id);
-}
 
-
-
-function opc_acbi($id=''){
-    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=328 and estado='A' ORDER BY 2",$id);
-}
-
-function opc_sudacbi($id=''){
-    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=329 and estado='A' ORDER BY 2",$id);
-}
 
 function formato_dato($a, $b, $c, $d){
     $b = strtolower($b);
