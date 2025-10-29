@@ -146,8 +146,9 @@ function cmp_actividades(){
         document.getElementById('total_valor').value = Math.round(total_valor);
     }
     </script>";
-     */
+     
     return $rta;
+    */
 }
 
 function get_actividades(){
