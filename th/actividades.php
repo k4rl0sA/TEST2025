@@ -104,31 +104,31 @@ function cmp_actividades(){
     $c[] = new cmp($o,'l',null,'',$w);
     $c[] = new cmp('id','h',15,$_POST['id'] ?? '',$w.' '.$o,'id','id',null,'####',false,false);
     $c[] = new cmp('id_thact','h',15,$d['id_thact'] ?? '',$w.' '.$o,'id_thact','id_thact',null,'####',false,false);
-    $c[] = new cmp('actividad','nu','999',$d['actividad'],$w.' '.$o2,'Actividad/Intervención','actividad',null,null,true,true,'','col-4');
+    $c[] = new cmp('actividad','nu','999',$d['actividad'],$w.' '.$o,'Actividad/Intervención','actividad',null,null,true,true,'','col-4');
 
-    $o2 = 'tipoactividad';
-    $c[] = new cmp($o2,'l',null,'',$w);
-    $c[] = new cmp('perreq','s','3',$d['perreq'],$w.' '.$o2,'Perfil Requerido','perreq',null,null,false,false,'','col-5');
-    $c[] = new cmp('rol','s','3',$d['rol'],$w.' '.$o2,'Rol','rol',null,null,false,false,'','col-5');
-    $c[] = new cmp('acbi','nu','99',$d['acbi'],$w.' '.$o2,'Acción de Bienestar','acbi',null,null,false,false,'','col-15');
-    $c[] = new cmp('sudacbi','nu','99',$d['sudacbi'],$w.' '.$o2,'Sub Acción de Bienestar','sudacbi',null,null,false,false,'','col-15');
-    $c[] = new cmp('actbien','a','3000',$d['actbien'],$w.' '.$o3,'Descripción de la Actividad','actbien',null,null,false,false,'','col-7');
-    $c[] = new cmp('hora_act','nu','99999',$d['hora_act'],$w.' '.$o4,'Horas por Actividad','hora_act',null,null,false,false,'','col-25',"calcularTotales();");
-    $c[] = new cmp('hora_th','nu','999999',$d['hora_th'],$w.' '.$o4,'Valor Hora TH','hora_th',null,null,false,false,'','col-25',"calcularTotales();");
-    $o3 = 'descripcion';
-    $c[] = new cmp($o3,'l',null,'',$w);
+    $o = 'tipoactividad';
+    $c[] = new cmp($o,'l',null,'',$w);
+    $c[] = new cmp('perreq','s','3',$d['perreq'],$w.' '.$o,'Perfil Requerido','perreq',null,null,false,false,'','col-5');
+    $c[] = new cmp('rol','s','3',$d['rol'],$w.' '.$o,'Rol','rol',null,null,false,false,'','col-5');
+    $c[] = new cmp('acbi','nu','99',$d['acbi'],$w.' '.$o,'Acción de Bienestar','acbi',null,null,false,false,'','col-15');
+    $c[] = new cmp('sudacbi','nu','99',$d['sudacbi'],$w.' '.$o,'Sub Acción de Bienestar','sudacbi',null,null,false,false,'','col-15');
+    $c[] = new cmp('actbien','a','3000',$d['actbien'],$w.' '.$o,'Descripción de la Actividad','actbien',null,null,false,false,'','col-7');
+    $c[] = new cmp('hora_act','nu','99999',$d['hora_act'],$w.' '.$o,'Horas por Actividad','hora_act',null,null,false,false,'','col-25',"calcularTotales();");
+    $c[] = new cmp('hora_th','nu','999999',$d['hora_th'],$w.' '.$o,'Valor Hora TH','hora_th',null,null,false,false,'','col-25',"calcularTotales();");
+    $o = 'descripcion';
+    $c[] = new cmp($o,'l',null,'',$w);
     
     
-    $o4 = 'horasvalor';
-    $c[] = new cmp($o4,'e',null,'PERIODO POR ACTIVIDAD',$w);
+    $o = 'horasvalor';
+    $c[] = new cmp($o,'e',null,'PERIODO POR ACTIVIDAD',$w);
     
-    $c[] = new cmp('per_ano','nu','9999',$d['per_ano'],$w.' '.$o4,'Año Período','per_ano',null,null,true,true,'','col-35');
-    $c[] = new cmp('per_mes','nu','99',$d['per_mes'],$w.' '.$o4,'Mes Período','per_mes',null,null,true,true,'','col-35');
-    $c[] = new cmp('can_act','nu','999',$d['can_act'],$w.' '.$o5,'Cantidad Realizada','can_act',null,null,true,true,'','col-3',"calcularTotales();");
-    $o5 = 'cantidad';
-    $c[] = new cmp($o5,'l',null,'',$w);    
-    $c[] = new cmp('total_horas','nu','9999.9',$d['total_horas'],$w.' '.$o5,'Total Horas Realizadas','total_horas',null,null,false,false,'','col-3');
-    $c[] = new cmp('total_valor','nu','99999999',$d['total_valor'],$w.' '.$o5,'Valor Total','total_valor',null,null,false,false,'','col-4');
+    $c[] = new cmp('per_ano','nu','9999',$d['per_ano'],$w.' '.$o,'Año Período','per_ano',null,null,true,true,'','col-35');
+    $c[] = new cmp('per_mes','nu','99',$d['per_mes'],$w.' '.$o,'Mes Período','per_mes',null,null,true,true,'','col-35');
+    $c[] = new cmp('can_act','nu','999',$d['can_act'],$w.' '.$o,'Cantidad Realizada','can_act',null,null,true,true,'','col-3',"calcularTotales();");
+    $o = 'cantidad';
+    $c[] = new cmp($o,'l',null,'',$w);    
+    $c[] = new cmp('total_horas','nu','9999.9',$d['total_horas'],$w.' '.$o,'Total Horas Realizadas','total_horas',null,null,false,false,'','col-3');
+    $c[] = new cmp('total_valor','nu','99999999',$d['total_valor'],$w.' '.$o,'Valor Total','total_valor',null,null,false,false,'','col-4');
     
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
     
