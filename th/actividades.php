@@ -152,7 +152,7 @@ function cmp_actividades(){
 }
 
 function get_actividades(){
-    // Usar la función global idReal para obtener el ID de la actividad
+ /*    // Usar la función global idReal para obtener el ID de la actividad
     $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_actividades');
     
     // Si no hay ID real, es un nuevo registro
@@ -176,7 +176,7 @@ function get_actividades(){
         return '';
     }
     
-    return $info['responseResult'][0];
+    return $info['responseResult'][0]; */
 }
 
 function gra_actividades(){
