@@ -109,7 +109,7 @@ function cmp_actividades(){
     $c[] = new cmp($o,'l',null,'',$w);
     $c[] = new cmp('id','h',15,$_POST['id'] ?? '',$w.' '.$o,'id','id',null,'####',false,false);
     $c[] = new cmp('id_thact','h',15,$d['id_thact'] ?? '',$w.' '.$o,'id_thact','id_thact',null,'####',false,false);
-    $c[] = new cmp('actividad','nu','999',$d['actividad'],$w.' '.$o,'Actividad/Intervención','actividad',null,null,true,true,'','col-4',"getDatForm('pEr','personOld',['infgen'],this);");
+    $c[] = new cmp('actividad','nu','999',$d['actividad'],$w.' aCT '.$o,'Actividad/Intervención','actividad',null,null,true,true,'','col-4',"getDatForm('aCT','activiValores',['tipoactividad'],this);");
 
     $o = 'tipoactividad';
     $c[] = new cmp($o,'l',null,'',$w);
@@ -120,18 +120,18 @@ function cmp_actividades(){
     $c[] = new cmp('actbien','a','3000',$d['actbien'],$w.' '.$o,'Descripción de la Actividad','actbien',null,null,false,false,'','col-7');
     $c[] = new cmp('hora_act','nu','99999',$d['hora_act'],$w.' '.$o,'Horas por Actividad','hora_act',null,null,false,false,'','col-25',"calcularTotales();");
     $c[] = new cmp('hora_th','nu','999999',$d['hora_th'],$w.' '.$o,'Valor Hora TH','hora_th',null,null,false,false,'','col-25',"calcularTotales();");
-    $o = 'descripcion';
-    $c[] = new cmp($o,'l',null,'',$w);
-    
-    
-    $o = 'horasvalor';
+   
+
+   /*  $o = 'descripcion';
+    $c[] = new cmp($o,'l',null,'',$w); 
+    $o = 'horasvalor'; */
     $c[] = new cmp($o,'e',null,'PERIODO POR ACTIVIDAD',$w);
-    
     $c[] = new cmp('per_ano','nu','9999',$d['per_ano'],$w.' '.$o,'Año Período','per_ano',null,null,true,true,'','col-35');
     $c[] = new cmp('per_mes','nu','99',$d['per_mes'],$w.' '.$o,'Mes Período','per_mes',null,null,true,true,'','col-35');
     $c[] = new cmp('can_act','nu','999',$d['can_act'],$w.' '.$o,'Cantidad Realizada','can_act',null,null,true,true,'','col-3',"calcularTotales();");
+   /*  
     $o = 'cantidad';
-    $c[] = new cmp($o,'l',null,'',$w);    
+    $c[] = new cmp($o,'l',null,'',$w);    */ 
     $c[] = new cmp('total_horas','nu','9999.9',$d['total_horas'],$w.' '.$o,'Total Horas Realizadas','total_horas',null,null,false,false,'','col-3');
     $c[] = new cmp('total_valor','nu','99999999',$d['total_valor'],$w.' '.$o,'Valor Total','total_valor',null,null,false,false,'','col-4');
     
@@ -155,6 +155,22 @@ function cmp_actividades(){
      
     // $rta.="<div class='campo frecuencia percit col-10'><center><button style='background-color:#65cc67;border-radius:12px;color:white;padding:8px;text-align:center;cursor:pointer;' type='button' Onclick=\"grabar('frecuencia',this);\">Guardar</button></center></div>"; 
     return $rta;
+}
+
+ function get_activiValores(){
+	// print_r($_REQUEST);
+    $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_actividades');
+    $sql="SELECT encuentra,idpersona,tipo_doc,nombre1,nombre2,apellido1,apellido2,fecha_nacimiento,
+		sexo,genero,oriensexual,nacionalidad,estado_civil,niveduca,abanesc,ocupacion,tiemdesem,vinculo_jefe,etnia,pueblo,idioma,discapacidad,regimen,eapb,
+		afiliaoficio,sisben,catgosisb,pobladifer,incluofici,cuidador,perscuidada,tiempo_cuidador,cuidador_unidad,vinculo,tiempo_descanso,
+		descanso_unidad,reside_localidad,localidad_vive,transporta
+		FROM `personas` 
+   	WHERE idpersona ='".$id[0]."' AND tipo_doc='".$id[1]."'";
+	$info=datos_mysql($sql);
+	if (!$info['responseResult']) {
+		return json_encode (new stdClass);
+	}
+	return json_encode($info['responseResult'][0]);
 }
 
 function get_actividades(){
