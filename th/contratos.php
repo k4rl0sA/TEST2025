@@ -19,7 +19,28 @@ else {
 }
 
 function lis_contratos(){
+    // Obtener el ID del empleado (th) para filtrar contratos
     $id_th = $_POST['id'] ?? '';
+    
+    // Intentar obtener el ID real usando diferentes sufijos
+    if (empty($id_th) || $id_th === '0') {
+        $id_th = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_contratos');
+        if (!$id_th) {
+            $id_th = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_th');
+        }
+        if (!$id_th) {
+            $id_th = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_editar');
+        }
+    }
+    
+    // Si aún no hay ID válido, no mostrar contratos
+    if (empty($id_th)) {
+        return create_table(0, [], "contratos", 10, 'contratos.php');
+    }
+    
+    // Sanitizar el ID
+    $id_th = intval($id_th);
+    
     $info = datos_mysql("SELECT COUNT(*) total FROM th_contratos TC WHERE TC.idth = '$id_th'");
     $total = $info['responseResult'][0]['total'];
     $regxPag = 10;
@@ -125,7 +146,26 @@ function gra_contratos(){
     $usu = $_SESSION['us_sds'];
     
     // Obtener el idth (ID del empleado) real desde el hash de sesión
-    $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_th');
+    // Necesitamos buscar con diferentes sufijos porque puede venir de TH principal
+    $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_contratos');
+    
+    // Si no se encuentra con _contratos, intentar con otros sufijos
+    if (!$idth) {
+        $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_th'); 
+    }
+    if (!$idth) {
+        $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_editar');
+    }
+    
+    // Debug: agregar logging para verificar qué ID se está obteniendo
+    if (function_exists('log_error')) {
+        log_error("CONTRATOS gra_contratos(): POST[id]=" . ($_POST['id'] ?? 'NO_SET') . ", idth obtenido=" . ($idth ?? 'NULL'));
+    }
+    
+    // Verificar que tenemos un ID válido del empleado
+    if (!$idth) {
+        return "Error: No se pudo obtener el ID del empleado (TH)";
+    }
     
     // Obtener el id_thcon (ID del contrato) para determinar si es INSERT o UPDATE
     $id_thcon = $_POST['id_thcon'] ?? '';

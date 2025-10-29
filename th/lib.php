@@ -219,7 +219,7 @@ function formato_dato($a, $b, $c, $d) {
                 'title' => 'Contratos',
                 'permiso' => acceso('th'),
                 'hash' => $hash_id,
-                'evento' => "mostrar('contratos','pro',event,'','contratos.php',7,'contratos','0'); document.getElementById('id_th').value='{$c['ACCIONES']}';"
+                'evento' => "mostrar('contratos','pro',event,'{$hash_id}','contratos.php',7,'contratos','{$hash_id}');"
             ],
             'rev' => [
                 'icono' => 'fa-regular fa-calendar-check',
@@ -234,6 +234,10 @@ function formato_dato($a, $b, $c, $d) {
             if ($accion['permiso']) {
                 limpiar_hashes();
                 $_SESSION['hash'][$accion['hash'] . '_' . $key] = $c['ACCIONES'];
+                // Para contratos, también guardamos con sufijo _th para poder recuperar el ID del empleado
+                if ($key === 'contratos') {
+                    $_SESSION['hash'][$accion['hash'] . '_th'] = $c['ACCIONES'];
+                }
                 $acciones[] = "<li title='{$accion['title']}'><i class='{$accion['icono']} {$accion['clase']}' id='{$accion['hash']}' onclick=\"{$accion['evento']}\" data-acc='{$key}'></i></li>";
             }
         }
