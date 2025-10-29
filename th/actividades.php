@@ -126,8 +126,8 @@ function cmp_actividades(){
     $c[] = new cmp($o,'l',null,'',$w); 
     $o = 'horasvalor'; */
     $c[] = new cmp($o,'e',null,'PERIODO POR ACTIVIDAD',$w);
-    $c[] = new cmp('per_ano','nu','9999',$d['per_ano'],$w.' '.$o,'Año Período','per_ano',null,null,true,true,'','col-35');
-    $c[] = new cmp('per_mes','nu','99',$d['per_mes'],$w.' '.$o,'Mes Período','per_mes',null,null,true,true,'','col-35');
+    $c[] = new cmp('per_ano','s','3',$d['per_ano'],$w.' '.$o,'Año Período','per_ano',null,null,true,true,'','col-35');
+    $c[] = new cmp('per_mes','s','3',$d['per_mes'],$w.' '.$o,'Mes Período','per_mes',null,null,true,true,'','col-35');
     $c[] = new cmp('can_act','nu','999',$d['can_act'],$w.' '.$o,'Cantidad Realizada','can_act',null,null,true,true,'','col-3',"calcularTotales();");
    /*  
     $o = 'cantidad';
@@ -160,7 +160,7 @@ function cmp_actividades(){
  function get_activiValores(){
 	// print_r($_REQUEST);
     $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_actividades');
-    $sql="SELECT cod_perreq perreq, cod_rol rol, cod_acbi acbi, sud_acbi sudacbi, actbien, hora_act, hora_th  FROM th_acti_bien 
+    $sql="SELECT cod_perreq perreq, cod_rol rol, cod_acbi acbi, sud_acbi sudacbi, actividad actbien, hora_act, hora_th  FROM th_acti_bien 
     WHERE id_actividad ='".$real_id."'";
 	$info=datos_mysql($sql);
 	if (!$info['responseResult']) {
