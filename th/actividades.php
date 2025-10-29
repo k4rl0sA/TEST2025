@@ -179,7 +179,7 @@ function get_actividades(){
 }
 
 function gra_actividades(){
-   /*  $usu = $_SESSION['us_sds'];
+     $usu = $_SESSION['us_sds'];
     
     // Obtener el idth (ID del empleado) real desde el hash de sesión
     $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_actividades');
@@ -248,7 +248,7 @@ function gra_actividades(){
     }
     
     $rta = mysql_prepd($sql, $params);
-    return $rta; */
+    return $rta; 
 }
 
 // Funciones para opciones de select
