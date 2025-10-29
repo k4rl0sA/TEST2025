@@ -117,7 +117,7 @@ function cmp_actividades(){
     $c[] = new cmp('rol','s','3',$d['rol'],$w.' '.$o,'Rol','rol',null,null,false,false,'','col-5');
     $c[] = new cmp('acbi','nu','99',$d['acbi'],$w.' '.$o,'Acción de Bienestar','acbi',null,null,false,false,'','col-15');
     $c[] = new cmp('sudacbi','nu','99',$d['sudacbi'],$w.' '.$o,'Sub Acción de Bienestar','sudacbi',null,null,false,false,'','col-15');
-    $c[] = new cmp('actbien','a','3000',$d['actbien'],$w.' '.$o,'Descripción de la Actividad','actbien',null,null,false,false,'','col-7');
+    $c[] = new cmp('actbien','t','3000',$d['actbien'],$w.' '.$o,'Descripción de la Actividad','actbien',null,null,false,false,'','col-7');
     $c[] = new cmp('hora_act','nu','99999',$d['hora_act'],$w.' '.$o,'Horas por Actividad','hora_act',null,null,false,false,'','col-25',"calcularTotales();");
     $c[] = new cmp('hora_th','nu','999999',$d['hora_th'],$w.' '.$o,'Valor Hora TH','hora_th',null,null,false,false,'','col-25',"calcularTotales();");
    
