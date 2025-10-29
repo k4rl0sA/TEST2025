@@ -20,8 +20,7 @@ else {
 
 function lis_contratos(){
     // Obtener el ID del empleado (th) para filtrar contratos
-    $id_th = $_POST['id'] ?? '';
-    
+    $id_th = $_POST['id'] ?? '';    
     // Intentar obtener el ID real usando diferentes sufijos
     if (empty($id_th) || $id_th === '0') {
         $id_th = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_contratos');
@@ -33,11 +32,11 @@ function lis_contratos(){
         }
     }
     
-    // Si aún no hay ID válido, no mostrar contratos
+  /*   // Si aún no hay ID válido, no mostrar contratos
     if (empty($id_th)) {
         return create_table(0, [], "contratos", 10, 'contratos.php');
     }
-    
+     */
     // Sanitizar el ID
     $id_th = intval($id_th);
     
