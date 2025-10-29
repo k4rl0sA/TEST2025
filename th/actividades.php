@@ -208,11 +208,12 @@ function gra_actividades(){
     if($es_nuevo) {
 
         $idth=intval($idth);
-        $ano=intval($_POST['per_ano'];
-        $mes=intval($_POST['per_mes'];
+        $ano=intval($_POST['per_ano']);
+        $mes=intval($_POST['per_mes']);
 
         $sql1="SELECT sum(total_horas)  totalh FROM th_actividades WHERE idth=$idth and per_ano=$ano and per_mes=$mes";
         $info_horas=datos_mysql($sql1);
+
         if($info_horas['responseResult']['totalh'] + intval($_POST['total_horas'] ?? 0) > 184){
             return "Error: msj[ La suma de horas totales excede el límite permitido de 184 horas para el período seleccionado.]";
         }
