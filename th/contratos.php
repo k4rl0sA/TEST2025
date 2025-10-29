@@ -30,16 +30,39 @@ function lis_contratos(){
     
     // Intentar obtener el ID real usando diferentes sufijos
     if (empty($id_th) || $id_th === '0') {
-        $id_th = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_contratos');
-        echo "<pre>idReal con _contratos: " . ($id_th ?? 'NULL') . "</pre>";
-        
-        if (!$id_th) {
-            $id_th = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_th');
-            echo "<pre>idReal con _th: " . ($id_th ?? 'NULL') . "</pre>";
-        }
-        if (!$id_th) {
-            $id_th = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_editar');
-            echo "<pre>idReal con _editar: " . ($id_th ?? 'NULL') . "</pre>";
+        // Verificar si la función idReal existe
+        if (function_exists('idReal')) {
+            echo "<pre>Función idReal() existe</pre>";
+            $id_th = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_contratos');
+            echo "<pre>idReal con _contratos: " . ($id_th ?? 'NULL') . "</pre>";
+            
+            if (!$id_th) {
+                $id_th = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_th');
+                echo "<pre>idReal con _th: " . ($id_th ?? 'NULL') . "</pre>";
+            }
+            if (!$id_th) {
+                $id_th = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_editar');
+                echo "<pre>idReal con _editar: " . ($id_th ?? 'NULL') . "</pre>";
+            }
+        } else {
+            echo "<pre>ERROR: Función idReal() NO existe</pre>";
+            // Buscar manualmente en el hash
+            $hash_id = $_POST['id'] ?? '';
+            $session_hash = $_SESSION['hash'] ?? [];
+            
+            // Buscar con _th
+            $key_th = $hash_id . '_th';
+            if (isset($session_hash[$key_th])) {
+                $id_th = intval($session_hash[$key_th]);
+                echo "<pre>Búsqueda manual con _th: " . $id_th . "</pre>";
+            } else {
+                // Buscar con _contratos
+                $key_contratos = $hash_id . '_contratos';
+                if (isset($session_hash[$key_contratos])) {
+                    $id_th = intval($session_hash[$key_contratos]);
+                    echo "<pre>Búsqueda manual con _contratos: " . $id_th . "</pre>";
+                }
+            }
         }
     }
     
