@@ -109,7 +109,7 @@ function cmp_actividades(){
     $c[] = new cmp($o,'l',null,'',$w);
     $c[] = new cmp('id','h',15,$_POST['id'] ?? '',$w.' '.$o,'id','id',null,'####',false,false);
     $c[] = new cmp('id_thact','h',15,$d['id_thact'] ?? '',$w.' '.$o,'id_thact','id_thact',null,'####',false,false);
-    $c[] = new cmp('actividad','nu','999',$d['actividad'],$w.' '.$o,'Actividad/Intervención','actividad',null,null,true,true,'','col-4');
+    $c[] = new cmp('actividad','nu','999',$d['actividad'],$w.' '.$o,'Actividad/Intervención','actividad',null,null,true,true,'','col-4',"getDatForm('pEr','personOld',['infgen'],this);");
 
     $o = 'tipoactividad';
     $c[] = new cmp($o,'l',null,'',$w);
