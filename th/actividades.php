@@ -146,7 +146,8 @@ function cmp_actividades(){
         document.getElementById('total_valor').value = Math.round(total_valor);
     }
     </script>";
-     
+
+    $rta.="<div class='campo frecuencia percit col-10'><center><button style='background-color:#65cc67;border-radius:12px;color:white;padding:8px;text-align:center;cursor:pointer;' type='button' Onclick=\"grabar('frecuencia',this);\">Guardar</button></center></div>"; 
     return $rta;
 }
 
