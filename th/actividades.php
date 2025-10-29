@@ -95,41 +95,63 @@ function cap_menus_actividades($a,$b='cap',$con='con') {
 
 function cmp_actividades(){
     $rta = "";
-	$rta .="<div class='encabezado vivienda'>ACTIVIDADES</div><div class='contenido' id='gestion-lis' >".lis_actividades()."</div></div>";
-    $t = ['id_thcon' => '', 'n_contrato' => '', 'tipo_cont' => '', 'fecha_inicio' => '','fecha_fin' => '', 'valor_contrato' => '', 'perfil_profesional' => '','perfil_contratado' => '', 'rol' => '', 'tipo_expe' => '', 'fecha_expe' => '', 'semestre' => ''];
+	$rta .="<div class='encabezado vivienda'>ACTIVIDADES REALIZADAS</div><div class='contenido' id='gestion-lis' >".lis_actividades()."</div></div>";
+    $t = ['id_thact' => '', 'actividad' => '', 'rol' => '', 'acbi' => '','sudacbi' => '', 'actbien' => '', 'hora_act' => '', 'hora_th' => '','per_ano' => '', 'per_mes' => '', 'can_act' => '', 'total_horas' => '', 'total_valor' => ''];
     $d = get_actividades();
     if ($d == "") { $d = $t; }
     $w = 'actividades';
-    $o = 'contratoinfo';
-    $c[] = new cmp($o,'e',null,'INFORMACIÓN DEL CONTRATO',$w);
+    $o = 'actividadinfo';
+    $c[] = new cmp($o,'e',null,'INFORMACIÓN DE LA ACTIVIDAD',$w);
     $c[] = new cmp($o,'l',null,'',$w);
     $c[] = new cmp('id','h',15,$_POST['id'] ?? '',$w.' '.$o,'id','id',null,'####',false,false);
-    $c[] = new cmp('id_thcon','h',15,$d['id_thcon'] ?? '',$w.' '.$o,'id_thcon','id_thcon',null,'####',false,false);
-    $c[] = new cmp('n_contrato','nu','11',$d['n_contrato'],$w.' '.$o,'N° Contrato','n_contrato',null,null,true,true,'','col-3');
-    $c[] = new cmp($o,'l',null,'',$w);
-    $c[] = new cmp('tipo_cont','s','3',$d['tipo_cont'],$w.' '.$o,'Tipo de Contrato','tipo_cont',null,null,true,true,'','col-25');
-    $c[] = new cmp('fecha_inicio','d','',$d['fecha_inicio'],$w.' '.$o,'Fecha Inicio','fecha_inicio',null,null,true,true,'','col-25',"validDate(this,-730,362);");
-    $c[] = new cmp('fecha_fin','d','',$d['fecha_fin'],$w.' '.$o,'Fecha Fin','fecha_fin',null,null,true,true,'','col-25',"validDate(this,1,730);");
-    $c[] = new cmp('valor_contrato','nu','11',$d['valor_contrato'],$w.' '.$o,'Valor Total Contrato','valor_contrato',null,null,true,true,'','col-25');
+    $c[] = new cmp('id_thact','h',15,$d['id_thact'] ?? '',$w.' '.$o,'id_thact','id_thact',null,'####',false,false);
     
-    $o2 = 'perfilinfo';
+    $o2 = 'tipoactividad';
     $c[] = new cmp($o2,'l',null,'',$w);
-    $c[] = new cmp('perfil_profesional','s','3',$d['perfil_profesional'],$w.' '.$o2,'Perfil Profesional','perfil_profesional',null,null,true,true,'','col-35');
-    $c[] = new cmp('perfil_contratado','s','3',$d['perfil_contratado'],$w.' '.$o2,'Perfil Contratado Requerido','perfil_contratado',null,null,true,true,'','col-35',"selectDepend('perfil_contratado','rol','actividades.php');");
-    $c[] = new cmp('rol','s','3',$d['rol'],$w.' '.$o2,'Rol Contratado','rol',null,null,true,true,'','col-3',"glineTH();");
+    $c[] = new cmp('actividad','s','3',$d['actividad'],$w.' '.$o2,'Actividad/Intervención','actividad',null,null,true,true,'','col-4',"selectDepend('actividad','rol','actividades.php');");
+    $c[] = new cmp('rol','s','3',$d['rol'],$w.' '.$o2,'Rol','rol',null,null,true,true,'','col-4');
+    $c[] = new cmp('acbi','s','3',$d['acbi'],$w.' '.$o2,'Acción de Bienestar','acbi',null,null,true,true,'','col-4',"selectDepend('acbi','sudacbi','actividades.php');");
+    $c[] = new cmp('sudacbi','s','3',$d['sudacbi'],$w.' '.$o2,'Sub Acción de Bienestar','sudacbi',null,null,true,true,'','col-4');
     
-    $o3 = 'experiencia';
+    $o3 = 'descripcion';
     $c[] = new cmp($o3,'l',null,'',$w);
-    $c[] = new cmp('tipo_expe','s','3',$d['tipo_expe'],$w.' GlIn '.$o3,'¿Bachiller con experiencia o formación en salud/social?','tipo_expe',null,null,false,false,'','col-5',"certTH();");
-    $c[] = new cmp('fecha_expe','d','',$d['fecha_expe'],$w.' CeRt '.$o3,'Fecha del Certificado','fecha_expe',null,null,false,false,'','col-3',"validDate(this,-3650,0);");
-    $c[] = new cmp('semestre','nu','1',$d['semestre'],$w.' CeRt '.$o3,'Semestres Cursados','semestre',null,null,false,false,'','col-2');
+    $c[] = new cmp('actbien','a','3000',$d['actbien'],$w.' '.$o3,'Descripción de la Actividad','actbien',null,null,true,true,'','col-10');
+    
+    $o4 = 'horasvalor';
+    $c[] = new cmp($o4,'l',null,'',$w);
+    $c[] = new cmp('hora_act','nu','999.9',$d['hora_act'],$w.' '.$o4,'Horas por Actividad','hora_act',null,null,true,true,'','col-25',"calcularTotales();");
+    $c[] = new cmp('hora_th','nu','999999',$d['hora_th'],$w.' '.$o4,'Valor Hora TH','hora_th',null,null,true,true,'','col-25',"calcularTotales();");
+    $c[] = new cmp('per_ano','nu','99',$d['per_ano'],$w.' '.$o4,'Año Período','per_ano',null,null,true,true,'','col-25');
+    $c[] = new cmp('per_mes','nu','12',$d['per_mes'],$w.' '.$o4,'Mes Período','per_mes',null,null,true,true,'','col-25');
+    
+    $o5 = 'cantidad';
+    $c[] = new cmp($o5,'l',null,'',$w);
+    $c[] = new cmp('can_act','nu','999',$d['can_act'],$w.' '.$o5,'Cantidad Realizada','can_act',null,null,true,true,'','col-3',"calcularTotales();");
+    $c[] = new cmp('total_horas','nu','9999.9',$d['total_horas'],$w.' '.$o5,'Total Horas','total_horas',null,null,false,false,'','col-3');
+    $c[] = new cmp('total_valor','nu','99999999',$d['total_valor'],$w.' '.$o5,'Valor Total','total_valor',null,null,false,false,'','col-4');
     
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
+    
+    // Agregar JavaScript para cálculos automáticos
+    $rta .= "<script>
+    function calcularTotales() {
+        var hora_act = parseFloat(document.getElementById('hora_act').value) || 0;
+        var can_act = parseInt(document.getElementById('can_act').value) || 0;
+        var hora_th = parseInt(document.getElementById('hora_th').value) || 0;
+        
+        var total_horas = hora_act * can_act;
+        var total_valor = total_horas * hora_th;
+        
+        document.getElementById('total_horas').value = total_horas.toFixed(1);
+        document.getElementById('total_valor').value = Math.round(total_valor);
+    }
+    </script>";
+    
     return $rta;
 }
 
 function get_actividades(){
-    // Usar la función global idReal para obtener el ID del contrato
+    // Usar la función global idReal para obtener el ID de la actividad
     $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_actividades');
     
     // Si no hay ID real, es un nuevo registro
@@ -137,9 +159,9 @@ function get_actividades(){
         return "";
     }
     
-    // Usar datos_mysql en lugar de mysql_prepd para consistencia
-    $sql = "SELECT `id_thcon`,`n_contrato`, `tipo_cont`, `fecha_inicio`, `fecha_fin`,`valor_contrato`, `perfil_profesional`, `perfil_contratado`, `rol`,`tipo_expe`,`fecha_expe`, `semestre`, `estado`
-            FROM `th_actividades` WHERE id_thcon = '" . intval($real_id) . "'";
+    // Usar datos_mysql para obtener la actividad
+    $sql = "SELECT `id_thact`, `actividad`, `rol`, `acbi`, `sudacbi`, `actbien`, `hora_act`, `hora_th`, `per_ano`, `per_mes`, `can_act`, `total_horas`, `total_valor`, `estado`
+            FROM `th_actividades` WHERE id_thact = '" . intval($real_id) . "'";
     
     $info = datos_mysql($sql);
     
@@ -159,7 +181,6 @@ function gra_actividades(){
     $usu = $_SESSION['us_sds'];
     
     // Obtener el idth (ID del empleado) real desde el hash de sesión
-    // Necesitamos buscar con diferentes sufijos porque puede venir de TH principal
     $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_actividades');
     
     // Si no se encuentra con _actividades, intentar con otros sufijos
@@ -170,59 +191,67 @@ function gra_actividades(){
         $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_editar');
     }
     
+    // Debug: agregar logging para verificar qué ID se está obteniendo
+    if (function_exists('log_error')) {
+        log_error("ACTIVIDADES gra_actividades(): POST[id]=" . ($_POST['id'] ?? 'NO_SET') . ", idth obtenido=" . ($idth ?? 'NULL'));
+    }
+    
     // Verificar que tenemos un ID válido del empleado
     if (!$idth) {
         return "Error: No se pudo obtener el ID del empleado (TH)";
     }
     
-    // Obtener el id_thcon (ID del contrato) para determinar si es INSERT o UPDATE
-    $id_thcon = $_POST['id_thcon'] ?? '';
-    $es_nuevo = empty($id_thcon);
+    // Obtener el id_thact (ID de la actividad) para determinar si es INSERT o UPDATE
+    $id_thact = $_POST['id_thact'] ?? '';
+    $es_nuevo = empty($id_thact);
     
     if($es_nuevo) {        
-        $sql = "INSERT INTO th_actividades (idth, n_contrato, tipo_cont, fecha_inicio, fecha_fin, valor_contrato, perfil_profesional, perfil_contratado, rol, tipo_expe, fecha_expe, semestre, usu_create, fecha_create, estado) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR), 'A')";// INSERT - Nuevo contrato
+        $sql = "INSERT INTO th_actividades (idth, actividad, rol, acbi, sudacbi, actbien, hora_act, hora_th, per_ano, per_mes, can_act, total_horas, total_valor, usu_create, fecha_create, estado) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR), 'A')";
         $params = [
             ['type' => 'i', 'value' => intval($idth)],
-            ['type' => 'i', 'value' => intval($_POST['n_contrato'] ?? 0)],
-            ['type' => 's', 'value' => $_POST['tipo_cont'] ?? ''],
-            ['type' => 's', 'value' => $_POST['fecha_inicio'] ?? ''],
-            ['type' => 's', 'value' => $_POST['fecha_fin'] ?? ''],
-            ['type' => 'i', 'value' => intval($_POST['valor_contrato'] ?? 0)],
-            ['type' => 's', 'value' => $_POST['perfil_profesional'] ?? ''],
-            ['type' => 's', 'value' => $_POST['perfil_contratado'] ?? ''],
+            ['type' => 's', 'value' => $_POST['actividad'] ?? ''],
             ['type' => 's', 'value' => $_POST['rol'] ?? ''],
-            ['type' => 's', 'value' => $_POST['tipo_expe'] ?? ''],
-            ['type' => 's', 'value' => !empty($_POST['fecha_expe']) ? $_POST['fecha_expe'] : null],
-            ['type' => 'i', 'value' => !empty($_POST['semestre']) ? intval($_POST['semestre']) : null],
+            ['type' => 's', 'value' => $_POST['acbi'] ?? ''],
+            ['type' => 's', 'value' => $_POST['sudacbi'] ?? ''],
+            ['type' => 's', 'value' => $_POST['actbien'] ?? ''],
+            ['type' => 's', 'value' => $_POST['hora_act'] ?? '0'],
+            ['type' => 'i', 'value' => intval($_POST['hora_th'] ?? 0)],
+            ['type' => 'i', 'value' => intval($_POST['per_ano'] ?? 0)],
+            ['type' => 'i', 'value' => intval($_POST['per_mes'] ?? 0)],
+            ['type' => 'i', 'value' => intval($_POST['can_act'] ?? 0)],
+            ['type' => 's', 'value' => $_POST['total_horas'] ?? '0'],
+            ['type' => 'i', 'value' => intval($_POST['total_valor'] ?? 0)],
             ['type' => 's', 'value' => $usu]
         ];
     } else {
-        // UPDATE - Actualizar contrato existente
-        $sql = "UPDATE th_actividades SET n_contrato=?, tipo_cont=?, fecha_inicio=?, fecha_fin=?, valor_contrato=?, perfil_profesional=?, perfil_contratado=?, rol=?, tipo_expe=?, fecha_expe=?, semestre=?, usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
-                WHERE id_thcon=?";
+        // UPDATE - Actualizar actividad existente
+        $sql = "UPDATE th_actividades SET actividad=?, rol=?, acbi=?, sudacbi=?, actbien=?, hora_act=?, hora_th=?, per_ano=?, per_mes=?, can_act=?, total_horas=?, total_valor=?, usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
+                WHERE id_thact=?";
         $params = [
-            ['type' => 'i', 'value' => intval($_POST['n_contrato'] ?? 0)],
-            ['type' => 's', 'value' => $_POST['tipo_cont'] ?? ''],
-            ['type' => 's', 'value' => $_POST['fecha_inicio'] ?? ''],
-            ['type' => 's', 'value' => $_POST['fecha_fin'] ?? ''],
-            ['type' => 'i', 'value' => intval($_POST['valor_contrato'] ?? 0)],
-            ['type' => 's', 'value' => $_POST['perfil_profesional'] ?? ''],
-            ['type' => 's', 'value' => $_POST['perfil_contratado'] ?? ''],
+            ['type' => 's', 'value' => $_POST['actividad'] ?? ''],
             ['type' => 's', 'value' => $_POST['rol'] ?? ''],
-            ['type' => 's', 'value' => $_POST['tipo_expe'] ?? ''],
-            ['type' => 's', 'value' => !empty($_POST['fecha_expe']) ? $_POST['fecha_expe'] : null],
-            ['type' => 'i', 'value' => !empty($_POST['semestre']) ? intval($_POST['semestre']) : null],
+            ['type' => 's', 'value' => $_POST['acbi'] ?? ''],
+            ['type' => 's', 'value' => $_POST['sudacbi'] ?? ''],
+            ['type' => 's', 'value' => $_POST['actbien'] ?? ''],
+            ['type' => 's', 'value' => $_POST['hora_act'] ?? '0'],
+            ['type' => 'i', 'value' => intval($_POST['hora_th'] ?? 0)],
+            ['type' => 'i', 'value' => intval($_POST['per_ano'] ?? 0)],
+            ['type' => 'i', 'value' => intval($_POST['per_mes'] ?? 0)],
+            ['type' => 'i', 'value' => intval($_POST['can_act'] ?? 0)],
+            ['type' => 's', 'value' => $_POST['total_horas'] ?? '0'],
+            ['type' => 'i', 'value' => intval($_POST['total_valor'] ?? 0)],
             ['type' => 's', 'value' => $usu],
-            ['type' => 'i', 'value' => intval($id_thcon)]
+            ['type' => 'i', 'value' => intval($id_thact)]
         ];
     }
-    // return json_encode(['sql' => show_sql($sql, $params), 'idth' => $idth, 'hash' => $hash_id, 'session' => $_SESSION['hash']]);
+    
     $rta = mysql_prepd($sql, $params);
     return $rta;
 }
 
-function opc_perfil_contratadorol($id=''){
+// Funciones para dependencias de selects
+function opc_actividad_rol($id=''){
   if($_REQUEST['id']!=''){	
     $sql="SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=324 and estado='A' and valor='{$_REQUEST['id']}' ORDER BY 1";
     $info = datos_mysql($sql);		
@@ -230,30 +259,35 @@ function opc_perfil_contratadorol($id=''){
   }
 }
 
-function opc_tipo_cont($id=''){
-    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=326 and estado='A' ORDER BY LENGTH(idcatadeta), idcatadeta",$id);
+function opc_acbi_sudacbi($id=''){
+  if($_REQUEST['id']!=''){	
+    $sql="SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=329 and estado='A' and valor='{$_REQUEST['id']}' ORDER BY 1";
+    $info = datos_mysql($sql);		
+  return json_encode($info['responseResult']);	
+  }
 }
 
-function opc_perfil_profesional($id=''){
-    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=323 and estado='A' ORDER BY 2",$id);
-}
-
-function opc_perfil_contratado($id=''){
-    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=308 and estado='A' ORDER BY 2",$id);
+// Funciones para opciones de select
+function opc_actividad($id=''){
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=327 and estado='A' ORDER BY 2",$id);
 }
 
 function opc_rol($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=324 and estado='A' ORDER BY 2",$id);
 }
 
-function opc_tipo_expe($id=''){
-    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=325 and estado='A' ORDER BY 2",$id);
+function opc_acbi($id=''){
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=328 and estado='A' ORDER BY 2",$id);
+}
+
+function opc_sudacbi($id=''){
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=329 and estado='A' ORDER BY 2",$id);
 }
 
 function formato_dato($a, $b, $c, $d){
-      $b = strtolower($b);
+    $b = strtolower($b);
     $rta = $c[$d];
-     if ($a == 'actividades' && $b == 'acciones') {
+    if ($a == 'actividades' && $b == 'acciones') {
         $acciones = [];
         // Definición de acciones posibles para actividades
         $hash_id = myhash($c['ACCIONES']);
@@ -261,7 +295,7 @@ function formato_dato($a, $b, $c, $d){
             'editar' => [
                 'icono' => 'fa-solid fa-edit',
                 'clase' => 'ico',
-                'title' => 'Editar Contrato',
+                'title' => 'Editar Actividad',
                 'permiso' => true,
                 'hash' => $hash_id,
                 'evento' => "mostrar('actividades','pro',event,'{$hash_id}','actividades.php',7);"
