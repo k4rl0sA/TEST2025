@@ -109,7 +109,7 @@ function cmp_contratos(){
 
 function get_contratos(){
     // Usar la función global idReal para obtener el ID del contrato
-    $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_contratos');
+    /* $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_contratos');
     
     // Si no hay ID real, es un nuevo registro
     if (!$real_id) {
@@ -132,7 +132,7 @@ function get_contratos(){
         return '';
     }
     
-    return $info['responseResult'][0];
+    return $info['responseResult'][0]; */
 }
 function gra_contratos(){
     $usu = $_SESSION['us_sds'];
