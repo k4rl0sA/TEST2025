@@ -139,14 +139,16 @@ function cmp_actividades(){
 
  function get_activiValores(){
 	// print_r($_REQUEST);
-    $sql="SELECT id_actividad,cod_perreq perreq, cod_rol rol, cod_acbi acbi, sud_acbi sudacbi, actividad actbien, hora_act, hora_th  FROM th_acti_bien
-    WHERE id_actividad ='".$_REQUEST['id']."'";
+   /*  
+   $sql="SELECT id_actividad,cod_perreq perreq, cod_rol rol, cod_acbi acbi, sud_acbi sudacbi, actividad actbien, hora_act, hora_th  FROM th_acti_bien
+    WHERE id_actividad ='".$_REQUEST['id']."'"; 
     // var_dump($sql);
 	$info=datos_mysql($sql);
 	if (!$info['responseResult']) {
 		return json_encode (new stdClass);
 	}
 	return json_encode($info['responseResult'][0]);
+    */
 }
 
 function get_actividades(){
