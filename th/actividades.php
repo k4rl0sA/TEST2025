@@ -139,7 +139,7 @@ function cmp_actividades(){
 
  function get_activiValores(){
 	// print_r($_REQUEST);
-   /*  
+    
    $sql="SELECT id_actividad,cod_perreq perreq, cod_rol rol, cod_acbi acbi, sud_acbi sudacbi, actividad actbien, hora_act, hora_th  FROM th_acti_bien
     WHERE id_actividad ='".$_REQUEST['id']."'"; 
     // var_dump($sql);
@@ -148,12 +148,12 @@ function cmp_actividades(){
 		return json_encode (new stdClass);
 	}
 	return json_encode($info['responseResult'][0]);
-    */
+   
 }
 
 function get_actividades(){
     // Usar la función global idReal para obtener el ID de la actividad
-    $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_actividades');
+  /*   $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_actividades');
 
     // Si no hay ID real, es un nuevo registro
     if (!$real_id) {
@@ -176,7 +176,7 @@ function get_actividades(){
         return '';
     }
 
-    return $info['responseResult'][0];
+    return $info['responseResult'][0]; */
 }
 
 function gra_actividades(){
