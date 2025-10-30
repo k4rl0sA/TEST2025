@@ -506,7 +506,11 @@ function lis_planos() {
 			$encr = encript($tab, $clave);
 			if($tab=decript($encr,$clave))lis_tamsrq($tab);
 			break;
-	
+		case '69':
+			$tab = "VSP_Educación_Medicos";
+			$encr = encript($tab, $clave);
+			if($tab=decript($encr,$clave))lis_educaMedi($tab);
+            break;
 		default:
         break;    
     }
@@ -1272,6 +1276,35 @@ A.usu_creo AS Usuario_Creo, U.nombre AS Nombre_Creo, U.perfil AS Perfil_Creo, U.
 
 FROM `vsp_otroprio` A
 
+LEFT JOIN person P ON A.idpeople = P.idpeople
+LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
+LEFT JOIN hog_geo G ON F.idpre = G.idgeo
+LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario WHERE 1 ";
+	if (perfilUsu()!=='ADM')	$sql.=whe_subred8();
+	$sql.=whe_date8();
+	// echo $sql;
+	$tot="SELECT COUNT(*) total FROM `vsp_otroprio` A LEFT JOIN person P ON A.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario WHERE 1 ";
+	if (perfilUsu()!=='ADM')	$tot.=whe_subred8();
+	$tot.=whe_date8();
+	$_SESSION['sql_'.$txt]=$sql;
+	$_SESSION['tot_'.$txt]=$tot;
+	$rta = array('type' => 'OK','file'=>$txt);
+	echo json_encode($rta);
+}
+
+function lis_educaMedi($txt){
+$sql="SELECT G.idgeo Cod_Predio,F.id_fam AS Cod_Familia,A.id_otroprio AS Cod_Registro,G.subred AS Subred,G.localidad AS Localidad, G.territorio AS 'Cod Territorio', FN_CATALOGODESC(283,G.territorio) AS 'Nombre Territorio',
+P.tipo_doc AS Tipo_Documento,P.idpersona AS N°_Documento,concat(P.nombre1,' ',P.nombre2) AS NOMBRES,concat(P.apellido1,' ',P.apellido2) AS APELLIDOS,P.fecha_nacimiento AS FECHA_NACIMIENTO,FN_CATALOGODESC(21,P.sexo) AS SEXO,FN_CATALOGODESC(30,P.nacionalidad) AS NACIONALIDAD,FN_CATALOGODESC(17,P.regimen) AS Regimen,FN_CATALOGODESC(18,P.eapb) AS Eapb,
+A.fecha_seg AS Fecha_Seguimiento,FN_CATALOGODESC(76,A.numsegui) AS N°_Seguimiento,FN_CATALOGODESC(87,A.evento) AS Evento,FN_CATALOGODESC(73,A.estado_s) AS Estado,FN_CATALOGODESC(74,A.motivo_estado) AS Motivo_Estado,
+edu_eve 'Población Objeto',
+FN_CATALOGODESC(90,A.estrategia_1) AS Estrategia_Plan_1,FN_CATALOGODESC(90,A.estrategia_2) AS Estrategia_Plan_2,
+FN_CATALOGODESC(22,A.acciones_1) AS Accion_1,FN_CATALOGODESC(75,A.desc_accion1) AS Descripcion_Accion_1,
+FN_CATALOGODESC(22,A.acciones_2) AS Accion_2,FN_CATALOGODESC(75,A.desc_accion2) AS Descripcion_Accion_2,
+FN_CATALOGODESC(22,A.acciones_3) AS Accion_3,FN_CATALOGODESC(75,A.desc_accion3) AS Descripcion_Accion_3,
+FN_CATALOGODESC(170,A.activa_ruta) AS Activacion_Ruta,FN_CATALOGODESC(79,A.ruta) AS Ruta,FN_CATALOGODESC(77,A.novedades) AS Novedades,FN_CATALOGODESC(170,A.signos_covid) AS Signos_Sintomas_Covid,A.caso_afirmativo AS Relacione_Cuales,A.otras_condiciones AS Otras_Condiciones,A.observaciones AS Observaciones,
+FN_CATALOGODESC(170,A.cierre_caso) AS Cierre_de_Caso,FN_CATALOGODESC(198,A.motivo_cierre) AS Motivo_cierre,A.fecha_cierre AS Fecha_Cierre,FN_CATALOGODESC(170,A.redu_riesgo_cierre) AS Reduccion_de_Riesgo,
+A.usu_creo AS Usuario_Creo, U.nombre AS Nombre_Creo, U.perfil AS Perfil_Creo, U.equipo AS Equipo_Creo, A.fecha_create AS Fecha_Creacion, A.estado AS Estado_Registro
+FROM `vsp_otroprio` A
 LEFT JOIN person P ON A.idpeople = P.idpeople
 LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
 LEFT JOIN hog_geo G ON F.idpre = G.idgeo
