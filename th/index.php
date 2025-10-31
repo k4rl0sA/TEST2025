@@ -53,7 +53,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
 }
 </style>
 <script src="../libs/js/a.js?v=13"></script>
-<script src="../libs/js/x.js?v=32.0"></script>
+<script src="../libs/js/x.js?v=33.0"></script>
 <script src="../libs/js/d.js"></script>
 <script src="../libs/js/popup.js"></script>
 <script>
