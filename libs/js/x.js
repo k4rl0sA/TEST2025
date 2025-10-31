@@ -1824,9 +1824,9 @@ function certTH(){
 }
  function calcularTotales() {
         var hora_act = parseFloat(document.getElementById('hora_act').value) || 0;
-        var can_act = parseInt(document.getElementById('can_act').value) || 0;
+        var can_act = parseFloat(document.getElementById('can_act').value) || 0;
         var hora_th = parseInt(document.getElementById('hora_th').value) || 0;
-        var total_horas = hora_act * can_act.toFixed(1);
+        var total_horas = hora_act * can_act;
         var total_valor = total_horas * hora_th;
         document.getElementById('total_horas').value = total_horas.toFixed(1);
         document.getElementById('total_valor').value = Math.round(total_valor);
