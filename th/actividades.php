@@ -57,7 +57,7 @@ SELECT '' AS ACCIONES,'' AS Codigo,'TOTAL GENERAL' AS 'Descripción Actividad','
 FROM th_actividades TA
 WHERE TA.estado = 'A' AND TA.per_ano = '1' AND TA.per_mes = '10' AND TA.idth = '$id_th'";
     $sql .= " ORDER BY TA.fecha_create DESC";
-    $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
+    // $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
 
     $datos = datos_mysql($sql);
     return create_table($total, $datos["responseResult"], "actividades", $regxPag, 'actividades.php');
