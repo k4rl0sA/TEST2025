@@ -49,24 +49,31 @@ function lis_actividades(){
     $pag = (isset($_POST['pag-actividades'])) ? ($_POST['pag-actividades'] - 1) * $regxPag : 0;
 
     // SQL para obtener las actividades
-    $sql = " SELECT TA.id_thact AS ACCIONES,actividad AS Codigo,SUBSTRING(TA.actbien, 1, 50) AS 'Descripción Actividad',TA.hora_act AS 'Horas Actividad',CONCAT('$ ', FORMAT(TA.hora_th, 0)) AS 'Valor Hora TH',FN_CATALOGODESC(328, TA.per_ano) AS 'Año',FN_CATALOGODESC(327, TA.per_mes) AS Mes,TA.can_act AS 'Cantidad',TA.total_horas AS 'Total Horas',CONCAT('$ ', FORMAT(TA.total_valor, 0)) AS 'Valor Total',TA.estado AS 'Estado'
+/*     $sql = " SELECT TA.id_thact AS ACCIONES,actividad AS Codigo,SUBSTRING(TA.actbien, 1, 50) AS 'Descripción Actividad',TA.hora_act AS 'Horas Actividad',CONCAT('$ ', FORMAT(TA.hora_th, 0)) AS 'Valor Hora TH',FN_CATALOGODESC(328, TA.per_ano) AS 'Año',FN_CATALOGODESC(327, TA.per_mes) AS Mes,TA.can_act AS 'Cantidad',TA.total_horas AS 'Total Horas',CONCAT('$ ', FORMAT(TA.total_valor, 0)) AS 'Valor Total',TA.estado AS 'Estado'
     FROM th_actividades TA
 WHERE TA.estado = 'A' AND TA.per_ano = '1' AND TA.per_mes = '10' AND TA.idth = '$id_th'
 UNION ALL
 SELECT '' AS ACCIONES,'' AS Codigo,'TOTAL GENERAL' AS 'Descripción Actividad','' AS 'Horas Actividad','' AS 'Valor Hora TH','' AS 'Año','TOTAL GENERAL' AS Mes,SUM(TA.can_act) AS 'Cantidad',SUM(TA.total_horas) AS 'Total Horas',CONCAT('$ ', FORMAT(SUM(TA.total_valor), 0)) AS 'Valor Total','' AS 'Estado'
 FROM th_actividades TA
 WHERE TA.estado = 'A' AND TA.per_ano = '1' AND TA.per_mes = '10' AND TA.idth = '$id_th' ORDER BY ACCIONES DESC, Estado DESC;";
-
-/*     $sql = "SELECT TA.id_thact AS ACCIONES,actividad AS Codigo,SUBSTRING(TA.actbien, 1, 50) AS 'Descripción Actividad',TA.hora_act AS 'Horas Actividad',CONCAT('$ ', FORMAT(TA.hora_th, 0)) AS 'Valor Hora TH',FN_CATALOGODESC(328, TA.per_ano) AS 'Año',FN_CATALOGODESC(327, TA.per_mes) AS Mes,TA.can_act AS 'Cantidad',TA.total_horas AS 'Total Horas',CONCAT('$ ', FORMAT(TA.total_valor, 0)) AS 'Valor Total',TA.estado AS 'Estado'
-    FROM th_actividades TA
-WHERE TA.estado = 'A' AND TA.per_ano = '1' AND TA.per_mes = '10' AND TA.idth = '$id_th'
-UNION ALL
-SELECT '' AS ACCIONES,'' AS Codigo,'TOTAL GENERAL' AS 'Descripción Actividad','' AS 'Horas Actividad','' AS 'Valor Hora TH','' AS 'Año','TOTAL GENERAL' AS Mes,SUM(TA.can_act) AS 'Cantidad',SUM(TA.total_horas) AS 'Total Horas',CONCAT('$ ', FORMAT(SUM(TA.total_valor), 0)) AS 'Valor Total','' AS 'Estado'
-FROM th_actividades TA
-WHERE TA.estado = 'A' AND TA.per_ano = '1' AND TA.per_mes = '10' AND TA.idth = '$id_th'";
-    $sql .= " ORDER BY TA.fecha_create DESC"; 
-    $sql .= ' LIMIT ' . $pag . ',' . $regxPag;*/
-
+ */
+$sql="$sql = "SELECT TA.id_thact AS ACCIONES, 
+                   FN_CATALOGODESC(327, TA.actividad) AS 'Actividad',
+                   FN_CATALOGODESC(324, TA.rol) AS 'Rol', 
+                   FN_CATALOGODESC(328, TA.acbi) AS 'Acción Bienestar',
+                   FN_CATALOGODESC(329, TA.sudacbi) AS 'Sub Acción Bienestar',
+                   SUBSTRING(TA.actbien, 1, 50) AS 'Descripción Actividad',
+                   TA.hora_act AS 'Horas Actividad',
+                   CONCAT('$ ', FORMAT(TA.hora_th, 0)) AS 'Valor Hora TH',
+                   CONCAT(TA.per_ano, '-', LPAD(TA.per_mes, 2, '0')) AS 'Período',
+                   TA.can_act AS 'Cantidad',
+                   TA.total_horas AS 'Total Horas',
+                   CONCAT('$ ', FORMAT(TA.total_valor, 0)) AS 'Valor Total',
+                   TA.estado AS 'Estado'
+            FROM th_actividades TA  
+            WHERE TA.estado = 'A' AND TA.idth = '$id_th'";
+    $sql .= " ORDER BY TA.fecha_create DESC";
+    $sql .= ' LIMIT ' . $pag . ',' . $regxPag;"
     $datos = datos_mysql($sql);
     return create_table($total, $datos["responseResult"], "actividades", $regxPag, 'actividades.php');
     }
@@ -123,12 +130,12 @@ function cmp_actividades(){
 
 
    /*  $o = 'descripcion';
-    $c[] = new cmp($o,'l',null,'',$w);*/
-    $o = 'horasvalor'; 
+    $c[] = new cmp($o,'l',null,'',$w);
+    $o = 'horasvalor'; */
     $c[] = new cmp($o,'e',null,'PERIODO POR ACTIVIDAD',$w);
     $c[] = new cmp('per_ano','s','3',$d['per_ano'],$w.' '.$o,'Año Período','per_ano',null,null,true,true,'','col-35');
     $c[] = new cmp('per_mes','s','3',$d['per_mes'],$w.' '.$o,'Mes Período','per_mes',null,null,true,true,'','col-35');
-    $c[] = new cmp('can_act','sd','4',$d['can_act'],$w.' '.$o,'Cantidad Realizada','can_act',null,null,true,true,'','col-3',"calcularTotales();");
+    $c[] = new cmp('can_act','nu','999',$d['can_act'],$w.' '.$o,'Cantidad Realizada','can_act',null,null,true,true,'','col-3',"calcularTotales();");
    /*
     $o = 'cantidad';
     $c[] = new cmp($o,'l',null,'',$w);    */
