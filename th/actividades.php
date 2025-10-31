@@ -52,7 +52,7 @@ function lis_actividades(){
     $sql = "SELECT TA.id_thact AS ACCIONES,actividad AS Codigo,SUBSTRING(TA.actbien, 1, 50) AS 'Descripción Actividad',TA.hora_act AS 'Horas Actividad',CONCAT('$ ', FORMAT(TA.hora_th, 0)) AS 'Valor Hora TH',FN_CATALOGODESC(328, TA.per_ano) AS 'Año',
 FN_CATALOGODESC(327, TA.per_mes) AS Mes,TA.can_act AS 'Cantidad',TA.total_horas AS 'Total Horas',CONCAT('$ ', FORMAT(TA.total_valor, 0)) AS 'Valor Total',TA.estado AS 'Estado'
 FROM th_actividades TA
-WHERE TA.estado = 'A' AND TA.idth = 10 AND TA.per_ano = '1' AND TA.per_mes = '10'
+WHERE TA.estado = 'A' AND TA.per_ano = '1' AND TA.per_mes = '10' AND TA.idth = '$id_th' ORDER BY TA.fecha_create DESC
 UNION ALL
 SELECT '' AS ACCIONES,'' AS Codigo,'' AS 'Descripción Actividad','' AS 'Horas Actividad','' AS 'Valor Hora TH','' AS 'Año','TOTAL GENERAL' AS Mes,SUM(TA.can_act) AS 'Cantidad',SUM(TA.total_horas) AS 'Total Horas',CONCAT('$ ', FORMAT(SUM(TA.total_valor), 0)) AS 'Valor Total','' AS 'Estado'
 FROM th_actividades TA
