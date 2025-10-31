@@ -114,7 +114,7 @@ function cmp_actividades(){
     $c[] = new cmp('acbi','nu','99',$d['acbi'],$w.' '.$o,'Acción de Bienestar','acbi',null,null,false,false,'','col-15');
     $c[] = new cmp('sudacbi','nu','99',$d['sudacbi'],$w.' '.$o,'Sub Acción de Bienestar','sudacbi',null,null,false,false,'','col-15');
     $c[] = new cmp('actbien','t','3000',$d['actbien'],$w.' '.$o,'Descripción de la Actividad','actbien',null,null,false,false,'','col-7');
-    $c[] = new cmp('hora_act','sd','4',$d['hora_act'],$w.' '.$o,'Horas por Actividad','hora_act',null,null,false,false,'','col-25',"calcularTotales();");
+    $c[] = new cmp('hora_act','nu','99999',$d['hora_act'],$w.' '.$o,'Horas por Actividad','hora_act',null,null,false,false,'','col-25',"calcularTotales();");
     $c[] = new cmp('hora_th','nu','999999',$d['hora_th'],$w.' '.$o,'Valor Hora TH','hora_th',null,null,false,false,'','col-25',"calcularTotales();");
 
 
@@ -124,7 +124,7 @@ function cmp_actividades(){
     $c[] = new cmp($o,'e',null,'PERIODO POR ACTIVIDAD',$w);
     $c[] = new cmp('per_ano','s','3',$d['per_ano'],$w.' '.$o,'Año Período','per_ano',null,null,true,true,'','col-35');
     $c[] = new cmp('per_mes','s','3',$d['per_mes'],$w.' '.$o,'Mes Período','per_mes',null,null,true,true,'','col-35');
-    $c[] = new cmp('can_act','nu','999',$d['can_act'],$w.' '.$o,'Cantidad Realizada','can_act',null,null,true,true,'','col-3',"calcularTotales();");
+    $c[] = new cmp('can_act','sd','4',$d['can_act'],$w.' '.$o,'Cantidad Realizada','can_act',null,null,true,true,'','col-3',"calcularTotales();");
    /*
     $o = 'cantidad';
     $c[] = new cmp($o,'l',null,'',$w);    */
