@@ -52,7 +52,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
     fill: #666;
 }
 </style>
-<script src="../libs/js/a.js?v=12"></script>
+<script src="../libs/js/a.js?v=13"></script>
 <script src="../libs/js/x.js?v=32.0"></script>
 <script src="../libs/js/d.js"></script>
 <script src="../libs/js/popup.js"></script>
