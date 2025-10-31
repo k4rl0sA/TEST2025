@@ -337,7 +337,7 @@ function opc_perfil($id=''){
         return opc_sql("SELECT idcatadeta, descripcion FROM `catadeta` WHERE idcatalogo = 218 AND estado = 'A'",$id);
     } else {
 		$comp = '1,2';
-        return opc_sql("SELECT idcatadeta, descripcion FROM `catadeta` WHERE idcatalogo = 218 AND estado = 'A' AND valor in($comp)",$id);
+        return opc_sql("SELECT idcatadeta, descripcion FROM `catadeta` WHERE idcatalogo = 218 AND estado = 'A' AND valor in(1,2,3)",$id);
     }
 }
 function opc_colaborador($id=''){
@@ -357,7 +357,7 @@ function opc_perfilcolaborador($id=''){
         } else {
             $sql = "SELECT id_usuario id,CONCAT(id_usuario,'-',nombre) usuario FROM usuarios WHERE 
             perfil=(select descripcion from catadeta c where idcatalogo=218 and idcatadeta='{$_REQUEST['id']}' and estado='A') 
-            and subred=(SELECT subred FROM usuarios WHERE id_usuario ='{$_SESSION['us_sds']}') and estado='A' ORDER BY nombre";
+            and subred=(SELECT subred FROM usuarios WHERE id_usuario ='{$_SESSION['us_sds']}') and estado='A'  ORDER BY nombre ";
             $info = datos_mysql($sql);		
             return json_encode($info['responseResult']);	
         }
