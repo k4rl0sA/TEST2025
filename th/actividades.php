@@ -77,9 +77,7 @@ function lis_actividades(){
                 CAST(TA.estado AS CHAR) AS 'Estado'
             FROM th_actividades TA  
             WHERE TA.estado = 'A' AND TA.idth = '$id_th'
-            
             UNION ALL
-            
             SELECT 
                 '' AS 'ACCIONES',
                 '' AS 'Codigo', 
