@@ -57,7 +57,7 @@ SELECT '' AS ACCIONES,'' AS Codigo,'TOTAL GENERAL' AS 'Descripción Actividad','
 FROM th_actividades TA
 WHERE TA.estado = 'A' AND TA.per_ano = '1' AND TA.per_mes = '10' AND TA.idth = '$id_th' ORDER BY ACCIONES DESC, Estado DESC;";
  */
-$sql="$sql = "SELECT TA.id_thact AS ACCIONES, 
+$sql="SELECT TA.id_thact AS ACCIONES, 
                    FN_CATALOGODESC(327, TA.actividad) AS 'Actividad',
                    FN_CATALOGODESC(324, TA.rol) AS 'Rol', 
                    FN_CATALOGODESC(328, TA.acbi) AS 'Acción Bienestar',
@@ -73,7 +73,7 @@ $sql="$sql = "SELECT TA.id_thact AS ACCIONES,
             FROM th_actividades TA  
             WHERE TA.estado = 'A' AND TA.idth = '$id_th'";
     $sql .= " ORDER BY TA.fecha_create DESC";
-    $sql .= ' LIMIT ' . $pag . ',' . $regxPag;"
+    $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
     $datos = datos_mysql($sql);
     return create_table($total, $datos["responseResult"], "actividades", $regxPag, 'actividades.php');
     }
