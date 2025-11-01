@@ -163,14 +163,14 @@ function men_tamhamilton(){
 	return $rta;
    }
 
-   function cap_menus($a,$b='cap',$con='con') {
+function cap_menus($a,$b='cap',$con='con') {
 	$rta = ""; 
 	$acc=rol($a);
-	if ($a=='tamhamilton') {  
+	if ($a=='tamhamilton' && isset($acc['crear']) && $acc['crear']=='SI'){  
 		$rta .= "<li class='icono $a  grabar' title='Grabar' Onclick=\"grabar('$a',this);\" ></li>";
 	}
 	return $rta;
-  }
+}
    
 function gra_tamhamilton(){
 	$id=divide($_POST['idhamilton']);

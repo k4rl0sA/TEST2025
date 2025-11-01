@@ -193,7 +193,9 @@ return panel_content($datos["responseResult"],"consulta",3);
 
 function cap_menus($a,$b='cap',$con='con') {
   $rta = ""; 
-  $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
+  if($a=='agendamiento' && isset($acc['crear']) && $acc['crear']=='SI'){
+  	$rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
+  }
   $rta .= "<li class='icono $a actualizar'  title='Actualizar'      Onclick=\"act_lista('$a',this);\"></li>";
   return $rta;
 }

@@ -177,7 +177,7 @@ function men_tamBarthel(){
    function cap_menus($a,$b='cap',$con='con') {
 	$rta = ""; 
 	$acc=rol($a);
-	if ($a=='tamBarthel') {  
+	if ($a=='tamBarthel'  && isset($acc['crear']) && $acc['crear']=='SI'){  
 		$rta .= "<li class='icono $a  grabar' title='Grabar' Onclick=\"grabar('$a',this);\" ></li>";
 	}
 	return $rta;
