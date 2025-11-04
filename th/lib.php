@@ -228,14 +228,22 @@ function formato_dato($a, $b, $c, $d) {
                 'permiso' => acceso('th'),
                 'hash' => $hash_id,
                 'evento' => "mostrar('actividades','pro',event,'{$hash_id}','actividades.php',7,'actividades','{$hash_id}');"
+            ],
+            'adicionales' => [
+                'icono' => 'fa-solid fa-plus-circle',
+                'clase' => 'ico',
+                'title' => 'Adicionales',
+                'permiso' => acceso('th'),
+                'hash' => $hash_id,
+                'evento' => "mostrar('adicionales','pro',event,'{$hash_id}','adicionales.php',7,'adicionales','{$hash_id}');"
             ]
         ];
         foreach ($accionesDisponibles as $key => $accion) {
             if ($accion['permiso']) {
                 limpiar_hashes();
                 $_SESSION['hash'][$accion['hash'] . '_' . $key] = $c['ACCIONES'];
-                // Para contratos, también guardamos con sufijo _th para poder recuperar el ID del empleado
-                if ($key === 'contratos') {
+                // Para contratos y adicionales, también guardamos con sufijo _th para poder recuperar el ID del empleado
+                if ($key === 'contratos' || $key === 'adicionales') {
                     $_SESSION['hash'][$accion['hash'] . '_th'] = $c['ACCIONES'];
                 }
                 $acciones[] = "<li title='{$accion['title']}'><i class='{$accion['icono']} {$accion['clase']}' id='{$accion['hash']}' onclick=\"{$accion['evento']}\" data-acc='{$key}'></i></li>";
