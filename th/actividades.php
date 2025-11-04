@@ -151,12 +151,12 @@ function cmp_actividades(){
 
 
    /*  $o = 'descripcion';
-    $c[] = new cmp($o,'l',null,'',$w);
-    $o = 'horasvalor'; */
+    $c[] = new cmp($o,'l',null,'',$w);*/
+    $o = 'horasvalor'; 
     $c[] = new cmp($o,'e',null,'PERIODO POR ACTIVIDAD',$w);
     $c[] = new cmp('per_ano','s','3',$d['per_ano'],$w.' '.$o,'Año Período','per_ano',null,null,true,true,'','col-35');
     $c[] = new cmp('per_mes','s','3',$d['per_mes'],$w.' '.$o,'Mes Período','per_mes',null,null,true,true,'','col-35');
-    $c[] = new cmp('can_act','nu','999',$d['can_act'],$w.' '.$o,'Cantidad Realizada','can_act',null,null,true,true,'','col-3',"calcularTotales();");
+    $c[] = new cmp('can_act','sd','4',$d['can_act'],$w.' '.$o,'Cantidad Realizada','can_act',null,null,true,true,'','col-3',"calcularTotales();");
    /*
     $o = 'cantidad';
     $c[] = new cmp($o,'l',null,'',$w);    */
