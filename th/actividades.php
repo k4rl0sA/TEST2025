@@ -75,9 +75,6 @@ function cap_menus($a,$b='cap',$con='con') {
 function cmp_actividades(){
     $rta = "";
 	$rta .="<div class='encabezado vivienda'>ACTIVIDADES</div><div class='contenido' id='gestion-lis' >".lis_actividades()."</div></div>";
-    $t = ['id_thcon' => '', 'n_contrato' => '', 'tipo_cont' => '', 'fecha_inicio' => '','fecha_fin' => '', 'valor_contrato' => '', 'perfil_profesional' => '','perfil_contratado' => '', 'rol' => '', 'tipo_expe' => '', 'fecha_expe' => '', 'semestre' => ''];
-    $d = get_actividades();
-    if ($d == "") { $d = $t; }
     $w = 'actividades';
     $o = 'contratoinfo';
     $c[] = new cmp($o,'e',null,'INFORMACIÓN DEL CONTRATO',$w);
@@ -108,32 +105,9 @@ function cmp_actividades(){
 }
 
 function get_actividades(){
-    // Usar la función global idReal para obtener el ID del contrato
-    $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_actividades');
-    
-    // Si no hay ID real, es un nuevo registro
-    if (!$real_id) {
-        return "";
-    }
-    
-    // Usar datos_mysql en lugar de mysql_prepd para consistencia
-    $sql = "SELECT `id_thcon`,`n_contrato`, `tipo_cont`, `fecha_inicio`, `fecha_fin`,`valor_contrato`, `perfil_profesional`, `perfil_contratado`, `rol`,`tipo_expe`,`fecha_expe`, `semestre`, `estado`
-            FROM `th_actividades` WHERE id_thcon = '" . intval($real_id) . "'";
-    
-    $info = datos_mysql($sql);
-    
-    // Validar que la respuesta sea válida
-    if (!$info || !isset($info['responseResult']) || !is_array($info['responseResult'])) {
-        return '';
-    }
-    
-    // Verificar que hay resultados
-    if (empty($info['responseResult'])) {
-        return '';
-    }
-    
-    return $info['responseResult'][0];
+   
 }
+
 function gra_actividades(){
     $usu = $_SESSION['us_sds'];
     
