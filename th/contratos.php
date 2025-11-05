@@ -193,10 +193,10 @@ function opc_tipo_expe($id=''){
 
 function ajustar($hash,$acc){
     $id=divide($acc);
-    $sql = "SELECT 1 AS existe FROM th_actividades WHERE id_thact = $id[0] AND ajustar = 1 AND estado = 'A' LIMIT 1";
+    $sql = "SELECT COUNT(*) AS total FROM th_contratos WHERE id_thcon = $id[0] AND ajustar = 1 AND estado = 'A'";
     $info = datos_mysql($sql);
     // var_dump($sql);
-    return !empty($info['responseResult']) && count($info['responseResult']) > 0;
+    return (!empty($info['responseResult'][0]['total']) && $info['responseResult'][0]['total'] > 0);
 }
 
 function formato_dato($a, $b, $c, $d){
