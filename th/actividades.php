@@ -239,35 +239,17 @@ function opc_per_ano($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=328 and estado='A' ORDER BY 1",$id);
 }
 
-function ajustar($id){
-    $hash = $id ?? '';
-    $session_hash = $_SESSION['hash'] ?? [];
-    $suffixes = ['_actividades','_th','_editar'];
-    $real_id = null;
-
-    // Intentar resolver el id real probando varios sufijos
-    foreach ($suffixes as $sufijo) {
-        $res = idReal($hash, $session_hash, $sufijo);
-        if (!empty($res)) {
-            $real_id = $res;
-            break;
-        }
+function ajustar($hash_id, $acciones_value){
+    // El hash_id es el MD5, pero necesitamos el valor original de ACCIONES
+    // que viene en formato "id_thact_idth"
+    $parts = explode('_', $acciones_value);
+    
+    if (count($parts) >= 2 && is_numeric($parts[0])) {
+        $id_thact = intval($parts[0]); // Tomar el id_thact
+    } else {
+        return false;
     }
 
-    // Si idReal no devolvió nada, es porque recibimos el ID compuesto directamente
-    if (empty($real_id)) {
-        // El ID viene en formato "id_thact_idth", necesitamos separarlo
-        $parts = explode('_', $hash);
-        if (count($parts) >= 2 && is_numeric($parts[0])) {
-            $real_id = intval($parts[0]); // Tomar el id_thact
-        } else {
-            return false;
-        }
-    }
-
-    if (empty($real_id)) return false;
-
-    $id_thact = intval($real_id);
     $sql = "SELECT COUNT(*) AS total FROM th_actividades WHERE id_thact = $id_thact AND ajustar = 1 AND estado = 'A'";
     $info = datos_mysql($sql);
 
@@ -293,7 +275,7 @@ function formato_dato($a, $b, $c, $d){
         ];
         
         foreach ($accionesDisponibles as $key => $accion) {
-            if (ajustar($accion['hash'])) {
+            if (ajustar($accion['hash'], $c['ACCIONES'])) {
                 if ($accion['permiso']) {
                     limpiar_hashes();
                     $_SESSION['hash'][$accion['hash'] . '_actividades'] = $c['ACCIONES'];
