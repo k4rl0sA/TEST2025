@@ -238,6 +238,7 @@ function formato_dato($a, $b, $c, $d){
         ];
         
         foreach ($accionesDisponibles as $key => $accion) {
+            var_dump($accion['hash']);
             if (ajustar($accion['hash'])) {
                 if ($accion['permiso']) {
                     limpiar_hashes();
