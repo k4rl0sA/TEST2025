@@ -156,7 +156,7 @@ function cmp_actividades(){
     $c[] = new cmp($o,'e',null,'PERIODO POR ACTIVIDAD',$w);
     $c[] = new cmp('per_ano','s','3',$d['per_ano'],$w.' '.$o,'Año Período','per_ano',null,null,true,true,'','col-35');
     $c[] = new cmp('per_mes','s','3',$d['per_mes'],$w.' '.$o,'Mes Período','per_mes',null,null,true,true,'','col-35');
-    $c[] = new cmp('can_act','sd','10',$d['can_act'],$w.' '.$o,'Cantidad Realizada','can_act',null,null,true,true,'','col-3',"calcularTotales();");
+    $c[] = new cmp('can_act','sd','12',$d['can_act'],$w.' '.$o,'Cantidad Realizada','can_act',null,null,true,true,'','col-3',"calcularTotales();");
    /*
     $o = 'cantidad';
     $c[] = new cmp($o,'l',null,'',$w);    */
@@ -265,7 +265,7 @@ function gra_actividades(){
             ['type' => 'i', 'value' => intval($_POST['hora_th'] ?? 0)],
             ['type' => 'i', 'value' => intval($_POST['per_ano'] ?? 0)],
             ['type' => 'i', 'value' => intval($_POST['per_mes'] ?? 0)],
-            ['type' => 'i', 'value' => intval($_POST['can_act'] ?? 0)],
+            ['type' => 'i', 'value' => floatval($_POST['can_act'] ?? 0)],
             ['type' => 's', 'value' => $_POST['total_horas'] ?? '0'],
             ['type' => 'i', 'value' => intval($_POST['total_valor'] ?? 0)],
             ['type' => 's', 'value' => $usu]
@@ -284,7 +284,7 @@ function gra_actividades(){
             ['type' => 'i', 'value' => intval($_POST['hora_th'] ?? 0)],
             ['type' => 'i', 'value' => intval($_POST['per_ano'] ?? 0)],
             ['type' => 'i', 'value' => intval($_POST['per_mes'] ?? 0)],
-            ['type' => 'i', 'value' => $_POST['can_act'] ?? 0],
+            ['type' => 'i', 'value' => floatval($_POST['can_act'] ?? 0)],
             ['type' => 's', 'value' => $_POST['total_horas'] ?? '0'],
             ['type' => 'i', 'value' => intval($_POST['total_valor'] ?? 0)],
             ['type' => 's', 'value' => $usu],
