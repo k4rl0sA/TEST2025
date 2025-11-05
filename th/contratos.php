@@ -194,7 +194,7 @@ function opc_tipo_expe($id=''){
 function ajustar($id){
     var_dump($id);
     $id=divide($id);
-    $sql = "SELECT 1 AS existe FROM th_actividades WHERE id_thact = $id AND ajustar = 1 AND estado = 'A' LIMIT 1";
+    $sql = "SELECT 1 AS existe FROM th_actividades WHERE id_thact = $id[0] AND ajustar = 1 AND estado = 'A' LIMIT 1";
     $info = datos_mysql($sql);
     var_dump($sql);
     return !empty($info['responseResult']) && count($info['responseResult']) > 0;
