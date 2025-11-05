@@ -71,7 +71,7 @@ function lis_actividades(){
                     WHEN 12 THEN 'DICIEMBRE'
                     ELSE CAST(TA.per_mes AS CHAR)
                 END AS CHAR) AS 'Mes',
-                CAST(TA.can_act AS CHAR) AS 'Cantidad',
+                CAST(TA.can_act AS DECIMAL(4,2)) AS 'Cantidad',
                 CAST(TA.total_horas AS CHAR) AS 'Total Horas',
                 CAST(CONCAT('$ ', FORMAT(TA.total_valor, 0)) AS CHAR) AS 'Valor Total',
                 CAST(TA.estado AS CHAR) AS 'Estado'
@@ -86,7 +86,7 @@ function lis_actividades(){
                 '' AS 'Valor Hora TH',
                 '' AS 'Año',
                 'TOTAL GENERAL' AS 'Mes',
-                CAST(SUM(TA2.can_act) AS CHAR) AS 'Cantidad',
+                CAST(SUM(TA2.can_act) AS DECIMAL(4,2)) AS 'Cantidad',
                 CAST(SUM(TA2.total_horas) AS CHAR) AS 'Total Horas',
                 CAST(CONCAT('$ ', FORMAT(SUM(TA2.total_valor), 0)) AS CHAR) AS 'Valor Total',
                 '' AS 'Estado'
