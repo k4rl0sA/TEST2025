@@ -248,7 +248,7 @@ function formato_dato($a, $b, $c, $d){
                 'title' => 'Editar Contrato',
                 'permiso' => true,
                 'hash' => $hash_id,
-                'evento' => "mostrar('contratos','pro',event,'{$hash_id}','contratos.php',7);"
+                'evento' => "setTimeout(getDataFetch,500,'contratos',event,this,'../th/contratos.php',[]);"
             ]
         ];
         
