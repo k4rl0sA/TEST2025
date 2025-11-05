@@ -252,7 +252,7 @@ function ajustar($hash_id, $acciones_value){
 
     $sql = "SELECT COUNT(*) AS total FROM th_actividades WHERE id_thact = $id_thact AND ajustar = 1 AND estado = 'A'";
     $info = datos_mysql($sql);
-
+    var_dump($sql);
     return (!empty($info['responseResult'][0]['total']) && $info['responseResult'][0]['total'] > 0);
 }
 
