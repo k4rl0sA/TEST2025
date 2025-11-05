@@ -215,8 +215,11 @@ function ajustar($id){
     $idth = idReal($id ?? '', $_SESSION['hash'] ?? [], '_contratos');
     $sql]="SELECT COUNT(*) AS total FROM th_contratos WHERE id_thcon='$idth' and ajustar=1 AND estado='A'";
     $info = datos_mysql($sql);
-    if($info['responseResult'][0]['total']>0) return true;
-    else return false;
+    if($info['responseResult'][0]['total']>0){
+        return true;
+    }else{
+        return false;
+    } 
 }
 
 function formato_dato($a, $b, $c, $d){
