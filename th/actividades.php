@@ -239,13 +239,17 @@ function opc_per_ano($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=328 and estado='A' ORDER BY 1",$id);
 }
 
-function ajustar($acc){
-    $id=divide($acc);
+function ajustar($hash_id, $acciones_value){
+    // El hash_id es el MD5, pero necesitamos el valor original de ACCIONES
+    // que viene en formato "id_thact_idth"
+    $parts = explode('_', $acciones_value);
+    
     if (count($parts) >= 2 && is_numeric($parts[0])) {
         $id_thact = intval($parts[0]); // Tomar el id_thact
     } else {
         return false;
     }
+
     $sql = "SELECT COUNT(*) AS total FROM th_actividades WHERE id_thact = $id_thact AND ajustar = 1 AND estado = 'A'";
     $info = datos_mysql($sql);
     var_dump($sql);
