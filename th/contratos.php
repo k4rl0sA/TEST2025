@@ -212,6 +212,10 @@ function opc_tipo_expe($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=325 and estado='A' ORDER BY 2",$id);
 }
 
+function ajustar(){
+    return false;
+}
+
 function formato_dato($a, $b, $c, $d){
       $b = strtolower($b);
     $rta = $c[$d];
@@ -234,10 +238,12 @@ function formato_dato($a, $b, $c, $d){
         ];
         
         foreach ($accionesDisponibles as $key => $accion) {
-            if ($accion['permiso']) {
-                limpiar_hashes();
-                $_SESSION['hash'][$accion['hash'] . '_contratos'] = $c['ACCIONES'];
-                $acciones[] = "<li title='{$accion['title']}'><i class='{$accion['icono']} {$accion['clase']}' id='{$accion['hash']}' onclick=\"{$accion['evento']}\" data-acc='{$key}'></i></li>";
+            if (ajustar($accion['hash'])) {
+                if ($accion['permiso']) {
+                    limpiar_hashes();
+                    $_SESSION['hash'][$accion['hash'] . '_contratos'] = $c['ACCIONES'];
+                    $acciones[] = "<li title='{$accion['title']}'><i class='{$accion['icono']} {$accion['clase']}' id='{$accion['hash']}' onclick=\"{$accion['evento']}\" data-acc='{$key}'></i></li>";
+                }
             }
         }
         
