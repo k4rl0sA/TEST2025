@@ -184,28 +184,54 @@ function cmp_actividades(){
 }
 
 function get_actividades(){
+    // Verificar si se está solicitando datos para edición
+    if (!isset($_POST['id']) || $_POST['id'] == '' || $_POST['id'] == '0') {
+        // Si es una petición AJAX para get, devolver JSON vacío
+        if (isset($_POST['a']) && $_POST['a'] == 'get') {
+            return json_encode([]);
+        }
+        return "";
+    }
+
     // Usar la función global idReal para obtener el ID de la actividad
     $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_actividades');
 
     // Si no hay ID real, es un nuevo registro
-    if (!$real_id) {
+   /*  if (!$real_id) {
+        // Si es una petición AJAX para get, devolver JSON vacío
+        if (isset($_POST['a']) && $_POST['a'] == 'get') {
+            return json_encode([]);
+        }
         return "";
-    }
+    } */
 
-    // Usar datos_mysql para obtener la actividad
-    $sql = "SELECT `id_thact`, `actividad`, `rol`, `acbi`, `sudacbi`, `actbien`, `hora_act`, `hora_th`, `per_ano`, `per_mes`, `can_act`, `total_horas`, `total_valor`, `estado`
+    // Usar datos_mysql para obtener la actividad (incluir perreq para compatibilidad)
+    $sql = "SELECT `id_thact`, `actividad`, `perreq`, `rol`, `acbi`, `sudacbi`, `actbien`, `hora_act`, `hora_th`, `per_ano`, `per_mes`, `can_act`, `total_horas`, `total_valor`, `estado`
             FROM `th_actividades` WHERE id_thact = '" . intval($real_id) . "'";
 
     $info = datos_mysql($sql);
 
     // Validar que la respuesta sea válida
-    if (!$info || !isset($info['responseResult']) || !is_array($info['responseResult'])) {
+    /* if (!$info || !isset($info['responseResult']) || !is_array($info['responseResult'])) {
+        // Si es una petición AJAX para get, devolver JSON vacío
+        if (isset($_POST['a']) && $_POST['a'] == 'get') {
+            return json_encode([]);
+        }
         return '';
-    }
+    } */
 
     // Verificar que hay resultados
-    if (empty($info['responseResult'])) {
+   /*  if (empty($info['responseResult'])) {
+        // Si es una petición AJAX para get, devolver JSON vacío
+        if (isset($_POST['a']) && $_POST['a'] == 'get') {
+            return json_encode([]);
+        }
         return '';
+    } */
+
+    // Para compatibilidad con getDataFetch de a.js, devolver JSON si es una petición AJAX
+    if (isset($_POST['a']) && $_POST['a'] == 'get') {
+        return json_encode($info['responseResult'][0]);
     }
 
     return $info['responseResult'][0];
