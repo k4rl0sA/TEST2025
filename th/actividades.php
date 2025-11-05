@@ -330,7 +330,8 @@ function formato_dato($a, $b, $c, $d){
                 'title' => 'Editar Actividad',
                 'permiso' => true,
                 'hash' => $hash_id,
-                'evento' => "mostrar('actividades','pro',event,'{$hash_id}','actividades.php',7);"
+                'evento' => "getData('actividades','pro',event,'','actividades.php',7);"
+                //'evento' => "mostrar('actividades','pro',event,'{$hash_id}','actividades.php',7);"
             ]
         ];
 
