@@ -75,15 +75,11 @@ function cap_menus_contratos($a,$b='cap',$con='con') {
 function cmp_contratos(){
     $rta = "";
 	$rta .="<div class='encabezado vivienda'>CONTRATOS REALIZADOS</div><div class='contenido' id='gestion-lis' >".lis_contratos()."</div></div>";
-    /* $t = ['id_thcon' => '', 'n_contrato' => '', 'tipo_cont' => '', 'fecha_inicio' => '','fecha_fin' => '', 'valor_contrato' => '', 'perfil_profesional' => '','perfil_contratado' => '', 'rol' => '', 'tipo_expe' => '', 'fecha_expe' => '', 'semestre' => ''];
-    $d = get_contratos();
-    if ($d == "") { $d = $t; } */
     $w = 'contratos';
     $o = 'contratoinfo';
     $c[] = new cmp($o,'e',null,'INFORMACIÓN DEL CONTRATO',$w);
     $c[] = new cmp($o,'l',null,'',$w);
     $c[] = new cmp('id','h',15,$_POST['id'] ?? '',$w.' '.$o,'id','id',null,'####',false,false);
-    $c[] = new cmp('id_thcon','h',15,'',$w.' '.$o,'id_thcon','id_thcon',null,'####',false,false);
     $c[] = new cmp('n_contrato','nu','11','',$w.' '.$o,'N° Contrato','n_contrato',null,null,true,true,'','col-3');
     $c[] = new cmp($o,'l',null,'',$w);
     $c[] = new cmp('tipo_cont','s','3','',$w.' '.$o,'Tipo de Contrato','tipo_cont',null,null,true,true,'','col-25');
