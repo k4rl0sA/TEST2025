@@ -67,7 +67,7 @@ function lis_actividades(){
             SELECT 
                 '' AS 'ACCIONES',
                 '' AS 'Codigo', 
-                'TOTAL GENERAL' AS 'Descripcion Actividad',
+                '' AS 'Descripcion Actividad',
                 '' AS 'Horas Actividad',
                 '' AS 'Valor Hora TH',
                 '' AS 'Año',
