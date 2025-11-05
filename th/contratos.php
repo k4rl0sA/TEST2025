@@ -125,21 +125,21 @@ function gra_contratos(){
     $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_contratos');
     
     // Si no se encuentra con _contratos, intentar con otros sufijos
-    if (!$idth) {
+/*     if (!$idth) {
         $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_th'); 
     }
     if (!$idth) {
         $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_editar');
     }
-    
+     */
     // Verificar que tenemos un ID válido del empleado
-    if (!$idth) {
+    /* if (!$idth) {
         return "Error: No se pudo obtener el ID del empleado (TH)";
-    }
+    } */
     
-    // Obtener el id_thcon (ID del contrato) para determinar si es INSERT o UPDATE
+ /*    // Obtener el id_thcon (ID del contrato) para determinar si es INSERT o UPDATE
     $id_thcon = $_POST['id_thcon'] ?? '';
-    $es_nuevo = empty($id_thcon);
+    $es_nuevo = empty($id_thcon); */
 
     if(count($id) == 1) {        
         $sql = "INSERT INTO th_contratos (idth, n_contrato, tipo_cont, fecha_inicio, fecha_fin, valor_contrato, perfil_profesional, perfil_contratado, rol, tipo_expe, fecha_expe, semestre, usu_create, fecha_create, estado) 
@@ -176,7 +176,7 @@ function gra_contratos(){
             ['type' => 's', 'value' => !empty($_POST['fecha_expe']) ? $_POST['fecha_expe'] : null],
             ['type' => 'i', 'value' => !empty($_POST['semestre']) ? intval($_POST['semestre']) : null],
             ['type' => 's', 'value' => $usu],
-            ['type' => 'i', 'value' => intval($id_thcon)]
+            ['type' => 'i', 'value' => intval($id[0])]
         ];
     }
     // return json_encode(['sql' => show_sql($sql, $params), 'idth' => $idth, 'hash' => $hash_id, 'session' => $_SESSION['hash']]);
