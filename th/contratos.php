@@ -192,9 +192,8 @@ function opc_tipo_expe($id=''){
 }
 
 function ajustar($id){
-   if ($id === '') return false;
-    $id = intval(idReal($id, $_SESSION['hash'], '_actividades'));
-    if ($id <= 0) return false;
+    var_dump($id);
+    $id=divide($id);
     $sql = "SELECT 1 AS existe FROM th_actividades WHERE id_thact = $id AND ajustar = 1 AND estado = 'A' LIMIT 1";
     $info = datos_mysql($sql);
     var_dump($sql);
