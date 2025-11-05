@@ -240,11 +240,28 @@ function opc_per_ano($id=''){
 }
 
 function ajustar($acc){
-    $id=divide($acc);
-    $idE=$id[0];
+    // Validar que $acc no esté vacío
+    if (empty($acc)) {
+        return false;
+    }
+    
+    $id = divide($acc);
+    
+    // Validar que divide() retornó un array válido
+    if (!is_array($id) || empty($id) || !isset($id[0]) || !is_numeric($id[0])) {
+        return false;
+    }
+    
+    $idE = intval($id[0]);
+    
+    // Validar que el ID sea válido
+    if ($idE <= 0) {
+        return false;
+    }
+    
     $sql = "SELECT COUNT(*) AS total FROM th_actividades WHERE id_thact = $idE AND ajustar = 1 AND estado = 'A'";
     $info = datos_mysql($sql);
-    // var_dump($sql);
+    
     return (!empty($info['responseResult'][0]['total']) && $info['responseResult'][0]['total'] > 0);
 }
 
