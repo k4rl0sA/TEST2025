@@ -266,7 +266,7 @@ function formato_dato($a, $b, $c, $d){
         ];
         
         foreach ($accionesDisponibles as $key => $accion) {
-            if (ajustar($accion['hash'], $c['ACCIONES'])) {
+            if (ajustar($c['ACCIONES'])) {
                 if ($accion['permiso']) {
                     limpiar_hashes();
                     $_SESSION['hash'][$accion['hash'] . '_actividades'] = $c['ACCIONES'];
