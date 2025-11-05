@@ -59,28 +59,24 @@ function whe_soporte() {
 
 function cmp_soporte() {
     $rta = "";
-    $t = ['idsoporte' => '', 'idpeople' => '', 'documento' => '', 'tipo_doc' => '', 'sexo' => '', 'fecha_nacio' => '',
-        'cod_predio' => '', 'cod_familia' => '', 'cod_registro' => '', 'formulario' => '', 'error' => '', 'ok' => '',
-        'prioridad' => '', 'observaciones' => '', 'rta' => '', 'usu_creo' => '', 'fecha_create' => '', 'usu_update' => '', 'fecha_update' => '', 'estado' => ''];
     $w = 'soporte';
-    $d = get_soporte();
     if ($d == "") { $d = $t; }
-    $c[] = new cmp('idsoporte', 'h', 15, $d['idsoporte'], $w, '', '', null, '####', false, false);
-    $c[] = new cmp('idpeople', 'n', 20, $d['idpeople'], $w, 'ID People', 'idpeople');
-    $c[] = new cmp('documento', 'n', 20, $d['documento'], $w, 'Documento', 'documento');
-    $c[] = new cmp('tipo_doc', 't', 2, $d['tipo_doc'], $w, 'Tipo Doc', 'tipo_doc');
-    $c[] = new cmp('sexo', 't', 1, $d['sexo'], $w, 'Sexo', 'sexo');
-    $c[] = new cmp('fecha_nacio', 'd', 10, $d['fecha_nacio'], $w, 'Fecha Nacimiento', 'fecha_nacio');
-    $c[] = new cmp('cod_predio', 'n', 11, $d['cod_predio'], $w, 'Cod Predio', 'cod_predio');
-    $c[] = new cmp('cod_familia', 'n', 11, $d['cod_familia'], $w, 'Cod Familia', 'cod_familia');
-    $c[] = new cmp('cod_registro', 'n', 11, $d['cod_registro'], $w, 'Cod Registro', 'cod_registro');
-    $c[] = new cmp('formulario', 'n', 11, $d['formulario'], $w, 'Formulario', 'formulario');
-    $c[] = new cmp('error', 't', 100, $d['error'], $w, 'Error', 'error');
-    $c[] = new cmp('ok', 't', 100, $d['ok'], $w, 'OK', 'ok');
-    $c[] = new cmp('prioridad', 't', 1, $d['prioridad'], $w, 'Prioridad', 'prioridad');
-    $c[] = new cmp('observaciones', 'e', null, $d['observaciones'], $w, 'Observaciones', 'observaciones');
-    $c[] = new cmp('rta', 'n', 1, $d['rta'], $w, 'RTA', 'rta');
-    $c[] = new cmp('estado', 'n', 2, $d['estado'], $w, 'Estado', 'estado');
+    $c[] = new cmp('idsoporte', 'h', 15, '', $w, '', '', null, '####', false, false);
+    $c[] = new cmp('idpeople', 'n', 20, '', $w, 'ID People', 'idpeople');
+    $c[] = new cmp('documento', 'n', 20, '', $w, 'Documento', 'documento');
+    $c[] = new cmp('tipo_doc', 't', 2, '', $w, 'Tipo Doc', 'tipo_doc');
+    $c[] = new cmp('sexo', 't', 1, '', $w, 'Sexo', 'sexo');
+    $c[] = new cmp('fecha_nacio', 'd', 10, '', $w, 'Fecha Nacimiento', 'fecha_nacio');
+    $c[] = new cmp('cod_predio', 'n', 11, '', $w, 'Cod Predio', 'cod_predio');
+    $c[] = new cmp('cod_familia', 'n', 11, '', $w, 'Cod Familia', 'cod_familia');
+    $c[] = new cmp('cod_registro', 'n', 11, '', $w, 'Cod Registro', 'cod_registro');
+    $c[] = new cmp('formulario', 'n', 11, '', $w, 'Formulario', 'formulario');
+    $c[] = new cmp('error', 't', 100, '', $w, 'Error', 'error');
+    $c[] = new cmp('ok', 't', 100, '', $w, 'OK', 'ok');
+    $c[] = new cmp('prioridad', 't', 1, '', $w, 'Prioridad', 'prioridad');
+    $c[] = new cmp('observaciones', 'e', null, '', $w, 'Observaciones', 'observaciones');
+    $c[] = new cmp('rta', 'n', 1, '', $w, 'RTA', 'rta');
+    $c[] = new cmp('estado', 'n', 2, '', $w, 'Estado', 'estado');
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
     return $rta;
 }
