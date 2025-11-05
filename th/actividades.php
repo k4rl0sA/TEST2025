@@ -244,9 +244,9 @@ function ajustar($id){
     if ($id === '') return false;
     $id = intval(idReal($id, $_SESSION['hash'], '_actividades'));
     if ($id <= 0) return false;
-    // Consulta ligera para verificar existencia
     $sql = "SELECT 1 AS existe FROM th_actividades WHERE id_thact = $id AND ajustar = 1 AND estado = 'A' LIMIT 1";
     $info = datos_mysql($sql);
+    var_dump($sql);
     return !empty($info['responseResult']) && count($info['responseResult']) > 0;
 }
 
@@ -269,13 +269,13 @@ function formato_dato($a, $b, $c, $d){
         ];
         
         foreach ($accionesDisponibles as $key => $accion) {
-            // if (ajustar($accion['hash'])) {
+            if (ajustar($accion['hash'])) {
                 if ($accion['permiso']) {
                     limpiar_hashes();
                     $_SESSION['hash'][$accion['hash'] . '_actividades'] = $c['ACCIONES'];
                     $acciones[] = "<li title='{$accion['title']}'><i class='{$accion['icono']} {$accion['clase']}' id='{$accion['hash']}' onclick=\"{$accion['evento']}\" data-acc='{$key}'></i></li>";
                 }
-            // }
+            }
         }
         
         if (count($acciones)) {
