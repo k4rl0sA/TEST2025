@@ -75,33 +75,33 @@ function cap_menus_contratos($a,$b='cap',$con='con') {
 function cmp_contratos(){
     $rta = "";
 	$rta .="<div class='encabezado vivienda'>CONTRATOS REALIZADOS</div><div class='contenido' id='gestion-lis' >".lis_contratos()."</div></div>";
-    $t = ['id_thcon' => '', 'n_contrato' => '', 'tipo_cont' => '', 'fecha_inicio' => '','fecha_fin' => '', 'valor_contrato' => '', 'perfil_profesional' => '','perfil_contratado' => '', 'rol' => '', 'tipo_expe' => '', 'fecha_expe' => '', 'semestre' => ''];
+    /* $t = ['id_thcon' => '', 'n_contrato' => '', 'tipo_cont' => '', 'fecha_inicio' => '','fecha_fin' => '', 'valor_contrato' => '', 'perfil_profesional' => '','perfil_contratado' => '', 'rol' => '', 'tipo_expe' => '', 'fecha_expe' => '', 'semestre' => ''];
     $d = get_contratos();
-    if ($d == "") { $d = $t; }
+    if ($d == "") { $d = $t; } */
     $w = 'contratos';
     $o = 'contratoinfo';
     $c[] = new cmp($o,'e',null,'INFORMACIÓN DEL CONTRATO',$w);
     $c[] = new cmp($o,'l',null,'',$w);
     $c[] = new cmp('id','h',15,$_POST['id'] ?? '',$w.' '.$o,'id','id',null,'####',false,false);
-    $c[] = new cmp('id_thcon','h',15,$d['id_thcon'] ?? '',$w.' '.$o,'id_thcon','id_thcon',null,'####',false,false);
-    $c[] = new cmp('n_contrato','nu','11',$d['n_contrato'],$w.' '.$o,'N° Contrato','n_contrato',null,null,true,true,'','col-3');
+    $c[] = new cmp('id_thcon','h',15,'',$w.' '.$o,'id_thcon','id_thcon',null,'####',false,false);
+    $c[] = new cmp('n_contrato','nu','11','',$w.' '.$o,'N° Contrato','n_contrato',null,null,true,true,'','col-3');
     $c[] = new cmp($o,'l',null,'',$w);
-    $c[] = new cmp('tipo_cont','s','3',$d['tipo_cont'],$w.' '.$o,'Tipo de Contrato','tipo_cont',null,null,true,true,'','col-25');
-    $c[] = new cmp('fecha_inicio','d','',$d['fecha_inicio'],$w.' '.$o,'Fecha Inicio','fecha_inicio',null,null,true,true,'','col-25',"validDate(this,-730,362);");
-    $c[] = new cmp('fecha_fin','d','',$d['fecha_fin'],$w.' '.$o,'Fecha Fin','fecha_fin',null,null,true,true,'','col-25');
-    $c[] = new cmp('valor_contrato','nu','11',$d['valor_contrato'],$w.' '.$o,'Valor Total Contrato','valor_contrato',null,null,true,true,'','col-25');
+    $c[] = new cmp('tipo_cont','s','3','',$w.' '.$o,'Tipo de Contrato','tipo_cont',null,null,true,true,'','col-25');
+    $c[] = new cmp('fecha_inicio','d','','',$w.' '.$o,'Fecha Inicio','fecha_inicio',null,null,true,true,'','col-25',"validDate(this,-730,362);");
+    $c[] = new cmp('fecha_fin','d','','',$w.' '.$o,'Fecha Fin','fecha_fin',null,null,true,true,'','col-25');
+    $c[] = new cmp('valor_contrato','nu','11','',$w.' '.$o,'Valor Total Contrato','valor_contrato',null,null,true,true,'','col-25');
     
     $o2 = 'perfilinfo';
     $c[] = new cmp($o2,'l',null,'',$w);
-    $c[] = new cmp('perfil_profesional','s','3',$d['perfil_profesional'],$w.' '.$o2,'Perfil Profesional','perfil_profesional',null,null,true,true,'','col-35');
-    $c[] = new cmp('perfil_contratado','s','3',$d['perfil_contratado'],$w.' '.$o2,'Perfil Contratado Requerido','perfil_contratado',null,null,true,true,'','col-35',"selectDepend('perfil_contratado','rol','contratos.php');");
-    $c[] = new cmp('rol','s','3',$d['rol'],$w.' '.$o2,'Rol Contratado','rol',null,null,true,true,'','col-3',"glineTH();");
+    $c[] = new cmp('perfil_profesional','s','3','',$w.' '.$o2,'Perfil Profesional','perfil_profesional',null,null,true,true,'','col-35');
+    $c[] = new cmp('perfil_contratado','s','3','',$w.' '.$o2,'Perfil Contratado Requerido','perfil_contratado',null,null,true,true,'','col-35',"selectDepend('perfil_contratado','rol','contratos.php');");
+    $c[] = new cmp('rol','s','3','',$w.' '.$o2,'Rol Contratado','rol',null,null,true,true,'','col-3',"glineTH();");
     
     $o3 = 'experiencia';
     $c[] = new cmp($o3,'l',null,'',$w);
-    $c[] = new cmp('tipo_expe','s','3',$d['tipo_expe'],$w.' GlIn '.$o3,'¿Bachiller con experiencia o formación en salud/social?','tipo_expe',null,null,false,false,'','col-5',"certTH();");
-    $c[] = new cmp('fecha_expe','d','',$d['fecha_expe'],$w.' CeRt '.$o3,'Fecha del Certificado','fecha_expe',null,null,false,false,'','col-3',"validDate(this,-3650,0);");
-    $c[] = new cmp('semestre','nu','1',$d['semestre'],$w.' CeRt '.$o3,'Semestres Cursados','semestre',null,null,false,false,'','col-2');
+    $c[] = new cmp('tipo_expe','s','3','',$w.' GlIn '.$o3,'¿Bachiller con experiencia o formación en salud/social?','tipo_expe',null,null,false,false,'','col-5',"certTH();");
+    $c[] = new cmp('fecha_expe','d','','',$w.' CeRt '.$o3,'Fecha del Certificado','fecha_expe',null,null,false,false,'','col-3',"validDate(this,-3650,0);");
+    $c[] = new cmp('semestre','nu','1','',$w.' CeRt '.$o3,'Semestres Cursados','semestre',null,null,false,false,'','col-2');
     
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
     return $rta;
@@ -109,31 +109,14 @@ function cmp_contratos(){
 
 function get_contratos(){
     // Usar la función global idReal para obtener el ID del contrato
-    /* $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_contratos');
-    
-    // Si no hay ID real, es un nuevo registro
-    if (!$real_id) {
-        return "";
-    }
-    
-    // Usar datos_mysql en lugar de mysql_prepd para consistencia
-    $sql = "SELECT `id_thcon`,`n_contrato`, `tipo_cont`, `fecha_inicio`, `fecha_fin`,`valor_contrato`, `perfil_profesional`, `perfil_contratado`, `rol`,`tipo_expe`,`fecha_expe`, `semestre`, `estado`
+    $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_contratos');
+  // Usar datos_mysql en lugar de mysql_prepd para consistencia
+  $sql = "SELECT `id_thcon`,`n_contrato`, `tipo_cont`, `fecha_inicio`, `fecha_fin`,`valor_contrato`, `perfil_profesional`, `perfil_contratado`, `rol`,`tipo_expe`,`fecha_expe`, `semestre`, `estado`
             FROM `th_contratos` WHERE id_thcon = '" . intval($real_id) . "'";
-    
     $info = datos_mysql($sql);
-    
-    // Validar que la respuesta sea válida
-    if (!$info || !isset($info['responseResult']) || !is_array($info['responseResult'])) {
-        return '';
-    }
-    
-    // Verificar que hay resultados
-    if (empty($info['responseResult'])) {
-        return '';
-    }
-    
-    return $info['responseResult'][0]; */
+    return json_encode($info['responseResult'][0]);
 }
+
 function gra_contratos(){
     $usu = $_SESSION['us_sds'];
     
