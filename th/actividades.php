@@ -254,11 +254,12 @@ function gra_actividades(){
 
         var_dump('CON',floatval($_POST['can_act'] ?? 0));
         var_dump('SIN',$_POST['can_act'] ?? 0);
-        $sql = "INSERT INTO th_actividades (idth, actividad, rol, acbi, sudacbi, actbien, hora_act, hora_th, per_ano, per_mes, can_act, total_horas, total_valor, usu_create, fecha_create, estado)
+        $sql = "INSERT INTO th_actividades (idth, actividad,perreq, rol, acbi, sudacbi, actbien, hora_act, hora_th, per_ano, per_mes, can_act, total_horas, total_valor, usu_create, fecha_create, estado)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR), 'A')";
         $params = [
             ['type' => 'i', 'value' => $idth],
             ['type' => 's', 'value' => $_POST['actividad'] ?? ''],
+            ['type' => 's', 'value' => intval($_POST['perreq'] ?? 0)],
             ['type' => 's', 'value' => $_POST['rol'] ?? ''],
             ['type' => 's', 'value' => $_POST['acbi'] ?? ''],
             ['type' => 's', 'value' => $_POST['sudacbi'] ?? ''],
