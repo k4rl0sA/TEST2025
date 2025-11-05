@@ -246,7 +246,7 @@ function ajustar($id){
     if ($id <= 0) return false;
     $sql = "SELECT 1 AS existe FROM th_actividades WHERE id_thact = $id AND ajustar = 1 AND estado = 'A' LIMIT 1";
     $info = datos_mysql($sql);
-    var_dump($sql);
+    // var_dump($sql);
     return !empty($info['responseResult']) && count($info['responseResult']) > 0;
 }
 
