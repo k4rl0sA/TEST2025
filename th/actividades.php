@@ -199,15 +199,8 @@ function get_actividades(){
     // Usar datos_mysql para obtener la actividad (incluir perreq para compatibilidad)
     $sql = "SELECT `id_thact`, `actividad`, `perreq`, `rol`, `acbi`, `sudacbi`, `actbien`, `hora_act`, `hora_th`, `per_ano`, `per_mes`, `can_act`, `total_horas`, `total_valor`, `estado`
             FROM `th_actividades` WHERE id_thact = '" . intval($real_id) . "'";
-
     $info = datos_mysql($sql);
-
-    // Para compatibilidad con getDataFetch de a.js, devolver JSON si es una petición AJAX
-    if (isset($_POST['a']) && $_POST['a'] == 'get') {
-        return json_encode($info['responseResult'][0]);
-    }
-
-    return $info['responseResult'][0];
+    return json_encode($info['responseResult'][0]);
 }
 
 function gra_actividades(){
