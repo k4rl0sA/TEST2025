@@ -211,8 +211,8 @@ function opc_tipo_expe($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=325 and estado='A' ORDER BY 2",$id);
 }
 
-function ajustar(){
-    $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_contratos');
+function ajustar($id){
+    $idth = idReal($id ?? '', $_SESSION['hash'] ?? [], '_contratos');
     $sql]="SELECT COUNT(*) AS total FROM th_contratos WHERE id_thcon='$idth' and ajustar=1 AND estado='A'";
     $info = datos_mysql($sql);
     if($info['responseResult'][0]['total']>0) return true;
