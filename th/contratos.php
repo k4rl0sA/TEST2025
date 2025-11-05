@@ -193,7 +193,7 @@ function opc_tipo_expe($id=''){
 
 function ajustar($id){
     if ($id === '') return false;
-    $id = intval(idReal($hash, $_SESSION['hash'], '_contratos'));
+    $id = intval(idReal($id, $_SESSION['hash'], '_contratos'));
     if ($id <= 0) return false;
     // Consulta ligera para verificar existencia
     $sql = "SELECT 1 AS existe FROM th_contratos WHERE id_thcon = $id AND ajustar = 1 AND estado = 'A' LIMIT 1";
