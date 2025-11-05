@@ -331,7 +331,6 @@ function formato_dato($a, $b, $c, $d){
                 'permiso' => true,
                 'hash' => $hash_id,
                 'evento' => "getDataFetch('actividades',event,this,'../th/actividades.php');"
-                //'evento' => "mostrar('actividades','pro',event,'{$hash_id}','actividades.php',7);"
             ]
         ];
 
