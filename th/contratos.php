@@ -198,6 +198,7 @@ function ajustar($id){
     // Consulta ligera para verificar existencia
     $sql = "SELECT 1 AS existe FROM th_contratos WHERE id_thcon = $id AND ajustar = 1 AND estado = 'A' LIMIT 1";
     $info = datos_mysql($sql);
+    var_dump($sql);
     return !empty($info['responseResult']) && count($info['responseResult']) > 0;
 }
 
