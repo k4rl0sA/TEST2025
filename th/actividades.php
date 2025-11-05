@@ -129,19 +129,9 @@ function cap_menus($a,$b='cap',$con='con') {
 function cmp_actividades(){
     $rta = "";
     // Incluir el archivo JavaScript personalizado para TH
-    $rta .= "<script src='th.js'></script>";
 	$rta .="<div class='encabezado vivienda'>ACTIVIDADES REALIZADAS</div><div class='contenido' id='actividades-lis' >".lis_actividades()."</div></div>";
-     $t = ['id_thact' => '', 'actividad' => '','perreq' => '' ,'rol' => '', 'acbi' => '','sudacbi' => '', 'actbien' => '', 'hora_act' => '', 'hora_th' => '','per_ano' => '', 'per_mes' => '', 'can_act' => '', 'total_horas' => '', 'total_valor' => ''];
-    // $d='';
-    $d = get_actividades();
-    if ($d == "") { $d = $t; }
     $w = 'actividades';
     $o = 'actividadinfo';
-  /*$rta .= '<div class="search-wrapper"><input type="number" class="number-input-svg" placeholder="Actividad a buscar..." step="0.1">
-    <button class="search-btn-svg">
-    <svg class="search-icon-svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-    </button>
-    </div>';*/
     $c[] = new cmp($o,'e',null,'INFORMACIÓN DE LA ACTIVIDAD',$w);
     $c[] = new cmp($o,'l',null,'',$w);
     $c[] = new cmp('id','h',15,$_POST['id'] ?? '',$w.' '.$o,'id','id',null,'####',false,false);
@@ -158,17 +148,12 @@ function cmp_actividades(){
     $c[] = new cmp('hora_act','nu','99999','',$w.' '.$o,'Horas por Actividad','hora_act',null,null,false,false,'','col-25',"calcularTotales();");
     $c[] = new cmp('hora_th','nu','999999','',$w.' '.$o,'Valor Hora TH','hora_th',null,null,false,false,'','col-25',"calcularTotales();");
 
-
-   /*  $o = 'descripcion';
-    $c[] = new cmp($o,'l',null,'',$w);*/
     $o = 'horasvalor'; 
     $c[] = new cmp($o,'e',null,'PERIODO POR ACTIVIDAD',$w);
     $c[] = new cmp('per_ano','s','3','',$w.' '.$o,'Año Período','per_ano',null,null,true,true,'','col-35');
     $c[] = new cmp('per_mes','s','3','',$w.' '.$o,'Mes Período','per_mes',null,null,true,true,'','col-35');
     $c[] = new cmp('can_act','sd','12','',$w.' '.$o,'Cantidad Realizada','can_act',null,null,true,true,'','col-3',"calcularTotales();");
-   /*
-    $o = 'cantidad';
-    $c[] = new cmp($o,'l',null,'',$w);    */
+
     $c[] = new cmp('total_horas','nu','9999.9','',$w.' '.$o,'Total Horas Realizadas','total_horas',null,null,false,false,'','col-3');
     $c[] = new cmp('total_valor','nu','99999999','',$w.' '.$o,'Valor Total','total_valor',null,null,false,false,'','col-4');
 
@@ -205,45 +190,12 @@ function get_actividades(){
     // Usar la función global idReal para obtener el ID de la actividad
     $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_actividades');
 
-    // Si no hay ID real, es un nuevo registro
-    if (!$real_id) {
-        // Si es una petición AJAX para get, devolver JSON vacío
-        if (isset($_POST['a']) && $_POST['a'] == 'get') {
-            return json_encode([]);
-        }
-        return "";
-    }
-
+    
     // Usar datos_mysql para obtener la actividad (incluir perreq para compatibilidad)
     $sql = "SELECT `id_thact`, `actividad`, `perreq`, `rol`, `acbi`, `sudacbi`, `actbien`, `hora_act`, `hora_th`, `per_ano`, `per_mes`, `can_act`, `total_horas`, `total_valor`, `estado`
             FROM `th_actividades` WHERE id_thact = '" . intval($real_id) . "'";
-
     $info = datos_mysql($sql);
-
-    // Validar que la respuesta sea válida
-    if (!$info || !isset($info['responseResult']) || !is_array($info['responseResult'])) {
-        // Si es una petición AJAX para get, devolver JSON vacío
-        if (isset($_POST['a']) && $_POST['a'] == 'get') {
-            return json_encode([]);
-        }
-        return '';
-    }
-
-    // Verificar que hay resultados
-    if (empty($info['responseResult'])) {
-        // Si es una petición AJAX para get, devolver JSON vacío
-        if (isset($_POST['a']) && $_POST['a'] == 'get') {
-            return json_encode([]);
-        }
-        return '';
-    }
-
-    // Para compatibilidad con getData de a.js, devolver JSON si es una petición AJAX
-    if (isset($_POST['a']) && $_POST['a'] == 'get') {
-        return json_encode($info['responseResult'][0]);
-    }
-
-    return $info['responseResult'][0];
+    return json_encode($info['responseResult'][0]);
 }
 
 function gra_actividades(){
