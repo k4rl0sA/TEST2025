@@ -240,7 +240,7 @@ function opc_per_ano($id=''){
 }
 
 function ajustar($acc){
-    $id = divide($acc);
+    $id=divide($acc);
     $sql = "SELECT COUNT(*) AS total FROM th_actividades WHERE id_thact = $id[0] AND ajustar = 1 AND estado = 'A'";
     $info = datos_mysql($sql);
     // var_dump($sql);
