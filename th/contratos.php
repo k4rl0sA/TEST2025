@@ -212,6 +212,7 @@ function ajustar($id){
     $id_thcon = intval($idth);
     $sql = "SELECT COUNT(*) AS total FROM th_contratos WHERE id_thcon = $id_thcon AND ajustar = 1 AND estado = 'A'";
     $info = datos_mysql($sql);
+    var_dump($sql);
     return (!empty($info['responseResult'][0]['total']) && $info['responseResult'][0]['total'] > 0);
 }
 
@@ -237,13 +238,13 @@ function formato_dato($a, $b, $c, $d){
         ];
         
         foreach ($accionesDisponibles as $key => $accion) {
-            // if (ajustar($accion['hash'])) {
+            if (ajustar($accion['hash'])) {
                 if ($accion['permiso']) {
                     limpiar_hashes();
                     $_SESSION['hash'][$accion['hash'] . '_contratos'] = $c['ACCIONES'];
                     $acciones[] = "<li title='{$accion['title']}'><i class='{$accion['icono']} {$accion['clase']}' id='{$accion['hash']}' onclick=\"{$accion['evento']}\" data-acc='{$key}'></i></li>";
                 }
-            // }
+            }
         }
         
         if (count($acciones)) {
