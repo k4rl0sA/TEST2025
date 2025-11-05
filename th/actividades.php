@@ -115,7 +115,6 @@ function cmp_actividades(){
      $c[] = new cmp($o,'e',null,'INFORMACIÓN DE LA ACTIVIDAD',$w);
     $c[] = new cmp($o,'l',null,'',$w);
     $c[] = new cmp('id','h',15,$_POST['id'] ?? '',$w.' '.$o,'id','id',null,'####',false,false);
-    $c[] = new cmp('id_thact','h',15,'',$w.' '.$o,'id_thact','id_thact',null,'####',false,false);
 
     $o = 'tipoactividad';
     $c[] = new cmp($o,'l',null,'',$w);
