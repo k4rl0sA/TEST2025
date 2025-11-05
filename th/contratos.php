@@ -191,7 +191,7 @@ function opc_tipo_expe($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=325 and estado='A' ORDER BY 2",$id);
 }
 
-function ajustar($hash,$acc){
+function ajustar($acc){
     $id=divide($acc);
     $sql = "SELECT COUNT(*) AS total FROM th_contratos WHERE id_thcon = $id[0] AND ajustar = 1 AND estado = 'A'";
     $info = datos_mysql($sql);
@@ -220,7 +220,7 @@ function formato_dato($a, $b, $c, $d){
             ]
         ];
         foreach ($accionesDisponibles as $key => $accion) {
-            if (ajustar($accion['hash'], $c['ACCIONES'])) {
+            if (ajustar($c['ACCIONES'])) {
                 if ($accion['permiso']) {
                     limpiar_hashes();
                     $_SESSION['hash'][$accion['hash'] . '_contratos'] = $c['ACCIONES'];
