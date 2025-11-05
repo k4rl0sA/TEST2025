@@ -295,9 +295,9 @@ function gra_actividades(){
             ['type' => 'i', 'value' => intval($id_thact)]
         ];
     }
-    return show_sql($sql, $params);
-   // $rta = mysql_prepd($sql, $params);
-    //return $rta;
+    // return show_sql($sql, $params);
+   $rta = mysql_prepd($sql, $params);
+    return $rta;
 }
 
 // Funciones para opciones de select
