@@ -190,7 +190,6 @@ function get_actividades(){
     // Usar la función global idReal para obtener el ID de la actividad
     $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_actividades');
 
-    
     // Usar datos_mysql para obtener la actividad (incluir perreq para compatibilidad)
     $sql = "SELECT `id_thact`, `actividad`, `perreq`, `rol`, `acbi`, `sudacbi`, `actbien`, `hora_act`, `hora_th`, `per_ano`, `per_mes`, `can_act`, `total_horas`, `total_valor`, `estado`
             FROM `th_actividades` WHERE id_thact = '" . intval($real_id) . "'";
