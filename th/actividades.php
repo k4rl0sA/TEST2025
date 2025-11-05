@@ -240,9 +240,6 @@ function opc_per_ano($id=''){
 }
 
 function ajustar($acc){
-    // Debug para ver qué valor está llegando
-    var_dump("ajustar recibió: " . $acc);
-    
     // Validar que $acc no esté vacío
     if (empty($acc)) {
         return false;
@@ -273,7 +270,6 @@ function ajustar($acc){
     
     $sql = "SELECT COUNT(*) AS total FROM th_actividades WHERE id_thact = $idE AND ajustar = 1 AND estado = 'A'";
     $info = datos_mysql($sql);
-    var_dump($sql);
     
     return (!empty($info['responseResult'][0]['total']) && $info['responseResult'][0]['total'] > 0);
 }
