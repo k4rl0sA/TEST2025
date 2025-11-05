@@ -194,7 +194,7 @@ function opc_tipo_expe($id=''){
 function ajustar($id){
     $hash = $id ?? '';
     $session_hash = $_SESSION['hash'] ?? [];
-    $suffixes = ['_contratos','_th','_editar'];
+    $suffixes = ['_contratos', '_th', '_editar'];
     $idth = null;
 
     // Intentar resolver el id real probando varios sufijos
@@ -205,13 +205,6 @@ function ajustar($id){
             break;
         }
     }
-
-    // Si idReal no devolvió nada, aceptar que $id pueda ser numérico directo
-    if (empty($idth) && is_numeric($hash)) {
-        $idth = intval($hash);
-    }
-
-    if (empty($idth)) return false;
 
     $id_thcon = intval($idth);
     $sql = "SELECT COUNT(*) AS total FROM th_contratos WHERE id_thcon = $id_thcon AND ajustar = 1 AND estado = 'A'";
