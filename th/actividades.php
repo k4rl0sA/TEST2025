@@ -37,19 +37,50 @@ function lis_actividades(){
     $regxPag = 10;
     $pag = (isset($_POST['pag-actividades'])) ? ($_POST['pag-actividades'] - 1) * $regxPag : 0;
     $sql = "SELECT CONCAT_WS('_',TA.id_thact,TA.idth) AS ACCIONES, 
-                   TA.id_thact AS 'Cod Registro',
-                   TA.actividad AS 'Código Actividad',
-                   SUBSTRING(TA.actbien, 1, 50) AS 'Descripción Actividad',
-                   TA.hora_act AS 'Horas Actividad',
-                   CONCAT('$ ', FORMAT(TA.hora_th, 0)) AS 'Valor Hora TH',
-                   CONCAT(TA.per_ano, '-', LPAD(TA.per_mes, 2, '0')) AS 'Período',
-                   TA.can_act AS 'Cantidad',
-                   TA.total_horas AS 'Total Horas',
-                   CONCAT('$ ', FORMAT(TA.total_valor, 0)) AS 'Valor Total',
-                   TA.estado AS 'Estado'
-            FROM th_actividades TA  
-            WHERE TA.estado = 'A' AND TA.idth = '$id_th'";
-    $sql .= " ORDER BY TA.fecha_create DESC";
+                CAST(TA.actividad AS CHAR) AS 'Codigo Registro',
+                CAST(SUBSTRING(TA.actbien, 1, 50) AS CHAR) AS 'Descripcion Actividad',
+                CAST(TA.hora_act AS CHAR) AS 'Horas Actividad',
+                CAST(CONCAT('$ ', FORMAT(TA.hora_th, 0)) AS CHAR) AS 'Valor Hora TH',
+                CAST(TA.per_ano AS CHAR) AS 'Año',
+                CAST(CASE TA.per_mes 
+                    WHEN 1 THEN 'ENERO'
+                    WHEN 2 THEN 'FEBRERO' 
+                    WHEN 3 THEN 'MARZO'
+                    WHEN 4 THEN 'ABRIL'
+                    WHEN 5 THEN 'MAYO'
+                    WHEN 6 THEN 'JUNIO'
+                    WHEN 7 THEN 'JULIO'
+                    WHEN 8 THEN 'AGOSTO'
+                    WHEN 9 THEN 'SEPTIEMBRE'
+                    WHEN 10 THEN 'OCTUBRE'
+                    WHEN 11 THEN 'NOVIEMBRE'
+                    WHEN 12 THEN 'DICIEMBRE'
+                    ELSE CAST(TA.per_mes AS CHAR)
+                END AS CHAR) AS 'Mes',
+                CAST(TA.can_act AS DECIMAL(4,2)) AS 'Cantidad',
+                CAST(TA.total_horas AS CHAR) AS 'Total Horas',
+                CAST(CONCAT('$ ', FORMAT(TA.total_valor, 0)) AS CHAR) AS 'Valor Total',
+                CAST(TA.estado AS CHAR) AS 'Estado'
+              FROM th_actividades TA  
+            WHERE TA.estado = 'A' AND TA.idth = '$id_th'
+            UNION ALL
+            SELECT 
+                '' AS 'ACCIONES',
+                '' AS 'Codigo', 
+                'TOTAL GENERAL' AS 'Descripcion Actividad',
+                '' AS 'Horas Actividad',
+                '' AS 'Valor Hora TH',
+                '' AS 'Año',
+                'TOTAL GENERAL' AS 'Mes',
+                CAST(SUM(TA2.can_act) AS DECIMAL(4,2)) AS 'Cantidad',
+                CAST(SUM(TA2.total_horas) AS CHAR) AS 'Total Horas',
+                CAST(CONCAT('$ ', FORMAT(SUM(TA2.total_valor), 0)) AS CHAR) AS 'Valor Total',
+                '' AS 'Estado'
+            FROM th_actividades TA2
+            WHERE TA2.estado = 'A' AND TA2.idth = '$id_th'
+            ORDER BY 
+                CASE WHEN ACCIONES = '' THEN 1 ELSE 0 END,
+                CAST(ACCIONES AS UNSIGNED) DESC";
     $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
     $datos = datos_mysql($sql);
     return create_table($total, $datos["responseResult"], "actividades", $regxPag, 'actividades.php');    
