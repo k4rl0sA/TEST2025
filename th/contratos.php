@@ -160,7 +160,7 @@ function gra_contratos(){
         ];
     } else {
         // UPDATE - Actualizar contrato existente
-        $sql = "UPDATE th_contratos SET n_contrato=?, tipo_cont=?, fecha_inicio=?, fecha_fin=?, valor_contrato=?, perfil_profesional=?, perfil_contratado=?, rol=?, tipo_expe=?, fecha_expe=?, semestre=?, usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR,ajustar=0) 
+        $sql = "UPDATE th_contratos SET n_contrato=?, tipo_cont=?, fecha_inicio=?, fecha_fin=?, valor_contrato=?, perfil_profesional=?, perfil_contratado=?, rol=?, tipo_expe=?, fecha_expe=?, semestre=?, usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),ajustar=0
                 WHERE id_thcon=?";
         $params = [
             ['type' => 'i', 'value' => intval($_POST['n_contrato'] ?? 0)],
