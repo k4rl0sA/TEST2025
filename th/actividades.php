@@ -252,8 +252,8 @@ function gra_actividades(){
             return "msj['Error:La suma de horas totales excede el límite permitido de 184 horas para el período seleccionado.']";
         }
 
-        var_dump('CON',floatval($_POST['can_act'] ?? 0));
-        var_dump('SIN',$_POST['can_act'] ?? 0);
+        /* var_dump('CON',floatval($_POST['can_act'] ?? 0));
+        var_dump('SIN',$_POST['can_act'] ?? 0); */
         $sql = "INSERT INTO th_actividades (idth, actividad,perreq, rol, acbi, sudacbi, actbien, hora_act, hora_th, per_ano, per_mes, can_act, total_horas, total_valor, usu_create, fecha_create, estado)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR), 'A')";
         $params = [
@@ -295,9 +295,9 @@ function gra_actividades(){
             ['type' => 'i', 'value' => intval($id_thact)]
         ];
     }
-
-    $rta = mysql_prepd($sql, $params);
-    return $rta;
+    return show_sql($sql, $params);
+   // $rta = mysql_prepd($sql, $params);
+    //return $rta;
 }
 
 // Funciones para opciones de select
