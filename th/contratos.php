@@ -238,7 +238,7 @@ function formato_dato($a, $b, $c, $d){
         ];
         
         foreach ($accionesDisponibles as $key => $accion) {
-            var_dump($accion['hash']);
+            // var_dump($accion['hash']);
             var_dump(idReal($accion['hash'], $_SESSION['hash'] ?? [], '_contratos'));
             if (ajustar($accion['hash'])) {
                 if ($accion['permiso']) {
