@@ -11,6 +11,13 @@ else {
     echo csv($rs,'');
     die;
     break;
+  case 'get':
+    // Manejar solicitudes GET para cargar datos en formularios de edición
+    $rta = get_adicionales();
+    header('Content-Type: application/json');
+    echo $rta;
+    die;
+    break;
   default:
     eval('$rta='.$_POST['a'].'_'.$_POST['tb'].'();');
     if (is_array($rta)) json_encode($rta);
@@ -178,6 +185,11 @@ function cmp_adicionales(){
 }
 
 function get_adicionales(){
+    // Verificar si se está solicitando datos para edición
+    if (!isset($_POST['id']) || $_POST['id'] == '' || $_POST['id'] == '0') {
+        return "";
+    }
+
     // Usar la función global idReal para obtener el ID del adicional
     $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_adicionales');
 
@@ -194,12 +206,17 @@ function get_adicionales(){
 
     // Validar que la respuesta sea válida
     if (!$info || !isset($info['responseResult']) || !is_array($info['responseResult'])) {
-        return '';
+        return json_encode([]);
     }
 
     // Verificar que hay resultados
     if (empty($info['responseResult'])) {
-        return '';
+        return json_encode([]);
+    }
+
+    // Para compatibilidad con getData de a.js, devolver JSON si es una petición AJAX
+    if (isset($_POST['a']) && $_POST['a'] == 'get') {
+        return json_encode($info['responseResult'][0]);
     }
 
     return $info['responseResult'][0];
@@ -231,6 +248,15 @@ function gra_adicionales(){
 
     // Obtener el id_thadic (ID del adicional) para determinar si es INSERT o UPDATE
     $id_thadic = $_POST['id_thadic'] ?? '';
+    
+    // Si no hay id_thadic, verificar si se puede obtener desde el hash de la sesión
+    if (empty($id_thadic)) {
+        $id_thadic_from_hash = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_adicionales');
+        if ($id_thadic_from_hash) {
+            $id_thadic = $id_thadic_from_hash;
+        }
+    }
+    
     $es_nuevo = empty($id_thadic);
 
     if($es_nuevo) {
@@ -339,7 +365,7 @@ function formato_dato($a, $b, $c, $d){
                 'title' => 'Editar Adicional',
                 'permiso' => true,
                 'hash' => $hash_id,
-                'evento' => "mostrar('adicionales','pro',event,'{$hash_id}','adicionales.php',7);"
+                'evento' => "mostrar('adicionales','pro',event,'{$hash_id}','adicionales.php',7).then(() => getData('adicionales', event, this, ['actividad'], 'adicionales.php'));"
             ]
         ];
 
