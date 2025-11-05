@@ -32,21 +32,24 @@ function lis_actividades(){
     // Si aún no hay ID válido, mostrar tabla vacía
     if (!empty($id_th)) {
     $id_th = intval($id_th);
-    $info = datos_mysql("SELECT COUNT(*) total FROM th_actividades TC WHERE TC.estado = 'A' AND TC.idth = '$id_th'");
+    $info = datos_mysql("SELECT COUNT(*) total FROM th_actividades TA WHERE TA.estado = 'A' AND TA.idth = '$id_th'");
     $total = $info['responseResult'][0]['total'];
     $regxPag = 10;
     $pag = (isset($_POST['pag-actividades'])) ? ($_POST['pag-actividades'] - 1) * $regxPag : 0;
-    $sql = "SELECT TC.id_thcon AS ACCIONES, 
-                   TC.n_contrato AS 'N° Contrato', 
-                   FN_CATALOGODESC(326, TC.tipo_cont) AS 'Tipo Vinculación',
-                   TC.fecha_inicio AS 'Fecha Inicio', 
-                   TC.fecha_fin AS 'Fecha Fin',
-                   CONCAT('$ ', FORMAT(TC.valor_contrato, 0)) AS 'Valor Contrato',
-                   FN_CATALOGODESC(323, TC.perfil_profesional) AS 'Perfil Profesional',
-                   TC.estado AS 'Estado'
-            FROM th_actividades TC  
-            WHERE TC.estado = 'A' AND TC.idth = '$id_th'";
-    $sql .= " ORDER BY TC.fecha_create DESC";
+    $sql = "SELECT CONCAT_WS('_',TA.id_thact,TA.idth) AS ACCIONES, 
+                   TA.id_thact AS 'Cod Registro',
+                   TA.actividad AS 'Código Actividad',
+                   SUBSTRING(TA.actbien, 1, 50) AS 'Descripción Actividad',
+                   TA.hora_act AS 'Horas Actividad',
+                   CONCAT('$ ', FORMAT(TA.hora_th, 0)) AS 'Valor Hora TH',
+                   CONCAT(TA.per_ano, '-', LPAD(TA.per_mes, 2, '0')) AS 'Período',
+                   TA.can_act AS 'Cantidad',
+                   TA.total_horas AS 'Total Horas',
+                   CONCAT('$ ', FORMAT(TA.total_valor, 0)) AS 'Valor Total',
+                   TA.estado AS 'Estado'
+            FROM th_actividades TA  
+            WHERE TA.estado = 'A' AND TA.idth = '$id_th'";
+    $sql .= " ORDER BY TA.fecha_create DESC";
     $sql .= ' LIMIT ' . $pag . ',' . $regxPag;
     $datos = datos_mysql($sql);
     return create_table($total, $datos["responseResult"], "actividades", $regxPag, 'actividades.php');    
@@ -74,124 +77,121 @@ function cap_menus($a,$b='cap',$con='con') {
 
 function cmp_actividades(){
     $rta = "";
-	$rta .="<div class='encabezado vivienda'>ACTIVIDADES</div><div class='contenido' id='gestion-lis' >".lis_actividades()."</div></div>";
+	$rta .="<div class='encabezado vivienda'>ACTIVIDADES REALIZADAS</div><div class='contenido' id='gestion-lis' >".lis_actividades()."</div></div>";
     $w = 'actividades';
-    $o = 'contratoinfo';
-    $c[] = new cmp($o,'e',null,'INFORMACIÓN DEL CONTRATO',$w);
+    $o = 'actividadinfo';
+    $key= $_POST['id'] ?? '';
+    $c[] = new cmp($o,'e',null,'INFORMACIÓN DE LA ACTIVIDAD',$w);
     $c[] = new cmp($o,'l',null,'',$w);
     $c[] = new cmp('id','h',15,$_POST['id'] ?? '',$w.' '.$o,'id','id',null,'####',false,false);
-    $c[] = new cmp('id_thcon','h',15,$d['id_thcon'] ?? '',$w.' '.$o,'id_thcon','id_thcon',null,'####',false,false);
-    $c[] = new cmp('n_contrato','nu','11',$d['n_contrato'],$w.' '.$o,'N° Contrato','n_contrato',null,null,true,true,'','col-3');
+    $c[] = new cmp('actividad','nu','999','',$w.' aCT '.$o,'Actividad/Intervención','actividad',null,null,true,true,'','col-2',"getDatForm('aCT','activiValores',['tipoactividad'],this,'actividades.php');");
     $c[] = new cmp($o,'l',null,'',$w);
-    $c[] = new cmp('tipo_cont','s','3',$d['tipo_cont'],$w.' '.$o,'Tipo de Contrato','tipo_cont',null,null,true,true,'','col-25');
-    $c[] = new cmp('fecha_inicio','d','',$d['fecha_inicio'],$w.' '.$o,'Fecha Inicio','fecha_inicio',null,null,true,true,'','col-25',"validDate(this,-730,362);");
-    $c[] = new cmp('fecha_fin','d','',$d['fecha_fin'],$w.' '.$o,'Fecha Fin','fecha_fin',null,null,true,true,'','col-25',"validDate(this,1,730);");
-    $c[] = new cmp('valor_contrato','nu','11',$d['valor_contrato'],$w.' '.$o,'Valor Total Contrato','valor_contrato',null,null,true,true,'','col-25');
+    $c[] = new cmp('perreq','s','3','',$w.' '.$o,'Perfil Requerido','perreq',null,null,false,false,'','col-4');
+    $c[] = new cmp('rol','s','3','',$w.' '.$o,'Rol','rol',null,null,false,false,'','col-4');
+    $c[] = new cmp('acbi','nu','99','',$w.' '.$o,'Acción de Bienestar','acbi',null,null,false,false,'','col-15');
+    $c[] = new cmp('sudacbi','nu','99','',$w.' '.$o,'Sub Acción de Bienestar','sudacbi',null,null,false,false,'','col-15');
+    $c[] = new cmp('actbien','t','3000','',$w.' '.$o,'Descripción de la Actividad','actbien',null,null,false,false,'','col-7');
+    $c[] = new cmp('hora_act','nu','99999','',$w.' '.$o,'Horas por Actividad','hora_act',null,null,false,false,'','col-25',"calcularTotales();");
+    $c[] = new cmp('hora_th','nu','999999','',$w.' '.$o,'Valor Hora TH','hora_th',null,null,false,false,'','col-25',"calcularTotales();");
     
-    $o2 = 'perfilinfo';
-    $c[] = new cmp($o2,'l',null,'',$w);
-    $c[] = new cmp('perfil_profesional','s','3',$d['perfil_profesional'],$w.' '.$o2,'Perfil Profesional','perfil_profesional',null,null,true,true,'','col-35');
-    $c[] = new cmp('perfil_contratado','s','3',$d['perfil_contratado'],$w.' '.$o2,'Perfil Contratado Requerido','perfil_contratado',null,null,true,true,'','col-35',"selectDepend('perfil_contratado','rol','actividades.php');");
-    $c[] = new cmp('rol','s','3',$d['rol'],$w.' '.$o2,'Rol Contratado','rol',null,null,true,true,'','col-3',"glineTH();");
+    $o2 = 'periodoinfo';
+    $c[] = new cmp($o2,'e',null,'PERIODO POR ACTIVIDAD',$w);
+    $c[] = new cmp('per_ano','s','3','',$w.' '.$o2,'Año Período','per_ano',null,null,true,true,'','col-35');
+    $c[] = new cmp('per_mes','s','3','',$w.' '.$o2,'Mes Período','per_mes',null,null,true,true,'','col-35');
+    $c[] = new cmp('can_act','sd','4','',$w.' '.$o2,'Cantidad Realizada','can_act',null,null,true,true,'','col-3',"calcularTotales();");
     
-    $o3 = 'experiencia';
-    $c[] = new cmp($o3,'l',null,'',$w);
-    $c[] = new cmp('tipo_expe','s','3',$d['tipo_expe'],$w.' GlIn '.$o3,'¿Bachiller con experiencia o formación en salud/social?','tipo_expe',null,null,false,false,'','col-5',"certTH();");
-    $c[] = new cmp('fecha_expe','d','',$d['fecha_expe'],$w.' CeRt '.$o3,'Fecha del Certificado','fecha_expe',null,null,false,false,'','col-3',"validDate(this,-3650,0);");
-    $c[] = new cmp('semestre','nu','1',$d['semestre'],$w.' CeRt '.$o3,'Semestres Cursados','semestre',null,null,false,false,'','col-2');
+    $c[] = new cmp('total_horas','nu','9999.9','',$w.' '.$o2,'Total Horas Realizadas','total_horas',null,null,false,false,'','col-3');
+    $c[] = new cmp('total_valor','nu','99999999','',$w.' '.$o2,'Valor Total','total_valor',null,null,false,false,'','col-4');
     
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
     return $rta;
 }
 
 function get_actividades(){
-   
+    // Usar la función global idReal para obtener el ID de la actividad
+    $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_actividades');
+    
+    // Usar datos_mysql en lugar de mysql_prepd para consistencia
+    $sql = "SELECT CONCAT_WS('_',id_thact,idth), `actividad`, `perreq`, `rol`, `acbi`, `sudacbi`, `actbien`, `hora_act`, `hora_th`, `per_ano`, `per_mes`, `can_act`, `total_horas`, `total_valor`, `estado`
+            FROM `th_actividades` WHERE id_thact = '" . intval($real_id) . "'";
+    $info = datos_mysql($sql);
+    return json_encode($info['responseResult'][0]);
 }
 
 function gra_actividades(){
     $usu = $_SESSION['us_sds'];
+    $id = divide($_POST['id']); 
     
-    // Obtener el idth (ID del empleado) real desde el hash de sesión
-    // Necesitamos buscar con diferentes sufijos porque puede venir de TH principal
     $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_actividades');
-    
-    // Si no se encuentra con _actividades, intentar con otros sufijos
-    if (!$idth) {
-        $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_th'); 
-    }
-    if (!$idth) {
-        $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_editar');
-    }
-    
-    // Verificar que tenemos un ID válido del empleado
-    if (!$idth) {
-        return "Error: No se pudo obtener el ID del empleado (TH)";
-    }
-    
-    // Obtener el id_thcon (ID del contrato) para determinar si es INSERT o UPDATE
-    $id_thcon = $_POST['id_thcon'] ?? '';
-    $es_nuevo = empty($id_thcon);
-    
-    if($es_nuevo) {        
-        $sql = "INSERT INTO th_actividades (idth, n_contrato, tipo_cont, fecha_inicio, fecha_fin, valor_contrato, perfil_profesional, perfil_contratado, rol, tipo_expe, fecha_expe, semestre, usu_create, fecha_create, estado) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR), 'A')";// INSERT - Nuevo contrato
+
+    if(count($id) == 1) {        
+        $idth = intval($idth);
+        $ano = intval($_POST['per_ano']);
+        $mes = intval($_POST['per_mes']);
+
+        $sql1 = "SELECT sum(total_horas) totalh FROM th_actividades WHERE idth=$idth and per_ano=$ano and per_mes=$mes";
+        $info_horas = datos_mysql($sql1);
+
+        if($info_horas['responseResult'][0]['totalh'] + intval($_POST['total_horas'] ?? 0) > 184){
+            return "msj['Error:La suma de horas totales excede el límite permitido de 184 horas para el período seleccionado.']";
+        }
+
+        $sql = "INSERT INTO th_actividades (idth, actividad, perreq, rol, acbi, sudacbi, actbien, hora_act, hora_th, per_ano, per_mes, can_act, total_horas, total_valor, usu_create, fecha_create, estado) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR), 'A')";
         $params = [
-            ['type' => 'i', 'value' => intval($idth)],
-            ['type' => 'i', 'value' => intval($_POST['n_contrato'] ?? 0)],
-            ['type' => 's', 'value' => $_POST['tipo_cont'] ?? ''],
-            ['type' => 's', 'value' => $_POST['fecha_inicio'] ?? ''],
-            ['type' => 's', 'value' => $_POST['fecha_fin'] ?? ''],
-            ['type' => 'i', 'value' => intval($_POST['valor_contrato'] ?? 0)],
-            ['type' => 's', 'value' => $_POST['perfil_profesional'] ?? ''],
-            ['type' => 's', 'value' => $_POST['perfil_contratado'] ?? ''],
+            ['type' => 'i', 'value' => $idth],
+            ['type' => 's', 'value' => $_POST['actividad'] ?? ''],
+            ['type' => 's', 'value' => $_POST['perreq'] ?? ''],
             ['type' => 's', 'value' => $_POST['rol'] ?? ''],
-            ['type' => 's', 'value' => $_POST['tipo_expe'] ?? ''],
-            ['type' => 's', 'value' => !empty($_POST['fecha_expe']) ? $_POST['fecha_expe'] : null],
-            ['type' => 'i', 'value' => !empty($_POST['semestre']) ? intval($_POST['semestre']) : null],
+            ['type' => 's', 'value' => $_POST['acbi'] ?? ''],
+            ['type' => 's', 'value' => $_POST['sudacbi'] ?? ''],
+            ['type' => 's', 'value' => $_POST['actbien'] ?? ''],
+            ['type' => 's', 'value' => $_POST['hora_act'] ?? '0'],
+            ['type' => 'i', 'value' => intval($_POST['hora_th'] ?? 0)],
+            ['type' => 'i', 'value' => $ano],
+            ['type' => 'i', 'value' => $mes],
+            ['type' => 's', 'value' => $_POST['can_act'] ?? '0'],
+            ['type' => 's', 'value' => $_POST['total_horas'] ?? '0'],
+            ['type' => 'i', 'value' => intval($_POST['total_valor'] ?? 0)],
             ['type' => 's', 'value' => $usu]
         ];
     } else {
-        // UPDATE - Actualizar contrato existente
-        $sql = "UPDATE th_actividades SET n_contrato=?, tipo_cont=?, fecha_inicio=?, fecha_fin=?, valor_contrato=?, perfil_profesional=?, perfil_contratado=?, rol=?, tipo_expe=?, fecha_expe=?, semestre=?, usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
-                WHERE id_thcon=?";
+        // UPDATE - Actualizar actividad existente
+        $sql = "UPDATE th_actividades SET actividad=?, perreq=?, rol=?, acbi=?, sudacbi=?, actbien=?, hora_act=?, hora_th=?, per_ano=?, per_mes=?, can_act=?, total_horas=?, total_valor=?, usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR), ajustar=0
+                WHERE id_thact=?";
         $params = [
-            ['type' => 'i', 'value' => intval($_POST['n_contrato'] ?? 0)],
-            ['type' => 's', 'value' => $_POST['tipo_cont'] ?? ''],
-            ['type' => 's', 'value' => $_POST['fecha_inicio'] ?? ''],
-            ['type' => 's', 'value' => $_POST['fecha_fin'] ?? ''],
-            ['type' => 'i', 'value' => intval($_POST['valor_contrato'] ?? 0)],
-            ['type' => 's', 'value' => $_POST['perfil_profesional'] ?? ''],
-            ['type' => 's', 'value' => $_POST['perfil_contratado'] ?? ''],
+            ['type' => 's', 'value' => $_POST['actividad'] ?? ''],
+            ['type' => 's', 'value' => $_POST['perreq'] ?? ''],
             ['type' => 's', 'value' => $_POST['rol'] ?? ''],
-            ['type' => 's', 'value' => $_POST['tipo_expe'] ?? ''],
-            ['type' => 's', 'value' => !empty($_POST['fecha_expe']) ? $_POST['fecha_expe'] : null],
-            ['type' => 'i', 'value' => !empty($_POST['semestre']) ? intval($_POST['semestre']) : null],
+            ['type' => 's', 'value' => $_POST['acbi'] ?? ''],
+            ['type' => 's', 'value' => $_POST['sudacbi'] ?? ''],
+            ['type' => 's', 'value' => $_POST['actbien'] ?? ''],
+            ['type' => 's', 'value' => $_POST['hora_act'] ?? '0'],
+            ['type' => 'i', 'value' => intval($_POST['hora_th'] ?? 0)],
+            ['type' => 'i', 'value' => intval($_POST['per_ano'] ?? 0)],
+            ['type' => 'i', 'value' => intval($_POST['per_mes'] ?? 0)],
+            ['type' => 's', 'value' => $_POST['can_act'] ?? '0'],
+            ['type' => 's', 'value' => $_POST['total_horas'] ?? '0'],
+            ['type' => 'i', 'value' => intval($_POST['total_valor'] ?? 0)],
             ['type' => 's', 'value' => $usu],
-            ['type' => 'i', 'value' => intval($id_thcon)]
+            ['type' => 'i', 'value' => intval($id[0])]
         ];
     }
-    // return json_encode(['sql' => show_sql($sql, $params), 'idth' => $idth, 'hash' => $hash_id, 'session' => $_SESSION['hash']]);
     $rta = mysql_prepd($sql, $params);
     return $rta;
 }
 
-function opc_perfil_contratadorol($id=''){
-  if($_REQUEST['id']!=''){	
-    $sql="SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=324 and estado='A' and valor='{$_REQUEST['id']}' ORDER BY 1";
-    $info = datos_mysql($sql);		
-  return json_encode($info['responseResult']);	
-  }
+function get_activiValores(){
+    $sql = "SELECT id_actividad,cod_perreq perreq, cod_rol rol, cod_acbi acbi, sud_acbi sudacbi, actividad actbien, hora_act, hora_th  FROM th_acti_bien
+    WHERE id_actividad ='".$_REQUEST['id']."'"; 
+    $info = datos_mysql($sql);
+    if (!$info['responseResult']) {
+        return json_encode (new stdClass);
+    }
+    return json_encode($info['responseResult'][0]);
 }
 
-function opc_tipo_cont($id=''){
-    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=326 and estado='A' ORDER BY LENGTH(idcatadeta), idcatadeta",$id);
-}
-
-function opc_perfil_profesional($id=''){
-    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=323 and estado='A' ORDER BY 2",$id);
-}
-
-function opc_perfil_contratado($id=''){
+function opc_perreq($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=308 and estado='A' ORDER BY 2",$id);
 }
 
@@ -199,8 +199,41 @@ function opc_rol($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=324 and estado='A' ORDER BY 2",$id);
 }
 
-function opc_tipo_expe($id=''){
-    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=325 and estado='A' ORDER BY 2",$id);
+function opc_per_mes($id=''){
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=327 and estado='A' ORDER BY 1",$id);
+}
+
+function opc_per_ano($id=''){
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=328 and estado='A' ORDER BY 1",$id);
+}
+
+function ajustar($id){
+    $hash = $id ?? '';
+    $session_hash = $_SESSION['hash'] ?? [];
+    $suffixes = ['_actividades','_th','_editar'];
+    $idth = null;
+
+    // Intentar resolver el id real probando varios sufijos
+    foreach ($suffixes as $sufijo) {
+        $res = idReal($hash, $session_hash, $sufijo);
+        if (!empty($res)) {
+            $idth = $res;
+            break;
+        }
+    }
+
+    // Si idReal no devolvió nada, aceptar que $id pueda ser numérico directo
+    if (empty($idth) && is_numeric($hash)) {
+        $idth = intval($hash);
+    }
+
+    if (empty($idth)) return false;
+
+    $id_thact = intval($idth);
+    $sql = "SELECT COUNT(*) AS total FROM th_actividades WHERE id_thact = $id_thact AND ajustar = 1 AND estado = 'A'";
+    $info = datos_mysql($sql);
+
+    return (!empty($info['responseResult'][0]['total']) && $info['responseResult'][0]['total'] > 0);
 }
 
 function formato_dato($a, $b, $c, $d){
@@ -214,18 +247,20 @@ function formato_dato($a, $b, $c, $d){
             'editar' => [
                 'icono' => 'fa-solid fa-edit',
                 'clase' => 'ico',
-                'title' => 'Editar Contrato',
+                'title' => 'Editar Actividad',
                 'permiso' => true,
                 'hash' => $hash_id,
-                'evento' => "mostrar('actividades','pro',event,'{$hash_id}','actividades.php',7);"
+                'evento' => "setTimeout(getDataFetch,500,'actividades',event,this,'../th/actividades.php',[]);"
             ]
         ];
         
         foreach ($accionesDisponibles as $key => $accion) {
-            if ($accion['permiso']) {
-                limpiar_hashes();
-                $_SESSION['hash'][$accion['hash'] . '_actividades'] = $c['ACCIONES'];
-                $acciones[] = "<li title='{$accion['title']}'><i class='{$accion['icono']} {$accion['clase']}' id='{$accion['hash']}' onclick=\"{$accion['evento']}\" data-acc='{$key}'></i></li>";
+            if (ajustar($accion['hash'])) {
+                if ($accion['permiso']) {
+                    limpiar_hashes();
+                    $_SESSION['hash'][$accion['hash'] . '_actividades'] = $c['ACCIONES'];
+                    $acciones[] = "<li title='{$accion['title']}'><i class='{$accion['icono']} {$accion['clase']}' id='{$accion['hash']}' onclick=\"{$accion['evento']}\" data-acc='{$key}'></i></li>";
+                }
             }
         }
         

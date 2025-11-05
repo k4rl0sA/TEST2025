@@ -78,7 +78,6 @@ function cmp_contratos(){
 	$rta .="<div class='encabezado vivienda'>CONTRATOS REALIZADOS</div><div class='contenido' id='gestion-lis' >".lis_contratos()."</div></div>";
     $w = 'contratos';
     $o = 'contratoinfo';
-    $key= $_POST['id'] ?? '';
     $c[] = new cmp($o,'e',null,'INFORMACIÓN DEL CONTRATO',$w);
     $c[] = new cmp($o,'l',null,'',$w);
     $c[] = new cmp('id','h',15,$_POST['id'] ?? '',$w.' '.$o,'id','id',null,'####',false,false);
