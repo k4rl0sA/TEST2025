@@ -110,7 +110,7 @@ function get_contratos(){
     // Usar la función global idReal para obtener el ID del contrato
     $real_id = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_contratos');
   // Usar datos_mysql en lugar de mysql_prepd para consistencia
-  $sql = "SELECT `id_thcon`,`n_contrato`, `tipo_cont`, `fecha_inicio`, `fecha_fin`,`valor_contrato`, `perfil_profesional`, `perfil_contratado`, `rol`,`tipo_expe`,`fecha_expe`, `semestre`, `estado`
+  $sql = "SELECT CONCAT_WS('_',id_thcon,idth),`n_contrato`, `tipo_cont`, `fecha_inicio`, `fecha_fin`,`valor_contrato`, `perfil_profesional`, `perfil_contratado`, `rol`,`tipo_expe`,`fecha_expe`, `semestre`, `estado`
             FROM `th_contratos` WHERE id_thcon = '" . intval($real_id) . "'";
     $info = datos_mysql($sql);
     return json_encode($info['responseResult'][0]);
