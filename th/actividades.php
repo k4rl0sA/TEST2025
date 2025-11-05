@@ -284,7 +284,7 @@ function gra_actividades(){
             ['type' => 'i', 'value' => intval($_POST['hora_th'] ?? 0)],
             ['type' => 'i', 'value' => intval($_POST['per_ano'] ?? 0)],
             ['type' => 'i', 'value' => intval($_POST['per_mes'] ?? 0)],
-            ['type' => 'i', 'value' => intval($_POST['can_act'] ?? 0)],
+            ['type' => 'i', 'value' => floatval($_POST['can_act'] ?? 0)],
             ['type' => 's', 'value' => $_POST['total_horas'] ?? '0'],
             ['type' => 'i', 'value' => intval($_POST['total_valor'] ?? 0)],
             ['type' => 's', 'value' => $usu],
