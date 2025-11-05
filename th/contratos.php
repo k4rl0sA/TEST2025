@@ -194,7 +194,7 @@ function opc_tipo_expe($id=''){
 function ajustar($id){
     $hash = $id ?? '';
     $session_hash = $_SESSION['hash'] ?? [];
-    $suffixes = ['_editar'];
+    $suffixes = ['_contratos'];
     $idth = null;
 
     // Intentar resolver el id real probando varios sufijos
