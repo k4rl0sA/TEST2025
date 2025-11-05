@@ -237,13 +237,13 @@ function formato_dato($a, $b, $c, $d){
         ];
         
         foreach ($accionesDisponibles as $key => $accion) {
-            if (ajustar($accion['hash'])) {
+            // if (ajustar($accion['hash'])) {
                 if ($accion['permiso']) {
                     limpiar_hashes();
                     $_SESSION['hash'][$accion['hash'] . '_contratos'] = $c['ACCIONES'];
                     $acciones[] = "<li title='{$accion['title']}'><i class='{$accion['icono']} {$accion['clase']}' id='{$accion['hash']}' onclick=\"{$accion['evento']}\" data-acc='{$key}'></i></li>";
                 }
-            }
+            // }
         }
         
         if (count($acciones)) {
