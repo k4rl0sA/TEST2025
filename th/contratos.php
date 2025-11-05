@@ -119,26 +119,7 @@ function gra_contratos(){
     $usu = $_SESSION['us_sds'];
     $id=divide($_POST['id']); 
     
-    // Obtener el idth (ID del empleado) real desde el hash de sesión
-    // Necesitamos buscar con diferentes sufijos porque puede venir de TH principal
     $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_contratos');
-    
-    // Si no se encuentra con _contratos, intentar con otros sufijos
-/*     if (!$idth) {
-        $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_th'); 
-    }
-    if (!$idth) {
-        $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_editar');
-    }
-     */
-    // Verificar que tenemos un ID válido del empleado
-    /* if (!$idth) {
-        return "Error: No se pudo obtener el ID del empleado (TH)";
-    } */
-    
- /*    // Obtener el id_thcon (ID del contrato) para determinar si es INSERT o UPDATE
-    $id_thcon = $_POST['id_thcon'] ?? '';
-    $es_nuevo = empty($id_thcon); */
 
     if(count($id) == 1) {        
         $sql = "INSERT INTO th_contratos (idth, n_contrato, tipo_cont, fecha_inicio, fecha_fin, valor_contrato, perfil_profesional, perfil_contratado, rol, tipo_expe, fecha_expe, semestre, usu_create, fecha_create, estado) 
