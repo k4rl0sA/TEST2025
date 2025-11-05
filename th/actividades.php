@@ -128,11 +128,13 @@ function cap_menus($a,$b='cap',$con='con') {
 
 function cmp_actividades(){
     $rta = "";
+    // Incluir el archivo JavaScript personalizado para TH
+    $rta .= "<script src='th.js'></script>";
 	$rta .="<div class='encabezado vivienda'>ACTIVIDADES REALIZADAS</div><div class='contenido' id='actividades-lis' >".lis_actividades()."</div></div>";
-   //  $t = ['id_thact' => '', 'actividad' => '','perreq' => '' ,'rol' => '', 'acbi' => '','sudacbi' => '', 'actbien' => '', 'hora_act' => '', 'hora_th' => '','per_ano' => '', 'per_mes' => '', 'can_act' => '', 'total_horas' => '', 'total_valor' => ''];
+     $t = ['id_thact' => '', 'actividad' => '','perreq' => '' ,'rol' => '', 'acbi' => '','sudacbi' => '', 'actbien' => '', 'hora_act' => '', 'hora_th' => '','per_ano' => '', 'per_mes' => '', 'can_act' => '', 'total_horas' => '', 'total_valor' => ''];
     // $d='';
-    //$d = get_actividades();
-    //if ($d == "") { $d = $t; }
+    $d = get_actividades();
+    if ($d == "") { $d = $t; }
     $w = 'actividades';
     $o = 'actividadinfo';
   /*$rta .= '<div class="search-wrapper"><input type="number" class="number-input-svg" placeholder="Actividad a buscar..." step="0.1">
@@ -363,7 +365,7 @@ function formato_dato($a, $b, $c, $d){
                 'title' => 'Editar Actividad',
                 'permiso' => true,
                 'hash' => $hash_id,
-                'evento' => "getDataFetch('actividades',event,this,'../th/actividades.php');"
+                'evento' => "mostrar('actividades','pro',event,'','actividades.php',7).then(() => { setTimeout(() => getDataFetch('actividades', event, this, ['actividad'], 'actividades.php'), 100); });"
             ]
         ];
 
