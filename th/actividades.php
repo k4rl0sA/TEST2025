@@ -239,7 +239,7 @@ function opc_per_ano($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=328 and estado='A' ORDER BY 1",$id);
 }
 
-function ajustar($hash, $acc){
+function ajustar($acc){
     $id = divide($acc);
     $sql = "SELECT COUNT(*) AS total FROM th_actividades WHERE id_thact = $id[0] AND ajustar = 1 AND estado = 'A'";
     $info = datos_mysql($sql);
@@ -266,7 +266,7 @@ function formato_dato($a, $b, $c, $d){
         ];
         
         foreach ($accionesDisponibles as $key => $accion) {
-            if (ajustar($accion['hash'], $c['ACCIONES'])) {
+            if (ajustar($c['ACCIONES'])) {
                 if ($accion['permiso']) {
                     limpiar_hashes();
                     $_SESSION['hash'][$accion['hash'] . '_actividades'] = $c['ACCIONES'];
