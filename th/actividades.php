@@ -316,7 +316,7 @@ function formato_dato($a, $b, $c, $d){
                 'title' => 'Editar Actividad',
                 'permiso' => true,
                 'hash' => $hash_id,
-                'evento' => "mostrar('actividades','pro',event,'','actividades.php',7).then(() => { setTimeout(() => getDataFetch('actividades', event, this, ['actividad'], 'actividades.php'), 100); });"
+                'evento' => "setTimeout(getDataFetch,500,'actividades',event,this,'../th/actividades.php',[]);
             ]
         ];
 
