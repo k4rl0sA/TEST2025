@@ -212,7 +212,11 @@ function opc_tipo_expe($id=''){
 }
 
 function ajustar(){
-    return false;
+    $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_contratos');
+    $sql]="SELECT COUNT(*) AS total FROM th_contratos WHERE idth='$idth' and ajustar=1 AND estado='A'";
+    $info = datos_mysql($sql);
+    if($info['responseResult'][0]['total']>0) return true;
+    else return false;
 }
 
 function formato_dato($a, $b, $c, $d){
