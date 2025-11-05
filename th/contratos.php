@@ -140,7 +140,7 @@ function gra_contratos(){
     // Obtener el id_thcon (ID del contrato) para determinar si es INSERT o UPDATE
     $id_thcon = $_POST['id_thcon'] ?? '';
     $es_nuevo = empty($id_thcon);
-    
+
     if(count($id) == 1) {        
         $sql = "INSERT INTO th_contratos (idth, n_contrato, tipo_cont, fecha_inicio, fecha_fin, valor_contrato, perfil_profesional, perfil_contratado, rol, tipo_expe, fecha_expe, semestre, usu_create, fecha_create, estado) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR), 'A')";// INSERT - Nuevo contrato
@@ -215,9 +215,9 @@ function opc_tipo_expe($id=''){
 function formato_dato($a, $b, $c, $d){
       $b = strtolower($b);
     $rta = $c[$d];
-    var_dump($c);
+/*     var_dump($c);
    var_dump($a);
-   var_dump($b);
+   var_dump($b); */
      if ($a == 'contratos' && $b == 'acciones') {
         $acciones = [];
         // Definición de acciones posibles para contratos
