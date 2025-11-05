@@ -240,13 +240,38 @@ function opc_per_ano($id=''){
 }
 
 function ajustar($id){
-    if ($id === '') return false;
-    $id = intval(idReal($id, $_SESSION['hash'], '_actividades'));
-    if ($id <= 0) return false;
-    $sql = "SELECT 1 AS existe FROM th_actividades WHERE id_thact = $id AND ajustar = 1 AND estado = 'A' LIMIT 1";
+    $hash = $id ?? '';
+    $session_hash = $_SESSION['hash'] ?? [];
+    $suffixes = ['_actividades','_th','_editar'];
+    $real_id = null;
+
+    // Intentar resolver el id real probando varios sufijos
+    foreach ($suffixes as $sufijo) {
+        $res = idReal($hash, $session_hash, $sufijo);
+        if (!empty($res)) {
+            $real_id = $res;
+            break;
+        }
+    }
+
+    // Si idReal no devolvió nada, es porque recibimos el ID compuesto directamente
+    if (empty($real_id)) {
+        // El ID viene en formato "id_thact_idth", necesitamos separarlo
+        $parts = explode('_', $hash);
+        if (count($parts) >= 2 && is_numeric($parts[0])) {
+            $real_id = intval($parts[0]); // Tomar el id_thact
+        } else {
+            return false;
+        }
+    }
+
+    if (empty($real_id)) return false;
+
+    $id_thact = intval($real_id);
+    $sql = "SELECT COUNT(*) AS total FROM th_actividades WHERE id_thact = $id_thact AND ajustar = 1 AND estado = 'A'";
     $info = datos_mysql($sql);
-    var_dump($sql);
-    return !empty($info['responseResult']) && count($info['responseResult']) > 0;
+
+    return (!empty($info['responseResult'][0]['total']) && $info['responseResult'][0]['total'] > 0);
 }
 
 function formato_dato($a, $b, $c, $d){
