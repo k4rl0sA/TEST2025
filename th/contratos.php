@@ -191,12 +191,11 @@ function opc_tipo_expe($id=''){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=325 and estado='A' ORDER BY 2",$id);
 }
 
-function ajustar($id){
-    var_dump($id);
-    $id=divide($id);
+function ajustar($hash,$acc){
+    $id=divide($acc);
     $sql = "SELECT 1 AS existe FROM th_actividades WHERE id_thact = $id[0] AND ajustar = 1 AND estado = 'A' LIMIT 1";
     $info = datos_mysql($sql);
-    var_dump($sql);
+    // var_dump($sql);
     return !empty($info['responseResult']) && count($info['responseResult']) > 0;
 }
 
@@ -221,7 +220,7 @@ function formato_dato($a, $b, $c, $d){
             ]
         ];
         foreach ($accionesDisponibles as $key => $accion) {
-            if (ajustar($accion['hash'])) {
+            if (ajustar($accion['hash'], $c['ACCIONES'])) {
                 if ($accion['permiso']) {
                     limpiar_hashes();
                     $_SESSION['hash'][$accion['hash'] . '_contratos'] = $c['ACCIONES'];
