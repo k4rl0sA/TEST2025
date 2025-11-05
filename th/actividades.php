@@ -240,11 +240,15 @@ function opc_per_ano($id=''){
 }
 
 function ajustar($acc){
-    $id=divide($acc);
-    $sql = "SELECT COUNT(*) AS total FROM th_actividades WHERE id_thact = $id[0] AND ajustar = 1 AND estado = 'A'";
+    $id = divide($acc);
+    $idEdit = intval($id[0]);
+    $sql = "SELECT COUNT(*) AS total FROM th_actividades WHERE id_thact = $idEdit AND ajustar = 1 AND estado = 'A'";
     $info = datos_mysql($sql);
     // var_dump($sql);
-    return (!empty($info['responseResult'][0]['total']) && $info['responseResult'][0]['total'] > 0);
+    if (empty($info['responseResult'][0]['total'])) {
+        return false;
+    }
+    return intval($info['responseResult'][0]['total']) > 0;
 }
 
 function formato_dato($a, $b, $c, $d){
