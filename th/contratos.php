@@ -36,7 +36,7 @@ function lis_contratos(){
     $total = $info['responseResult'][0]['total'];
     $regxPag = 10;
     $pag = (isset($_POST['pag-contratos'])) ? ($_POST['pag-contratos'] - 1) * $regxPag : 0;
-    $sql = "SELECT TC.id_thcon AS ACCIONES, 
+    $sql = "SELECT CONCAT_WS('_',TC.id_thcon,tc.idth) AS ACCIONES, 
                    TC.n_contrato AS 'N° Contrato', 
                    FN_CATALOGODESC(326, TC.tipo_cont) AS 'Tipo Vinculación',
                    TC.fecha_inicio AS 'Fecha Inicio', 
