@@ -240,15 +240,16 @@ function opc_per_ano($id=''){
 }
 
 function ajustar($acc){
-    $id = divide($acc);
-    $idEdit = intval($id[0]);
-    $sql = "SELECT COUNT(*) AS total FROM th_actividades WHERE id_thact = $idEdit AND ajustar = 1 AND estado = 'A'";
-    $info = datos_mysql($sql);
-    // var_dump($sql);
-    if (empty($info['responseResult'][0]['total'])) {
+    $id=divide($acc);
+    if (count($parts) >= 2 && is_numeric($parts[0])) {
+        $id_thact = intval($parts[0]); // Tomar el id_thact
+    } else {
         return false;
     }
-    return intval($info['responseResult'][0]['total']) > 0;
+    $sql = "SELECT COUNT(*) AS total FROM th_actividades WHERE id_thact = $id_thact AND ajustar = 1 AND estado = 'A'";
+    $info = datos_mysql($sql);
+    var_dump($sql);
+    return (!empty($info['responseResult'][0]['total']) && $info['responseResult'][0]['total'] > 0);
 }
 
 function formato_dato($a, $b, $c, $d){
@@ -270,7 +271,7 @@ function formato_dato($a, $b, $c, $d){
         ];
         
         foreach ($accionesDisponibles as $key => $accion) {
-            if (ajustar($c['ACCIONES'])) {
+            if (ajustar($accion['hash'], $c['ACCIONES'])) {
                 if ($accion['permiso']) {
                     limpiar_hashes();
                     $_SESSION['hash'][$accion['hash'] . '_actividades'] = $c['ACCIONES'];
