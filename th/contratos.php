@@ -192,25 +192,13 @@ function opc_tipo_expe($id=''){
 }
 
 function ajustar($id){
-    $hash = $id ?? '';
-    $session_hash = $_SESSION['hash'] ?? [];
-    $suffixes = ['_contratos'];
-    $idth = null;
-
-    // Intentar resolver el id real probando varios sufijos
-    foreach ($suffixes as $sufijo) {
-        $res = idReal($hash, $session_hash, $sufijo);
-        if (!empty($res)) {
-            $idth = $res;
-            break;
-        }
-    }
-
-    $id_thcon = intval($idth);
-    $sql = "SELECT COUNT(*) AS total FROM th_contratos WHERE id_thcon = $id_thcon AND ajustar = 1 AND estado = 'A'";
+    if ($id === '') return false;
+    $id = intval(idReal($hash, $_SESSION['hash'], '_contratos'));
+    if ($id <= 0) return false;
+    // Consulta ligera para verificar existencia
+    $sql = "SELECT 1 AS existe FROM th_contratos WHERE id_thcon = $id AND ajustar = 1 AND estado = 'A' LIMIT 1";
     $info = datos_mysql($sql);
-
-    return (!empty($info['responseResult'][0]['total']) && $info['responseResult'][0]['total'] > 0);
+    return !empty($info['responseResult']) && count($info['responseResult']) > 0;
 }
 
 function formato_dato($a, $b, $c, $d){
