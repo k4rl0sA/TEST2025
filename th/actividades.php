@@ -163,6 +163,7 @@ function gra_actividades(){
     $mes = intval($_POST['per_mes']);
     $sql1 = "SELECT sum(total_horas) totalh FROM th_actividades WHERE idth=$idth and per_ano=$ano and per_mes=$mes";
         $info_horas = datos_mysql($sql1);
+        var_dump($sql1);
         var_dump($info_horas['responseResult'][0]['totalh']);
         var_dump(intval($_POST['total_horas'] ?? 0));
     if($info_horas['responseResult'][0]['totalh'] + intval($_POST['total_horas'] ?? 0) > 184){
