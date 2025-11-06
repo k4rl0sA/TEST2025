@@ -613,7 +613,7 @@ function formato_dato($a,$b,$c,$d){
   //~ var_dump($c);
  if (($a=='agendamiento') && ($b=='acciones'))    {
 		$rta="<nav class='menu right'>";
-		$rta.="<li class='icono editarAgenda' title='Editar Cita' id='".$c['ACCIONES']."' Onclick=\"mostrar('agendamiento','pro',event,'','lib.php',4);\"></li>";
+		$rta.="<li class='icono editarAgenda' title='Editar Cita OK' id='".$c['ACCIONES']."' Onclick=\"mostrar('agendamiento','pro',event,'','lib.php',4);\"></li>";
 		if ($c['Estado']=='PENDIENTE'){
 			$rta.="<li class='icono confirmaAgenda' title='Confirmar Asistencia' id='".$c['ACCIONES']."' OnClick=\"mostrar('confirma_asistencia','pro',event,'','lib.php',9,'confirma_asistencia');\" ></li>";
 		}
