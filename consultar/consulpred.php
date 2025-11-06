@@ -164,7 +164,7 @@ function cmp_predios(){
 	$c[]=new cmp('predio','n',3,$d,$w.' flT IDc '.$o,'predio','predio',null,'123',true,false,'','col-1'); 
 	$c[]=new cmp('unidad','n',3,$d,$w.' flT IDc '.$o,'unidad','unidad',null,'123',true,false,'','col-1'); */
 	$c[]=new cmp('codpre','n',15,$d,$w.' flT cOP '.$o,'Codigo del Predio','codpre',null,'#####',true,false,'','col-2');
-	$c[]=new cmp('documento','n',21,$d,$w.' flT DoC IDc '.$o,'Documento del Usuario','documento',null,'##########',true,false,'','col-2');
+	$c[]=new cmp('documento','n',21,$d,$w.' flT DoC IDc '.$o,'Documento del Usuario/Cod Persona','documento',null,'##########',true,false,'','col-2');
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	$rta.="<center><button style='background-color:#4d4eef;border-radius:12px;color:white;padding:12px;text-align:center;cursor:pointer;' type='button' Onclick=\"act_lista('predios','','../consultar/consulpred.php');\">Buscar</button></center>";
 	return $rta;
