@@ -222,7 +222,7 @@ function gra_adicionales(){
             ['type' => 's', 'value' => $usu]
         ];
     } else {
-        $sql1 = "SELECT sum(total_horas) totalh FROM th_actiadic WHERE idth=(select idth from th_actividades where id_thact=$idth) and per_ano=$ano and per_mes=$mes";
+        $sql1 = "SELECT sum(total_horas) totalh FROM th_actiadic WHERE idth=(select idth from th_actividades where id_thact=$idth) and per_ano=$ano and per_mes=$mes AND id_thadic <> ".intval($idth);
     $info_horas = datos_mysql($sql1);
         // UPDATE - Actualizar adicional existente
         $sql = "UPDATE th_actiadic SET actividad=?, perreq=?, rol=?, acbi=?, sudacbi=?, actbien=?, hora_act=?, hora_th=?, per_ano=?, per_mes=?, can_act=?, total_horas=?, total_valor=?, usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR), ajustar=0
