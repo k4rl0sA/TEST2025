@@ -117,8 +117,7 @@ function lis_predios(){
                             u.nombre AS Creo,
                             u.perfil,
                             u.equipo,
-                            p.fecha_create AS 'Fecha Creo',
-                             FN_CATALOGODESC(44, gg.estado_v) AS Estado
+                            p.fecha_create AS 'Fecha Creo'
                         FROM hog_fam hf
                         LEFT JOIN hog_geo hg ON hf.idpre = hg.idgeo
                         LEFT JOIN person p ON hf.id_fam = p.vivipersona
