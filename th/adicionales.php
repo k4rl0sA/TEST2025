@@ -44,7 +44,8 @@ function lis_adicionales(){
 
         $sql = "SELECT 
                     CONCAT_WS('_',TA.id_thadic,TA.idth) AS ACCIONES,
-                    CAST(TA.actividad AS CHAR) AS 'Codigo',
+                    CAST(TA.id_thadic AS CHAR) AS 'Codigo Registro',
+                    CAST(TA.actividad AS CHAR) AS 'Actividad',
                     CAST(SUBSTRING(TA.actbien, 1, 50) AS CHAR) AS 'Descripcion Actividad',
                     CAST(TA.hora_act AS CHAR) AS 'Horas Actividad',
                     CAST(CONCAT('$ ', FORMAT(TA.hora_th, 0)) AS CHAR) AS 'Valor Hora TH',
@@ -75,7 +76,8 @@ function lis_adicionales(){
                 
                 SELECT 
                     '' AS 'ACCIONES',
-                    '' AS 'Codigo', 
+                    '' AS 'Codigo Registro', 
+                    '' AS 'Actividad',
                     '' AS 'Descripcion Actividad',
                     '' AS 'Horas Actividad',
                     '' AS 'Valor Hora TH',
