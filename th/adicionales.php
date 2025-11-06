@@ -312,7 +312,7 @@ function formato_dato($a, $b, $c, $d){
         $hash_id = myhash($c['ACCIONES']);
         $accionesDisponibles = [
             'editar' => [
-                'icono' => 'fa-regular calendar-plus',
+                'icono' => 'fa-regular fa-calendar-plus',
                 'clase' => 'ico',
                 'title' => 'Editar Adicional',
                 'permiso' => true,
