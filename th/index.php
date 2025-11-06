@@ -77,7 +77,8 @@ function grabar(tb='',ev){
   }
   const rutaMap = {
   'contratos':'contratos.php',
-  'actividades':'actividades.php'
+  'actividades':'actividades.php',
+  'adicionales':'adicionales.php'
  	};
    let ruta_app = rutaMap[tb] || 'lib.php';
    const res = confirm("Desea guardar la información? Recuerda que no se podrá editar posteriormente.");
