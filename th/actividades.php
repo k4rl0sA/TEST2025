@@ -38,6 +38,7 @@ function lis_actividades(){
     $pag = (isset($_POST['pag-actividades'])) ? ($_POST['pag-actividades'] - 1) * $regxPag : 0;
     $sql = "SELECT CONCAT_WS('_',TA.id_thact,TA.idth) AS ACCIONES, 
                 CAST(TA.id_thact AS CHAR) AS 'Codigo Registro',
+                CAST(TA.actividad AS CHAR) AS 'Codigo Actividad',
                 CAST(SUBSTRING(TA.actbien, 1, 50) AS CHAR) AS 'Descripcion Actividad',
                 CAST(TA.hora_act AS CHAR) AS 'Horas Actividad',
                 CAST(CONCAT('$ ', FORMAT(TA.hora_th, 0)) AS CHAR) AS 'Valor Hora TH',
@@ -67,6 +68,7 @@ function lis_actividades(){
             SELECT 
                 '' AS 'ACCIONES',
                 '' AS 'Codigo', 
+                '' AS 'Codigo Actividad',
                 '' AS 'Descripcion Actividad',
                 '' AS 'Horas Actividad',
                 '' AS 'Valor Hora TH',
