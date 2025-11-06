@@ -158,6 +158,8 @@ function gra_actividades(){
     
     $idth = idReal($_POST['id'] ?? '', $_SESSION['hash'] ?? [], '_actividades');
 
+    $sql1 = "SELECT sum(total_horas) totalh FROM th_actividades WHERE idth=$idth and per_ano=$ano and per_mes=$mes";
+        $info_horas = datos_mysql($sql1);
     if($info_horas['responseResult'][0]['totalh'] + intval($_POST['total_horas'] ?? 0) > 184){
             return "msj['Error:La suma de horas totales excede el límite permitido de 184 horas para el período seleccionado.']";
     }
@@ -166,9 +168,6 @@ function gra_actividades(){
         $idth = intval($idth);
         $ano = intval($_POST['per_ano']);
         $mes = intval($_POST['per_mes']);
-
-        $sql1 = "SELECT sum(total_horas) totalh FROM th_actividades WHERE idth=$idth and per_ano=$ano and per_mes=$mes";
-        $info_horas = datos_mysql($sql1);
 
         $sql = "INSERT INTO th_actividades (idth, actividad, perreq, rol, acbi, sudacbi, actbien, hora_act, hora_th, per_ano, per_mes, can_act, total_horas, total_valor, usu_create, fecha_create, estado) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR), 'A')";
