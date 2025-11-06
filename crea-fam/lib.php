@@ -789,7 +789,13 @@ function eventAsign($key) {
 	  28 => ['icono' => 'condu1', 'titulo' => 'CONDUCTA SUICIDA (INTENTO)', 'modulo' => 'condsuic'],
 	  29 => ['icono' => 'otrca1', 'titulo' => 'EDUCACIÓN MEDICO', 'modulo' => 'educaMedi'],
 	  30 => ['icono' => 'adoles', 'titulo' => 'ADOLESCENCIA CON MAS BIENESTAR', 'modulo' => 'adoleMas'],
-	  31 => ['icono' => 'vihge1', 'titulo' => 'RBC', 'modulo' => ($perfilUsuario == 'AUXRELEVO') ? 'discapacidad1' : 'discapacidad']
+	  31 => ['icono' => 'vihge1', 'titulo' => 'RBC', 'modulo' => ($perfilUsuario == 'AUXRELEVO') ? 'discapacidad1' : 'discapacidad'],
+	  32 => ['icono' => 'psico1', 'titulo' => 'CANCER DE CUELLO UTERINO', 'modulo' => 'cancinfa'],
+	  33 => ['icono' => 'psico1', 'titulo' => 'CANCER DE MAMA', 'modulo' => 'cancinfa'],
+	  34 => ['icono' => 'psico1', 'titulo' => 'CANCER DE PROSTATA', 'modulo' => 'cancinfa'],
+	  35 => ['icono' => 'psico1', 'titulo' => 'CANCER DE COLON Y RECTO', 'modulo' => 'cancinfa'],
+	  36 => ['icono' => 'psico1', 'titulo' => 'CANCER DE PIEL', 'modulo' => 'cancinfa'],
+	  37 => ['icono' => 'psico1', 'titulo' => 'CANCER DE ESTOMAGO', 'modulo' => 'cancinfa']
     );
     $eve = '';
     foreach ($rta as $evento) {
