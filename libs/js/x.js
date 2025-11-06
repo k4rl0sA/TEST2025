@@ -1573,12 +1573,12 @@ function enabGestRtaLab(){
 	EnabDepeDynamic(['FgE'], conditions);
 }
 function enabPrioAten(){
-	const conditions = [
-		{ id: 'tipo_estrategia', value: '1', compare: true },
-		{ id: 'tipo_estrategia', value: '2', compare: true },
-		{ id: 'tipo_estrategia', value: '3', compare: true }
-	];
-	EnabDepeDynamic(['PRi'], conditions);
+	const tipoEstrategia = document.getElementById('tipo_estrategia');
+    const elements = document.querySelectorAll('select.PRi, input.PRi, textarea.PRi');
+    const shouldEnable = ['1', '2', '3'].includes(tipoEstrategia?.value);
+    elements.forEach(element => {
+        enaFie(element, !shouldEnable);
+    });
 }
 
 function riskPlacaAtenOdon() {
