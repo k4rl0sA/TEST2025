@@ -2232,7 +2232,7 @@ WHERE 1";
 }
 
 function lis_servicAgend($txt){
-	$sql="SELECT A.id_agen 'Cod Servicio',P.tipo_doc 'Tipo Documento',P.idpersona Documento,fecha_solici 'Fecha Solicitud',FN_CATALOGODESC(275, servicio) Servicio,U.nombre 'Solicito',f2.realizada 
+	$sql="SELECT A.id_agen 'Cod Servicio',P.tipo_doc 'Tipo Documento',P.idpersona Documento,P.idpeople 'Cod Persona',fecha_solici 'Fecha Solicitud',FN_CATALOGODESC(275, servicio) Servicio,U.nombre 'Solicito',U.perfil,f2.realizada  
 FROM hog_agen A LEFT JOIN person P ON A.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario LEFT JOIN (SELECT idpeople, realizada FROM frecuenciauso WHERE idfrecuencia IN (SELECT MIN(idfrecuencia) FROM frecuenciauso GROUP BY idpeople)) f2 ON A.idpeople = f2.idpeople
 WHERE 1";
 	if (perfilUsu()!=='ADM')	$sql.=whe_subred();
