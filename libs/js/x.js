@@ -1574,7 +1574,9 @@ function enabGestRtaLab(){
 }
 function enabPrioAten(){
 	const conditions = [
-		{ id: 'tipo_estrategia', value: '1', compare: true }
+		{ id: 'tipo_estrategia', value: '1', compare: true },
+		{ id: 'tipo_estrategia', value: '2', compare: true },
+		{ id: 'tipo_estrategia', value: '3', compare: true }
 	];
 	EnabDepeDynamic(['PRi'], conditions);
 }
