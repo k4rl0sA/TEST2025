@@ -192,7 +192,7 @@ function gra_actividades(){
             ['type' => 's', 'value' => $usu]
         ];
     } else {
-        $sql1 = "SELECT sum(total_horas) totalh FROM th_actividades WHERE idth=(select idth from th_actividades where id_thact=$idth) and per_ano=$ano and per_mes=$mes";
+        $sql1 = "SELECT sum(total_horas) totalh FROM th_actividades WHERE idth=(select idth from th_actividades where id_thact=$idth) and per_ano=$ano and per_mes=$mes AND id_thact <> ".intval($idth);
         $info_horas = datos_mysql($sql1);
 
         // UPDATE - Actualizar actividad existente
