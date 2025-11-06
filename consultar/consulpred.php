@@ -46,7 +46,35 @@ function lis_predios(){
 
     switch ($filtro) {
         case '1':
-            // Código para el caso 1, si es necesario agregarlo aquí
+            if (trim($docume) !== '') {
+                $docume = intval($docume);
+                $sql = "SELECT 
+                            hg.idgeo AS 'Cod Predio',
+                            hf.id_fam AS 'Cod Familia',
+                            p.idpeople 'Cod Persona',
+                            FN_CATALOGODESC(72, hg.subred) AS Subred,
+                            hg.direccion AS Direccion,
+                            u.nombre AS Creo,
+                            u.perfil,
+                            u.equipo,
+                            p.fecha_create AS 'Fecha Creo',
+                             FN_CATALOGODESC(44, gg.estado_v) AS Estado
+                        FROM hog_fam hf
+                        LEFT JOIN hog_geo hg ON hf.idpre = hg.idgeo
+                        LEFT JOIN person p ON hf.id_fam = p.vivipersona
+			 LEFT JOIN geo_gest gg ON hg.idgeo = gg.idgeo
+                        LEFT JOIN usuarios u ON p.usu_creo = u.id_usuario
+                        WHERE p.idpeople = $docume";
+                $datos = datos_mysql($sql);
+
+                if (empty($datos["responseResult"])) {
+                    return getErrorMessage("No se encontró ningún predio asociado al documento ingresado. Verifique el documento e intente nuevamente.", '#ff0909a6');
+                } else {
+                    return panel_content($datos["responseResult"], "predios-lis", 10);
+                }
+            } else {
+                return getErrorMessage("El campo de documento no puede estar vacío. Ingrese un número de documento válido para la búsqueda.", '#ff9700');
+            }
             break;
 
         case '2':
@@ -138,7 +166,7 @@ function cmp_predios(){
 	$c[]=new cmp('predio','n',3,$d,$w.' flT IDc '.$o,'predio','predio',null,'123',true,false,'','col-1'); 
 	$c[]=new cmp('unidad','n',3,$d,$w.' flT IDc '.$o,'unidad','unidad',null,'123',true,false,'','col-1'); */
 	$c[]=new cmp('codpre','n',15,$d,$w.' flT cOP '.$o,'Codigo del Predio','codpre',null,'#####',true,false,'','col-2');
-	$c[]=new cmp('documento','n',21,$d,$w.' flT DoC '.$o,'Documento del Usuario','documento',null,'##########',true,false,'','col-2');
+	$c[]=new cmp('documento','n',21,$d,$w.' flT DoC IDc '.$o,'Documento del Usuario','documento',null,'##########',true,false,'','col-2');
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	$rta.="<center><button style='background-color:#4d4eef;border-radius:12px;color:white;padding:12px;text-align:center;cursor:pointer;' type='button' Onclick=\"act_lista('predios','','../consultar/consulpred.php');\">Buscar</button></center>";
 	return $rta;
