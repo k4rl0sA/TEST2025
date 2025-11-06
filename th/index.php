@@ -87,7 +87,7 @@ function grabar(tb='',ev){
 	    setTimeout(actualizar, 1000);
         setTimeout(act_lista,1000,'contratos');
 	    setTimeout(act_lista,1000,'actividades');
-        setTimeout(act_lista,1000,'adicionales',this,'../th/adicionales.php');
+        setTimeout(act_lista,1000,'adicionales',this,'adicionales.php');
 	    fapp.reset();
 	    openModal();
         }
