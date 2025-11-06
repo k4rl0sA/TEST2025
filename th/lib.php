@@ -230,7 +230,7 @@ function formato_dato($a, $b, $c, $d) {
                 'evento' => "mostrar('actividades','pro',event,'{$hash_id}','actividades.php',7,'actividades','{$hash_id}');"
             ],
             'adicionales' => [
-                'icono' => 'fa-solid fa-plus-circle',
+                'icono' => 'fa-regular fa-calendar-plus',
                 'clase' => 'ico',
                 'title' => 'Adicionales',
                 'permiso' => acceso('th'),
