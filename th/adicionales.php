@@ -201,6 +201,7 @@ function gra_adicionales(){
     var_dump(intval($_POST['total_horas'] ?? 0));
     if($info_horas['responseResult'][0]['totalh'] + floatval($_POST['total_horas'] ?? 0) > 92){
             return "msj['Error: La suma de horas totales excede el límite permitido de 92 horas para el período seleccionado.']";
+            return;
      }
     
     if(count($id) == 1) {

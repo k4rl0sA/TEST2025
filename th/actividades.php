@@ -167,6 +167,7 @@ function gra_actividades(){
         var_dump(intval($_POST['total_horas'] ?? 0));
     if($info_horas['responseResult'][0]['totalh'] + intval($_POST['total_horas'] ?? 0) > 184){
             return "msj['Error:La suma de horas totales excede el límite permitido de 184 horas para el período seleccionado.']";
+            return;
     }
 
     if(count($id) == 1) {        
