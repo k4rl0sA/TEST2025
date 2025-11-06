@@ -121,9 +121,9 @@ function opc_evento($id=''){
     }elseif($d['anos']>9 && $d['anos']<18){
       return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,3,4,6) and estado='A' ORDER BY 2",$id); 
     }elseif($d['anos']>17 && $d['anos']<55){
-      return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,4,6) and estado='A' ORDER BY 2",$id); 
+      return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,4,6,7) and estado='A' ORDER BY 2",$id); 
     }elseif($d['anos']>54){
-      return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5) and estado='A' ORDER BY 2",$id); 
+      return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,7) and estado='A' ORDER BY 2",$id); 
     }
   }else{
     if($d['anos']<6){
@@ -133,7 +133,7 @@ function opc_evento($id=''){
     }elseif($d['anos']>17 && $d['anos']<55){
       return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5) and estado='A' ORDER BY 2",$id); 
     }elseif($d['anos']>54){
-      return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5) and estado='A' ORDER BY 2",$id); 
+      return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,8) and estado='A' ORDER BY 2",$id); 
     }
     /* elseif($d['anos']>9 && $d['anos']<18){
       return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(5,2,3) and estado='A' ORDER BY 2",$id); 
