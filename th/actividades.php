@@ -161,7 +161,7 @@ function gra_actividades(){
     $idth = intval($idth);
     $ano = intval($_POST['per_ano']);
     $mes = intval($_POST['per_mes']);
-    $sql1 = "SELECT sum(total_horas) totalh FROM th_actividades WHERE idth=$idth and per_ano=$ano and per_mes=$mes";
+    $sql1 = "SELECT sum(total_horas) totalh FROM th_actividades WHERE idth=(select idth from th_actividades where id_thact=$idth) and per_ano=$ano and per_mes=$mes";
         $info_horas = datos_mysql($sql1);
         var_dump($sql1);
         var_dump($info_horas['responseResult'][0]['totalh']);
