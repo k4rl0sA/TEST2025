@@ -211,7 +211,7 @@ function formato_dato($a, $b, $c, $d){
         $hash_id = myhash($c['ACCIONES']);
         $accionesDisponibles = [
             'editar' => [
-                'icono' => 'fa-solid fa-edit',
+                'icono' => 'fa-regular fa-edit',
                 'clase' => 'ico',
                 'title' => 'Editar Contrato',
                 'permiso' => true,
