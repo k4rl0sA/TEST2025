@@ -85,8 +85,8 @@ function grabar(tb='',ev){
 		if(res==true){
 	    myFetch(ruta_app,"a=gra&tb="+tb,mod);
 	    setTimeout(actualizar, 1000);
-        setTimeout(act_lista,1000,'contratos');
-	    setTimeout(act_lista,1000,'actividades');
+        setTimeout(act_lista,1000,this,'contratos.php');
+	    setTimeout(act_lista,1000,this,'actividades.php');
         setTimeout(act_lista,1000,'adicionales',this,'adicionales.php');
 	    fapp.reset();
 	    openModal();
