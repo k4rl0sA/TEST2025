@@ -197,16 +197,11 @@ function gra_adicionales(){
     $idth = intval($idth);
     $ano = intval($_POST['per_ano']);
     $mes = intval($_POST['per_mes']);
-    $sql1 = "SELECT sum(total_horas) totalh FROM th_actiadic WHERE idth=(select idth from th_actividades where id_thact=$idth) and per_ano=$ano and per_mes=$mes";
-    $info_horas = datos_mysql($sql1);
     /* var_dump($info_horas['responseResult'][0]['totalh']);
     var_dump(intval($_POST['total_horas'] ?? 0)); */
-    if($info_horas['responseResult'][0]['totalh'] + floatval($_POST['total_horas'] ?? 0) > 92){
-            return "msj['Error: La suma de horas totales excede el límite permitido de 92 horas para el período seleccionado.']";
-            return;
-     }
-    
     if(count($id) == 1) {
+        $sql1 = "SELECT sum(total_horas) totalh FROM th_actiadic WHERE idth=$idth and per_ano=$ano and per_mes=$mes";
+        $info_horas = datos_mysql($sql1);
         $sql = "INSERT INTO th_actiadic (idth, actividad, perreq, rol, acbi, sudacbi, actbien, hora_act, hora_th, per_ano, per_mes, can_act, total_horas, total_valor, usu_create, fecha_create, estado) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR), 'A')";
         $params = [
@@ -227,6 +222,8 @@ function gra_adicionales(){
             ['type' => 's', 'value' => $usu]
         ];
     } else {
+        $sql1 = "SELECT sum(total_horas) totalh FROM th_actiadic WHERE idth=(select idth from th_actividades where id_thact=$idth) and per_ano=$ano and per_mes=$mes";
+    $info_horas = datos_mysql($sql1);
         // UPDATE - Actualizar adicional existente
         $sql = "UPDATE th_actiadic SET actividad=?, perreq=?, rol=?, acbi=?, sudacbi=?, actbien=?, hora_act=?, hora_th=?, per_ano=?, per_mes=?, can_act=?, total_horas=?, total_valor=?, usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR), ajustar=0
                 WHERE id_thadic=?";
@@ -248,7 +245,10 @@ function gra_adicionales(){
             ['type' => 'i', 'value' => intval($id[0])]
         ];
     }
-    
+    if($info_horas['responseResult'][0]['totalh'] + floatval($_POST['total_horas'] ?? 0) > 92){
+            return "msj['Error: La suma de horas totales excede el límite permitido de 92 horas para el período seleccionado.']";
+            return;
+     }
     $rta = mysql_prepd($sql, $params);
     return $rta;
 }
