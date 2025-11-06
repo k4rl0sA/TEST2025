@@ -197,8 +197,8 @@ function gra_adicionales(){
     $mes = intval($_POST['per_mes']);
     $sql1 = "SELECT sum(total_horas) totalh FROM th_actiadic WHERE idth=(select idth from th_actividades where id_thact=$idth) and per_ano=$ano and per_mes=$mes";
     $info_horas = datos_mysql($sql1);
-    var_dump($info_horas['responseResult'][0]['totalh']);
-    var_dump(intval($_POST['total_horas'] ?? 0));
+    /* var_dump($info_horas['responseResult'][0]['totalh']);
+    var_dump(intval($_POST['total_horas'] ?? 0)); */
     if($info_horas['responseResult'][0]['totalh'] + floatval($_POST['total_horas'] ?? 0) > 92){
             return "msj['Error: La suma de horas totales excede el límite permitido de 92 horas para el período seleccionado.']";
             return;
