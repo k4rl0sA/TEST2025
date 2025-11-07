@@ -195,7 +195,7 @@ function men_planos(){
 	return $rta;
 }
 function cmp_planos(){
-    $rta="<div class='contain' style='max-width: 600px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);'>
+    $rta="<div class='contain' style='max-width: 100%; padding: 2rem; background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);'>
     <h1 style='text-align: center; color: #2c3e50; margin-bottom: 2rem; font-size: 1.8rem; font-weight: 600;'>Generar Archivo Excel</h1>
     
     <form id='generarForm' style='display: flex; flex-direction: column; gap: 1.5rem;'>
