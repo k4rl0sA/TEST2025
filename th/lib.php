@@ -188,7 +188,7 @@ function opc_sexo($id=''){
 
 /****************************DESCARGA PLANOS*********************************************** */
 function cmp_planos(){
-	$rta.="<div class='container'>
+	$rta="<div class='container'>
     <h1>Generar Archivo Excel</h1>
     <form id='generarForm'>
     <label for='fecha'>Seleccione El tipo de archivo a descargar:</label>
