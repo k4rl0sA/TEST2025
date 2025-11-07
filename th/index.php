@@ -24,8 +24,8 @@ include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
             align-items: center;
             height: 100vh;
             margin: 0;
-        }
-        .container {
+        }*/
+        .contain {
             background-color: #ffffff;
             padding: 2rem;
             border-radius: 10px;
@@ -34,7 +34,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
             max-width: 400px;
             text-align: center;
         }
- */        h1 {
+         h1 {
             font-size: 1.5rem;
             color: #333;
             margin-bottom: 1.5rem;
@@ -45,7 +45,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
             color: #555;
             margin-bottom: 0.5rem;
         }
-        input[type="date"],select {
+        input[type="date"],select .plan {
             /* width: 100%;
             padding: 0.5rem;
             border: 1px solid #ddd;
