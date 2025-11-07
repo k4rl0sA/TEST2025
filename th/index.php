@@ -10,47 +10,128 @@ include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
 <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch&family=Chicle&family=Merienda&family=Rancho&family=Boogaloo&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 <style>
-.search-wrapper {
-    position: relative;
-    width: 300px;
-}
+.search-wrapper {position: relative;width: 300px;}
+.number-input-svg {width: 100%;padding: 12px 50px 12px 16px;border: 2px solid #ddd;border-radius: 8px;font-size: 16px;outline: none;transition: border-color 0.3s;}
+.number-input-svg:focus {border-color: #007bff;}
+.search-btn-svg {position: absolute;right: 8px;top: 50%;transform: translateY(-50%);background: none;border: none;cursor: pointer;padding: 8px;border-radius: 4px;transition: background 0.3s;}
+.search-btn-svg:hover {background: #f8f9fa;}
+.search-icon-svg {width: 20px;height: 20px;fill: #666;}
+body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+        input[type="date"],select {
+            /* width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            box-sizing: border-box;
+            text-align: justify;
+            font-size: large;
+            border-color: blue;
+            border: groove; */
 
-.number-input-svg {
-    width: 100%;
-    padding: 12px 50px 12px 16px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    outline: none;
-    transition: border-color 0.3s;
-}
-
-.number-input-svg:focus {
-    border-color: #007bff;
-}
-
-.search-btn-svg {
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 4px;
-    transition: background 0.3s;
-}
-
-.search-btn-svg:hover {
-    background: #f8f9fa;
-}
-
-.search-icon-svg {
-    width: 20px;
-    height: 20px;
-    fill: #666;
-}
+            width: 100%;
+    padding: 0.5rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    text-align: justify;
+    font-size: large;
+    border: groove;
+    border-color: cornflowerblue;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .progress-container {
+            margin-top: 1.5rem;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            height: 10px;
+            margin-bottom: 0.5rem;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #007bff;
+            width: 0;
+            transition: width 0.3s ease;
+        }
+        .progress-text {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        /* Estilos para el spinner */
+    .spinner {
+        margin-top: 1rem;
+    }
+    .spinner-border {
+        width: 2rem;
+        height: 2rem;
+        border: 0.25em solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        animation: spinner-border 0.75s linear infinite;
+    }
+    @keyframes spinner-border {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    .text-primary {
+        color: #007bff;
+    }
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+    }
 </style>
 <script src="../libs/js/a.js?v=15"></script>
 <script src="../libs/js/x.js?v=35.0"></script>
