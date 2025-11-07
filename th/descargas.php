@@ -14,6 +14,7 @@ require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/Font.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/PasswordHasher.php';
 
 // 2. Calculation (CRÍTICO - requerido por Spreadsheet)
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Calculation/Category.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Calculation/Calculation.php';
 
 // 3. RichText (requerido por Cell)
