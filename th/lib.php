@@ -199,7 +199,7 @@ function cmp_planos(){
     <h1>Generar Archivo Excel</h1>
     <form id='generarForm'>
     <label for='fecha'>Seleccione El tipo de archivo a descargar:</label>
-        <select plan id='tipo' name='tipo'>
+        <select class='plan' id='tipo' name='tipo'>
             <option value='1'>SIN Validaciones</option>
             <option value='2'>CON Validaciones</option>
             <option value='3'>Fechas</option>
