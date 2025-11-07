@@ -223,50 +223,7 @@ function cmp_planos(){
             <span class='sr-only'>Cargando...</span>
         </div>
     </div>
-</div>
-    <script>
-        var mod = 'descargas';
-    function generarArchivo() {
-        const tipo = document.getElementById('tipo').value;
-        const fecha_inicio = document.getElementById('fecha_inicio').value;
-        const fecha_fin = document.getElementById('fecha_fin').value;
-    if (!fecha_inicio || !fecha_fin) {
-        inform('Por favor, seleccione ambas fechas.');
-        return;
-    }
-    // Mostrar el spinner
-    document.getElementById('spinner').style.display = 'block';
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST','lib.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function() {
-         if (xhr.readyState === 4 && xhr.status === 200) {
-        try {
-            const response = JSON.parse(xhr.responseText);
-            
-            if (response.success) {
-                document.getElementById('spinner').style.display = 'none';
-                // Crear enlace temporal para descarga
-                const link = document.createElement('a');
-                link.href = response.file;
-                link.download = response.filename;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                inform('Archivo descargado con éxito.');
-            } else {
-                warnin(response.message);
-            }
-        } catch (e) {
-            console.error('Error al procesar la respuesta:', e);
-            warnin('Error al procesar la respuesta');
-        }
-    }
-    };
-    xhr.send(`tipo=${tipo}&fecha_inicio=${fecha_inicio}&fecha_fin=${fecha_fin}`);
-}
-    </script>";
+</div>";
 	return $rta;
 }
 /****************************FIN DESCARGA PLANOS*********************************************** */
