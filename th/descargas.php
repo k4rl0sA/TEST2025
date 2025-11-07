@@ -1,56 +1,127 @@
 <?php
 ini_set('display_errors', '1');
+error_reporting(E_ALL);
 require_once '../libs/gestion.php';
 
-// Cargar PhpSpreadsheet manualmente (sin Composer)
+// Cargar PhpSpreadsheet manualmente en el ORDEN CORRECTO
+// 1. Clases base y compartidas
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/IComparable.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/HashTable.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/ReferenceHelper.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/StringHelper.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/File.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Collection/Cells.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Collection/CellsFactory.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/Drawing.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/Font.php';
+
+// 2. RichText (requerido por Cell)
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/RichText/ITextElement.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/RichText/TextElement.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/RichText/Run.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/RichText/RichText.php';
+
+// 3. Style (IMPORTANTE: debe ir antes de Cell)
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/Supervisor.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/Color.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/NumberFormat.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/Font.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/Alignment.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/Border.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/Borders.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/Fill.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/Protection.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/Style.php';
+
+// 4. Cell
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/DataType.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/IValueBinder.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/DefaultValueBinder.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/StringValueBinder.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/AdvancedValueBinder.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/Coordinate.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/AddressHelper.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/CellAddress.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/DataValidation.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/Hyperlink.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/Cell.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/NumberFormat.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/Style.php';
+
+// 5. Collection
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Collection/Cells.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Collection/CellsFactory.php';
+
+// 6. Comment
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Comment.php';
+
+// 7. Worksheet
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/MemoryDrawing.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Drawing.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/BaseDrawing.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/HeaderFooter.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/PageMargins.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/PageSetup.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Protection.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/SheetView.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php';
+
+// 8. Spreadsheet principal
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/HashTable.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/ReferenceHelper.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/DefinedName.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/NamedRange.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/NamedFormula.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Document/Properties.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Document/Security.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Spreadsheet.php';
+
+// 9. Writer
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Writer/IWriter.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Writer/BaseWriter.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx.php';
+
+// 10. IOFactory
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/IOFactory.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
+// Validar sesión
 if (!isset($_SESSION['us_sds'])) {
     die(json_encode(['success' => false, 'message' => 'Sesión no válida']));
 }
+
+// Obtener parámetros
 $tipo = $_POST['tipo'] ?? '';
 $fecha_inicio = $_POST['fecha_inicio'] ?? '';
 $fecha_fin = $_POST['fecha_fin'] ?? '';
+
+// Validar parámetros
 if (empty($tipo) || empty($fecha_inicio) || empty($fecha_fin)) {
     die(json_encode(['success' => false, 'message' => 'Parámetros incompletos']));
 }
+
+// Validar formato de fechas
 if (!validateDate($fecha_inicio) || !validateDate($fecha_fin)) {
     die(json_encode(['success' => false, 'message' => 'Formato de fecha inválido']));
 }
-// Definir consultas SQL según el tipo
+
+// Obtener consultas
 $queries = getQueries($tipo, $fecha_inicio, $fecha_fin);
+
 if (empty($queries)) {
     die(json_encode(['success' => false, 'message' => 'Tipo de reporte no válido']));
 }
+
 try {
+    // Crear archivo Excel
     $spreadsheet = new Spreadsheet();
     $spreadsheet->removeSheetByIndex(0);
+    
     $sheetIndex = 0;
+    
     foreach ($queries as $nombreHoja => $query) {
+        // Ejecutar consulta
         $result = datos_mysql($query);
-       if (!$result || !isset($result['responseResult'])) {
+        
+        if (!$result || !isset($result['responseResult'])) {
+            // Crear hoja vacía si no hay datos
             $sheet = $spreadsheet->createSheet($sheetIndex);
             $nombreHojaLimpio = substr(cleanTx($nombreHoja), 0, 31);
             $sheet->setTitle($nombreHojaLimpio);
@@ -58,19 +129,26 @@ try {
             $sheetIndex++;
             continue;
         }
+        
+        // Crear nueva hoja
         $sheet = $spreadsheet->createSheet($sheetIndex);
         $nombreHojaLimpio = substr(cleanTx($nombreHoja), 0, 31);
         $sheet->setTitle($nombreHojaLimpio);
+        
         $datos = $result['responseResult'];
+        
         if (empty($datos)) {
             $sheet->setCellValue('A1', 'No hay datos disponibles');
         } else {
+            // Escribir encabezados
             $col = 1;
             foreach (array_keys($datos[0]) as $header) {
                 $columnLetter = Coordinate::stringFromColumnIndex($col);
                 $sheet->setCellValue($columnLetter . '1', $header);
                 $col++;
             }
+            
+            // Escribir datos
             $rowNum = 2;
             foreach ($datos as $row) {
                 $col = 1;
@@ -81,23 +159,38 @@ try {
                 }
                 $rowNum++;
             }
+            
+            // Autoajustar columnas
             foreach (range('A', $sheet->getHighestColumn()) as $col) {
                 $sheet->getColumnDimension($col)->setAutoSize(true);
             }
         }
+        
         $sheetIndex++;
     }
+    
+    // Nombres de archivos según tipo
     $nombresArchivos = [
         '1' => 'TH',
         '2' => 'Tamizajes'
     ];
+    
     $filename = ($nombresArchivos[$tipo] ?? 'reporte') . '_' . $fecha_inicio . '_a_' . $fecha_fin . '.xlsx';
+    
+    // Guardar archivo temporal
     $tempDir = sys_get_temp_dir();
     $filePath = $tempDir . DIRECTORY_SEPARATOR . $filename;
+    
     $writer = new Xlsx($spreadsheet);
     $writer->save($filePath);
+    
+    // Leer archivo y convertir a base64
     $fileContent = file_get_contents($filePath);
+    
+    // Eliminar archivo temporal
     unlink($filePath);
+    
+    // Retornar respuesta exitosa
     echo json_encode([
         'success' => true,
         'file' => 'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,' . base64_encode($fileContent),
@@ -105,14 +198,16 @@ try {
         'progreso' => 100,
         'message' => 'Archivo generado correctamente'
     ]);
+    
 } catch (Exception $e) {
-    log_error("Error en descarga Excel: " . $e->getMessage());
+    log_error("Error en descarga Excel: " . $e->getMessage() . " - Line: " . $e->getLine());
     echo json_encode([
         'success' => false,
         'message' => 'Error al generar el archivo: ' . $e->getMessage(),
         'progreso' => 0
     ]);
 }
+
 exit;
 
 /**
@@ -219,44 +314,6 @@ function getQueries($tipo, $fecha_inicio, $fecha_fin) {
             LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
             LEFT JOIN hog_geo G ON F.idpre = G.idgeo
             LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario
-            WHERE A.fecha_toma >= '$fecha_inicio' 
-                AND A.fecha_toma <= '$fecha_fin'
-                AND G.subred = $subred";
-            
-            $queries['FINDRISC'] = "SELECT 
-                G.idgeo AS 'Cod_Predio',
-                F.id_fam AS 'Cod_Familia',
-                A.id_findrisc AS 'Cod_Registro',
-                P.idpersona AS 'N°_Documento',
-                CONCAT(P.nombre1, ' ', P.apellido1) AS 'Nombre_Completo',
-                A.fecha_toma AS 'Fecha_Toma',
-                A.imc AS 'IMC',
-                A.puntaje AS 'Puntaje',
-                A.descripcion AS 'Clasificacion',
-                A.fecha_create AS 'Fecha_Creacion'
-            FROM hog_tam_findrisc A
-            LEFT JOIN person P ON A.idpeople = P.idpeople
-            LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
-            LEFT JOIN hog_geo G ON F.idpre = G.idgeo
-            WHERE A.fecha_toma >= '$fecha_inicio' 
-                AND A.fecha_toma <= '$fecha_fin'
-                AND G.subred = $subred";
-            
-            $queries['OMS'] = "SELECT 
-                G.idgeo AS 'Cod_Predio',
-                F.id_fam AS 'Cod_Familia',
-                A.idoms AS 'Cod_Registro',
-                P.idpersona AS 'N°_Documento',
-                CONCAT(P.nombre1, ' ', P.apellido1) AS 'Nombre_Completo',
-                A.fecha_toma AS 'Fecha_Toma',
-                A.tas AS 'TAS',
-                A.puntaje AS 'Puntaje',
-                A.descripcion AS 'Clasificacion',
-                A.fecha_create AS 'Fecha_Creacion'
-            FROM hog_tam_oms A
-            LEFT JOIN person P ON A.idpeople = P.idpeople
-            LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
-            LEFT JOIN hog_geo G ON F.idpre = G.idgeo
             WHERE A.fecha_toma >= '$fecha_inicio' 
                 AND A.fecha_toma <= '$fecha_fin'
                 AND G.subred = $subred";
