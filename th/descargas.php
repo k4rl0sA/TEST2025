@@ -8,6 +8,7 @@ require_once '../libs/gestion.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/IComparable.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/StringHelper.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/File.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/Date.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/Drawing.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/Font.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/PasswordHasher.php';
