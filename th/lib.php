@@ -225,7 +225,14 @@ function cmp_planos(){
             </div>
         </div>
 
-        <button type='button' onclick='generarArchivo()' style='width: 100%; padding: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);' onmouseover='this.style.transform=\"translateY(-2px)\"; this.style.boxShadow=\"0 6px 16px rgba(102, 126, 234, 0.5)\"' onmouseout='this.style.transform=\"translateY(0)\"; this.style.boxShadow=\"0 4px 12px rgba(102, 126, 234, 0.4)\"'>
+        <button type='button' onclick='generarArchivo()' 
+		
+		style='width: 50%; background-color: #007bff; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 5px;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); font-size: 1.1rem; 
+		font-weight: 600; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);' 
+		onmouseover='this.style.transform=\"translateY(-2px)\"; this.style.boxShadow=\"0 6px 16px rgba(102, 126, 234, 0.5)\"' 
+		onmouseout='this.style.transform=\"translateY(0)\"; this.style.boxShadow=\"0 4px 12px rgba(102, 126, 234, 0.4)\"'>
+
             <i class='fa-solid fa-file-excel' style='margin-right: 0.5rem;'></i>Generar Archivo
         </button>
     </form>
