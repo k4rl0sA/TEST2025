@@ -195,43 +195,74 @@ function men_planos(){
 	return $rta;
 }
 function cmp_planos(){
-	$rta="<div class='contain'>
-    <h1>Generar Archivo Excel</h1>
-    <form id='generarForm'>
-    <label for='fecha'>Seleccione El tipo de archivo a descargar:</label>
-        <select class='plan' id='tipo' name='tipo'>
-            <option value='1'>SIN Validaciones</option>
-            <option value='2'>CON Validaciones</option>
-            <option value='3'>Fechas</option>
-            <option value='4'>Alertas</option>
-            <option value='5'>Caracteriz_OK</option>
-            <option value='6'>Signos</option>
-            <option value='7'>Tamizajes</option>
-            <option value='8'>Validar Fechas Atenciones Individuales</option>
-        </select>
+    $rta="<div class='contain' style='max-width: 600px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);'>
+    <h1 style='text-align: center; color: #2c3e50; margin-bottom: 2rem; font-size: 1.8rem; font-weight: 600;'>Generar Archivo Excel</h1>
+    
+    <form id='generarForm' style='display: flex; flex-direction: column; gap: 1.5rem;'>
+        <div style='display: flex; flex-direction: column; gap: 0.5rem;'>
+            <label for='tipo' style='color: #34495e; font-weight: 500; font-size: 0.95rem;'>Seleccione el tipo de archivo a descargar:</label>
+            <select class='plan' id='tipo' name='tipo' style='width: 100%; padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; background: white; cursor: pointer; transition: border-color 0.3s;' onfocus='this.style.borderColor=\"#3498db\"' onblur='this.style.borderColor=\"#e0e0e0\"'>
+                <option value='1'>SIN Validaciones</option>
+                <option value='2'>CON Validaciones</option>
+                <option value='3'>Fechas</option>
+                <option value='4'>Alertas</option>
+                <option value='5'>Caracteriz_OK</option>
+                <option value='6'>Signos</option>
+                <option value='7'>Tamizajes</option>
+                <option value='8'>Validar Fechas Atenciones Individuales</option>
+            </select>
+        </div>
 
-        <label for='fecha_inicio'>Fecha de inicio:</label>
-        <input type='date' id='fecha_inicio' name='fecha_inicio' required>
+        <div style='display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;'>
+            <div style='display: flex; flex-direction: column; gap: 0.5rem;'>
+                <label for='fecha_inicio' style='color: #34495e; font-weight: 500; font-size: 0.95rem;'>Fecha de inicio:</label>
+                <input type='date' id='fecha_inicio' name='fecha_inicio' required style='width: 100%; padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; transition: border-color 0.3s;' onfocus='this.style.borderColor=\"#3498db\"' onblur='this.style.borderColor=\"#e0e0e0\"'>
+            </div>
 
-        <label for='fecha_fin'>Fecha de fin:</label>
-        <input type='date' id='fecha_fin' name='fecha_fin' required>
+            <div style='display: flex; flex-direction: column; gap: 0.5rem;'>
+                <label for='fecha_fin' style='color: #34495e; font-weight: 500; font-size: 0.95rem;'>Fecha de fin:</label>
+                <input type='date' id='fecha_fin' name='fecha_fin' required style='width: 100%; padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; transition: border-color 0.3s;' onfocus='this.style.borderColor=\"#3498db\"' onblur='this.style.borderColor=\"#e0e0e0\"'>
+            </div>
+        </div>
 
-        <button type='button' onclick='generarArchivo()'>Generar Archivo</button>
+        <button type='button' onclick='generarArchivo()' style='width: 100%; padding: 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);' onmouseover='this.style.transform=\"translateY(-2px)\"; this.style.boxShadow=\"0 6px 16px rgba(102, 126, 234, 0.5)\"' onmouseout='this.style.transform=\"translateY(0)\"; this.style.boxShadow=\"0 4px 12px rgba(102, 126, 234, 0.4)\"'>
+            <i class='fa-solid fa-file-excel' style='margin-right: 0.5rem;'></i>Generar Archivo
+        </button>
     </form>
-    <div class='progress-container'>
-        <div class='progress-bar'>
-            <div class='progress-bar-fill' id='progressBarFill'></div>
+
+    <div class='progress-container' style='margin-top: 2rem; display: none;' id='progressContainer'>
+        <div style='margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;'>
+            <span style='color: #7f8c8d; font-size: 0.9rem; font-weight: 500;'>Progreso de descarga</span>
+            <span class='progress-text' id='progressText' style='color: #3498db; font-weight: 600; font-size: 1rem;'>0%</span>
         </div>
-        <div class='progress-text' id='progressText'>0%</div>
+        <div class='progress-bar' style='width: 100%; height: 12px; background: #ecf0f1; border-radius: 10px; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);'>
+            <div class='progress-bar-fill' id='progressBarFill' style='width: 0%; height: 100%; background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); border-radius: 10px; transition: width 0.3s ease;'></div>
+        </div>
     </div>
+
     <!-- Spinner de carga -->
-    <div class='spinner' id='spinner' style='display: none;'>
-        <div class='spinner-border text-primary' role='status'>
-            <span class='sr-only'>Cargando...</span>
-        </div>
+    <div class='spinner' id='spinner' style='display: none; text-align: center; margin-top: 2rem;'>
+        <div style='display: inline-block; width: 50px; height: 50px; border: 4px solid #f3f3f3; border-top: 4px solid #667eea; border-radius: 50%; animation: spin 1s linear infinite;'></div>
+        <p style='margin-top: 1rem; color: #7f8c8d; font-weight: 500;'>Generando archivo...</p>
     </div>
+
+    <style>
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .contain input[type='date']::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            filter: invert(0.5);
+        }
+        
+        .contain select option {
+            padding: 0.5rem;
+        }
+    </style>
 </div>";
-	return $rta;
+    return $rta;
 }
 /****************************FIN DESCARGA PLANOS*********************************************** */
 /***************************************************************************/
