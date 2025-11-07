@@ -184,6 +184,92 @@ function opc_tipo_doc($id=''){
 function opc_sexo($id=''){
 	    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=21 and estado='A' ORDER BY CAST(idcatadeta AS UNSIGNED)",$id);
 	}	
+
+
+/****************************DESCARGA PLANOS*********************************************** */
+function cmp_planos(){
+	$rta.="<div class='container'>
+    <h1>Generar Archivo Excel</h1>
+    <form id='generarForm'>
+    <label for='fecha'>Seleccione El tipo de archivo a descargar:</label>
+        <select id='tipo' name='tipo'>
+            <option value='1'>SIN Validaciones</option>
+            <option value='2'>CON Validaciones</option>
+            <option value='3'>Fechas</option>
+            <option value='4'>Alertas</option>
+            <option value='5'>Caracteriz_OK</option>
+            <option value='6'>Signos</option>
+            <option value='7'>Tamizajes</option>
+            <option value='8'>Validar Fechas Atenciones Individuales</option>
+        </select>
+
+        <label for='fecha_inicio'>Fecha de inicio:</label>
+        <input type='date' id='fecha_inicio' name='fecha_inicio' required>
+
+        <label for='fecha_fin'>Fecha de fin:</label>
+        <input type='date' id='fecha_fin' name='fecha_fin' required>
+
+        <button type='button' onclick='generarArchivo()'>Generar Archivo</button>
+    </form>
+    <div class='progress-container'>
+        <div class='progress-bar'>
+            <div class='progress-bar-fill' id='progressBarFill'></div>
+        </div>
+        <div class='progress-text' id='progressText'>0%</div>
+    </div>
+    <!-- Spinner de carga -->
+    <div class='spinner' id='spinner' style='display: none;'>
+        <div class='spinner-border text-primary' role='status'>
+            <span class='sr-only'>Cargando...</span>
+        </div>
+    </div>
+</div>
+    <script>
+        var mod = 'descargas';
+    function generarArchivo() {
+        const tipo = document.getElementById('tipo').value;
+        const fecha_inicio = document.getElementById('fecha_inicio').value;
+        const fecha_fin = document.getElementById('fecha_fin').value;
+    if (!fecha_inicio || !fecha_fin) {
+        inform('Por favor, seleccione ambas fechas.');
+        return;
+    }
+    // Mostrar el spinner
+    document.getElementById('spinner').style.display = 'block';
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST','lib.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function() {
+         if (xhr.readyState === 4 && xhr.status === 200) {
+        try {
+            const response = JSON.parse(xhr.responseText);
+            
+            if (response.success) {
+                document.getElementById('spinner').style.display = 'none';
+                // Crear enlace temporal para descarga
+                const link = document.createElement('a');
+                link.href = response.file;
+                link.download = response.filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                inform('Archivo descargado con éxito.');
+            } else {
+                warnin(response.message);
+            }
+        } catch (e) {
+            console.error('Error al procesar la respuesta:', e);
+            warnin('Error al procesar la respuesta');
+        }
+    }
+    };
+    xhr.send(`tipo=${tipo}&fecha_inicio=${fecha_inicio}&fecha_fin=${fecha_fin}`);
+}
+    </script>";
+	return $rta;
+}
+/****************************FIN DESCARGA PLANOS*********************************************** */
 /***************************************************************************/
 function formato_dato($a, $b, $c, $d) {
     $b = strtolower($b);
