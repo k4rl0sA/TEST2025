@@ -2,6 +2,27 @@
 ini_set('display_errors', '1');
 require_once '../libs/gestion.php';
 
+// Cargar PhpSpreadsheet manualmente (sin Composer)
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Spreadsheet.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/IOFactory.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Writer/BaseWriter.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/Cell.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/Coordinate.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/DataType.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/IValueBinder.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/DefaultValueBinder.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/Style.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/NumberFormat.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/StringHelper.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/File.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Collection/Cells.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Collection/CellsFactory.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/IComparable.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/ReferenceHelper.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/HashTable.php';
+
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
