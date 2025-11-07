@@ -187,6 +187,13 @@ function opc_sexo($id=''){
 
 
 /****************************DESCARGA PLANOS*********************************************** */
+function focus_planos(){
+	return 'homes1';
+}
+function men_planos(){
+	$rta=cap_menus('homes','pro');
+	return $rta;
+}
 function cmp_planos(){
 	$rta="<div class='container'>
     <h1>Generar Archivo Excel</h1>
