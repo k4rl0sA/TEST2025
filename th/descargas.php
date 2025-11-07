@@ -50,7 +50,10 @@ require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Collection/CellsFactory.
 // 6. Comment
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Comment.php';
 
-// 7. Worksheet - ORDEN CORRECTO: BaseDrawing DEBE IR PRIMERO
+// 7. Worksheet - ORDEN CRÍTICO: Dimension PRIMERO
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Dimension.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/ColumnDimension.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/RowDimension.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/BaseDrawing.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Drawing.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/MemoryDrawing.php';
@@ -59,8 +62,6 @@ require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/PageMargins.ph
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/PageSetup.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Protection.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/SheetView.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/ColumnDimension.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/RowDimension.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php';
 
 // 8. Spreadsheet principal
