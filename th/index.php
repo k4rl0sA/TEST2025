@@ -253,7 +253,7 @@ $prioridad=opc_sql("select idcatadeta,descripcion from catadeta where idcatalogo
       <div class='titulo' > GESTION DEL TH MAS BIENESTAR EN TU HOGAR
 		<nav class='menu left' >
 			<!-- <li class='icono listado' title='Ver Listado' onclick="desplegar(mod+'-lis');" ></li> -->
-             <li class='icono exportar'      title='Exportar Información'    Onclick="mostrar('planos','pro',event,'','lib.php',4);"></li>
+             <li class='icono exportar'      title='Exportar Información'    Onclick="mostrar('planos','pro',event,'','lib.php',2);"></li>
 			<li class='icono actualizar'    title='Actualizar'      Onclick="actualizar();">
 			<li class='icono filtros'    title='Filtros'      Onclick="showFil(mod);">
 			<li class='icono crear'       title='Crear Colaborador'     Onclick="mostrar('th','pro',event,'','lib.php',7,'th','0');">
