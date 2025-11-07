@@ -45,7 +45,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
             color: #555;
             margin-bottom: 0.5rem;
         }
-        input[type="date"],select .plan {
+        input[type="date"] .plan,select .plan {
             width: 100%;
             padding: 0.5rem;
             border-radius: 12px;
@@ -56,7 +56,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
             border: groove;
             border-color: cornflowerblue;
         }
-        button .plan  {
+        button  {
             background-color: #007bff;
             color: white;
             border: none;
@@ -66,13 +66,13 @@ include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-        button:hover .plan{
+        button:hover {
             background-color: #0056b3;
         }
-        .progress-container .plan{
+        .progress-container {
             margin-top: 1.5rem;
         }
-        .progress-bar .plan{
+        .progress-bar {
             width: 100%;
             background-color: #e0e0e0;
             border-radius: 5px;
