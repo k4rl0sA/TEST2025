@@ -202,14 +202,8 @@ function cmp_planos(){
         <div style='display: flex; flex-direction: column; gap: 0.5rem;'>
             <label for='tipo' style='color: #34495e; font-weight: 500; font-size: 0.95rem;'>Seleccione el tipo de archivo a descargar:</label>
             <select class='plan' id='tipo' name='tipo' style='width: 100%; padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; background: white; cursor: pointer; transition: border-color 0.3s;' onfocus='this.style.borderColor=\"#3498db\"' onblur='this.style.borderColor=\"#e0e0e0\"'>
-                <option value='1'>SIN Validaciones</option>
-                <option value='2'>CON Validaciones</option>
-                <option value='3'>Fechas</option>
-                <option value='4'>Alertas</option>
-                <option value='5'>Caracteriz_OK</option>
-                <option value='6'>Signos</option>
-                <option value='7'>Tamizajes</option>
-                <option value='8'>Validar Fechas Atenciones Individuales</option>
+                <option value='1'>TH</option>
+                <option value='2'>Tamizajes</option>
             </select>
         </div>
 

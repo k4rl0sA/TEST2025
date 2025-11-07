@@ -1,225 +1,246 @@
 <?php
 ini_set('display_errors', '1');
-$mod = 'descargas';
-?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../libs/css/stylePop.css" rel="stylesheet">
-    <script src="../libs/js/a.js?v=1.0"></script>
-    <script src="../libs/js/popup.js?v=1.0"></script>
-    <title>Generar Archivo Consolidado</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background-color: #ffffff;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-        h1 {
-            font-size: 1.5rem;
-            color: #333;
-            margin-bottom: 1.5rem;
-        }
-        label {
-            display: block;
-            font-size: 0.9rem;
-            color: #555;
-            margin-bottom: 0.5rem;
-        }
-        input[type="date"],select {
-            /* width: 100%;
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            font-size: 1rem;
-            margin-bottom: 1rem;
-            box-sizing: border-box;
-            text-align: justify;
-            font-size: large;
-            border-color: blue;
-            border: groove; */
+require_once '../libs/gestion.php';
 
-            width: 100%;
-    padding: 0.5rem;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    box-sizing: border-box;
-    text-align: justify;
-    font-size: large;
-    border: groove;
-    border-color: cornflowerblue;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .progress-container {
-            margin-top: 1.5rem;
-        }
-        .progress-bar {
-            width: 100%;
-            background-color: #e0e0e0;
-            border-radius: 5px;
-            overflow: hidden;
-            height: 10px;
-            margin-bottom: 0.5rem;
-        }
-        .progress-bar-fill {
-            height: 100%;
-            background-color: #007bff;
-            width: 0;
-            transition: width 0.3s ease;
-        }
-        .progress-text {
-            font-size: 0.9rem;
-            color: #555;
-        }
-        /* Estilos para el spinner */
-    .spinner {
-        margin-top: 1rem;
-    }
-    .spinner-border {
-        width: 2rem;
-        height: 2rem;
-        border: 0.25em solid currentColor;
-        border-right-color: transparent;
-        border-radius: 50%;
-        animation: spinner-border 0.75s linear infinite;
-    }
-    @keyframes spinner-border {
-        to {
-            transform: rotate(360deg);
-        }
-    }
-    .text-primary {
-        color: #007bff;
-    }
-    .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        border: 0;
-    }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h1>Generar Archivo Excel</h1>
-    <form id="generarForm">
-    <label for="fecha">Seleccione El tipo de archivo a descargar:</label>
-        <select id="tipo" name="tipo">
-            <option value="1">SIN Validaciones</option>
-            <option value="2">CON Validaciones</option>
-            <option value="3">Fechas</option>
-            <option value="4">Alertas</option>
-            <option value="5">Caracteriz_OK</option>
-            <option value="6">Signos</option>
-            <option value="7">Tamizajes</option>
-            <option value="8">Validar Fechas Atenciones Individuales</option>
-        </select>
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-        <label for="fecha_inicio">Fecha de inicio:</label>
-        <input type="date" id="fecha_inicio" name="fecha_inicio" required>
-
-        <label for="fecha_fin">Fecha de fin:</label>
-        <input type="date" id="fecha_fin" name="fecha_fin" required>
-
-        <button type="button" onclick="generarArchivo()">Generar Archivo</button>
-    </form>
-    <div class="progress-container">
-        <div class="progress-bar">
-            <div class="progress-bar-fill" id="progressBarFill"></div>
-        </div>
-        <div class="progress-text" id="progressText">0%</div>
-    </div>
-    <!-- Spinner de carga -->
-    <div class="spinner" id="spinner" style="display: none;">
-        <div class="spinner-border text-primary" role="status">
-            <span class="sr-only">Cargando...</span>
-        </div>
-    </div>
-</div>
-    <script>
-        var mod = 'descargas';
-    function generarArchivo() {
-        const tipo = document.getElementById('tipo').value;
-        const fecha_inicio = document.getElementById('fecha_inicio').value;
-        const fecha_fin = document.getElementById('fecha_fin').value;
-    if (!fecha_inicio || !fecha_fin) {
-        inform('Por favor, seleccione ambas fechas.');
-        return;
-    }
-    // Mostrar el spinner
-    document.getElementById('spinner').style.display = 'block';
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST','lib.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function() {
-         if (xhr.readyState === 4 && xhr.status === 200) {
-        try {
-            const response = JSON.parse(xhr.responseText);
-            
-            if (response.success) {
-                document.getElementById('spinner').style.display = 'none';
-                // Crear enlace temporal para descarga
-                const link = document.createElement('a');
-                link.href = response.file;
-                link.download = response.filename;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                inform('Archivo descargado con éxito.');
-            } else {
-                warnin(response.message);
-            }
-        } catch (e) {
-            console.error('Error al procesar la respuesta:', e);
-            warnin('Error al procesar la respuesta');
-        }
-    }
-    };
-    xhr.send(`tipo=${tipo}&fecha_inicio=${fecha_inicio}&fecha_fin=${fecha_fin}`);
+if (!isset($_SESSION['us_sds'])) {
+    die(json_encode(['success' => false, 'message' => 'Sesión no válida']));
 }
-    </script>
-    <div class="overlay" id="overlay" onClick="closeModal();">
-		<div class="popup" id="popup" z-index="0" onClick="closeModal();">
-			<div class="btn-close-popup" id="closePopup" onClick="closeModal();">&times;</div>
-			<h3>
-				<div class='image' id='<?php echo $mod; ?>-image'></div>
-			</h3>
-			<h4>
-				<div class='message' id='<?php echo $mod; ?>-modal'></div>
-			</h4>
-		</div>
-	</div>
-</body>
-</html>
+$tipo = $_POST['tipo'] ?? '';
+$fecha_inicio = $_POST['fecha_inicio'] ?? '';
+$fecha_fin = $_POST['fecha_fin'] ?? '';
+if (empty($tipo) || empty($fecha_inicio) || empty($fecha_fin)) {
+    die(json_encode(['success' => false, 'message' => 'Parámetros incompletos']));
+}
+if (!validateDate($fecha_inicio) || !validateDate($fecha_fin)) {
+    die(json_encode(['success' => false, 'message' => 'Formato de fecha inválido']));
+}
+// Definir consultas SQL según el tipo
+$queries = getQueries($tipo, $fecha_inicio, $fecha_fin);
+if (empty($queries)) {
+    die(json_encode(['success' => false, 'message' => 'Tipo de reporte no válido']));
+}
+try {
+    // Crear archivo Excel
+    $spreadsheet = new Spreadsheet();
+    $spreadsheet->removeSheetByIndex(0);
+    $sheetIndex = 0;
+    foreach ($queries as $nombreHoja => $query) {
+        $result = datos_mysql($query);
+        if (!$result['responseResult']) {
+            throw new Exception("Error en consulta ($nombreHoja): No hay datos");
+        }
+        // Crear nueva hoja
+        $sheet = $spreadsheet->createSheet($sheetIndex);
+        $nombreHojaLimpio = substr(cleanTx($nombreHoja), 0, 31);
+        $sheet->setTitle($nombreHojaLimpio);
+        $datos = $result['responseResult'];
+        if (empty($datos)) {
+            $sheet->setCellValue('A1', 'No hay datos disponibles');
+        } else {
+            $col = 1;
+            foreach (array_keys($datos[0]) as $header) {
+                $columnLetter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col);
+                $sheet->setCellValue($columnLetter . '1', $header);
+                $col++;
+            }
+            $rowNum = 2;
+            foreach ($datos as $row) {
+                $col = 1;
+                foreach ($row as $value) {
+                    $columnLetter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col);
+                    $sheet->setCellValue($columnLetter . $rowNum, $value);
+                    $col++;
+                }
+                $rowNum++;
+            }
+            foreach (range('A', $sheet->getHighestColumn()) as $col) {
+                $sheet->getColumnDimension($col)->setAutoSize(true);
+            }
+        }
+        $sheetIndex++;
+    }
+    $nombresArchivos = [
+        '1' => 'TH',
+        '2' => 'Tamizajes'
+    ];
+    
+    $filename = ($nombresArchivos[$tipo] ?? 'reporte') . '_' . $fecha_inicio . '_a_' . $fecha_fin . '.xlsx';
+    $tempDir = sys_get_temp_dir();
+    $filePath = $tempDir . DIRECTORY_SEPARATOR . $filename;
+    $writer = new Xlsx($spreadsheet);
+    $writer->save($filePath);
+    $fileContent = file_get_contents($filePath);
+    unlink($filePath);
+    echo json_encode([
+        'success' => true,
+        'file' => 'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,' . base64_encode($fileContent),
+        'filename' => $filename,
+        'progreso' => 100,
+        'message' => 'Archivo generado correctamente'
+    ]);
+} catch (Exception $e) {
+    log_error("Error en descarga Excel: " . $e->getMessage());
+    echo json_encode([
+        'success' => false,
+        'message' => 'Error al generar el archivo: ' . $e->getMessage(),
+        'progreso' => 0
+    ]);
+}
+exit;
+
+/**
+ * Función para obtener las consultas SQL según el tipo
+ */
+function getQueries($tipo, $fecha_inicio, $fecha_fin) {
+    $sql_subred = "SELECT subred FROM usuarios WHERE id_usuario = '" . $_SESSION['us_sds'] . "'";
+    $info_subred = datos_mysql($sql_subred);
+    $subred = $info_subred['responseResult'][0]['subred'] ?? 3;
+    $queries = [];
+    
+    switch ($tipo) {
+        case '1': // TH
+            $queries['TH'] = "SELECT 
+                T.id_th AS 'ID',
+                T.tipo_doc AS 'Tipo Documento',
+                T.n_documento AS 'N° Documento',
+                CONCAT(T.nombre1, ' ', T.nombre2, ' ', T.apellido1, ' ', T.apellido2) AS 'Nombres Completos',
+                T.fecha_nacimiento AS 'Fecha Nacimiento',
+                FN_CATALOGODESC(21, T.sexo) AS 'Sexo',
+                T.n_contacto AS 'N° Contacto',
+                T.correo AS 'Correo',
+                FN_CATALOGODESC(67, T.subred) AS 'Subred',
+                T.fecha_create AS 'Fecha Creación',
+                CASE T.estado 
+                    WHEN 'A' THEN 'ACTIVO'
+                    WHEN 'I' THEN 'INACTIVO'
+                    ELSE T.estado
+                END AS 'Estado'
+            FROM th T
+            WHERE T.fecha_create >= '$fecha_inicio' 
+                AND T.fecha_create <= '$fecha_fin 23:59:59'
+                AND T.subred = $subred
+            ORDER BY T.fecha_create DESC";
+            
+            $queries['Contratos'] = "SELECT 
+                T.n_documento AS 'N° Documento',
+                CONCAT(T.nombre1, ' ', T.apellido1) AS 'Nombre TH',
+                TC.n_contrato AS 'N° Contrato',
+                FN_CATALOGODESC(326, TC.tipo_cont) AS 'Tipo Contrato',
+                TC.fecha_inicio AS 'Fecha Inicio',
+                TC.fecha_fin AS 'Fecha Fin',
+                CONCAT('$ ', FORMAT(TC.valor_contrato, 0)) AS 'Valor Contrato',
+                FN_CATALOGODESC(323, TC.perfil_profesional) AS 'Perfil Profesional',
+                FN_CATALOGODESC(308, TC.perfil_contratado) AS 'Perfil Contratado',
+                FN_CATALOGODESC(324, TC.rol) AS 'Rol',
+                TC.fecha_create AS 'Fecha Creación'
+            FROM th_contratos TC
+            INNER JOIN th T ON TC.idth = T.id_th
+            WHERE TC.fecha_create >= '$fecha_inicio' 
+                AND TC.fecha_create <= '$fecha_fin 23:59:59'
+                AND T.subred = $subred
+            ORDER BY TC.fecha_create DESC";
+            
+            $queries['Actividades'] = "SELECT 
+                T.n_documento AS 'N° Documento',
+                CONCAT(T.nombre1, ' ', T.apellido1) AS 'Nombre TH',
+                TA.actividad AS 'Código Actividad',
+                SUBSTRING(TA.actbien, 1, 100) AS 'Descripción',
+                TA.hora_act AS 'Horas Actividad',
+                CONCAT('$ ', FORMAT(TA.hora_th, 0)) AS 'Valor Hora',
+                TA.per_ano AS 'Año',
+                CASE TA.per_mes
+                    WHEN 1 THEN 'ENERO' WHEN 2 THEN 'FEBRERO'
+                    WHEN 3 THEN 'MARZO' WHEN 4 THEN 'ABRIL'
+                    WHEN 5 THEN 'MAYO' WHEN 6 THEN 'JUNIO'
+                    WHEN 7 THEN 'JULIO' WHEN 8 THEN 'AGOSTO'
+                    WHEN 9 THEN 'SEPTIEMBRE' WHEN 10 THEN 'OCTUBRE'
+                    WHEN 11 THEN 'NOVIEMBRE' WHEN 12 THEN 'DICIEMBRE'
+                END AS 'Mes',
+                TA.can_act AS 'Cantidad',
+                TA.total_horas AS 'Total Horas',
+                CONCAT('$ ', FORMAT(TA.total_valor, 0)) AS 'Valor Total'
+            FROM th_actividades TA
+            INNER JOIN th T ON TA.idth = T.id_th
+            WHERE TA.fecha_create >= '$fecha_inicio' 
+                AND TA.fecha_create <= '$fecha_fin 23:59:59'
+                AND T.subred = $subred
+            ORDER BY TA.fecha_create DESC";
+            break;
+            
+        case '2': // Tamizajes
+            $queries['EPOC'] = "SELECT 
+                G.idgeo AS 'Cod_Predio',
+                F.id_fam AS 'Cod_Familia',
+                A.id_epoc AS 'Cod_Registro',
+                FN_CATALOGODESC(67, G.subred) AS 'Subred',
+                FN_CATALOGODESC(3, G.zona) AS 'Zona',
+                G.localidad AS 'Localidad',
+                P.idpeople AS 'Cod_Usuario',
+                P.tipo_doc AS 'Tipo_Documento',
+                P.idpersona AS 'N°_Documento',
+                CONCAT(P.nombre1, ' ', P.nombre2) AS 'Nombres_Usuario',
+                CONCAT(P.apellido1, ' ', P.apellido2) AS 'Apellidos_Usuario',
+                P.fecha_nacimiento AS 'Fecha_Nacimiento',
+                FN_CATALOGODESC(21, P.sexo) AS 'Sexo',
+                A.fecha_toma AS 'Fecha_Toma',
+                A.puntaje AS 'Puntaje',
+                A.descripcion AS 'Clasificacion',
+                U.nombre AS 'Usuario_Creo',
+                A.fecha_create AS 'Fecha_Creacion'
+            FROM hog_tam_epoc A
+            LEFT JOIN person P ON A.idpeople = P.idpeople
+            LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
+            LEFT JOIN hog_geo G ON F.idpre = G.idgeo
+            LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario
+            WHERE A.fecha_toma >= '$fecha_inicio' 
+                AND A.fecha_toma <= '$fecha_fin'
+                AND G.subred = $subred";
+            
+            $queries['FINDRISC'] = "SELECT 
+                G.idgeo AS 'Cod_Predio',
+                F.id_fam AS 'Cod_Familia',
+                A.id_findrisc AS 'Cod_Registro',
+                P.idpersona AS 'N°_Documento',
+                CONCAT(P.nombre1, ' ', P.apellido1) AS 'Nombre_Completo',
+                A.fecha_toma AS 'Fecha_Toma',
+                A.imc AS 'IMC',
+                A.puntaje AS 'Puntaje',
+                A.descripcion AS 'Clasificacion',
+                A.fecha_create AS 'Fecha_Creacion'
+            FROM hog_tam_findrisc A
+            LEFT JOIN person P ON A.idpeople = P.idpeople
+            LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
+            LEFT JOIN hog_geo G ON F.idpre = G.idgeo
+            WHERE A.fecha_toma >= '$fecha_inicio' 
+                AND A.fecha_toma <= '$fecha_fin'
+                AND G.subred = $subred";
+            
+            $queries['OMS'] = "SELECT 
+                G.idgeo AS 'Cod_Predio',
+                F.id_fam AS 'Cod_Familia',
+                A.idoms AS 'Cod_Registro',
+                P.idpersona AS 'N°_Documento',
+                CONCAT(P.nombre1, ' ', P.apellido1) AS 'Nombre_Completo',
+                A.fecha_toma AS 'Fecha_Toma',
+                A.tas AS 'TAS',
+                A.puntaje AS 'Puntaje',
+                A.descripcion AS 'Clasificacion',
+                A.fecha_create AS 'Fecha_Creacion'
+            FROM hog_tam_oms A
+            LEFT JOIN person P ON A.idpeople = P.idpeople
+            LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
+            LEFT JOIN hog_geo G ON F.idpre = G.idgeo
+            WHERE A.fecha_toma >= '$fecha_inicio' 
+                AND A.fecha_toma <= '$fecha_fin'
+                AND G.subred = $subred";
+            break;
+            
+        default:
+            return [];
+    }
+    return $queries;
+}
+?>
