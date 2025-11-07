@@ -13,13 +13,16 @@ require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/Drawing.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/Font.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/PasswordHasher.php';
 
-// 2. RichText (requerido por Cell)
+// 2. Calculation (CRÍTICO - requerido por Spreadsheet)
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Calculation/Calculation.php';
+
+// 3. RichText (requerido por Cell)
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/RichText/ITextElement.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/RichText/TextElement.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/RichText/Run.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/RichText/RichText.php';
 
-// 3. Style (IMPORTANTE: debe ir antes de Cell)
+// 4. Style (IMPORTANTE: debe ir antes de Cell)
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/Supervisor.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/Color.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/NumberFormat.php';
@@ -31,7 +34,7 @@ require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/Fill.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/Protection.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/Style.php';
 
-// 4. Cell
+// 5. Cell
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/DataType.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/IValueBinder.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/DefaultValueBinder.php';
@@ -44,14 +47,14 @@ require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/DataValidation.php'
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/Hyperlink.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/Cell.php';
 
-// 5. Collection
+// 6. Collection
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Collection/Cells.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Collection/CellsFactory.php';
 
-// 6. Comment
+// 7. Comment
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Comment.php';
 
-// 7. Worksheet - ORDEN CRÍTICO: Dimension PRIMERO
+// 8. Worksheet - ORDEN CRÍTICO: Dimension PRIMERO
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Dimension.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/ColumnDimension.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/RowDimension.php';
@@ -65,7 +68,7 @@ require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Protection.php
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/SheetView.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php';
 
-// 8. Spreadsheet principal
+// 9. Spreadsheet principal
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/HashTable.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/ReferenceHelper.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/DefinedName.php';
@@ -75,13 +78,13 @@ require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Document/Properties.php'
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Document/Security.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Spreadsheet.php';
 
-// 9. Writer - necesita clases adicionales
+// 10. Writer - necesita clases adicionales
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Writer/IWriter.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Writer/BaseWriter.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/XMLWriter.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx.php';
 
-// 10. IOFactory
+// 11. IOFactory
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/IOFactory.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
