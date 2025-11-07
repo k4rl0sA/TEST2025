@@ -10,6 +10,7 @@ require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/StringHelper.php'
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/File.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/Drawing.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/Font.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/PasswordHasher.php';
 
 // 2. RichText (requerido por Cell)
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/RichText/ITextElement.php';
@@ -49,15 +50,17 @@ require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Collection/CellsFactory.
 // 6. Comment
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Comment.php';
 
-// 7. Worksheet
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/MemoryDrawing.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Drawing.php';
+// 7. Worksheet - ORDEN CORRECTO: BaseDrawing DEBE IR PRIMERO
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/BaseDrawing.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Drawing.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/MemoryDrawing.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/HeaderFooter.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/PageMargins.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/PageSetup.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Protection.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/SheetView.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/ColumnDimension.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/RowDimension.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php';
 
 // 8. Spreadsheet principal
@@ -70,9 +73,10 @@ require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Document/Properties.php'
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Document/Security.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Spreadsheet.php';
 
-// 9. Writer
+// 9. Writer - necesita clases adicionales
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Writer/IWriter.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Writer/BaseWriter.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/XMLWriter.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx.php';
 
 // 10. IOFactory
