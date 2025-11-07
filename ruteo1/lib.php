@@ -739,7 +739,6 @@ if ($a=='rute' && $b=='acciones'){
 		// if($c['Gestionado']== '1' || $c['Gestionado']=='2'){
 		// }
 	}
-	log_error($rta);
  return $rta;
 }
 

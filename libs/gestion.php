@@ -268,7 +268,7 @@ try {
   fetch($con, $rs, $resulttype, $arr);
 } catch (mysqli_sql_exception $e) {
   echo json_encode(['code' => 30, 'message' => 'Error BD', 'errors' => ['code' => $e->getCode(), 'message' => $e->getMessage()]]);
-  log_error($_SESSION["us_sds"].'=>'.$e->getCode().'='.$e->getMessage());
+  if($e->getCode()!=1062)log_error($_SESSION["us_sds"].'=>'.$e->getCode().'='.$e->getMessage().' SQL: '.$sql);
 }finally {
   // $GLOBALS['con']->close();
 }
