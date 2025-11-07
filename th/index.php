@@ -16,7 +16,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/libs/nav.php';
 .search-btn-svg {position: absolute;right: 8px;top: 50%;transform: translateY(-50%);background: none;border: none;cursor: pointer;padding: 8px;border-radius: 4px;transition: background 0.3s;}
 .search-btn-svg:hover {background: #f8f9fa;}
 .search-icon-svg {width: 20px;height: 20px;fill: #666;}
-body {
+/* body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f4f9;
             display: flex;
@@ -34,7 +34,7 @@ body {
             max-width: 400px;
             text-align: center;
         }
-        h1 {
+ */        h1 {
             font-size: 1.5rem;
             color: #333;
             margin-bottom: 1.5rem;
