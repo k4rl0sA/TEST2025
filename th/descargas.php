@@ -3,28 +3,29 @@ ini_set('display_errors', '1');
 require_once '../libs/gestion.php';
 
 // Cargar PhpSpreadsheet manualmente (sin Composer)
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Spreadsheet.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/IOFactory.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Writer/BaseWriter.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/Cell.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/Coordinate.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/DataType.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/IValueBinder.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/DefaultValueBinder.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/Style.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/NumberFormat.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/IComparable.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/HashTable.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/ReferenceHelper.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/StringHelper.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Shared/File.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Collection/Cells.php';
 require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Collection/CellsFactory.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/IComparable.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/ReferenceHelper.php';
-require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/HashTable.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/DataType.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/IValueBinder.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/DefaultValueBinder.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/Coordinate.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Cell/Cell.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/NumberFormat.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Style/Style.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Spreadsheet.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Writer/BaseWriter.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx.php';
+require_once '../libs/phpspreadsheet/src/PhpSpreadsheet/IOFactory.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
 if (!isset($_SESSION['us_sds'])) {
     die(json_encode(['success' => false, 'message' => 'Sesión no válida']));
@@ -44,16 +45,19 @@ if (empty($queries)) {
     die(json_encode(['success' => false, 'message' => 'Tipo de reporte no válido']));
 }
 try {
-    // Crear archivo Excel
     $spreadsheet = new Spreadsheet();
     $spreadsheet->removeSheetByIndex(0);
     $sheetIndex = 0;
     foreach ($queries as $nombreHoja => $query) {
         $result = datos_mysql($query);
-        if (!$result['responseResult']) {
-            throw new Exception("Error en consulta ($nombreHoja): No hay datos");
+       if (!$result || !isset($result['responseResult'])) {
+            $sheet = $spreadsheet->createSheet($sheetIndex);
+            $nombreHojaLimpio = substr(cleanTx($nombreHoja), 0, 31);
+            $sheet->setTitle($nombreHojaLimpio);
+            $sheet->setCellValue('A1', 'No hay datos disponibles');
+            $sheetIndex++;
+            continue;
         }
-        // Crear nueva hoja
         $sheet = $spreadsheet->createSheet($sheetIndex);
         $nombreHojaLimpio = substr(cleanTx($nombreHoja), 0, 31);
         $sheet->setTitle($nombreHojaLimpio);
@@ -63,7 +67,7 @@ try {
         } else {
             $col = 1;
             foreach (array_keys($datos[0]) as $header) {
-                $columnLetter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col);
+                $columnLetter = Coordinate::stringFromColumnIndex($col);
                 $sheet->setCellValue($columnLetter . '1', $header);
                 $col++;
             }
@@ -71,7 +75,7 @@ try {
             foreach ($datos as $row) {
                 $col = 1;
                 foreach ($row as $value) {
-                    $columnLetter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col);
+                    $columnLetter = Coordinate::stringFromColumnIndex($col);
                     $sheet->setCellValue($columnLetter . $rowNum, $value);
                     $col++;
                 }
@@ -87,7 +91,6 @@ try {
         '1' => 'TH',
         '2' => 'Tamizajes'
     ];
-    
     $filename = ($nombresArchivos[$tipo] ?? 'reporte') . '_' . $fecha_inicio . '_a_' . $fecha_fin . '.xlsx';
     $tempDir = sys_get_temp_dir();
     $filePath = $tempDir . DIRECTORY_SEPARATOR . $filename;
