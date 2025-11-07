@@ -147,13 +147,11 @@ function generarArchivo() {
         inform('Por favor, seleccione ambas fechas.');
         return;
     }
-    // Mostrar el spinner y la barra de progreso
     document.getElementById('spinner').style.display = 'block';
     document.getElementById('progressContainer').style.display = 'block';
     const xhr = new XMLHttpRequest();
-    xhr.open('POST','lib.php', true);
+    xhr.open('POST', 'descargas.php', true); // CAMBIO AQUÍ: de 'lib.php' a 'descargas.php'
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    // Actualizar la barra de progreso
     xhr.upload.addEventListener('progress', function(e) {
         if (e.lengthComputable) {
             const percentComplete = (e.loaded / e.total) * 100;
@@ -162,42 +160,44 @@ function generarArchivo() {
         }
     });
     xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            try {
-                const response = JSON.parse(xhr.responseText);
-                // Ocultar spinner
-                document.getElementById('spinner').style.display = 'none';
-                if (response.success) {
-                    // Completar la barra de progreso
-                    document.getElementById('progressBarFill').style.width = '100%';
-                    document.getElementById('progressText').textContent = '100%';
-                    // Crear enlace temporal para descarga
-                    const link = document.createElement('a');
-                    link.href = response.file;
-                    link.download = response.filename;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    inform('Archivo descargado con éxito.');
-                    // Ocultar barra de progreso después de 2 segundos
-                    setTimeout(function() {
+        if (xhr.readyState === 4) {
+            document.getElementById('spinner').style.display = 'none';
+            if (xhr.status === 200) {
+                try {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        document.getElementById('progressBarFill').style.width = '100%';
+                        document.getElementById('progressText').textContent = '100%';
+                        const link = document.createElement('a');
+                        link.href = response.file;
+                        link.download = response.filename;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        inform('Archivo descargado con éxito.');
+                        setTimeout(function() {
+                            document.getElementById('progressContainer').style.display = 'none';
+                            document.getElementById('progressBarFill').style.width = '0%';
+                            document.getElementById('progressText').textContent = '0%';
+                        }, 2000);
+                    } else {
+                        warnin(response.message || 'Error desconocido');
                         document.getElementById('progressContainer').style.display = 'none';
-                        document.getElementById('progressBarFill').style.width = '0%';
-                        document.getElementById('progressText').textContent = '0%';
-                    }, 2000);
-                } else {
-                    warnin(response.message);
+                    }
+                } catch (e) {
+                    console.error('Error al procesar la respuesta:', e);
+                    console.error('Respuesta recibida:', xhr.responseText);
+                    warnin('Error al procesar la respuesta: ' + e.message);
                     document.getElementById('progressContainer').style.display = 'none';
                 }
-            } catch (e) {
-                console.error('Error al procesar la respuesta:', e);
-                warnin('Error al procesar la respuesta');
-                document.getElementById('spinner').style.display = 'none';
+            } else {
+                warnin('Error en la petición: ' + xhr.status);
                 document.getElementById('progressContainer').style.display = 'none';
             }
         }
     };
-    xhr.send(`a=gra&tb=planos&tipo=${tipo}&fecha_inicio=${fecha_inicio}&fecha_fin=${fecha_fin}`);
+    // CAMBIO AQUÍ: sin el 'a=gra&tb=planos'
+    xhr.send(`tipo=${tipo}&fecha_inicio=${fecha_inicio}&fecha_fin=${fecha_fin}`);
 }
 
 function grabar(tb='',ev){
