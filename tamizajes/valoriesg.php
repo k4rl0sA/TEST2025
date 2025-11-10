@@ -33,7 +33,7 @@ function lis_valories(){
 }
 
 function cmp_tamvalories(){
-	$rta="<div class='encabezado valories'>TABLA valories</div><div class='contenido' id='valories-lis'>".lis_valories()."</div></div>";
+	$rta="<div class='encabezado valories'>TABLA VALORACION DE RIESGO</div><div class='contenido' id='valories-lis'>".lis_valories()."</div></div>";
 	$t=['idpersona'=>'','tipodoc'=>'','nombre'=>'','fechanacimiento'=>'','edad'=>''];
 	$w='tamvalories';
 	$d=get_tamvalories(); 
