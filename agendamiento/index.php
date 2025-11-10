@@ -47,7 +47,7 @@ function getPerson() {
 							var rta = JSON.parse(xmlhttp.responseText);
 							if (rta == null || (typeof rta === 'object' && Object.keys(rta).length === 0)) {
 								if (loader != undefined) loader.style.display = 'none';
-								alert('No se encontro el Tipo y Documento ingresado, por favor valide');
+								inform('No se encontro el Tipo y Documento ingresado, por favor valide');
 								return;
 							}else{
 								data =rta;
