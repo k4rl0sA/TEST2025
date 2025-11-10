@@ -44,11 +44,11 @@ function getPerson() {
 						}
 								
 						try {
-							var rta=JSON.parse(xmlhttp.responseText);
-							if(rta==null){
-								//~ if (loader != undefined) loader.style.display = 'none';
-								//~ alert('No se encontro el Tipo y Documento ingresado, por favor valide');
-								//~ return;
+							var rta = JSON.parse(xmlhttp.responseText);
+							if (rta == null || (typeof rta === 'object' && Object.keys(rta).length === 0)) {
+								if (loader != undefined) loader.style.display = 'none';
+								alert('No se encontro el Tipo y Documento ingresado, por favor valide');
+								return;
 							}else{
 								data =rta;
 								console.log(data);
