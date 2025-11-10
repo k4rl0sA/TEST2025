@@ -1749,7 +1749,7 @@ function enbCuidaDiscap() {
         'numsegui',           // ID del campo numsegui
         'estado_s',           // ID del campo estado
         ['cuid', 'disc', 'acc'], // Clases a procesar
-        ['observaciones', 'users_bina'], // IDs excepcionales
+        ['observaciones'], // IDs excepcionales
         '1',                  // Valor de numsegui para habilitar
         ['1', '2']           // Estados válidos
     );
