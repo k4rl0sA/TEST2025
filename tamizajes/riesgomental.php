@@ -31,7 +31,7 @@ function lis_riesgomental(){
 }
 
 function cmp_riesgomental(){
-    $rta="<div class='encabezado riesgomental'>TABLA RIESGO MENTAL</div><div class='contenido' id='riesgomental-lis'>".lis_riesgomental()."</div></div>";
+    $rta="<div class='encabezado riesgomental'>TABLA RIESGO PSICOSOCIAL - SDS</div><div class='contenido' id='riesgomental-lis'>".lis_riesgomental()."</div></div>";
     $t=['idpersona'=>'','tipodoc'=>'','nombre'=>'','fechanacimiento'=>'','edad'=>''];
     $w='riesgomental';
     $d=get_riesgomental(); 
