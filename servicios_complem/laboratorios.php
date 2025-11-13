@@ -30,16 +30,11 @@ function men_laboratorios(){
 
 function cap_menus($a,$b='cap',$con='con') {
   $rta = "";
-  // var_dump($a);
   $acc=rol($a);
-  // $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>"; 
   if ($a=='laboratorios' && isset($acc['crear']) && $acc['crear']=='SI') {  
    $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
   }
-  if($a=='resultLab' && isset($acc['crear']) && $acc['crear']=='SI') {  
-   $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
-  } 
-  $rta .= "<li class='icono $a actualizar'  title='Actualizar'      Onclick=\"act_lista('$a',this,'../servicios_complem/laboratorios.php');\"></li>";  
+  $rta .= "<li class='icono $a actualizar'  title='Actualizar'      Onclick=\"act_lista('$a',this);\"></li>";  
   return $rta;
 }
 
@@ -92,11 +87,11 @@ function cmp_laboratorios(){
     $c[]=new cmp($o,'e',null,'CONTROL DE LABORATORIOS',$w);
     $c[]=new cmp('lab_tomado','s',3,$e,$w.' '.$o,'¿Laboratorio tomado?','lab_tomado',null,'',true,true,'','col-2',"enabFechaTomaLab();enabTomaLab();");
     $c[]=new cmp('fecha_toma','d',10,$e,$w.' ToM '.$o,'Fecha de Toma','fecha_toma',null,'',false,false,'','col-2',"validDate(this,-30,0);");
-    /* $c[]=new cmp('cuenta_resul','s',3,$e,$w.' ToM '.$o,'¿Cuenta con resultado?','cuenta_resul',null,'',true,true,'','col-2',"enabFechaResulLab();");    
+    $c[]=new cmp('cuenta_resul','s',3,$e,$w.' ToM '.$o,'¿Cuenta con resultado?','cuenta_resul',null,'',true,true,'','col-2',"enabFechaResulLab();");    
     $c[]=new cmp('fecha_resul','d',10,$e,$w.' RTa  '.$o,'Fecha de Resultado','fecha_resul',null,'',false,false,'','col-2');
     $c[]=new cmp('dato_crit','s',10,$e,$w.' ToM '.$o,'Dato Crítico','dato_crit',null,'',true,true,'','col-2',"enabGestionLab();");
-    $c[]=new cmp('gestion','s',3,$e,$w.' dCR '.$o,'Cita de Control','gestion',null,'',false,false,'','col-2');
-    $c[]=new cmp('gest_cump','d',3,$e,$w.' dCR '.$o,'Fecha Gestión','gest_cump',null,'',false,false,'','col-2'); */
+    $c[]=new cmp('gestion','s',3,$e,$w.' dCR '.$o,'Gestión al Dato Crítico','gestion',null,'',false,false,'','col-2');
+    $c[]=new cmp('gest_cump','s',3,$e,$w.' dCR '.$o,'Estado Gestión','gest_cump',null,'',false,false,'','col-2');
     $c[]=new cmp('obs','a',255,$e,$w.' '.$o,'Observaciones','obs',null,'',true,true,'','col-12');
     for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
     return $rta;
@@ -132,37 +127,31 @@ function gra_laboratorios(){
     if ($_POST['lab_tomado'] == '1' && (empty($_POST['fecha_toma']) || !validateDate($_POST['fecha_toma']))) {
       return "msj['Error: La fecha de toma es obligatoria y debe ser una fecha válida cuando el laboratorio ha sido tomado.']";
     } 
-    /* */
+    if ($_POST['cuenta_resul'] == '1' && (empty($_POST['fecha_resul']) || !validateDate($_POST['fecha_resul']))) {
+      return "msj['Error: La fecha de resultado es obligatoria y debe ser una fecha válida cuando se cuenta con resultado.']";
+    }
+    if ($_POST['dato_crit'] == '1' && empty($_POST['gestion'])) {
+      return "msj['Error: La gestión es obligatoria cuando hay dato crítico.']";
+    }
  
 
     $id = divide($_POST['id']);
     if (count($id) == 1) {
         // Actualización
-$sql="SELECT lab_tomado FROM hog_laboratorios WHERE id_lab='{$id[0]}';";
-$info=datos_mysql($sql);
-$lab_tomado_anterior=$info['responseResult'][0]['lab_tomado'];
-if($lab_tomado_anterior=='1'){
-  $sql = "UPDATE hog_laboratorios SET  obs=?, usu_update= ?, fecha_update=NOW() WHERE id_lab=?";
-  $params = [
-            ['type' => 's', 'value' => trim($_POST['obs'] ?? NULL)],
-            ['type' => 's', 'value' => intval(($_SESSION['us_sds']) ?? 0)],
+        $sql = "UPDATE hog_laboratorios SET lab_tomado=?, fecha_toma=?, cuenta_resul=?, fecha_resul=?, dato_crit=?, gestion=?, gest_cump=?, obs=?, usu_update=?,
+         fecha_update=SUB_DATE(NOW(),INTERVAL 5 HOUR) WHERE id_lab=?";
+        $params = [
+            ['type' => 's', 'value' => trim($_POST['lab_tomado'] ?? '')],
+            ['type' => 's', 'value' => trim($_POST['fecha_toma'] ?? '')],
+            ['type' => 's', 'value' => trim($_POST['cuenta_resul'] ?? '')],
+            ['type' => 's', 'value' => trim($_POST['fecha_resul'] ?? '')],
+            ['type' => 'i', 'value' => intval($_POST['dato_crit'] ?? 0)],
+            ['type' => 's', 'value' => trim($_POST['gestion'] ?? '')],
+            ['type' => 's', 'value' => trim($_POST['gest_cump'] ?? '')],
+            ['type' => 's', 'value' => trim($_POST['obs'] ?? '')],
+            ['type' => 's', 'value' => $_SESSION['us_sds']],
             ['type' => 'i', 'value' => intval($id[0])]
         ];
-}else{
-  $sql = "UPDATE hog_laboratorios SET lab_tomado=?,fecha_toma=?, obs=?, usu_update= ?, fecha_update=NOW() WHERE id_lab=?";
-  $params = [
-            ['type' => 's', 'value' => trim($_POST['lab_tomado'] ?? NULL)],
-            ['type' => 's', 'value' => trim($_POST['fecha_toma'] ?? NULL)],
-            ['type' => 's', 'value' => trim($_POST['obs'] ?? NULL)],
-            ['type' => 's', 'value' => intval(($_SESSION['us_sds']) ?? 0)],
-            ['type' => 'i', 'value' => intval($id[0])]
-        ];
-}
- /*  $sql = "UPDATE hog_laboratorios SET lab_tomado=?, fecha_toma=?, cuenta_resul=?, fecha_resul=?, dato_crit=?, gestion=?, gest_cump=?, obs=?, usu_update= {$_SESSION['us_sds']}, fecha_update=DATE_sub(NOW(),INTERVAL 5 HOUR) WHERE id_lab=?"; */
-  // $sql = "UPDATE hog_laboratorios SET lab_tomado=?,fecha_toma=?, obs=?, usu_update= ?, fecha_update=NOW() WHERE id_lab=?";
-    // Mostrar la consulta generada para depuración
-    // $debug_sql = show_sql($sql, $params);
-    // log_error('SQL DEBUG: ' . $debug_sql);
     } else if (count($id) == 2) {
         // Inserción
         $sql = "INSERT INTO hog_laboratorios VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,?)";
@@ -174,9 +163,9 @@ if($lab_tomado_anterior=='1'){
             ['type' => 's', 'value' => trim($_POST['otro_lab'])],
             ['type' => 's', 'value' => trim($_POST['fecha_orden'])],
             ['type' => 's', 'value' => trim($_POST['lab_tomado'] ?? null)],
-            ['type' => 's', 'value' => trim($_POST['fecha_toma'] ?? '0000-00-00')],
+            ['type' => 's', 'value' => !empty($_POST['fecha_toma']) ? trim($_POST['fecha_toma']) : null],
             ['type' => 's', 'value' => trim($_POST['cuenta_resul'] ?? null)],
-            ['type' => 's', 'value' => trim($_POST['fecha_resul'] ?? '0000-00-00')],
+            ['type' => 's', 'value' => trim($_POST['fecha_resul'] ?? trim($_POST['fecha_resul'] ?? null))],
             ['type' => 'i', 'value' => intval($_POST['dato_crit'] ?? null)],
             ['type' => 's', 'value' => trim($_POST['gestion'] ?? null)],
             ['type' => 's', 'value' => trim($_POST['gest_cump'] ?? null)],
@@ -203,7 +192,7 @@ function get_laboratorios(){
     'AÑOS= ', TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()),
     ' MESES= ', TIMESTAMPDIFF(MONTH, fecha_nacimiento, CURDATE())-(TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) * 12),
     ' DIAS= ', DATEDIFF(CURDATE(),DATE_ADD(fecha_nacimiento, INTERVAL TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) YEAR)) % 30
-  ) AS edad,idatencion,tipo_lab, otro_lab, fecha_orden, lab_tomado, fecha_toma, obs
+  ) AS edad,idatencion,tipo_lab, otro_lab, fecha_orden, lab_tomado, fecha_toma, cuenta_resul, fecha_resul, dato_crit, gestion, gest_cump, obs
 FROM hog_laboratorios 
               LEFT JOIN person P ON hog_laboratorios.idpeople=P.idpeople
               WHERE id_lab='{$id[0]}'";
@@ -216,10 +205,10 @@ function opc_tipodoc($id=''){
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=1 and estado='A' ORDER BY 1",$id);
 }
 function opc_tipo_lab($id=''){
-  return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=307 and estado='A' ORDER BY CAST(idcatadeta AS UNSIGNED)",$id);
+  return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=307 and estado='A' ORDER BY 1",$id);
 }
 function opc_lab_tomado($id=''){
-  return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=170 and estado='A' ORDER BY 1",$id);
+  return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=170 and estado='A' ORDER BY CAST(idcatadeta AS UNSIGNED)",$id);
 }
 function opc_cuenta_resul($id=''){
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=170 and estado='A' ORDER BY 1",$id);
@@ -228,141 +217,30 @@ function opc_dato_crit($id=''){
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=170 and estado='A' ORDER BY 1",$id);
 }
 function opc_gestion($id=''){
-  return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=170 and estado='A' ORDER BY 1",$id);
+  return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=26 and estado='A' ORDER BY 1",$id);
+}
+function opc_gest_cump($id=''){
+  return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=27 and estado='A' ORDER BY 1",$id);
 }
 function opc_cod_admision($id=''){
 	$cod=divide($_REQUEST['id']);
-  return opc_sql("SELECT a.id_aten,CONCAT_WS(' - ',f.cod_admin,FN_CATALOGODESC(127,f.final_consul)) AS descripcion FROM eac_atencion a LEFT JOIN adm_facturacion f ON a.id_factura=f.id_factura WHERE a.idpeople='{$cod[0]}' AND a.laboratorios='SI'", $id);
+  return opc_sql("SELECT a.id_aten,CONCAT_WS(' - ',f.cod_admin,FN_CATALOGODESC(127,f.final_consul)) AS descripcion FROM eac_atencion a LEFT JOIN adm_facturacion f ON a.id_factura=f.id_factura WHERE a.idpeople='{$cod[0]}' AND a.laboratorios=1", $id);
 }
 
 
-
-
-//********************************RESULTADO LABORATORIOS***********************************************/
-
-
-
-function focus_resultLab(){
-  return 'resultLab';
-}
-
-function men_resultLab(){
-  $rta=cap_menus('resultLab','pro');
-  return $rta;
-}
- 
-
-function cmp_resultLab(){
-  $rta ="";
-  $w="resultados";
-  $o='resultLab';
-  $e="";
-  $key='pln';
-  
-  $t=['cuenta_resul'=>'','fecha_resul'=>'','dato_crit'=>'','gestion'=>'','gest_cump'=>'','obs'=>''];
-  $d=get_respuesta();
-  if ($d==""){$d=$t;}
-  $days=fechas_app('vivienda');
-  $c[]=new cmp($o,'e',null,'RESULTADO DE LABORATORIO',$w);
-  // Cambiar $_POST['idr'] por $_POST['id'] o $_REQUEST['id']
-  $c[]=new cmp('idrta','h',15,$_REQUEST['id'] ?? '',$w.' '.$key.' '.$o,'id','id',null,'####',false,false);
-  $c[]=new cmp('cuenta_resul','s',3,$d['cuenta_resul'] ?? '',$w.' ToM '.$o,'¿Cuenta con resultado?','cuenta_resul',null,'',true,true,'','col-5',"enabFechaResulLab();");    
-  $c[]=new cmp('fecha_resul','d',10,$d['fecha_resul'] ?? '',$w.' RTa  '.$o,'Fecha de Resultado','fecha_resul',null,'',false,false,'','col-5',"validDate(this,-30,0);");
-  $c[]=new cmp('dato_crit','s',10,$d['dato_crit'] ?? '',$w.' ToM '.$o,'Dato Crítico','dato_crit',null,'',true,true,'','col-4',"enabGestionLab();");
-  $c[]=new cmp('gestion','s',3,$d['gestion'] ?? '',$w.' dCR '.$o,'Cita de Control','gestion',null,'',false,false,'','col-3',"enabGestRtaLab();");
-  $c[]=new cmp('gest_cump','d',3,$d['gest_cump'] ?? '',$w.' FgE '.$o,'Fecha Gestión','gest_cump',null,'',false,false,'','col-3',"validDate(this,-30,0);");
-
-  for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
-  return $rta;
-}
-
-function get_resultLab(){
-    if(empty($_REQUEST['id'])){
-        return json_encode([]);
-    } else {
-        $id = divide($_REQUEST['id']);
-        $sql = "SELECT '{$id[0]}' as idrta, cuenta_resul, fecha_resul, dato_crit, gestion, gest_cump, obs
-                FROM hog_laboratorios 
-                WHERE id_lab='{$id[0]}'";
-        $info = datos_mysql($sql);
-        
-        if (empty($info['responseResult'])) {
-            return json_encode([]);
-        }
-        return json_encode($info['responseResult'][0]);
+function formato_dato($a,$b,$c,$d){
+    $b=strtolower($b);
+    // var_dump($a);//laboratorios
+  //  var_dump($b);
+    // var_dump($c);
+    // var_dump($d);
+    $rta=$c[$d];
+    if ($a=='laboratorios' && $b=='cod laboratorio'){
+        $rta="<nav class='menu right'>";    
+        $rta.="<li class='icono editar' title='Editar' id='".$c['Cod Laboratorio']."' Onclick=\"setTimeout(getData,500,'laboratorios',event,this,['cod_admision','tipo_lab','otro_lab','fecha_orden','fecha_toma','cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump'],'../servicios_complem/laboratorios.php');setTimeout(funNew,500,'../servicios_complem/laboratorios.php');\"></li>";
+        $rta.="</nav>";
     }
-}
-
-function get_respuesta(){
-    // Cambiar de 'idrta' a 'id' para que coincida con getData
-    if(empty($_REQUEST['id'])){
-        return [];  // Retornar array vacío en lugar de string
-    } else {
-        $id = divide($_REQUEST['id']);
-        $sql = "SELECT cuenta_resul, fecha_resul, dato_crit, gestion, gest_cump, obs
-                FROM hog_laboratorios 
-                WHERE id_lab='{$id[0]}'";
-        $info = datos_mysql($sql);
-        
-        if (empty($info['responseResult'])) {
-            return [];  // Retornar array vacío
-        }
-        return $info['responseResult'][0];
-    }
-}
-
-  function gra_resultLab(){
-	$id=divide($_POST['idrta']);
-    // var_dump($id);
-
-  $required = ['cuenta_resul','dato_crit'];
-    foreach ($required as $field) {
-        if (empty($_POST[$field])) {
-            return ['error' => 'El campo '.$field.' es obligatorio.'];
-        }
-    } 
-
-  if ($_POST['cuenta_resul'] == '1' && (empty($_POST['fecha_resul']) || !validateDate($_POST['fecha_resul']))) {
-      return "msj['Error: La fecha de resultado es obligatoria y debe ser una fecha válida cuando se cuenta con resultado.']";
-    }
- 
-    if ($_POST['dato_crit'] == '1' && (empty($_POST['gestion']) && empty($_POST['gest_cump']))) {
-      return "msj['Error: La gestión es obligatoria cuando hay dato crítico. Por favor ingrese la gestión y la fecha de gestión.']";
-    }
-     $sql = "UPDATE hog_laboratorios SET cuenta_resul=?, fecha_resul=?, dato_crit=?, gestion=?, gest_cump=?, usu_update= ?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) WHERE id_lab=?";
-        $params = [
-            ['type' => 's', 'value' => trim($_POST['cuenta_resul'] ??null )],
-            ['type' => 's', 'value' => trim($_POST['fecha_resul'] ?? null)],
-            ['type' => 'i', 'value' => intval($_POST['dato_crit'] ?? 0)],
-            ['type' => 's', 'value' => trim($_POST['gestion'] ?? null)],
-            ['type' => 's', 'value' => trim($_POST['gest_cump'] ?? null)],
-            ['type' => 's', 'value' => intval(($_SESSION['us_sds']) ?? 0)],
-            ['type' => 'i', 'value' => intval($id[0])]
-        ];
-      $rta = mysql_prepd($sql, $params);
-      return $rta; 
-}
-
-
-
-    //********************************RESULTADO LABORATORIOS***********************************************/
-
-function formato_dato($a, $b, $c, $d) {
-  $b = strtolower($b);
-  // var_dump($a); //laboratorios
-  // var_dump($b);
-  // var_dump($c);
-  // var_dump($d);
-  $rta = $c[$d];
-  if ($a == 'laboratorios' && $b == 'cod laboratorio') {
-    $rta = "<nav class='menu right'>";
-     $rta .= "<li class='icono editar' title='Editar' id='{$c['Cod Laboratorio']}' onclick=\"setTimeout(getData,500,'laboratorios',event,this,['cod_admision','tipo_lab','otro_lab','fecha_orden','fecha_toma','cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump'],'../servicios_complem/laboratorios.php');\"></li>";
-    $rta .= $c['Tomado']=='SI' ? "<li><i class='fa-solid fa-file-waveform ico' title='Resultado de laboratorios' id='{$c['Cod Laboratorio']}' Onclick=\"mostrar('resultLab','pro',event,'','../servicios_complem/laboratorios.php',3,'Resultado de laboratorios');setTimeout(getData,1000,'resultLab',event,this,['idrta'],'../servicios_complem/laboratorios.php');\"></i></li>":'';
-    /* $rta .= "<li class='icono editar' title='Editar' id='{$c['Cod Laboratorio']}' onclick=\"setTimeout(getData,500,'laboratorios',event,this,['cod_admision','tipo_lab','otro_lab','fecha_orden','fecha_toma','cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump'],'../servicios_complem/laboratorios.php');\"></li>";
-     $rta .= $c['Tomado']=='SI' ? "<li><i class='fa-solid fa-file-waveform ico' title='Resultado de laboratorios' id='{$c['Cod Laboratorio']}' Onclick=\"mostrar('resultLab','pro',event,'','../servicios_complem/laboratorios.php',3,'Resultado de laboratorios');setTimeout(getData,1000,'respuesta',event,this,['cuenta_resul','fecha_resul','dato_crit','gestion','gest_cump'],'../servicios_complem/laboratorios.php');\"></i></li>":''; */
-    $rta .= "</nav>";
-  }
-  return $rta;
+    return $rta;
 }
 
 function bgcolor($a,$c,$f='c'){
