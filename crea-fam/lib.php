@@ -842,7 +842,6 @@ function get_Tamiz($fec) {
 	if ($edad >= 16) {
 		$tamiz[] = 'tamsrq';
 		$tamiz[] = 'tamassist';
-		$tamiz[] = 'riesgomental';
 	}
 	// COPE: 10 años en adelante
 	if ($edad >= 10) {
