@@ -108,7 +108,7 @@ function opc_evento($id=''){
 var_dump($d['anos']);
 var_dump($d);
  if($d['anos'] > 11 && $d['anos'] < 18 && ($d['sexo']=='M')){
-    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,3,4,6) and estado='A' ORDER BY 2",$id);
+    return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,3,4,6,7,9) and estado='A' ORDER BY 2",$id);
   }
    if($d['anos'] > 11 && $d['anos'] < 18 &&  $d['sexo']=='H'){
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,3,6) and estado='A' ORDER BY 2",$id);
