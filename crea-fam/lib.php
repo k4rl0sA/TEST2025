@@ -796,7 +796,7 @@ function eventAsign($key) {
 	  35 => ['icono' => 'cancer', 'titulo' => 'CANCER DE COLON Y RECTO', 'modulo' => 'cancinfa'],
 	  36 => ['icono' => 'cancer', 'titulo' => 'CANCER DE PIEL', 'modulo' => 'cancinfa'],
 	  37 => ['icono' => 'cancer', 'titulo' => 'CANCER DE ESTOMAGO', 'modulo' => 'cancinfa'],
-	  38 => ['icono' => 'femini', 'titulo' => 'ACOMPAÑAMIENTO VBG', 'modulo' =>($perfilUsuario == 'PSICOLOGIA') ? 'feminicidio1' : 'feminicidio'],
+	  38 => ['icono' => 'femin1', 'titulo' => 'ACOMPAÑAMIENTO VBG', 'modulo' =>($perfilUsuario == 'PSICOLOGIA') ? 'feminicidio1' : 'feminicidio'],
 	  39 => ['icono' => 'soledad', 'titulo' => 'MAS COMPAÑIA MAS BIENESTAR', 'modulo' => 'soledad'],
     );
     $eve = '';
