@@ -91,14 +91,14 @@ function cmp_feminicidio1(){
     
     $o='hab';
     $c[]=new cmp($o,'e',null,'EVALUACIÓN PSICOLÓGICA ESPECIALIZADA ',$w);
-    $c[]=new cmp('reg_emociones','s','2',$d,$w.' hL '.$o,'¿Ha tenido dificultad para regular emociones en situaciones específicas de estrés?','rta',null,null,false,$x,'','col-4');
-    $c[]=new cmp('bloqueo_emocional','s','2',$d,$w.' hL '.$o,'¿Ha experimentado momentos de bloqueo emocional o sensación de desconexión?','rta',null,null,false,$x,'','col-4');
-    $c[]=new cmp('tecnicas_manejo','s','2',$d,$w.' hL '.$o,'¿Ha requerido técnicas de manejo emocional desde la última intervención?','rta',null,null,false,$x,'','col-4');
-    $c[]=new cmp('cambios_autovaloracion','s','2',$d,$w.' hL '.$o,'¿Ha notado cambios en cómo se valora o percibe a sí misma?','rta',null,null,false,$x,'','col-4');
-    $c[]=new cmp('baja_motivacion','s','2',$d,$w.' hL '.$o,'¿Ha sentido disminución marcada en motivación o interés?','rta',null,null,false,$x,'','col-4');
-    $c[]=new cmp('pensamientos_repetitivos','s','2',$d,$w.' hL '.$o,'¿Ha experimentado pensamientos repetitivos difíciles de controlar?','rta',null,null,false,$x,'','col-4');
-    $c[]=new cmp('apoyo_seguro','s','2',$d,$w.' hL '.$o,'¿Ha logrado acercarse a personas que le brindan seguridad emocional?','rta',null,null,false,$x,'','col-4');
-    $c[]=new cmp('barreras_apoyo','s','2',$d,$w.' hL '.$o,'¿Ha podido identificar barreras para acceder a apoyo emocional?','rta',null,null,false,$x,'','col-4');
+    $c[]=new cmp('reg_emociones','s','2',$d,$w.' hL '.$o,'¿Ha tenido dificultad para regular emociones en situaciones específicas de estrés?','rta',null,null,false,$x,'','col-5');
+    $c[]=new cmp('bloqueo_emocional','s','2',$d,$w.' hL '.$o,'¿Ha experimentado momentos de bloqueo emocional o sensación de desconexión?','rta',null,null,false,$x,'','col-5');
+    $c[]=new cmp('tecnicas_manejo','s','2',$d,$w.' hL '.$o,'¿Ha requerido técnicas de manejo emocional desde la última intervención?','rta',null,null,false,$x,'','col-5');
+    $c[]=new cmp('cambios_autovaloracion','s','2',$d,$w.' hL '.$o,'¿Ha notado cambios en cómo se valora o percibe a sí misma?','rta',null,null,false,$x,'','col-5');
+    $c[]=new cmp('baja_motivacion','s','2',$d,$w.' hL '.$o,'¿Ha sentido disminución marcada en motivación o interés?','rta',null,null,false,$x,'','col-5');
+    $c[]=new cmp('pensamientos_repetitivos','s','2',$d,$w.' hL '.$o,'¿Ha experimentado pensamientos repetitivos difíciles de controlar?','rta',null,null,false,$x,'','col-5');
+    $c[]=new cmp('apoyo_seguro','s','2',$d,$w.' hL '.$o,'¿Ha logrado acercarse a personas que le brindan seguridad emocional?','rta',null,null,false,$x,'','col-5');
+    $c[]=new cmp('barreras_apoyo','s','2',$d,$w.' hL '.$o,'¿Ha podido identificar barreras para acceder a apoyo emocional?','rta',null,null,false,$x,'','col-5');
 
     //igual
     $o='acc';
