@@ -789,14 +789,14 @@ function eventAsign($key) {
 	  28 => ['icono' => 'condu1', 'titulo' => 'CONDUCTA SUICIDA (INTENTO)', 'modulo' => 'condsuic'],
 	  29 => ['icono' => 'otrca1', 'titulo' => 'EDUCACIÓN MEDICO', 'modulo' => 'educaMedi'],
 	  30 => ['icono' => 'adoles', 'titulo' => 'ADOLESCENCIA CON MAS BIENESTAR', 'modulo' => 'adoleMas'],
-	  31 => ['icono' => 'discap', 'titulo' => 'RBC', 'modulo' => ($perfilUsuario == 'AUXRELEVO') ? 'discapacidad1' :  (($perfilUsuario == 'ADM') ? ['discapacidad','discapacidad1'] : 'discapacidad')],
+	  31 => ['icono' => 'discap', 'titulo' => 'RBC', 'modulo' => ($perfilUsuario == 'AUXRELEVO') ? 'discapacidad1' : 'discapacidad'],
 	  32 => ['icono' => 'cancer', 'titulo' => 'CANCER DE CUELLO UTERINO', 'modulo' => 'cancinfa'],
 	  33 => ['icono' => 'cancer', 'titulo' => 'CANCER DE MAMA', 'modulo' => 'cancinfa'],
 	  34 => ['icono' => 'cancer', 'titulo' => 'CANCER DE PROSTATA', 'modulo' => 'cancinfa'],
 	  35 => ['icono' => 'cancer', 'titulo' => 'CANCER DE COLON Y RECTO', 'modulo' => 'cancinfa'],
 	  36 => ['icono' => 'cancer', 'titulo' => 'CANCER DE PIEL', 'modulo' => 'cancinfa'],
 	  37 => ['icono' => 'cancer', 'titulo' => 'CANCER DE ESTOMAGO', 'modulo' => 'cancinfa'],
-	38 => ['icono' => 'salud1', 'titulo' => 'ACOMPAÑAMIENTO VBG', 'modulo' => ($perfilUsuario == 'PSICOLOGIA') ? 'feminicidio1' : (($perfilUsuario == 'ADM') ? ['feminicidio','feminicidio1'] : 'feminicidio')],
+	  38 => ['icono' => 'salud1', 'titulo' => 'ACOMPAÑAMIENTO VBG', 'modulo' =>($perfilUsuario == 'PSICOLOGIA') ? 'feminicidio1' : 'feminicidio'],
 	  39 => ['icono' => 'soledad', 'titulo' => 'MAS COMPAÑIA MAS BIENESTAR', 'modulo' => 'soledad'],
     );
     $eve = '';
