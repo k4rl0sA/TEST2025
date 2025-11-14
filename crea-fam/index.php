@@ -181,8 +181,8 @@ function grabar(tb='',ev){
   'educaMedi':'../vsp/educaMedi.php',
   'discapacidad':'../vsp/discapacidad.php',
   'discapacidad1':'../vsp/discapacidad1.php',
-  'femicidio':'../vsp/feminicidio.php',
-  'femicidio1':'../vsp/feminicidio1.php'
+  'feminicidio':'../vsp/feminicidio.php',
+  'feminicidio1':'../vsp/feminicidio1.php'
  	};
    let ruta_app = rutaMap[tb] || 'lib.php';
   if(tb=='sesion2'){
