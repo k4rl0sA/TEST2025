@@ -795,7 +795,9 @@ function eventAsign($key) {
 	  34 => ['icono' => 'cancer', 'titulo' => 'CANCER DE PROSTATA', 'modulo' => 'cancinfa'],
 	  35 => ['icono' => 'cancer', 'titulo' => 'CANCER DE COLON Y RECTO', 'modulo' => 'cancinfa'],
 	  36 => ['icono' => 'cancer', 'titulo' => 'CANCER DE PIEL', 'modulo' => 'cancinfa'],
-	  37 => ['icono' => 'cancer', 'titulo' => 'CANCER DE ESTOMAGO', 'modulo' => 'cancinfa']
+	  37 => ['icono' => 'cancer', 'titulo' => 'CANCER DE ESTOMAGO', 'modulo' => 'cancinfa'],
+	  38 => ['icono' => 'salud1', 'titulo' => 'ACOMPAÑAMIENTO VBG', 'modulo' => 'femini'],
+	  39 => ['icono' => 'soledad', 'titulo' => 'MAS COMPAÑIA MAS BIENESTAR', 'modulo' => 'soledad'],
     );
     $eve = '';
     foreach ($rta as $evento) {
@@ -820,10 +822,12 @@ function get_Tamiz($fec) {
 	// Apgar: menores de 6 años
 	if ($edad >=7) {
 		$tamiz[] = 'tamApgar';
+		$tamiz[] = 'riesgomental';
 	}
 	// RQC: 5 a 15 años
 	if ($edad >= 5 && $edad <= 15) {
 		$tamiz[] = 'tamrqc';
+		$tamiz[] = 'riesgomental';
 	}
 	// Carlos Crafft: 12 a 15 años
 	if ($edad >= 12 && $edad <= 15) {
@@ -836,7 +840,6 @@ function get_Tamiz($fec) {
 	// Assist y Riesgo Mental: 16 a 17 años
 	if ($edad >= 16 && $edad <= 17) {
 		$tamiz[] = 'tamassist';
-		$tamiz[] = 'riesgomental';
 	}
 	// SRQ: 16 años en adelante
 	if ($edad >= 16) {
