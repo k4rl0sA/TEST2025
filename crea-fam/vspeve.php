@@ -116,12 +116,12 @@ function opc_evento($id=''){
   
   // Condiciones especiales para adolescentes 12-17 años
   if($d['anos'] > 11 && $d['anos'] < 18 && ($d['sexo']=='M')){
-    echo "<span style='color:green;font-weight:bold;'>✓ CONDICIÓN 1: Mujer entre 12-17 años</span><br>";
+    echo "✓ CONDICIÓN 1: Mujer entre 12-17 años</span><br>";
     echo "Valores permitidos: 0,5,2,3,4,6,7,9</div>";
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,3,4,6,7,9) and estado='A' ORDER BY 2",$id);
   }
   if($d['anos'] > 11 && $d['anos'] < 18 && $d['sexo']=='H'){
-    echo "<span style='color:green;font-weight:bold;'>✓ CONDICIÓN 2: Hombre entre 12-17 años</span><br>";
+    echo "✓ CONDICIÓN 2: Hombre entre 12-17 años</span><br>";
     echo "Valores permitidos: 0,5,2,3,6</div>";
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,3,6) and estado='A' ORDER BY 2",$id);
   }
@@ -129,55 +129,54 @@ function opc_evento($id=''){
   // MUJERES - ORDEN DE MAYOR A MENOR EDAD
   if($d['sexo']=='M'){
     if($d['anos']>59){
-      echo "<span style='color:green;font-weight:bold;'>✓ CONDICIÓN 3: Mujer mayor de 59 años (≥60)</span><br>";
-      echo "Valores permitidos: 0,5,7,9,10</div>";
+      // echo "✓ CONDICIÓN 3: Mujer mayor de 59 años (≥60)";
+      // echo "Valores permitidos: 0,5,7,9,10</div>";
       return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,7,9,10) and estado='A' ORDER BY 2",$id); 
     }elseif($d['anos']>54){
-      echo "<span style='color:green;font-weight:bold;'>✓ CONDICIÓN 4: Mujer entre 55-59 años</span><br>";
-      echo "Valores permitidos: 0,5,7,9</div>";
+      // echo "✓ CONDICIÓN 4: Mujer entre 55-59 años";
+      // echo "Valores permitidos: 0,5,7,9</div>";
       return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,7,9) and estado='A' ORDER BY 2",$id); 
     }elseif($d['anos']>17 && $d['anos']<55){
-      echo "<span style='color:green;font-weight:bold;'>✓ CONDICIÓN 5: Mujer entre 18-54 años</span><br>";
-      echo "Valores permitidos: 0,5,2,4,6,7,9</div>";
+      // echo "✓ CONDICIÓN 5: Mujer entre 18-54 años";
+      // echo "Valores permitidos: 0,5,2,4,6,7,9</div>";
       return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,4,6,7,9) and estado='A' ORDER BY 2",$id); 
     }elseif($d['anos']>9 && $d['anos']<18){
-      echo "<span style='color:green;font-weight:bold;'>✓ CONDICIÓN 6: Mujer entre 10-17 años</span><br>";
-      echo "Valores permitidos: 0,5,2,3,4,6,9</div>";
+      // echo "✓ CONDICIÓN 6: Mujer entre 10-17 años";
+      // echo "Valores permitidos: 0,5,2,3,4,6,9</div>";
       return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,3,4,6,9) and estado='A' ORDER BY 2",$id); 
     }elseif($d['anos']>5 && $d['anos']<10){
-      echo "<span style='color:green;font-weight:bold;'>✓ CONDICIÓN 7: Mujer entre 6-9 años</span><br>";
-      echo "Valores permitidos: 0,5,2,3</div>";
+      // echo "✓ CONDICIÓN 7: Mujer entre 6-9 años";
+      // echo "Valores permitidos: 0,5,2,3</div>";
       return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,3) and estado='A' ORDER BY 2",$id); 
     }elseif($d['anos']<6){
-      echo "<span style='color:green;font-weight:bold;'>✓ CONDICIÓN 8: Mujer menor de 6 años (0-5)</span><br>";
-      echo "Valores permitidos: 0,5,1,2,3</div>";
+      // echo "✓ CONDICIÓN 8: Mujer menor de 6 años (0-5)";
+      // echo "Valores permitidos: 0,5,1,2,3</div>";
       return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,1,2,3) and estado='A' ORDER BY 2",$id);
     }
   // HOMBRES - ORDEN DE MAYOR A MENOR EDAD
   }else{
     if($d['anos']>59){
-      echo "<span style='color:green;font-weight:bold;'>✓ CONDICIÓN 9: Hombre mayor de 59 años (≥60)</span><br>";
-      echo "Valores permitidos: 0,5,8,10</div>";
+      // echo "✓ CONDICIÓN 9: Hombre mayor de 59 años (≥60)";
+      // echo "Valores permitidos: 0,5,8,10</div>";
       return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,8,10) and estado='A' ORDER BY 2",$id); 
     }elseif($d['anos']>54){
-      echo "<span style='color:green;font-weight:bold;'>✓ CONDICIÓN 10: Hombre entre 55-59 años</span><br>";
-      echo "Valores permitidos: 0,5,8</div>";
+      // echo "✓ CONDICIÓN 10: Hombre entre 55-59 años";
+      // echo "Valores permitidos: 0,5,8</div>";
       return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,8) and estado='A' ORDER BY 2",$id); 
     }elseif($d['anos']>17 && $d['anos']<55){
-      echo "<span style='color:green;font-weight:bold;'>✓ CONDICIÓN 11: Hombre entre 18-54 años</span><br>";
-      echo "Valores permitidos: 0,5</div>";
+      // echo "✓ CONDICIÓN 11: Hombre entre 18-54 años";
+      // echo "Valores permitidos: 0,5</div>";
       return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5) and estado='A' ORDER BY 2",$id); 
     }elseif($d['anos']>5 && $d['anos']<18){
-      echo "<span style='color:green;font-weight:bold;'>✓ CONDICIÓN 12: Hombre entre 6-17 años</span><br>";
-      echo "Valores permitidos: 0,5,2,3</div>";
+      // echo "✓ CONDICIÓN 12: Hombre entre 6-17 años";
+      // echo "Valores permitidos: 0,5,2,3</div>";
       return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,3) and estado='A' ORDER BY 2",$id); 
     }elseif($d['anos']<6){
-      echo "<span style='color:green;font-weight:bold;'>✓ CONDICIÓN 13: Hombre menor de 6 años (0-5)</span><br>";
-      echo "Valores permitidos: 0,5,1,2,3</div>";
+      // echo "✓ CONDICIÓN 13: Hombre menor de 6 años (0-5)";
+      // echo "Valores permitidos: 0,5,1,2,3</div>";
       return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,1,2,3) and estado='A' ORDER BY 2",$id);
     }
   }
-  
   echo "<span style='color:red;font-weight:bold;'>✗ NINGUNA CONDICIÓN CUMPLIDA - Sin return</span></div>";
 }
 
