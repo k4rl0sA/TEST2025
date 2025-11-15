@@ -77,9 +77,9 @@ function cmp_soledad(){
   
   $c[]=new cmp('id_soledad','h','50',$_POST['id'],$w.' '.$o,'','id_soledad',null,null,false,$x,'','col-2');
   $c[]=new cmp('fecha_seg','d','10',$d,$w.' '.$o,'Fecha Seguimiento','fecha_seg',null,null,true,true,'','col-2',"validDate(this,$days,0);");
-  $c[]=new cmp('numsegui','s','3',$d,$w.' '.$o,'Seguimiento N°','numsegui',null,null,true,true,'','col-2',"staEfe('numsegui','sta');EnabEfec(this,['red','emo','fun'],['Ob'],['nO'],['bL'])");
+  $c[]=new cmp('numsegui','s','3',$d,$w.' '.$o,'Seguimiento N°','numsegui',null,null,true,true,'','col-2',"staEfe('numsegui','sta');EnabEfec(this,['red','emo','fun','acc'],['Ob'],['nO'],['bL'])");
   $c[]=new cmp('evento','s','3',$ev,$w.' '.$o,'Evento','evento',null,null,false,false,'','col-2');
-  $c[]=new cmp('estado_s','s','3',$d,$w.' sTa '.$o,'Estado','estado_s',null,null,true,true,'','col-2',"enabFielSele(this,true,['motivo_estado'],['3']);EnabEfec(this,['red','emo','fun'],['Ob'],['nO'],['bL']);");
+  $c[]=new cmp('estado_s','s','3',$d,$w.' sTa '.$o,'Estado','estado_s',null,null,true,true,'','col-2',"enabFielSele(this,true,['motivo_estado'],['3']);EnabEfec(this,['red','emo','fun','acc'],['Ob'],['nO'],['bL']);");
   $c[]=new cmp('motivo_estado','s','3',$d,$w.' '.$o,'Motivo de Estado','motivo_estado',null,null,false,$x,'','col-2');
   
   // DIMENSIÓN 1: RED DE APOYO SOCIAL
