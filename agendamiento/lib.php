@@ -193,7 +193,7 @@ return panel_content($datos["responseResult"],"consulta",3);
 
 function cap_menus($a,$b='cap',$con='con') {
   $rta = ""; 
-  var_dump($acc=permisos($_SESSION['us_sds'],$a));
+  $acc=rol($a);
   if($a=='agendamiento' && isset($acc['crear']) && $acc['crear']=='SI'){
   	$rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
   }
