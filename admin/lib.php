@@ -515,45 +515,34 @@ function lis_planos() {
 			$tab = "Soporte";
 			$encr = encript($tab, $clave);
 			if($tab=decript($encr,$clave))lis_soporte($tab);
-            break;	
+            break;
+		case '71':
+			$tab = "Colaboradores";
+			$encr = encript($tab, $clave);
+			if($tab=decript($encr,$clave))lis_colaboradores($tab);
+            break;
 		default:
         break;    
     }
 }
 
+function lis_colaboradores($txt){
+	$sql="SELECT U.id_usuario AS Documento,U.nombre AS Nombre,U.correo AS Correo,U.perfil AS Perfil,FN_CATALOGODESC(72, U.subred) AS Subred,U.equipo AS Equipo,U.componente AS Componente,CASE     WHEN U.ingreso IS NULL THEN 'SIN INGRESO'     ELSE DATE_FORMAT(U.ingreso, '%Y-%m-%d %H:%i:%s')END AS Ultimo_Ingreso,FN_CATALOGODESC(11, U.estado) AS Estado
+FROM `usuarios` U
+WHERE 1 ";
+	if (perfilUsu()!=='ADM')	$sql.=whe_subred_colaboradores();
+	
+	$tot="SELECT COUNT(*) total FROM `usuarios` U WHERE 1 ";
+	if (perfilUsu()!=='ADM')	$tot.=whe_subred_colaboradores();
+	// echo $sql;
+	$_SESSION['sql_'.$txt]=$sql;
+	$_SESSION['tot_'.$txt]=$tot;
+	$rta = array('type' => 'OK','file'=>$txt);
+	echo json_encode($rta);
+}
+
 function lis_soporte($txt){
-	$sql="SELECT 
-    S.idsoporte AS Ticket,
-    S.idpeople AS Cod_Persona,
-    S.documento AS Documento,
-    FN_CATALOGODESC(1, S.tipo_doc) AS Tipo_Documento,
-    FN_CATALOGODESC(21, S.sexo) AS Sexo,
-    S.fecha_nacio AS Fecha_Nacimiento,
-    S.cod_predio AS Cod_Predio,
-    S.cod_familia AS Cod_Familia,
-    S.cod_registro AS Cod_Registro-Cantidad,
-    FN_CATALOGODESC(286, S.formulario) AS Solicitud,
-    S.error AS Error,
-    FN_CATALOGODESC(72, S.ok) AS OK-Subred_Aprueba,
-    FN_CATALOGODESC(201, S.prioridad) AS Prioridad,
-    S.observaciones AS Observaciones,
-    S.aprueba AS Perfil_Aprueba,
-    U.nombre AS Usuario_Creo,
-    U.subred AS Subred,
-    S.fecha_create AS Fecha_Creacion,
-    CASE 
-        WHEN S.usu_update IS NULL THEN 'PENDIENTE' 
-        ELSE COALESCE(U1.nombre, 'USUARIO NO ENCONTRADO')
-    END AS Usuario_Resuelto,
-    CASE 
-        WHEN S.fecha_update IS NULL THEN 'PENDIENTE' 
-        ELSE DATE_FORMAT(S.fecha_update, '%Y-%m-%d %H:%i:%s')
-    END AS Fecha_Respuesta,
-    CASE 
-        WHEN S.estado IS NULL THEN 'PENDIENTE'
-        WHEN S.estado = 1 THEN 'REALIZADO'
-        ELSE FN_CATALOGODESC(285, S.estado)
-    END AS Estado
+	$sql="SELECT S.idsoporte AS Ticket,S.idpeople AS Cod_Persona,S.documento AS Documento,FN_CATALOGODESC(1, S.tipo_doc) AS Tipo_Documento,FN_CATALOGODESC(21, S.sexo) AS Sexo,S.fecha_nacio AS Fecha_Nacimiento,S.cod_predio AS Cod_Predio,S.cod_familia AS Cod_Familia,S.cod_registro AS Cod_Registro-Cantidad,FN_CATALOGODESC(286, S.formulario) AS Solicitud,S.error AS Error,FN_CATALOGODESC(72, S.ok) AS OK-Subred_Aprueba,FN_CATALOGODESC(201, S.prioridad) AS Prioridad,S.observaciones AS Observaciones,S.aprueba AS Perfil_Aprueba,U.nombre AS Usuario_Creo,U.subred AS Subred,S.fecha_create AS Fecha_Creacion,CASE     WHEN S.usu_update IS NULL THEN 'PENDIENTE'     ELSE COALESCE(U1.nombre, 'USUARIO NO ENCONTRADO')END AS Usuario_Resuelto,CASE     WHEN S.fecha_update IS NULL THEN 'PENDIENTE'     ELSE DATE_FORMAT(S.fecha_update, '%Y-%m-%d %H:%i:%s')END AS Fecha_Respuesta,CASE     WHEN S.estado IS NULL THEN 'PENDIENTE'    WHEN S.estado = 1 THEN 'REALIZADO'    ELSE FN_CATALOGODESC(285, S.estado)END AS Estado
 FROM `soporte` S
 LEFT JOIN person P ON S.idpeople = P.idpeople
 LEFT JOIN usuarios U ON S.usu_creo = U.id_usuario
@@ -571,7 +560,6 @@ WHERE S.estado !=1 ";
 	$rta = array('type' => 'OK','file'=>$txt);
 	echo json_encode($rta);
 }
-
 
 function lis_asigpre($txt){
 	$sql="SELECT G.subred AS Subred, G.idgeo AS Cod_Predio, G.localidad AS Localidad, CONCAT('_', G.sector_catastral, G.nummanzana, G.predio_num, G.unidad_habit) AS Cod_Sector_Catastral, G.territorio AS 'Cod Territorio', FN_CATALOGODESC(283,G.territorio) AS 'Nombre Territorio',
@@ -1801,13 +1789,7 @@ WHERE F.usu_create NOT IN (1022358140) ";
 }
 
 function lis_gesrut($txt){
- 	$sql="SELECT G.subred AS 'Subred',G.territorio AS 'Cod Territorio',FN_CATALOGODESC(283,G.territorio) AS 'Nombre Territorio',G.idgeo AS 'Cod Predio',RC.id_rutclas AS 'Cod Registro', RC.idrutges AS 'Cod Ruteo', 
-    FN_CATALOGODESC(191,RC.preclasif) AS 'Cohorte de Riesgo',FN_CATALOGODESC(235,RC.clasifica) AS 'Grupo De Población Priorizada', FN_CATALOGODESC(273,RC.riesgo) AS 'Riesgo', FN_CATALOGODESC(22,RC.accion1) AS Accion_1,  FN_CATALOGODESC(75,RC.desc_accion1) AS Descripcion_Accion_1,FN_CATALOGODESC(22,RC.accion2) AS Accion_2, FN_CATALOGODESC(75,RC.desc_accion2) AS Descripcion_Accion_2,FN_CATALOGODESC(22,RC.accion3) AS Accion_3,FN_CATALOGODESC(75,RC.desc_accion3) AS Descripcion_Accion_3,
-    RC.fecha AS 'Fecha de Programación',FN_CATALOGODESC(170,RC.solic_agend) AS '¿Solicito Servicio Agendamiento?',FN_CATALOGODESC(170,RC.ruta) AS '¿Activo Ruta?', FN_CATALOGODESC(170,RC.sectorial) AS '¿Sectorial?',FN_CATALOGODESC(170,RC.intsectorial) AS '¿Intersectorial?',FN_CATALOGODESC(170,RC.entornos) AS '¿Entorno?',FN_CATALOGODESC(170,RC.aseguram) AS '¿Aseguramiento?',
-    RG.fecha_llamada 'Fecha Primer contacto',
-    RC.fecha_agenda AS 'Fecha Agenda',RC.profesional AS 'Documento Colaborador Asignado',U.nombre AS 'Nombre Colaborador Asignado', 
-    U.perfil AS 'Perfil Colaborador Asignado',RC.usu_creo AS 'Documento Colaborador',U1.nombre AS 'Nombre Colaborador',U1.perfil AS 'Perfil Colaborador' 
-    FROM `eac_ruteo_clas` RC
+ 	$sql="SELECT G.subred AS 'Subred',G.territorio AS 'Cod Territorio',FN_CATALOGODESC(283,G.territorio) AS 'Nombre Territorio',G.idgeo AS 'Cod Predio',RC.id_rutclas AS 'Cod Registro', RC.idrutges AS 'Cod Ruteo', FN_CATALOGODESC(191,RC.preclasif) AS 'Cohorte de Riesgo',FN_CATALOGODESC(235,RC.clasifica) AS 'Grupo De Población Priorizada', FN_CATALOGODESC(273,RC.riesgo) AS 'Riesgo', FN_CATALOGODESC(22,RC.accion1) AS Accion_1,  FN_CATALOGODESC(75,RC.desc_accion1) AS Descripcion_Accion_1,FN_CATALOGODESC(22,RC.accion2) AS Accion_2, FN_CATALOGODESC(75,RC.desc_accion2) AS Descripcion_Accion_2,FN_CATALOGODESC(22,RC.accion3) AS Accion_3,FN_CATALOGODESC(75,RC.desc_accion3) AS Descripcion_Accion_3,RC.fecha AS 'Fecha de Programación',FN_CATALOGODESC(170,RC.solic_agend) AS '¿Solicito Servicio Agendamiento?',FN_CATALOGODESC(170,RC.ruta) AS '¿Activo Ruta?', FN_CATALOGODESC(170,RC.sectorial) AS '¿Sectorial?',FN_CATALOGODESC(170,RC.intsectorial) AS '¿Intersectorial?',FN_CATALOGODESC(170,RC.entornos) AS '¿Entorno?',FN_CATALOGODESC(170,RC.aseguram) AS '¿Aseguramiento?',RG.fecha_llamada 'Fecha Primer contacto',RC.fecha_agenda AS 'Fecha Agenda',RC.profesional AS 'Documento Colaborador Asignado',U.nombre AS 'Nombre Colaborador Asignado', U.perfil AS 'Perfil Colaborador Asignado',RC.usu_creo AS 'Documento Colaborador',U1.nombre AS 'Nombre Colaborador',U1.perfil AS 'Perfil Colaborador' FROM `eac_ruteo_clas` RC
 LEFT JOIN eac_ruteo_ges RG ON RC.idrutges = RG.id_rutges
 LEFT JOIN eac_ruteo R ON RG.idruteo = R.id_ruteo  -- Corregida la relación
 LEFT JOIN hog_geo G ON R.idgeo = G.idgeo
@@ -3049,6 +3031,12 @@ function whe_date_soporte(){
 	$mes=date('m');
 	$ano=date('Y');
 	$sql= " AND date(S.fecha_create) BETWEEN '{$_POST['fechad']}' AND '{$_POST['fechah']}'";
+	return $sql;
+}
+
+// Funciones específicas para tabla usuarios (colaboradores)
+function whe_subred_colaboradores() {
+	$sql= " AND (U.subred) in (SELECT subred FROM usuarios where id_usuario='".$_SESSION['us_sds']."')";
 	return $sql;
 }
 
