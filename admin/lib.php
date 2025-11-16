@@ -559,12 +559,12 @@ LEFT JOIN person P ON S.idpeople = P.idpeople
 LEFT JOIN usuarios U ON S.usu_creo = U.id_usuario
 LEFT JOIN usuarios U1 ON S.usu_update = U1.id_usuario 
 WHERE 1 ";
-	if (perfilUsu()!=='ADM')	$sql.=whe_subred();
-	$sql.=whe_date();
+	if (perfilUsu()!=='ADM')	$sql.=whe_subred_soporte();
+	$sql.=whe_date_soporte();
 	
 	$tot="SELECT COUNT(*) total FROM `soporte` S LEFT JOIN person P ON S.idpeople = P.idpeople LEFT JOIN usuarios U ON S.usu_creo = U.id_usuario LEFT JOIN usuarios U1 ON S.usu_update = U1.id_usuario WHERE 1 ";
-	if (perfilUsu()!=='ADM')	$tot.=whe_subred();
-	$tot.=whe_date();
+	if (perfilUsu()!=='ADM')	$tot.=whe_subred_soporte();
+	$tot.=whe_date_soporte();
 	// echo $sql;
 	$_SESSION['sql_'.$txt]=$sql;
 	$_SESSION['tot_'.$txt]=$tot;
@@ -3036,6 +3036,19 @@ function whe_date30(){
 	$mes=date('m');
 	$ano=date('Y');
 	$sql= " AND date(per.fecha_create) BETWEEN '{$_POST['fechad']}' AND '{$_POST['fechah']}'";
+	return $sql;
+}
+
+function whe_subred_soporte() {
+	$sql= " AND (U.subred) in (SELECT subred FROM usuarios where id_usuario='".$_SESSION['us_sds']."')";
+	return $sql;
+}
+
+function whe_date_soporte(){
+	$dia=date('d');
+	$mes=date('m');
+	$ano=date('Y');
+	$sql= " AND date(S.fecha_create) BETWEEN '{$_POST['fechad']}' AND '{$_POST['fechah']}'";
 	return $sql;
 }
 
