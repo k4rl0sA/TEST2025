@@ -527,7 +527,7 @@ function lis_planos() {
 }
 
 function lis_colaboradores($txt){
-	$sql="SELECT U.id_usuario AS Documento,U.nombre AS Nombre,U.correo AS Correo,U.perfil AS Perfil,FN_CATALOGODESC(72, U.subred) AS Subred,U.equipo AS Equipo,U.componente AS Componente,CASE     WHEN U.ingreso IS NULL THEN 'SIN INGRESO'     ELSE DATE_FORMAT(U.ingreso, '%Y-%m-%d %H:%i:%s')END AS Ultimo_Ingreso,FN_CATALOGODESC(11, U.estado) AS Estado
+	$sql="SELECT U.id_usuario AS Documento,U.nombre AS Nombre,U.correo AS Correo,U.perfil AS Perfil,FN_CATALOGODESC(72, U.subred) AS Subred,U.equipo AS Equipo,U.componente AS Componente,CASE WHEN U.ingreso IS NULL THEN 'SIN INGRESO' ELSE DATE_FORMAT(U.ingreso, '%Y-%m-%d %H:%i:%s')END AS Ultimo_Ingreso,FN_CATALOGODESC(11, U.estado) AS Estado
 FROM `usuarios` U
 WHERE 1 ";
 	if (perfilUsu()!=='ADM')	$sql.=whe_subred_colaboradores();
