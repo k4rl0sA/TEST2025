@@ -422,7 +422,7 @@ function gra_finalizado($a=''){
     $sql1 = "UPDATE frecuenciauso SET `realizada`='SI',fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),usu_update=?
     WHERE idpeople=? AND tipo_cita=? AND realizada='NO';";
 	$params1 = array(
-	array('type' => 's', 'value' => $_SESSION['us_sds']),
+	array('type' => 'i', 'value' => $_SESSION['us_sds']),
 	array('type' => 'i', 'value' => $id),
 	array('type' => 's', 'value' => $cita)
 	);
