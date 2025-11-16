@@ -366,28 +366,25 @@ $params=[
 	];
 	//~ echo $sql;";
 	$rta=mysql_prepd($sql, $params);
-/* 	$sql="INSERT INTO agendamiento VALUES (NULL,$id,'{$_POST['pun']}','{$_POST['cit']}',DATE_SUB(NOW(), INTERVAL 5 HOUR),
-    '{$_POST['fci']}','{$_POST['hci']}','{$_POST['nom']}',trim('{$obs}'),NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,'{$_SESSION['us_sds']}', NULL, NULL, '4');"; 
-    echo $sql;
-	$rta=datos_mysql($sql);
-    var_dump($rta['responseResult'][0]["affected_rows"]);
-	*/
-    $rta1=$rta['responseResult'][0]["affected_rows"];
-	if (strpos($rta1,1) === false) {
-		$rta='Ouch!, No se realizo la creación de la cita (Posiblemente este usuario ya tiene una cita agendada en esta misma fecha), compruebe la información del usuario e intente nuevamente.';
-	}else{
-        $rta="Se ha Insertado : " .$rta1. " Registro Correctamente.";
-		 $sql="SELECT MAX(idagendamiento) AS id FROM agendamiento;";
-		 $info=datos_mysql($sql);
-		 $id=$info['responseResult'][0]["id"]; 
-//~ echo " El id = ".$id." ";
+	// mysql_prepd retorna un string con el mensaje de éxito o error
+	if (strpos($rta, 'Insertado') !== false || strpos($rta, 'correctamente') !== false) {
+		// Inserción exitosa
+		$sql="SELECT MAX(idagendamiento) AS id FROM agendamiento;";
+		$info=datos_mysql($sql);
+		$id=$info['responseResult'][0]["id"]; 
+		//~ echo " El id = ".$id." ";
 		$upfr=gra_finalizado($id);
-        // var_dump($upfr);
+		// var_dump($upfr);
 		if (strpos($upfr, 'correctamente') === false) {
 			$upfr=', Sin embargo, No se pudo realizar la actualización de la cita, en el campo realizado en la tabla frecuencia de uso.';
-		}else{$upfr='';}
+		}else{
+			$upfr='';
+		}
+		return $rta." ".$upfr;
+	}else{
+		// Error en la inserción
+		return 'Ouch!, No se realizo la creación de la cita (Posiblemente este usuario ya tiene una cita agendada en esta misma fecha), compruebe la información del usuario e intente nuevamente. Error: '.$rta;
 	}
-	return $rta." ".$upfr;
  }
 }
 
