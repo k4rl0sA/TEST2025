@@ -514,7 +514,7 @@ function lis_planos() {
 		case '70':
 			$tab = "Soporte";
 			$encr = encript($tab, $clave);
-			if($tab=decript($encr,$clave))lis_educaMedi($tab);
+			if($tab=decript($encr,$clave))lis_soporte($tab);
             break;	
 		default:
         break;    
