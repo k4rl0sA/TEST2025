@@ -333,11 +333,11 @@ function gra_agendamiento(){
 	usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR)  
 	WHERE idagendamiento= ?;";
 $params=[
-	['type' => 's', 'value' => $_POST['pun']],
-	['type' => 's', 'value' => $_POST['fci']],
-	['type' => 's', 'value' => $_POST['hci']],
-	['type' => 's', 'value' => $_POST['nom']],
-	['type' => 's', 'value' => $obs],
+	['type' => ($_POST['pun'] === '' || $_POST['pun'] === null) ? 'z' : 's', 'value' => ($_POST['pun'] === '' || $_POST['pun'] === null) ? null : $_POST['pun']],
+	['type' => ($_POST['fci'] === '' || $_POST['fci'] === null) ? 'z' : 's', 'value' => ($_POST['fci'] === '' || $_POST['fci'] === null) ? null : $_POST['fci']],
+	['type' => ($_POST['hci'] === '' || $_POST['hci'] === null) ? 'z' : 's', 'value' => ($_POST['hci'] === '' || $_POST['hci'] === null) ? null : $_POST['hci']],
+	['type' => ($_POST['nom'] === '' || $_POST['nom'] === null) ? 'z' : 's', 'value' => ($_POST['nom'] === '' || $_POST['nom'] === null) ? null : $_POST['nom']],
+	['type' => ($obs === '' || $obs === null) ? 'z' : 's', 'value' => ($obs === '' || $obs === null) ? null : $obs],
 	['type' => 's', 'value' => $_SESSION['us_sds']],
 	['type' => 's', 'value' => $id[0]]
 ];
@@ -353,14 +353,14 @@ $params=[
 	$sql="INSERT INTO agendamiento VALUES (?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),
 	?,?,?,?,NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,?, NULL, NULL,?);";
 	$params=[
-		['type' => 'i','value' => NULL],
+		['type' => 'z','value' => null],
 		['type' => 'i', 'value' => $id],
-		['type' => 'i', 'value' => $_POST['pun']],
-		['type' => 'i', 'value' => $_POST['cit']],
-		['type' => 's', 'value' => $_POST['fci']],
-		['type' => 's', 'value' => $_POST['hci']],
-		['type' => 's', 'value' => $_POST['nom']],
-		['type' => 's', 'value' => $obs],
+		['type' => ($_POST['pun'] === '' || $_POST['pun'] === null) ? 'z' : 'i', 'value' => ($_POST['pun'] === '' || $_POST['pun'] === null) ? null : $_POST['pun']],
+		['type' => ($_POST['cit'] === '' || $_POST['cit'] === null) ? 'z' : 'i', 'value' => ($_POST['cit'] === '' || $_POST['cit'] === null) ? null : $_POST['cit']],
+		['type' => ($_POST['fci'] === '' || $_POST['fci'] === null) ? 'z' : 's', 'value' => ($_POST['fci'] === '' || $_POST['fci'] === null) ? null : $_POST['fci']],
+		['type' => ($_POST['hci'] === '' || $_POST['hci'] === null) ? 'z' : 's', 'value' => ($_POST['hci'] === '' || $_POST['hci'] === null) ? null : $_POST['hci']],
+		['type' => ($_POST['nom'] === '' || $_POST['nom'] === null) ? 'z' : 's', 'value' => ($_POST['nom'] === '' || $_POST['nom'] === null) ? null : $_POST['nom']],
+		['type' => ($obs === '' || $obs === null) ? 'z' : 's', 'value' => ($obs === '' || $obs === null) ? null : $obs],
 		['type' => 's', 'value' => $_SESSION['us_sds']],
 		['type' => 'i', 'value' => 4],
 	];
