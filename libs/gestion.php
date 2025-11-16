@@ -324,6 +324,14 @@ function params($campos) {
   return $params;
 }
 
+function param_null($value, $type = 's') {
+    $is_empty = ($value === '' || $value === null);
+    return [
+        'type' => $is_empty ? 'z' : $type,
+        'value' => $is_empty ? null : $value
+    ];
+}
+
 function mysql_prepd($sql, $params) {
   // validCsrfTok();
   $arr = ['code' => 0, 'message' => '', 'responseResult' => []];
@@ -736,11 +744,6 @@ function idReal($postId, $sessionHash = [], $suffix = '') {
     }
     return $real_id ? intval($real_id) : null;
 }
-/*
-function post_or_null($key) {
-  return isset($_POST[$key]) && $_POST[$key] !== '' ? $_POST[$key] : null;
-}*/
- 
 
 /*COMPONENTES*/
 class cmp { //ntwplcsdxhvuf

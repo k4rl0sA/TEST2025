@@ -324,21 +324,8 @@ function get_observ(){
 }
 */
 
-/**
- * Función helper para crear parámetros preparados compatibles con InnoDB Azure
- * Convierte valores vacíos a NULL para evitar errores en campos NOT NULL
- * 
- * @param mixed $value - Valor a validar
- * @param string $type - Tipo de dato ('s' string, 'i' integer)
- * @return array - Array con 'type' y 'value' para mysql_prepd()
- */
-function param_null($value, $type = 's') {
-	$is_empty = ($value === '' || $value === null);
-	return [
-		'type' => $is_empty ? 'z' : $type,
-		'value' => $is_empty ? null : $value
-	];
-}
+// NOTA: La función param_null() está definida globalmente en libs/gestion.php
+// Convierte valores vacíos a NULL para compatibilidad con InnoDB en Azure
 
 function gra_agendamiento(){
 	$obs = trim(preg_replace("/[\r\n|\n|\r]+/", PHP_EOL, $_POST['obc']));
