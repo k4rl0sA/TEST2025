@@ -290,17 +290,33 @@ function men_observaciones(){
 }
 
 function gra_observaciones(){
-	$sql="UPDATE frecuenciauso SET `realizada`='OB'
-	WHERE id_persona='{$_POST['idp']}' AND tipo_doc=UPPER('{$_POST['tdo']}') AND tipo_cita='{$_POST['cit']}' AND realizada='NO';";
-	  $rta=dato_mysql($sql);
-	echo $sql;
-	//~ $obs = trim(preg_replace('/\s+/', ' ',$_POST['obc']));
-	$obs= trim(preg_replace("/[\r\n|\n|\r]+/",PHP_EOL,$_POST['obc']));
- $sql="INSERT INTO observagendamiento VALUES ({$_POST['idp']},UPPER('{$_POST['tdo']}'),'{$_POST['cit']}','{$_POST['est']}',UPPER('{$obs}'),
- '{$_SESSION['us_sds']}', NULL, NULL, 'A');";	
-	//~ echo $sql;
-  $rta=dato_mysql($sql);
-  return $rta;	
+	$obs = trim(preg_replace("/[\r\n|\n|\r]+/", PHP_EOL, $_POST['obc']));
+	
+	// Actualizar frecuenciauso a 'OB' (Observada)
+	$sql = "UPDATE frecuenciauso 
+			SET realizada='OB'
+			WHERE id_persona=? AND tipo_doc=? AND tipo_cita=? AND realizada='NO';";
+	$params = [
+		param_null($_POST['idp'], 's'),  // id_persona
+		param_null($_POST['tdo'], 's'),  // tipo_doc
+		param_null($_POST['cit'], 'i')   // tipo_cita
+	];
+	$rta = mysql_prepd($sql, $params);
+	
+	// Insertar observación en observagendamiento
+	$sql2 = "INSERT INTO observagendamiento 
+			 VALUES (?, ?, ?, ?, ?, ?, NULL, NULL, 'A');";
+	$params2 = [
+		param_null($_POST['idp'], 's'),          // id_persona
+		param_null($_POST['tdo'], 's'),          // tipodoc
+		param_null($_POST['cit'], 'i'),          // tipo_cita
+		param_null($_POST['est'], 's'),          // estados
+		param_null($obs, 's'),                   // observac_cita
+		['type' => 'i', 'value' => $_SESSION['us_sds']]  // usu_creo
+	];
+	$rta2 = mysql_prepd($sql2, $params2);
+	
+	return $rta2;	
 }
 
 function get_observ(){
@@ -386,23 +402,9 @@ function gra_agendamiento(){
 	
 	$rta = mysql_prepd($sql, $params);
 	
-	// ========== Verificar inserción y actualizar frecuencia de uso ==========
+	// ========== Verificar inserción ==========
 	if (strpos($rta, 'Insertado') !== false || strpos($rta, 'correctamente') !== false) {
-		// Obtener el ID de la cita recién creada
-		$sql_max = "SELECT MAX(idagendamiento) AS id FROM agendamiento";
-		$info_max = datos_mysql($sql_max);
-		$new_id = $info_max['responseResult'][0]["id"];
-		
-		// Actualizar la tabla frecuenciauso
-		$upfr = gra_finalizado($new_id);
-		
-		if (strpos($upfr, 'correctamente') === false) {
-			$mensaje_frecuencia = ', Sin embargo, No se pudo actualizar el campo "realizada" en la tabla frecuencia de uso.';
-		} else {
-			$mensaje_frecuencia = '';
-		}
-		
-		return $rta . $mensaje_frecuencia;
+		return $rta;
 	} else {
 		// Error en la inserción
 		return 'Ouch!, No se realizó la creación de la cita. Posiblemente este usuario ya tiene una cita agendada en esta misma fecha. Compruebe la información e intente nuevamente. Error: ' . $rta;
@@ -410,25 +412,61 @@ function gra_agendamiento(){
 }
 
 
+/**
+ * Actualiza el campo realizada='SI' en frecuenciauso cuando la persona asiste a una cita
+ * 
+ * @param int $a - ID del agendamiento (idagendamiento)
+ * @return string - Mensaje de resultado de la actualización
+ * 
+ * Nota: Solo actualiza si estado=1 (Asistió a la cita)
+ *       Catálogo 276: 1=Asistió, 2=No Asistió, 3=Reagendó, 4=Agendado, 5=Cancelado, 6=Recordada
+ */
 function gra_finalizado($a=''){
-	$sql="SELECT T1.idpeople id,T1.tipo_cita
-	FROM agendamiento T1
-	left join person T2 ON T1.idpeople=T2.idpeople 
-	WHERE T1.idagendamiento='{$a}'";
-	$info=datos_mysql($sql);
-	$id=$info['responseResult'][0]["id"]; 
-	$cita=$info['responseResult'][0]["tipo_cita"]; 
-
-    $sql1 = "UPDATE frecuenciauso SET `realizada`='SI',fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),usu_update=?
-    WHERE idpeople=? AND tipo_cita=? AND realizada='NO';";
-	$params1 = array(
-	array('type' => 'i', 'value' => $_SESSION['us_sds']),
-	array('type' => 'i', 'value' => $id),
-	array('type' => 's', 'value' => $cita)
-	);
-    // $rta1 = show_sql($sql1, $params1);
+	// Validar que se proporcione un ID
+	if (empty($a)) {
+		return "Error: No se proporcionó ID de agendamiento.";
+	}
+	
+	// Obtener datos del agendamiento con prepared statement
+	$sql = "SELECT T1.idpeople id, T1.tipo_cita, T1.estado
+			FROM agendamiento T1
+			LEFT JOIN person T2 ON T1.idpeople=T2.idpeople 
+			WHERE T1.idagendamiento=?";
+	$params = [
+		['type' => 'i', 'value' => $a]
+	];
+	$info = datos_mysql(show_sql($sql, $params));
+	
+	// Validar que exista el registro
+	if (empty($info['responseResult'][0])) {
+		return "Error: No se encontró el agendamiento con ID {$a}.";
+	}
+	
+	$id = $info['responseResult'][0]["id"]; 
+	$cita = $info['responseResult'][0]["tipo_cita"]; 
+	$estado = $info['responseResult'][0]["estado"] ?? 0;
+	
+	// Solo actualizar si estado=1 (Asistió a la cita)
+	if ($estado != 1) {
+		// No es error, simplemente no procede la actualización
+		return ""; // Retornar vacío para no mostrar mensaje innecesario
+	}
+	
+	// Actualizar frecuenciauso: marcar como realizada='SI'
+	$sql1 = "UPDATE frecuenciauso 
+			 SET realizada='SI', fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR), usu_update=?
+			 WHERE idpeople=? AND tipo_cita=? AND realizada='NO';";
+	$params1 = [
+		['type' => 'i', 'value' => $_SESSION['us_sds']],  // usu_update
+		['type' => 'i', 'value' => $id],                   // idpeople
+		['type' => 'i', 'value' => $cita]                  // tipo_cita (integer, no string)
+	];
+	
+	// Descomentar para debug SQL
+	// return show_sql($sql1, $params1);
+	
 	$rta1 = mysql_prepd($sql1, $params1);
-  return $rta1;
+	return $rta1;
 }
 
 function opc_idptdo(){
@@ -537,29 +575,32 @@ function men_confirma_asistencia(){
 }
 
 function gra_confirma_asistencia(){
-	$id=divide($_POST['ipe']);
-	/* $sql="UPDATE agendamiento SET fecha_llamada=DATE_SUB(NOW(), INTERVAL 5 HOUR),
-	nombre_llamada=UPPER('{$_POST['nom']}'),confirma_cita='{$_POST['con']}',
-	msjtxt='{$_POST['msj']}',observac_llamadas=trim(UPPER('{$_POST['obl']}')),
-	usu_update='".$_SESSION['us_sds']."',fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),estado='6' 
- WHERE idagendamiento='{$id[0]}';";
-	//~ echo $sql;
-  $rta=dato_mysql($sql); */
-  $sql="UPDATE agendamiento SET fecha_llamada=DATE_SUB(NOW(), INTERVAL 5 HOUR),
-	nombre_llamada=?,confirma_cita=?,msjtxt=?,observac_llamadas=?,
-	usu_update=?,fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),estado=? 
- WHERE idagendamiento=?;";
-  $params=[
-		['type' => 's', 'value' => $_POST['nom']],
-		['type' => 's', 'value' => $_POST['con']],
-		['type' => 's', 'value' => $_POST['msj']],
-		['type' => 's', 'value' => $_POST['obl']],
-		['type' => 's', 'value' => $_SESSION['us_sds']],
-		['type' => 'i', 'value' => 6],
-		['type' => 'i', 'value' => $id[0]]
+	$id = divide($_POST['ipe']);
+	$obl = trim(preg_replace("/[\r\n|\n|\r]+/", PHP_EOL, $_POST['obl']));
+	
+	$sql = "UPDATE agendamiento 
+			SET fecha_llamada=DATE_SUB(NOW(), INTERVAL 5 HOUR),
+			    nombre_llamada=?, 
+			    confirma_cita=?, 
+			    msjtxt=?, 
+			    observac_llamadas=?,
+			    usu_update=?, 
+			    fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR), 
+			    estado=? 
+			WHERE idagendamiento=?;";
+	
+	$params = [
+		param_null($_POST['nom'], 's'),  // nombre_llamada
+		param_null($_POST['con'], 's'),  // confirma_cita
+		param_null($_POST['msj'], 's'),  // msjtxt
+		param_null($obl, 's'),           // observac_llamadas
+		['type' => 'i', 'value' => $_SESSION['us_sds']],  // usu_update
+		['type' => 'i', 'value' => 6],   // estado (6 = Recordada)
+		['type' => 'i', 'value' => $id[0]]  // idagendamiento
 	];
+	
 	$rta = mysql_prepd($sql, $params);
-  return $rta;	
+	return $rta;	
 }
 
   /***********************FIN RECORDAR ASISTENCIA********************************/
@@ -597,31 +638,46 @@ function men_seguimiento(){
 }
 
 function gra_seguimiento(){
-	$id=divide($_POST['idp']);
-	if($_POST['asi']=='SI'){
-		$est='1';
-	}else{
-		$est=$_POST['est'];
+	$id = divide($_POST['idp']);
+	$obs = trim(preg_replace("/[\r\n|\n|\r]+/", PHP_EOL, $_POST['obi']));
+	
+	// Determinar estado basado en asistencia
+	if ($_POST['asi'] == 'SI') {
+		$est = '1';  // Estado 1 = Asistió
+	} else {
+		$est = $_POST['est'];
 	}
-	/* $sql="UPDATE agendamiento SET `fecha_llamada2`=DATE_SUB(NOW(), INTERVAL 5 HOUR), `nombre_llamada2`=UPPER('{$_POST['nom']}'),`motivo_inasistencia`='{$_POST['tin']}', `reasigno`='{$_POST['rea']}',
-	`observac_llamada2`=trim(UPPER('{$_POST['obi']}')),`usu_update`='".$_SESSION['us_sds']."', `fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR), `estado`='{$est}'
-	WHERE idagendamiento='{$id[0]}'";// AND tipodoc=UPPER('{$id[2]}') AND fecha_cita='{$id[3]}' AND hora_cita='{$id[4]}';
-	//~ echo $sql;
-  $rta=dato_mysql($sql); */
-  $sql="UPDATE agendamiento SET `fecha_llamada2`=DATE_SUB(NOW(), INTERVAL 5 HOUR), `nombre_llamada2`=?,`motivo_inasistencia`=?, `reasigno`=?,
-	`observac_llamada2`=?,`usu_update`=?, `fecha_update`=DATE_SUB(NOW(), INTERVAL 5 HOUR), `estado`=?
+	
+	$sql = "UPDATE agendamiento SET fecha_llamada2=DATE_SUB(NOW(), INTERVAL 5 HOUR),nombre_llamada2=?,motivo_inasistencia=?,reasigno=?,observac_llamada2=?,usu_update=?,fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),estado=? 
 	WHERE idagendamiento=?";
-	$params=[
-		['type' => 's', 'value' => $_POST['nom']],
-		['type' => (empty($_POST['tin']) ? 'z' : 's'), 'value' => (empty($_POST['tin']) ? null : $_POST['tin'])],
-		['type' => 's', 'value' => $_POST['rea']],
-		['type' => 's', 'value' => $_POST['obi']],
-		['type' => 's', 'value' => $_SESSION['us_sds']],
-		['type' => 'i', 'value' => $est],
-		['type' => 'i', 'value' => $id[0]]
+	$params = [param_null($_POST['nom'], 's'),  // nombre_llamada2
+		param_null($_POST['tin'], 's'),  // motivo_inasistencia (solo si NO asistió)
+		param_null($_POST['rea'], 's'),  // reasigno
+		param_null($obs, 's'),           // observac_llamada2
+		['type' => 'i', 'value' => $_SESSION['us_sds']],  // usu_update
+		['type' => 'i', 'value' => $est],                 // estado
+		['type' => 'i', 'value' => $id[0]]                // idagendamiento
 	];
+	
 	$rta = mysql_prepd($sql, $params);
-  return $rta;
+	
+	// Si la actualización fue exitosa y el estado es 1 (Asistió), actualizar frecuenciauso
+	if (strpos($rta, 'correctamente') !== false || strpos($rta, 'Actualizado') !== false) {
+		if ($est == '1') {
+			// Actualizar tabla frecuenciauso: marcar como realizada='SI'
+			$upfr = gra_finalizado($id[0]);
+			
+			if (!empty($upfr) && strpos($upfr, 'correctamente') === false) {
+				$mensaje_frecuencia = ' | Advertencia: No se pudo actualizar el campo "realizada" en frecuenciauso.';
+			} else {
+				$mensaje_frecuencia = (!empty($upfr)) ? ' | Frecuenciauso actualizada correctamente.' : '';
+			}
+			
+			return $rta . $mensaje_frecuencia;
+		}
+	}
+	
+	return $rta;
 }
   /***********************FIN SEGUIMIENTO********************************/
 
