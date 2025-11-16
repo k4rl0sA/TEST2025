@@ -324,69 +324,101 @@ function get_observ(){
 }
 */
 
-function gra_agendamiento(){
-	$obs= trim(preg_replace("/[\r\n|\n|\r]+/",PHP_EOL,$_POST['obc']));
- if ($_POST['ipe']){
-  $id=divide($_POST['ipe']);
-	$sql="UPDATE agendamiento SET punto_atencion=?,fecha_cita=?,
-	hora_cita=?,nombre_atendio=?,observac_cita=?,
-	usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR)  
-	WHERE idagendamiento= ?;";
-$params=[
-	['type' => ($_POST['pun'] === '' || $_POST['pun'] === null) ? 'z' : 's', 'value' => ($_POST['pun'] === '' || $_POST['pun'] === null) ? null : $_POST['pun']],
-	['type' => ($_POST['fci'] === '' || $_POST['fci'] === null) ? 'z' : 's', 'value' => ($_POST['fci'] === '' || $_POST['fci'] === null) ? null : $_POST['fci']],
-	['type' => ($_POST['hci'] === '' || $_POST['hci'] === null) ? 'z' : 's', 'value' => ($_POST['hci'] === '' || $_POST['hci'] === null) ? null : $_POST['hci']],
-	['type' => ($_POST['nom'] === '' || $_POST['nom'] === null) ? 'z' : 's', 'value' => ($_POST['nom'] === '' || $_POST['nom'] === null) ? null : $_POST['nom']],
-	['type' => ($obs === '' || $obs === null) ? 'z' : 's', 'value' => ($obs === '' || $obs === null) ? null : $obs],
-	['type' => 's', 'value' => $_SESSION['us_sds']],
-	['type' => 's', 'value' => $id[0]]
-];
-
- //~ echo $sql;
- $rta = mysql_prepd($sql, $params);
-//  $rta=dato_mysql($sql);
-	return $rta;
- }else{
-    $sql="SELECT idpeople from person where idpersona='".$_POST['idp']."' AND tipo_doc='".$_POST['tdo']."'";
-	$id=datos_mysql($sql);
-	$id=$id['responseResult'][0]['idpeople'];
-	$sql="INSERT INTO agendamiento VALUES (?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),
-	?,?,?,?,NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,?, NULL, NULL,?);";
-	$params=[
-		['type' => 'z','value' => null],
-		['type' => 'i', 'value' => $id],
-		['type' => ($_POST['pun'] === '' || $_POST['pun'] === null) ? 'z' : 'i', 'value' => ($_POST['pun'] === '' || $_POST['pun'] === null) ? null : $_POST['pun']],
-		['type' => ($_POST['cit'] === '' || $_POST['cit'] === null) ? 'z' : 'i', 'value' => ($_POST['cit'] === '' || $_POST['cit'] === null) ? null : $_POST['cit']],
-		['type' => ($_POST['fci'] === '' || $_POST['fci'] === null) ? 'z' : 's', 'value' => ($_POST['fci'] === '' || $_POST['fci'] === null) ? null : $_POST['fci']],
-		['type' => ($_POST['hci'] === '' || $_POST['hci'] === null) ? 'z' : 's', 'value' => ($_POST['hci'] === '' || $_POST['hci'] === null) ? null : $_POST['hci']],
-		['type' => ($_POST['nom'] === '' || $_POST['nom'] === null) ? 'z' : 's', 'value' => ($_POST['nom'] === '' || $_POST['nom'] === null) ? null : $_POST['nom']],
-		['type' => ($obs === '' || $obs === null) ? 'z' : 's', 'value' => ($obs === '' || $obs === null) ? null : $obs],
-		['type' => 's', 'value' => $_SESSION['us_sds']],
-		['type' => 'i', 'value' => 4],
+/**
+ * Función helper para crear parámetros preparados compatibles con InnoDB Azure
+ * Convierte valores vacíos a NULL para evitar errores en campos NOT NULL
+ * 
+ * @param mixed $value - Valor a validar
+ * @param string $type - Tipo de dato ('s' string, 'i' integer)
+ * @return array - Array con 'type' y 'value' para mysql_prepd()
+ */
+function param_null($value, $type = 's') {
+	$is_empty = ($value === '' || $value === null);
+	return [
+		'type' => $is_empty ? 'z' : $type,
+		'value' => $is_empty ? null : $value
 	];
-	//~ echo $sql;";
-	$rta=mysql_prepd($sql, $params);
-	// mysql_prepd retorna un string con el mensaje de éxito o error
-	if (strpos($rta, 'Insertado') !== false || strpos($rta, 'correctamente') !== false) {
-		// Inserción exitosa
-		$sql="SELECT MAX(idagendamiento) AS id FROM agendamiento;";
-		$info=datos_mysql($sql);
-		$id=$info['responseResult'][0]["id"]; 
-		//~ echo " El id = ".$id." ";
-		$upfr=gra_finalizado($id);
-		// var_dump($upfr);
-		if (strpos($upfr, 'correctamente') === false) {
-			$upfr=', Sin embargo, No se pudo realizar la actualización de la cita, en el campo realizado en la tabla frecuencia de uso.';
-		}else{
-			$upfr='';
-		}
-		return $rta." ".$upfr;
-	}else{
-		// Error en la inserción
-		return 'Ouch!, No se realizo la creación de la cita (Posiblemente este usuario ya tiene una cita agendada en esta misma fecha), compruebe la información del usuario e intente nuevamente. Error: '.$rta;
-	}
- }
 }
+
+function gra_agendamiento(){
+	$obs = trim(preg_replace("/[\r\n|\n|\r]+/", PHP_EOL, $_POST['obc']));
+	
+	// ========== UPDATE: Modificar cita existente ==========
+	if ($_POST['ipe']) {
+		$id = divide($_POST['ipe']);
+		
+		$sql = "UPDATE agendamiento 
+				SET punto_atencion=?, fecha_cita=?, hora_cita=?, nombre_atendio=?, 
+				    observac_cita=?, usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR)  
+				WHERE idagendamiento=?";
+		
+		$params = [
+			param_null($_POST['pun'], 's'),
+			param_null($_POST['fci'], 's'),
+			param_null($_POST['hci'], 's'),
+			param_null($_POST['nom'], 's'),
+			param_null($obs, 's'),
+			['type' => 's', 'value' => $_SESSION['us_sds']],
+			['type' => 's', 'value' => $id[0]]
+		];
+		
+		return mysql_prepd($sql, $params);
+	}
+	
+	// ========== INSERT: Crear nueva cita ==========
+	// Obtener idpeople de la persona
+	$sql = "SELECT idpeople FROM person WHERE idpersona=? AND tipo_doc=?";
+	$info = datos_mysql("SELECT idpeople FROM person WHERE idpersona='{$_POST['idp']}' AND tipo_doc='{$_POST['tdo']}'");
+	$idpeople = $info['responseResult'][0]['idpeople'];
+	
+	$sql = "INSERT INTO agendamiento VALUES (
+			?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR),
+			?, ?, ?, ?, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+			?, NULL, NULL, ?
+		)";
+	
+	$params = [
+		['type' => 'z', 'value' => null],           // idagendamiento (AUTO_INCREMENT)
+		['type' => 'i', 'value' => $idpeople],      // idpeople
+		param_null($_POST['pun'], 'i'),             // punto_atencion
+		param_null($_POST['cit'], 'i'),             // tipo_cita
+		// fecha_agenda se genera con DATE_SUB(NOW(), INTERVAL 5 HOUR)
+		param_null($_POST['fci'], 's'),             // fecha_cita
+		param_null($_POST['hci'], 's'),             // hora_cita
+		param_null($_POST['nom'], 's'),             // nombre_atendio
+		param_null($obs, 's'),                      // observac_cita
+		// 10 campos NULL intermedios ya en SQL
+		['type' => 's', 'value' => $_SESSION['us_sds']], // usu_creo
+		// fecha_create NULL (manejado por DEFAULT)
+		// usu_update NULL
+		['type' => 'i', 'value' => 4]               // estado (4 = Agendado)
+	];
+	
+	$rta = mysql_prepd($sql, $params);
+	
+	// ========== Verificar inserción y actualizar frecuencia de uso ==========
+	if (strpos($rta, 'Insertado') !== false || strpos($rta, 'correctamente') !== false) {
+		// Obtener el ID de la cita recién creada
+		$sql_max = "SELECT MAX(idagendamiento) AS id FROM agendamiento";
+		$info_max = datos_mysql($sql_max);
+		$new_id = $info_max['responseResult'][0]["id"];
+		
+		// Actualizar la tabla frecuenciauso
+		$upfr = gra_finalizado($new_id);
+		
+		if (strpos($upfr, 'correctamente') === false) {
+			$mensaje_frecuencia = ', Sin embargo, No se pudo actualizar el campo "realizada" en la tabla frecuencia de uso.';
+		} else {
+			$mensaje_frecuencia = '';
+		}
+		
+		return $rta . $mensaje_frecuencia;
+	} else {
+		// Error en la inserción
+		return 'Ouch!, No se realizó la creación de la cita. Posiblemente este usuario ya tiene una cita agendada en esta misma fecha. Compruebe la información e intente nuevamente. Error: ' . $rta;
+	}
+}
+
 
 function gra_finalizado($a=''){
 	$sql="SELECT T1.idpeople id,T1.tipo_cita
