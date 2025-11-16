@@ -324,9 +324,6 @@ function get_observ(){
 }
 */
 
-// NOTA: La función param_null() está definida globalmente en libs/gestion.php
-// Convierte valores vacíos a NULL para compatibilidad con InnoDB en Azure
-
 function gra_agendamiento(){
 	$obs = trim(preg_replace("/[\r\n|\n|\r]+/", PHP_EOL, $_POST['obc']));
 	
