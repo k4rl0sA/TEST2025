@@ -558,7 +558,7 @@ FROM `soporte` S
 LEFT JOIN person P ON S.idpeople = P.idpeople
 LEFT JOIN usuarios U ON S.usu_creo = U.id_usuario
 LEFT JOIN usuarios U1 ON S.usu_update = U1.id_usuario 
-WHERE 1 ";
+WHERE S.estado !=1 ";
 	if (perfilUsu()!=='ADM')	$sql.=whe_subred_soporte();
 	$sql.=whe_date_soporte();
 	
