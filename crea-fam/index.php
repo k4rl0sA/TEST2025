@@ -238,11 +238,16 @@ function grabar(tb='',ev){
       // Actualizar la tabla de integrantes (datos-lis) tras guardar un person
       setTimeout(function(){
         try {
-          const idgElem = document.getElementById('idg');
-          const predioId = idgElem ? idgElem.value : '';
-          if (predioId) {
-            // Llamar act_html directamente con el parámetro id requerido por lis_persons
-            act_html('datos-lis','lib.php','tb=person&a=lis&id='+encodeURIComponent(predioId), false);
+          // Verificar si el panel person1-fix está abierto (visible)
+          const panel = document.getElementById('person1-fix');
+          if (panel && panel.style.display !== 'none') {
+            // El panel está abierto, actualizar datos-lis
+            const idgElem = document.getElementById('idg');
+            const predioId = idgElem ? idgElem.value : '';
+            if (predioId) {
+              // Llamar act_html directamente con el parámetro id requerido por lis_persons
+              act_html('datos-lis','lib.php','tb=person&a=lis&id='+encodeURIComponent(predioId), false);
+            }
           }
         } catch (e) {
           console.warn('No se pudo refrescar la lista de personas:', e);
