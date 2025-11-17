@@ -358,7 +358,7 @@ function gra_homes(){
 function cmp_person1(){
 	$rta="";
 	$rta .="<div class='encabezado vivienda'>TABLA DE INTEGRANTES FAMILIA</div>
-	<div class='contenido' id='datos-lis' >".lista_persons()."</div></div>";
+	<div class='contenido' id='datos-lis' >".lis_persons()."</div></div>";
 	return $rta;
 } 
 
@@ -434,7 +434,7 @@ function cmp_person(){
 	return $rta;
 }
       
-function lista_persons(){ //revisar
+function lis_persons(){ //revisar
 	// var_dump($_POST);
 	$id=divide($_POST['id']);
 		$sql="SELECT concat_ws('_',idpeople,$id[0]) ACCIONES,idpeople 'Cod Persona',concat_ws(' ',nombre1,nombre2,apellido1,apellido2) 'Nombre Usuario',FN_CATALOGODESC(17,regimen) Regimen,FN_CATALOGODESC(18,eapb) EAPB, fecha_create 'Fecha Creación',fecha_nacimiento 'Fecha Nacimiento'
