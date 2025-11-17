@@ -235,8 +235,8 @@ function grabar(tb='',ev){
       setTimeout(act_lista,1000,'famili',this,'lib.php');
     }
     if (tb == 'person') {
-      setTimeout(act_lista, 1000, 'datos', this, 'lib.php');
-      setTimeout(act_lista, 1000, 'persons', this, 'lib.php');
+      // setTimeout(act_lista, 1000, 'datos', this, 'lib.php');
+      setTimeout(mostrar, 1000, 'person1', 'fix', event, '', 'lib.php', 0, 'person1', document.querySelector('input[type="hidden"]').value.split('_')[0]);
   		/* setTimeout(function() {
   		mostrar('person1', 'fix', event, '', 'lib.php', 0, 'person1', document.querySelector('input[type="hidden"]').value.split('_')[0]);
   		}, 1000); */
