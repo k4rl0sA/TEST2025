@@ -195,9 +195,6 @@ function grabar(tb='',ev){
 			}
   }else if(tb=='validPerson'){
       fetch(ruta_app, {
-        /*   setTimeout(function(){
-            act_lista(tb, null, ruta_app);
-          }, 800); */
       method: 'POST',
       headers: {'Content-type': 'application/x-www-form-urlencoded'},
       body: "a=gra&tb="+tb + form_input('fapp')
@@ -208,7 +205,6 @@ function grabar(tb='',ev){
       try { resp = JSON.parse(data); } catch(e){}
       if(resp && resp.confirm){
         if(confirm(resp.msg)){
-          // Si el usuario acepta, enviar de nuevo con flag de confirmación
           fetch(ruta_app, {
             method: 'POST',
             headers: {'Content-type': 'application/x-www-form-urlencoded'},
@@ -220,12 +216,7 @@ function grabar(tb='',ev){
             try { rta = JSON.parse(d); } catch(e){}
             if(rta && rta.success){
               ok(rta.msg+' Los cambios estarán disponibles en el sistema en un plazo de hasta 24 horas. Después de ese tiempo, repita el proceso de "Validar Usuario".');//mensaje de actualizacion
-              // ok(rta.msg);
-              // alert(rta.msg + " Estado: " + rta.estado);
             } else {
-                 /*  setTimeout(function(){
-                    act_lista(tb, null, ruta_app);
-                  }, 800); */
               errors("Error al guardar: " + (rta.msg || "Respuesta no válida"));
             }
           });
@@ -234,12 +225,7 @@ function grabar(tb='',ev){
         }
       } else if(resp && resp.success){
         ok(resp.msg+' Información guardada correctamente. Haga clic en "Mostrar Integrantes" para ver los cambios.');
-        // alert(resp.msg + " Estado: " + resp.estado);
-          /*   setTimeout(function(){
-              act_lista(tb, null, ruta_app);
-            }, 800); */
       } else {
-        // Si no es JSON, mostrar como antes
         errors(JSON.parse(data).msg);
       }
     });
@@ -255,14 +241,12 @@ function grabar(tb='',ev){
   		}, 1000); */
 		// resetFrm();
 	}
-    // Actualizar todas las tablas relevantes en tiempo real tras grabar
     // mostrar('homes1','fix',event,'','lib.php',0,'homes1');
     setTimeout(act_lista,1000,'homes1',this,'lib.php');
     // setTimeout(act_lista,1000,'person1',this,'lib.php');
     // resetFrm();QUITAR CUANDO YA ESTE OK
 
   }
-  // setTimeout(function(){act_lista(tb, null, ruta_app);}, 800);
 }  
 
  let currentOpenMenu = null;
