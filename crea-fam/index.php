@@ -246,13 +246,16 @@ function grabar(tb='',ev){
   }else{
 		myFetch(ruta_app,"a=gra&tb="+tb,mod);
     if(tb='caract'){
+      // setTimeout(act_lista,1000,'caract1',this,'lib.php');
       // const formulario = document.getElementById('fapp').reset();
     }
 	if (tb == 'person') {
-  		setTimeout(function() {
+    /* setTimeout(act_lista,1000,'person1',this,'lib.php'); */
+  	/* 	setTimeout(function() {
   		mostrar('person1', 'fix', event, '', 'lib.php', 0, 'person1', document.querySelector('input[type="hidden"]').value.split('_')[0]);
-  		}, 1000);
+  		}, 1000); */
 	}
+  setTimeout(act_lista,1000,tb,this,ruta_app);
   resetFrm();
   }
   // setTimeout(function(){act_lista(tb, null, ruta_app);}, 800);
