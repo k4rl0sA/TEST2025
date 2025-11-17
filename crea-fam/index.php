@@ -246,7 +246,7 @@ function grabar(tb='',ev){
   }else{
     myFetch(ruta_app,"a=gra&tb="+tb,mod);
     // Actualizar todas las tablas relevantes en tiempo real tras grabar
-    mostrar('homes1','fix',event,'','lib.php',0,'homes1');
+    // mostrar('homes1','fix',event,'','lib.php',0,'homes1');
     setTimeout(act_lista,1000,'homes1',this,'lib.php');
     setTimeout(act_lista,1000,'person1',this,'lib.php');
     // Si necesitas más tablas, agrega aquí:
