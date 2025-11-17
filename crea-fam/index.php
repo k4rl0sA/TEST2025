@@ -248,10 +248,15 @@ function grabar(tb='',ev){
     if(tb=='homes'){
       setTimeout(act_lista,1000,'famili',this,'lib.php');
     }
+    if($tb=='person'){
+      setTimeout(function() {
+        mostrar('person1', 'fix', ev, '', 'lib.php', 0, 'person1', document.querySelector('input[type="hidden"]').value.split('_')[0]);
+      }, 1000);
+    }
     // Actualizar todas las tablas relevantes en tiempo real tras grabar
     // mostrar('homes1','fix',event,'','lib.php',0,'homes1');
     setTimeout(act_lista,1000,'homes1',this,'lib.php');
-    setTimeout(act_lista,1000,'person1',this,'lib.php');
+    // setTimeout(act_lista,1000,'person1',this,'lib.php');
     // resetFrm();QUITAR CUANDO YA ESTE OK
 
   }
