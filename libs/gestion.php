@@ -192,6 +192,16 @@ function validNum($num,$ncar=[],$nlit=[]){
   return true;
 }
 
+function validEmail($email) {
+    if (empty($email)) {
+        return "msj['Error: El correo electrónico es obligatorio.']";
+    }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return "msj['Error: El correo electrónico no es válido.']";
+    }
+    return true;
+}
+
 function cleanTx($val) {
   $val = trim($val);
   $val = htmlspecialchars($val, ENT_QUOTES, 'UTF-8');//maneja las inyecciones XSS
