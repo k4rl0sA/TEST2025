@@ -230,20 +230,40 @@ function grabar(tb='',ev){
       }
     });
   }else{
-    myFetch(ruta_app,"a=gra&tb="+tb,mod);
-    if(tb=='homes'){
-      setTimeout(act_lista,1000,'famili',this,'lib.php');
-    }
-    if (tb == 'person') {
-      setTimeout(act_lista, 1000, 'persons', this, 'lib.php');
-      // setTimeout(mostrar, 1000, 'person1', 'fix', event, '', 'lib.php', 0, 'person1', document.querySelector('input[type="hidden"]').value.split('_')[0]);
-		// resetFrm();
-	}
-    // mostrar('homes1','fix',event,'','lib.php',0,'homes1');
-    setTimeout(act_lista,1000,'homes1',this,'lib.php');
-    // setTimeout(act_lista,1000,'person1',this,'lib.php');
-    // resetFrm();QUITAR CUANDO YA ESTE OK
+    // Ejecutar la petición y, cuando termine OK, refrescar las listas relacionadas
+    myFetch(ruta_app, "a=gra&tb=" + tb, mod)
+      .then(() => {
+        if (tb == 'homes') {
+          setTimeout(act_lista, 800, 'famili', this, 'lib.php');
+        }
+        setTimeout(act_lista, 800, 'homes1', this, 'lib.php');
 
+        // Si se guardó un 'person', refrescar la lista de integrantes (panel 'datos-lis')
+        if (tb === 'person') {
+          try {
+            var predioId = '';
+            var idgElem = document.getElementById('idg');
+            if (idgElem && idgElem.value) predioId = idgElem.value;
+            if (!predioId) {
+              var hid = document.querySelector("input[name='id']") || document.querySelector("input[name='idg']") || document.querySelector("input[id='id']") || document.querySelector("input[id='idg']") || document.querySelector("input[id='idp']");
+              if (hid && hid.value) predioId = (hid.value.indexOf('_') > -1) ? hid.value.split('_')[1] : hid.value;
+            }
+            // fallback adicional: usar el filtro fpred del formulario principal
+            if (!predioId) {
+              var fpred = document.getElementById('fpred');
+              if (fpred && fpred.value) predioId = fpred.value;
+            }
+            setTimeout(function () {
+              act_html('datos-lis', 'lib.php', 'tb=person&a=lis&id=' + encodeURIComponent(predioId), false);
+            }, 500);
+          } catch (e) {
+            console.warn('No se pudo refrescar la lista de personas automáticamente:', e);
+          }
+        }
+      })
+      .catch((err) => {
+        console.warn('Error en myFetch, no se realizará el refresco dependiente:', err);
+      });
   }
 }  
 
