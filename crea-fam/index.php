@@ -255,7 +255,8 @@ function grabar(tb='',ev){
   		mostrar('person1', 'fix', event, '', 'lib.php', 0, 'person1', document.querySelector('input[type="hidden"]').value.split('_')[0]);
   		}, 1000); */
 	}
-  setTimeout(act_lista,1000,tb,this,ruta_app);
+  setTimeout(act_lista,1000,'homes1',this,'lib.php');
+  // setTimeout(act_lista,1000,tb,this,ruta_app);
   resetFrm();
   }
   // setTimeout(function(){act_lista(tb, null, ruta_app);}, 800);
