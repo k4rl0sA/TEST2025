@@ -237,9 +237,6 @@ function grabar(tb='',ev){
     if (tb == 'person') {
       setTimeout(act_lista, 1000, 'persons', this, 'lib.php');
       // setTimeout(mostrar, 1000, 'person1', 'fix', event, '', 'lib.php', 0, 'person1', document.querySelector('input[type="hidden"]').value.split('_')[0]);
-  		/* setTimeout(function() {
-  		mostrar('person1', 'fix', event, '', 'lib.php', 0, 'person1', document.querySelector('input[type="hidden"]').value.split('_')[0]);
-  		}, 1000); */
 		// resetFrm();
 	}
     // mostrar('homes1','fix',event,'','lib.php',0,'homes1');
