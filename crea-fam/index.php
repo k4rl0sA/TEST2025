@@ -252,9 +252,8 @@ function grabar(tb='',ev){
     // mostrar('homes1','fix',event,'','lib.php',0,'homes1');
     setTimeout(act_lista,1000,'homes1',this,'lib.php');
     setTimeout(act_lista,1000,'person1',this,'lib.php');
-    // Si necesitas más tablas, agrega aquí:
-    // setTimeout(act_lista,1000,'otraTabla',this,'lib.php');
-    resetFrm();
+    // resetFrm();QUITAR CUANDO YA ESTE OK
+
   }
   // setTimeout(function(){act_lista(tb, null, ruta_app);}, 800);
 }  
