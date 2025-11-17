@@ -244,20 +244,14 @@ function grabar(tb='',ev){
       }
     });
   }else{
-		myFetch(ruta_app,"a=gra&tb="+tb,mod);
-    if(tb='caract'){
-      // setTimeout(act_lista,1000,'caract1',this,'lib.php');
-      // const formulario = document.getElementById('fapp').reset();
-    }
-	if (tb == 'person') {
-    /* setTimeout(act_lista,1000,'person1',this,'lib.php'); */
-  	/* 	setTimeout(function() {
-  		mostrar('person1', 'fix', event, '', 'lib.php', 0, 'person1', document.querySelector('input[type="hidden"]').value.split('_')[0]);
-  		}, 1000); */
-	}
-  setTimeout(act_lista,1000,'homes1',this,'lib.php');
-  // setTimeout(act_lista,1000,tb,this,ruta_app);
-  resetFrm();
+    myFetch(ruta_app,"a=gra&tb="+tb,mod);
+    // Actualizar todas las tablas relevantes en tiempo real tras grabar
+    setTimeout(act_lista,1000,'homes1',this,'lib.php');
+    setTimeout(act_lista,1000,'famili',this,'lib.php');
+    setTimeout(act_lista,1000,'person1',this,'lib.php');
+    // Si necesitas más tablas, agrega aquí:
+    // setTimeout(act_lista,1000,'otraTabla',this,'lib.php');
+    resetFrm();
   }
   // setTimeout(function(){act_lista(tb, null, ruta_app);}, 800);
 }  
