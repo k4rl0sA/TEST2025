@@ -35,6 +35,42 @@ function actualizar(){
 	act_lista(mod);
 }
 
+// Wrapper seguro para `mostrar` definido en libs/js/a.js
+// Algunas llamadas usan setTimeout(mostrar, ...) y pasan el objeto `event`.
+// Cuando ese objeto llega con `currentTarget` o `target` nulos se lanza un TypeError
+// porque `mostrar` intenta leer `ev.currentTarget.title`. Aquí guardamos el
+// original (si existe) y lo envolvemos para sanear `ev` antes de invocar el original.
+if (typeof window !== 'undefined') {
+  try {
+    if (typeof window.mostrar === 'function') {
+      // conservar el original
+      window._mostrar_original = window.mostrar.bind(window);
+      window.mostrar = function(tb, a = '', ev, m = '', lib = ruta_app, w = 7, tit = '', k = '0') {
+        // Si ev no es un objeto con propiedades útiles, forzamos undefined para que
+        // la implementación original use los parámetros tit/k provistos por el llamador.
+        var evSafe = ev;
+        try {
+          if (!ev || (typeof ev === 'object' && !ev.currentTarget && !ev.target)) {
+            evSafe = undefined;
+          }
+        } catch (e) {
+          evSafe = undefined;
+        }
+        // Llamar al original con ev seguro
+        try {
+          return window._mostrar_original(tb, a, evSafe, m, lib, w, tit, k);
+        } catch (err) {
+          // último recurso: llamar sin ev
+          console.warn('mostrar wrapper falló, llamando sin ev:', err);
+          return window._mostrar_original(tb, a, undefined, m, lib, w, tit, k);
+        }
+      };
+    }
+  } catch (err) {
+    console.error('No se pudo instalar wrapper mostrar:', err);
+  }
+}
+
 function fixRecord(a = '', id = '') {
   const fields = document.getElementById(`${a}-pro-con`)
     .querySelectorAll('select:not(.nFx), input:not(.nFx), textarea:not(.nFx)');
@@ -236,7 +272,7 @@ function grabar(tb='',ev){
     }
     if (tb == 'person') {
       // setTimeout(act_lista, 1000, 'datos', this, 'lib.php');
-      setTimeout(mostrar, 1000, 'person1', 'fix', event, '', 'lib.php', 7, 'person1', document.querySelector('input[type="hidden"]').value.split('_')[0]);
+      setTimeout(mostrar, 1000, 'person1', 'fix', event, '', 'lib.php', 0, 'person1', document.querySelector('input[type="hidden"]').value.split('_')[0]);
   		/* setTimeout(function() {
   		mostrar('person1', 'fix', event, '', 'lib.php', 0, 'person1', document.querySelector('input[type="hidden"]').value.split('_')[0]);
   		}, 1000); */
