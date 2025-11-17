@@ -235,15 +235,22 @@ function grabar(tb='',ev){
       setTimeout(act_lista,1000,'famili',this,'lib.php');
     }
     if (tb == 'person') {
-      setTimeout(act_lista, 1000, 'persons', this, 'lib.php');
-      // setTimeout(mostrar, 1000, 'person1', 'fix', event, '', 'lib.php', 0, 'person1', document.querySelector('input[type="hidden"]').value.split('_')[0]);
-		// resetFrm();
+      // Actualizar la tabla de integrantes (datos-lis) tras guardar un person
+      setTimeout(function(){
+        try {
+          const idgElem = document.getElementById('idg');
+          const predioId = idgElem ? idgElem.value : '';
+          if (predioId) {
+            // Llamar act_html directamente con el parámetro id requerido por lis_persons
+            act_html('datos-lis','lib.php','tb=person&a=lis&id='+encodeURIComponent(predioId), false);
+          }
+        } catch (e) {
+          console.warn('No se pudo refrescar la lista de personas:', e);
+        }
+      }, 1000);
 	}
-    // mostrar('homes1','fix',event,'','lib.php',0,'homes1');
     setTimeout(act_lista,1000,'homes1',this,'lib.php');
-    // setTimeout(act_lista,1000,'person1',this,'lib.php');
-    // resetFrm();QUITAR CUANDO YA ESTE OK
-
+    // resetFrm();
   }
 }  
 
