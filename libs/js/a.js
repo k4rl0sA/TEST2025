@@ -1738,6 +1738,10 @@ function waitForElement(selector, maxRetries = 10, delay = 100) {
         }, delay);
     });
 }
+
+function resetFrm() {
+	document.getElementById('fapp').reset();
+}
 //*******************************************/
 
 /* function enabSelMulSel(act, sel, val) {

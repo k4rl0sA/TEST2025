@@ -38,10 +38,6 @@ function grabar(tb='',ev){
 	resetFrm();
 }   
 
-function resetFrm() {
-	document.getElementById('fapp').reset();
-}
-
 function enabFielSele(a, b, c, d) {
 	for (i = 0; i < c.length; i++) {
     	var ele = document.getElementById(c[i]);

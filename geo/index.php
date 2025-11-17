@@ -59,10 +59,6 @@ function grabar(tb='',ev){
 	act_lista('predios');
 }   
 
-function resetFrm() {
-	document.getElementById('fapp').reset();
-}
-
 function enableAddr(a,b,c,d){
 	const eru= document.querySelectorAll('input.'+b);
 	const eur= document.querySelectorAll('input.'+c);

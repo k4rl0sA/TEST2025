@@ -302,9 +302,7 @@ function men_homes1(){
 function gra_homes(){
 	// var_dump($_POST);
 	$id = divide($_POST['idg']);
-
 	$campos = array('complemento1','nuc1','complemento2','nuc2', 'complemento3','nuc3','telefono1','telefono2','telefono3');
-
 	// Validar telefono1: solo 7 o 10 dígitos numéricos
 	foreach (['telefono1' => false, 'telefono2' => true, 'telefono3' => true] as $campo => $permiteCero) {
 		$tel = isset($_POST[$campo]) ? trim($_POST[$campo]) : '';

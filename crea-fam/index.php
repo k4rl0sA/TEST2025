@@ -191,6 +191,7 @@ function grabar(tb='',ev){
     let res = confirm(mensaje);
     if(res==true){
 				myFetch(ruta_app,"a=gra&tb="+tb,mod);
+        resetFrm();
 			}
   }else if(tb=='validPerson'){
       fetch(ruta_app, {
@@ -251,8 +252,8 @@ function grabar(tb='',ev){
   		setTimeout(function() {
   		mostrar('person1', 'fix', event, '', 'lib.php', 0, 'person1', document.querySelector('input[type="hidden"]').value.split('_')[0]);
   		}, 1000);
-		// resetFrm();
 	}
+  resetFrm();
   }
   // setTimeout(function(){act_lista(tb, null, ruta_app);}, 800);
 }  
