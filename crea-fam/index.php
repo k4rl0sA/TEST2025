@@ -248,7 +248,7 @@ function grabar(tb='',ev){
     if(tb=='homes'){
       setTimeout(act_lista,1000,'famili',this,'lib.php');
     }
-    if($tb=='person'){
+    if(tb=='person'){
       setTimeout(function() {
         mostrar('person1', 'fix', ev, '', 'lib.php', 0, 'person1', document.querySelector('input[type="hidden"]').value.split('_')[0]);
       }, 1000);
