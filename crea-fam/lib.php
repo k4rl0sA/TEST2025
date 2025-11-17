@@ -150,9 +150,9 @@ function cap_menus($a,$b='cap',$con='con') {
 }
 
 function lis_famili(){
-	// var_dump($_POST);
-	var_dump($_REQUEST);
+	// var_dump($_REQUEST);
 	// $id=divide($_POST['id']);
+	$id = (isset(divide($_POST['id']))) ? divide($_POST['id']) : $_REQUEST['idg']; ;
 	$sql="SELECT idpre ACCIONES,id_fam AS Cod_Familiar,numfam AS N°_FAMILIA,fecha,CONCAT_WS(' ',FN_CATALOGODESC(6,complemento1),nuc1,FN_CATALOGODESC(6,complemento2),nuc2,FN_CATALOGODESC(6,complemento3),nuc3) Complementos,
 		V.fecha_create Creado,nombre Creó
 		FROM `hog_fam` V 
