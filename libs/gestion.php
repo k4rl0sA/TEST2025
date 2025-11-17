@@ -199,7 +199,12 @@ function validEmail($email) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         return "msj['Error: El correo electrónico no es válido.']";
     }
-    return true;
+    //validar que el correo contenga el formato correcto @ el punto y al menos 2 caracteres despues del punto 
+    $pattern = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
+    if (!preg_match($pattern, $email)) {
+        return "msj['Error: El correo electrónico no tiene el formato correcto.']";
+    }
+      return true;
 }
 
 function cleanTx($val) {
