@@ -513,8 +513,9 @@ function gra_person(){
 	if (($rtaN = validNum($_POST['telefono2'], [7, 10], ['0'])) !== true) {
 		return $rtaN;
 	}
-	if($rtaN = validEmail($_POST['correo']) !== true) {
-		return $rtaN;
+	$rtaEmail = validEmail($_POST['correo']);
+	if ($rtaEmail !== true) {
+		return $rtaEmail;
 	}
 	if(count($id)!=1){
 		$sql="UPDATE `person` SET 
