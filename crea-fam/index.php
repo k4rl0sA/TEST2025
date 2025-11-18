@@ -257,7 +257,7 @@ function grabar(tb='',ev){
           }
           if (predioId) {
             // Llamar act_html directamente con el parámetro id requerido por lis_persons
-            act_html('datos-lis','lib.php','tb=person&a=lis&id='+encodeURIComponent(predioId), false);
+            act_html('datos-lis','lib.php','tb=persons&a=lis&id='+encodeURIComponent(predioId), false);
             console.log('Actualizando datos-lis con predio:', predioId);
           } else {
             console.warn('No se pudo obtener el ID del predio');
