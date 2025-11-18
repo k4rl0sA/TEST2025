@@ -238,14 +238,39 @@ function grabar(tb='',ev){
       // Actualizar la tabla de integrantes (datos-lis) tras guardar un person
       setTimeout(function(){
         try {
-          // Verificar si el panel person1-fix está abierto (visible)
+          // Verificar si el panel person1-fix existe y está visible
           const panel = document.getElementById('person1-fix');
-          if (panel && panel.style.display !== 'none') {
-              // Solo actualizar si el panel está abierto
-              act_html('datos-lis','lib.php','tb=person&a=lis&id='+predioId, false);
+          if (panel && getComputedStyle(panel).display !== 'none') {
+            // El panel está abierto, ahora verificar si datos-lis existe
+            const datosLis = document.getElementById('datos-lis');
+            if (datosLis) {
+              // Obtener el id del predio (puede estar en idg o en idp)
+              let predioId = '';
+              const idgElem = document.getElementById('idg');
+              const idpElem = document.getElementById('idp');
+              
+              if (idgElem && idgElem.value) {
+                predioId = idgElem.value.split('_')[0]; // Si viene como "123_456", tomar solo "123"
+              } else if (idpElem && idpElem.value) {
+                const parts = idpElem.value.split('_');
+                predioId = parts.length > 1 ? parts[1] : parts[0];
+              }
+              
+              if (predioId) {
+                // Llamar act_html directamente con el parámetro id requerido por lis_persons
+                act_html('datos-lis','lib.php','tb=person&a=lis&id='+encodeURIComponent(predioId), false);
+                console.log('Actualizando datos-lis con predio:', predioId);
+              } else {
+                console.warn('No se pudo obtener el ID del predio');
+              }
+            } else {
+              console.warn('El elemento datos-lis no existe en el DOM');
+            }
+          } else {
+            console.log('Panel person1-fix no está visible, no se actualiza la tabla');
           }
         } catch (e) {
-          console.warn('No se pudo refrescar la lista de personas:', e);
+          console.error('Error al intentar refrescar la lista de personas:', e);
         }
       }, 1000);
 	}
