@@ -102,7 +102,7 @@ $ev=$event[2];
     $c[]=new cmp('lacmate_exclu','s','3',$d,$w.' '.$o,'Lactancia materna Exclusiva','lacmate_exclu',null,null,false,$x,'','col-2');
     $c[]=new cmp('lacmate_comple','s','3',$d,$w.' '.$o,'Lactancia materna Complementaria','lacmate_comple',null,null,false,$x,'','col-2');
     $c[]=new cmp('alime_complemen','s','3',$d,$w.' '.$o,'Alimentación Complementaria','alime_complemen',null,null,false,$x,'','col-2');
-    $c[]=new cmp('peso','sd','4',$d,$w.' '.$o,'Peso Gramos(0.82 = 820 Gramos)','peso','rgxpeso','##.#',false,$x,'','col-2',"Zsco('zscore','../vsp/dntsevymod.php');");
+    $c[]=new cmp('peso','sd','4',$d,$w.' '.$o,'Peso Kg. Gramos(0.82 = 820 Gramos)','peso','rgxpeso','##.#',false,$x,'','col-2',"Zsco('zscore','../vsp/dntsevymod.php');");
     $c[]=new cmp('talla','sd','5',$d,$w.' '.$o,'Talla (Cm) (75.2 =Cm,mm)','talla','rgxtalla','###.#',false,$x,'','col-2',"Zsco('zscore','../vsp/dntsevymod.php');");
     $c[]=new cmp('zscore','t','20',$d,$w.' '.$bl.' '.$o,'Zscore','zscore',null,null,false,false,'','col-2');
     $c[]=new cmp('clasi_nutri','s','3',$d,$w.' '.$o,'Clasificación Nutricional','clasi_nutri',null,null,false,false,'','col-2');//'.$ob.'
