@@ -139,40 +139,39 @@ function gra_laboratorios(){
     if (count($id) == 1) {
         // Actualización
         $sql = "UPDATE hog_laboratorios SET lab_tomado=?, fecha_toma=?, cuenta_resul=?, fecha_resul=?, dato_crit=?, gestion=?, gest_cump=?, obs=?, usu_update=?,
-         fecha_update=SUB_DATE(NOW(),INTERVAL 5 HOUR) WHERE id_lab=?";
+         fecha_update=DATE_SUB(NOW(),INTERVAL 5 HOUR) WHERE id_lab=?";
         $params = [
-            ['type' => 's', 'value' => trim($_POST['lab_tomado'] ?? '')],
-            ['type' => 's', 'value' => trim($_POST['fecha_toma'] ?? '')],
-            ['type' => 's', 'value' => trim($_POST['cuenta_resul'] ?? '')],
-            ['type' => 's', 'value' => trim($_POST['fecha_resul'] ?? '')],
-            ['type' => 'i', 'value' => intval($_POST['dato_crit'] ?? 0)],
-            ['type' => 's', 'value' => trim($_POST['gestion'] ?? '')],
-            ['type' => 's', 'value' => trim($_POST['gest_cump'] ?? '')],
-            ['type' => 's', 'value' => trim($_POST['obs'] ?? '')],
-            ['type' => 's', 'value' => $_SESSION['us_sds']],
-            ['type' => 'i', 'value' => intval($id[0])]
+            param_null($_POST['lab_tomado'] ?? '', 's'), // lab_tomado
+            param_null($_POST['fecha_toma'] ?? '', 's'), // fecha_toma
+            param_null($_POST['cuenta_resul'] ?? '', 's'), // cuenta_resul
+            param_null($_POST['fecha_resul'] ?? '', 's'), // fecha_resul
+            param_null($_POST['dato_crit'] ?? '', 's'), // dato_crit
+            param_null($_POST['gestion'] ?? '', 's'), // gestion
+            param_null($_POST['gest_cump'] ?? '', 's'), // gest_cump
+            param_null($_POST['obs'] ?? '', 's'), // obs
+            ['type' => 'i', 'value' => $_SESSION['us_sds']], // usu_update
+            ['type' => 'i', 'value' => intval($id[0])] // id_lab
         ];
     } else if (count($id) == 2) {
         // Inserción
-        $sql = "INSERT INTO hog_laboratorios VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,?)";
+        $sql = "INSERT INTO hog_laboratorios VALUES (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,?)";
         $params = [
-            ['type' => 'i', 'value' => null], // id_lab
             ['type' => 'i', 'value' => intval($_POST['cod_admision'])], // id_aten
             ['type' => 'i', 'value' => intval($id[0])], // idpeople
-            ['type' => 's', 'value' => trim($_POST['tipo_lab'])],
-            ['type' => 's', 'value' => trim($_POST['otro_lab'])],
-            ['type' => 's', 'value' => trim($_POST['fecha_orden'])],
-            ['type' => 's', 'value' => trim($_POST['lab_tomado'] ?? null)],
-            ['type' => 's', 'value' => !empty($_POST['fecha_toma']) ? trim($_POST['fecha_toma']) : null],
-            ['type' => 's', 'value' => trim($_POST['cuenta_resul'] ?? null)],
-            ['type' => 's', 'value' => trim($_POST['fecha_resul'] ?? trim($_POST['fecha_resul'] ?? null))],
-            ['type' => 'i', 'value' => intval($_POST['dato_crit'] ?? null)],
-            ['type' => 's', 'value' => trim($_POST['gestion'] ?? null)],
-            ['type' => 's', 'value' => trim($_POST['gest_cump'] ?? null)],
-            ['type' => 's', 'value' => trim($_POST['obs'] ?? null)],
-            ['type' => 's', 'value' => $_SESSION['us_sds']], // usu_create
-            ['type' => 's', 'value' => null], // usu_update
-            ['type' => 's', 'value' => null], // fecha_update
+            param_null($_POST['tipo_lab'] ?? '', 's'), // tipo_lab
+            param_null($_POST['otro_lab'] ?? '', 's'), // otro_lab
+            param_null($_POST['fecha_orden'] ?? '', 's'), // fecha_orden
+            param_null($_POST['lab_tomado'] ?? '', 's'), // lab_tomado
+            param_null($_POST['fecha_toma'] ?? '', 's'), // fecha_toma
+            param_null($_POST['cuenta_resul'] ?? '', 's'), // cuenta_resul
+            param_null($_POST['fecha_resul'] ?? '', 's'), // fecha_resul
+            param_null($_POST['dato_crit'] ?? '', 's'), // dato_crit
+            param_null($_POST['gestion'] ?? '', 's'), // gestion
+            param_null($_POST['gest_cump'] ?? '', 's'), // gest_cump
+            param_null($_POST['obs'] ?? '', 's'), // obs
+            ['type' => 'i', 'value' => $_SESSION['us_sds']], // usu_create
+            ['type' => 'z', 'value' => NULL], // usu_update
+            ['type' => 'z', 'value' => NULL], // fecha_update
             ['type' => 's', 'value' => 'A'] // estado
         ];
     } else {

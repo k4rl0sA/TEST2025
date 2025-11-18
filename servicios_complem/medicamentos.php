@@ -156,7 +156,7 @@ function opc_estado_entrega($id=''){
 }
 
 function opc_entrega($id=''){
-  var_dump($_REQUEST);
+  // var_dump($_REQUEST);
   $idp=divide($_REQUEST['id']);
   /*  $sqlCat = "SELECT valor, descripcion FROM catadeta WHERE idcatalogo=305 AND estado='A' ORDER BY valor";
   $info=datos_mysql($sqlCat);
@@ -293,19 +293,19 @@ if ($total_entregado > $prescrita) {
   pendiente_entregar=?, pos=?, cantidad_aprobar=?, observaciones=?, usu_update=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR) 
   WHERE idpeople=? AND num_entrega=? AND idatencion=? AND estado='A'";
 $params = [
-  ['type' => 's', 'value' => $_POST['fecha_orden']],
-  ['type' => 'i', 'value' => intval($_POST['cantidad_prescrita'])],
-  ['type' => 's', 'value' => $_POST['fecha_entrega']],
-  ['type' => 's', 'value' => $numero_entrega],
-  ['type' => 'i', 'value' => intval($_POST['cantidad_entregada'])],
-  ['type' => 'i', 'value' => $pendiente_entregar],
-  ['type' => 's', 'value' => $_POST['pos']],
-  ['type' => 'i', 'value' => intval($_POST['cantidad_aprobar'])],
-  ['type' => 's', 'value' => $_POST['observaciones'] ?? ''],
-  ['type' => 's', 'value' => $_SESSION['us_sds']],
-  ['type' => 's', 'value' => $id[0]],
-  ['type' => 's', 'value' => $_POST['numero_entrega']],
-  ['type' => 'i', 'value' => intval($_POST['cod_admision'])]
+  param_null($_POST['fecha_orden'] ?? '', 's'), // fecha_orden
+  param_null($_POST['cantidad_prescrita'] ?? '', 's'), // cantidad_prescrita
+  param_null($_POST['fecha_entrega'] ?? '', 's'), // fecha_entrega
+  param_null($numero_entrega, 's'), // numero_entrega
+  param_null($_POST['cantidad_entregada'] ?? '', 's'), // cantidad_entregada
+  param_null($pendiente_entregar, 's'), // pendiente_entregar
+  param_null($_POST['pos'] ?? '', 's'), // pos
+  param_null($_POST['cantidad_aprobar'] ?? '', 's'), // cantidad_aprobar
+  param_null($_POST['observaciones'] ?? '', 's'), // observaciones
+  ['type' => 'i', 'value' => $_SESSION['us_sds']], // usu_update
+  ['type' => 'i', 'value' => $id[0]], // idpeople
+  param_null($_POST['numero_entrega'] ?? '', 's'), // numero_entrega
+  ['type' => 'i', 'value' => intval($_POST['cod_admision'])] // idatencion
 ];
     $rta = mysql_prepd($sql, $params);
   } else if (count($id) == 2) {
@@ -316,19 +316,19 @@ $params = [
   pendiente_entregar, pos, cantidad_aprobar, observaciones, usu_create, estado, fecha_create
 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,DATE_SUB(NOW(),INTERVAL 5 HOUR))";
     $params = [
-      ['type' => 's', 'value' => $id[0]],
-      ['type' => 'i', 'value' => intval($_POST['cod_admision'])],
-      ['type' => 's', 'value' => $_POST['fecha_orden']],
-      ['type' => 'i', 'value' => intval($_POST['cantidad_prescrita'])],
-      ['type' => 's', 'value' => $_POST['fecha_entrega']],
-      ['type' => 's', 'value' => $entrega],
-      ['type' => 'i', 'value' => intval($_POST['cant_entregada'])],
-      ['type' => 'i', 'value' => $pendiente_entregar],
-      ['type' => 's', 'value' => $_POST['req_aprobacion']],
-      ['type' => 'i', 'value' => intval($_POST['cant_ordenada'])],
-      ['type' => 's', 'value' => $_POST['observaciones'] ?? ''],
-      ['type' => 's', 'value' => $_SESSION['us_sds']],
-      ['type' => 's', 'value' => 'A']
+      ['type' => 'i', 'value' => $id[0]], // idpeople
+      ['type' => 'i', 'value' => intval($_POST['cod_admision'])], // idatencion
+      param_null($_POST['fecha_orden'] ?? '', 's'), // fecha_orden
+      param_null($_POST['cantidad_prescrita'] ?? '', 's'), // cantidad_prescrita
+      param_null($_POST['fecha_entrega'] ?? '', 's'), // fecha_entrega
+      param_null($entrega, 's'), // numero_entrega
+      param_null($_POST['cant_entregada'] ?? '', 's'), // cantidad_entregada
+      param_null($pendiente_entregar, 's'), // pendiente_entregar
+      param_null($_POST['req_aprobacion'] ?? '', 's'), // pos
+      param_null($_POST['cant_ordenada'] ?? '', 's'), // cantidad_aprobar
+      param_null($_POST['observaciones'] ?? '', 's'), // observaciones
+      ['type' => 'i', 'value' => $_SESSION['us_sds']], // usu_create
+      ['type' => 's', 'value' => 'A'] // estado
     ];
     $rta = mysql_prepd($sql, $params);
   } else {
