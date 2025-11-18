@@ -255,7 +255,7 @@ function grabar(tb='',ev){
           }
         }
       }}, 1000);
-	}
+	  }
     setTimeout(act_lista,1000,'homes1',this,'lib.php');
     // resetFrm();
   }
