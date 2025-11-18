@@ -241,13 +241,8 @@ function grabar(tb='',ev){
           // Verificar si el panel person1-fix está abierto (visible)
           const panel = document.getElementById('person1-fix');
           if (panel && panel.style.display !== 'none') {
-            // El panel está abierto, actualizar datos-lis
-            const idgElem = document.getElementById('idg');
-            const predioId = idgElem ? idgElem.value : '';
-            if (predioId) {
-              // Llamar act_html directamente con el parámetro id requerido por lis_persons
-              act_html('datos-lis','lib.php','tb=person&a=lis&id='+encodeURIComponent(predioId), false);
-            }
+              // Solo actualizar si el panel está abierto
+              act_html('datos-lis','lib.php','tb=person&a=lis&id='+predioId, false);
           }
         } catch (e) {
           console.warn('No se pudo refrescar la lista de personas:', e);
