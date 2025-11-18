@@ -203,45 +203,45 @@ function gra_uaic_id(){
       $equi=$equ['responseResult'][0]['equipo'];
       $sql = "INSERT INTO uaic_ide VALUES (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,'A');";
       $params = [
-['type' => 'i', 'value' => $id[0]],
-['type' => 's', 'value' => $_POST['fecha_seg']??null],
-['type' => 's', 'value' => $_POST['parentesco']??null],
-['type' => 's', 'value' => $_POST['nombre_cui']??null],
-['type' => 's', 'value' => $_POST['tipo_doc']??null],
-['type' => 'i', 'value' => $_POST['num_doc']??null],
-['type' => 'i', 'value' => $_POST['telefono']??null],
-['type' => 's', 'value' => $_POST['era']??null],
-['type' => 's', 'value' => $_POST['eda']??null],
-['type' => 's', 'value' => $_POST['dnt']??null],
-['type' => 's', 'value' => $_POST['des_sinto']??null],
-['type' => 's', 'value' => $_POST['aten_medi']??null],
-['type' => 's', 'value' => $_POST['aten_part']??null],
-['type' => 's', 'value' => $_POST['peri_cef']??null],
-['type' => 's', 'value' => $_POST['peri_bra']??null],
-['type' => 's', 'value' => $_POST['peso']??null],
-['type' => 's', 'value' => $_POST['talla']??null],
-['type' => 's', 'value' => $_POST['zscore']??null],
-['type' => 's', 'value' => $_POST['clasi_nut']??null],
-['type' => 's', 'value' => $_POST['tempe']??null],
-['type' => 's', 'value' => $_POST['frec_res']??null],
-['type' => 's', 'value' => $_POST['frec_car']??null],
-['type' => 's', 'value' => $_POST['satu']??null],
-['type' => 's', 'value' => $_POST['sales_reh']??null],
-['type' => 's', 'value' => $_POST['aceta']??null],
-['type' => 's', 'value' => $_POST['traslados_uss']??null],
-['type' => 's', 'value' => $_POST['educa']??null],
-['type' => 's', 'value' => $_POST['menor_hos']??null],
-['type' => 's', 'value' => $_POST['tempe2']??null],
-['type' => 's', 'value' => $_POST['frec_res2']??null],
-['type' => 's', 'value' => $_POST['frec_car2']??null],
-['type' => 's', 'value' => $_POST['satu2']??null],
-['type' => 's', 'value' => $_POST['seg_entmed']??null],
-['type' => 's', 'value' => $_POST['observacion']??null],
-['type' => 's', 'value' => $bina],
-['type' => 's', 'value' => $equi],
-['type' => 's', 'value' => $_SESSION['us_sds']],
-['type' => 's', 'value' => NULL],
-['type' => 's', 'value' => NULL]
+      ['type' => 'i', 'value' => $id[0]], // idpeople
+        param_null($_POST['fecha_seg'], 's'), // fecha_seg
+        param_null($_POST['parentesco'], 's'), // parentesco
+        param_null($_POST['nombre_cui'], 's'), // nombre_cui
+        param_null($_POST['tipo_doc'], 's'), // tipo_doc
+        param_null($_POST['num_doc'], 's'), // num_doc (cambio a string para documentos largos)
+        param_null($_POST['telefono'], 's'), // telefono (cambio a string)
+        param_null($_POST['era'], 's'), // era
+        param_null($_POST['eda'], 's'), // eda
+        param_null($_POST['dnt'], 's'), // dnt
+        param_null($_POST['des_sinto'], 's'), // des_sinto
+        param_null($_POST['aten_medi'], 's'), // aten_medi
+        param_null($_POST['aten_part'], 's'), // aten_part
+        param_null($_POST['peri_cef'], 's'), // peri_cef
+        param_null($_POST['peri_bra'], 's'), // peri_bra
+        param_null($_POST['peso'], 's'), // peso
+        param_null($_POST['talla'], 's'), // talla
+        param_null($_POST['zscore'], 's'), // zscore
+        param_null($_POST['clasi_nut'], 's'), // clasi_nut
+        param_null($_POST['tempe'], 's'), // tempe
+        param_null($_POST['frec_res'], 's'), // frec_res
+        param_null($_POST['frec_car'], 's'), // frec_car
+        param_null($_POST['satu'], 's'), // satu
+        param_null($_POST['sales_reh'], 's'), // sales_reh
+        param_null($_POST['aceta'], 's'), // aceta
+        param_null($_POST['traslados_uss'], 's'), // traslados_uss
+        param_null($_POST['educa'], 's'), // educa
+        param_null($_POST['menor_hos'], 's'), // menor_hos
+        param_null($_POST['tempe2'], 's'), // tempe2
+        param_null($_POST['frec_res2'], 's'), // frec_res2
+        param_null($_POST['frec_car2'], 's'), // frec_car2
+        param_null($_POST['satu2'], 's'), // satu2
+        param_null($_POST['seg_entmed'], 's'), // seg_entmed
+        param_null($_POST['observacion'], 's'), // observacion
+        param_null($bina, 's'), // equipo_bina
+        param_null($equi, 's'), // equipo
+        ['type' => 's', 'value' => $_SESSION['us_sds']],
+        ['type' => 's', 'value' => NULL],
+        ['type' => 's', 'value' => NULL]
       ];
 
     //  $rta = show_sql($sql, $params);
@@ -249,10 +249,9 @@ function gra_uaic_id(){
     }else{
    $sql="UPDATE uaic_ide SET observacion=?, fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR), usu_update=? WHERE iduaic=?";
     $params = [
-        ['type' => 's', 'value' => $_POST['observacion']],
-        // ['type' => 's', 'value' => date("Y-m-d H:i:s")],
-        ['type' => 'i', 'value' => $_SESSION['us_sds']],
-        ['type' => 'i', 'value' => $id[0]]//IDACORDE AL NUMERO DEL INDICE
+        param_null($_POST['observacion'], 's'), // observacion
+        ['type' => 'i', 'value' => $_SESSION['us_sds']], // usu_update
+        ['type' => 'i', 'value' => $id[0]] // iduaic
       ];
       //  $rta = show_sql($sql, $params);
      $rta = mysql_prepd($sql, $params);
