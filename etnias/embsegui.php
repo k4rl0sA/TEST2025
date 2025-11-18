@@ -144,57 +144,56 @@ function gra_seguim() {
   $id = divide($_POST['idseg']);
   if (($rtaFec = validFecha('etnias', $_POST['fecha_seg'] ?? '')) !== true) {return $rtaFec;}
   if(COUNT($id)==2){
-  $numdoc=($_POST['num_doc']=== '')? 0: $_POST['num_doc'];
       $equ = datos_mysql("select equipo from usuarios where id_usuario=".$_SESSION['us_sds']);
       $bina = isset($_POST['fequi']) ? (is_array($_POST['fequi']) ? implode("-", $_POST['fequi']) : str_replace("'", "", $_POST['fequi'])) : '';
       $equi = $equ['responseResult'][0]['equipo'];
 
       $sql = "INSERT INTO emb_segui VALUES (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,'A')";
       $params = [
-        ['type' => 'i', 'value' => $id[0]],
-        ['type' => 's', 'value' => $_POST['fecha_seg']],
-        ['type' => 's', 'value' => $_POST['segui']],
-        ['type' => 's', 'value' => $_POST['estado_seg']],
-        ['type' => 's', 'value' => $_POST['motivo_estado']],
-        ['type' => 's', 'value' => $_POST['interven']],
-        ['type' => 's', 'value' => $_POST['gestante']],
-        ['type' => 's', 'value' => $_POST['edad_gest']],
-        ['type' => 's', 'value' => $_POST['Nom_fami']],
-        ['type' => 's', 'value' => $_POST['tipo_doc']],
-        ['type' => 'i', 'value' => $numdoc],
-        ['type' => 's', 'value' => $_POST['paren']],
-        ['type' => 's', 'value' => $_POST['tel_conta']],
-        ['type' => 's', 'value' => $_POST['ubi']],
-        ['type' => 's', 'value' => $_POST['ser_req']],
-        ['type' => empty($_POST['fecha_ing']) ? 'z' : 's','value' => empty($_POST['fecha_ing']) ? null : $_POST['fecha_ing']],
-        ['type' => 's', 'value' => $_POST['uss_ing']],
-        ['type' => 's', 'value' => $_POST['motivo_cons']],
-        ['type' => 's', 'value' => $_POST['uss_tras']],
-        ['type' => 's', 'value' => $_POST['ing_unidad']],
-        ['type' => 's', 'value' => $_POST['ante_salud']],
-        ['type' => 's', 'value' => $_POST['imp_diag']],
-        ['type' => 's', 'value' => $_POST['uss_encu']],
-        ['type' => 's', 'value' => $_POST['servicio_encu']],
-        ['type' => 's', 'value' => $_POST['imp_diag2']],
-        ['type' => 's', 'value' => $_POST['nece_apoy']],
-        ['type' => empty($_POST['fecha_egreso']) ? 'z' : 's','value' => empty($_POST['fecha_egreso']) ? null : $_POST['fecha_egreso']],
-        ['type' => 's', 'value' => $_POST['espe1']],
-        ['type' => 's', 'value' => $_POST['espe2']],
-        ['type' => 's', 'value' => $_POST['adh_tto']],
-        ['type' => 's', 'value' => $_POST['observaciones']],
-        ['type' => 's', 'value' => $bina],
-        ['type' => 's', 'value' => $_SESSION['us_sds']],
-        ['type' => 's', 'value' => NULL],
-        ['type' => 's', 'value' => NULL],
+        ['type' => 'i', 'value' => $id[0]], // idpeople
+        param_null($_POST['fecha_seg'] ?? '', 's'), // fecha_seg
+        param_null($_POST['segui'] ?? '', 's'), // segui
+        param_null($_POST['estado_seg'] ?? '', 's'), // estado_seg
+        param_null($_POST['motivo_estado'] ?? '', 's'), // motivo_estado
+        param_null($_POST['interven'] ?? '', 's'), // interven
+        param_null($_POST['gestante'] ?? '', 's'), // gestante
+        param_null($_POST['edad_gest'] ?? '', 's'), // edad_gest
+        param_null($_POST['Nom_fami'] ?? '', 's'), // Nom_fami
+        param_null($_POST['tipo_doc'] ?? '', 's'), // tipo_doc
+        param_null($_POST['num_doc'] ?? '', 's'), // num_doc (cambio a string)
+        param_null($_POST['paren'] ?? '', 's'), // paren
+        param_null($_POST['tel_conta'] ?? '', 's'), // tel_conta
+        param_null($_POST['ubi'] ?? '', 's'), // ubi
+        param_null($_POST['ser_req'] ?? '', 's'), // ser_req
+        param_null($_POST['fecha_ing'] ?? '', 's'), // fecha_ing
+        param_null($_POST['uss_ing'] ?? '', 's'), // uss_ing
+        param_null($_POST['motivo_cons'] ?? '', 's'), // motivo_cons
+        param_null($_POST['uss_tras'] ?? '', 's'), // uss_tras
+        param_null($_POST['ing_unidad'] ?? '', 's'), // ing_unidad
+        param_null($_POST['ante_salud'] ?? '', 's'), // ante_salud
+        param_null($_POST['imp_diag'] ?? '', 's'), // imp_diag
+        param_null($_POST['uss_encu'] ?? '', 's'), // uss_encu
+        param_null($_POST['servicio_encu'] ?? '', 's'), // servicio_encu
+        param_null($_POST['imp_diag2'] ?? '', 's'), // imp_diag2
+        param_null($_POST['nece_apoy'] ?? '', 's'), // nece_apoy
+        param_null($_POST['fecha_egreso'] ?? '', 's'), // fecha_egreso
+        param_null($_POST['espe1'] ?? '', 's'), // espe1
+        param_null($_POST['espe2'] ?? '', 's'), // espe2
+        param_null($_POST['adh_tto'] ?? '', 's'), // adh_tto
+        param_null($_POST['observaciones'] ?? '', 's'), // observaciones
+        param_null($bina, 's'), // equipo_bina
+        ['type' => 'i', 'value' => $_SESSION['us_sds']], // usu_creo
+        ['type' => 'z', 'value' => NULL], // fecha_update
+        ['type' => 'z', 'value' => NULL]  // usu_update
       ];
 //$rta=show_sql($sql, $params);
 $rta = mysql_prepd($sql, $params);
 }else{
   $sql="UPDATE emb_segui SET observaciones=?,fecha_update=DATE_SUB(NOW(),INTERVAL 5 HOUR),usu_update=? WHERE idseg=?"; //  compromiso=?, equipo=?, 
    $params = [
-       ['type' => 's', 'value' => $_POST['observaciones']],
-       ['type' => 'i', 'value' => $_SESSION['us_sds']],
-       ['type' => 'i', 'value' => $id[0]]
+       param_null($_POST['observaciones'] ?? '', 's'), // observaciones
+       ['type' => 'i', 'value' => $_SESSION['us_sds']], // usu_update
+       ['type' => 'i', 'value' => $id[0]] // idseg
      ];
      $rta = mysql_prepd($sql, $params);
    }

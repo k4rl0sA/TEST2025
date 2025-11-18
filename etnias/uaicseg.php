@@ -182,26 +182,26 @@ function gra_uaic_seg(){
       $equi=$equ['responseResult'][0]['equipo'];
       $sql = "INSERT INTO uaic_seg VALUES (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),NULL,NULL,'A');";
       $params = [
-        ['type' => 'i', 'value' => $id[0]],
-        ['type' => 's', 'value' => $_POST['fecha_seg']],
-        ['type' => 's', 'value' => $_POST['segui']],
-        ['type' => 's', 'value' => $_POST['estado_seg']],
-        ['type' => 's', 'value' => $_POST['motivo_seg']],
-        ['type' => 's', 'value' => $_POST['at_medi']??''],
-        ['type' => 's', 'value' => $_POST['at_part']??''],
-        ['type' => 'i', 'value' => $_POST['peso']],
-        ['type' => 'i', 'value' => $_POST['talla']],
-        ['type' => empty($_POST['zscore']) ? 'z' : 's', 'value' => empty($_POST['zscore']) ? null : $_POST['zscore']],
-        ['type' => 's', 'value' => $_POST['clasi_nutri']],
-        ['type' => 's', 'value' => $_POST['ftlc_apme']],
-        ['type' => 's', 'value' => $_POST['cual']],
-        ['type' => 's', 'value' => $_POST['cita_nutri7']],
-        ['type' => 's', 'value' => $_POST['cita_nutri15']],
-        ['type' => 's', 'value' => $_POST['cita_nutri30']],
-        ['type' => 's', 'value' => $_POST['observaciones']],
-        ['type' => 's', 'value' => $bina],
-        ['type' => 's', 'value' => $equi],
-        ['type' => 's', 'value' => $_SESSION['us_sds']]
+        ['type' => 'i', 'value' => $id[0]], // idpeople
+        param_null($_POST['fecha_seg'] ?? '', 's'), // fecha_seg
+        param_null($_POST['segui'] ?? '', 's'), // segui
+        param_null($_POST['estado_seg'] ?? '', 's'), // estado_seg
+        param_null($_POST['motivo_seg'] ?? '', 's'), // motivo_seg
+        param_null($_POST['at_medi'] ?? '', 's'), // at_medi
+        param_null($_POST['at_part'] ?? '', 's'), // at_part
+        param_null($_POST['peso'] ?? '', 's'), // peso (cambio a string)
+        param_null($_POST['talla'] ?? '', 's'), // talla (cambio a string)
+        param_null($_POST['zscore'] ?? '', 's'), // zscore
+        param_null($_POST['clasi_nutri'] ?? '', 's'), // clasi_nutri
+        param_null($_POST['ftlc_apme'] ?? '', 's'), // ftlc_apme
+        param_null($_POST['cual'] ?? '', 's'), // cual
+        param_null($_POST['cita_nutri7'] ?? '', 's'), // cita_nutri7
+        param_null($_POST['cita_nutri15'] ?? '', 's'), // cita_nutri15
+        param_null($_POST['cita_nutri30'] ?? '', 's'), // cita_nutri30
+        param_null($_POST['observaciones'] ?? '', 's'), // observaciones
+        param_null($bina, 's'), // equipo_bina
+        param_null($equi, 's'), // equipo
+        ['type' => 'i', 'value' => $_SESSION['us_sds']] // usu_creo
       ];
 // var_dump($sql);
       //$rta = show_sql($sql, $params);
@@ -209,9 +209,9 @@ function gra_uaic_seg(){
     }else{
    $sql="UPDATE uaic_seg SET observaciones=?,fecha_update=DATE_SUB(NOW(),INTERVAL 5 HOUR),usu_update=? WHERE iduaicseg=?"; //  compromiso=?, equipo=?, 
     $params = [
-        ['type' => 's', 'value' => $_POST['observaciones']],
-        ['type' => 'i', 'value' => $_SESSION['us_sds']],
-        ['type' => 'i', 'value' => $id[0]]
+        param_null($_POST['observaciones'] ?? '', 's'), // observaciones
+        ['type' => 'i', 'value' => $_SESSION['us_sds']], // usu_update
+        ['type' => 'i', 'value' => $id[0]] // iduaicseg
       ];
       $rta = mysql_prepd($sql, $params);
     }
