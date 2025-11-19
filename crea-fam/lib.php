@@ -794,7 +794,7 @@ function eventAsign($key) {
 	  28 => ['icono' => 'condu1', 'titulo' => 'CONDUCTA SUICIDA (INTENTO)', 'modulo' => 'condsuic'],
 	  29 => ['icono' => 'otrca1', 'titulo' => 'EDUCACIÓN MEDICO', 'modulo' => 'educaMedi'],
 	  30 => ['icono' => 'adoles', 'titulo' => 'ADOLESCENCIA CON MAS BIENESTAR', 'modulo' => 'adoleMas'],
-	  31 => ['icono' => 'discap', 'titulo' => 'RBC', 'modulo' => 'discapacidad'],
+	  31 => ['icono' => 'discap', 'titulo' => 'RBC - TER', 'modulo' => 'discapacidad'],
 	  32 => ['icono' => 'cancer', 'titulo' => 'CANCER DE CUELLO UTERINO', 'modulo' => 'cancinfa'],
 	  33 => ['icono' => 'cancer', 'titulo' => 'CANCER DE MAMA', 'modulo' => 'cancinfa'],
 	  34 => ['icono' => 'cancer', 'titulo' => 'CANCER DE PROSTATA', 'modulo' => 'cancinfa'],
@@ -804,7 +804,7 @@ function eventAsign($key) {
 	  38 => ['icono' => 'femin1', 'titulo' => 'ESTRATEGIA (107) | VBG | ENF', 'feminicidio'],
 	  39 => ['icono' => 'duelo1', 'titulo' => 'MAS COMPAÑIA MAS BIENESTAR', 'modulo' => 'soledad'],
 	  40 => ['icono' => 'femin1', 'titulo' => 'ESTRATEGIA (107) | VBG | PSI', 'modulo' => 'feminicidio1'],
-	  41 => ['icono' => 'discap', 'titulo' => 'RBC', 'modulo' => 'discapacidad1']
+	  41 => ['icono' => 'discap', 'titulo' => 'RBC - REL', 'modulo' => 'discapacidad1']
     );
     $eve = '';
     foreach ($rta as $evento) {
