@@ -61,7 +61,7 @@ $comy = array(
       's' => '10.234.8.132',
       'u' => 'u470700275_08',
       'p' => 'z9#KqH!YK2VEyJpT',
-      'bd' => 'saludencasa_pru'
+      'bd' => 'saludencasa_migrada'
   ]
 );
 	if (array_key_exists($dominio, $comy)) {
