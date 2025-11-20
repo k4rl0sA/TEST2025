@@ -824,52 +824,54 @@ function get_Tamiz($fec) {
 	$info = datos_mysql("select TIMESTAMPDIFF(YEAR,'$fec',CURDATE()) AS ano");
 	$edad = isset($info['responseResult'][0]['ano']) ? intval($info['responseResult'][0]['ano']) : 0;
 	$tamiz = [];
-	// Reglas por edad (según especificación):
-	// - apgar para TODOS los mayores de 6 años (>=7)
-	// - riesgomental para mayores de 6 años (>=7)
-	// - rqc: 5 a 15
-	// - carlos_crafft: 12 a 15
-	// - tamvalories: 12 a 17
-	// - assist: 16 a 17
-	// - srq: >15 (>=16)
-	// - cope: >9 (>=10)
-	// - findrisc y oms: >17 (>=18)
-	// - epoc: >39 (>=40)
-	// - soledad: >59 (>=60)
+	// Apgar: mayores de 6 años (>= 7 años)
 	if ($edad >= 7) {
 		$tamiz[] = 'tamApgar';
+	}
+	// Riesgo Mental: mayores de 6 años (>= 7 años)
+	if ($edad >= 7) {
 		$tamiz[] = 'riesgomental';
 	}
+	// RQC: 5 a 15 años
 	if ($edad >= 5 && $edad <= 15) {
 		$tamiz[] = 'tamrqc';
 	}
-	if ($edad >= 12 && $edad <= 15) {
-		$tamiz[] = 'tamcarlos';
-	}
-	if ($edad >= 12 && $edad <= 17) {
-		$tamiz[] = 'tamvalories';
-	}
-	if ($edad >= 16 && $edad <= 17) {
-		$tamiz[] = 'tamassist';
-	}
-	if ($edad >= 16) {
-		$tamiz[] = 'tamsrq';
-	}
+	// COPE: mayores de 9 años (>= 10 años)
 	if ($edad >= 10) {
 		$tamiz[] = 'tamcope';
 	}
+	// Carlos Crafft: 12 a 15 años
+	if ($edad >= 12 && $edad <= 15) {
+		$tamiz[] = 'tamcarlos';
+	}
+	// Valoración del Riesgo (tamvalories): 12 a 17 años
+	if ($edad >= 12 && $edad <= 17) {
+		$tamiz[] = 'tamvalories';
+	}
+	// SRQ: mayores de 15 años (>= 16 años)
+	if ($edad >= 16) {
+		$tamiz[] = 'tamsrq';
+	}
+	// Assist: 16 a 17 años
+	if ($edad >= 16 && $edad <= 17) {
+		$tamiz[] = 'tamassist';
+	}
+	// Findrisc: mayores de 17 años (>= 18 años)
 	if ($edad >= 18) {
 		$tamiz[] = 'tamfindrisc';
+	}
+	// OMS: mayores de 17 años (>= 18 años)
+	if ($edad >= 18) {
 		$tamiz[] = 'tamoms';
 	}
+	// EPOC: mayores de 39 años (>= 40 años)
 	if ($edad >= 40) {
 		$tamiz[] = 'tamepoc';
 	}
+	// Soledad: mayores de 59 años (>= 60 años)
 	if ($edad >= 60) {
 		$tamiz[] = 'tamsoledad';
 	}
-	// Evitar duplicados y devolver lista
-	$tamiz = array_values(array_unique($tamiz));
 	return $tamiz;
 }
 
