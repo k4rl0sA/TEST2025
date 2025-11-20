@@ -86,17 +86,30 @@ function cmp_planillas(){
 	$o='infplan';
     $id = divide($_POST['id'] ?? '');
     $edit = (empty($id[0])) ? true : (isset($_POST['edit']) && $_POST['edit']=='true');
-    $d = get_planilla();
-    $t=['tipo'=>'','evento'=>'','seguimiento'=>'','idpersona'=>'','tipo_doc'=>'','nombre_completo'=>'','perfil'=>'','colaborador'=>'','estado_planilla'=>'','fecha_formato'=>''];
-    if ($d==""){$d=$t;}
+    
+    // Obtenemos los datos si estamos editando
+    $d = ['tipo'=>'','evento'=>'','seguimiento'=>'','idpersona'=>'','tipo_doc'=>'','nombre_completo'=>'','perfil'=>'','colaborador'=>'','estado_planilla'=>'','fecha_formato'=>''];
+    if (!empty($id[0])) {
+        $sql = "SELECT P.id_planilla, P.tipo, P.evento, P.seguimiento, P.colaborador, P.estado_planilla, P.fecha_formato,
+                pe.idpersona, pe.tipo_doc, pe.idpeople,
+                CONCAT_WS(' ',pe.nombre1,pe.nombre2,pe.apellido1,pe.apellido2) AS nombre_completo
+                FROM planillas P
+                INNER JOIN person pe ON P.idpeople = pe.idpeople
+                WHERE P.id_planilla = '{$id[0]}' AND P.estado = 'A'";
+        $info = datos_mysql($sql);
+        if ($info['responseResult']) {
+            $d = $info['responseResult'][0];
+        }
+    }
+    
     $key='pEr';
     $days=fechas_app('vivienda');
     $c[]= new cmp($o,'e',null,'INFORMACIÓN GENERAL',$w);
-    $c[]= new cmp('idp','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
+    $c[]= new cmp('id_planilla','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
     $c[]= new cmp('idpersona','nu','9999999999999999',$d['idpersona'],$w.' '.$key.' '.$o,'Identificación <a href="https://www.adres.gov.co/consulte-su-eps" target="_blank">     Abrir ADRES</a>','idpersona',null,null,true,$edit,'','col-2');
 	$c[]= new cmp('tipo_doc','s','3',$d['tipo_doc'],$w.' '.$key.' '.$o,'Tipo documento','tipo_doc',null,null,true,$edit,'','col-3',"getDatKey('pEr','personOld','infplan',['idpersona','tipo_doc'],'lib.php');");//getData('pEr','personOld',['infplan']);
     // $c[]= new cmp('idpeop','t',18,'',$w.' IPe '.$o, 'Código Persona','','','',true,true);
-    $c[]= new cmp('nombre','t',50,'',$w.' IPe '.$o, 'Nombre Completo','','','',false,false,'','col-5');
+    $c[]= new cmp('nombre','t',50,$d['nombre_completo'],$w.' IPe '.$o, 'Nombre Completo','','','',false,false,'','col-5');
     
     
     $o='infubi';
@@ -297,7 +310,9 @@ function get_planilla() {
     if(empty($_POST['id'])) return "";
     $id = divide($_POST['id']);
     if (empty($id[0])) return "";
-    $sql = "SELECT P.*, CONCAT_WS(' ',pe.nombre1,pe.nombre2,pe.apellido1,pe.apellido2) AS nombre_completo, pe.tipo_doc, pe.idpersona, P.fecha_formato
+    $sql = "SELECT P.id_planilla, P.tipo, P.evento, P.seguimiento, P.colaborador, P.estado_planilla, P.fecha_formato,
+            pe.idpersona, pe.tipo_doc, pe.idpeople,
+            CONCAT_WS(' ',pe.nombre1,pe.nombre2,pe.apellido1,pe.apellido2) AS nombre_completo
             FROM planillas P
             INNER JOIN person pe ON P.idpeople = pe.idpeople
             WHERE P.id_planilla = '{$id[0]}' AND P.estado = 'A'";
@@ -305,7 +320,7 @@ function get_planilla() {
     if (!$info['responseResult']) {
 			return '';
 		}
-	return $info['responseResult'][0];
+	return json_encode($info['responseResult'][0]);
 } 
 
 function get_personOld(){
@@ -389,7 +404,7 @@ function gra_planillas(){
         $codfam=$info['responseResult'][0]['vivipersona'];
         $idpeople=$info['responseResult'][0]['idpeople'];
     } else {
-        return json_encode(['error' => 'No se encontró la persona con los datos proporcionados']);
+        return "Error: No se encontró la persona con los datos proporcionados";
     }
     
     // Obtenemos el colaborador y fecha para la validación
@@ -428,7 +443,7 @@ WHERE C2.idfam = '$codfam' AND C2.usu_create = '$colaborador' LIMIT 1;";
             ['type' => 's', 'value' => $_SESSION['us_sds']],
         ];
     } else {
-        $sql = "UPDATE planillas SET idpeople=?, cod_fam=?, tipo=?, evento=?, seguimiento=?, colaborador=?, estado_planilla=?,caracterizacion=?, fecha_formato=?, usu_update=?, fecha_update=NOW() WHERE id_planilla=?";
+        $sql = "UPDATE planillas SET idpeople=?, cod_fam=?, tipo=?, evento=?, seguimiento=?, colaborador=?, estado_planilla=?, caracterizacion=?, fecha_formato=?, usu_update=?, fecha_update=DATE_SUB(NOW(),INTERVAL 5 HOUR) WHERE id_planilla=?";
         $params = [
             ['type' => 'i', 'value' => $idpeople],
             ['type' => 'i', 'value' => $codfam],
@@ -454,7 +469,7 @@ function formato_dato($a,$b,$c,$d){
 // var_dump($rta);
 	if ($a=='planillas' && $b=='acciones'){
 		$rta="<nav class='menu right'>";
-        $rta.="<li title='Editar'><i class='fa-regular fa-edit ico' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getDataFetch,500,'planillas',event,this,['tipo','evento','seguimiento','idpersona','tipo_doc','fecha_formato','colaborador','estado_planilla'],'lib.php');\"></i></li>";  
+        $rta.="<li title='Editar'><i class='fa-regular fa-edit ico' id='".$c['ACCIONES']."' Onclick=\"mostrar('planillas','pro',event,'','lib.php',7).then(()=>getData('planillas',event,this,[],'lib.php'));\"></i></li>";  
 		$rta.="</nav>";
 	}
  return $rta;
