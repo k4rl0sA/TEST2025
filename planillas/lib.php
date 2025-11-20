@@ -25,7 +25,15 @@ function lis_planillas(){
     $total = $info['responseResult'][0]['total'] ?? 0;
     $regxPag = 10;
     $pag = (isset($_POST['pag-planillas'])) ? ($_POST['pag-planillas']-1)* $regxPag : 0;
-    $sql = "SELECT CONCAT_WS('_',P.id_planilla,P.idpeople) ACCIONES, P.id_planilla 'ID', P.idpeople 'Cod Persona', P.cod_fam 'Código Familia', P.tipo 'Tipo', P.evento 'Evento', P.seguimiento 'Seguimiento', P.colaborador 'Colaborador', P.estado_planilla 'Estado',P.caracterizacion 'Caracterizacion', P.fecha_formato 'Fecha Formato', P.fecha_create 'Fecha Creación', P.usu_create 'Creó', P.usu_update 'Modificó', P.fecha_update 'Fecha Modificación' FROM `planillas` P WHERE estado='A' ";
+    $sql = "SELECT P.id_planilla ACCIONES, P.id_planilla 'ID', P.idpeople 'Cod Persona', P.cod_fam 'Código Familia', 
+            FN_CATALOGODESC(287,P.tipo) 'Tipo', FN_CATALOGODESC(87,P.evento) 'Evento', FN_CATALOGODESC(76,P.seguimiento) 'Seguimiento', 
+            (SELECT nombre FROM usuarios WHERE id_usuario=P.colaborador) 'Colaborador', 
+            FN_CATALOGODESC(293,P.estado_planilla) 'Estado', P.fecha_formato 'Fecha Formato', 
+            P.fecha_create 'Fecha Creación', 
+            (SELECT nombre FROM usuarios WHERE id_usuario=P.usu_create) 'Creó', 
+            (SELECT nombre FROM usuarios WHERE id_usuario=P.usu_update) 'Modificó', 
+            P.fecha_update 'Fecha Modificación' 
+            FROM `planillas` P WHERE P.estado='A' ";
     $sql .= whe_planillas();
     $sql .= " ORDER BY P.fecha_create DESC";
     $sql .= ' LIMIT '.$pag.','.$regxPag;
@@ -76,6 +84,7 @@ function cmp_planillas(){
     $c = [];
     $w='planillas';
 	$o='infplan';
+    $id = divide($_POST['id'] ?? '');
     $edit = (empty($id[0])) ? true : (isset($_POST['edit']) && $_POST['edit']=='true');
     $d = get_planilla();
     $t=['tipo'=>'','evento'=>'','seguimiento'=>'','idpersona'=>'','tipo_doc'=>'','nombre_completo'=>'','perfil'=>'','colaborador'=>'','estado_planilla'=>'','fecha_formato'=>''];
@@ -285,13 +294,14 @@ function pcf_planillas(){
 }
 
 function get_planilla() {
-    $id = divide($_POST['id'] ?? '');
+    if(empty($_POST['id'])) return "";
+    $id = divide($_POST['id']);
     if (empty($id[0])) return "";
     $sql = "SELECT P.*, CONCAT_WS(' ',pe.nombre1,pe.nombre2,pe.apellido1,pe.apellido2) AS nombre_completo, pe.tipo_doc, pe.idpersona, P.fecha_formato
             FROM planillas P
             INNER JOIN person pe ON P.idpeople = pe.idpeople
-            WHERE P.id_planilla = $id[0] AND P.estado = 'A'";
-    $info = datos_mysql($sql, $params);
+            WHERE P.id_planilla = '{$id[0]}' AND P.estado = 'A'";
+    $info = datos_mysql($sql);
     if (!$info['responseResult']) {
 			return '';
 		}
@@ -442,8 +452,10 @@ function formato_dato($a,$b,$c,$d){
 // $rta=iconv('UTF-8','ISO-8859-1',$rta);
 // var_dump($a);
 // var_dump($rta);
-	if ($a=='family' && $b=='acciones'){//a mnombre del modulo
-		
+	if ($a=='planillas' && $b=='acciones'){
+		$rta="<nav class='menu right'>";
+		$rta.="<li class='icono editar' title='Editar' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getData,500,'planillas',event,this,['tipo','evento','seguimiento','idpersona','tipo_doc','fecha_formato','colaborador','estado_planilla'],'lib.php');f(1,'planillas');\"></li>";
+		$rta.="</nav>";
 	}
  return $rta;
 }
