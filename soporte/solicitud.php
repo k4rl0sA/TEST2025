@@ -71,7 +71,7 @@ function gra_solicitudes() {
     }
     $descripcion = $_POST['descripcion'];
     $usu_creo = $_SESSION['us_sds'];
-    $creo = date('Y-m-d H:i:s', strtotime('-5 hours'));
+    $creo = date('Y-m-d H:i:s');
     $estado = 2;
 
     // Insertar en soporte con formulario=3
