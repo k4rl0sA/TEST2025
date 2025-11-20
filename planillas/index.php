@@ -154,6 +154,7 @@ $usu=divide($rta["responseResult"][0]['usu']);
 			<li class='icono listado' title='Ver Listado' onclick="desplegar(mod+'-lis');" ></li>
 			<li class='icono actualizar'    title='Actualizar'      Onclick="actualizar();">
 			<li class='icono filtros'    title='Filtros'      Onclick="showFil(mod);">
+			<li class='icono lupa' title='Consultar Predio' Onclick="mostrar('predios','pro',event,'','../consultar/consulpred.php',7);">
             <li class='icono crear'       title='Crear Planilla'    Onclick="mostrar(mod,'pro');"></li>
 		</nav>
 		<nav class='menu right' >
