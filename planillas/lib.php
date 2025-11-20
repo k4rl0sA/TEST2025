@@ -369,7 +369,7 @@ function opc_tipo_doc($id=''){
 function gra_planillas(){
     $sql1="SELECT idpeople,vivipersona
 		FROM `person` 
-   	WHERE idpersona ='".$_POST['idpersona']."' AND tipo_doc='".$_POST['tipo']."' AND estado='A'";
+   	WHERE idpersona ='".$_POST['idpersona']."' AND tipo_doc=(SELECT descripcion from catadeta where idcatalogo=20 and idcatadeta=".$_POST['tipo'].") AND estado='A'";
     var_dump($sql1);
 	$info=datos_mysql($sql1);
     if ($info['responseResult']) {
