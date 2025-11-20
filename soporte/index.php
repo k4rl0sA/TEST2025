@@ -193,7 +193,7 @@ $digitadores=opc_sql("SELECT `id_usuario`,nombre FROM `usuarios` ORDER BY 2 ASC"
 $sql="SELECT  subred FROM usuarios WHERE id_usuario=".$_SESSION['us_sds'];
 $info = datos_mysql($sql);
 $subredActual=$info['responseResult'][0]['subred'];
-$subredes=opc_sql("SELECT numero,CASE numero WHEN 1 THEN 'Norte' WHEN 2 THEN 'Sur' WHEN 3 THEN 'Centro Oriente' WHEN 4 THEN 'Sur Occidente' END AS direccion FROM (VALUES (1), (2), (3), (4)) AS T(numero);",$subredActual);
+    $subredes=opc_sql("SELECT numero, CASE numero WHEN 1 THEN 'Norte' WHEN 2 THEN 'Sur' WHEN 3 THEN 'Centro Oriente' WHEN 4 THEN 'Sur Occidente' END AS direccion FROM (SELECT 1 AS numero UNION SELECT 2 UNION SELECT 3 UNION SELECT 4) AS T;",$subredActual);
 $acciones=opc_sql("SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=286 AND estado='A' ORDER BY 1",'');
 ?>
 <form method='post' id='fapp' >
