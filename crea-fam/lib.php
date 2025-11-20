@@ -824,51 +824,52 @@ function get_Tamiz($fec) {
 	$info = datos_mysql("select TIMESTAMPDIFF(YEAR,'$fec',CURDATE()) AS ano");
 	$edad = isset($info['responseResult'][0]['ano']) ? intval($info['responseResult'][0]['ano']) : 0;
 	$tamiz = [];
-	// Apgar: menores de 6 años
-	if ($edad >=7) {
+	// Reglas por edad (según especificación):
+	// - apgar para TODOS los mayores de 6 años (>=7)
+	// - riesgomental para mayores de 6 años (>=7)
+	// - rqc: 5 a 15
+	// - carlos_crafft: 12 a 15
+	// - tamvalories: 12 a 17
+	// - assist: 16 a 17
+	// - srq: >15 (>=16)
+	// - cope: >9 (>=10)
+	// - findrisc y oms: >17 (>=18)
+	// - epoc: >39 (>=40)
+	// - soledad: >59 (>=60)
+	if ($edad >= 7) {
 		$tamiz[] = 'tamApgar';
 		$tamiz[] = 'riesgomental';
 	}
-	// RQC: 5 a 15 años
 	if ($edad >= 5 && $edad <= 15) {
 		$tamiz[] = 'tamrqc';
-		$tamiz[] = 'riesgomental';
 	}
-	// Carlos Crafft: 12 a 15 años
 	if ($edad >= 12 && $edad <= 15) {
 		$tamiz[] = 'tamcarlos';
-		$tamiz[] = 'riesgomental';
 	}
-	// Valoración del Riesgo: 12 a 17 años
 	if ($edad >= 12 && $edad <= 17) {
 		$tamiz[] = 'tamvalories';
-		$tamiz[] = 'riesgomental';
 	}
-	// Assist y Riesgo Mental: 16 a 17 años
 	if ($edad >= 16 && $edad <= 17) {
 		$tamiz[] = 'tamassist';
 	}
-	// SRQ: 16 años en adelante
 	if ($edad >= 16) {
 		$tamiz[] = 'tamsrq';
-		$tamiz[] = 'riesgomental';
 	}
-	// COPE: 10 años en adelante
 	if ($edad >= 10) {
 		$tamiz[] = 'tamcope';
 	}
-	// Findrisc y OMS: 18 años en adelante
 	if ($edad >= 18) {
 		$tamiz[] = 'tamfindrisc';
 		$tamiz[] = 'tamoms';
 	}
-	// EPOC: 40 años en adelante
 	if ($edad >= 40) {
 		$tamiz[] = 'tamepoc';
 	}
-	if($edad>=60){
+	if ($edad >= 60) {
 		$tamiz[] = 'tamsoledad';
 	}
+	// Evitar duplicados y devolver lista
+	$tamiz = array_values(array_unique($tamiz));
 	return $tamiz;
 }
 
