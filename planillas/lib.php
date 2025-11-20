@@ -25,7 +25,7 @@ function lis_planillas(){
     $total = $info['responseResult'][0]['total'] ?? 0;
     $regxPag = 10;
     $pag = (isset($_POST['pag-planillas'])) ? ($_POST['pag-planillas']-1)* $regxPag : 0;
-    $sql = "SELECT CONCAT_WS('_',P.id_planilla,P.idpeople) ACCIONES, P.id_planilla 'ID', P.idpeople 'Cod Persona', P.cod_fam 'Código Familia', P.tipo 'Tipo', P.evento 'Evento', P.seguimiento 'Seguimiento', P.colaborador 'Colaborador', P.estado_planilla 'Estado', P.carpeta 'Carpeta', P.caja 'Caja', P.caracterizacion 'Caracterizacion', P.fecha_formato 'Fecha Formato', P.fecha_create 'Fecha Creación', P.usu_create 'Creó', P.usu_update 'Modificó', P.fecha_update 'Fecha Modificación' FROM `planillas` P WHERE estado='A' ";
+    $sql = "SELECT CONCAT_WS('_',P.id_planilla,P.idpeople) ACCIONES, P.id_planilla 'ID', P.idpeople 'Cod Persona', P.cod_fam 'Código Familia', P.tipo 'Tipo', P.evento 'Evento', P.seguimiento 'Seguimiento', P.colaborador 'Colaborador', P.estado_planilla 'Estado',P.caracterizacion 'Caracterizacion', P.fecha_formato 'Fecha Formato', P.fecha_create 'Fecha Creación', P.usu_create 'Creó', P.usu_update 'Modificó', P.fecha_update 'Fecha Modificación' FROM `planillas` P WHERE estado='A' ";
     $sql .= whe_planillas();
     $sql .= " ORDER BY P.fecha_create DESC";
     $sql .= ' LIMIT '.$pag.','.$regxPag;
@@ -47,10 +47,6 @@ function whe_planillas() {
         $sql .= " AND P.estado_planilla ='".cleanTx($_POST['festado_planilla'])."' ";
     if (!empty($_POST['fevento']))
         $sql .= " AND P.evento ='".cleanTx($_POST['fevento'])."' ";
-    if (!empty($_POST['fcarpeta']))
-        $sql .= " AND P.carpeta ='".cleanTx($_POST['fcarpeta'])."' ";
-    if (!empty($_POST['fcaja']))
-        $sql .= " AND P.caja ='".cleanTx($_POST['fcaja'])."' ";
     return $sql;
 }
 
@@ -82,7 +78,7 @@ function cmp_planillas(){
 	$o='infplan';
     $edit = (empty($id[0])) ? true : (isset($_POST['edit']) && $_POST['edit']=='true');
     $d = get_planilla();
-    $t=['tipo'=>'','evento'=>'','seguimiento'=>'','idpersona'=>'','tipo_doc'=>'','nombre_completo'=>'','perfil'=>'','colaborador'=>'','estado_planilla'=>'','carpeta'=>'','caja'=>'','fecha_formato'=>''];
+    $t=['tipo'=>'','evento'=>'','seguimiento'=>'','idpersona'=>'','tipo_doc'=>'','nombre_completo'=>'','perfil'=>'','colaborador'=>'','estado_planilla'=>'','fecha_formato'=>''];
     if ($d==""){$d=$t;}
     $key='pEr';
     $days=fechas_app('vivienda');
@@ -102,8 +98,6 @@ function cmp_planillas(){
     $c[]= new cmp('perfil','s',3,'',$w.' '.$o,'Perfil','perfil',null,'',true,true,'','col-15',"changeSelect('perfil','colaborador');");//  ,"enabDepeValu('perfil','uSR');
     $c[]= new cmp('colaborador','s',20,$d['colaborador'] ,$w.' uSR '.$o, 'Colaborador','colaborador','','',false,true,'','col-35',"cargarResumenFamiliar();cargarResumenIndivi();cargarResumenPcf();");//  ,"enabDepeValu('perfil','uSR');
     $c[]= new cmp('estado_planilla','s',3,$d['estado_planilla'] ,$w.' '.$o, 'Estado Planilla', 'estado_planilla','','',true,true,'','col-2');
-    $c[]= new cmp('carpeta','nu',50,$d['carpeta'] ,$w.' '.$o, 'Carpeta','','','',true,true,'','col-15');
-    $c[]= new cmp('caja','nu',50,$d['caja'] ,$w.' '.$o, 'Caja','','','',true,true,'','col-15');
     foreach ($c as $cmp) $rta .= $cmp->put();
     $rta .= "<div class='padre' style='display: flex; width: 100%; gap: 10px;'>
         <div id='valida-pcf' style='min-width: 0;'></div>
@@ -396,7 +390,7 @@ WHERE C2.idfam = $codfam AND C2.usu_create = $id[3] LIMIT 1;";
     $id = divide($_POST['id_planilla']);
     $isNew = empty($id[0]);
     if ($isNew) {
-        $sql = "INSERT INTO planillas (idpeople,cod_fam,tipo,evento,seguimiento,fecha_formato,colaborador,estado_planilla,carpeta,caja,caracterizacion,pcf,comp,apgar,usu_create,fecha_create,estado) 
+        $sql = "INSERT INTO planillas (idpeople,cod_fam,tipo,evento,seguimiento,fecha_formato,colaborador,estado_planilla,caracterizacion,pcf,comp,apgar,usu_create,fecha_create,estado) 
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? DATE_SUB(NOW(),INTERVAL 5 HOUR), 'A')";
         
         $params = [
@@ -408,8 +402,6 @@ WHERE C2.idfam = $codfam AND C2.usu_create = $id[3] LIMIT 1;";
             ['type' => 's', 'value' => $_POST['fecha_formato']],
             ['type' => 'i', 'value' => $_POST['colaborador']],
             ['type' => 'i', 'value' => $_POST['estado_planilla']],
-            ['type' => 's', 'value' => $_POST['carpeta']],
-            ['type' => 's', 'value' => $_POST['caja']],
             ['type' => 's', 'value' => $_POST['caracterizacion']],
             ['type' => 's', 'value' => $_POST['pcf']],
             ['type' => 's', 'value' => $_POST['comp']],
@@ -417,7 +409,7 @@ WHERE C2.idfam = $codfam AND C2.usu_create = $id[3] LIMIT 1;";
             ['type' => 's', 'value' => $_SESSION['us_sds']],
         ];
     } else {
-        $sql = "UPDATE planillas SET idpeople=?, cod_fam=?, tipo=?, evento=?, seguimiento=?, colaborador=?, estado_planilla=?, carpeta=?, caja=?, caracterizacion=?, fecha_formato=?, usu_update=?, fecha_update=NOW() WHERE id_planilla=?";
+        $sql = "UPDATE planillas SET idpeople=?, cod_fam=?, tipo=?, evento=?, seguimiento=?, colaborador=?, estado_planilla=?,caracterizacion=?, fecha_formato=?, usu_update=?, fecha_update=NOW() WHERE id_planilla=?";
         $params = [
             ['type' => 'i', 'value' => $_POST['idpeople']],
             ['type' => 'i', 'value' => $_POST['cod_fam']],
@@ -426,8 +418,6 @@ WHERE C2.idfam = $codfam AND C2.usu_create = $id[3] LIMIT 1;";
             ['type' => 's', 'value' => $_POST['seguimiento']],
             ['type' => 'i', 'value' => $_POST['colaborador']],
             ['type' => 's', 'value' => $_POST['estado_planilla']],
-            ['type' => 's', 'value' => $_POST['carpeta']],
-            ['type' => 's', 'value' => $_POST['caja']],
             ['type' => 's', 'value' => $_POST['caracterizacion']],
             ['type' => 's', 'value' => $_POST['fecha_formato']],
             ['type' => 's', 'value' => $_SESSION['us_sds']],
