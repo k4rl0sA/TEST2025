@@ -837,10 +837,12 @@ function get_Tamiz($fec) {
 	// Carlos Crafft: 12 a 15 años
 	if ($edad >= 12 && $edad <= 15) {
 		$tamiz[] = 'tamcarlos';
+		$tamiz[] = 'riesgomental';
 	}
 	// Valoración del Riesgo: 12 a 17 años
 	if ($edad >= 12 && $edad <= 17) {
 		$tamiz[] = 'tamvalories';
+		$tamiz[] = 'riesgomental';
 	}
 	// Assist y Riesgo Mental: 16 a 17 años
 	if ($edad >= 16 && $edad <= 17) {
@@ -849,6 +851,7 @@ function get_Tamiz($fec) {
 	// SRQ: 16 años en adelante
 	if ($edad >= 16) {
 		$tamiz[] = 'tamsrq';
+		$tamiz[] = 'riesgomental';
 	}
 	// COPE: 10 años en adelante
 	if ($edad >= 10) {
