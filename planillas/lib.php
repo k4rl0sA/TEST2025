@@ -367,60 +367,68 @@ function opc_tipo_doc($id=''){
 }
 // Grabar/actualizar planilla
 function gra_planillas(){
+    // Primero obtenemos el id de la planilla si existe
+    $id = divide($_POST['id_planilla'] ?? '');
+    
     $sql1="SELECT idpeople,vivipersona
 		FROM `person` 
    	WHERE idpersona ='".$_POST['idpersona']."' AND tipo_doc='".$_POST['tipo_doc']."' AND estado='A'";
-    var_dump($sql1);
+    // var_dump($sql1);
 	$info=datos_mysql($sql1);
     if ($info['responseResult']) {
         $codfam=$info['responseResult'][0]['vivipersona'];
         $idpeople=$info['responseResult'][0]['idpeople'];
+    } else {
+        return json_encode(['error' => 'No se encontró la persona con los datos proporcionados']);
     }
-
-    $sql2 = "SELECT CASE WHEN EXISTS (SELECT 1 FROM hog_carac C WHERE C.idfam = $codfam AND C.fecha = '$id[2]' AND C.usu_create = $id[3]) THEN 0 ELSE 1 END AS Estado,
+    
+    // Obtenemos el colaborador y fecha para la validación
+    $colaborador = $_POST['colaborador'] ?? null;
+    $fecha_formato = $_POST['fecha_formato'] ?? null;
+    
+    $sql2 = "SELECT CASE WHEN EXISTS (SELECT 1 FROM hog_carac C WHERE C.idfam = '$codfam' AND C.fecha = '$fecha_formato' AND C.usu_create = '$colaborador') THEN 0 ELSE 1 END AS Estado,
       C2.id_viv,C2.fecha AS fecha_ultima
 FROM hog_carac C2
-JOIN (SELECT MAX(fecha) AS max_fecha FROM hog_carac WHERE idfam = $codfam AND usu_create = $id[3]AND fecha >= (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') ELSE DATE_FORMAT(CURDATE(), '%Y-%m-01') END) AND fecha < (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(CURDATE(), '%Y-%m-01') ELSE DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') END) F ON C2.fecha = F.max_fecha
-WHERE C2.idfam = $codfam AND C2.usu_create = $id[3] LIMIT 1;";
+JOIN (SELECT MAX(fecha) AS max_fecha FROM hog_carac WHERE idfam = '$codfam' AND usu_create = '$colaborador' AND fecha >= (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') ELSE DATE_FORMAT(CURDATE(), '%Y-%m-01') END) AND fecha < (CASE WHEN DAY(CURDATE()) <= 5 THEN DATE_FORMAT(CURDATE(), '%Y-%m-01') ELSE DATE_FORMAT(DATE_ADD(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01') END)) F ON C2.fecha = F.max_fecha
+WHERE C2.idfam = '$codfam' AND C2.usu_create = '$colaborador' LIMIT 1;";
     $info=datos_mysql($sql2);
     if ($info['responseResult']) {
-        $idcara=$info['responseResult'][0]['id_viv'];
-        $estado_carac=$info['responseResult'][0]['Estado'];
+        $idcara=$info['responseResult'][0]['id_viv'] ?? null;
+        $estado_carac=$info['responseResult'][0]['Estado'] ?? null;
    }
      
-    $id = divide($_POST['id_planilla']);
     $isNew = empty($id[0]);
     if ($isNew) {
         $sql = "INSERT INTO planillas (idpeople,cod_fam,tipo,evento,seguimiento,fecha_formato,colaborador,estado_planilla,caracterizacion,pcf,comp,apgar,usu_create,fecha_create,estado) 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? DATE_SUB(NOW(),INTERVAL 5 HOUR), 'A')";
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),'A')";
         
         $params = [
             ['type' => 'i', 'value' => $idpeople],
             ['type' => 'i', 'value' => $codfam],
-            ['type' => 'i', 'value' => $_POST['tipo']],
-            ['type' => 'i', 'value' => $_POST['evento']],
-            ['type' => 'i', 'value' => $_POST['seguimiento']],
-            ['type' => 's', 'value' => $_POST['fecha_formato']],
-            ['type' => 'i', 'value' => $_POST['colaborador']],
-            ['type' => 'i', 'value' => $_POST['estado_planilla']],
-            ['type' => 's', 'value' => $_POST['caracterizacion']],
-            ['type' => 's', 'value' => $_POST['pcf']],
-            ['type' => 's', 'value' => $_POST['comp']],
-            ['type' => 's', 'value' => $_POST['apgar']],
+            ['type' => 'i', 'value' => $_POST['tipo'] ?? null],
+            ['type' => 'i', 'value' => $_POST['evento'] ?? null],
+            ['type' => 'i', 'value' => $_POST['seguimiento'] ?? null],
+            ['type' => 's', 'value' => $fecha_formato],
+            ['type' => 'i', 'value' => $colaborador],
+            ['type' => 's', 'value' => $_POST['estado_planilla'] ?? 'P'],
+            ['type' => 's', 'value' => $_POST['caracterizacion'] ?? null],
+            ['type' => 's', 'value' => $_POST['pcf'] ?? null],
+            ['type' => 's', 'value' => $_POST['comp'] ?? null],
+            ['type' => 's', 'value' => $_POST['apgar'] ?? null],
             ['type' => 's', 'value' => $_SESSION['us_sds']],
         ];
     } else {
         $sql = "UPDATE planillas SET idpeople=?, cod_fam=?, tipo=?, evento=?, seguimiento=?, colaborador=?, estado_planilla=?,caracterizacion=?, fecha_formato=?, usu_update=?, fecha_update=NOW() WHERE id_planilla=?";
         $params = [
-            ['type' => 'i', 'value' => $_POST['idpeople']],
-            ['type' => 'i', 'value' => $_POST['cod_fam']],
-            ['type' => 's', 'value' => $_POST['tipo']],
-            ['type' => 's', 'value' => $_POST['evento']],
-            ['type' => 's', 'value' => $_POST['seguimiento']],
-            ['type' => 'i', 'value' => $_POST['colaborador']],
-            ['type' => 's', 'value' => $_POST['estado_planilla']],
-            ['type' => 's', 'value' => $_POST['caracterizacion']],
-            ['type' => 's', 'value' => $_POST['fecha_formato']],
+            ['type' => 'i', 'value' => $idpeople],
+            ['type' => 'i', 'value' => $codfam],
+            ['type' => 's', 'value' => $_POST['tipo'] ?? null],
+            ['type' => 's', 'value' => $_POST['evento'] ?? null],
+            ['type' => 's', 'value' => $_POST['seguimiento'] ?? null],
+            ['type' => 'i', 'value' => $colaborador],
+            ['type' => 's', 'value' => $_POST['estado_planilla'] ?? 'P'],
+            ['type' => 's', 'value' => $_POST['caracterizacion'] ?? null],
+            ['type' => 's', 'value' => $fecha_formato],
             ['type' => 's', 'value' => $_SESSION['us_sds']],
             ['type' => 'i', 'value' => $id[0]],
         ];
