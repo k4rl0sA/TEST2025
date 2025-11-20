@@ -454,7 +454,7 @@ function formato_dato($a,$b,$c,$d){
 // var_dump($rta);
 	if ($a=='planillas' && $b=='acciones'){
 		$rta="<nav class='menu right'>";
-        $rta.="<li title='Editar'><i class='fa-regular fa-edit ico' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getData,500,'planillas',event,this,['tipo','evento','seguimiento','idpersona','tipo_doc','fecha_formato','colaborador','estado_planilla'],'lib.php');f(1,'planillas');\"></i></li>";  
+        $rta.="<li title='Editar'><i class='fa-regular fa-edit ico' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getData,500,'planillas',event,this,['tipo','evento','seguimiento','idpersona','tipo_doc','fecha_formato','colaborador','estado_planilla'],'lib.php');\"></i></li>";  
 		$rta.="</nav>";
 	}
  return $rta;
