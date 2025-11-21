@@ -79,7 +79,7 @@ function cmp_laboratorios(){
     $c[]=new cmp('edad','t',30,$edad,$w.' '.$o,'edad en Años','edad',null,'',false,false,'','col-3');
     $o='laboratorio';
     $c[]=new cmp($o,'e',null,'LABORATORIOS',$w);
-    $c[]=new cmp('cod_admision','s',2,$e,$w.' '.$o,'Cod. Admisión','cod_admision',null,'',true,true,'','col-4');
+    $c[]=new cmp('cod_admision','s',2,$e,$w.' '.$o,'Atencion - Cod. Admisión','cod_admision',null,'',true,true,'','col-4');
     $c[]=new cmp('tipo_lab','s',3,$e,$w.' '.$o,'Tipo Laboratorio','tipo_lab',null,'',true,true,'','col-2',"enabOthLaborat();");
     $c[]=new cmp('otro_lab','t',255,$e,$w.' oTH '.$o,'Otro Laboratorio, ¿Cuál?','otro_lab',null,'',false,false,'','col-4');
     $c[]=new cmp('fecha_orden','d',10,$e,$w.' '.$o,'Fecha de orden','fecha_orden',null,'',true,true,'','col-2',"validDate(this,-30,0);");
@@ -223,7 +223,9 @@ function opc_gest_cump($id=''){
 }
 function opc_cod_admision($id=''){
 	$cod=divide($_REQUEST['id']);
-  return opc_sql("SELECT a.id_aten,CONCAT_WS(' - ',f.cod_admin,FN_CATALOGODESC(127,f.final_consul)) AS descripcion FROM eac_atencion a LEFT JOIN adm_facturacion f ON a.id_factura=f.id_factura WHERE a.idpeople='{$cod[0]}' AND a.laboratorios=1", $id);
+  $sql1="SELECT a.id_aten,CONCAT_WS(' - ',f.cod_admin,FN_CATALOGODESC(127,f.final_consul)) AS descripcion FROM eac_atencion a LEFT JOIN adm_facturacion f ON a.id_factura=f.id_factura WHERE a.idpeople='{$cod[0]}' AND a.laboratorios=1";
+  var_dump($sql1);
+  return opc_sql($sql1, $id);
 }
 
 
