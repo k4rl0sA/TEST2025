@@ -444,7 +444,7 @@ WHERE C2.idfam = '$codfam' AND C2.usu_create = '$colaborador' LIMIT 1;";
         ];
         return mysql_prepd($sql, $params);
     } else {
-        return "La edición de planillas no está permitida.";
+        return "msj['Error:La edición de planillas no está permitida.']";
       /*   $sql = "UPDATE planillas SET idpeople=?, cod_fam=?, tipo=?, evento=?, seguimiento=?, colaborador=?, estado_planilla=?, caracterizacion=?, fecha_formato=?, usu_update=?, fecha_update=DATE_SUB(NOW(),INTERVAL 5 HOUR) WHERE id_planilla=?";
         $params = [
             ['type' => 'i', 'value' => $idpeople],
