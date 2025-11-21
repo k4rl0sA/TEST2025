@@ -443,7 +443,7 @@ WHERE C2.idfam = '$codfam' AND C2.usu_create = '$colaborador' LIMIT 1;";
             ['type' => 's', 'value' => $_SESSION['us_sds']],
         ];
     } else {
-        $sql = "UPDATE planillas SET idpeople=?, cod_fam=?, tipo=?, evento=?, seguimiento=?, colaborador=?, estado_planilla=?, caracterizacion=?, fecha_formato=?, usu_update=?, fecha_update=DATE_SUB(NOW(),INTERVAL 5 HOUR) WHERE id_planilla=?";
+      /*   $sql = "UPDATE planillas SET idpeople=?, cod_fam=?, tipo=?, evento=?, seguimiento=?, colaborador=?, estado_planilla=?, caracterizacion=?, fecha_formato=?, usu_update=?, fecha_update=DATE_SUB(NOW(),INTERVAL 5 HOUR) WHERE id_planilla=?";
         $params = [
             ['type' => 'i', 'value' => $idpeople],
             ['type' => 'i', 'value' => $codfam],
@@ -456,7 +456,7 @@ WHERE C2.idfam = '$codfam' AND C2.usu_create = '$colaborador' LIMIT 1;";
             ['type' => 's', 'value' => $fecha_formato],
             ['type' => 's', 'value' => $_SESSION['us_sds']],
             ['type' => 'i', 'value' => $id[0]],
-        ];
+        ]; */
     }
     return mysql_prepd($sql, $params);
 }
@@ -469,7 +469,7 @@ function formato_dato($a,$b,$c,$d){
 // var_dump($rta);
 	if ($a=='planillas' && $b=='acciones'){
 		$rta="<nav class='menu right'>";
-        $rta.="<li title='Editar'><i class='fas fa-eye ico' id='".$c['ACCIONES']."' Onclick=\"mostrar('planillas','pro',event,'','lib.php',7).then(()=>getData('planillas',event,this,['evento'],'lib.php'));\"></i></li>";  
+        $rta.="<li title='Editar'><i class='fas fa-eye ico' id='".$c['ACCIONES']."' Onclick=\"mostrar('planillas','pro',event,'','lib.php',7).then(()=>getData('planillas',event,this,['tipo','evento'],'lib.php'));\"></i></li>";  
 		$rta.="</nav>";
 	}
  return $rta;
