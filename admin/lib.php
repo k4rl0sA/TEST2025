@@ -1572,7 +1572,7 @@ LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario WHERE 1 ";
 function lis_usercreate($txt){
 	$sql="SELECT 
 G.subred AS Subred,F.idpre AS Cod_Predio, G.territorio AS 'Cod Territorio', FN_CATALOGODESC(283,G.territorio) AS 'Nombre Territorio', F.id_fam AS Cod_Familia,P.idpeople AS Cod_Persona, TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, CURDATE()) AS Edad_Actual, FN_CATALOGODESC(21,P.sexo) AS Sexo, FN_CATALOGODESC(19,P.genero) AS Genero, FN_CATALOGODESC(49,P.oriensexual) AS Orientacion_Sexual, FN_CATALOGODESC(30,P.nacionalidad) AS Nacionalidad, FN_CATALOGODESC(16,P.etnia) AS Etnia, FN_CATALOGODESC(15,P.pueblo) AS Pueblo_Indigena, FN_CATALOGODESC(178,P.pobladifer) AS Poblacion_Diferencial, FN_CATALOGODESC(14,P.discapacidad) AS Tipo_Discapacidad, FN_CATALOGODESC(175,P.ocupacion) AS Ocupacion, FN_CATALOGODESC(17,P.regimen) AS Regimen,FN_CATALOGODESC(18,P.eapb) AS Eapb,
-P.usu_creo AS Usuario_Creo, U.nombre AS Nombre_Creo, U.perfil AS Perfil_Creo, U.equipo AS Equipo_Creo, P.fecha_create AS Fecha_Creacion,FN_CATALOGODESC(170,P.encuentra) Se_Encuentra
+P.usu_creo AS Usuario_Creo, U.nombre AS Nombre_Creo, U.perfil AS Perfil_Creo, U.equipo AS Equipo_Creo, P.fecha_create AS Fecha_Creacion,FN_CATALOGODESC(170,P.encuentra) Se_Encuentra,P.telefono1 AS Telefono1,P.telefono2 AS Telefono2
 FROM `person` P
 LEFT JOIN hog_fam F ON P.vivipersona=F.id_fam
 LEFT JOIN hog_geo G ON F.idpre=G.idgeo
