@@ -142,15 +142,15 @@ function opc_evento($id=''){
     }elseif($d['anos']>9 && $d['anos']<18){
       // echo "✓ CONDICIÓN 6: Mujer entre 10-17 años";
       // echo "Valores permitidos: 0,5,2,3,4,6,9</div>";
-      return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,3,4,6,9) and estado='A' ORDER BY 2",$id); 
+      return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,3,4,6,9,11,12) and estado='A' ORDER BY 2",$id); 
     }elseif($d['anos']>5 && $d['anos']<10){
       // echo "✓ CONDICIÓN 7: Mujer entre 6-9 años";
       // echo "Valores permitidos: 0,5,2,3</div>";
-      return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,3) and estado='A' ORDER BY 2",$id); 
+      return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,3,11,12) and estado='A' ORDER BY 2",$id); 
     }elseif($d['anos']<6){
       // echo "✓ CONDICIÓN 8: Mujer menor de 6 años (0-5)";
       // echo "Valores permitidos: 0,5,1,2,3</div>";
-      return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,1,2,3) and estado='A' ORDER BY 2",$id);
+      return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,1,2,3,11) and estado='A' ORDER BY 2",$id);
     }
   // HOMBRES - ORDEN DE MAYOR A MENOR EDAD
   }else{
@@ -169,7 +169,7 @@ function opc_evento($id=''){
     }elseif($d['anos']>5 && $d['anos']<18){
       // echo "✓ CONDICIÓN 12: Hombre entre 6-17 años";
       // echo "Valores permitidos: 0,5,2,3</div>";
-      return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,3) and estado='A' ORDER BY 2",$id); 
+      return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,3,12) and estado='A' ORDER BY 2",$id); 
     }elseif($d['anos']<6){
       // echo "✓ CONDICIÓN 13: Hombre menor de 6 años (0-5)";
       // echo "Valores permitidos: 0,5,1,2,3</div>";
