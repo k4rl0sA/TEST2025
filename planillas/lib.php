@@ -442,7 +442,9 @@ WHERE C2.idfam = '$codfam' AND C2.usu_create = '$colaborador' LIMIT 1;";
             ['type' => 's', 'value' => $_POST['apgar'] ?? null],
             ['type' => 's', 'value' => $_SESSION['us_sds']],
         ];
+        return mysql_prepd($sql, $params);
     } else {
+        return "La edición de planillas no está permitida.";
       /*   $sql = "UPDATE planillas SET idpeople=?, cod_fam=?, tipo=?, evento=?, seguimiento=?, colaborador=?, estado_planilla=?, caracterizacion=?, fecha_formato=?, usu_update=?, fecha_update=DATE_SUB(NOW(),INTERVAL 5 HOUR) WHERE id_planilla=?";
         $params = [
             ['type' => 'i', 'value' => $idpeople],
@@ -458,7 +460,7 @@ WHERE C2.idfam = '$codfam' AND C2.usu_create = '$colaborador' LIMIT 1;";
             ['type' => 'i', 'value' => $id[0]],
         ]; */
     }
-    return mysql_prepd($sql, $params);
+    
 }
 
 function formato_dato($a,$b,$c,$d){
