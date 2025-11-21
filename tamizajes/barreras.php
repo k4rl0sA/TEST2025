@@ -57,7 +57,7 @@ function cmp_barreras(){
     $c[]=new cmp($o,'e',null,'Barreras Físicas',$w);
     $c[]=new cmp('fis_limitacion_movilidad','s','3','',$w.' '.$o,'Tiene alguna limitación Física para movilizarse?','rta',null,null,true,true,'','col-10',"enabOthSi('fis_limitacion_movilidad','DEv');");
     $c[]=new cmp('fis_usa_dispositivo_asistencia','s','3','',$w.' DEv '.$o,'Utiliza algún dispositivo de asistencia para la movilidad?','rta',null,null,true,false,'','col-10',"enabOthSi('fis_usa_dispositivo_asistencia','WhA');");
-    $c[]=new cmp('fis_dispositivo_asistencia_cual','s','3','',$w.' WhA '.$o,'Cual','fis_dispositivo_asistencia_cual',null,null,true,false,'','col-10');
+    $c[]=new cmp('fis_dispositivo_asistencia_cual','s','3','',$w.' WhA '.$o,'Cual','fis_dispositivo_asistencia_cual',null,null,false,false,'','col-10');
 
     $o='economicas';
     $c[]=new cmp($o,'e',null,'Barreras Económicas',$w);
