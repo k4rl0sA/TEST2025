@@ -223,9 +223,7 @@ function opc_gest_cump($id=''){
 }
 function opc_cod_admision($id=''){
 	$cod=divide($_REQUEST['id']);
-  $sql1="SELECT a.id_aten,CONCAT_WS(' - ',f.cod_admin,FN_CATALOGODESC(127,f.final_consul)) AS descripcion FROM eac_atencion a LEFT JOIN adm_facturacion f ON a.id_factura=f.id_factura WHERE a.idpeople='{$cod[0]}' AND a.laboratorios=1";
-  var_dump($sql1);
-  return opc_sql($sql1, $id);
+  return opc_sql("SELECT a.id_aten,CONCAT_WS(' - ',f.cod_admin,FN_CATALOGODESC(127,f.final_consul)) AS descripcion FROM eac_atencion a LEFT JOIN adm_facturacion f ON a.id_factura=f.id_factura WHERE a.idpeople='{$cod[0]}' AND a.laboratorios='SI'", $id);
 }
 
 
