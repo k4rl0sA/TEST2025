@@ -256,7 +256,7 @@ param_null($_POST['abortos'] ?? '', 's'), // abortos
 param_null($_POST['cesareas'] ?? '', 's'), // cesareas
 param_null($_POST['vivos'] ?? '', 's'), // vivos
 param_null($_POST['muertos'] ?? '', 's'), // muertos
-param_null($_POST['fum'] ?? '', 's'), // fum
+param_null($_POST['fum'] ?? NULL, 's'), // fechaultimamenstruacion
 param_null($_POST['edad_gest'] ?? '', 's'), // edad_gest
 param_null($_POST['resul_gest'] ?? '', 's'), // resul_gest
 param_null($_POST['peso_nacer'] ?? '', 's'), // peso_nacer
