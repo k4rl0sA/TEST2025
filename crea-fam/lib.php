@@ -801,7 +801,7 @@ function eventAsign($key) {
 	  36 => ['icono' => 'cancer', 'titulo' => 'CANCER DE PIEL', 'modulo' => 'cancinfa'],
 	  37 => ['icono' => 'cancer', 'titulo' => 'CANCER DE ESTOMAGO', 'modulo' => 'cancinfa'],
 	  38 => ['icono' => 'femin1', 'titulo' => 'ESTRATEGIA (107) | VBG | ENF','modulo' => 'feminicidio'],
-	  39 => ['icono' => 'soledad', 'titulo' => 'MAS COMPAÑIA MAS BIENESTAR', 'modulo' => 'soledad'],
+	  39 => ['icono' => 'soled1', 'titulo' => 'MAS COMPAÑIA MAS BIENESTAR', 'modulo' => 'soledad'],
 	  40 => ['icono' => 'femin1', 'titulo' => 'ESTRATEGIA (107) | VBG | PSI', 'modulo' => 'feminicidio1'],
 	  41 => ['icono' => 'discap', 'titulo' => 'RBC - REL', 'modulo' => 'discapacidad1']
     );
