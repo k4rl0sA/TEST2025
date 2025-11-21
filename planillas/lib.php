@@ -469,7 +469,7 @@ function formato_dato($a,$b,$c,$d){
 // var_dump($rta);
 	if ($a=='planillas' && $b=='acciones'){
 		$rta="<nav class='menu right'>";
-        $rta.="<li title='Editar'><i class='fa-regular fa-edit ico' id='".$c['ACCIONES']."' Onclick=\"mostrar('planillas','pro',event,'','lib.php',7).then(()=>getData('planillas',event,this,[],'lib.php'));\"></i></li>";  
+        $rta.="<li title='Editar'><i class='fa-regular fa-edit ico' id='".$c['ACCIONES']."' Onclick=\"mostrar('planillas','pro',event,'','lib.php',7).then(()=>getData('planillas',event,this,[],'lib.php')).then(()=>typeSheet());\"></i></li>";  
 		$rta.="</nav>";
 	}
  return $rta;
