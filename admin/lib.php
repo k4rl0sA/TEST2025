@@ -521,6 +521,11 @@ function lis_planos() {
 			$encr = encript($tab, $clave);
 			if($tab=decript($encr,$clave))lis_colaboradores($tab);
             break;
+		case '72':
+			$tab = "Tamizaje Psicosocial SDS";
+			$encr = encript($tab, $clave);
+			if($tab=decript($encr,$clave))lis_tam_riesgomental($tab);
+			break;
 		default:
         break;    
     }
