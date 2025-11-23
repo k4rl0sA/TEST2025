@@ -526,6 +526,27 @@ function lis_planos() {
     }
 }
 
+function lis_tam_riesgomental($txt){
+$sql="SELECT G.idgeo AS Cod_Predio,F.id_fam AS Cod_Familia,R.id_riesmental AS Cod_Registro,G.subred AS Subred,FN_CATALOGODESC(3, G.zona) AS Zona,G.localidad AS Localidad,G.territorio AS 'Cod Territorio',FN_CATALOGODESC(283, G.territorio) AS 'Nombre Territorio',P.idpeople AS Cod_Usuario,P.tipo_doc AS Tipo_Documento,P.idpersona AS N°_Documento,CONCAT(P.nombre1, ' ', P.nombre2) AS Nombres_Usuario,CONCAT(P.apellido1, ' ', P.apellido2) AS Apellidos_Usuario,P.fecha_nacimiento AS Fecha_Nacimiento,FN_CATALOGODESC(21, P.sexo) AS Sexo,R.fecha_toma AS Fecha_Toma,FN_CATALOGODESC(170,R.exprsent) AS '¿Le cuesta expresar sus sentimientos, opiniones a los demás?', FN_CATALOGODESC(170,R.optideci) AS '¿Frecuentemente se siente poco optimista / toma decisiones apresuradas?',FN_CATALOGODESC(170,R.trisirri) AS '¿Se siente triste o irritado frecuentemente? ¿Llanto incontrolado? ¿Rabia permanente?',FN_CATALOGODESC(170,R.nervans) AS '¿Se ha sentido nervioso, ansioso? ¿Ha perdido disfrutar la vida como antes?',FN_CATALOGODESC(170,R.perdsep) AS '¿Afectado por pérdida o separación de persona significativa?',FN_CATALOGODESC(170,R.famsuic) AS '¿En su familia hubo intento de suicidio o suicidio consumado?',FN_CATALOGODESC(170,R.ideasui) AS '¿Ha tenido idea de acabar con su vida o intentos de suicidio?',FN_CATALOGODESC(170,R.diagmen) AS '¿Diagnóstico de enfermedad mental? (Ansiedad, depresión, bipolar, etc)',FN_CATALOGODESC(170,R.antefam) AS '¿Antecedentes familiares de trastornos/enfermedad mental?',FN_CATALOGODESC(170,R.probdom) AS '¿No duerme bien o le cuesta conciliar el sueño?',FN_CATALOGODESC(170,R.apoyfam) AS '¿Su familia/amigos son apoyo cuando tiene problemas?',FN_CATALOGODESC(170,R.exptrau) AS '¿Afectado por experiencias traumáticas (violencia, accidentes, desastres)?',FN_CATALOGODESC(170,R.estrtrab) AS '¿Su trabajo le causa estrés? (cansancio, desmotivación, desesperanza)',FN_CATALOGODESC(170,R.desemple) AS '¿Está desempleado o le preocupa perder su trabajo?',FN_CATALOGODESC(170,R.probsust) AS '¿El consumo de sustancias le ha generado problemas?',FN_CATALOGODESC(170,R.concent) AS '¿Dificultad para concentrarse en actividades diarias?',FN_CATALOGODESC(170,R.acoso) AS '¿Es o ha sido víctima de acoso escolar o laboral?',FN_CATALOGODESC(170,R.somat) AS '¿Sufre de mala digestión, dolores de cabeza o tensiones musculares?',FN_CATALOGODESC(170,R.enfcron) AS '¿Tiene alguna enfermedad crónica, dolorosa o incapacitante?',FN_CATALOGODESC(170,R.discrim) AS '¿Se ha sentido discriminado por pertenecer a grupos específicos?',FN_CATALOGODESC(170,R.actrecre) AS '¿Realiza actividad recreativa, deportiva o lúdica habitual?',FN_CATALOGODESC(170,R.medprot) AS '¿Algún familiar ha tenido medida de protección?',FN_CATALOGODESC(170,R.cambhorm) AS '¿Pasa por cambios hormonales o de rol/ciclo vital?',FN_CATALOGODESC(170,R.ocupsalud) AS '¿Trabaja en salud, fuerzas militares, policía, docencia o transporte?',FN_CATALOGODESC(170,R.gestante) AS '¿Es gestante con consumo de sustancias, eventos estresantes o violencia?',R.puntaje,R.descripcion,R.usu_creo AS Usuario_Creo,U.nombre AS Nombre_Creo,U.perfil AS Perfil_Creo,U.equipo AS Equipo_Creo,R.fecha_create AS Fecha_Creacion,R.estado AS Estado_Registro
+	FROM `tam_ries_mental` R
+	LEFT JOIN person P ON R.idpeople = P.idpeople
+	LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
+	LEFT JOIN hog_geo G ON F.idpre = G.idgeo
+	LEFT JOIN usuarios U ON R.usu_creo = U.id_usuario
+	WHERE 1 ";
+	if (perfilUsu()!=='ADM')	$sql.=whe_subred();
+	$sql.=whe_date();
+	
+	$tot="SELECT COUNT(*) total FROM `tam_ries_mental` R LEFT JOIN person P ON R.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo LEFT JOIN usuarios U ON R.usu_creo = U.id_usuario WHERE 1 ";
+	if (perfilUsu()!=='ADM')	$tot.=whe_subred();
+	$tot.=whe_date();
+	// echo $sql;
+	$_SESSION['sql_'.$txt]=$sql;
+	$_SESSION['tot_'.$txt]=$tot;
+	$rta = array('type' => 'OK','file'=>$txt);
+	echo json_encode($rta);
+}
+
 function lis_colaboradores($txt){
 	$sql="SELECT U.id_usuario AS Documento,U.nombre AS Nombre,U.correo AS Correo,U.perfil AS Perfil,FN_CATALOGODESC(72, U.subred) AS Subred,U.equipo AS Equipo,U.componente AS Componente,CASE WHEN U.ingreso IS NULL THEN 'SIN INGRESO' ELSE DATE_FORMAT(U.ingreso, '%Y-%m-%d %H:%i:%s')END AS Ultimo_Ingreso,FN_CATALOGODESC(11, U.estado) AS Estado
 FROM `usuarios` U
