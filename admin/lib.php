@@ -568,7 +568,7 @@ WHERE 1 ";
 }
 
 function lis_soporte($txt){
-	$sql="SELECT S.idsoporte AS Ticket,S.idpeople AS Cod_Persona,S.documento AS Documento,FN_CATALOGODESC(1, S.tipo_doc) AS Tipo_Documento,FN_CATALOGODESC(21, S.sexo) AS Sexo,S.fecha_nacio AS Fecha_Nacimiento,S.cod_predio AS Cod_Predio,S.cod_familia AS Cod_Familia,S.cod_registro AS Cod_Registro_Cantidad,FN_CATALOGODESC(286, S.formulario) AS Solicitud,S.error AS Error,FN_CATALOGODESC(72, S.ok) AS OK_Subred_Aprueba,FN_CATALOGODESC(201, S.prioridad) AS Prioridad,S.observaciones AS Observaciones,S.aprueba AS Perfil_Aprueba,U.nombre AS Usuario_Creo,U.subred AS Subred,S.fecha_create AS Fecha_Creacion,CASE     WHEN S.usu_update IS NULL THEN 'PENDIENTE'     ELSE COALESCE(U1.nombre, 'USUARIO NO ENCONTRADO')END AS Usuario_Resuelto,CASE     WHEN S.fecha_update IS NULL THEN 'PENDIENTE'     ELSE DATE_FORMAT(S.fecha_update, '%Y-%m-%d %H:%i:%s')END AS Fecha_Respuesta,CASE     WHEN S.estado IS NULL THEN 'PENDIENTE'    WHEN S.estado = 1 THEN 'REALIZADO'    ELSE FN_CATALOGODESC(285, S.estado)END AS Estado
+	$sql="SELECT S.idsoporte AS Ticket,S.idpeople AS Cod_Persona,S.documento AS Documento,FN_CATALOGODESC(1, S.tipo_doc) AS Tipo_Documento,FN_CATALOGODESC(21, S.sexo) AS Sexo,S.fecha_nacio AS Fecha_Nacimiento,S.cod_predio AS Cod_Predio,S.cod_familia AS Cod_Familia,S.cod_registro AS Cod_Registro-Cantidad,FN_CATALOGODESC(286, S.formulario) AS Solicitud,S.error AS Error,FN_CATALOGODESC(72, S.ok) AS OK-Subred_Aprueba,FN_CATALOGODESC(201, S.prioridad) AS Prioridad,S.observaciones AS Observaciones,S.aprueba AS Perfil_Aprueba,U.nombre AS Usuario_Creo,U.subred AS Subred,S.fecha_create AS Fecha_Creacion,CASE     WHEN S.usu_update IS NULL THEN 'PENDIENTE'     ELSE COALESCE(U1.nombre, 'USUARIO NO ENCONTRADO')END AS Usuario_Resuelto,CASE     WHEN S.fecha_update IS NULL THEN 'PENDIENTE'     ELSE DATE_FORMAT(S.fecha_update, '%Y-%m-%d %H:%i:%s')END AS Fecha_Respuesta,CASE     WHEN S.estado IS NULL THEN 'PENDIENTE'    WHEN S.estado = 1 THEN 'REALIZADO'    ELSE FN_CATALOGODESC(285, S.estado)END AS Estado
 FROM `soporte` S
 LEFT JOIN person P ON S.idpeople = P.idpeople
 LEFT JOIN usuarios U ON S.usu_creo = U.id_usuario
@@ -1598,7 +1598,7 @@ LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario WHERE 1 ";
 function lis_usercreate($txt){
 	$sql="SELECT 
 G.subred AS Subred,F.idpre AS Cod_Predio, G.territorio AS 'Cod Territorio', FN_CATALOGODESC(283,G.territorio) AS 'Nombre Territorio', F.id_fam AS Cod_Familia,P.idpeople AS Cod_Persona, TIMESTAMPDIFF(YEAR, P.fecha_nacimiento, CURDATE()) AS Edad_Actual, FN_CATALOGODESC(21,P.sexo) AS Sexo, FN_CATALOGODESC(19,P.genero) AS Genero, FN_CATALOGODESC(49,P.oriensexual) AS Orientacion_Sexual, FN_CATALOGODESC(30,P.nacionalidad) AS Nacionalidad, FN_CATALOGODESC(16,P.etnia) AS Etnia, FN_CATALOGODESC(15,P.pueblo) AS Pueblo_Indigena, FN_CATALOGODESC(178,P.pobladifer) AS Poblacion_Diferencial, FN_CATALOGODESC(14,P.discapacidad) AS Tipo_Discapacidad, FN_CATALOGODESC(175,P.ocupacion) AS Ocupacion, FN_CATALOGODESC(17,P.regimen) AS Regimen,FN_CATALOGODESC(18,P.eapb) AS Eapb,
-P.usu_creo AS Usuario_Creo, U.nombre AS Nombre_Creo, U.perfil AS Perfil_Creo, U.equipo AS Equipo_Creo, P.fecha_create AS Fecha_Creacion,FN_CATALOGODESC(170,P.encuentra) Se_Encuentra,P.telefono1 AS Telefono1,P.telefono2 AS Telefono2
+P.usu_creo AS Usuario_Creo, U.nombre AS Nombre_Creo, U.perfil AS Perfil_Creo, U.equipo AS Equipo_Creo, P.fecha_create AS Fecha_Creacion,FN_CATALOGODESC(170,P.encuentra) Se_Encuentra
 FROM `person` P
 LEFT JOIN hog_fam F ON P.vivipersona=F.id_fam
 LEFT JOIN hog_geo G ON F.idpre=G.idgeo
@@ -3065,6 +3065,15 @@ function whe_date_soporte(){
 	return $sql;
 }
 
+function whe_subred_riesgomental() {
+	$sql= " AND (G.subred) in (SELECT subred FROM usuarios where id_usuario='".$_SESSION['us_sds']."')";
+	return $sql;
+}
+
+function whe_date_riesgomental(){
+	$sql= " AND date(R.fecha_toma) BETWEEN '{$_POST['fechad']}' AND '{$_POST['fechah']}'";
+	return $sql;
+}
 // Funciones específicas para tabla usuarios (colaboradores)
 function whe_subred_colaboradores() {
 	$sql= " AND (U.subred) in (SELECT subred FROM usuarios where id_usuario='".$_SESSION['us_sds']."')";
