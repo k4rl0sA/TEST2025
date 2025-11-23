@@ -539,12 +539,12 @@ $sql="SELECT G.idgeo AS Cod_Predio,F.id_fam AS Cod_Familia,R.id_riesmental AS Co
 	LEFT JOIN hog_geo G ON F.idpre = G.idgeo
 	LEFT JOIN usuarios U ON R.usu_creo = U.id_usuario
 	WHERE 1 ";
-	if (perfilUsu()!=='ADM')	$sql.=whe_subred();
-	$sql.=whe_date();
+	if (perfilUsu()!=='ADM')	$sql.=whe_subred_riesgomental();
+	$sql.=whe_date_riesgomental();
 	
 	$tot="SELECT COUNT(*) total FROM `tam_ries_mental` R LEFT JOIN person P ON R.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo LEFT JOIN usuarios U ON R.usu_creo = U.id_usuario WHERE 1 ";
-	if (perfilUsu()!=='ADM')	$tot.=whe_subred();
-	$tot.=whe_date();
+	if (perfilUsu()!=='ADM')	$tot.=whe_subred_riesgomental();
+	$tot.=whe_date_riesgomental();
 	// echo $sql;
 	$_SESSION['sql_'.$txt]=$sql;
 	$_SESSION['tot_'.$txt]=$tot;
