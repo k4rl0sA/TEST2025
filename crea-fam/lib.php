@@ -904,7 +904,7 @@ function psiSesi2($id) {
 
 function psiSessi($id) {
     $id = divide($id);
-    $sql = "SELECT id_sesion2 FROM psi_sesion2 WHERE id_people='".$id[0]."' AND contin_caso='5'";
+    $sql = "SELECT id_sesion2 FROM psi_sesion2 WHERE id_people='".$id[0]."' AND contin_caso='4'";
     $info = datos_mysql($sql);
 	// var_dump($sql);
 	if(isset($info['responseResult'][0])){
@@ -916,7 +916,7 @@ function psiSessi($id) {
 
 function psiSesFin($id) {
 	  $id = divide($id);
-    $sql = "SELECT id_sesion2 FROM psi_sesion2 WHERE id_people='".$id[0]."' AND contin_caso='4'";
+    $sql = "SELECT id_sesion2 FROM psi_sesion2 WHERE id_people='".$id[0]."' AND contin_caso='5'";
     $info = datos_mysql($sql);
 	// var_dump($sql);
 	if(isset($info['responseResult'][0])){
