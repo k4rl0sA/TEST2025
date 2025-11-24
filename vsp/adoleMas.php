@@ -103,15 +103,15 @@ function cmp_adoleMas(){
   $c[]=new cmp('exam_lab','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$o,'Apropiación de prácticas saludables','rta',null,null,false,$x,'','col-2');
   $c[]=new cmp('esqu_vacuna','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$o,'Involucramiento parental','rta',null,null,false,$x,'','col-2');
   $c[]=new cmp('cons_micronutr','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$o,'Fortalecimiento de autonomía Reproductiva','rta',null,null,false,$x,'','col-2');
-  $c[]=new cmp('cons_micronutr','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$o,'Se identifica avance en el fortalecimiento de habilidades socio emocionales.','rta',null,null,false,$x,'','col-2');
+  $c[]=new cmp('avance_habilidades','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$o,'Se identifica avance en el fortalecimiento de habilidades socio emocionales','rta',null,null,false,$x,'','col-2');
    
     $o='hab';
     $c[]=new cmp($o,'e',null,'ADOLESCENTES ENTRE 12 Y 17 AÑOS, DISFUNCIÓN FAMILIAR Y PREVENCIÓN EN SSR',$w);
-    $c[]=new cmp('asiste_control','s','2',$d,$w.' Rg '.$bl.' '.$pu.' '.$gp.' '.$o,'Educación integral para la sexualidad en el adolescente','rta',null,null,false,$x,'','col-3');
-    $c[]=new cmp('vacuna_comple','s','2',$d,$w.' Rg '.$bl.' '.$pu.' '.$gp.' '.$o,'Dialogo interfamiliar ','rta',null,null,false,$x,'','col-3');
-    $c[]=new cmp('lacmate_exclu','s','2',$d,$w.' Rg '.$bl.' '.$pu.' '.$gp.' '.$o,'Fortalecimiento de autonomía Reproductiva','rta',null,null,false,$x,'','col-2');
-    $c[]=new cmp('lacmate_exclu','s','2',$d,$w.' Rg '.$bl.' '.$pu.' '.$gp.' '.$o,'Seguimiento a acceso a método de planificación familiar ','rta',null,null,false,$x,'','col-2');
-    $c[]=new cmp('lacmate_exclu','s','2',$d,$w.' Rg '.$bl.' '.$pu.' '.$gp.' '.$o,'Se identifican otros riesgos en SM','rta',null,null,false,$x,'','col-2');
+    $c[]=new cmp('educ_sexualidad','s','2',$d,$w.' Rg '.$bl.' '.$pu.' '.$gp.' '.$o,'Educación integral para la sexualidad en el adolescente','rta',null,null,false,$x,'','col-3');
+    $c[]=new cmp('dialogo_familiar','s','2',$d,$w.' Rg '.$bl.' '.$pu.' '.$gp.' '.$o,'Dialogo interfamiliar','rta',null,null,false,$x,'','col-3');
+    $c[]=new cmp('autonomia_reproductiva','s','2',$d,$w.' Rg '.$bl.' '.$pu.' '.$gp.' '.$o,'Fortalecimiento de autonomía Reproductiva','rta',null,null,false,$x,'','col-2');
+    $c[]=new cmp('seguim_planificacion','s','2',$d,$w.' Rg '.$bl.' '.$pu.' '.$gp.' '.$o,'Seguimiento a acceso a método de planificación familiar','rta',null,null,false,$x,'','col-2');
+    $c[]=new cmp('otros_riesgos_sm','s','2',$d,$w.' Rg '.$bl.' '.$pu.' '.$gp.' '.$o,'Se identifican otros riesgos en SM','rta',null,null,false,$x,'','col-2');
     
     
     $o='acc';
@@ -302,28 +302,31 @@ function gra_adoleMas(){
     $smbin = implode(",", str_replace("'", "", $smbina));
   }
 
-  // Orden de los campos según la tabla
+  // Orden de los campos según la tabla vsp_adoleMas
   $campos = [
-    'idpeople', 'fecha_seg', 'numsegui', 'evento', 'estado_s', 'motivo_estado', 'tipo_caso', 'etapa', 'sema_gest',
-    'asis_ctrpre', 'exam_lab', 'esqu_vacuna', 'cons_micronutr', 'fecha_obstetrica', 'edad_gesta', 'resul_gest', 'meto_fecunda', 'cual', 'peso_nacer',
-    'asiste_control', 'vacuna_comple', 'lacmate_exclu', 'persis_morir', 'proce_eapb', 'otra_conduc', 'cual_conduc', 'conduc_otrofam', 'tam_cope',
-    'total_afron', 'total_evita', 'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
-    'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones', 'cierre_caso', 'motivo_cierre',
-    'fecha_cierre', 'aplica_tamiz', 'liker_dificul', 'liker_emocion', 'liker_decision', 'cope_afronta', 'cope_evitacion', 'incremen_afron', 'incremen_evita',
-    'redu_riesgo_cierre', 'users_bina', 'equipo_bina', 'usu_creo', 'usu_update', 'fecha_update','estado'
+    'idpeople', 'fecha_seg', 'numsegui', 'evento', 'estado_s', 'motivo_estado', 'tipo_caso', 'etapa',
+    'asis_ctrpre', 'exam_lab', 'esqu_vacuna', 'cons_micronutr', 'avance_habilidades',
+    'educ_sexualidad', 'dialogo_familiar', 'autonomia_reproductiva', 'seguim_planificacion', 'otros_riesgos_sm',
+    'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
+    'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
+    'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'aplica_tamiz', 'liker_dificul', 'liker_emocion', 'liker_decision',
+    'cope_afronta', 'cope_evitacion', 'incremen_afron', 'incremen_evita', 'redu_riesgo_cierre',
+    'users_bina', 'equipo_bina', 'usu_creo', 'usu_update', 'fecha_update', 'estado'
   ];
+  
   // Campos fecha que pueden ser nulos
-  $campos_fecha_null = ['fecha_obstetrica', 'fecha_cierre', 'fecha_update','peso_nacer'];
+  $campos_fecha_null = ['fecha_seg', 'fecha_cierre', 'fecha_update'];
 
   if(count($id)==4){
     // UPDATE
     $set = [
-      'etapa', 'sema_gest', 'asis_ctrpre', 'exam_lab', 'esqu_vacuna', 'cons_micronutr', 'fecha_obstetrica', 'edad_gesta', 'resul_gest', 'meto_fecunda', 'cual', 'peso_nacer',
-      'asiste_control', 'vacuna_comple', 'lacmate_exclu', 'persis_morir', 'proce_eapb', 'otra_conduc', 'cual_conduc', 'conduc_otrofam', 'tam_cope',
-      'total_afron', 'total_evita', 'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
-      'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones', 'cierre_caso', 'motivo_cierre',
-      'fecha_cierre', 'aplica_tamiz', 'liker_dificul', 'liker_emocion', 'liker_decision', 'cope_afronta', 'cope_evitacion', 'incremen_afron', 'incremen_evita',
-      'redu_riesgo_cierre', 'users_bina', 'equipo_bina'
+      'tipo_caso', 'etapa', 'asis_ctrpre', 'exam_lab', 'esqu_vacuna', 'cons_micronutr', 'avance_habilidades',
+      'educ_sexualidad', 'dialogo_familiar', 'autonomia_reproductiva', 'seguim_planificacion', 'otros_riesgos_sm',
+      'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
+      'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
+      'cierre_caso', 'motivo_cierre', 'fecha_cierre', 'aplica_tamiz', 'liker_dificul', 'liker_emocion', 'liker_decision',
+      'cope_afronta', 'cope_evitacion', 'incremen_afron', 'incremen_evita', 'redu_riesgo_cierre',
+      'users_bina', 'equipo_bina'
     ];
     $params = [];
     foreach ($set as $campo) {
@@ -393,7 +396,13 @@ function gra_adoleMas(){
     }else{
       $id=divide($_REQUEST['id']);
       $sql="SELECT concat_ws('_',id_adoleMas,idpeople,numsegui,evento),
-      fecha_seg,numsegui,evento,estado_s,motivo_estado,tipo_caso,etapa,sema_gest,asis_ctrpre,exam_lab,esqu_vacuna,cons_micronutr,fecha_obstetrica,edad_gesta,resul_gest,meto_fecunda,cual,peso_nacer,asiste_control,vacuna_comple,lacmate_exclu,persis_morir,proce_eapb,otra_conduc,cual_conduc,conduc_otrofam,tam_cope,total_afron,total_evita,estrategia_1,estrategia_2,acciones_1,desc_accion1,acciones_2,desc_accion2,acciones_3,desc_accion3,activa_ruta,ruta,novedades,signos_covid,caso_afirmativo,otras_condiciones,observaciones,cierre_caso,motivo_cierre,fecha_cierre,aplica_tamiz,liker_dificul,liker_emocion,liker_decision,cope_afronta,cope_evitacion,incremen_afron,incremen_evita,redu_riesgo_cierre
+      fecha_seg,numsegui,evento,estado_s,motivo_estado,tipo_caso,etapa,
+      asis_ctrpre,exam_lab,esqu_vacuna,cons_micronutr,avance_habilidades,
+      educ_sexualidad,dialogo_familiar,autonomia_reproductiva,seguim_planificacion,otros_riesgos_sm,
+      estrategia_1,estrategia_2,acciones_1,desc_accion1,acciones_2,desc_accion2,acciones_3,desc_accion3,
+      activa_ruta,ruta,novedades,signos_covid,caso_afirmativo,otras_condiciones,observaciones,
+      cierre_caso,motivo_cierre,fecha_cierre,aplica_tamiz,liker_dificul,liker_emocion,liker_decision,
+      cope_afronta,cope_evitacion,incremen_afron,incremen_evita,redu_riesgo_cierre
       FROM vsp_adoleMas
       WHERE id_adoleMas ='{$id[0]}'";
       // echo $sql;
