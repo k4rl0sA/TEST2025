@@ -37,7 +37,7 @@ function lis_rute(){
                 FN_CATALOGODESC(235, tipo_prior) AS Grupo_Poblacion_Priorizada, 
                 er.documento AS Documento_Usuario, er.nombres AS Nombre_Usuario, 
                 FN_CATALOGODESC(218, er.perfil1) AS Interviene, 
-                FN_CATALOGODESC(269, er.actividad1) AS Realizar, 
+                er.actividad1 AS Realiza, 
                 er.estado
             FROM eac_ruteo er  
             LEFT JOIN hog_geo G ON er.idgeo = G.idgeo 
