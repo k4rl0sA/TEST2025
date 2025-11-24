@@ -195,7 +195,7 @@ function get_tapgar(){//CAMBIO function nueva
 				YEAR(CURDATE())-YEAR(P.fecha_nacimiento) apgar_edad
 				FROM person P 
 				WHERE P.idpeople ='{$id[0]}'";
-				echo $sql;
+				// echo $sql;
 				$info=datos_mysql($sql);
 			return $info['responseResult'][0];
 			}
