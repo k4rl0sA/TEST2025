@@ -37,7 +37,10 @@ function lis_adm(){
 }
 
 function lis_admision(){
-	$info=datos_mysql("SELECT COUNT(*) total FROM `adm_facturacion` A LEFT JOIN person P ON A.idpeople=P.idpeople left JOIN usuarios U ON A.usu_creo = U.id_usuario WHERE U.subred IN (select subred from usuarios where id_usuario='{$_SESSION['us_sds']}')   AND componente=(select componente from usuarios where id_usuario='{$_SESSION['us_sds']}') AND soli_admis='SI' ".whe_admision());
+	$info=datos_mysql("SELECT COUNT(*) total FROM `adm_facturacion` A 
+	LEFT JOIN person P ON A.idpeople=P.idpeople 
+	left JOIN usuarios U ON A.usu_creo = U.id_usuario 
+	WHERE U.subred IN (select subred from usuarios where id_usuario='{$_SESSION['us_sds']}')   AND componente=(select componente from usuarios where id_usuario='{$_SESSION['us_sds']}') AND soli_admis='SI' ".whe_admision());
 	$total=$info['responseResult'][0]['total'];
 	$regxPag=4;
 	
@@ -63,7 +66,7 @@ function whe_admision() {
 	if ($_POST['fcod_admin'])
 		$sql .= " AND cod_admin ='".$_POST['fcod_admin']."' ";
 	if($_POST['fdigita']) 
-	    $sql .= " AND usu_creo ='".$_POST['fdigita']."'";
+	    $sql .= " AND A.usu_creo ='".$_POST['fdigita']."'";
 	if (isset($_POST['festado_hist']))
 		$estado = ($_POST['festado_hist']==7) ? '' : $_POST['festado_hist'];
 		$sql .= " AND estado_hist ='".$estado."'";
