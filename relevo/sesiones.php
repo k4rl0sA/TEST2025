@@ -219,8 +219,8 @@ function gra_sesiones(){
 		['type' => 's', 'value' => NULL]
 		];
 	}
-	return $rta=show_sql($sql, $params);
-	//return $rta = mysql_prepd($sql, $params);
+	//return $rta=show_sql($sql, $params);
+	return $rta = mysql_prepd($sql, $params);
 }
 
 function opc_momento($id=''){
