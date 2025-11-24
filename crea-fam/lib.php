@@ -904,7 +904,7 @@ function psiSesi2($id) {
 
 function psiSessi($id) {
     $id = divide($id);
-    $sql = "SELECT id_sesion2 FROM psi_sesion2 WHERE id_people='".$id[0]."' AND contin_caso='4'";
+    $sql = "SELECT id_sesion2 FROM psi_sesion2 WHERE id_people='".$id[0]."' AND contin_caso='5'";
     $info = datos_mysql($sql);
 	// var_dump($sql);
 	if(isset($info['responseResult'][0])){
@@ -915,7 +915,16 @@ function psiSessi($id) {
 }
 
 function psiSesFin($id) {
-    $id = divide($id);
+	  $id = divide($id);
+    $sql = "SELECT id_sesion2 FROM psi_sesion2 WHERE id_people='".$id[0]."' AND contin_caso='4'";
+    $info = datos_mysql($sql);
+	// var_dump($sql);
+	if(isset($info['responseResult'][0])){
+		return true;
+	}else{
+		return false;
+	}
+  /*   $id = divide($id);
     $sql = "SELECT COUNT(*) AS totSes,
 		(SELECT COUNT(id_people) from `psi_sesiones`  
 		WHERE id_people=$id[0] AND psi_validacion17=5) as cierre
@@ -928,7 +937,7 @@ function psiSesFin($id) {
 		return true;
 	}else{
 		return false;
-	}
+	} */
 }
 
 function ember($id) {
