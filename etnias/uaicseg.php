@@ -199,7 +199,7 @@ function gra_uaic_seg(){
         param_null($_POST['cita_nutri15'] ?? '', 's'), // cita_nutri15
         param_null($_POST['cita_nutri30'] ?? '', 's'), // cita_nutri30
         param_null($_POST['observaciones'] ?? '', 's'), // observaciones
-        param_null($bina, 's'), // equipo_bina
+        param_null($_SESSION['us_sds'], 's'), // equipo_bina
         param_null($equi, 's'), // equipo
         ['type' => 'i', 'value' => $_SESSION['us_sds']] // usu_creo
       ];
