@@ -106,22 +106,15 @@ function opc_sexo($id=''){
 function opc_evento($id=''){
   $d=get_persona();
   
-  // DEPURACIÓN INICIAL
-  /* echo "<div style='background:yellow;padding:10px;border:2px solid red;margin:10px;'>";
-  echo "<strong>DEBUG opc_evento():</strong><br>";
-  echo "Sexo: " . ($d['sexo'] ?? 'NO DEFINIDO') . "<br>";
-  echo "Años: " . ($d['anos'] ?? 'NO DEFINIDO') . "<br>";
-  echo "ID recibido: " . ($id ? $id : 'vacío') . "<br>"; */
-  
   // Condiciones especiales para adolescentes 12-17 años
   if($d['anos'] > 11 && $d['anos'] < 18 && ($d['sexo']=='M')){
     // echo "✓ CONDICIÓN 1: Mujer entre 12-17 años";
-    // echo "Valores permitidos: 0,5,2,3,4,6,7,9</div>";
+    // echo "Valores permitidos: 0,5,2,3,4,6,7,9,12</div>";
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,3,4,6,7,9,12) and estado='A' ORDER BY 2",$id);
   }
   if($d['anos'] > 11 && $d['anos'] < 18 && $d['sexo']=='H'){
     // echo "✓ CONDICIÓN 2: Hombre entre 12-17 años";
-    // echo "Valores permitidos: 0,5,2,3,6</div>";
+    // echo "Valores permitidos: 0,5,2,3,6,12</div>";
     return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=87 AND valor IN(0,5,2,3,6,12) and estado='A' ORDER BY 2",$id);
   }
   
