@@ -526,9 +526,35 @@ function lis_planos() {
 			$encr = encript($tab, $clave);
 			if($tab=decript($encr,$clave))lis_tam_riesgomental($tab);
 			break;
+		case '73':
+			$tab = "VSP_RBC_TERAPEUTAS-AUXCUIDADO";
+			$encr = encript($tab, $clave);
+			if($tab=decript($encr,$clave))lis_vsp_rbc($tab);
+            break;
 		default:
         break;    
     }
+}
+
+function lis_vsp_rbc($txt){
+	$sql="SELECT G.idgeo AS Cod_Predio,F.id_fam AS Cod_Familia,A.id_otroprio AS Cod_Registro,G.subred AS Subred,G.localidad AS Localidad,G.territorio AS 'Cod Territorio',FN_CATALOGODESC(283,G.territorio) AS 'Nombre Territorio',P.tipo_doc AS Tipo_Documento,P.idpersona AS N°_Documento,CONCAT(P.nombre1,' ',P.nombre2) AS NOMBRES,CONCAT(P.apellido1,' ',P.apellido2) AS APELLIDOS,P.fecha_nacimiento AS FECHA_NACIMIENTO,FN_CATALOGODESC(21,P.sexo) AS SEXO,FN_CATALOGODESC(30,P.nacionalidad) AS NACIONALIDAD,FN_CATALOGODESC(17,P.regimen) AS Regimen,FN_CATALOGODESC(18,P.eapb) AS Eapb,A.fecha_seg AS Fecha_Seguimiento,FN_CATALOGODESC(76,A.numsegui) AS N°_Seguimiento,FN_CATALOGODESC(87,A.evento) AS Evento,FN_CATALOGODESC(73,A.estado_s) AS Estado,FN_CATALOGODESC(74,A.motivo_estado) AS Motivo_Estado,FN_CATALOGODESC(170,A.cuidador) AS Cuidador,FN_CATALOGODESC(91, A.cuantos_cuidadores) AS Cuantos_Cuidadores,FN_CATALOGODESC(170,A.acep_relevo) AS Acepta_Relevo,CONCAT(P1.idpersona,'-',CONCAT_WS(' ',P1.nombre1,P1.apellido1))  AS Nombre_Cuidador,FN_CATALOGODESC(170,A.antece) AS Antecedentes_Patologicos,FN_CATALOGODESC(28,A.ante_cuidador) AS Antecedente_Cuidador,A.otro_ante AS Otro_Antecedente,FN_CATALOGODESC(170,A.pers_cuida) AS Mas_Personas_Cuidado,FN_CATALOGODESC(91,A.num_pers) AS Numero_Personas,FN_CATALOGODESC(170,A.descanso) AS Descanso,FN_CATALOGODESC(170,A.apoyo_tec) AS Apoyo_Tecnico,FN_CATALOGODESC(170,A.alarma) AS Identifica_Alarma,FN_CATALOGODESC(170,A.certificado) AS Certificado_Discapacidad,FN_CATALOGODESC(170,A.requiere_ayudas_tec) AS Requiere_Ayudas_Tecnicas,FN_CATALOGODESC(321,A.cat_ayudastec) AS Categoria_Ayudas,FN_CATALOGODESC(322,A.ayuda_tecnica) AS Ayudas_Tecnicas,FN_CATALOGODESC(170,A.cuenta_ayuda) AS Cuenta_Ayuda_Tecnica,FN_CATALOGODESC(316,A.encuentra) AS Estado_Actual,FN_CATALOGODESC(317,A.facial) AS Estado_Animo,FN_CATALOGODESC(319,A.corporal) AS Estado_Fisico,FN_CATALOGODESC(320,A.respiracion) AS Signos_Respiracion,FN_CATALOGODESC(103,A.cuidado) AS Autocuidado,FN_CATALOGODESC(194,A.esparcimiento) AS Esparcimiento,FN_CATALOGODESC(157,A.comunicacion) AS Comunicacion,FN_CATALOGODESC(90,A.estrategia_1) AS Estrategia_Plan_1,FN_CATALOGODESC(90,A.estrategia_2) AS Estrategia_Plan_2,FN_CATALOGODESC(22,A.acciones_1) AS Accion_1,FN_CATALOGODESC(75,A.desc_accion1) AS Descripcion_Accion_1,FN_CATALOGODESC(22,A.acciones_2) AS Accion_2,FN_CATALOGODESC(75,A.desc_accion2) AS Descripcion_Accion_2,FN_CATALOGODESC(22,A.acciones_3) AS Accion_3,FN_CATALOGODESC(75,A.desc_accion3) AS Descripcion_Accion_3,FN_CATALOGODESC(170,A.activa_ruta) AS Activacion_Ruta,FN_CATALOGODESC(79,A.ruta) AS Ruta,FN_CATALOGODESC(77,A.novedades) AS Novedades,FN_CATALOGODESC(170,A.signos_covid) AS Signos_Sintomas_Covid,A.caso_afirmativo AS Relacione_Cuales,A.otras_condiciones AS Otras_Condiciones,A.observaciones AS Observaciones,FN_CATALOGODESC(170,A.cierre_caso) AS Cierre_de_Caso,FN_CATALOGODESC(198,A.motivo_cierre) AS Motivo_cierre,A.fecha_cierre AS Fecha_Cierre,FN_CATALOGODESC(170,A.redu_riesgo_cierre) AS Reduccion_de_Riesgo,A.usu_creo AS Usuario_Creo,U.nombre AS Nombre_Creo,U.perfil AS Perfil_Creo,U.equipo AS Equipo_Creo,A.fecha_create AS Fecha_Creacion,A.estado AS Estado_Registro
+	FROM `vsp_discapacidad` A 
+	LEFT JOIN person P ON A.idpeople = P.idpeople
+	LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
+	LEFT JOIN hog_geo G ON F.idpre = G.idgeo
+	LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario
+	LEFT JOIN person P1 ON A.cod_cuidador=P1.idpeople  
+	WHERE 1 ";
+	if (perfilUsu()!=='ADM')	$sql.=whe_subred8();
+	$sql.=whe_date8();
+	// echo $sql;
+	$tot="SELECT COUNT(*) total FROM `vsp_discapacidad` A LEFT JOIN person P ON A.idpeople = P.idpeople	LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam	LEFT JOIN hog_geo G ON F.idpre = G.idgeo LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario	LEFT JOIN person P1 ON A.cod_cuidador=P1.idpeople WHERE 1 ";
+	if (perfilUsu()!=='ADM')	$tot.=whe_subred8();
+	$tot.=whe_date8();
+	$_SESSION['sql_'.$txt]=$sql;
+	$_SESSION['tot_'.$txt]=$tot;
+	$rta=array('type'=>'OK','file'=>$txt);
+	echo json_encode($rta);
 }
 
 function lis_tam_riesgomental($txt){
