@@ -2361,6 +2361,7 @@ function lis_ruteoGestionados($txt){
 	LEFT JOIN eac_ruteo_clas C ON RG.id_rutges = C.idrutges
 	LEFT JOIN usuarios U1 ON C.profesional = U1.id_usuario
 	LEFT JOIN usuarios U3 ON C.usu_creo = U3.id_usuario
+	LEFT JOIN usuarios U4 ON RG.usu_creo=U4.id_usuario
 	LEFT JOIN person P ON R.usuario = P.idpeople 
 	WHERE 1 ";
 	if (perfilUsu()!=='ADM')	$sql.=whe_subred14();
@@ -2374,6 +2375,7 @@ function lis_ruteoGestionados($txt){
 	LEFT JOIN eac_ruteo_clas C ON RG.id_rutges = C.idrutges
 	LEFT JOIN usuarios U1 ON C.profesional = U1.id_usuario
 	LEFT JOIN usuarios U3 ON C.usu_creo = U3.id_usuario
+	LEFT JOIN usuarios U4 ON RG.usu_creo=U4.id_usuario 
 	LEFT JOIN person P ON R.usuario = P.idpeople WHERE 1 ";	
 	if (perfilUsu()!=='ADM')	$tot.=whe_subred14();
 	$tot.=whe_date14();
