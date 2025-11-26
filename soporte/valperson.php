@@ -83,7 +83,7 @@ function gra_validPerson() {
     	    ['type' => 's', 'value' => $_POST['sexo'] ], // sexo
     	    ['type' => 's', 'value' => $_POST['fecha_nacimiento'] ], // fecha_nacio
 			['type' => 's', 'value' => $_SESSION['us_sds']], // usu_creo
-			['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))], // fecha_create
+			['type' => 's', 'value' => date('Y-m-d H:i:s')], // fecha_create
 			['type' => 's', 'value' => $estado] // estado
 		];
 		$rta = mysql_prepd($sql, $params);
