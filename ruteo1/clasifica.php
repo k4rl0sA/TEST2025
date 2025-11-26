@@ -152,32 +152,32 @@ function gra_rutclasif(){
 
 
   $params = [
-    ['type' => 's', 'value' => $id[0]], // idrutges
-    ['type' => 's', 'value' => $_POST['pre_clasif']], // preclasif
-    ['type' => 's', 'value' => $_POST['clasificacion']], // clasifica
-    ['type' => 's', 'value' => $_POST['riesgo']], // riesgo
-    ['type' => 's', 'value' => $_POST['tiposeg']], // tiposeg
-    ['type' => 's', 'value' => $_POST['acciones_1']], // accion1
-    ['type' => 's', 'value' => $_POST['desc_accion1']], // desc_accion1
-    ['type' => 's', 'value' => $_POST['acciones_2']], // accion2
-    ['type' => 's', 'value' => $_POST['desc_accion2']], // desc_accion2
-    ['type' => 's', 'value' => $_POST['acciones_3']], // accion3
-    ['type' => 's', 'value' => $_POST['desc_accion3']], // desc_accion3
-    ['type' => 's', 'value' => $proxFecha], // fecha
-    ['type' => 's', 'value' => $_POST['docu_confirm']], // docu_confirm
-    ['type' => 's', 'value' => $_POST['solici_agenda']], // solic_agend
-    ['type' => 's', 'value' => $_POST['tipo_accion']], // tipo
-    ['type' => 's', 'value' => $_POST['ruta']], // ruta
-    ['type' => 's', 'value' => $_POST['sectorial']], // sectorial
-    ['type' => 's', 'value' => $_POST['intersectorial']], // intsectorial
-    ['type' => 's', 'value' => $_POST['entornos']], // entornos
-    ['type' => 's', 'value' => $_POST['aseguramiento']], // aseguram
-    ['type' => 's', 'value' => $_POST['fecha_gestion']], // fecha_agenda
-    ['type' => 's', 'value' => $_POST['nombre']], // profesional
-    ['type' => 's', 'value' => $_POST['accion1']], // accion_1
-    ['type' => 's', 'value' => $_POST['fecha_gestion1']], // fecha_agenda1
-    ['type' => 's', 'value' => $_POST['nombre1']], // profesional1
-    ['type' => 's', 'value' => $_POST['accion2']], // accion_2
+    ['type' => 'i', 'value' => $id[0]], // idrutges
+    param_null($_POST['pre_clasif']??'','s'),// preclasif
+    param_null($_POST['clasificacion']??'','s'),// clasifica
+    param_null($_POST['riesgo']??'','s'),// riesgo
+    param_null($_POST['tiposeg']??'','s'),// tiposeg
+    param_null($_POST['acciones_1']??'','s'),// accion1
+    param_null($_POST['desc_accion1']??'','s'),// desc_accion1
+    param_null($_POST['acciones_2']??'','s'),// accion2
+    param_null($_POST['desc_accion2']??'','s'),// desc_accion2
+    param_null($_POST['acciones_3']??'','s'),// accion3
+    param_null($_POST['desc_accion3']??'','s'),// desc_accion3
+    param_null($proxFecha,'s'),// fecha
+    param_null($_POST['docu_confirm']??'','s'),// docu_confirm
+    param_null($_POST['solici_agenda']??'','s'),// solic_agend
+    param_null($_POST['tipo_accion']??'','s'),// tipo
+    param_null($_POST['ruta']??'','s'),// ruta
+    param_null($_POST['sectorial']??'','s'),// sectorial
+    param_null($_POST['intersectorial']??'','s'),// intsectorial
+    param_null($_POST['entornos']??'','s'),// entornos
+    param_null($_POST['aseguramiento']??'','s'),// aseguram
+    param_null($_POST['fecha_gestion']??'','s'),// fecha_agenda
+    param_null($_POST['nombre']??'','s'),// profesional
+    param_null($_POST['accion1']??'','s'),// accion_1
+    param_null($_POST['fecha_gestion1']??'','s'),// fecha_agenda1
+    param_null($_POST['nombre1']??'','s'),// profesional1
+    param_null($_POST['accion2']??'','s'),// accion_2
     ['type' => 's', 'value' => $_SESSION['us_sds']], // usu_creo
     // fecha_create se calcula en SQL
     ['type' => 's', 'value' => 'A'] // estado
