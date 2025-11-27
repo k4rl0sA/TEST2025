@@ -178,7 +178,7 @@ function opc_perfil($id=''){
         return opc_sql("SELECT idcatadeta, descripcion FROM `catadeta` WHERE idcatalogo = 218 AND estado = 'A'",$id);
     } else {
         // $com = datos_mysql("SELECT CASE WHEN componente = 'MIN' THEN 2 WHEN componente = 'HOG' THEN 1 END as componente FROM usuarios WHERE id_usuario ='{$_SESSION['us_sds']}'");
-		$comp = '1,2';
+		$comp = '1,2,3';
         // $comp = $com['responseResult'][0]['componente'] ;
         return opc_sql("SELECT idcatadeta, descripcion FROM `catadeta` WHERE idcatalogo = 218 AND estado = 'A' AND valor in($comp)",$id);
     }
