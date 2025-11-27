@@ -99,19 +99,19 @@ function cmp_adoleMas(){
  
   $o='hab';
   $c[]=new cmp($o,'e',null,'ADOLESCENTES ENTRE 12 Y 17 AÑOS, DISFUNCIÓN FAMILIAR Y CONSUMO DE SPA',$w);
-  $c[]=new cmp('entre_motiva','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$gp.' '.$o,'Entrevista motivacional','rta',null,null,false,$x,'','col-2');
-  $c[]=new cmp('prac_saludables','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$o,'Apropiación de prácticas saludables','rta',null,null,false,$x,'','col-2');
-  $c[]=new cmp('invol_parental','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$o,'Involucramiento parental','rta',null,null,false,$x,'','col-2');
-  $c[]=new cmp('auto_reprod','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$o,'Fortalecimiento de autonomía Reproductiva','rta',null,null,false,$x,'','col-2');
-  $c[]=new cmp('avance_habilidades','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$o,'Se identifica avance en el fortalecimiento de habilidades socio emocionales','rta',null,null,false,$x,'','col-2');
+  $c[]=new cmp('entre_motiva','s','2',$d,$w.' '.$ge.' '.$gp.' '.$gp.' '.$o,'Entrevista motivacional','rta',null,null,false,$x,'','col-2');
+  $c[]=new cmp('prac_saludables','s','2',$d,$w.' '.$ge.' '.$gp.' '.$o,'Apropiación de prácticas saludables','rta',null,null,false,$x,'','col-2');
+  $c[]=new cmp('invol_parental','s','2',$d,$w.' '.$ge.' '.$gp.' '.$o,'Involucramiento parental','rta',null,null,false,$x,'','col-2');
+  $c[]=new cmp('auto_reprod','s','2',$d,$w.' '.$ge.' '.$gp.' '.$o,'Fortalecimiento de autonomía Reproductiva','rta',null,null,false,$x,'','col-2');
+  $c[]=new cmp('avance_habilidades','s','2',$d,$w.' '.$ge.' '.$gp.' '.$o,'Se identifica avance en el fortalecimiento de habilidades socio emocionales','rta',null,null,false,$x,'','col-2');
    
     $o='hab';
     $c[]=new cmp($o,'e',null,'ADOLESCENTES ENTRE 12 Y 17 AÑOS, DISFUNCIÓN FAMILIAR Y PREVENCIÓN EN SSR',$w);
-    $c[]=new cmp('educ_sexualidad','s','2',$d,$w.' Rg '.$bl.' '.$pu.' '.$gp.' '.$o,'Educación integral para la sexualidad en el adolescente','rta',null,null,false,$x,'','col-3');
-    $c[]=new cmp('dialogo_familiar','s','2',$d,$w.' Rg '.$bl.' '.$pu.' '.$gp.' '.$o,'Dialogo interfamiliar','rta',null,null,false,$x,'','col-3');
-    $c[]=new cmp('autonomia_reproductiva','s','2',$d,$w.' Rg '.$bl.' '.$pu.' '.$gp.' '.$o,'Fortalecimiento de autonomía Reproductiva','rta',null,null,false,$x,'','col-2');
-    $c[]=new cmp('seguim_planificacion','s','2',$d,$w.' Rg '.$bl.' '.$pu.' '.$gp.' '.$o,'Seguimiento a acceso a método de planificación familiar','rta',null,null,false,$x,'','col-2');
-    $c[]=new cmp('otros_riesgos_sm','s','2',$d,$w.' Rg '.$bl.' '.$pu.' '.$gp.' '.$o,'Se identifican otros riesgos en SM','rta',null,null,false,$x,'','col-2');
+    $c[]=new cmp('educ_sexualidad','s','2',$d,$w.' Rg '.$pu.' '.$gp.' '.$o,'Educación integral para la sexualidad en el adolescente','rta',null,null,false,$x,'','col-3');
+    $c[]=new cmp('dialogo_familiar','s','2',$d,$w.' Rg '.$pu.' '.$gp.' '.$o,'Dialogo interfamiliar','rta',null,null,false,$x,'','col-3');
+    $c[]=new cmp('autonomia_reproductiva','s','2',$d,$w.' Rg '.$pu.' '.$gp.' '.$o,'Fortalecimiento de autonomía Reproductiva','rta',null,null,false,$x,'','col-2');
+    $c[]=new cmp('seguim_planificacion','s','2',$d,$w.' Rg '.$pu.' '.$gp.' '.$o,'Seguimiento a acceso a método de planificación familiar','rta',null,null,false,$x,'','col-2');
+    $c[]=new cmp('otros_riesgos_sm','s','2',$d,$w.' Rg '.$pu.' '.$gp.' '.$o,'Se identifican otros riesgos en SM','rta',null,null,false,$x,'','col-2');
     
     
     $o='acc';
