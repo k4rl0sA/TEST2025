@@ -915,29 +915,20 @@ function psiSessi($id) {
 }
 
 function psiSesFin($id) {
-	  $id = divide($id);
-    $sql = "SELECT id_sesion2 FROM psi_sesion2 WHERE id_people='".$id[0]."' AND contin_caso='5'";
-    $info = datos_mysql($sql);
-	// var_dump($sql);
-	if(isset($info['responseResult'][0])){
+	$id = divide($id);
+	if (!isset($id[0])) return false;
+	$pid = $id[0];
+	// Revisar en psi_sesion2 si existe contin_caso = 5
+	$info = datos_mysql("SELECT id_sesion2 FROM psi_sesion2 WHERE id_people='" . $pid . "' AND contin_caso='5' LIMIT 1");
+	if (isset($info['responseResult'][0])) {
 		return true;
-	}else{
-		return false;
 	}
-  /*   $id = divide($id);
-    $sql = "SELECT COUNT(*) AS totSes,
-		(SELECT COUNT(id_people) from `psi_sesiones`  
-		WHERE id_people=$id[0] AND psi_validacion17=5) as cierre
-		FROM `psi_sesiones` p WHERE id_people=$id[0]";
-		// var_dump($sql);
-    $info = datos_mysql($sql);
-	// var_dump($info);
-	if(intval($info['responseResult'][0]["totSes"]>=1) && 
-		intval($info['responseResult'][0]["cierre"]=1)){
+	// Revisar en psi_sesiones si existe psi_validacion17 = 5
+	$info2 = datos_mysql("SELECT idpeople FROM psi_sesiones WHERE id_people='" . $pid . "' AND psi_validacion17='5' LIMIT 1");
+	if (isset($info2['responseResult'][0])) {
 		return true;
-	}else{
-		return false;
-	} */
+	}
+	return false;
 }
 
 function ember($id) {
