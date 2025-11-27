@@ -924,7 +924,7 @@ function psiSesFin($id) {
 		return true;
 	}
 	// Revisar en psi_sesiones si existe psi_validacion17 = 5
-	$info2 = datos_mysql("SELECT idpeople FROM psi_sesiones WHERE id_people='" . $pid . "' AND psi_validacion17='5' LIMIT 1");
+	$info2 = datos_mysql("SELECT id_people FROM psi_sesiones WHERE id_people='" . $pid . "' AND psi_validacion17='5' LIMIT 1");
 	if (isset($info2['responseResult'][0])) {
 		return true;
 	}
