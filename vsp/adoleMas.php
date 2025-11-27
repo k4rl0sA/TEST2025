@@ -160,9 +160,9 @@ function opc_motivo_cierre($id=''){
 function opc_resul_gest($id=''){
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=193 and estado='A' ORDER BY 1",$id);
 }
-function opc_tipo_caso($id=''){
+/* function opc_tipo_caso($id=''){
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=197 and estado='A' ORDER BY 1",$id);
-}
+} */
 function opc_rta($id=''){
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=170 and estado='A' ORDER BY 1",$id);
   }
@@ -184,9 +184,9 @@ function opc_invol_parental($id=''){
 function opc_motivo_estado($id=''){
 return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=74 and estado='A' ORDER BY 1",$id);
 }
-function opc_etapa($id=''){
+/* function opc_etapa($id=''){
 return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=136 and estado='A' ORDER BY 1",$id);
-}
+} */
 
 function opc_sema_gest($id=''){
 return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=137 and estado='A' ORDER BY LPAD(idcatadeta,2,'0')",$id);
@@ -304,7 +304,7 @@ function gra_adoleMas(){
 
   // Orden de los campos según la tabla vsp_adoleMas
   $campos = [
-    'idpeople', 'fecha_seg', 'numsegui', 'evento', 'estado_s', 'motivo_estado', 'tipo_caso', 'etapa',
+    'idpeople', 'fecha_seg', 'numsegui', 'evento', 'estado_s', 'motivo_estado', 
     'entre_motiva', 'prac_saludables', 'invol_parental', 'auto_reprod', 'avance_habilidades',
     'educ_sexualidad', 'dialogo_familiar', 'autonomia_reproductiva', 'seguim_planificacion', 'otros_riesgos_sm',
     'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
@@ -320,7 +320,7 @@ function gra_adoleMas(){
   if(count($id)==4){
     // UPDATE
     $set = [
-      'tipo_caso', 'etapa', 'entre_motiva', 'prac_saludables', 'invol_parental', 'auto_reprod', 'avance_habilidades',
+       'entre_motiva', 'prac_saludables', 'invol_parental', 'auto_reprod', 'avance_habilidades',
       'educ_sexualidad', 'dialogo_familiar', 'autonomia_reproductiva', 'seguim_planificacion', 'otros_riesgos_sm',
       'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
       'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
@@ -396,7 +396,7 @@ function gra_adoleMas(){
     }else{
       $id=divide($_REQUEST['id']);
       $sql="SELECT concat_ws('_',id_adoleMas,idpeople,numsegui,evento),
-      fecha_seg,numsegui,evento,estado_s,motivo_estado,tipo_caso,etapa,
+      fecha_seg,numsegui,evento,estado_s,motivo_estado,
       entre_motiva,prac_saludables,invol_parental,auto_reprod,avance_habilidades,
       educ_sexualidad,dialogo_familiar,autonomia_reproductiva,seguim_planificacion,otros_riesgos_sm,
       estrategia_1,estrategia_2,acciones_1,desc_accion1,acciones_2,desc_accion2,acciones_3,desc_accion3,
