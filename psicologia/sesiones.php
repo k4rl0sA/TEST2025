@@ -258,7 +258,7 @@ function opc_psi_validacion13($id='') {
 	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo = 124 and estado='A' ORDER BY 1",$id);
 }
 function opc_psi_validacion17($id=''){
-	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo = 160 and estado='A' ORDER BY 1",$id);
+	return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo = 160 and estado='A' AND idcatadeta NOT IN(4) ORDER BY 1",$id);
 }
 function bgcolor($a,$c,$f='c'){
 	$rta="";
