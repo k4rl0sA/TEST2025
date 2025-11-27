@@ -25,7 +25,7 @@ function lis_adm(){
  	$info=datos_mysql("SELECT  COUNT(DISTINCT concat_WS('_',idpeople,'_',id_factura)) total
 	 FROM `adm_facturacion` F WHERE idpeople ='{$id[0]}' and estado!='I'");
 	$total=$info['responseResult'][0]['total'];
-	$regxPag=3;
+	$regxPag=10;
 	$pag=(isset($_POST['pag-adm']))? ($_POST['pag-adm']-1)* $regxPag:0;	
 	$sql="SELECT DISTINCT concat_WS('_',idpeople,id_factura) ACCIONES,`cod_admin` 'Cod. Ingreso', FN_CATALOGODESC(126,cod_cups) 'Cod. CUPS', FN_CATALOGODESC(127,final_consul) 'Consulta'
 	FROM `adm_facturacion` F WHERE idpeople ='{$id[0]}' and estado!='I' ";
