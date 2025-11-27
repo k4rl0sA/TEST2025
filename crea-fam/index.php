@@ -183,7 +183,8 @@ function grabar(tb='',ev){
   'discapacidad1':'../vsp/discapacidad1.php',
   'feminicidio':'../vsp/feminicidio.php',
   'feminicidio1':'../vsp/feminicidio1.php',
-  'soledad':'../vsp/soledad.php'
+  'soledad':'../vsp/soledad.php',
+  'adoleMas':'../vsp/adoleMas.php'
  	};
    let ruta_app = rutaMap[tb] || 'lib.php';
   if(tb=='sesion2'){
