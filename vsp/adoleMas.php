@@ -93,16 +93,16 @@ function cmp_adoleMas(){
   $c[]=new cmp('evento','s','3',$ev,$w.' '.$o,'Evento','evento',null,null,false,false,'','col-2');
   $c[]=new cmp('estado_s','s','3',$d,$w.' sTa '.$o,'Estado','estado_s',null,null,true,true,'','col-2',"enabFielSele(this,true,['motivo_estado'],['3']);EnabEfec(this,['hab','acc'],['Ob'],['nO'],['bL']);");
   $c[]=new cmp('motivo_estado','s','3',$d,$w.' '.$o,'Motivo de Estado','motivo_estado',null,null,false,$x,'','col-2');
-  $c[]=new cmp('tipo_caso','s','2',$d,$w.' hab '.$o,'Tipo de Población','tipo_caso',null,null,false,$x,'','col-2',"enbValsCls('tipo_caso',['{$ge}','{$pu}']);"); //enabOthSi('tipo_caso','GyP');
-  $c[]=new cmp('etapa','s','3',$d,$w.' GyP Tp '.$o,'Etapa','etapa',null,null,false,$x,'','col-2');//enbValsCls('etapa',['{$ge}','{$pu}','{$pu}']);enabEtap('etapa',['pRe','PuE']);
+  /* $c[]=new cmp('tipo_caso','s','2',$d,$w.' hab '.$o,'Tipo de Población','tipo_caso',null,null,false,$x,'','col-2',"enbValsCls('tipo_caso',['{$ge}','{$pu}']);"); //enabOthSi('tipo_caso','GyP');
+  $c[]=new cmp('etapa','s','3',$d,$w.' GyP Tp '.$o,'Etapa','etapa',null,null,false,$x,'','col-2');//enbValsCls('etapa',['{$ge}','{$pu}','{$pu}']);enabEtap('etapa',['pRe','PuE']); */
   
  
   $o='hab';
   $c[]=new cmp($o,'e',null,'ADOLESCENTES ENTRE 12 Y 17 AÑOS, DISFUNCIÓN FAMILIAR Y CONSUMO DE SPA',$w);
-  $c[]=new cmp('asis_ctrpre','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$gp.' '.$o,'Entrevista motivacional','rta',null,null,false,$x,'','col-2');
-  $c[]=new cmp('exam_lab','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$o,'Apropiación de prácticas saludables','rta',null,null,false,$x,'','col-2');
-  $c[]=new cmp('esqu_vacuna','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$o,'Involucramiento parental','rta',null,null,false,$x,'','col-2');
-  $c[]=new cmp('cons_micronutr','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$o,'Fortalecimiento de autonomía Reproductiva','rta',null,null,false,$x,'','col-2');
+  $c[]=new cmp('entre_motiva','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$gp.' '.$o,'Entrevista motivacional','rta',null,null,false,$x,'','col-2');
+  $c[]=new cmp('prac_saludables','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$o,'Apropiación de prácticas saludables','rta',null,null,false,$x,'','col-2');
+  $c[]=new cmp('invol_parental','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$o,'Involucramiento parental','rta',null,null,false,$x,'','col-2');
+  $c[]=new cmp('auto_reprod','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$o,'Fortalecimiento de autonomía Reproductiva','rta',null,null,false,$x,'','col-2');
   $c[]=new cmp('avance_habilidades','s','2',$d,$w.' '.$bl.' '.$ge.' '.$gp.' '.$o,'Se identifica avance en el fortalecimiento de habilidades socio emocionales','rta',null,null,false,$x,'','col-2');
    
     $o='hab';
@@ -178,7 +178,7 @@ return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo
 function opc_estado_s($id=''){
 return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo=73 and estado='A' ORDER BY 1",$id);
 }
-function opc_esqu_vacuna($id=''){
+function opc_invol_parental($id=''){
   return opc_sql("SELECT `idcatadeta`,descripcion FROM `catadeta` WHERE idcatalogo= and estado='A' ORDER BY 1",$id);
 }
 function opc_motivo_estado($id=''){
@@ -305,7 +305,7 @@ function gra_adoleMas(){
   // Orden de los campos según la tabla vsp_adoleMas
   $campos = [
     'idpeople', 'fecha_seg', 'numsegui', 'evento', 'estado_s', 'motivo_estado', 'tipo_caso', 'etapa',
-    'asis_ctrpre', 'exam_lab', 'esqu_vacuna', 'cons_micronutr', 'avance_habilidades',
+    'entre_motiva', 'prac_saludables', 'invol_parental', 'auto_reprod', 'avance_habilidades',
     'educ_sexualidad', 'dialogo_familiar', 'autonomia_reproductiva', 'seguim_planificacion', 'otros_riesgos_sm',
     'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
     'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
@@ -320,7 +320,7 @@ function gra_adoleMas(){
   if(count($id)==4){
     // UPDATE
     $set = [
-      'tipo_caso', 'etapa', 'asis_ctrpre', 'exam_lab', 'esqu_vacuna', 'cons_micronutr', 'avance_habilidades',
+      'tipo_caso', 'etapa', 'entre_motiva', 'prac_saludables', 'invol_parental', 'auto_reprod', 'avance_habilidades',
       'educ_sexualidad', 'dialogo_familiar', 'autonomia_reproductiva', 'seguim_planificacion', 'otros_riesgos_sm',
       'estrategia_1', 'estrategia_2', 'acciones_1', 'desc_accion1', 'acciones_2', 'desc_accion2', 'acciones_3', 'desc_accion3',
       'activa_ruta', 'ruta', 'novedades', 'signos_covid', 'caso_afirmativo', 'otras_condiciones', 'observaciones',
@@ -397,7 +397,7 @@ function gra_adoleMas(){
       $id=divide($_REQUEST['id']);
       $sql="SELECT concat_ws('_',id_adoleMas,idpeople,numsegui,evento),
       fecha_seg,numsegui,evento,estado_s,motivo_estado,tipo_caso,etapa,
-      asis_ctrpre,exam_lab,esqu_vacuna,cons_micronutr,avance_habilidades,
+      entre_motiva,prac_saludables,invol_parental,auto_reprod,avance_habilidades,
       educ_sexualidad,dialogo_familiar,autonomia_reproductiva,seguim_planificacion,otros_riesgos_sm,
       estrategia_1,estrategia_2,acciones_1,desc_accion1,acciones_2,desc_accion2,acciones_3,desc_accion3,
       activa_ruta,ruta,novedades,signos_covid,caso_afirmativo,otras_condiciones,observaciones,
