@@ -2258,7 +2258,7 @@ P.tipo_doc,P.idpersona,concat(P.nombre1,' ',P.nombre2) AS NOMBRES,concat(P.apell
 
 A.psi_fecha_sesion,A.cod_admisfin,A.zung_ini,A.hamilton_ini,A.whodas_ini,A.psi_validacion1,A.psi_validacion2,A.psi_validacion3,A.psi_validacion4,A.psi_validacion5,A.psi_validacion6,A.psi_validacion7,
 A.psi_validacion8,A.psi_validacion9,A.psi_validacion10,A.psi_validacion11,A.psi_validacion12,A.psi_validacion13,A.psi_validacion14,A.psi_validacion15,A.psi_validacion17,A.psi_validacion18,A.psi_validacion19,
-A.usu_creo, U.nombre AS Nombre_Creo, U.perfil AS Perfil_Creo, A.fecha_create, A.estado AS Estado_Registro
+A.usu_creo, U.nombre AS Nombre_Creo, U.perfil AS Perfil_Creo,U.equipo,A.fecha_create, A.estado AS Estado_Registro
 
 FROM `psi_sesion_fin` A
 LEFT JOIN person P ON A.id_people = P.idpeople
