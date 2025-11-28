@@ -139,17 +139,23 @@ function get_atencionM(){
 		$id=$_REQUEST['id'];
 		
 		// Consulta directa con LEFT JOIN - si existe en eac_atencion trae los datos, si no trae NULL
+		// ORDEN DE CAMPOS DEBE COINCIDIR CON cmp_atencionM():
+		// ida, tipodoc, idpersona, nombre1, fecha_nacimiento, sexo, genero, nacionalidad, 
+		// idf, fechaatencion, tipo_consulta, codigocups, finalidadconsulta, fechaingreso, tipo_estrategia,
+		// letra1, rango1, diagnostico1, letra2, rango2, diagnostico2, letra3, rango3, diagnostico3,
+		// vih, resul_vih, hb, resul_hb, trepo_sifil, resul_sifil, pru_embarazo, resul_emba, pru_apetito, resul_apetito,
+		// laboratorios, medicamentos
+		
 		$sql="SELECT 
-			CONCAT(a.idpeople,'_',a.id_factura) id,
-			a.idpeople,
-			a.id_factura idf,
-			b.tipo_doc, 
+			CONCAT(a.idpeople,'_',a.id_factura) ida,
+			b.tipo_doc tipodoc, 
 			b.idpersona, 
-			CONCAT_WS(' ',b.nombre1,b.nombre2,b.apellido1,b.apellido2) nombres,
-			b.fecha_nacimiento, 
+			CONCAT_WS(' ',b.nombre1,b.nombre2,b.apellido1,b.apellido2) nombre1,
+			b.fecha_nacimiento,
 			b.sexo, 
 			b.genero, 
 			b.nacionalidad,
+			a.id_factura idf,
 			a.fecha_consulta fechaatencion,
 			a.tipo_consulta,
 			a.cod_cups codigocups,
