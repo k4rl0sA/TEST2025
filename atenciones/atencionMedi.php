@@ -137,34 +137,101 @@ function get_atencionM(){
 		return "";
 	}else{
 		$id=$_REQUEST['id'];
+		
+		// Verificar si existe registro en eac_atencion
 		$sql1="SELECT COUNT(*) rta
-		FROM adm_facturacion a
-		LEFT JOIN eac_atencion c ON a.idpeople = c.idpeople AND a.id_factura = c.id_factura
-		WHERE a.id_factura ='{$id}'";
+		FROM eac_atencion c
+		WHERE c.id_factura ='{$id}'";
 		$info=datos_mysql($sql1);
 		$total=$info['responseResult'][0]['rta'];
 		
-		if ($total==1){		
-			$sql="SELECT concat(a.idpeople) id, b.tipo_doc, b.idpersona, concat_ws(' ',b.nombre1,b.nombre2,b.apellido1,b.apellido2) nombres,
-				b.fecha_nacimiento, b.sexo, b.genero, b.nacionalidad, a.id_factura, a.fecha_consulta fechaatencion, a.tipo_consulta, a.cod_cups codigocups, a.final_consul finalidadconsulta,
-				c.fecha_ingr fechaingreso,c.fuente tipo_estrategia,c.letra1, c.rango1, c.diagnostico1, c.letra2, c.rango2, c.diagnostico2, c.letra3, c.rango3, c.diagnostico3,
-				c.vih, c.resul_vih, c.hb, c.resul_hb, c.trepo_sifil, c.resul_sifil, c.pru_embarazo, c.resul_emba,
-				c.pru_apetito, c.resul_apetito, c.laboratorios, c.medicamentos
-				FROM adm_facturacion a
-				LEFT JOIN person b ON a.idpeople=b.idpeople
-				LEFT JOIN eac_atencion c ON a.idpeople=c.idpeople AND a.id_factura=c.id_factura
-				WHERE a.id_factura ='{$id}'";
-				$info=datos_mysql($sql);
+		if ($total >= 1){
+			// Si existe en eac_atencion, traer todos los datos incluyendo fuente
+			$sql="SELECT 
+				CONCAT(a.idpeople,'_',a.id_factura) id,
+				a.id_factura idf,
+				b.tipo_doc, 
+				b.idpersona, 
+				CONCAT_WS(' ',b.nombre1,b.nombre2,b.apellido1,b.apellido2) nombres,
+				b.fecha_nacimiento, 
+				b.sexo, 
+				b.genero, 
+				b.nacionalidad,
+				a.fecha_consulta fechaatencion,
+				a.tipo_consulta,
+				a.cod_cups codigocups,
+				a.final_consul finalidadconsulta,
+				c.fecha_ingr fechaingreso,
+				c.fuente tipo_estrategia,
+				c.letra1, 
+				c.rango1, 
+				c.diagnostico1,
+				c.letra2, 
+				c.rango2, 
+				c.diagnostico2,
+				c.letra3, 
+				c.rango3, 
+				c.diagnostico3,
+				c.vih, 
+				c.resul_vih,
+				c.hb, 
+				c.resul_hb,
+				c.trepo_sifil, 
+				c.resul_sifil,
+				c.pru_embarazo, 
+				c.resul_emba,
+				c.pru_apetito, 
+				c.resul_apetito,
+				c.laboratorios,
+				c.medicamentos
+			FROM adm_facturacion a
+			LEFT JOIN person b ON a.idpeople = b.idpeople
+			LEFT JOIN eac_atencion c ON a.idpeople = c.idpeople AND a.id_factura = c.id_factura
+			WHERE a.id_factura = '{$id}'";
+			$info=datos_mysql($sql);
 			return json_encode($info['responseResult'][0]);
 		}else{
-			$sql="SELECT concat(b.idpeople) id,
-			b.tipo_doc,
-			b.idpersona,
-			concat_ws(' ',b.nombre1,b.nombre2,b.apellido1,b.apellido2) nombres,
-			b.fecha_nacimiento, b.sexo, b.genero, b.nacionalidad, a.id_factura, a.fecha_consulta fechaatencion, a.tipo_consulta, a.cod_cups codigocups, a.final_consul finalidadconsulta
+			// Si NO existe en eac_atencion, traer solo datos de facturacion y person
+			$sql="SELECT 
+				CONCAT(a.idpeople,'_',a.id_factura) id,
+				a.id_factura idf,
+				b.tipo_doc,
+				b.idpersona,
+				CONCAT_WS(' ',b.nombre1,b.nombre2,b.apellido1,b.apellido2) nombres,
+				b.fecha_nacimiento,
+				b.sexo,
+				b.genero,
+				b.nacionalidad,
+				a.fecha_consulta fechaatencion,
+				a.tipo_consulta,
+				a.cod_cups codigocups,
+				a.final_consul finalidadconsulta,
+				NULL AS fechaingreso,
+				NULL AS tipo_estrategia,
+				NULL AS letra1,
+				NULL AS rango1,
+				NULL AS diagnostico1,
+				NULL AS letra2,
+				NULL AS rango2,
+				NULL AS diagnostico2,
+				NULL AS letra3,
+				NULL AS rango3,
+				NULL AS diagnostico3,
+				NULL AS vih,
+				NULL AS resul_vih,
+				NULL AS hb,
+				NULL AS resul_hb,
+				NULL AS trepo_sifil,
+				NULL AS resul_sifil,
+				NULL AS pru_embarazo,
+				NULL AS resul_emba,
+				NULL AS pru_apetito,
+				NULL AS resul_apetito,
+				NULL AS laboratorios,
+				NULL AS medicamentos
 			FROM adm_facturacion a
-			LEFT JOIN person b ON a.idpeople=b.idpeople 
-			WHERE a.id_factura='{$id}'";
+			LEFT JOIN person b ON a.idpeople = b.idpeople
+			WHERE a.id_factura = '{$id}'";
 			$info=datos_mysql($sql);
 			return json_encode($info['responseResult'][0]);
 		}
@@ -349,6 +416,7 @@ function gra_atencionM() {
         'tipo_consulta' => 'tipo_consulta',
         'codigocups' => 'codigo_cups',
         'finalidadconsulta' => 'finalidad_consulta',
+        'tipo_estrategia' => 'fuente', // Mapeo correcto: tipo_estrategia en form -> fuente en BD
         'fechaingreso' => 'fecha_ingr',
         'letra1' => 'letra1',
         'rango1' => 'rango1', 
@@ -376,12 +444,12 @@ function gra_atencionM() {
     $id = divide($_POST['ida']);
     if (count($id) != 1 || empty($id[0])) return "Error: idpeople es obligatorio y no puede ser nulo.";
     
-    // Validar campos obligatorios (campos NOT NULL en la tabla)
-    $obligatorios = ['idf', 'fechaatencion','tipo_estrategia', 'tipo_consulta', 'codigocups', 'finalidadconsulta', 'fechaingreso', 'letra1', 'rango1', 'diagnostico1'];
+    // Validar campos obligatorios (campos NOT NULL en la tabla eac_atencion)
+    $obligatorios = ['idf', 'fechaatencion', 'tipo_consulta', 'codigocups', 'finalidadconsulta', 'tipo_estrategia', 'fechaingreso', 'letra1', 'rango1', 'diagnostico1'];
     foreach ($obligatorios as $campo) {
         $valor = $_POST[$campo] ?? null;
         if ($valor === null || $valor === '') {
-            return "msj['Error: El campo '$campo' es obligatorio y no puede ser nulo o vacío.']";
+            return "Error: El campo '$campo' es obligatorio y no puede ser nulo o vacío.";
         }
     }
 
@@ -403,17 +471,13 @@ function gra_atencionM() {
         }
     }
 
-    // Agregar campo fuente (requerido en BD pero no en formulario)
-    $cols[] = 'fuente';
-    $params[] = ['type' => 's', 'value' => '1']; // Valor por defecto
-
     // Campos de auditoría
     $cols[] = 'usu_creo';
     $cols[] = 'fecha_create';
     $cols[] = 'estado';
     
     $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
-    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))]; // Fecha menos 5 horas
+    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))];
     $params[] = ['type' => 's', 'value' => 'A'];
 
     $placeholders = implode(', ', array_fill(0, count($params), '?'));
@@ -423,8 +487,7 @@ function gra_atencionM() {
         $placeholders
     )";
     
-    $rta = mysql_prepd($sql, $params);
-    return $rta;
+    return mysql_prepd($sql, $params);
 }
 
 function cap_menus($a,$b='cap',$con='con') {
