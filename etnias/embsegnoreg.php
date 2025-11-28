@@ -235,108 +235,166 @@ function get_persona(){
 
   
 function gra_segnoreg(){
- 	$id=divide($_POST['idsegnoreg']);
-  if (($rtaFec = validFecha('etnias', $_POST['fecha_seg'] ?? '')) !== true) {return $rtaFec;}
-  $pn=$_POST['peso_nacer']?? null;
-  $docma=$_POST['doc_madre']?? null;
-  $sis=$_POST['sistolica']?? null;
-  $diast=$_POST['diastolica']?? null;
-  $fcar=$_POST['frec_cardiaca']?? null;
-  $fres= $_POST['frec_respiratoria']?? null;
-  $satu=$_POST['saturacion']?? null;
-  $gluco=$_POST['gluco']?? null;
-  $pcef=$_POST['peri_cefalico']?? null;
-  
-  $zsc=$_POST['zcore']?? null;
-  $cn=$_POST['clasi_nut']?? null;
-  
-  $pbra=$_POST['peri_braqueal']?? null;
-  $pes= $_POST['peso']?? null;
-  $tal=$_POST['talla']?? null;
-  $imc= $_POST['imc']?? null;
-  
-      if(COUNT($id)==2){
-        $equ=datos_mysql("select equipo from usuarios where id_usuario=".$_SESSION['us_sds']);
-      $bina = isset($_POST['fequi'])?(is_array($_POST['fequi'])?implode("-", $_POST['fequi']):implode("-",array_map('trim',explode(",",str_replace("'","",$_POST['fequi']))))):'';
-      $equi=$equ['responseResult'][0]['equipo'];
-      $sql = "INSERT INTO emb_segreg VALUES (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,'A')";
-    $params = [
-['type' => 'i', 'value' => $id[0]],
-param_null($_POST['fecha_seg'], 's'),
-param_null($_POST['fecha_seg'] ?? '', 's'), // fecha_seg
-param_null($_POST['segui'] ?? '', 's'), // segui
-param_null($_POST['estado_seg'] ?? '', 's'), // estado_seg
-param_null($_POST['motivo_estado'] ?? '', 's'), // motivo_estado
-param_null($_POST['prioridad'] ?? '', 's'), // prioridad
-param_null($_POST['fecha_obs'] ?? '', 's'), // fecha_obs
-param_null($_POST['gestaciones'] ?? '', 's'), // gestaciones
-param_null($_POST['partos'] ?? '', 's'), // partos
-param_null($_POST['abortos'] ?? '', 's'), // abortos
-param_null($_POST['cesareas'] ?? '', 's'), // cesareas
-param_null($_POST['vivos'] ?? '', 's'), // vivos
-param_null($_POST['muertos'] ?? '', 's'), // muertos
-param_null($_POST['fum'] ?? '', 's'), // fechaultimamenstruacion
-param_null($_POST['edad_gest'] ?? '', 's'), // edad_gest
-param_null($_POST['resul_gest'] ?? '', 's'), // resul_gest
-param_null($pn, 's'), // peso_nacer
-param_null($_POST['asist_controles'] ?? '', 's'), // asist_controles
-param_null($_POST['exa_labo'] ?? '', 's'), // exa_labo
-param_null($_POST['cons_micronutri'] ?? '', 's'), // cons_micronutri
-param_null($_POST['esq_vacu'] ?? '', 's'), // esq_vacu
-param_null($_POST['signos_alarma1'] ?? '', 's'), // signos_alarma1
-param_null($_POST['diag_sifigest'] ?? '', 's'), // diag_sifigest
-param_null($_POST['adhe_tto'] ?? '', 's'), // adhe_tto
-param_null($_POST['diag_sificong'] ?? '', 's'), // diag_sificong
-param_null($_POST['seg_partera'] ?? '', 's'), // seg_partera
-param_null($_POST['seg_med_ancestral1'] ?? '', 's'), // seg_med_ancestral1
-param_null($_POST['diag_cronico'] ?? '', 's'), // diag_cronico
-param_null($_POST['cual'] ?? '', 's'), // cual
-param_null($_POST['tto_enf'] ?? '', 's'), // tto_enf
-param_null($_POST['ctrl_cronico'] ?? '', 's'), // ctrl_cronico
-param_null($_POST['signos_alarma2'] ?? '', 's'), // signos_alarma2
-param_null($_POST['seg_med_ancestral2'] ?? '', 's'), // seg_med_ancestral2
-param_null($docma, 'i'), // doc_madre
-param_null($_POST['ctrl_cyd'] ?? '', 's'), // ctrl_cyd
-param_null($_POST['lactancia_mat'] ?? '', 's'), // lactancia_mat
-param_null($_POST['esq_vacunacion'] ?? '', 's'), // esq_vacunacion
-param_null($_POST['sig_alarma_seg'] ?? '', 's'), // sig_alarma_seg
-param_null($_POST['seg_med_ancestral3'] ?? '', 's'), // seg_med_ancestral3
-param_null($_POST['aten_med'] ?? '', 's'), // aten_med
-param_null($_POST['aten_par'] ?? '', 's'), // aten_par
-['type' => 's', 'value' => $sis],
-['type' => 's', 'value' => $diast],
-['type' => 's', 'value' => $fcar],
-['type' => 's', 'value' => $fres],
-['type' => 's', 'value' => $satu],
-['type' => 's', 'value' => $gluco],
-['type' => 's', 'value' => $pcef],
-['type' => 's', 'value' => $pbra],
-['type' => 's', 'value' => $pes],
-['type' => 's', 'value' => $tal],
-['type' => 's', 'value' => $imc],
-['type' => 's', 'value' => $zsc],
-['type' => 's', 'value' => $cn],
-param_null($_POST['ser_remigesti'] ?? '', 's'),
-param_null($_POST['observaciones'] ?? '', 's'),
-['type' => 's', 'value' => $bina],
-['type' => 's', 'value' => $equi],
-['type' => 's', 'value' => $_SESSION['us_sds']],
-['type' => 's', 'value' => NULL],
-['type' => 's', 'value' => NULL]
-];
-      // $rta = show_sql($sql, $params);
-      //var_dump($cn);
-    return $rta = mysql_prepd($sql, $params);
-   }else{
-   $sql="UPDATE emb_segreg SET observaciones=?,fecha_update=DATE_SUB(NOW(),INTERVAL 5 HOUR),usu_update=? WHERE idsegnoreg=?"; //  compromiso=?, equipo=?, 
-    $params = [
-      param_null($_POST['observaciones'], 's'),
-        ['type' => 'i', 'value' => $_SESSION['us_sds']],
-        ['type' => 'i', 'value' => $id[0]]
-      ];
-      $rta = mysql_prepd($sql, $params);
+    $id = divide($_POST['idsegnoreg']);
+    
+    // Validación de fecha
+    if (($rtaFec = validFecha('etnias', $_POST['fecha_seg'] ?? '')) !== true) {
+        return $rtaFec;
     }
-    return $rta;
+    
+    if(COUNT($id) == 2){
+        // INSERT - Nuevo registro
+        $equ = datos_mysql("SELECT equipo FROM usuarios WHERE id_usuario = ".$_SESSION['us_sds']);
+        $bina = isset($_POST['fequi']) ? (is_array($_POST['fequi']) ? implode("-", $_POST['fequi']) : implode("-", array_map('trim', explode(",", str_replace("'", "", $_POST['fequi']))))) : '';
+        $equi = $equ['responseResult'][0]['equipo'];
+        
+        // SQL con nombres de campos explícitos (según estructura de tabla)
+        $sql = "INSERT INTO emb_segreg (idpeople, fecha_seg, segui, estado_seg, motivo, prioridad, fecha_obs,gestaciones, partos, abortos, cesareas, vivos, muertos, fum, edad_gest, resul_gest, peso_nacer,asist_controles, exa_labo, cons_micronutri, esq_vacu, signos_alarma1,diag_sifigest, adhe_tto, diag_sificong, seg_partera, seg_med_ancestral1,diag_cronico, cual, tto_enf, ctrl_cronico, signos_alarma2, seg_med_ancestral2,doc_madre, ctrl_cyd, lactancia_mat, esq_vacunacion, sig_alarma_seg, seg_med_ancestral3,at_med, at_partera,sistolica, diastolica, frec_cardiaca, frec_respiratoria, saturacion, gluco,peri_cefalico, peri_braqueal, peso, talla, imc, zcore, clasi_nutri,ser_remigesti, observaciones, users_bina, equipo_bina,usu_creo, fecha_create, usu_update, fecha_update, estado) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DATE_SUB(NOW(), INTERVAL 5 HOUR), NULL, NULL, 'A')";
+    
+        $params = [
+            ['type' => 'i', 'value' => $id[0]], // idpeople
+            param_null($_POST['fecha_seg'] ?? '', 's'), // fecha_seg
+            param_null($_POST['segui'] ?? '', 's'), // segui
+            param_null($_POST['estado_seg'] ?? '', 's'), // estado_seg
+            param_null($_POST['motivo_estado'] ?? '', 's'), // motivo (campo motivo_estado en POST pero motivo en tabla)
+            param_null($_POST['prioridad'] ?? '', 's'), // prioridad
+            param_null($_POST['fecha_obs'] ?? '', 's'), // fecha_obs
+            param_null($_POST['gestaciones'] ?? '', 's'), // gestaciones
+            param_null($_POST['partos'] ?? '', 's'), // partos
+            param_null($_POST['abortos'] ?? '', 's'), // abortos
+            param_null($_POST['cesareas'] ?? '', 's'), // cesareas
+            param_null($_POST['vivos'] ?? '', 's'), // vivos
+            param_null($_POST['muertos'] ?? '', 's'), // muertos
+            param_null($_POST['fum'] ?? '', 's'), // fum
+            param_null($_POST['edad_gest'] ?? '', 's'), // edad_gest
+            param_null($_POST['resul_gest'] ?? '', 's'), // resul_gest
+            param_null($_POST['peso_nacer'] ?? '', 's'), // peso_nacer (decimal)
+            param_null($_POST['asist_controles'] ?? '', 's'), // asist_controles
+            param_null($_POST['exa_labo'] ?? '', 's'), // exa_labo
+            param_null($_POST['cons_micronutri'] ?? '', 's'), // cons_micronutri
+            param_null($_POST['esq_vacu'] ?? '', 's'), // esq_vacu
+            param_null($_POST['signos_alarma1'] ?? '', 's'), // signos_alarma1
+            param_null($_POST['diag_sifigest'] ?? '', 's'), // diag_sifigest
+            param_null($_POST['adhe_tto'] ?? '', 's'), // adhe_tto
+            param_null($_POST['diag_sificong'] ?? '', 's'), // diag_sificong
+            param_null($_POST['seg_partera'] ?? '', 's'), // seg_partera
+            param_null($_POST['seg_med_ancestral1'] ?? '', 's'), // seg_med_ancestral1
+            param_null($_POST['diag_cronico'] ?? '', 's'), // diag_cronico
+            param_null($_POST['cual'] ?? '', 's'), // cual
+            param_null($_POST['tto_enf'] ?? '', 's'), // tto_enf
+            param_null($_POST['ctrl_cronico'] ?? '', 's'), // ctrl_cronico
+            param_null($_POST['signos_alarma2'] ?? '', 's'), // signos_alarma2
+            param_null($_POST['seg_med_ancestral2'] ?? '', 's'), // seg_med_ancestral2
+            param_null($_POST['doc_madre'] ?? '', 'i'), // doc_madre (int)
+            param_null($_POST['ctrl_cyd'] ?? '', 's'), // ctrl_cyd
+            param_null($_POST['lactancia_mat'] ?? '', 's'), // lactancia_mat
+            param_null($_POST['esq_vacunacion'] ?? '', 's'), // esq_vacunacion
+            param_null($_POST['sig_alarma_seg'] ?? '', 's'), // sig_alarma_seg
+            param_null($_POST['seg_med_ancestral3'] ?? '', 's'), // seg_med_ancestral3
+            param_null($_POST['aten_med'] ?? '', 's'), // at_med (campo aten_med en POST pero at_med en tabla)
+            param_null($_POST['aten_par'] ?? '', 's'), // at_partera (campo aten_par en POST pero at_partera en tabla)
+            param_null($_POST['sistolica'] ?? '', 'i'), // sistolica (smallint)
+            param_null($_POST['diastolica'] ?? '', 'i'), // diastolica (smallint)
+            param_null($_POST['frec_cardiaca'] ?? '', 'i'), // frec_cardiaca (smallint)
+            param_null($_POST['frec_respiratoria'] ?? '', 'i'), // frec_respiratoria (smallint)
+            param_null($_POST['saturacion'] ?? '', 'i'), // saturacion (smallint)
+            param_null($_POST['gluco'] ?? '', 'i'), // gluco (smallint)
+            param_null($_POST['peri_cefalico'] ?? '', 's'), // peri_cefalico (decimal)
+            param_null($_POST['peri_braqueal'] ?? '', 's'), // peri_braqueal (decimal)
+            param_null($_POST['peso'] ?? '', 's'), // peso (decimal)
+            param_null($_POST['talla'] ?? '', 's'), // talla (decimal)
+            param_null($_POST['imc'] ?? '', 's'), // imc (decimal)
+            param_null($_POST['zscore'] ?? '', 's'), // zcore (campo zscore en POST pero zcore en tabla)
+            param_null($_POST['clasi_nut'] ?? '', 's'), // clasi_nutri (campo clasi_nut en POST pero clasi_nutri en tabla)
+            param_null($_POST['ser_remigesti'] ?? '', 's'), // ser_remigesti
+            param_null($_POST['observaciones'] ?? '', 's'), // observaciones
+            ['type' => 's', 'value' => $bina], // users_bina
+            ['type' => 's', 'value' => $equi], // equipo_bina
+            ['type' => 's', 'value' => $_SESSION['us_sds']] // usu_creo
+        ];
+        
+        return mysql_prepd($sql, $params);
+        
+    } else {
+        // UPDATE - Edición de registro existente
+        $sql = "UPDATE emb_segreg SET 
+                fecha_seg = ?, segui = ?, estado_seg = ?, motivo = ?, prioridad = ?, fecha_obs = ?,
+                gestaciones = ?, partos = ?, abortos = ?, cesareas = ?, vivos = ?, muertos = ?,
+                fum = ?, edad_gest = ?, resul_gest = ?, peso_nacer = ?,
+                asist_controles = ?, exa_labo = ?, cons_micronutri = ?, esq_vacu = ?, signos_alarma1 = ?,
+                diag_sifigest = ?, adhe_tto = ?, diag_sificong = ?, seg_partera = ?, seg_med_ancestral1 = ?,
+                diag_cronico = ?, cual = ?, tto_enf = ?, ctrl_cronico = ?, signos_alarma2 = ?, seg_med_ancestral2 = ?,
+                doc_madre = ?, ctrl_cyd = ?, lactancia_mat = ?, esq_vacunacion = ?, sig_alarma_seg = ?, seg_med_ancestral3 = ?,
+                at_med = ?, at_partera = ?,
+                sistolica = ?, diastolica = ?, frec_cardiaca = ?, frec_respiratoria = ?, saturacion = ?, gluco = ?,
+                peri_cefalico = ?, peri_braqueal = ?, peso = ?, talla = ?, imc = ?, zcore = ?, clasi_nutri = ?,
+                ser_remigesti = ?, observaciones = ?,
+                fecha_update = DATE_SUB(NOW(), INTERVAL 5 HOUR), usu_update = ?
+                WHERE idsegnoreg = ?";
+        
+        $params = [
+            param_null($_POST['fecha_seg'] ?? '', 's'),
+            param_null($_POST['segui'] ?? '', 's'),
+            param_null($_POST['estado_seg'] ?? '', 's'),
+            param_null($_POST['motivo_estado'] ?? '', 's'),
+            param_null($_POST['prioridad'] ?? '', 's'),
+            param_null($_POST['fecha_obs'] ?? '', 's'),
+            param_null($_POST['gestaciones'] ?? '', 's'),
+            param_null($_POST['partos'] ?? '', 's'),
+            param_null($_POST['abortos'] ?? '', 's'),
+            param_null($_POST['cesareas'] ?? '', 's'),
+            param_null($_POST['vivos'] ?? '', 's'),
+            param_null($_POST['muertos'] ?? '', 's'),
+            param_null($_POST['fum'] ?? '', 's'),
+            param_null($_POST['edad_gest'] ?? '', 's'),
+            param_null($_POST['resul_gest'] ?? '', 's'),
+            param_null($_POST['peso_nacer'] ?? '', 's'),
+            param_null($_POST['asist_controles'] ?? '', 's'),
+            param_null($_POST['exa_labo'] ?? '', 's'),
+            param_null($_POST['cons_micronutri'] ?? '', 's'),
+            param_null($_POST['esq_vacu'] ?? '', 's'),
+            param_null($_POST['signos_alarma1'] ?? '', 's'),
+            param_null($_POST['diag_sifigest'] ?? '', 's'),
+            param_null($_POST['adhe_tto'] ?? '', 's'),
+            param_null($_POST['diag_sificong'] ?? '', 's'),
+            param_null($_POST['seg_partera'] ?? '', 's'),
+            param_null($_POST['seg_med_ancestral1'] ?? '', 's'),
+            param_null($_POST['diag_cronico'] ?? '', 's'),
+            param_null($_POST['cual'] ?? '', 's'),
+            param_null($_POST['tto_enf'] ?? '', 's'),
+            param_null($_POST['ctrl_cronico'] ?? '', 's'),
+            param_null($_POST['signos_alarma2'] ?? '', 's'),
+            param_null($_POST['seg_med_ancestral2'] ?? '', 's'),
+            param_null($_POST['doc_madre'] ?? '', 'i'),
+            param_null($_POST['ctrl_cyd'] ?? '', 's'),
+            param_null($_POST['lactancia_mat'] ?? '', 's'),
+            param_null($_POST['esq_vacunacion'] ?? '', 's'),
+            param_null($_POST['sig_alarma_seg'] ?? '', 's'),
+            param_null($_POST['seg_med_ancestral3'] ?? '', 's'),
+            param_null($_POST['aten_med'] ?? '', 's'),
+            param_null($_POST['aten_par'] ?? '', 's'),
+            param_null($_POST['sistolica'] ?? '', 'i'),
+            param_null($_POST['diastolica'] ?? '', 'i'),
+            param_null($_POST['frec_cardiaca'] ?? '', 'i'),
+            param_null($_POST['frec_respiratoria'] ?? '', 'i'),
+            param_null($_POST['saturacion'] ?? '', 'i'),
+            param_null($_POST['gluco'] ?? '', 'i'),
+            param_null($_POST['peri_cefalico'] ?? '', 's'),
+            param_null($_POST['peri_braqueal'] ?? '', 's'),
+            param_null($_POST['peso'] ?? '', 's'),
+            param_null($_POST['talla'] ?? '', 's'),
+            param_null($_POST['imc'] ?? '', 's'),
+            param_null($_POST['zscore'] ?? '', 's'),
+            param_null($_POST['clasi_nut'] ?? '', 's'),
+            param_null($_POST['ser_remigesti'] ?? '', 's'),
+            param_null($_POST['observaciones'] ?? '', 's'),
+            ['type' => 's', 'value' => $_SESSION['us_sds']], // usu_update
+            ['type' => 'i', 'value' => $id[0]] // idsegnoreg
+        ];
+        
+        return mysql_prepd($sql, $params);
+    }
 }
 
 function get_segnoreg(){
