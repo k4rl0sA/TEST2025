@@ -132,74 +132,6 @@ $o='complementarios';
 		}
 }
 
-/* function get_atencionM(){
-	if($_REQUEST['id']==''){
-		return "";
-	}else{
-		$id=$_REQUEST['id']; // Viene el id_factura desde el listado
-		
-		// Consulta directa con LEFT JOIN - trae datos de adm_facturacion y person
-		// Si existe registro en eac_atencion para esta factura, trae esos datos también
-		// ORDEN DE CAMPOS DEBE COINCIDIR CON cmp_atencionM():
-		// ida, tipodoc, idpersona, nombre1, fecha_nacimiento, sexo, genero, nacionalidad, 
-		// idf, fechaatencion, tipo_consulta, codigocups, finalidadconsulta, fechaingreso, tipo_estrategia,
-		// letra1, rango1, diagnostico1, letra2, rango2, diagnostico2, letra3, rango3, diagnostico3,
-		// vih, resul_vih, hb, resul_hb, trepo_sifil, resul_sifil, pru_embarazo, resul_emba, pru_apetito, resul_apetito,
-		// laboratorios, medicamentos
-		
-		$sql="SELECT 
-			CONCAT(a.idpeople,'_',a.id_factura) ida,
-			b.tipo_doc tipodoc, 
-			b.idpersona, 
-			CONCAT_WS(' ',b.nombre1,b.nombre2,b.apellido1,b.apellido2) nombre1,
-			b.fecha_nacimiento,
-			b.sexo, 
-			b.genero, 
-			b.nacionalidad,
-			a.id_factura idf,
-			a.fecha_consulta fechaatencion,
-			a.tipo_consulta,
-			a.cod_cups codigocups,
-			a.final_consul finalidadconsulta,
-			IFNULL(c.fecha_ingr, a.fecha_consulta) fechaingreso,
-			c.fuente tipo_estrategia,
-			c.letra1, 
-			c.rango1, 
-			c.diagnostico1,
-			c.letra2, 
-			c.rango2, 
-			c.diagnostico2,
-			c.letra3, 
-			c.rango3, 
-			c.diagnostico3,
-			c.vih, 
-			c.resul_vih,
-			c.hb, 
-			c.resul_hb,
-			c.trepo_sifil, 
-			c.resul_sifil,
-			c.pru_embarazo, 
-			c.resul_emba,
-			c.pru_apetito, 
-			c.resul_apetito,
-			c.laboratorios,
-			c.medicamentos
-		FROM adm_facturacion a
-		LEFT JOIN person b ON a.idpeople = b.idpeople
-		LEFT JOIN eac_atencion c ON a.id_factura = c.id_factura
-		WHERE a.id_factura = '{$id}'";
-		
-		$info=datos_mysql($sql);
-		
-		// Verificar si se obtuvo resultado
-		if(isset($info['responseResult'][0])){
-			return json_encode($info['responseResult'][0]);
-		}else{
-			return "";
-		}
-	}
-}
- */
 function get_atencionM(){
 	if($_REQUEST['id']==''){
 		return "";
@@ -211,15 +143,13 @@ function get_atencionM(){
 		WHERE a.id_factura ='{$id}'";
 		$info=datos_mysql($sql1);
 		$total=$info['responseResult'][0]['rta'];
-
+		
 		if ($total==1){		
 			$sql="SELECT concat(a.idpeople) id, b.tipo_doc, b.idpersona, concat_ws(' ',b.nombre1,b.nombre2,b.apellido1,b.apellido2) nombres,
 				b.fecha_nacimiento, b.sexo, b.genero, b.nacionalidad, a.id_factura, a.fecha_consulta fechaatencion, a.tipo_consulta, a.cod_cups codigocups, a.final_consul finalidadconsulta,
-				c.fecha_atencion, c.codigo_cups, c.finalidad_consulta, c.fuente, c.fecha_ingr fechaingreso,
-				c.letra1, c.rango1, c.diagnostico1, c.letra2, c.rango2, c.diagnostico2, c.letra3, c.rango3, c.diagnostico3,
+				c.fecha_ingr fechaingreso,c.fuente tipo_estrategia,c.letra1, c.rango1, c.diagnostico1, c.letra2, c.rango2, c.diagnostico2, c.letra3, c.rango3, c.diagnostico3,
 				c.vih, c.resul_vih, c.hb, c.resul_hb, c.trepo_sifil, c.resul_sifil, c.pru_embarazo, c.resul_emba,
-				c.pru_apetito, c.resul_apetito, c.laboratorios, c.medicamentos, c.n_superficie, c.n_placa_superf, c.resultado_placa,
-				c.psico_1, c.psico_2, c.psico_3
+				c.pru_apetito, c.resul_apetito, c.laboratorios, c.medicamentos
 				FROM adm_facturacion a
 				LEFT JOIN person b ON a.idpeople=b.idpeople
 				LEFT JOIN eac_atencion c ON a.idpeople=c.idpeople AND a.id_factura=c.id_factura
@@ -419,7 +349,6 @@ function gra_atencionM() {
         'tipo_consulta' => 'tipo_consulta',
         'codigocups' => 'codigo_cups',
         'finalidadconsulta' => 'finalidad_consulta',
-        'tipo_estrategia' => 'fuente', // Mapeo correcto: tipo_estrategia en form -> fuente en BD
         'fechaingreso' => 'fecha_ingr',
         'letra1' => 'letra1',
         'rango1' => 'rango1', 
@@ -444,16 +373,11 @@ function gra_atencionM() {
         'medicamentos' => 'medicamentos'
     ];
 
-    // Obtener idpeople desde el campo ida (puede venir como "idpeople" o "idpeople_idfactura")
-    $id = divide($_POST['ida'] ?? '');
+    $id = divide($_POST['ida']);
+    if (count($id) != 1 || empty($id[0])) return "Error: idpeople es obligatorio y no puede ser nulo.";
     
-    // Si viene vacío o no es válido, retornar error
-    if (empty($id[0])) {
-        return "Error: idpeople es obligatorio y no puede ser nulo.";
-    }
-    
-    // Validar campos obligatorios (campos NOT NULL en la tabla eac_atencion)
-    $obligatorios = ['idf', 'fechaatencion', 'tipo_consulta', 'codigocups', 'finalidadconsulta', 'tipo_estrategia', 'fechaingreso', 'letra1', 'rango1', 'diagnostico1'];
+    // Validar campos obligatorios (campos NOT NULL en la tabla)
+    $obligatorios = ['idf', 'fechaatencion','tipo_estrategia', 'tipo_consulta', 'codigocups', 'finalidadconsulta', 'fechaingreso', 'letra1', 'rango1', 'diagnostico1'];
     foreach ($obligatorios as $campo) {
         $valor = $_POST[$campo] ?? null;
         if ($valor === null || $valor === '') {
@@ -468,12 +392,15 @@ function gra_atencionM() {
     foreach ($map as $form => $col) {
         $cols[] = $col;
         if ($form == 'idpeople') {
-            $params[] = ['type' => 'i', 'value' => $id[0]]; // Usar id[0] del divide
+            $params[] = ['type' => 'i', 'value' => $id[0]];
         } else {
-            // Usar param_null para manejar campos opcionales correctamente
             $params[] = param_null($_POST[$form] ?? null, 's');
         }
     }
+
+    // Agregar campo fuente (requerido en BD, viene desde tipo_estrategia)
+    $cols[] = 'fuente';
+    $params[] = param_null($_POST['tipo_estrategia'] ?? null, 's');
 
     // Campos de auditoría
     $cols[] = 'usu_creo';
@@ -491,7 +418,9 @@ function gra_atencionM() {
         $placeholders
     )";
     
-    return mysql_prepd($sql, $params);
+    $rta = mysql_prepd($sql, $params);
+    return $rta;
+}    return mysql_prepd($sql, $params);
 }
 
 function cap_menus($a,$b='cap',$con='con') {
