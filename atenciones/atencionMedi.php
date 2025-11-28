@@ -403,9 +403,9 @@ function gra_atencionM() {
         }
     }
 
-    // Agregar campo fuente (requerido en BD pero no en formulario)
+    // Agregar campo fuente (requerido en BD, viene desde tipo_estrategia del formulario)
     $cols[] = 'fuente';
-    $params[] = ['type' => 's', 'value' => '1']; // Valor por defecto
+    $params[] = param_null($_POST['tipo_estrategia'] ?? null, 's');
 
     // Campos de auditoría
     $cols[] = 'usu_creo';
@@ -413,7 +413,7 @@ function gra_atencionM() {
     $cols[] = 'estado';
     
     $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
-    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))]; // Fecha menos 5 horas
+    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))];
     $params[] = ['type' => 's', 'value' => 'A'];
 
     $placeholders = implode(', ', array_fill(0, count($params), '?'));
@@ -422,8 +422,8 @@ function gra_atencionM() {
     ) VALUES (
         $placeholders
     )";
-    return show_sql($sql, $params);
-    //$rta = mysql_prepd($sql, $params);
+    
+    $rta = mysql_prepd($sql, $params);
     return $rta;
 }
 
