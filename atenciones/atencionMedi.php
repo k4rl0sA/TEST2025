@@ -132,7 +132,7 @@ $o='complementarios';
 		}
 }
 
-function get_atencionM(){
+/* function get_atencionM(){
 	if($_REQUEST['id']==''){
 		return "";
 	}else{
@@ -196,6 +196,47 @@ function get_atencionM(){
 			return json_encode($info['responseResult'][0]);
 		}else{
 			return "";
+		}
+	}
+}
+ */
+function get_atencionM(){
+	if($_REQUEST['id']==''){
+		return "";
+	}else{
+		$id=$_REQUEST['id'];
+		$sql1="SELECT COUNT(*) rta
+		FROM adm_facturacion a
+		LEFT JOIN eac_atencion c ON a.idpeople = c.idpeople AND a.id_factura = c.id_factura
+		WHERE a.id_factura ='{$id}'";
+		$info=datos_mysql($sql1);
+		$total=$info['responseResult'][0]['rta'];
+
+		if ($total==1){		
+			$sql="SELECT concat(a.idpeople) id, b.tipo_doc, b.idpersona, concat_ws(' ',b.nombre1,b.nombre2,b.apellido1,b.apellido2) nombres,
+				b.fecha_nacimiento, b.sexo, b.genero, b.nacionalidad, a.id_factura, a.fecha_consulta fechaatencion, a.tipo_consulta, a.cod_cups codigocups, a.final_consul finalidadconsulta,
+				c.fecha_atencion, c.codigo_cups, c.finalidad_consulta, c.fuente, c.fecha_ingr fechaingreso,
+				c.letra1, c.rango1, c.diagnostico1, c.letra2, c.rango2, c.diagnostico2, c.letra3, c.rango3, c.diagnostico3,
+				c.vih, c.resul_vih, c.hb, c.resul_hb, c.trepo_sifil, c.resul_sifil, c.pru_embarazo, c.resul_emba,
+				c.pru_apetito, c.resul_apetito, c.laboratorios, c.medicamentos, c.n_superficie, c.n_placa_superf, c.resultado_placa,
+				c.psico_1, c.psico_2, c.psico_3
+				FROM adm_facturacion a
+				LEFT JOIN person b ON a.idpeople=b.idpeople
+				LEFT JOIN eac_atencion c ON a.idpeople=c.idpeople AND a.id_factura=c.id_factura
+				WHERE a.id_factura ='{$id}'";
+				$info=datos_mysql($sql);
+			return json_encode($info['responseResult'][0]);
+		}else{
+			$sql="SELECT concat(b.idpeople) id,
+			b.tipo_doc,
+			b.idpersona,
+			concat_ws(' ',b.nombre1,b.nombre2,b.apellido1,b.apellido2) nombres,
+			b.fecha_nacimiento, b.sexo, b.genero, b.nacionalidad, a.id_factura, a.fecha_consulta fechaatencion, a.tipo_consulta, a.cod_cups codigocups, a.final_consul finalidadconsulta
+			FROM adm_facturacion a
+			LEFT JOIN person b ON a.idpeople=b.idpeople 
+			WHERE a.id_factura='{$id}'";
+			$info=datos_mysql($sql);
+			return json_encode($info['responseResult'][0]);
 		}
 	}
 }
