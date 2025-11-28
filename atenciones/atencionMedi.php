@@ -381,7 +381,7 @@ function gra_atencionM() {
     foreach ($obligatorios as $campo) {
         $valor = $_POST[$campo] ?? null;
         if ($valor === null || $valor === '') {
-            return "Error: El campo '$campo' es obligatorio y no puede ser nulo o vacío.";
+            return "msj['Error: El campo '$campo' es obligatorio y no puede ser nulo o vacío.']";
         }
     }
 
@@ -394,13 +394,18 @@ function gra_atencionM() {
         if ($form == 'idpeople') {
             $params[] = ['type' => 'i', 'value' => $id[0]];
         } else {
-            $params[] = param_null($_POST[$form] ?? null, 's');
+            $valor = $_POST[$form] ?? null;
+            if ($valor === '' || $valor === null) {
+                $params[] = ['type' => 'z', 'value' => null];
+            } else {
+                $params[] = ['type' => 's', 'value' => $valor];
+            }
         }
     }
 
-    // Agregar campo fuente (requerido en BD, viene desde tipo_estrategia)
+    // Agregar campo fuente (requerido en BD pero no en formulario)
     $cols[] = 'fuente';
-    $params[] = param_null($_POST['tipo_estrategia'] ?? null, 's');
+    $params[] = ['type' => 's', 'value' => '1']; // Valor por defecto
 
     // Campos de auditoría
     $cols[] = 'usu_creo';
@@ -408,7 +413,7 @@ function gra_atencionM() {
     $cols[] = 'estado';
     
     $params[] = ['type' => 's', 'value' => $_SESSION['us_sds']];
-    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))];
+    $params[] = ['type' => 's', 'value' => date('Y-m-d H:i:s', strtotime('-5 hours'))]; // Fecha menos 5 horas
     $params[] = ['type' => 's', 'value' => 'A'];
 
     $placeholders = implode(', ', array_fill(0, count($params), '?'));
@@ -420,7 +425,6 @@ function gra_atencionM() {
     
     $rta = mysql_prepd($sql, $params);
     return $rta;
-}    return mysql_prepd($sql, $params);
 }
 
 function cap_menus($a,$b='cap',$con='con') {
@@ -438,7 +442,7 @@ function cap_menus($a,$b='cap',$con='con') {
 	$b=strtolower($b);
 	$rta=$c[$d];
    // print_r($c);
-   // var_dump($a);   
+   // var_dump($a); 
 	   if($a=='atencionM' && $b=='acciones'){
 		   $rta="<nav class='menu right'>";
 		   $rta.="<li class='icono editar ' title='Editar Atención' id='".$c['ACCIONES']."' Onclick=\"
