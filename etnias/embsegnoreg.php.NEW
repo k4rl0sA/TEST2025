@@ -73,30 +73,29 @@ function cmp_segnoreg(){
   $cro='CrO';
   $me5='mE5';
   $p=get_persona();
-  //var_dump($p['mes']/12);
 	$c[]=new cmp($o,'e',null,'MODULO INICIAL',$w);
   $c[]=new cmp('fechanacimiento','h','10',$p['fecha_nacimiento'],$w.' zsc '.$o,'fecha nacimiento','fechanacimiento',null,'',true,false,'','col-2');
   $c[]=new cmp('sexo','h',1,$p['sexo'],$w.' zsc '.$o,'sexo','sexo',null,'',false,false,'','col-1');
   $c[]=new cmp('idsegnoreg','h',15,$_POST['id'],$w.' '.$o,'id','id',null,'####',false,false);
   $c[]=new cmp('fecha_seg','d',10,$d,$w.' '.$o,'Fecha Seguimiento','fecha_seg',null,null,true,true,'','col-2',"validDate(this,$days,0);");
   $c[]=new cmp('segui','s',3,$d,$w.' '.$o,'Seguimiento N°','segui',null,null,true,true,'','col-2',"staEfe('segui','sta');EnabEfec(this,['ges','cronicos','menor5','signosV','antrop','aspfin'],['Ob'],['nO'],['bL'])");
-  $c[]=new cmp('estado_seg','s',3,$d,$w.' sTa '.$o,'Estado','estado_seg',null,null,true,true,'','col-2',"EnabFall();enabFielSele(this,true,['motivo_estado'],['3']);enabFielSele(this,false,['prioridad'],['3']);enabFielSele(this,true,['prioridad'],['1']);EnabEfec(this,['ges','cronicos','menor5','signosV','antrop','aspfin'],['Ob'],['nO'],['bL']);");//
+  $c[]=new cmp('estado_seg','s',3,$d,$w.' sTa '.$o,'Estado','estado_seg',null,null,true,true,'','col-2',"enabFielSele(this,true,['motivo_estado'],['3']);enabFielSele(this,false,['prioridad'],['3']);enabFielSele(this,true,['prioridad'],['1']);etnFall();EnabEfec(this,['ges','cronicos','menor5','signosV','antrop','aspfin'],['Ob'],['nO'],['bL']);");//
   $c[]=new cmp('motivo_estado','s','3',$d,$w.' '.$o,'Motivo de Estado','motivo_estado',null,null,false,$x,'','col-2');
-  $c[]=new cmp('prioridad','s',3,$d,$w.' '.$no,'Prioridad','prioridad',null,null,false,true,'','col-2',"enabPrioEtn();enCroGes();");
+  $c[]=new cmp('prioridad','s',3,$d,$w.' '.$no,'Prioridad','prioridad',null,null,false,true,'','col-2',"enabPrioEtn();enCroGes();etnFall();");
   
     $o='ges';
   $c[]=new cmp($o,'e',null,'GESTANTES',$w);
-  $c[]=new cmp('gestaciones','s',3,$d,$w.' '.$bl.' '.$ge.' '.$no,'Gestaciones','fxobs',null,null,true,true,'','col-2');
+  $c[]=new cmp('gestaciones','s',3,$d,$w.' '.$bl.' '.$ge.' '.$o,'Gestaciones','fxobs',null,null,true,true,'','col-2');
   $c[]=new cmp('partos','s',3,$d,$w.' '.$bl.' '.$ge.' '.$o,'Partos','fxobs',null,null,true,true,'','col-2');
   $c[]=new cmp('abortos','s',3,$d,$w.' '.$bl.' '.$ge.' '.$o,'Abortos','fxobs',null,null,true,true,'','col-2');
   $c[]=new cmp('cesareas','s',3,$d,$w.' '.$bl.' '.$ge.' '.$o,'Cesareas','fxobs',null,null,true,true,'','col-2');
   $c[]=new cmp('vivos','s',3,$d,$w.' '.$bl.' '.$ge.' '.$o,'Vivos','fxobs',null,null,true,true,'','col-2');
   $c[]=new cmp('muertos','s',3,$d,$w.' '.$bl.' '.$ge.' '.$o,'Muertos','fxobs',null,null,true,true,'','col-2');
-  $c[]=new cmp('fum','d',10,$d,$w.' '.$bl.' '.$ge.' '.$o,'Fecha Última Menstruación','fum',null,null,true,true,'','col-2');
+  $c[]=new cmp('fum','d',10,$d,$w.' '.$bl.' '.$ge.' '.$o,'Fecha Última Menstruación','fum',null,null,true,true,'','col-2',"validDate(this,-270,0);");
   $c[]=new cmp('edad_gest','s',3,$d,$w.' '.$bl.' '.$ge.' '.$o,'Edad Gestacional Al Momento De Identificacion En Semanas','edad_gest',null,null,true,true,'','col-4','enabEmbRGes();enabEmbPRg();');
   $c[]=new cmp('fecha_obs','d',10,$d,$w.' '.$bl.' Pue '.$o,'Fecha de Evento Obstetrico','fecha_obs',null,null,true,false,'','col-2');
-  $c[]=new cmp('resul_gest','s',3,$d,$w.' '.$bl.' Pue '.$o,'Resultado De La Gestación','resul_gest',null,null,true,false,'','col-2',"enabNV();");
-  $c[]=new cmp('peso_nacer','sd',5,$d,$w.' '.$bl.' Nav '.$o,'Peso Al Nacer (Gr)','peso_nacer',null,null,false,false,'','col-2');
+  $c[]=new cmp('resul_gest','s',3,$d,$w.' '.$bl.' Pue '.$o,'Resultado De La Gestación','resul_gest',null,null,false,false,'','col-2',"enabNV();");
+  $c[]=new cmp('peso_nacer','sd',5,$d,$w.' '.$bl.' Pue Nav '.$o,'Peso Al Nacer (Gr)','peso_nacer',null,null,false,false,'','col-2');
   $c[]=new cmp('asist_controles','s',3,$d,$w.' PrG '.$bl.' '.$o,'¿Asiste A Controles Prenatales?','rta',null,null,true,true,'','col-2');
   $c[]=new cmp('exa_labo','s',3,$d,$w.' PrG '.$bl.' '.$o,'¿Cuenta Con Exámenes De Laboratorio Al Día? Con Relación Al Trimestre Gestacional?','rta',null,null,true,true,'','col-4');
   $c[]=new cmp('cons_micronutri','s',3,$d,$w.' PrG '.$bl.' '.$o,'¿Consume Micronutrientes?','rta',null,null,true,true,'','col-4');
@@ -133,10 +132,11 @@ function cmp_segnoreg(){
   $c[]=new cmp($o,'e',null,'SIGNOS VITALES',$w);
   $c[]=new cmp('aten_med','s',3,$d,$w.' '.$o,'Recibio Atención por Medico Ancestral','rta',null,null,false,true,'','col-25');
   $c[]=new cmp('aten_par','s',3,$d,$w.' '.$o,'Recibio Atención por Partera','rta',null,null,false,true,'','col-25');
-
   $men = ($p['mes']>143) ? true : false ;
-  $c[]=new cmp('sistolica','sd',3,$d,$w.' '.$no,'Valor Sistolica (50 mmhg y 200 mmhg)','sistolica','rgxsisto',null,true,$men,'','col-25');
-  $c[]=new cmp('diastolica','sd',3,$d,$w.' '.$no,'Valor Diastolica (30 mmhg y 150 mmhg)','diastolica','rgxdiast',null,true,$men,'','col-25');
+  $o='signosA';
+  $c[]=new cmp('sistolica','sd',3,$d,$w.' '.$o,'Valor Sistolica (50 mmhg y 200 mmhg)','sistolica','rgxsisto',null,true,false,'','col-25');
+  $c[]=new cmp('diastolica','sd',3,$d,$w.' '.$o,'Valor Diastolica (30 mmhg y 150 mmhg)','diastolica','rgxdiast',null,true,false,'','col-25');
+  $o='signosV';
   $c[]=new cmp('frec_cardiaca','sd',3,$d,$w.' '.$o,'Frecuencia Cardiaca (50 a 150 lt)','frec_cardiaca','rgxfcard',null,true,true,'','col-25');
   $c[]=new cmp('frec_respiratoria','sd',3,$d,$w.' '.$o,'Frecuencia Respiratoria (15 a 60 x min)','frec_respiratoria','rgxfresp',null,true,true,'','col-25');
   $c[]=new cmp('saturacion','sd',3,$d,$w.' '.$o,'Saturación (40 a 99 %)','saturacion','rgxsatu',null,true,true,'','col-25');
@@ -152,13 +152,13 @@ function cmp_segnoreg(){
   $c[]=new cmp('peso','sd',6,$d,$w.' '.$o,'Peso (Kg)','peso','rgxpeso',null,true,true,'','col-25',"calImc('peso','talla','imc');Zsco('zscore','../etnias/embsegnoreg.php');");
   $c[]=new cmp('talla','sd',5,$d,$w.' '.$o,'Talla (Cm)','talla','rgxtalla',null,true,true,'','col-25',"calImc('peso','talla','imc');Zsco('zscore','../etnias/embsegnoreg.php');");
   $c[]=new cmp('imc','sd',6,$d,$w.' '.$bl.' '.$o,'Imc','imc',null,null,false,false,'','col-3');
-  $c[]=new cmp('zscore','t',50,$d,$w.' '.$bl.' '.$o,'Zscore','zscore',null,null,false,$men5,'','col-35');
+  $c[]=new cmp('zscore','t',50,$d,$w.' '.$bl.' '.$o,'Zcore','zscore',null,null,false,$men5,'','col-35');
   $c[]=new cmp('clasi_nut','s',3,$d,$w.' '.$o,'Clasificación Nutricional','clasi_nutri',null,null,false,true,'','col-35');
   
   $o='aspfin';
   $c[]=new cmp($o,'e',null,'ASPECTOS FINALES',$w);
   $c[]=new cmp('ser_remigesti','s',3,$d,$w.' '.$o,'Servicio De Remision Y/O Gestion','ser_remigesti',null,null,false,true,'','col-25');
-  $c[]=new cmp('observaciones','a',7000,$d,$w.' obse '.$ob.' '.$o,'Observaciones','observaciones',null,null,true,true,'','col-75');
+  $c[]=new cmp('observaciones','a',7000,$d,$w.' '.$ob.' '.$o,'Observaciones','observaciones',null,null,true,true,'','col-75');
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put(); 
 	return $rta;
 }
@@ -228,7 +228,6 @@ function get_persona(){
 					$des='Error en el rango, por favor valide';
 					break;
 			}
-	
 			return json_encode($z." = ".$des);
 		}
 	}
@@ -237,23 +236,6 @@ function get_persona(){
 function gra_segnoreg(){
  	$id=divide($_POST['idsegnoreg']);
   if (($rtaFec = validFecha('etnias', $_POST['fecha_seg'] ?? '')) !== true) {return $rtaFec;}
-  $pn=$_POST['peso_nacer']?? null;
-  $docma=$_POST['doc_madre']?? null;
-  $sis=$_POST['sistolica']?? null;
-  $diast=$_POST['diastolica']?? null;
-  $fcar=$_POST['frec_cardiaca']?? null;
-  $fres= $_POST['frec_respiratoria']?? null;
-  $satu=$_POST['saturacion']?? null;
-  $gluco=$_POST['gluco']?? null;
-  $pcef=$_POST['peri_cefalico']?? null;
-  
-  $zsc=$_POST['zcore']?? null;
-  $cn=$_POST['clasi_nut']?? null;
-  
-  $pbra=$_POST['peri_braqueal']?? null;
-  $pes= $_POST['peso']?? null;
-  $tal=$_POST['talla']?? null;
-  $imc= $_POST['imc']?? null;
   
       if(COUNT($id)==2){
         $equ=datos_mysql("select equipo from usuarios where id_usuario=".$_SESSION['us_sds']);
@@ -261,8 +243,7 @@ function gra_segnoreg(){
       $equi=$equ['responseResult'][0]['equipo'];
       $sql = "INSERT INTO emb_segreg VALUES (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),?,?,'A')";
     $params = [
-['type' => 'i', 'value' => $id[0]],
-param_null($_POST['fecha_seg'], 's'),
+['type' => 'i', 'value' => $id[0]], // idpeople
 param_null($_POST['fecha_seg'] ?? '', 's'), // fecha_seg
 param_null($_POST['segui'] ?? '', 's'), // segui
 param_null($_POST['estado_seg'] ?? '', 's'), // estado_seg
@@ -278,7 +259,7 @@ param_null($_POST['muertos'] ?? '', 's'), // muertos
 param_null($_POST['fum'] ?? '', 's'), // fechaultimamenstruacion
 param_null($_POST['edad_gest'] ?? '', 's'), // edad_gest
 param_null($_POST['resul_gest'] ?? '', 's'), // resul_gest
-param_null($pn, 's'), // peso_nacer
+param_null($_POST['peso_nacer'] ?? '', 's'), // peso_nacer
 param_null($_POST['asist_controles'] ?? '', 's'), // asist_controles
 param_null($_POST['exa_labo'] ?? '', 's'), // exa_labo
 param_null($_POST['cons_micronutri'] ?? '', 's'), // cons_micronutri
@@ -295,7 +276,7 @@ param_null($_POST['tto_enf'] ?? '', 's'), // tto_enf
 param_null($_POST['ctrl_cronico'] ?? '', 's'), // ctrl_cronico
 param_null($_POST['signos_alarma2'] ?? '', 's'), // signos_alarma2
 param_null($_POST['seg_med_ancestral2'] ?? '', 's'), // seg_med_ancestral2
-param_null($docma, 'i'), // doc_madre
+param_null($_POST['doc_madre'] ?? '', 's'), // doc_madre (cambio a string)
 param_null($_POST['ctrl_cyd'] ?? '', 's'), // ctrl_cyd
 param_null($_POST['lactancia_mat'] ?? '', 's'), // lactancia_mat
 param_null($_POST['esq_vacunacion'] ?? '', 's'), // esq_vacunacion
@@ -303,26 +284,26 @@ param_null($_POST['sig_alarma_seg'] ?? '', 's'), // sig_alarma_seg
 param_null($_POST['seg_med_ancestral3'] ?? '', 's'), // seg_med_ancestral3
 param_null($_POST['aten_med'] ?? '', 's'), // aten_med
 param_null($_POST['aten_par'] ?? '', 's'), // aten_par
-['type' => 's', 'value' => $sis],
-['type' => 's', 'value' => $diast],
-['type' => 's', 'value' => $fcar],
-['type' => 's', 'value' => $fres],
-['type' => 's', 'value' => $satu],
-['type' => 's', 'value' => $gluco],
-['type' => 's', 'value' => $pcef],
-['type' => 's', 'value' => $pbra],
-['type' => 's', 'value' => $pes],
-['type' => 's', 'value' => $tal],
-['type' => 's', 'value' => $imc],
-['type' => 's', 'value' => $zsc],
-['type' => 's', 'value' => $cn],
-param_null($_POST['ser_remigesti'] ?? '', 's'),
-param_null($_POST['observaciones'] ?? '', 's'),
-['type' => 's', 'value' => $bina],
-['type' => 's', 'value' => $equi],
-['type' => 's', 'value' => $_SESSION['us_sds']],
-['type' => 's', 'value' => NULL],
-['type' => 's', 'value' => NULL]
+param_null($_POST['sistolica'] ?? '', 's'), // sistolica
+param_null($_POST['diastolica'] ?? '', 's'), // diastolica
+param_null($_POST['frec_cardiaca'] ?? '', 's'), // frec_cardiaca
+param_null($_POST['frec_respiratoria'] ?? '', 's'), // frec_respiratoria
+param_null($_POST['saturacion'] ?? '', 's'), // saturacion
+param_null($_POST['gluco'] ?? '', 's'), // gluco
+param_null($_POST['peri_cefalico'] ?? '', 's'), // peri_cefalico
+param_null($_POST['peri_braqueal'] ?? '', 's'), // peri_braqueal
+param_null($_POST['peso'] ?? '', 's'), // peso
+param_null($_POST['talla'] ?? '', 's'), // talla
+param_null($_POST['imc'] ?? '', 's'), // imc
+param_null($_POST['zcore'] ?? '', 's'), // zcore
+param_null($_POST['clasi_nut'] ?? '', 's'), // clasi_nut
+param_null($_POST['ser_remigesti'] ?? '', 's'), // ser_remigesti
+param_null($_POST['observaciones'] ?? '', 's'), // observaciones
+param_null($bina, 's'), // equipo_bina
+param_null($equi, 's'), // equipo
+['type' => 'i', 'value' => $_SESSION['us_sds']], // usu_creo
+['type' => 'z', 'value' => NULL], // fecha_update
+['type' => 'z', 'value' => NULL]  // usu_update
 ];
       // $rta = show_sql($sql, $params);
       //var_dump($cn);
@@ -330,9 +311,9 @@ param_null($_POST['observaciones'] ?? '', 's'),
    }else{
    $sql="UPDATE emb_segreg SET observaciones=?,fecha_update=DATE_SUB(NOW(),INTERVAL 5 HOUR),usu_update=? WHERE idsegnoreg=?"; //  compromiso=?, equipo=?, 
     $params = [
-      param_null($_POST['observaciones'], 's'),
-        ['type' => 'i', 'value' => $_SESSION['us_sds']],
-        ['type' => 'i', 'value' => $id[0]]
+         param_null($_POST['observaciones'] ?? '', 's'), // observaciones
+        ['type' => 'i', 'value' => $_SESSION['us_sds']], // usu_update
+        ['type' => 'i', 'value' => $id[0]] // idsegnoreg
       ];
       $rta = mysql_prepd($sql, $params);
     }
@@ -406,7 +387,7 @@ function opc_clasi_nutri($id=''){
         // var_dump($a);
 		if ($a=='segnoreg' && $b=='acciones'){
 			$rta="<nav class='menu right'>";
-      $rta.="<li class='icono editar' title='Editar' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getData,500,'segnoreg',event,this,['fecha_seg','segui','estado_seg','prioridad','gestaciones', 'partos','abortos','cesareas','vivos','muertos','fum','edad_gest','signos_alarma1','diag_sifigest','adhe_tto','diag_sificong','seg_partera','seg_med_ancestral1','aten_med','aten_par','diag_cronico','cual','tto_enf','ctrl_cronico','signos_alarma2','seg_med_ancestral2','doc_madre','ctrl_cyd','lactancia_mat','esq_vacunacion','sig_alarma_seg','seg_med_ancestral3','sistolica','diastolica','frec_cardiaca','frec_respiratoria','saturacion','gluco','peso','talla','clasi_nut','ser_remigesti','asist_controles','exa_labo','cons_micronutri','esq_vacu','zscore'],'../etnias/embsegnoreg.php');setTimeout(enabPrioEtn,700);setTimeout(enCroGes,700);\"></li>";//setTimeout(enabPrioEtn,700);enbValue('id','segnoreg','".$c['ACCIONES']."');enaFie(document.getElementById('observaciones'),false);
+      $rta.="<li class='icono editar' title='Editar' id='".$c['ACCIONES']."' Onclick=\"setTimeout(getData,500,'segnoreg',event,this,['fecha_seg','segui','estado_seg','prioridad','gestaciones', 'partos','abortos','cesareas','vivos','muertos','fum','edad_gest','signos_alarma1','diag_sifigest','adhe_tto','diag_sificong','seg_partera','seg_med_ancestral1','aten_med','aten_par','diag_cronico','cual','tto_enf','ctrl_cronico','signos_alarma2','seg_med_ancestral2','doc_madre','ctrl_cyd','lactancia_mat','esq_vacunacion','sig_alarma_seg','seg_med_ancestral3','sistolica','diastolica','frec_cardiaca','frec_respiratoria','saturacion','gluco','peso','talla','clasi_nut','ser_remigesti','asist_controles','exa_labo','cons_micronutri','esq_vacu'],'../etnias/embsegnoreg.php');setTimeout(enabPrioEtn,700);setTimeout(enCroGes,700);\"></li>";//setTimeout(enabPrioEtn,700);enbValue('id','segnoreg','".$c['ACCIONES']."');enaFie(document.getElementById('observaciones'),false);
 			}
 		return $rta;
 	}
