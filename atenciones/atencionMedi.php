@@ -136,9 +136,10 @@ function get_atencionM(){
 	if($_REQUEST['id']==''){
 		return "";
 	}else{
-		$id=$_REQUEST['id'];
+		$id=$_REQUEST['id']; // Viene el id_factura desde el listado
 		
-		// Consulta directa con LEFT JOIN - si existe en eac_atencion trae los datos, si no trae NULL
+		// Consulta directa con LEFT JOIN - trae datos de adm_facturacion y person
+		// Si existe registro en eac_atencion para esta factura, trae esos datos también
 		// ORDEN DE CAMPOS DEBE COINCIDIR CON cmp_atencionM():
 		// ida, tipodoc, idpersona, nombre1, fecha_nacimiento, sexo, genero, nacionalidad, 
 		// idf, fechaatencion, tipo_consulta, codigocups, finalidadconsulta, fechaingreso, tipo_estrategia,
@@ -160,7 +161,7 @@ function get_atencionM(){
 			a.tipo_consulta,
 			a.cod_cups codigocups,
 			a.final_consul finalidadconsulta,
-			c.fecha_ingr fechaingreso,
+			IFNULL(c.fecha_ingr, a.fecha_consulta) fechaingreso,
 			c.fuente tipo_estrategia,
 			c.letra1, 
 			c.rango1, 
@@ -185,7 +186,7 @@ function get_atencionM(){
 			c.medicamentos
 		FROM adm_facturacion a
 		LEFT JOIN person b ON a.idpeople = b.idpeople
-		LEFT JOIN eac_atencion c ON a.idpeople = c.idpeople AND a.id_factura = c.id_factura
+		LEFT JOIN eac_atencion c ON a.id_factura = c.id_factura
 		WHERE a.id_factura = '{$id}'";
 		
 		$info=datos_mysql($sql);
