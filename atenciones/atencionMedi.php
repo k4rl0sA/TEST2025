@@ -441,8 +441,13 @@ function gra_atencionM() {
         'medicamentos' => 'medicamentos'
     ];
 
-    $id = divide($_POST['ida']);
-    if (count($id) != 1 || empty($id[0])) return "Error: idpeople es obligatorio y no puede ser nulo.";
+    // Obtener idpeople desde el campo ida (puede venir como "idpeople" o "idpeople_idfactura")
+    $id = divide($_POST['ida'] ?? '');
+    
+    // Si viene vacío o no es válido, retornar error
+    if (empty($id[0])) {
+        return "Error: idpeople es obligatorio y no puede ser nulo.";
+    }
     
     // Validar campos obligatorios (campos NOT NULL en la tabla eac_atencion)
     $obligatorios = ['idf', 'fechaatencion', 'tipo_consulta', 'codigocups', 'finalidadconsulta', 'tipo_estrategia', 'fechaingreso', 'letra1', 'rango1', 'diagnostico1'];
@@ -460,14 +465,10 @@ function gra_atencionM() {
     foreach ($map as $form => $col) {
         $cols[] = $col;
         if ($form == 'idpeople') {
-            $params[] = ['type' => 'i', 'value' => $id[0]];
+            $params[] = ['type' => 'i', 'value' => $id[0]]; // Usar id[0] del divide
         } else {
-            $valor = $_POST[$form] ?? null;
-            if ($valor === '' || $valor === null) {
-                $params[] = ['type' => 'z', 'value' => null];
-            } else {
-                $params[] = ['type' => 's', 'value' => $valor];
-            }
+            // Usar param_null para manejar campos opcionales correctamente
+            $params[] = param_null($_POST[$form] ?? null, 's');
         }
     }
 
