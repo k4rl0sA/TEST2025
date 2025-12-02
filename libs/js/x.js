@@ -34,9 +34,9 @@ function valDist(a){
 
 function valGluco(a){
 	const glu=document.getElementById(a).value;
-	if(parseInt(glu)<5 || parseInt(glu)>600){
+	if(parseInt(glu)<5 || parseInt(glu)>600 || parseInt(glu)!=0){
 	warnin('El Valor ingresado en la Glucometria, no cumple con el rango establecido');
-	return true;
+		return true;
 	}else{
 		return false;
 	}
