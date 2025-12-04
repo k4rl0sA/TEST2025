@@ -60,7 +60,7 @@ FUNCTION lis_planDcui(){
     $regxPag=5;
     $pag=(isset($_POST['pag-planesCuidado']))? ($_POST['pag-planesCuidado']-1)* $regxPag:0;
       
-    $sql="SELECT P.id ACCIONES,P.fecha,U.nombre creo
+    $sql="SELECT P.id ACCIONES,P.id Cod_registro,P.fecha,U.nombre creo
    FROM hog_plancuid P
    left join usuarios U ON P.usu_creo=U.id_usuario
    WHERE idviv=$id[0]";
