@@ -558,8 +558,8 @@ if(perfilUsu()!=='ADM') $sql.=whe_subred8();
 $sql.=whe_date8();
 $sql.=" ORDER BY P.idpeople,A.fecha_create DESC ";
 $tot="SELECT COUNT(*) total FROM medicamentos_ctrl A LEFT JOIN person P ON A.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo LEFT JOIN usuarios U ON A.usu_create = U.id_usuario WHERE 1 ";
-if(perfilUsu()!=='ADM') $sql.=whe_subred8();
-$sql.=whe_date8();
+if(perfilUsu()!=='ADM') $tot.=whe_subred8();
+$tot.=whe_date8();
 $_SESSION['sql_'.$txt]=$sql;
 $_SESSION['tot_'.$txt]=$tot;
 $rta=array('type'=>'OK','file'=>$txt);
@@ -567,7 +567,7 @@ return json_encode($rta);
 }
 
 function lis_laboratorios($txt){
-	$sql="SELECT G.subred AS Subred,G.localidad AS Localidad,G.idgeo AS Cod_Predio,F.id_fam AS Cod_Familia,A.idpeople AS Cod_Persona,FN_CATALOGODESC(1, P.tipo_doc) AS Tipo_Documento,P.idpersona AS N_Documento,CONCAT(P.nombre1, ' ', P.nombre2) AS Nombres,CONCAT(P.apellido1, ' ', P.apellido2) AS Apellidos,P.fecha_nacimiento AS Fecha_Nacimiento,FN_CATALOGODESC(21, P.sexo) AS Sexo,FN_CATALOGODESC(30, P.nacionalidad) AS Nacionalidad,FN_CATALOGODESC(17, P.regimen) AS Regimen,FN_CATALOGODESC(18, P.eapb) AS Eapb,A.id_lab AS Cod_Laboratorio,A.idatencion AS Cod_Atencion,FN_CATALOGODESC(307, A.tipo_lab) AS Tipo_Laboratorio,A.otro_lab AS Otro_Laboratorio,A.fecha_orden AS Fecha_Orden,FN_CATALOGODESC(170, A.lab_tomado) AS Laboratorio_Tomado,A.fecha_toma AS Fecha_Toma,FN_CATALOGODESC(170, A.cuenta_resul) AS Cuenta_Resultado,A.fecha_resul AS Fecha_Resultado,FN_CATALOGODESC(170, A.dato_crit) AS Dato_Critico,FN_CATALOGODESC(26, A.gestion) AS Gestion_Dato_Critico,A.gest_cump AS Fecha_Cumplimiento_Gestion,  -- CorregidoA.obs AS Observaciones,A.usu_create AS Cod_Usuario_Creo,U.nombre AS Nombre_Usuario_Creo,U.perfil AS Perfil_Usuario_Creo,U.componente AS Componente_Creo,A.fecha_create AS Fecha_Creacion,A.usu_update AS Cod_Usuario_Actualizo,U2.nombre AS Nombre_Usuario_Actualizo,A.fecha_update AS Fecha_Actualizacion,A.estado AS Estado_Registro 
+	$sql="SELECT G.subred AS Subred,G.localidad AS Localidad,G.idgeo AS Cod_Predio,F.id_fam AS Cod_Familia,A.idpeople AS Cod_Persona,FN_CATALOGODESC(1, P.tipo_doc) AS Tipo_Documento,P.idpersona AS N_Documento,CONCAT(P.nombre1, ' ', P.nombre2) AS Nombres,CONCAT(P.apellido1, ' ', P.apellido2) AS Apellidos,P.fecha_nacimiento AS Fecha_Nacimiento,FN_CATALOGODESC(21, P.sexo) AS Sexo,FN_CATALOGODESC(30, P.nacionalidad) AS Nacionalidad,FN_CATALOGODESC(17, P.regimen) AS Regimen,FN_CATALOGODESC(18, P.eapb) AS Eapb,A.id_lab AS Cod_Laboratorio,A.idatencion AS Cod_Atencion,FN_CATALOGODESC(307, A.tipo_lab) AS Tipo_Laboratorio,A.otro_lab AS Otro_Laboratorio,A.fecha_orden AS Fecha_Orden,FN_CATALOGODESC(170, A.lab_tomado) AS Laboratorio_Tomado,A.fecha_toma AS Fecha_Toma,FN_CATALOGODESC(170, A.cuenta_resul) AS Cuenta_Resultado,A.fecha_resul AS Fecha_Resultado,FN_CATALOGODESC(170, A.dato_crit) AS Dato_Critico,FN_CATALOGODESC(26, A.gestion) AS Gestion_Dato_Critico,A.gest_cump AS Fecha_Cumplimiento_Gestion, A.obs AS Observaciones,A.usu_create AS Cod_Usuario_Creo,U.nombre AS Nombre_Usuario_Creo,U.perfil AS Perfil_Usuario_Creo,U.componente AS Componente_Creo,A.fecha_create AS Fecha_Creacion,A.usu_update AS Cod_Usuario_Actualizo,U2.nombre AS Nombre_Usuario_Actualizo,A.fecha_update AS Fecha_Actualizacion,A.estado AS Estado_Registro 
 FROM hog_laboratorios A
 LEFT JOIN person P ON A.idpeople = P.idpeople
 LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
@@ -579,8 +579,8 @@ if(perfilUsu()!=='ADM') $sql.=whe_subred8();
 $sql.=whe_date8();
 $sql.=" ORDER BY P.idpeople,A.fecha_create DESC ";
 $tot="SELECT COUNT(*) total FROM hog_laboratorios A LEFT JOIN person P ON A.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo LEFT JOIN usuarios U ON A.usu_create = U.id_usuario LEFT JOIN usuarios U2 ON A.usu_update = U2.id_usuario WHERE 1 ";
-if(perfilUsu()!=='ADM') $sql.=whe_subred8();
-$sql.=whe_date8();
+if(perfilUsu()!=='ADM') $tot.=whe_subred8();
+$tot.=whe_date8();
 $_SESSION['sql_'.$txt]=$sql;
 $_SESSION['tot_'.$txt]=$tot;
 $rta=array('type'=>'OK','file'=>$txt);
