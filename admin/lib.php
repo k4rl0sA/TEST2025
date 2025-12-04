@@ -578,7 +578,7 @@ WHERE 1 ";
 if(perfilUsu()!=='ADM') $sql.=whe_subred8();
 $sql.=whe_date8();
 $sql.=" ORDER BY P.idpeople,A.fecha_create DESC ";
-$tot="SELECT COUNT(*) total FROM medicamentos_ctrl A LEFT JOIN person P ON A.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo LEFT JOIN usuarios U ON A.usu_create = U.id_usuario WHERE 1 ";
+$tot="SELECT COUNT(*) total FROM hog_laboratorios A LEFT JOIN person P ON A.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo LEFT JOIN usuarios U ON A.usu_create = U.id_usuario LEFT JOIN usuarios U2 ON A.usu_update = U2.id_usuario WHERE 1 ";
 if(perfilUsu()!=='ADM') $sql.=whe_subred8();
 $sql.=whe_date8();
 $_SESSION['sql_'.$txt]=$sql;
