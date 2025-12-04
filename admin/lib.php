@@ -772,7 +772,7 @@ LEFT JOIN usuarios U ON C.usu_creo = U.id_usuario WHERE 1 ";
 }
 
 function lis_plancomp($txt){
-	$sql="SELECT
+	$sql="SELECT DISTINCT
 G.idgeo Cod_Predio, C.idviv AS Cod_Familia, C.idcon AS Cod_Registro, G.subred AS Subred, G.territorio AS 'Cod Territorio', FN_CATALOGODESC(283,G.territorio) AS 'Nombre Territorio', C.fecha AS Fecha, C.compromiso AS Compromiso_Concertado, FN_CATALOGODESC(26,C.equipo) AS 'Perfil que Concerta', 
 C.usu_creo AS Usuario_Creo, U.nombre AS Nombre_Creo, U.perfil AS Perfil_Creo, U.equipo AS Equipo_Creo, C.fecha_create AS Fecha_Creacion, C.estado AS Estado_Registro
 FROM `hog_planconc` C
@@ -783,7 +783,7 @@ LEFT JOIN usuarios U ON C.usu_creo = U.id_usuario WHERE 1 ";
 	if (perfilUsu()!=='ADM')	$sql.=whe_subred3();
 	$sql.=whe_date3();
 	
-	$tot="SELECT count(*) as total FROM `hog_planconc` C  LEFT JOIN hog_plancuid P ON P.idviv = C.idviv LEFT JOIN hog_fam F ON C.idviv = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo LEFT JOIN usuarios U ON C.usu_creo = U.id_usuario WHERE 1 ";
+	$tot="SELECT count(*) as total FROM `hog_planconc` C  LEFT JOIN hog_fam F ON C.idviv = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo LEFT JOIN usuarios U ON C.usu_creo = U.id_usuario WHERE 1 ";
 	if (perfilUsu()!=='ADM')	$tot.=whe_subred3();
 	$tot.=whe_date3();
 	// echo $sql;
