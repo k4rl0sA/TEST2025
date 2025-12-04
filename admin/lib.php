@@ -564,7 +564,7 @@ $tot.=" AND date(A.fecha_entrega) BETWEEN '{$_POST['fechad']}' AND '{$_POST['fec
 $_SESSION['sql_'.$txt]=$sql;
 $_SESSION['tot_'.$txt]=$tot;
 $rta=array('type'=>'OK','file'=>$txt);
-return json_encode($rta);
+echo json_encode($rta);
 }
 
 function lis_laboratorios($txt){
@@ -585,7 +585,7 @@ $tot.=whe_date8();
 $_SESSION['sql_'.$txt]=$sql;
 $_SESSION['tot_'.$txt]=$tot;
 $rta=array('type'=>'OK','file'=>$txt);
-return json_encode($rta);
+echo json_encode($rta);
 }
 
 function lis_vsp_rbc($txt){
