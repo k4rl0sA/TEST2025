@@ -245,7 +245,23 @@ function pcf_planillas(){
       25 => ['tabla' => 'vsp_gestantes'],
       26 => ['tabla' => 'vsp_condsuic'],
       27 => ['tabla' => 'vsp_condsuic'],
-      28 => ['tabla' => 'vsp_condsuic']
+      28 => ['tabla' => 'vsp_condsuic'],
+      29=> ['tabla' => 'vsp_educamedi'],
+    30 => ['tabla' => 'vsp_adolemas'],
+    31 => ['tabla' => 'vsp_discapacidad'],
+    32 => ['tabla' => 'vsp_cancinfa'],
+    33 => ['tabla' => 'vsp_cancinfa'],
+    34 => ['tabla' => 'vsp_cancinfa'],
+    35 => ['tabla' => 'vsp_cancinfa'],
+    36 => ['tabla' => 'vsp_cancinfa'],
+    37 => ['tabla' => 'vsp_cancinfa'],
+    38 => ['tabla' => 'vsp_feminicidio'],
+    39 => ['tabla' => 'vsp_soledad'],
+    40 => ['tabla' => 'vsp_feminicidio1'],
+    41 => ['tabla' => 'vsp_discapacidad1'],
+    42 => ['tabla' => 'vsp_feminicidio2'],
+    43 => ['tabla' => 'vsp_violgest'],
+    44 => ['tabla' => 'vsp_acompsic']
     );
 
     if (!isset($eventos[$id[4]])) {
