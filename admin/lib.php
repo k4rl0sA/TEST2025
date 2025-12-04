@@ -541,10 +541,38 @@ function lis_planos() {
 			$encr = encript($tab, $clave);
 			if($tab=decript($encr,$clave))lis_laboratorios($tab);
 			break;
+		case '76':
+			$tab = "VSP_ESTRATEGIA_107";
+			$encr = encript($tab, $clave);
+			if($tab=decript($encr,$clave))lis_estrategia107($tab);
+			break;
 		default:
         break;    
     }
 }
+
+function lis_estrategia107($txt){
+	$sql="SELECT G.idgeo AS Cod_Predio,F.id_fam AS Cod_Familia,A.id_femini AS Cod_Registro,G.subred AS Subred,G.localidad AS Localidad, G.territorio AS 'Cod_Territorio', FN_CATALOGODESC(283, G.territorio) AS 'Nombre_Territorio',A.idpeople Cod_persona,P.tipo_doc AS Tipo_Documento,P.idpersona AS N_Documento,CONCAT(P.nombre1, ' ', P.nombre2) AS NOMBRES,CONCAT(P.apellido1, ' ', P.apellido2) AS APELLIDOS,P.fecha_nacimiento AS FECHA_NACIMIENTO,FN_CATALOGODESC(21, P.sexo) AS SEXO,FN_CATALOGODESC(30, P.nacionalidad) AS NACIONALIDAD,FN_CATALOGODESC(17, P.regimen) AS Regimen,FN_CATALOGODESC(18, P.eapb) AS Eapb,A.fecha_seg AS Fecha_Seguimiento,FN_CATALOGODESC(76, A.numsegui) AS N_Seguimiento,FN_CATALOGODESC(87, A.evento) AS Evento,FN_CATALOGODESC(73, A.estado_s) AS Estado,FN_CATALOGODESC(74, A.motivo_estado) AS Motivo_Estado,FN_CATALOGODESC(170, A.descanso_adecuado) AS Descanso_Adecuado,FN_CATALOGODESC(170, A.molestia_fisica) AS Molestia_Fisica,FN_CATALOGODESC(170, A.malestar_emocional) AS Malestar_Emocional,FN_CATALOGODESC(329, A.convive_agresor) AS Convive_Agresor,FN_CATALOGODESC(330, A.cambios_entorno) AS Cambios_Entorno,FN_CATALOGODESC(170, A.preocupacion_hogar) AS Preocupacion_Hogar,FN_CATALOGODESC(170, A.reg_emociones) AS Dificultad_Regulacion_Emociones,FN_CATALOGODESC(170, A.bloqueo_emocional) AS Bloqueo_Emocional,FN_CATALOGODESC(170, A.tecnicas_manejo) AS Tecnicas_Manejo_Emocional,FN_CATALOGODESC(170, A.cambios_autovaloracion) AS Cambios_Autovaloracion,FN_CATALOGODESC(170, A.baja_motivacion) AS Baja_Motivacion,FN_CATALOGODESC(170, A.pensamientos_repetitivos) AS Pensamientos_Repetitivos,FN_CATALOGODESC(170, A.apoyo_seguro) AS Apoyo_Seguro,FN_CATALOGODESC(170, A.barreras_apoyo) AS Barreras_Apoyo,FN_CATALOGODESC(90, A.estrategia_1) AS Estrategia_Plan_1,FN_CATALOGODESC(90, A.estrategia_2) AS Estrategia_Plan_2,FN_CATALOGODESC(22, A.acciones_1) AS Accion_1,FN_CATALOGODESC(75, A.desc_accion1) AS Descripcion_Accion_1,FN_CATALOGODESC(22, A.acciones_2) AS Accion_2,FN_CATALOGODESC(75, A.desc_accion2) AS Descripcion_Accion_2,FN_CATALOGODESC(22, A.acciones_3) AS Accion_3,FN_CATALOGODESC(75, A.desc_accion3) AS Descripcion_Accion_3,FN_CATALOGODESC(170, A.activa_ruta) AS Activacion_Ruta,FN_CATALOGODESC(79, A.ruta) AS Ruta,FN_CATALOGODESC(77, A.novedades) AS Novedades,FN_CATALOGODESC(170, A.signos_covid) AS Signos_Sintomas_Covid,A.caso_afirmativo AS Relacione_Cuales,A.otras_condiciones AS Otras_Condiciones,A.observaciones AS Observaciones,FN_CATALOGODESC(170, A.cierre_caso) AS Cierre_de_Caso,FN_CATALOGODESC(198, A.motivo_cierre) AS Motivo_cierre,A.fecha_cierre AS Fecha_Cierre,A.liker_dificul AS Liker_Dificultad,A.liker_emocion AS Liker_Emocion,A.liker_decision AS Liker_Decision,FN_CATALOGODESC(170, A.redu_riesgo_cierre) AS Reduccion_de_Riesgo,A.users_bina AS Usuarios_Equipo,A.usu_creo AS Usuario_Creo, U.nombre AS Nombre_Creo, U.perfil AS Perfil_Creo, U.equipo AS Equipo_Creo, A.fecha_create AS Fecha_Creacion, A.estado AS Estado_Registro,A.usu_update AS Usuario_Actualizo,A.fecha_update AS Fecha_Actualizacion
+FROM `vsp_femini` A
+LEFT JOIN person P ON A.idpeople = P.idpeople
+LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam
+LEFT JOIN hog_geo G ON F.idpre = G.idgeo
+LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario 
+WHERE 1 ";
+	if (perfilUsu()!=='ADM')	$sql.=whe_subred8();
+	$sql.=whe_date8();
+	// echo $sql;
+	$tot="SELECT COUNT(*) total FROM `vsp_femini` A LEFT JOIN person P ON A.idpeople = P.idpeople LEFT JOIN hog_fam F ON P.vivipersona = F.id_fam LEFT JOIN hog_geo G ON F.idpre = G.idgeo LEFT JOIN usuarios U ON A.usu_creo = U.id_usuario WHERE 1 ";
+	if (perfilUsu()!=='ADM')	$tot.=whe_subred8();
+	$tot.=whe_date8();
+	$_SESSION['sql_'.$txt]=$sql;
+	$_SESSION['tot_'.$txt]=$tot;
+	$rta = array('type' => 'OK','file'=>$txt);
+	echo json_encode($rta);
+}
+
+	
+
 
 function lis_medicamentos($txt){
 	$sql="SELECT G.subred AS Subred,G.localidad AS Localidad,G.idgeo AS Cod_predio,F.id_fam AS Cod_Familia,P.idpeople AS Cod_Persona,FN_CATALOGODESC(1, P.tipo_doc) AS Tipo_Documento,P.idpersona AS N_Documento,CONCAT(P.nombre1, ' ', P.nombre2) AS Nombres_Usuario,CONCAT(P.apellido1, ' ', P.apellido2) AS Apellidos_Usuario,P.fecha_nacimiento AS Fecha_Nacimiento,FN_CATALOGODESC(21, P.sexo) AS Sexo,FN_CATALOGODESC(30, P.nacionalidad) AS Nacionalidad,FN_CATALOGODESC(16, P.etnia) AS Etnia,FN_CATALOGODESC(15, P.pueblo) AS Pueblo_Etnia,FN_CATALOGODESC(14, P.discapacidad) AS Tipo_Discapacidad,FN_CATALOGODESC(17, P.regimen) AS Regimen,FN_CATALOGODESC(18, P.eapb) AS Eapb,A.id_medicam AS Cod_Registro,A.idatencion AS Cod_Atencion,A.fecha_orden AS Fecha_Orden,A.cantidad_prescrita AS Cantidad_Prescrita,A.fecha_entrega AS Fecha_Entrega,A.numero_entrega AS Numero_Entrega,A.cantidad_entregada AS Cantidad_Entregada,A.pendiente_entregar AS Pendiente_Entregar,FN_CATALOGODESC(170, A.pos) AS POS,A.cantidad_aprobar AS Cantidad_Aprobar,A.observaciones AS Observaciones,A.usu_create AS Cod_Usuario,U.nombre AS Nombre_Usuario,U.perfil AS Perfil_Usuario,U.componente AS Componente,A.fecha_create AS Fecha_Creacion,FN_CATALOGODESC(285, A.estado) AS Estado
